@@ -1,0 +1,74 @@
+\assignment{1}{17/10}
+
+\setcounter{question}{0}
+\question For the function 
+\[ f(x, y) = \cos{(x + y)} \exp{(x - y)} \] 
+calculate 
+$\dfrac{\partial f}{\partial x}$, $\dfrac{\partial f}{\partial y}$, $\dfrac{\partial^2f}{\partial x^2}$, $\dfrac{\partial^2f}{\partial y^2}$, 
+$\dfrac{\partial^2f}{\partial x\partial y}$, 
+and $\dfrac{\partial^2f}{\partial y\partial x}$. 
+Use your results to show that 
+\[ \dfrac{\partial^2f}{\partial x^2} = -\dfrac{\partial^2f}{\partial y^2} \] 
+and 
+\[ \dfrac{\partial^2 f}{\partial x\partial y} = \dfrac{\partial^2 f}{\partial y\partial x}. \]
+\begin{solution}
+    \begin{align*}
+        \frac{\partial f}{\partial x} &= -\sin{(x + y)} \exp{(x - y)} + \cos{(x + y)} \exp{(x - y)} \\
+        &= \exp{(x - y)} \left( \cos{(x + y)} - \sin{(x + y)} \right) \\
+        \frac{\partial f}{\partial y} &= - \sin{(x + y)} \exp{(x - y)} - \cos{(x + y)} \exp{(x - y)} \\
+        &= - \exp{(x - y)} \left( \cos{(x + y)} + \sin{(x + y)} \right) \\
+        \frac{\partial^2 f}{\partial x^2} &= \exp{(x - y)} \left( \cos{(x + y)} - \sin{(x + y)} - \sin{(x + y)} - \cos{(x + y)} \right) \\
+        &= \exp{(x - y)} \left( -2\sin{(x + y)} \right) = -2 \exp{(x - y)} \sin{(x + y)} \\
+        \frac{\partial^2 f}{\partial y^2} &= \exp{(x - y)} \left( \cos{(x + y)} + \sin{(x + y)} + \sin{(x + y)} - \cos{(x + y)} \right) \\
+        &= \exp{(x - y)} \left( 2\sin{(x + y)} \right) = 2 \exp{(x - y)} \sin{(x + y)} \\
+        \frac{\partial^2 f}{\partial x \partial y} &= \frac{\partial}{\partial x} \left( \frac{\partial f}{\partial y} \right) = -2\exp{(x - y)}\cos{(x + y)} \\
+        \frac{\partial^2 f}{\partial y \partial x} &= \frac{\partial}{\partial y} \left( \frac{\partial f}{\partial x} \right) = -2 \exp{(x - y)} \cos{(x + y)}. \\
+    \end{align*}
+    It is clear here that $\frac{\partial^2 f}{\partial x^2} = -\frac{\partial^2 f}{\partial y^2}$ and $\frac{\partial^2 f}{\partial y \partial x} = \frac{\partial^2 f}{\partial x \partial y}$.
+\end{solution}
+
+\setcounter{question}{5}
+\question The variables $u, v$ are related to $x, t$ by $u = x + t$ and $v = x - t$. If $f(x, t) = F(u, v)$ show that \[ \frac{\partial^2 f}{\partial x^2} - \frac{\partial^2 f}{\partial t^2} = k \frac{\partial^2 F}{\partial u \partial v}, \] provided that the second derivatives of $F$ are continuous, where $k$ is some constant whose value you should find. Use this to show that
+\begin{enumerate}
+    \item $f(x, t) = (x + t)^2 + \exp{((x - t)^3)}$ satisfies $\dfrac{\partial^2 f}{\partial x^2} - \dfrac{\partial^2 f}{\partial t^2} = 0$; and
+    \item more generally any $f(x, t)$ of the form of a sum of a function of the single variable $(x + t)$ and a function of the single variable $x - t$, that is $f(x, t) = H(x + t) + G(x - t)$ satisfies $\dfrac{\partial^2 f}{\partial x^2} - \dfrac{\partial^2 f}{\partial t^2} = 0$.
+\end{enumerate}
+
+\begin{solution}
+    \begin{align*}
+        \frac{\partial f}{\partial x} &= \frac{\partial F}{\partial u} \frac{\partial u}{\partial x} + \frac{\partial F}{\partial v} \frac{\partial v}{\partial x} \\
+        &= \frac{\partial F}{\partial u} + \frac{\partial F}{\partial v} = \left( \frac{\partial}{\partial u} + \frac{\partial}{\partial v} \right) \\
+        \frac{\partial^2 f}{\partial x^2} &= \frac{\partial}{\partial x} \left( \frac{\partial f}{\partial x} \right) \\
+        &= \left( \frac{\partial}{\partial u} + \frac{\partial}{\partial v} \right) \left( \frac{\partial F}{\partial u} + \frac{\partial F}{\partial v} \right) \\
+        &= \frac{\partial}{\partial u} \left( \frac{\partial F}{\partial u} + \frac{\partial F}{\partial v} \right) + \frac{\partial}{\partial v} \left( \frac{\partial F}{\partial u} + \frac{\partial F}{\partial v} \right) \\
+        &= \frac{\partial^2 F}{\partial u^2} + \frac{\partial^2 F}{\partial u \partial v} + \frac{\partial^2 F}{\partial v \partial u} + \frac{\partial^2 F}{\partial v^2} 
+    \end{align*}
+    and following a similar line of reasoning we have
+    \begin{align*}
+        \frac{\partial f}{\partial t} &= \frac{\partial F}{\partial u} \frac{\partial u}{\partial t} + \frac{\partial F}{\partial v} \frac{\partial v}{\partial t} \\
+        &= \frac{\partial F}{\partial u} - \frac{\partial F}{\partial v} = \left( \frac{\partial}{\partial u} - \frac{\partial}{\partial v} \right) \\
+        \frac{\partial^2 f}{\partial t^2} &= \frac{\partial}{\partial t} \left( \frac{\partial f}{\partial t} \right) \\
+        &= \left( \frac{\partial}{\partial u} - \frac{\partial}{\partial v} \right) \left( \frac{\partial F}{\partial u} - \frac{\partial F}{\partial v} \right) \\
+        &= \frac{\partial}{\partial u} \left( \frac{\partial F}{\partial u} - \frac{\partial F}{\partial v} \right) - \frac{\partial}{\partial v} \left( \frac{\partial F}{\partial u} - \frac{\partial F}{\partial v} \right) \\
+        &= \frac{\partial^2 F}{\partial u^2} - \frac{\partial^2 F}{\partial u \partial v} - \frac{\partial^2 F}{\partial v \partial u} + \frac{\partial^2 F}{\partial v^2}.
+    \end{align*}
+    Hence, \[ \dfrac{\partial^2 f}{\partial x^2} - \dfrac{\partial^2 f}{\partial t^2} = 4 \dfrac{\partial^2 F}{\partial u \partial v} \] since the second partial derivatives are continuous. 
+    \begin{enumerate}
+        \item
+            \begin{align*}
+                f(x, t) &= F(u, v) = u^2 + \exp{(v^3)} \\
+                \frac{\partial F}{\partial v} &= 3v^2 \exp{(v^3)} \\
+                \frac{\partial^2 F}{\partial u \partial v} &= 0 \\
+                \frac{\partial^2 f}{\partial x^2} - \frac{\partial^2 f}{\partial t^2} &= 4\left( 0 \right) = 0 
+            \end{align*}
+            as required.
+
+        \item
+            \begin{align*}
+                f(x, t) &= F(u, v) = H(u) + G(v) \\ 
+                \frac{\partial F}{\partial v} &= \frac{\partial G}{\partial v} \\
+                \frac{\partial^2 F}{\partial u \partial v} &= 0
+            \end{align*}
+            hence $\dfrac{\partial^2 f}{\partial x^2} - \dfrac{\partial^2 f}{\partial t^2} = 0$.
+    \end{enumerate}
+\end{solution}

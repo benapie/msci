@@ -1,0 +1,86 @@
+\chapter{Odds and logistic regreesion}
+\section{Odds}
+\lecture{5}{10/2}
+
+\begin{definition}[Odds]
+    \textbf{Odds} are a numerical expression expressed as a pair of numbers.
+\end{definition}
+
+The \textbf{odds for} (or \textbf{odds of}) of some \emph{event}
+reflects the likelihood that the event will take place,
+while the \textbf{odds against} reject the likelihood that it will not.
+
+\begin{example}
+    We may say that the odds in favour of students to graduate with $1$st class
+    honours is $1$ to $4$.
+    This means that out of $5$ students, $1$ will graduate with $1$st class
+    honours and $4$ of them will graduate without $1$st class honours.
+    We can write this as a fraction: $\frac14 = 0.25$.
+    But note, odds are \emph{not} probabilities.
+    The odds are $\frac14$, but the probability is $\frac15$.
+\end{example}
+
+Let $p$ be the probability in favour of a binary event.
+Therefore the probability against is $1 - p$.
+\emph{The odds} of the event are the quotient of the two:
+\[
+    \frac{p}{1-p}.
+\]
+
+If there is a greater probability of success than failure ($p > 0.5$),
+then the odds are between $1$ and $\infty$.
+If there is a lesser probability of success than failure ($p < 0.5$),
+then the odds are between $0$ and $1$.
+There is a problem here as this is not symmetric, the interval
+for odds of success is much larger than the interval for odds of failure.
+We can solve this problem by takign $\log$ of the odds.
+This centers ourselve at $0$ on the real number line.
+
+\begin{definition}[Logit function]
+    The \textbf{logit} function (or the \textbf{log-odds})
+    is the logarithm of the odds $\frac{p}{1 - p}$, where
+    $p$ is the probability:
+    \[
+        \logit(p) = \log\left(\frac{p}{1 - p}\right).
+    \]
+\end{definition}
+
+\begin{example}
+    Consider the following contingency table for occurence of cancer
+    and a \emph{mutated gene}.
+    \begin{center}
+        \begin{tabular}{ccc}
+            \toprule
+              & \multicolumn{2}{c}{Cancer} \\
+            Mutated gene  & P  & N \\
+            \midrule
+            P & 23 & 117 \\
+            N & 6  & 210 \\
+            \bottomrule
+        \end{tabular}
+    \end{center}
+    Can we use a ratio of odds to determine if there is a \emph{relationship} between
+    the mutated gene and cancer?
+    If someone has the mutated gene,
+    are odds higher that they will get cancer?
+    The odds that a person has cancer given that they have a mutated gene
+    is $\frac{23}{117}$
+    and the odds that they have cancer given that they don't have the mutated gene
+    $\frac{6}{210}$.
+    The ratio of these odds is
+    \[
+        \frac{\left(\frac{23}{117}\right)}{\left(\frac{6}{210}\right)}
+        = \frac{0.2}{0.03}
+        = 6.88.
+    \]
+    We have
+    \[
+        \log(6.88) = 1.93.
+    \]
+    Larger values of the $\log$ of the odds ratio 
+    mean that the mtuated gene is a good
+    predictor of cancer.
+    Smaller values mean that the mutated gene is not a good predictor of cancer.
+\end{example}
+
+%todo

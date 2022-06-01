@@ -1,0 +1,175 @@
+\lecture{13}{17/3}
+
+\begin{example}
+    Recall how $\Z$ acts on $\R$ as a translation.
+    Let $x \in \R$.
+    Then
+    \begin{align*}
+        \Orb(x)  &= \{n + x : n \in \Z\} = \Z + x, \\
+        \Stab(x) &= \{n \in \Z: n + x = x\} = \{0\}.
+    \end{align*}
+\end{example}
+
+\begin{example}
+    Recall the other way that showed that $\Z$ could act on $\R$ ($n * x = (-1)^n x$).
+    Then for $x \in \R$
+    \begin{align*}
+        \Orb(x)  &= \{(-1)^n x: n \in \Z\} = \{\pm x\}, \\
+        \Stab(x) &= \{n \in \Z: (-1)^nx = x\} =
+        \begin{cases}
+            2\Z & \text{if}\; x \neq 0, \\
+            \Z  & \text{otherwise}.
+        \end{cases}
+    \end{align*}
+\end{example}
+
+%\begin{proposition}[]
+%    Let $G$ be a group acting on a set $X$ and $x,y \in X$.
+%    Then the following hold.
+%    \begin{enumerate}
+%        \item $\Orb(x)$ is non-empty, that is, $\Orb(x) \neq \varnothing$.
+%
+%        \item For any two orbits $\Orb(x)$, $\Orb(y)$, we have either
+%            $\Orb(x) \cap \Orb(y) = \varnothing$
+%            or
+%            $\Orb(x) = \Orb(y)$.
+%
+%        \item $X$ is a disjoint union of the orbits.
+%    \end{enumerate}
+%\end{proposition}
+
+\section{Cosets and conjugacy classes as orbits}
+
+Any group $G$ acts on itself:
+for $g \in G$ we have $x \mapsto gx$ for $x \in G$.
+Here
+\begin{align*}
+    \Orb(x)  &= G, \\
+    \Stab(x) &= 1.
+\end{align*}
+Let $H \subset G$ be a subset of $G$ and let it act on $G$ as above.
+For $x \in G$ we have
+\[
+    \Orb(x) = \{hx: h \in H\} = Hx,
+\]
+a right coset of $H$.
+
+Consider the action $x \mapsto gxg^{-1}$ for $g,x \in G$ of $G$ on itself
+(easy exercise to check that this is an action).
+We call this action \textbf{conjugation}.
+Under tis action, the orbit
+\[
+    \Orb(x) = \{gxg^{-1}: g \in G\}
+\]
+is called a \textbf{conjugacy class} (of $x$).
+The stabiliser
+\[
+    \Stab(x) = \{g \in G: gxg^{-1} = x\}
+\]
+is called the \textbf{centraliser} (of $x$), and is usually denoted $C_G(x)$.
+
+\begin{example}
+    Find the conjugacy classes in $D_5$.
+\end{example}
+
+\begin{solution}
+    \hfill
+    \begin{enumerate}
+        \item 
+            $1 \in D_5$ is \emph{always} fixed by any conjugations, 
+            hence $\Orb(1) = \{1\}$.
+
+        \item 
+            Now take $r \in D_5$, it is fixed by any power of $r$
+            (that is, $r^i r r^{-i} = r$)
+            and
+            \[
+                (r^is) r (r^is)^{-1} = r^{-1} = r^4
+            \]
+            so
+            \[
+                \Orb(r) = \{r, r^4\}.
+            \]
+
+        \item 
+            Now lets consider $r^2 \in D_5$. 
+            Again, conjugation by $r^i$ on $r^2$ fixes $r^2$, but
+            \[
+                (r^is) r^2 (r^is)^{-1} = r^{-2} = r^3
+            \]
+            so 
+            \[
+                \Orb(r^2) = \{r^2, r^3\}.
+            \]
+
+        \item
+            Now finally we will consider $s \in D_5$.
+            We have
+            \begin{align*}
+                (r^i) s (r^{-i})     &= r^{2i}s, \\
+                (r^is) s (r^is)^{-1} &= r^{2i}s.
+            \end{align*}
+            Therefore,
+            \[
+                \Orb(s) = \{s, r^2s, r^4s, rs, r^3s\}
+            \]
+            and we have exhausted all elements in $D_5$, 
+            hence our conjugacy classes are
+            \[
+                \{1\}, \quad \{r, r^4\}, \quad \{r^2, r^3\}, \quad \{s, rs, r^2s, r^3s, r^4s\}.
+            \]
+    \end{enumerate}
+\end{solution}
+
+\chapter{The Orbit-Stabiliser theorem}
+
+\begin{theorem}[]
+    Let $G$ be a group acting on a set $X$, and let $x \in X$.
+    Then there is a bijection
+    \[
+        \beta: \Orb(x) \to \{g\Stab(x): g\in G\}, \qquad \beta(gx) = g\Stab(x).
+    \]
+    In particular, if $G$ is finite then
+    \[
+        \abs{\Orb(x)} = \frac{\abs{G}}{\abs{\Stab(x)}}.
+    \]
+\end{theorem}
+
+\begin{example}
+    Recall the conjugacy classes of $D_5$.
+    We saw that
+    \[
+        \Orb(r) = \{r, r^4\}.
+    \]
+    Now
+    \begin{align*}
+        \Stab(r) 
+        &= \{r^i s^j \in D_5: (r^i s^j) r (r^i s^j)^{-1} = r\} \\
+        &= \langle r \rangle \cup \{r^is \in D_5: r^is r sr^{-i} = r^{-1} = r\} \\
+        &= \langle r \rangle
+    \end{align*}
+    so $\abs{\Orb(r)} = 2$ and $\abs{\Stab(x)} = 5$, 
+    which agrees wth the Orbit-Stabiliser theorem.
+    Moreover, $\Orb(s)$ has five elements, 
+    so $\Stab(x)$ must have $2$ elements.
+    Indeed
+    \begin{align*}
+        \Stab(s)
+        &= \{r^i : r^isr^{-i} = s\} \cup \{r^is: r^iss(r^is)^{-1}=s\} \\
+        &= \{r^i : r^{2i} = 1\} \cup \{r^is : r^{2i} = 1\} \\
+        &= \{1, s\}.
+    \end{align*}
+\end{example}
+
+\section{Cauchy's theorem}
+
+\begin{theorem}[Cauchy]
+    Let $G$ be a finite group and $p$ be a prime such that $p$ divides
+    the order of $G$.
+    Then $G$ has a cyclic subgroup of order $p$
+    (equivalently, $G$ has an element of order $p$).
+\end{theorem}
+
+\begin{example}
+    $D_{20}$ has a subgroup of order $5$ as $\abs{D_{20}} = 40 = 8 \cdot 5$.
+\end{example}

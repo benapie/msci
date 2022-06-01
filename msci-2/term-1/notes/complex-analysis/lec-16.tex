@@ -1,0 +1,100 @@
+\lecture{16}{18/11}
+\begin{proposition}
+    The cross-ratio is perserved by M\"obius transformations. If $z_0, z_1, z_2, z_3$ are distinct points in $\C$ and $f$ is a M\"obius transformation then
+    \[ (f(z_0), f(z_1); f(z_2), f(z_3)) = (z_0, z_1; z_2, z_3). \]
+\end{proposition}
+
+\begin{proof}
+    Write $w_i = f(z_i)$ for $i = 0, 1, 2, 3$. So $f = F^{-1} \circ G$ as above. Then $F \circ f = G$. We evaluate this at $z_0$:
+    \[ F \circ f(z_0) = G(z_0) = (z_0, z_1; z_2, z_3) \]
+    but 
+    \[ F \circ f(z_0) = (f(z_0), f(z_1); f(z_2), f(z_3)) \]
+    by the definition, as required.
+\end{proof}
+
+\section{Circles and lines}
+
+\begin{proposition}[]
+    \label{prop:mob-circles-lines}
+    M\"obius transformations perserves circles and lines. That is, if you map a circle or a line with a M\"obius transoifmration you will get a circle or a line.
+\end{proposition}
+
+\begin{remark}
+    All lines path through infinity in this context.
+\end{remark}
+
+\begin{lemma}[]
+    For $\gamma, \beta \in \R$ and $\alpha \in \C$ the equation 
+    \[ \gamma z \bar z - \alpha \bar z - \bar \alpha z + \beta = 0 \]
+    determines
+    \begin{enumerate}
+        \item a circle if $\gamma = 1$ and $\lvert \alpha \rvert^2 - \beta > 0$; or
+        \item a line if $\gamma = 0$ and $\alpha \neq 0$.
+    \end{enumerate}
+    Every circle or line can be written in this form.
+\end{lemma}
+
+\begin{proof}
+    \begin{description}
+        \item[Circle] 
+            Let $r \in \R_{>0}$ and $c \in C$.
+            \begin{align*}
+                \lvert z - c \rvert &= r \\
+                \lvert z - c \lvert ^2 &= r^2 \\
+                (z - c)(\bar z - \bar c) &= r^2 \\
+                \bar z z - \bar c z - c \bar z + c \bar c &= r^2 \\
+                \bar z z - c \bar z - \bar c z + c \bar c - r^2 &= 0;
+            \end{align*}
+            so if we set $\alpha = c$, $\beta = c \bar c - r^2$ we that the formula specified in the lemma defines a circle iff $\lvert \alpha \rvert ^2 - \beta = r^2 > 0$.
+
+        \item[Line]
+            Let $w_1, w_2 \in \C$ where $w_1 \neq w_2$.
+            \begin{align*}
+                \lvert z - w_1 \rvert &= \lvert z - w_2 \rvert \\
+                (z - w_1)(\bar z - \bar w_1) &= (z - w_2)(\bar z - \bar w_2) \\
+                -(w_1 - w_2) \bar z - (\bar w_1 - \bar w_2) z + w_1 \bar w_1 - w_2 \bar w_2 &= 0;
+            \end{align*}
+            so we let $\alpha = w_1 - w_2$ and $\beta = w_1 \bar w_2 - w_2 \bar w_2$.
+    \end{description}
+\end{proof}
+
+\begin{proof}[Proof of Proposition \ref{prop:mob-circles-lines}]
+    Let $M_T$ be a M\"obius transformation where $T = \begin{pmatrix} a & b \\ c & d \end{pmatrix} \in \operatorname{GL}_2(\C)$. 
+    Assume $\det{T} = 1$ (we do this to make our calculations much easier.
+    If $c = 0$, $M_T$ is affine linear therefore is a composition of dilation, rotation, and translation. 
+    All of these clearly map circles to circles and lines to lines; hence $M_T$ preserves circles and lines. 
+    Now we consider $c \neq 0$, if $c \neq 0$
+    \begin{align*}
+        M_T(z) &= \frac{az + b}{cz + d} \\
+        &= \frac{c(az + b)}{c(cz + d)} \\
+        &= \frac{caz + bc}{c(cz + d)} \\
+        &= \frac{caz + ad + bc - ad}{c(cz+d)} \\
+        &= \frac{a(cz+d) - \det{T}}{c(cz+d)} \\
+        &= \frac ac - \frac{1}{c(cz + d)} \\
+        &= \frac ac - \frac{1}{c^2(z + \frac dc)}.
+    \end{align*}
+    This is the composition of translation, dilation, rotation, inversion, and translation. 
+    We define inversion as $f(z) = \frac 1z$, so now it is enough to show that $f$ preserves circles and lines. 
+    Let a line or cirlce be of the form
+    \[ \alpha z \bar z - \alpha \bar z - \bar \alpha z + \beta = 0. \]
+    Call it $X \subset \hat \C$. $z \in f(X) \iff f(z) \in X$. So
+    \begin{align*}
+        \gamma \frac 1z \left( \overline{\frac 1z} \right) - \alpha \left( \overline{\frac1z} \right) - \bar \alpha \left(\frac1z\right) + \beta &= 0 \\
+        \gamma - \alpha z - \bar \alpha \bar z + \beta z \bar z &= 0 \\
+        \beta z \bar z - \bar \alpha \bar z - \alpha z + \gamma &= 0 \tag{$\star$}
+    \end{align*}
+    which is another line and or circle. Now
+    \begin{enumerate}
+        \item if $\beta = 0$ and $X$ is a line, then $\alpha \neq 0$ implies that $(\star)$ is a line; and
+        \item if $\beta = 0$ and $X$ is a circle, then $\lvert \alpha \rvert^2 - \beta < 0$ imples that $(\star\star)$ is a line.
+    \end{enumerate}
+    Now we assume $\beta \neq 0$, then
+    \[ z \bar z - \frac{\alpha}{\beta} z - \frac{\bar \alpha}{\beta} \bar z + \frac{\gamma}{\beta} = 0. \]
+    So we need to check that 
+    \[ \left\lvert \frac{\alpha}{\beta} \right\rvert^2 - \frac{\gamma}{\beta} > 0. \tag{$\star\star$} \]
+    \begin{enumerate}
+        \item If $X$ is a line, then $\gamma = 0$ and $\alpha \neq 0$ so $(\star\star)$ is clear.
+        \item If $X$ is a circle, then $\alpha = 1$ if $\beta < 0$ (and so $(\star\star)$ is clear); however, if $\beta > 0$ then
+            \[ \left\lvert \frac{\alpha}{\beta} \right\rvert^2 - \frac{\gamma}{\beta} = \left\lvert \frac{\alpha}{\beta} \right\rvert^2 - \frac{1}{\beta} > \frac{1}{\beta} - \frac{1}{\beta} = 0. \]
+    \end{enumerate}
+\end{proof}

@@ -1,0 +1,92 @@
+\chapter{Taylor series}
+
+\section{Taylor's theorem and Taylor series}
+
+\begin{theorem}[Taylor's theorem]
+    Let $f(x)$ have $n+1$ continuous derivatives in an open interval $I$ that contains the point $x=a$. Then, for all $x\in I$ \[f(x)=P_n(x)+R_n(x)\] where \[P_n(x)=\sum_{k=0}^n\left(\dfrac{(x-a)^k}{k!}f^{(k)}(a)\right)\] is called the Taylor polynomial of order $n$ for $f(x)$ about $x=a$, \[R_n(x)=\int_a^x\dfrac1{n!}(x-t)^nf^{(n+1)}(t)\,dt\] is called the remainder term.
+\end{theorem}
+
+\begin{proof}
+    We are going to prove that \[f(x)=P_n(x)+R_n(x)\tag{$\star$}\] for all $n\geq0$ using induction, so first we prove the base case which is $n=0$, \[R_0(x)=\int^x_af'(t)\,dt=f(t)\Big|^{t=x}_{t=a}=f(x)-f(a)\] so \[f(x)=R_0(x)+f(a)=P_0(x)+R_0(x),\] therefore, $(\star)$ is true for $n=0$. Now we assume that $(\star)$ is true for $n=k$, so \[f(x)=P_k(x)+R_k(x)\tag{$\star\star$}.\] Now 
+    \begin{align*}
+        R_{k+1}(x)&=\int^x_a\left(\dfrac{(x-t)^{k+1}}{(k+1)!}f^{(k+2)}(t)\right)\,dt\\
+        &=\dfrac{(x-t)^{k+1}}{(k+1)!}f^{(k+1)}(t)\Big|^{t=x}_{t=a}-\int^x_a\left(\dfrac{-(x-t)^{k}}{k!}f^{(k+1)}(t)\right)\\
+        &=-f^{(k+1)}(a)\dfrac{(x-a)^{k+1}}{(k+1)!}+R_k(x)\\
+        &=-(P_{k+1}(x)-P_k(x))+R_k(x)\\
+        R_{k+1}(x)+P_{k+1}(x)&=P_k(x)+R_k(x)=f(x)
+    \end{align*}
+    using our assumption $(\star\star)$. Therefore, as $(\star)$ is valid for $n=0$ and for $n=k+1$ assuming that it is true for $n=k$, by induction, $(\star)$ is true for all $n\in\mathbb N$, $n\geq1$.
+\end{proof}
+
+\begin{example}
+    We can expand $f(x)=e^x$ at $a=0$, \[P_n(x)=1+x+\dfrac{x^2}{2!}+\dfrac{x^3}{3!}+\ldots+\dfrac{x^n}{n!}.\]
+\end{example}
+
+\section{Lagrange form of the remainder}
+
+There is a more convenient expression for the remainder term in Taylor's theorem. The Lagrange form for the remainder is \[R_n(x)=\dfrac{f^{(n+1)}(c)}{(n+1)!}(x-a)^{n+1}\] for some $c\in(a,x)$. To prove this expression for the remainder we will first need to prove the following lemma.
+
+\begin{lemma}
+    Let $h(t)$ be differentiable $n+1$ on $[a,x]$ with $h^{(k)}(a)=0$ for $0\leq k\leq n$ and $h(x)=0$. Then there exists $c\in(a,x)$ such that $h^{(n+1)}(c)=0$.
+\end{lemma}
+
+\begin{proof}
+    As \[h(a)=0=h(x)\] and by Rolle's theorem, then there exists $c_1\in(a,x)$ such that $h'(c_1)=0$. As \[h'(a)=0=h'(c_1)\] and by Rolle's theorem, then there exists $c_2\in(a,c_1)$ such that $h'(c_2)=0$. Repeating this arguments $n$ times, we arrive at \[h^{(n)}(a)=0=h^{(n)}(c_n)\] so by Rolle's theorem, there exists $c_{n+1}\in(a,c_n)$ such that $h^{(n+1)}(c_{n+1})=0$. This proves the lemma above with $c=c_{n+1}\in(a,x)$.
+\end{proof}
+
+\begin{proof}[Proof of the Lagrange form of the remainder]
+    Consider the following function \[h(t)=f(t)-P_n(t)-\left(\dfrac{f(x)-P_n(x)}{(x-a)^{n+1}}\right)(t-a)^{n+1}.\] By construction $h(x)=0$. Also, \[\dfrac{d^k}{dt^k}(t-a)^{n+1}=0\] for $t=a$ and $0\leq k\leq n$. By definition of the Taylor polynomial $P_n(t)$ we have that $f^{(k)}(a)=P_n^{(k)}(a)$ for $0\leq k\leq n$. Hence $h^{(n)}(a)=0$ for $0\leq k\leq n$. $h(t)$ therefore satisfies the conditions of the lemma and we that \[\;\exists\;c\in(a,x):h^{(n+1)}(c)=0.\] As $P_n(t)$ is a polynomial of degree $n$ then $P_n^{(n+1)}=0$. Also, \[\dfrac{d^{n+1}}{dt^{n+1}}(t-a)^{n+1}=(n+1)!\] hence \[0=h^{(n+1)}(c)=f^{(n+1)}(c)-(n+1)!\left(\dfrac{f(x)-P_n(x)}{(x-a)^{n+1}}\right).\] Rearranging this expression gives the required result \[f(x)=P_n(x)+\dfrac{f^{(n+1)}(c)}{(n+1)!}(x-a)^{n+1}.\]
+\end{proof}
+
+The Lagrange form of the remainder can be useful in obtaining a bound on the error, \[|f(x)-P_n(x)|=|R_n(x)|,\] when approximating a function using its Taylor polynomial.
+
+Suppose we can show that $|f(t)|\leq M$ for all $t\in[a,x]$, then \[|R_n(x)|\leq\dfrac{|x-a|^{n+1}}{(n+1)!}M\]
+
+\begin{example}
+    Show that the error in approximating $e^x$ by its 6th order Taylor polynomial is always less than $0.0006$ throughout the interval $[0,1]$.
+    
+    We first need an upper bound on \[f^{(7)}(x)=|e^t|\] for $t\in[0,1]$. As $e^t$ is monotonic increasing an positive then \[|e^t|\leq e^1=e<3,\] thus, in the above notation we may take $M=3$. We take $a=0$ to get \[|R_6(x)|<\dfrac{3|x|^7}{7!}\leq\dfrac3{7!}\] for $x\in[0,1]$. As $\frac3{7!}<0.0006$ the required result has been shown.
+\end{example}
+
+\section{Calculating limits using Taylor series}
+
+\begin{remark}
+    You will be explicitly asked to use this in questions, so do not use it unless the question states to.
+\end{remark}
+
+\begin{definition}
+    Let $n$ be a positive integer. Then \[f(x)=o(x^n)\] if \[\lim_{x\to0}\left(\dfrac{f(x)}{x^n}\right)=0.\]
+\end{definition}
+
+\begin{example}
+    \[x^7+x^8+3x^9=o(x^6)\]
+\end{example}
+
+\begin{example}
+    Calculate \[\lim_{x\to0}\left(\dfrac{\sin{x}}x\right)\] using the Taylor expansion of $\sin{x}$.
+    
+    \begin{align*}
+        \lim_{x\to0}\left(\dfrac{\sin{x}}x\right)&=\lim_{x\to0}\left(\dfrac{x-\frac1{3!}x^3+o(x^3)}x\right)\\
+        &=\lim_{x\to0}\left(\dfrac{x+o(x)}x\right)\\
+        &=\lim_{x\to0}\left(\dfrac{1+o(1)}1\right)=1
+    \end{align*}
+\end{example}
+
+\begin{example}
+    Calculate \[\lim_{x\to0}\left(\dfrac{1-\cos{x}}{x^2}\right).\]
+    
+    \begin{align*}
+        \lim_{x\to0}\left(\dfrac{1-\cos{x}}{x^2}\right)&=\lim_{x\to0}\left(\dfrac{1-(1-\frac{x^2}2+o(x^2))}{x^2}\right)\\
+        &=\lim_{x\to0}\left(\frac12+\frac1{x^2}o(x^2)\right)=\frac12\\
+    \end{align*}
+\end{example}
+
+\begin{example}
+    Calculate \[\lim_{x\to0}\left(\dfrac{e^{2\sin{x}}-\cos{x}}{x}\right).\]
+    
+    \begin{align*}
+        \lim_{x\to0}\left(\dfrac{e^{2\sin{x}}-\cos{x}}{x}\right)&=\lim_{x\to0}\left(\dfrac{1+2(x+o(x))+\frac12(2(x+o(x)))^2-(1+o(x))}{x}\right)\\
+        &=\lim_{x\to0}\left(\dfrac{1+2x+o(x)-(1+o(x))}{x}\right)\\
+        &=\lim_{x\to0}\left(2+\frac1xo(x)\right)=2
+    \end{align*}
+\end{example}

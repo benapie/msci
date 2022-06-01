@@ -1,0 +1,160 @@
+\lecture{16}{10/12}
+
+\begin{proof}
+    This theorem is equivalent to saying that
+    $F[x]/(f(x))$
+    is a vector space over $F$ with basis
+    \[ B = \{ \bar 1, \bar x, \bar x^2, \ldots, \bar x^{n -1} \} \]
+    where $\deg f = n$.
+    It is clear that $F[x]/(f(x))$ as it is an abelian group
+    with scalar multiplication given by
+    \[ \alpha \cdot (g(x)) = \alpha g(x) \]
+    for $\alpha \in F$ and $g(x) \in F[x]$.
+    Now we must show that $B$ spans $F[x]/(f(x))$.
+    By long division, for any
+    $g(x) \in F[x]$
+    with
+    $\deg g \geq 0$ we have
+    \[ g(x) = q(x)f(x) + r(x) \]
+    where $\deg r < n$;
+    hence,
+    \[ \overline{g(x)} = \overline{r(x)} \implies 
+    g(x) - r(x) \in (f(x)) \]
+    as $B$ spans all polynomials in $\bar x$ up to degree $n - 1$
+    it will contain $\overline{r(x)}$ and so $\overline{g(x)}$.
+    If
+    $\sum_{i = 0}^{n - 1} a_i \bar x^i = \bar 0$
+    then
+    $\sum_{i = 0}^{n - 1} a_i x^i \in (f(x))$
+    and so $f(x)$ divides
+    $\sum_{i = 0}^{n - 1} a_i x_i$
+    hence $\deg f = n \leq n - 1$;
+    a contradiction. Therefore, $a_0 = a_1 = \ldots = 0$
+    and so $B$ is a basis.
+\end{proof}
+
+\begin{example}
+    Consider $\Q[x]$ with ideal $I = (x^2 + x + 1)$.
+    By the above theorem
+    \[ \Q[x]/(f(x)) = \{ \overline{r(x)} = \deg{(r(x))} \leq 1 \}. \]
+    Then, for example, 
+    $\overline{x^2 + x + 1} = \overline 0$
+    then
+    $\overline x^2 = \overline{-x-1}$.
+    Suppose $p(x) = x^4 - 3x^2 + 2$. 
+    We have that
+    \[ \bar x^4 = 
+    (\bar x^2)^2 = 
+    (\overline{-x-1})^2 = 
+    \overline{x^2 + 2x + 1} =
+    \overline{x^2 + x + 1} + \overline x = \overline x. \]
+    It can easily be shown from that 
+    $4x + 5$ 
+    is the coset representation of 
+    $x^4 - 3x^2 + 2$
+    as $\overline{p(x)} = \overline{4x + 5}$.
+\end{example}
+
+\begin{example}
+    Let $R = \Z/3[x]$ and $I = (x^4 + x + 1)$. 
+    Then $R/I$ is a $\Z/3$ vector space over 
+    $\{\bar 1, \bar x, \bar x^2, \bar x^3\}$.
+    Hence
+    \[ R / I = 
+    \left\{ \sum_{i = 0}^3 \overline{a_ix^i} : a_i \in \Z/3 \right\}. 
+    \]
+\end{example}
+
+\begin{remark}
+    Consider the quotient ring $R/I$. 
+    $R/I$ can be commutative or non-commutative. 
+    If $R$ is commutative, so is $R/I$.
+    $R/R$ is isomorphic to the zero ring,
+    which is commutative.
+    On the other side of things, $R/0$ is isomorphic to $R$ (clearly).
+\end{remark}
+
+\begin{example}[Quotient map]
+    Let $R$ be a ring and $I$ be an ideal.
+    We have that the map $f: R \to R/I$ such that
+    \[ f(r) = \bar r = r + I. \]
+    By construction we have that
+    \[ \ker f = I \qquad \text{and} \qquad \im f =  R/I. \]
+    Hence, 
+    we have proved that all ideals are the kernal of a homomorphism.
+\end{example}
+
+\begin{example}
+    Let $R = \Z[i]$.
+    Consider $I = (2)$.
+    \begin{enumerate}
+        \item Show that $R/I$ has exactly 4 elements.
+        \item Give the tables for addition and multiplication in $R/I$.
+        \item Is $R/I$ isomorphic to $\Z/2 \times \Z/2$ or $\Z/4$ as a ring?
+    \end{enumerate}
+\end{example}
+
+\begin{solution}
+    \begin{enumerate}
+        \item Let $\alpha = a + bi \in \Z[i]$.
+            We have that 
+            \[ a = 2k + a' \qquad \text{and} \qquad b = 2l + b' \]
+            where $a', b' \in \{0, 1\}$.
+            Then
+            \[ \alpha = 
+                (2k + a') + (2l + b')i = 
+                (a' + b'i) + 2(k + li). \]
+            Therefore, $\bar \alpha = (a' + b'i) \in R/I$.
+            Hence, there at at most $4$ elements in $R / I$.
+            Now we just need to show that they are distinct. 
+            We assume that 
+            $\overline{a' + b'i} = \overline{c' + d'i}$
+            where $a', b', c', d' \in \{0,1\}$.
+            So 
+            \begin{align*}
+                \overline{(a' + b'i) - (c' + d'i)} &=   \overline 0 \\
+                \overline{(a' - c') + (b' - d')i}  &=   \overline 0 \\
+                \overline{(a' - c') + (b' - d')i}  &\in I = (2)     \\
+                (a' - c') + (b' - d')i             &= 2(e + fi)
+            \end{align*}
+            for some $e, f \in \Z$.
+            However, 
+            $a' - c' \in \{0, \pm 1\}$
+            so $a' = c'$.
+            Similarly,
+            $b' = d'$.
+
+        \item
+            \begin{center}
+                \begin{tabular}{ccccc}
+                    \toprule
+                    $+$ & $\bar 0$ & $\bar 1$ & $\bar i$ & $\overline{1 + i}$ \\
+                    \midrule
+                    $\overline 0$ & $\overline 0$ & $\overline 1$ & $\overline i$ & $\overline{1 + i}$ \\
+                    $\overline{1}$ & $\overline{1}$ & $\overline{0}$ & $\overline{1 + i}$ & $\overline{i}$ \\
+                    $\overline{i}$ & $\overline{i}$ & $\overline{1 + i}$ & $\overline{0}$ & $\overline{1}$ \\
+                    $\overline{1 + i}$ & $\overline{1 + i}$ & $\overline{i}$ & $\overline{1}$ & $\overline{0}$ \\
+                    \bottomrule
+                \end{tabular}
+                \begin{tabular}{ccccc}
+                    \toprule
+                    $\cdot$ & $\overline{0}$ & $\overline{1}$ & $\overline{i}$ & $\overline{1 + i}$ \\
+                    \midrule
+                    $\overline{0}$ & $\overline{0}$ & $\overline{0}$ & $\overline{0}$ & $\overline{0}$ \\
+                    $\overline{1}$ & $\overline{0}$ & $\overline{1}$ & $\overline{i}$ & $\overline{1 + i}$ \\
+                    $\overline{i}$ & $\overline{0}$ & $\overline{i}$ & $\overline{1}$ & $\overline{1 + i}$ \\
+                    $\overline{1 + i}$ & $\overline{0}$ & $\overline{1 + i}$ & $\overline{1 + i}$ & $\overline{0}$ \\
+                    \bottomrule
+                \end{tabular}
+            \end{center}
+
+        \item $x \in R/I \implies \overline{x + x} = \overline{0}$
+            (which is preserved by a ring isomorphism)
+            and in $\Z/4$ we have that $\bar 1 + \bar 1 = \bar 2 \neq \bar 0$.
+            Hence, $R/I$ is not isomorphic to $\Z/4$.
+            In $\Z/2 \times \Z/2$ we have that $\overline x^2 = \overline x$
+            which is preserved by a ring isomorphism which is clearly not
+            held in $R/I$; therefore, 
+            $R/I$ is also not ismorphic to $\Z/2 \times \Z/2$.
+    \end{enumerate}
+\end{solution}

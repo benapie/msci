@@ -1,0 +1,38 @@
+\question Prove that for random variables $X$ and $Y$, $\E[X] = \sum_y \E[X \mid Y = y] \cdot p(Y = y)$ (where the summation is over all values $y$ that the random variable $Y$ can take).
+
+\begin{solution}
+    \begin{align*}
+        \E[X] & = \sum_x x \cdot p(X = x)                                  \\
+              & = \sum_x x \sum_y p(X = x \mid Y = y) \cdot p(Y = y)       \\
+              & = \sum_y \sum_x x \cdot p(X = x \mid Y = y) \cdot p(Y = y) \\
+              & = \sum_y \E[X | Y = y].                                    \\
+    \end{align*}
+\end{solution}
+
+\question Prove the ``law of iterated expectation'', that is, for random variables $X$ and $Y$, $\E[X] = \E[\E[X,Y]]$.
+
+\begin{solution}
+    \begin{align*}
+        \E[\E[X \mid Y]] & = \E\left[\sum_x x \cdot p(X = x \mid Y = y) \cdot p(Y = y)\right]              \\
+                         & = \E\left[\sum_x x \cdot \frac{p(X = x, Y = y)}{P(Y = y)} \cdot p(Y = y)\right] \\
+                         & = \E\left[\sum_x x \cdot p(X = x) \right]                                       \\
+                         & = \E[\E[X]]                                                                     \\
+                         & = \E[X].
+    \end{align*}
+\end{solution}
+
+\question Prove that $\Var[X] := \E[(X - \E[X])^2] = \E[X^2] - (E[X])^2$.
+
+\begin{solution}
+    \begin{align*}
+        \E[(X - \E[X])^2] & = \E[X^2 - 2X\E[X] + (\E[X]^2)]        \\
+                          & = \E[X^2] - 2\E[X]\E[x] + + (\E[X]^2) \\
+                          & = \E[X^2] - (E[X])^2.
+    \end{align*}
+\end{solution}
+
+\question Prove that $\Cov[X,Y] = 0$ when $X$ and $Y$ are independent.
+
+\begin{solution}
+    As $X$ and $Y$ are independent, $E[XY] = E[X]E[Y]$. Thus the answer is clear.
+\end{solution}

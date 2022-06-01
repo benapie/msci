@@ -1,0 +1,83 @@
+\documentclass[a4paper, answers]{exam}
+\input{../preamble.tex}
+
+\begin{document}
+
+\begin{center}
+	\textbf{\textsc{Computational Complexity III, Exercises 3}} \\
+	\textsc{Ben Napier}
+	\vspace{1em}
+\end{center}
+
+\begin{questions}
+	\question 
+	Let $\mathcal L$ be the language of propertly nested brackets.
+	For example, $((()))$ and $(()()()(()))$ belong to $\mathcal L$
+	but $(()))$ and $)($ do not.
+	Show that $\mathcal L \in \mathsf L$.
+
+	\question
+	Assuming that the strongest known results about strict inclusion 
+	amonst the complexity classes $\mathsf L$, $\mathsf{NL}$,
+	$\mathsf{P}$, $\mathsf{NP}$, and $\mathsf{PSPACE}$
+	are the Space Hierarchy Theorem and its implications,
+	state whether the following statements are true, false, or open
+	(in the work you hand in you need only give one word answers).
+	\begin{parts}
+		\part 
+		The language $\mathcal L$ defined in the first question is
+		$\mathsf{PSPACE}$-complete.
+
+		\part 
+		If 
+		$\mathsf P = \mathsf{NP}$ 
+		then 
+		$\mathsf{NP} \neq \mathsf{PSPACE}$.
+
+		\part
+		\textsc{Reachability} is in $\mathsf{PSPACE}$.
+
+		\part 
+		If $\mathsf{NL} = \mathsf{P}$,
+		then \textsc{Horn-Sat} is not $\mathsf{PSPACE}$-complete.
+	\end{parts}
+
+	\question
+	Find and explain the error in the following fallacious \emph{proof}
+	that $\mathsf P \neq \mathsf{NP}$.
+	\begin{proof}
+		Assume that $\mathsf P = \mathsf{NP}$.
+		Then $\text{SAT} \in \mathsf P$.
+		So, for some $k$, $\text{SAT} \in \operatorname{TIME}[n^k]$.
+		Because every language in $\mathsf{NP}$ is polynomial time reducible
+		to SAT, $\mathsf{NP} \subset \operatorname{TIME}[n^k]$.
+		Therefore $\mathsf P \subset \operatorname{TIME}[n^k]$.
+		But, by the Time Hierarchy Theorem,
+		$\operatorname{TIME}[n^{k+1}]$ contains a language that isn't in
+		$\operatorname{TIME}[n^k]$, which contradicts 
+		$\mathsf P \subset \operatorname{TIME}[n^k]$.
+		Therefore $\mathsf P \neq \mathsf P$.
+	\end{proof}
+
+	\question
+	Prove that the following problem is $\mathsf{NL}$-complete.
+	
+	\textsc{Acyclicity} \\
+	Instance: a diagraph $G = (V,E)$. \\
+	Question: is $G$ acyclic?
+
+	\question
+	A $2$-CNF formula $f$ (that is, an instance of $2$-SAT) with variables
+	$x_1, \ldots, x_n$ is called \emph{equipartite} if the variables can be
+	divided into two sets $A$ and $B$ (each variable belongs to exactly one of
+	the sets) such that each clause contains one variable from each of $A$ and
+	$B$.
+	Prove that the following problem \textsc{Equipartite $2$-Sat} is
+	$\mathsf{NL}$-complete.
+
+	\textsc{Equipartite 2-Sat} \\
+	Instance: an equipartite $2$-CNF formula $f$. \\
+	Question: is $f$ satisfiable?
+\end{questions}
+
+\end{document}

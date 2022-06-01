@@ -1,0 +1,55 @@
+%! TEX root = master.tex
+\section{Log space reductions}
+\lecture{6}{20/11}
+
+We found polynomial-time reductions useful in classifying problems in
+$\mathsf{NP}$.
+We define a similar concept for log space.
+
+\begin{definition}[Log space transducer]
+	A \emph{log space transducer} (LST) $M$ is a type of Turing machine
+	with
+	\begin{enumerate}
+		\item a read-only \emph{input} tape;
+		\item a read and write \emph{work} tape bounded at $O(\log n)$
+			symbols; and
+		\item a write \emph{output} tape.
+	\end{enumerate}
+	$M$ computes a function $f: \Sigma^\star \to \Sigma^\star$
+	where $f(x)$ is the string remaining on the output tape after $M$ halts when
+	it started with $x$ on the input tape.
+	$f$ is said to be \emph{log space computable}.
+\end{definition}
+
+\begin{definition}[Log space reducible]
+	We say that a language $\mathcal L_1$ is
+	\emph{log space reducible} to a language $\mathcal L_2$,
+	denotes $\mathcal L_1 \leq_L \mathcal L_2$ if there is a log space
+	computable function $f$ such that $x \in \mathcal L_1$ if and only if
+	$f(x) \in \mathcal L_2$.
+\end{definition}
+
+A Turing machine that uses $f(n)$ space
+runs in $nO\left( 
+	2^{f(n)} 
+\right)$ time, so
+\[
+	\mathcal L_1 \leq_L \mathcal L_2 \implies
+	\mathcal L_1 \leq \mathcal L_2.
+\]
+
+An open question is whether there exists a problem that is 
+$\mathsf{NP}$-complete, but is not complete with respect to log reductions.
+
+\begin{theorem}[]
+	Reachability is $\mathsf{NL}$-complete.
+\end{theorem}
+
+This is easily proved by constructing a configuration graph (in log space).
+The machine accepts $x$ if and only if $C_\text{accept}$ is reachable from
+$C_\text{start}$.
+
+\begin{corollary}[]
+	$\mathsf L \subset \mathsf{NL} \subset \mathsf P$.
+\end{corollary}
+

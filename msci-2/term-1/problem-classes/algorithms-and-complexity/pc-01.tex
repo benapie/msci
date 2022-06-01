@@ -1,0 +1,47 @@
+\pc{1}{25/10}
+
+\question Solve the following fractional knapsack problem using the greedy algorithm we saw in Lecture 3: $W = 100$, $n = 5$ and
+\begin{align*}
+    v_1 &= 25,  & w_1 &= 5  \\
+    v_2 &= 120, & w_2 &= 60 \\
+    v_3 &= 50,  & w_3 &= 50 \\
+    v_4 &= 25,  & w_4 &= 50 \\
+    v_5 &= 60,  & w_5 &= 40.
+\end{align*}
+
+\question Redo this example, but this time for the $0-1$ knapsack problem. What is the optimal solution in this case?
+
+\question Using the \textsc{PARTITION*} algorithm, modify the greedy algorithm for fractional knapsack to avoid sorting the list of ratios.
+For simplicity, you may assume that all value per weight ratios $r_i$ are distinct.
+
+\begin{algorithm}
+    \caption{PARTITION*}
+    \begin{algorithmic}[1]
+        \Procedure{PARTITION*}{$A, q$}
+            \State exchange $A[q] \leftrightarrow A[n]$
+            \State $x \gets A[n]$
+            \State $k \gets 0$
+            \For{$j \gets 1$ to $n - 1$}
+                \If{$A[j] \leq x$}
+                    \State $k \gets k + 1$
+                    \State exchange $A[k] \leftrightarrow A[j]$
+                \EndIf
+            \EndFor
+            \State exchange $A[k _ 1] \leftrightarrow A[n]$
+            \State \Return $k + 1$
+        \EndProcedure
+    \end{algorithmic}
+\end{algorithm}
+
+\question Consider another kind of greedy algorithm for the (fractional or $0-1$) knapsack: (we assume that no item weighs more than $W$)
+\begin{enumerate}
+    \item sort the item according to their value $v_i$ in non-increasing order; then
+    \item take as much of the most valuable item as possible, then as much of the second most valuable item as possible, and so on until the knapsack is full.
+\end{enumerate}
+Use this algorithm for the example above (both for fractional and $0-1$). What is its running time?
+
+\question Denote the total value obtained by this modified greedy algorithm as $M$, and the optimal value as $V$. Prove the following:
+\begin{enumerate}
+    \item for any fractional knapsack problem on $n$ items, $V \leq nM$; and
+    \item conversely, for any $n \geq 2$ and any $\varepsilon > 0$, there is a fractional knapsack problem on $n$ items such that $V > nM - \varepsilon$.
+\end{enumerate}

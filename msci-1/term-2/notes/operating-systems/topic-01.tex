@@ -1,0 +1,132 @@
+\chapter{Introduction}
+
+\begin{definition}[Operating systems] 
+    An \textbf{operating system} is a program that acts as an intermediary between a user and the hardware.
+\end{definition}
+
+The above definition is adequate; however, it does not encompass all the tasks that operating systems perform. An operating system has the following goals:
+
+\begin{enumerate}
+    \item execute user programs;
+    
+    \item make solving user problems easier;
+    
+    \item make the computer system convenient to use; and
+    
+    \item use the computer's resources fairly and efficiently.
+\end{enumerate}
+
+More specifically, an operating system is
+
+\begin{enumerate}
+    \item a resource allocator, responsible for the management of the computer system's resources;
+    
+    \item a control program, controls the execution of user programs and the operation of input and output (I/O) devices; and
+    
+    \item a kernel, the one program that is running all the time.
+\end{enumerate}
+
+\begin{definition}[Process]
+    A \textbf{process} is a unit of execution; an abstraction that is used to support the discussion and study of operating systems. A process includes
+    
+    \begin{enumerate}
+        \item machine code;
+        
+        \item current activity (register contents, such as the program counter);
+        
+        \item data stack, temporary data (such as local variables);
+        
+        \item data section, data that is accessible for the entire runtime of the process (such as global variables) and is stored on RAM; and
+        
+        \item heap, memory allocated during runtime.
+    \end{enumerate}
+\end{definition}
+
+To execute processes we must allocate \textbf{resources}, such as CPU time, memory, and access to I/O devices. The operating system is responsible for \textbf{process management}, which consists of
+
+\begin{enumerate}
+    \item process creation and deletion;
+    
+    \item process holding and resuming; and
+    
+    \item mechanisms for process synchronisation (such as priority and scheduling).
+\end{enumerate}
+
+\begin{definition}[Process control block]
+    A \textbf{process control block} (PCB) is a data structure containing information needed to manage the scheduling of a particular process. 
+\end{definition}
+
+Information about processes is represented by a process control block (PCB). Information stored about a process may include
+
+\begin{enumerate}
+    \item an identifier;
+    
+    \item state of the process;
+    
+    \item CPU utilisation;
+    
+    \item CPU scheduling data (such as priority);
+    
+    \item memory usage; and
+    
+    \item miscellaneous data (such as owner and description).
+\end{enumerate}
+
+\begin{definition}[Process state] 
+    The \textbf{state} of a process is the status of the execution. The state of a process may be
+    
+    \begin{enumerate}
+        \item new, where the process is being created and is under the process of being ready for execution;
+        
+        \item ready, where process is ready for execution and is waiting in the scheduler;
+        
+        \item waiting, where the scheduler has allocated it resources and is waiting to be executed;
+        
+        \item running, where the process is being executed;
+        
+        \item terminated, where the execution of the process has either finished or has been terminated early.
+    \end{enumerate}
+\end{definition}
+
+A new process, as a \textbf{parent process}, can create \textbf{child processes} which can, in turn, create more processes to form a \textbf{process tree}. There are three possibilities with resource sharing for a given process tree: 
+
+\begin{enumerate}
+    \item the parent and child processes share all resources;
+    \item the parent and child processes share some resources; and
+    \item the parent and child processes share nothing.
+\end{enumerate}
+
+Parent and child processes may also be executed concurrently or sequentially.
+
+On the execution of the last line of code of a process, the child process will ask the operating system to delete itself and will send its output to the parent. A parent process may terminate a child process if: it exceeds its allocated resources; it is no longed required; or the parent itself is terminating.
+
+\begin{definition}[Kernel] 
+    The \textbf{kernel} consists of
+    
+    \begin{enumerate}
+        \item a first level interrupt handler (FLIH);
+        \item a dispatcher, this handles the changing of processes; and
+        \item some intra-system communication, via buses. % todo
+    \end{enumerate}
+\end{definition}
+
+\begin{definition}[Interrupt]
+    An \textbf{interrupt} is a signal from hardware or software that will cause a change in process.
+\end{definition}
+
+\begin{definition} 
+    An \textbf{interrupt routine} is a routine that is executed on an interrupt.
+\end{definition}
+
+The function of the FLIH is to determine the source of an interrupt and to initiate the serving of the interrupt.
+
+Some instructions may only be accessed by the OS, this is a privileged instruction set. 
+
+\begin{definition}[Dual mode operation]
+    Dual mode operation aims to distinguish between OS code and user code; there are two modes: \textbf{kernel mode} and \textbf{user mode}.
+\end{definition}
+
+User processes may call on the kernel mode when the it requires a privileged instruction. % todo
+
+The dispatches assigns resources for processes. It is initiated when a process cannot continue or when the CPU time can be better used elsewhere (for example: an interrupt, system call, error, etc.)
+

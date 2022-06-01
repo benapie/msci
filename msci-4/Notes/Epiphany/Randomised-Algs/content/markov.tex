@@ -1,0 +1,147 @@
+\section{Markov chains}
+
+\begin{definition}[Markov chain]
+    A (discrete-time) \emph{Markov chain} on a countable set $S$ is a sequence of random variables $(X_i)_{i\in\N_0}$ such that for all $j, i_0, i_1, \ldots, i_n \in S$ and $n \in \N_0$,
+    \[
+        \Pr[X_{n+1} = j \mid X_0 = i_0, \ldots, X_n = i_n] = \Pr[X_{n+1} = j \mid X_n = i_n]
+    \]
+    given that both conditional probabilities are well-defined.
+\end{definition}
+
+\begin{remark}
+    We are only working with discrete-time Markov chain, so assume all Markov chains are discrete-time Markov chains.
+\end{remark}
+
+Markov chains are also called \emph{memoryless}; the probability of each event depends only on the state attained in the previous event. 
+
+\begin{definition}
+    Let $\mathcal X = (X_i)_{i\in\N_0}$ be a Markov chain on $S$.
+    \begin{enumerate}
+        \item $X_0$ is the \emph{starting state}.
+        \item $S$ is the \emph{state space}.
+        \item $\mathcal X$ is \emph{finite} if it has a finite state space.
+        \item $\mathcal X$ is \emph{countable} if it has a countable state space. 
+    \end{enumerate}
+\end{definition}
+
+\begin{definition}[Homogenity]
+    A Markov chain $(X_i)_{i\in\N_0}$ is \emph{time-homogeneous} (or just \emph{homogeneous}) if for all $n \in \N$, 
+    \[ \Pr[X_{n+1} = j \mid X_n = i] = \Pr[X_{n} = j \mid X_{n-1} = i]. \]
+\end{definition}
+
+All Markov chains we will look at will be homogenous.
+
+For a homogenous countable Markov chain $\mathcal X = (X_i)_{i\in\N_0}$ on $S$, we can describe its behaviour using \emph{transition probabilities}: for $i, j \in S$ and $n \in \N_0$, define 
+\[ p_{ij} = \Pr[X_{n+1} = j \mid X_n = i]. \]
+This is the \emph{one-step transition probabilities} of $\mathcal X$. For $k \in \N$, we may similarly define the \emph{$k$-step transition probabilities} by
+\[ p_{ij}^{(k)} = \Pr[X_{n+k} = j \mid X_n = i]. \]
+As $S$ is countable, we may pick some enumeration of $S$ and represent $p_{ij}$ as a matrix $P$ such that $P[i,j] = p_{ij}$ called the \emph{transition matrix} of $\mathcal X$. 
+
+\begin{remark}
+    When $S$ is finite, we pick a enumeration. That is, a bijective function $s: S \to \{1, \ldots, \lvert S \rvert\}$. Thus above, we should write $P[s(i),s(j)] = p_{ij}$, but we will keep with this abuse of notation. Alternatively, we may just assume that $S = \{1, \ldots, l\}$ for some $l \in \N$ from now on.
+\end{remark}
+
+\begin{proposition}
+    Let $(X_i)_{i \in \N_0}$ be a homogeneous countable Markov chain over $S$ with transition probabilities $p_{i,j}$ for all $i,j \in S$ and transition matrix $P$. Then for all $k \in \N$,
+    \[ p_{ij}^{(k)} = P^k[i,j]. \]
+\end{proposition}
+
+\begin{definition}
+    Let $n \in \N$ and $A \in M_n(\R)$. $A$ is \emph{stochastic} if for all $i \in \{1, \ldots, n\}$,
+    \[ \sum_{j=1}^n A[i,j] = 1. \]
+\end{definition}
+
+\begin{proposition}
+    Every stochastic matrix is the transition matrix of some Markov chain.
+\end{proposition}
+
+\begin{lemma}
+    The largest eigenvalue of a stochastic matrix is $1$.
+\end{lemma}
+
+\begin{definition}[Distribution]
+    Let $\mathcal X = (X_i)_{i=0}^n$ be a finite Markov chain on $S$. At some time $t \in \N_0$, the \emph{distribution over states} (or \emph{distribution}) $\bm x^{(t)}$ of $\mathcal X$ is given by
+    \[ \bm x^{(t)} = (\Pr[X_t = 1], \Pr[X_t = 2], \ldots). \]
+\end{definition}
+
+\begin{proposition}
+    Let $(X_i)_{i \in \N_0}$ be a homogeneous countable Markov chain over $S$ with transition matrix $P$. Let $t \in \N_0$ and $\bm x^{(t)}$ be the distribution at that time. Then for all $k \in \N$,
+    \[ \bm x^{(t+k)} = \bm x^{(t)}P^k. \]
+\end{proposition}
+
+\begin{remark}
+    Again, expect some abuse of notation. Sometimes we may just write $\bm x$ for a distribution if the context is clear.
+\end{remark}
+
+\begin{definition}[Stationary distribution]
+    Let $\mathcal X$ be a Markov chain with transition matrix $P$. A distribution $\bm \pi$ of $\mathcal X$ is \emph{stationary} if $\bm\pi P = \bm\pi$.
+\end{definition}
+
+\begin{definition}[Reversibility]
+    A Markov chain with transition matrix $P \in M_n(\R)$ is \emph{reversible} if there is a distribution $\bm\pi = (\pi_1, \ldots, \pi_n)$ such that for all $i,j \in \{1, \ldots, n\}$,
+    \[ \pi_i P[i,j] = \pi_j P[j,i]. \]
+\end{definition}
+
+At this distribution, running the Markov chain \emph{backwards} ``looks the same'' as running it forward.
+
+\begin{definition}[Total variation distance]
+    Let $\bm x$ and $\bm y$ be two distribution of some Markov chain. The \emph{total variation distance} between $\bm x$ and $\bm y$ is
+    \[ d_\TV(\bm x, \bm y) = \frac12 \lVert \bm x - \bm y \rVert_1. \]
+\end{definition}
+
+Total variation distance is a metric, thus we can use it to prove convergence. 
+
+\begin{lemma}
+    Let $\bm x$ and $\bm y$ be two distributions of some discrete random variable $Z$. Let $\E_{\bm x}[Z]$ and $\E_{\bm y}[Z]$ be the expectations of $Z$ with respect to each of these distributions, and suppose that $\lvert Z \rvert \leq M$ for some $M \in \R$. Then
+    \[ \left\lvert \E_{\bm x}[Z] - \E_{\bm y}[Z] \right\rvert \leq \frac M2 d_\TV(\bm x, \bm y). \]
+\end{lemma}
+
+Thus if two distributions converge, so does their expected value. 
+
+\begin{definition}
+    Let $P$ be the transition matrix of some Markov chain, $\bm\pi$ be some stationary distribution, and $\bm x$ be an initial distribution. A \emph{mixing time} $t_\mix$ of $\bm x$ is a function $t_\mix: \R_{> 0} \to \N_0$ such that for all $\varepsilon > 0$ and $t \geq t_\mix(\varepsilon)$ we have
+    \[ d_\TV(xP^t, \pi) \leq \varepsilon. \]
+\end{definition}
+
+\begin{definition}[Coupling]
+    A \emph{coupling} of two random variables $X$ and $Y$ is a joint distribution on $X$ and $Y$.
+\end{definition}
+
+We can use couplings to prove convergence $X \to Y$, such as by creating a dependence between them as to maximise $\Pr[X = Y]$ or to minimise total variation distance.
+
+\begin{lemma}[Coupling lemma]
+    For any discrete random variables $X$ and $Y$,
+    \[ d_\TV(X,Y) \leq \Pr[X \neq Y]. \]
+\end{lemma}
+
+Not all Markov chains converge, thus we need some constructions to deal with this.
+
+\begin{definition}[Irredubility]
+    Let $\mathcal X$ be a Markov chain with transition matrix $P \in M_n(\R)$. $\mathcal X$ is \emph{irreducible} if for all $i,j \in \{1, \ldots, n\}$, there exists some $t \in \N_0$ such that $P^t[i,j] \neq 0$. 
+\end{definition}
+
+That is, we can reach any state from any other state (even if it is a long wait). Alternatively, if we represent a Markov chain as a directed graph where the states are vertices and each edge represents a transition that occurs with non-zero probability, then the Markov chain is irreducible if and only if the graph is strongly connected. 
+
+\begin{definition}[Period]
+    The \emph{period} of a state $i$ of a Markov chain with transition matrix $P$ is $\gcd\{t > 0: P^t[i,i] \neq 0\}$. If the period of $i$ is $1$, then $i$ is \emph{aperiodic}. A Markov chain is \emph{aperiodic} if all of its states are aperiodic.
+\end{definition}
+
+\begin{lemma}
+    The period of any state of a reversible Markov chain is at most 2.
+\end{lemma}
+
+\begin{definition}[Ergodic]
+    A Markov chain is \emph{ergodic} if it's irreducible and aperiodic. 
+\end{definition}
+
+We will study the stationary distributions of ergodic Markov chains, as they are well behaved.
+
+\begin{lemma}
+    Consider a Markov chain $\mathcal X$ with transition matrix of $P$. Then there is an aperiodic Markov chain $\mathcal X'$ with transition matrix $\frac12(P + I)$ and if $\bm\pi$ is a stationary distribution of $\mathcal X$, it is a stationary distribution of $\mathcal X'$.
+\end{lemma}
+
+We may call $\mathcal X'$ the \emph{lazy version} of $\mathcal X$, thus if we are studying the stationary distributions of a Markov chain, we have methods to get around it being periodic. However, we do not have a method for getting around reducible Markov chains.
+
+\begin{theorem}
+    Any finite ergodic Markov chain converges to a unique stationary distribution. 
+\end{theorem}

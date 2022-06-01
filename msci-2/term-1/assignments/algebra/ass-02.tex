@@ -1,0 +1,64 @@
+\assignment{2}{8/11}
+
+\setcounter{question}{15}
+\question Let
+\[ f(x) = x^3 - 12x^2 - 42, \qquad g(x) = x - 3 \]
+be polynomnials in $\Q[x]$. Find $q(x)$ and $r(x)$ in $\Q[x]$ such that $\deg{r} < 1$ and
+\[ f(x) = q(x)g(x) + r(x). \]
+\begin{solution}
+    \begin{align*}
+        f_1(x) &= f(x) - x^2g(x) = -9x^2-42 \\
+        f_2(x) &= f_1(x) + 9xg(x) = -27x - 42 \\
+        f_3(x) &= f_2(x) + 27g(x) = -123 \\
+        f(x)   &= f_1(x) + x^2g \\
+               &= f_2(x) - 9xg(x) + x^2g(x) \\
+               &= f_3(x) - 27g(x) - 9xg(x) + x^2g(x) \\
+               &= g(x)(x^2-9x-27) - 123.
+    \end{align*}
+\end{solution}
+
+\setcounter{question}{16}
+\question Use the Euclidean algorithm to find the  monic greatest common divisor of the polynomials
+\[ 
+    f(x) = x^4 + x^3 + 2x^2 + x + 1 
+    \quad \text{and} \quad 
+    g(x) = x^3 + 2x^2 + x + 2, 
+\]
+in $\Q[x]$, and express it in the form $a(x)f(x) + b(x)g(x)$, for some $a(x), b(x) \in \Q[x]$.
+\begin{solution}
+    \begin{align*}
+        x^4 + x^3 + 2x^2 + x + 1 &= x (x^3 + 2x^2 + x + 2) + (-x^3 + x^2 - x + 1) \\
+        x^3 + 2x^2 + x + 2 &= -(-x^3 + x^2 - x + 1) + (3x^2 + 3) \\
+        -x^3 + x^2 - x + 1 &= -\frac13 (3x^2 + 3) + (x^2 + 1) \\
+        3x^2 + 3 &= 3(x^2 + 1) + 0;
+    \end{align*}
+    hence, $\gcd(f, g) = x^2 + 1$.
+\end{solution}
+
+\setcounter{question}{17}
+\question Let $F$ be a field. Use the formula $\deg{(fg)} = \deg{f} + \deg{g}$ to show that any linear non-constant polynomial in $F[x]$ is irreducible.
+\begin{solution}
+    Let $f(x) \in F[x]$ where $f(x) = a_0 + a_1x$, $a_1 \neq 0$. First we must show that $f$ is not a unit. For a contradiction, suppose there exists $f'(x)$ such that $f(x)f'(x) = 1$. Then
+    \[ \deg{(ff')} = \deg{f} + \deg{f'} = \deg{1} = 0 \]
+    and as $\deg{f} = 1$ then $\deg{f'} = -1$; contradiction. Hence $f'$ does not exist and therefore $f$ is not a unit. Now consider $g, h \in F[x]$ such that $f(x) = h(x) g(x)$. As $\deg{f} = 1$, then either
+    \begin{enumerate}
+        \item $\deg{g} = 1$ and $\deg{h} = 0$; or
+        \item $\deg{g} = 0$ and $\deg{h} = 1$.
+    \end{enumerate}
+    Assume (i). We know already that $g$ is not a unit (as we proved for $f$). As $h \in F[x]$ and that $F$ is a field, $h' = \frac1{h}$ such that $hh' = 1$. Hence $h$ is a unit and so $f$ is irreductible (if assuming (i)). A similar reasoning can be followed for situation (ii).
+\end{solution}
+
+\setcounter{question}{19}
+\question Find all the irreducible polynomials in $(\Z/2)[x]$ of degree less than or equal to $2$.
+\begin{solution}
+    We consider
+    \[ \{ f \in \Z/2[x] : \deg{f} \leq 2  \} = \{ \bar 0, \bar 1, x, x + \bar 1, x^2, x^2 + x, x^2 + \bar 1, x^2 + x + \bar 1 \}.  \]
+    We know
+    \begin{align*}
+        x^2 + x &= x(x + \bar 1) \\
+        x^2 + \bar 1 &= (x + \bar 1)^2 \\
+        x^2 &= x \cdot x.
+    \end{align*}
+    Additionally, we know that $\bar 0$ and $\bar 1$ are not irreducible; hence, the set of irreducible polynomials are
+    \[ \{ x, x + \bar 1, x^2 + x + \bar 1 \}. \]
+\end{solution}

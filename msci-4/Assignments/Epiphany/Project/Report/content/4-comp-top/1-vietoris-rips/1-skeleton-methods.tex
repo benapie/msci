@@ -1,0 +1,105 @@
+\subsection{Skeleton methods}
+
+We first formalise the skeleton method, which reduces to the following problem.
+
+\begin{problem}[$\varepsilon$-NNs]
+Instance: let $(M, d)$ be a metric space, $S \subset M$ be a finite set of points, and $\varepsilon \in \R_{\geq 0}$. \\
+Question: for each $x \in S$, compute $\{y \in S \setminus \{x\}: d(x,y) \leq \varepsilon\}$.
+\end{problem}
+
+\textsc{$\varepsilon$-NNs} has the following approximate analogue.
+
+\begin{problem}[$(1 + \delta, \varepsilon)$-ANNs]
+Instance: let $(M, d)$ be a metric space, $S \subset M$ be a finite set of points, and $\varepsilon \in \R_{\geq 0}$. \\
+Question: for each $x \in S$, compute $\{y \in S \setminus \{x\}: d(x, y) \leq (1 + \delta) \varepsilon\}$.
+\end{problem}
+
+We first recognise the brute-force solution, which may run in $O(n^2)$ time and has the benefit of being exact.
+
+\textcite{arya1998optimal} made use of a particular tree structure (called BBD-trees) to achieve a solution in the case when $M = \R^d$, with query time of $O(c(d) \log n)$ and $O(dn)$ space, with $O(dn\log n)$ processing time. The function $c(d)$ is some function dependent on the dimension of $M$, there is no information on the asymptotic behaviour of this function presented in the literature, but empirical evidence suggests that it depends heavily on the underlying distribution of $S \subset M$.
+
+The exact algorithm provided by \textcite{arya1998optimal} is in fact an approximation algorithm that allows the value of $\delta$ to be set (precisely to $\delta = 0$ for the exact case). In the case $\delta > 0$, the function $c$ given above also depends on $\delta$ but all other complexities remain the same. A lower bound of $c$ is given as
+\[c(d, \delta) \leq d \lceil 1 + 6d/\delta \rceil^d. \]
+
+% \subsubsection{Randomised algorithms for (i)}
+
+% Both algorithms above suffer from the \emph{curse of dimensionality}; that is, when $M = \R^d$, $d$ heavily effects the running time of algorithms, leading to intractable solutions for high dimensions (more than 20).
+
+A recent benchmark study \cite{aumuller2020ann} found the fastest current algorithm to solve \textsc{$(1 + \delta, \varepsilon)$-ANN} as one based on \emph{navigable small-world graphs with controllable hierarchy} \cite{malkov2018efficient}. We briefly touch on some underlying theory before introducing this algorithm.
+
+A graph is a \emph{navigable small-world graph} if the greedy graph routing (shown in Algorithm \ref{alg:nearest-neighbour-greedy-routing}) runs in $O(\log^k n)$ time, for $k > 1$. We combine such a graph with the concept of \emph{skip lists}.
+
+\begin{algorithm}
+    \caption{A greedy routing algorithm for \textsc{$\varepsilon$-NNs}.}
+    \label{alg:nearest-neighbour-greedy-routing}
+    \begin{algorithmic}[1]
+        \Function{GreedyRouting}{graph $G$, heuristic $h$, start node $v$}
+        \State $\text{best} \gets v$
+        \While{true}
+        \State $\text{bestNeighbour} \gets \argmax_{n \in N_G(\text{best})} h(n)$
+        \If{$h(\text{bestNeighbour}) > h(\text{best})$}
+        \State $\text{best} \gets \text{bestNeighbour}$
+        \Else
+        \State \Return best
+        \EndIf
+        \EndWhile
+        \EndFunction
+    \end{algorithmic}
+\end{algorithm}
+
+A \emph{skip list} is a probabilistic data structure that allows $O(\log{n})$ average search complexity and insertion complexity within an ordered sequence of $n$ elements.
+
+The initial idea: for a sorted list, we create a duplicate list where a given element of the initial list is duplicated with probability $0.5$. For every duplicated item, we store a pointer at the item in the second list back to the first list. We also add \emph{sentinel nodes} for safety. We do this for the sorted list $(0,1,2,3,4,5,6)$ as follows.
+
+\begin{center}
+    \begin{tikzcd}
+        -\infty \arrow[r] & 0 \arrow[d] \arrow[r] & 1 \arrow[rr] \arrow[d]
+        && 3 \arrow[d] \arrow[rrr] &&& 6 \arrow[d] \arrow[r] & \infty \\
+        -\infty \arrow[r] & 0 \arrow[r] & 1 \arrow[r] & 2 \arrow[r]
+        & 3 \arrow[r] & 4 \arrow[r] & 5 \arrow[r] & 6 \arrow[r] & \infty
+    \end{tikzcd}
+\end{center}
+
+Searching for $5$ is shown below.
+
+\tikzset{emph/.style={preaction={ % allow highlighting
+                    draw,blue!25,-, double=blue!25, double distance = 8\pgflinewidth
+                }}}
+
+\begin{center}
+    \begin{tikzcd}
+        -\infty \arrow[r, emph] & 0 \arrow[d] \arrow[r, emph]
+        & 1 \arrow[rr, emph] \arrow[d]
+        && 3 \arrow[d, emph] \arrow[rrr] &&& 6 \arrow[d] \arrow[r] & \infty \\
+        -\infty \arrow[r] & 0 \arrow[r] & 1 \arrow[r] & 2 \arrow[r]
+        & 3 \arrow[r, emph] & 4 \arrow[r, emph] & 5 \arrow[r]
+        & 6 \arrow[r] & \infty
+    \end{tikzcd}
+\end{center}
+
+The probability a given duplicated node is followed by $k$ non-duplicated nodes is $\frac1{2^k}$. Thus, the expected number of nodes examined when searching the initial list is $\sum_{k = 1}^\infty \frac1{2^k} = 2$. So by adding this \emph{shortcut list}, we have reduced the expected time complexity
+from $n$ to $\frac n2 + O(1)$.
+
+An improvement: keep adding shortcut lists of the top shortcut list until we are out of elements.
+
+\begin{center}
+    \begin{tikzcd}
+        -\infty \arrow[rrrrrrrr] \arrow[d] & & & & & & & & \infty \arrow[d] \\
+        -\infty \arrow[rr] \arrow[d] & & 1 \arrow[rrrrrr] \arrow[d] & & & & &
+        & \infty \arrow[d] \\
+        -\infty \arrow[rr] \arrow[d] & & 1 \arrow[rrrrr] \arrow[d]  & & & &
+        & 6 \arrow[r] \arrow[d] & \infty \arrow[d] \\
+        -\infty \arrow[r] \arrow[d] & 0 \arrow[r] \arrow[d]
+        & 1 \arrow[rr] \arrow[d] & & 3 \arrow[rrr] \arrow[d] & &
+        & 6 \arrow[r] \arrow[d] & \infty \arrow[d] \\
+        -\infty \arrow[r] & 0 \arrow[r] & 1 \arrow[r] & 2 \arrow[r]
+        & 3 \arrow[r] & 4 \arrow[r] & 5 \arrow[r] & 6 \arrow[r] & \infty
+    \end{tikzcd}
+\end{center}
+
+The expected number of levels is $\log{n}$, which is easy to prove. At each level, we cut search time in half (excluding overhead, which we assume is $O(1)$). This gives us a search time of $O(\log{n})$.
+
+To combine this with navigable small-world networks: we build layers of graphs up sequentially. The bottom layer (as in skip lists) is the graph where the vertices are our points and two points have an edge if they are an $\varepsilon$-neighbour. Vertices have a fixed probability of moving up to the next layer, and the way we choose neighbours in higher layers is by using a heuristic that favours diverse connections.
+
+Hierarchical navigable small-world networks are a relatively new technique for nearest neighbour search, and as such has found little application to problems such as persistent homology. We emphasise this as a material for further research, comparing its use for Vietoris-Rips construction against other established techniques. We will not cover any more of this algorithm here. 
+

@@ -1,0 +1,22 @@
+\subpart\hspace{0em}
+\begin{solution}
+    Let $n \in \N$, and for each $i \in \{1, \ldots, n\}$ let $X_i$ be the indicator variable that that voucher $i$ is redeemed (that is $X_i = 1$ if voucher $i$ is redeemed and $X_i = 0$ otherwise). We assume that the event of a voucher being redeemed is independent of the event of any other voucher being redeemed. For each $i \in \{1, \ldots, n\}$,
+    \[ \E[X_i] = 1\cdot \Pr[X_i = 1] + 0 \cdot \Pr[X_i = 0] = p = \tfrac45. \]
+    
+    We let $Y$ be the incurred cost of the distribution voucher, that is,
+    \[ Y = \sum_{i=1}^n \left(\frac12X_i\right) = \frac12 \sum_{i=1}^n X_i  \]
+    as each voucher costs £\num{0.50}.
+    See that
+    \[ \E[Y] = \E\left[\frac12 \sum_{i=1}^n X_i \right] = \frac12\sum_{i=1}^n \E[X_i] = \frac{np}{2}. \]
+    Thus, by Markov's inequality,
+    \begin{align*}
+        \Pr[Y \geq 600] &\leq \frac{\E[Y]}{600} = \frac{np}{1200}.
+    \end{align*}
+    Then
+    \begin{align*}
+        \frac{np}{1200} &\leq \frac{1}{50} \\
+        n &\leq \frac{1200}{50p} \\
+        &= 30
+    \end{align*}
+    thus a greatest integer value $n$ can take (using Markov's inequality) such that the campaign will cost Lucy at most £\num{600} is $30$. 
+\end{solution}

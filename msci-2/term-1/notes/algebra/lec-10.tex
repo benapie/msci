@@ -1,0 +1,58 @@
+\section{Unique factorisation in $F[x]$}
+\lecture{10}{7/11}
+
+\begin{theorem}[]
+    Let $F$ be a field and $f(x) \in F[x]$ with $\deg{f} \geq 1$. Then $f(x)$ can be factorised uniquely into a product of irreducible elements, up to the order of the factors and multiplication of units.
+\end{theorem}
+
+\begin{proof}[Proof of existence]
+    We do this by induction. If $\deg{f} = 1$, we know this is irreducible so we are done. Now assume that the theorem holds for $\deg{f} < n$. Then we consider $\deg{f} = n$. If $f$ is irreducible, we are done. If not, then $f(x) = g(x) h(x)$ with $1 \leq \deg g < n$ and $1 \leq \deg f < n$. By assumption, $g$ and $h$ have unique factorisations and then so does $f$.
+\end{proof}
+
+\begin{proof}[Proof of uniqueness]
+    Suppose $f(x) = p_1 \cdot p_2 \cdot \ldots \cdot p_m = q_1 \cdot q_2 \cdot \ldots q_n$ where $p_i, q_i$ are irreducibles. We have
+    \[ p_1 \mid q_1, q_2, \ldots, q_n \]
+    and so $p_1 \mid q_i$ for some $i$; hence $q_i = p_1 u_1$ for some $u_1 \in F[x]$. As $p_1$ and $q_i$ are irreducible so $u_1$ must be a unit. Hence
+    \[ p_1 \cdot p_2 \cdot \ldots \cdot p_m = q_1 \cdot q_i \cdot q_m = q_1 \cdot \ldots \cdot (u_1 p_1) \cdot q_{i + 1} \cdot \ldots \cdot q_n, \]
+    we repeat this process to see that $m = n$ and that the factorisation is unique up to multiplication by units.
+\end{proof}
+
+\begin{definition}[Unique factorisation domain]
+    An integral domain $R$ is called a \textbf{unique factorisation domain} (UFD) if every non-zero non-unit element $r \in R$ can be written as a product of irreducible elements and this product is unique up to the order of the factors and multiplication by units.
+\end{definition}
+
+\begin{example}
+    The following are all UFDs:
+    \begin{enumerate}
+        \item $\Z$;
+        \item $F[x]$;
+        \item $\Z[i]$; and
+        \item $\Z[\sqrt{\pm2}]$.
+    \end{enumerate}
+    $\Z[\sqrt{-5}]$ is not an UFD.
+\end{example}
+
+\chapter{Homomorphisms}
+
+\begin{definition}[Homomorphism]
+    Let $R$ and $S$ be rings. Then a map $f: R \to S$ is called an \textbf{homomorphism} if
+    \begin{enumerate}
+        \item $f(1_R) = 1_S$;
+        \item $f(a + b) = f(a) + f(b)$ for all $a, b \in R$; and
+        \item $f(ab) = f(a) f(b)$ for all $a, b \in R$.
+    \end{enumerate}
+\end{definition}
+
+\begin{remark}
+    In the definition above, we use $1_R$ and $1_S$ to denote the identity elements in the rings $R$ and $S$. We may become relaxed on this and just use the definition $f(1) = 1$, but it means for the respective rings. Context is important in these situations.
+\end{remark}
+
+\begin{example}
+    We will consider the function $f: \Z[\sqrt 2] \to \Z[\sqrt 2]$ given by $a + b\sqrt 2 \mapsto a-b\sqrt 2$. 
+    \begin{enumerate}
+        \item $f(1) = f(1 + 0\sqrt 2) = 1 - 0\sqrt 2 = 1$;
+        \item $f(a + b) = f((a + b) + 0\sqrt 2 = (a + b) - 0 \sqrt 2 = (a - \sqrt 0) + (b - \sqrt 0) = f(a) + f(b)$; and
+        \item $f(ab) = f((ab) + 0\sqrt 2) = (ab) - 0\sqrt 2 = (a - 0\sqrt 2)(b - 0\sqrt 2) = f(a)f(b)$;
+    \end{enumerate}
+    hence, $f$ is a homomorphism.
+\end{example}

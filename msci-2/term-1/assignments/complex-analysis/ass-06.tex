@@ -1,0 +1,66 @@
+\assignment{6}{22/10}
+
+\setcounter{question}{1}
+\question Show that the inversion $f(z) = \frac1z$ maps a line $l$ passing through the origin to the line passing through the origin obtained by reflecting $l$ in the real axis. 
+Furthermore, show that $f$ maps any circle with center $0$ to another circle with center $0$. 
+Which circle with center $0$ is preserved by $f$?
+\begin{solution}
+    \[ l = \{\lambda(a + bi) \in \C: \lambda \in \R\} \]
+    where $a, b \in \R$ are constants. We have
+    \[ f(\lambda(a + bi)) = \frac1{\lambda(a^2 + b^2)} \cdot (a - bi). \]
+    Hence
+    \[ f(l) = \{ \lambda (a - bi) \in \C: \lambda \in \R\} \]
+    where $a, b \in \R$ are constants; as required.
+    Let $C = \{z \in \C: \abs{z} = r\}$ where $r \in \R$ is a constant.
+    Pick $z_1 = re^{i\theta_1} \in C$. 
+    Then
+    \[ f(z_1) = \left(\frac1r\right)e^{i(-\theta_1)}; \]
+    hence, 
+    \[ f(C) = \left\{z \in \C: \abs z = \frac1r\right\}. \]
+    The unit circle is preserved by $f$.
+\end{solution}
+
+\setcounter{question}{4}
+\question Find the image of the unit circle and the unit disc under the transformation
+\[ f(z) = w = \frac{(1 + i) z -1 - i}{z + 1}. \]
+\begin{solution}
+    \begin{align*}
+        f(1) &= 0 \\
+        f(-1) &= \infty \\
+        f(i) &= i - 1 \\
+        f(0) &= -i - 1.
+    \end{align*}
+    Hence, the unit circle is mapped to the line intersecting $0$ and $i - 1$.
+    We have that $0$ is mapped to $-i - 1$; therefore, the unit disc is mapped to
+    \[ \{ z \in \C: \Im(z) < - \Re(z) \}. \]
+\end{solution}
+
+\setcounter{question}{5}
+\question Is there a M\"obius transformation which maps the sides of the triangle with vertices at $-1$, $i$, and $1$ to the sides of an equilateral triangle? 
+Either give an example of such a M\"obius transformation, or explain why it is not possible.
+\begin{solution}
+    M\"obius transformations are conformal and so angle-preserving; hence, this is not possible.
+\end{solution}
+
+\setcounter{question}{7}
+\question Find the fixed points of the inverse Cayley map $M_{C^{-1}}$ (that is, the M\"obius transformation associated with the matrix $C^{-1} = \begin{pmatrix} i & i \\ -1 & 1 \end{pmatrix}$).
+\begin{solution}
+    We consider the equation
+    \[ \frac{iz + i}{-z + 1} = z \]
+    which solves to give the solutions
+    \[ z_1 = \left(\frac12 + \frac{\sqrt 3}2\right) + i\left(-\frac12 + \frac{\sqrt 3}2\right), \qquad z_2 = \left(\frac12 - \frac{\sqrt 3}2\right) + i\left(-\frac12 - \frac{\sqrt 3}2\right). \]
+\end{solution}
+
+\setcounter{question}{12}
+\question Find the M\"obius transformation taking the ordered set of points $\{0, 1 + i, -1 - i\}$ to the ordered set of points $\{1, -i, i\}$. 
+What is the image of the region $R = \{ x + iy: x - y \geq 0 \}$?
+\begin{solution}
+    This involves the tedious task of solving
+    \[ (z, 0; 1+i, -1-i) = (f(z), 1; -i, i) \]
+    which gives
+    \[ f(z) = \frac{z - 1 + i}{-z - 1 + i}. \]
+    From the construction of $f$, we know that it maps three points on the line $\{z : \Im(z) = \Re(z)\}$ to three points that are not colinear; 
+    therefore, the boundary line is mapped to a circle (as M\"obius transformations preserve circlines), that is, the unit circle.
+    $f(1) = \frac15 (1-2i)$ which is inside the unit disc.
+    Hence, $f$ maps $R$ to $\D$.
+\end{solution}

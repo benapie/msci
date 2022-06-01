@@ -1,0 +1,126 @@
+\chapter{Linear regression}
+
+\lecture{2}{20/1}
+
+\begin{definition}[Linear regression]
+    Let 
+    \[
+        D = \{y_i, x_{i1}, x_{i2}, \ldots, x_{ik}\}_{i=1}^n
+    \]
+    be a dataset with $k$ features and $n$ units
+    where $x_{ij} \in R_j$ and $y_i \in S$.
+    \textbf{Linear regression} is a method of finding the linear function
+    \[
+        \hat y: R_1 \times R_2 \times \ldots \times R_j \to S
+    \]
+    which best fits $D$
+    (the fit of a function is determined by some loss function).
+\end{definition}
+
+\begin{example}[Linear regression in 2 dimensions]
+    In 2 dimensions, our function will look like
+    \[ \hat y = b + w_1 x_1 \]
+    where
+    \begin{enumerate}
+        \item $\hat y$ is the predicted value;
+        \item $b$ is the \textbf{bias};
+        \item $w_1$ is the \textbf{weight} for the sole variable; and
+        \item $x_1$ is the sole feature.
+    \end{enumerate}
+\end{example}
+
+\begin{definition}[Loss function]
+    A \textbf{loss function} is a function $l: S \to \R$
+    is a function that maps an event or values of one or more variables
+    to a real number representing some \emph{cost} associated with the event.
+\end{definition}
+
+\begin{example}[Examples of loss functions]
+    \hfill
+    \begin{enumerate}
+        \item (L2 loss)
+            $\operatorname{L2}{(\hat y, y)} = (y - \hat y(\bm x))^2$
+
+        \item (Mean squared error)
+            $\operatorname{MSE}{(\hat y)} = \frac1{\abs D} \sum_{(y, \bm x) \in D} (y - \hat y(\bm x))^2$
+    \end{enumerate}
+    (Here $D$ denotes the set of labelled examples.)
+\end{example}
+
+\begin{definition}[Empirical risk minimisation]
+    In \textbf{empirical risk minimisation} we aim to minimise the risk
+    \[
+        R(\hat y) = E(l(\hat y(\bm x), y))
+    \]
+    where 
+    $l$ is a loss function, 
+    $\hat y(\bm x)$ is the predicted value on $\bm x$,
+    $y$ is the actual value, and
+    $E$ denotes the expected value.
+    That is, we want to find $\bar y^\star$ such that
+    \[
+        \hat y^\star = \argmin_{\bar y \in K} R(\bar y)
+    \]
+    where $K$ is a fixed class of functions.
+\end{definition}
+
+\begin{remark}
+    In the case of linear regression of $n$ variables.
+    \[
+        K = \{a_0 + a_1x_1 + a_2x_2 + \ldots + a_nx_n: a_n \in \R\}.
+    \]
+\end{remark}
+
+\begin{definition}[Hyperparameter]
+    A \textbf{hyperparameter} is a parameter who's value is
+    set before the learning processes begins, as opposed to
+    a parameter that is tuned throughout learning.
+\end{definition}
+
+The derivative of $(\hat y - y)^2$ with respect to the parameters
+(weights and bias) tells us how the loss changes for small changes
+in the parameters.
+We can use this to take small steps in the direction that minimises
+loss, this is called \textbf{gradient descent} and we call the steps
+\emph{gradient steps}.
+
+\begin{definition}[Gradient descent]
+    \textbf{Gradient descent} is an optimisation algorithm for 
+    finding a local minimum of a differentiable function.
+    Let $\bm F(\bm x)$ be a multivariate function defined on some neighbourhood of
+    a point $\bm a$.
+    Then consider the sequence $\{\bm a_n\}_{n=1}^\infty$ defined by
+    \[
+        \bm a_{n+1} = \bm a_n - \gamma \nabla F(\bm a)
+    \]
+    where $\gamma \in \R_+$ and $\bm a_0 = \bm a$.
+    For $\gamma$ small enough, we have $F(\bm a_{n+1}) \leq F(\bm a_n)$
+    and it is worth noting that with appropriate choice of $\gamma$
+    that $\bm a_n \to \bm a^\star$ where $\bm a^\star$ is a local minimum.
+\end{definition}
+
+We could calculate the gradient over the entire dataset at each step;
+however, a more efficient way is to pick a sample at random. %todo
+
+\begin{remark}
+    \hfill
+    \begin{enumerate}
+        \item 
+            For convex problems, it does not matter where we start as there is
+            only one minimum that we will eventually reach via gradient descent;
+            however, we will find that problems are not always convex and have
+            multiple local minimums that are \emph{not} global minimums.
+
+        \item 
+            If we pick a \emph{learning rate} (that is, how much we let the
+            gradient change our parameter) that is too small, it will too long
+            to computer.
+            Conversely, if we pick a learning rate too high we may overshoot our
+            minimum.
+            There is typically an \emph{optimum} learning rate defined as
+            \[ \frac1{f''(x)} \]
+            for a given point $x$ in one dimension.
+            For multiple dimensions, we use the reciprocal of the inverse of the
+            \emph{Hessian matrix}.
+    \end{enumerate}
+\end{remark}

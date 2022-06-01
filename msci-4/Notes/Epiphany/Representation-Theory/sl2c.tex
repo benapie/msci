@@ -1,0 +1,259 @@
+\section{$\sltwo$}
+
+The aims of this section are as follows.
+\begin{itemize}
+    \item Classify the irreducible, finite-dimensional, $\mathbb C$-linear representations of $\sltwo$.
+    \item Form methods for decomposing reducible representations of $\sltwo$.
+\end{itemize}
+
+We recap below.
+
+\begin{itemize}
+    \item Denote $\gl[n, \mathbb K]$ as the set of $n \times n$ matrices with entries in $\mathbb K$.
+    \item A \emph{linear Lie group} is a closed (in the topological sense) subgroup of $\GL_n(\mathbb C)$ for some $n \in \mathbb N$.
+    \item Let $X \in \gl[n, \mathbb C]$. Then
+          \[ \exp(X) = \sum_{n=0}^\infty \frac{X^n}{n!}. \]
+    \item The \emph{Lie algebra} $\mathfrak g$ of a linear Lie group $G$ is
+          \[ \mathfrak g = \{X \in \gl[n, \mathbb C]: \exp(\mathbb RX) \subset G\}. \]
+          We may consider the \emph{Lie functor}, $\Lie(-): \GL_2(\mathbb C) \to \gl[n, \mathbb C]$.
+    \item $\Lie(\SL_n(\mathbb K)) = \sl[n, \mathbb K] = \{X \in \gl[n, \mathbb K]: \tr(X) = 0\}$.
+\end{itemize}
+
+The \emph{standard basis} for $\sltwo$ is
+\[
+    H =
+    \begin{pmatrix}
+        1 & 0 \\ 0 & -1
+    \end{pmatrix}, \qquad
+    X =
+    \begin{pmatrix}
+        0 & 1 \\ 0 & 0
+    \end{pmatrix}, \qquad
+    Y =
+    \begin{pmatrix}
+        0 & 0 \\ 1 & 0
+    \end{pmatrix}.
+\]
+
+The idea here is to study representations $(\rho, V)$ of $\sltwo$ by looking at the eigenvectors and eigenvalues of $\rho(G)$.
+
+\subsection{Weights}
+
+\begin{definition}[Weight vector]
+    Let $(\rho, V)$ be a $\C$-linear representation of $\sltwo$. Then a \emph{weight vector} in $V$ is an eigenvector of $\rho(H)$. The eigenvalue is called the \emph{weight}.
+\end{definition}
+
+\begin{example}
+    \begin{enumerate}
+        \item Consider the trivial representation $(\rho, \mathbb C)$ where $\rho(A) = 0$ for all $A \in \sltwo$. Pick basis $e \in \mathbb C^\times$ for $\mathbb C$. We have $\rho(H) = 0$ and so the (sole) weight vector is $e$, and its weight is $0$.
+        \item Consider the standard representation $(\rho, \mathbb C^2)$, where $\rho(A) = A$ for all $A \in \sltwo$. So $\rho(H) = H$, so our weight vectors are $e_1, e_2$ with eigenvalues $1, -1$. Given that $e_1$ has weight $1$ and $e_2$ has weight $-1$, we may relabel $e_1 = e_1$ and $e_2 = e_{-1}$.
+        \item Consider the representation $(\ad, \sltwo)$. We examine how $\ad$ acts on the standard basis:
+              \begin{align*}
+                  \ad_H(X) = [H,X] & = 2X,  \\
+                  \ad_H(Y) = [H,Y] & = -2Y, \\
+                  \ad_H(H) = [H,H] & = 0.
+              \end{align*}
+              Thus we have weight vectors $X$, $Y$, and $H$ with weights $2$, $-2$, and $0$ respectively.
+        \item Consider the representation $(\rho, \C^2 \otimes \C^2)$ of $\sltwo$ which is the tensor of two standard representations. We pick the standard basis of $\C^2 \otimes \C^2$:
+              \[ e_1 \otimes e_1, e_1 \otimes e_2, e_2 \otimes e_1, e_2 \otimes e_2. \]
+              See that
+              \[ (\rho)(H)(e_1 \otimes e_1) = \rho(H)e_1 \otimes e_1 + e_1 \otimes \rho(H) e_1 = 2e_1 \otimes e_1. \]
+              In fact, we have the following lemma.
+              \begin{lemma}
+                  If $v$ is a weight vector of weight $\alpha$ and $w$ is a weight vector of weight $\beta$, then $v \otimes w$ is a weight vector of weight $\alpha + \beta$.
+              \end{lemma}
+              This can be seen by working through the above example. Thus our weights are $2$, $0$, $0$, and $-2$.
+        \item Consider the standard representation $(\rho, \Sym^k(\C^2))$ of $\sltwo$. We pick the basis $\{e_1^ae_{-1}^{k-a}: 0 \leq a \leq k\}$. Then
+              \begin{align*}
+                  \rho(H)(e_1^ae_{-1}^{k-a})
+                   & = \left(\rho(H)e_1^a\right)e_{-1}^{k-a} + e_1^a\left(\rho(H)e_{-1}^{k-a}\right) \\
+                   & = ae_1^ae_{-1}^{k-a} - (k-a) e_1^ae_{-1}^{k-a}                                  \\
+                   & = (2a-k) e_1^a e_{-1}^{k-a}.
+              \end{align*}
+              So $e_1^a e_{-1}^{k-a}$ is a weight vector with weight $2a - k$. Thus our weights are $\{-k, 2-k, 4-k, \ldots, k-4, k-2, k\}$.  For example, when $k = 5$ we get $\{-5, -3, -1, 1, 3, 5\}$ as our weights.
+    \end{enumerate}
+\end{example}
+
+We now look at how $\rho(X)$ and $\rho(Y)$ act on weight vectors. For a representation $(\rho, V)$ of $\sltwo$, let
+\[ V_\alpha = \{v \in V: \rho(H)v = \alpha v\} \]
+be the \emph{eigenspace} for $\rho(H)$ with eigenvalue $\alpha \in \C$. We note that we have the decomposition
+\[ V = \bigoplus_{\alpha} V_\alpha \]
+where we direct sum over the weights of $V$.
+
+\begin{proposition}
+    Let $(\rho, V)$ be a $\C$-linear representation of $\sltwo$. Let $\alpha$ be a weight of $V$. Then
+    \begin{align*}
+        \rho(X)V_\alpha & \subset V_{\alpha + 2}, \\
+        \rho(Y)V_\alpha & \subset V_{\alpha - 2}.
+    \end{align*}
+\end{proposition}
+
+We view $\rho(X)$ as a \emph{raising operator}, and $\rho(Y)$ as a \emph{lowering operator}.
+
+\begin{definition}[Highest weight vector]
+    Let $(\rho, V)$ be a representation of $\sltwo$. A \emph{highest weight vector} $v \in V$ is a weight vector such that $\rho(X)v = 0$. The weight of $v$ is the \emph{highest weight}.
+\end{definition}
+
+\begin{example}
+    \begin{enumerate}
+        \item Consider the standard representation $(\rho, \Sym^5(\mathbb C^2))$ of $\sltwo$. Here $v_5 = e_1^5$ is the highest weight, it can easily be checked that $\rho(X)v_5 = 0$.
+        \item Consider the tensor product of two standard representations $(\rho, \C^2 \otimes \C^2)$. We see that $e_1 \otimes e_1$ is a highest weight vector, but we also have another. We claim that $e_1 \otimes e_{-1} - e_{-1} \otimes e_1$ is a highest weight vector. Both $e_1 \otimes e_{-1}$ and $e_{-1} \otimes e_1$ have weight $0$, so $e_1 \otimes e_{-1} - e_{-1} \otimes e_1$ has weight $0$. But it can be checked that $\rho(X)$ kills $e_1 \otimes e_{-1} - e_{-1} \otimes e_1$.
+    \end{enumerate}
+\end{example}
+
+\subsection{Classification of representations of $\sltwo$}
+
+\begin{corollary}
+    Any finite-dimensional representation of $\sltwo$ has a highest weight vector.
+\end{corollary}
+
+\begin{theorem}
+    \begin{enumerate}
+        \item For every $k \in \N_0$, there is a unique $\C$-linear and finite-dimensional representation (up to isomorphism) of $\sltwo$ such that it has a highest weight vector of weight $k$.
+        \item Every finite-dimensional $\C$-linear irreducible representation of $\sltwo$ is isomorphic to one of the above representations.
+    \end{enumerate}
+\end{theorem}
+
+\begin{proof}
+    \begin{enumerate}
+        \item We can just consider $e_1^k \in \Sym^k(\C^2)$.
+        \item For this, we just show that $\Sym^k(\C^2)$ is irreducible. Let $W \subset \Sym^k(\C^2)$ be a subrepresentation. $W$ has a highest weight vector of the form $e_1^ae_{-1}^b$ with $a+b = k$, $a \geq 0$, and $b \leq k$. We also have $\rho(X)(e_1^ae_{-1}^b) = be_1^{a+1}e_{-1}^{b-1} \neq 0$ for $b > 0$. Thus $e_1^k$ is the unique highest weight vector in $\Sym^k(\C^2)$, so $e_1^k \in W$. We see that $W$ is invariant under $\rho(Y)$, and by repeated applications of $\rho(Y)$ we see that the entire basis of $\Sym^k(\C^2)$ is in $W$, and thus $W = \Sym^k(\C^2)$. Thus $\Sym^k(\C^2)$ is irreducible.
+    \end{enumerate}
+\end{proof}
+
+\begin{lemma}
+    Let $(\rho, V)$ be a $\C$-linear representation of $\sltwo$. If $v \in V$ is a highest weight vector with weight $k$. Then
+    \[ XY^mv = m(k-m+1)Y^{m-1}v \]
+    for all $m \in \N_0$.
+\end{lemma}
+
+\begin{lemma}
+    If $(\rho, V)$ is a finite-dimensional irreducible representation of $\sltwo$ and $v \in V$ is a highest weight vector with weight $k \in \N_0$, then
+    \[ V = \langle v, Yv, \ldots, Y^kv \rangle. \]
+\end{lemma}
+
+\begin{corollary}
+    If $(\rho, V)$ is a irreducible representation of $\sltwo$, then $\rho(H)$ is diagonalisable.
+\end{corollary}
+
+\subsection{Decomposing $\sltwo$}
+
+\begin{lemma}
+    Every $A \in \sltwo$ can be written uniquely as $X + iY$ for $X, Y \in \su[n]$.
+\end{lemma}
+
+\begin{proof}
+    We have $\su[n] = \{X \in \sl[n, \C]: X + X^\dagger = 0\}$. Write
+    \[ A = \frac12(A - A^\dagger) - \frac i2(A + A^\dagger). \]
+    Both components here are in $\su[n]$, and by arguing on the dimensions of $\sl[n, \C]$ and $\su[n]$ we see that this must be unique.
+\end{proof}
+
+\begin{lemma}
+    There is a bijection between the $\C$-linear representations of $\sl[n, \C]$ and the complex representations of $\su[n]$.
+\end{lemma}
+
+\begin{proof}
+    $\tilde\rho(X + iY) = \rho(X) + i\rho(Y)$.
+\end{proof}
+
+\begin{theorem}[Complete reducibility for $\sltwo$]
+    Let $V$ be a finite-dimensional $\C$-linear representation of $\sltwo$. Then
+    \[ V \cong \bigoplus_{i=1}^r V_i\]
+    where each $V_i$ is a irreducible representation.
+\end{theorem}
+
+\begin{proof}
+    By the previous lemma, it is enough to show that $V$ decomposes into irreducible representations of $\su[n]$. As $\SU(n)$ is simply connected, there is a representation $\hat\rho$ of $\SU(n)$ on $V$ whose derivative is $\rho$. $\su[n]$ is compact, so $\hat\rho$ decomposes (by Maschke's theorem). Finally, as $\su[n]$ is connected, so $\hat\rho$ decomposes on $\su[n]$.
+\end{proof}
+
+\subsection{Decomposing tensor products}
+
+We recall that
+\begin{align*}
+    \{\text{weights of $V \otimes W$}\}
+     & = \{\text{weights of $V$}\} + \{\text{weights of $W$}\},              \\
+    \{\text{weights of $\Sym^k(V)$}\}
+     & = \{\text{sum of unordered $k$-tuplets of weights of $V$}\},          \\
+    \{\text{weights of $\Lambda^k(V)$}\}
+     & = \{\text{sum of unordered $k$-tuplets of distinct weights of $V$}\}. \\
+\end{align*}
+
+For example, if a representation $(\rho, V)$ of $\sltwo$ has weights $\{-2,0,0,2\}$, then $\Lambda^2(V)$ has weights
+$\{-2,-2,0,0,2,2\}$. Recall we are using multisets here. Similarly, $\Lambda^3(V) = \{-2,0,0,2\}$.
+
+We now give a general method for decomposing tensor products into other representations.
+
+Given the multisets of weights of a representation $(\rho, V)$ of $\sltwo$:
+\begin{enumerate}
+    \item let $k$ be the biggest weight;
+    \item any weight vector $v \in V$ of weight $k$ must be a highest weight vector, thus
+          \[ \langle v, Yv, \ldots, Y^kv \rangle \cong \Sym^k(\mathbb C^2); \]
+    \item by complete reducibility
+          \[ V \cong \Sym^k(\mathbb C^2) \oplus V' \]
+          where $V'$ has the weights of $V$ with the weights $\{-k, -k+2, \ldots, k-2, k\}$ removed.
+\end{enumerate}
+
+\begin{theorem}
+    A representation $(\rho, V)$ of $\sltwo$ is determined up to isomorphism by its weights.
+\end{theorem}
+
+This theorem allows us to apply the above technique without worry.
+
+\begin{example}
+    Let $V = \Sym^2(\mathbb C^2)$ where $\mathbb C^2$ is the standard representation. We will decompose $V \otimes V$ into irreducible representations and irreducible subrepresentations. First, we first the weights of $V \otimes V$.
+    \begin{align*}
+        \{\text{weights of $V \otimes V$}\}
+         & = \{\text{weights of $V$}\} + \{\text{weights of $V$}\} \\
+         & = \{-2, 0, 2\} + \{-2, 0, 2\}                           \\
+         & = \{-4, -2, -2, 0, 0, 0, 2, 2, 4\}.
+    \end{align*}
+    We draw the following weight diagram.
+    \begin{center}
+        \begin{tikzpicture}
+            \node[weight] (0) {};
+            \node[mult1] at (0) {};
+            \node[mult2] at (0) {};
+            \node[mult3] at (0) {};
+            \node[below of=0] {0};
+
+            \node[weight] (-1) [left of=0] {};
+            \node[mult1] at (-1) {};
+            \node[mult2] at (-1) {};
+            \node[below of=-1] {-2};
+
+            \node[weight] (1) [right of=0] {};
+            \node[mult1] at (1) {};
+            \node[mult2] at (1) {};
+            \node[below of=1] {-4};
+
+            \node[weight] (-2) [left of=-1] {};
+            \node[mult1] at (-2) {};
+            \node[below of=-2] {2};
+
+            \node[weight] (2) [right of=1] {};
+            \node[mult1] at (2) {};
+            \node[below of=2] {4};
+        \end{tikzpicture}
+    \end{center}
+    So, using our method outlined above, we get the following.
+    \begin{center}
+        \begin{tikzpicture}
+            \node[weight] (0.0) {};
+            \node[weight] (0.-1) [left of=0.0] {};
+            \node[weight] (0.1) [right of=0.0] {};
+            \node[weight] (0.-2) [left of=0.-1] {};
+            \node[weight] (0.2) [right of=0.1] {};
+            \node [right=25mm] {$\Sym^4(\C^2)$};
+            
+            \node[weight] (A) [below of=0.0] {};
+            \node[weight] (1.-1) [left of=A] {};
+            \node[weight] (1.1) [right of=A] {};
+            \node [right=24mm of A] {$\Sym^2(\C^2)$};
+
+            \node[weight] (B) [below of=A] {};
+            \node [right=24mm of B] {$\C$};
+        \end{tikzpicture}
+    \end{center}
+    Now we decompose into subrepresentations. $V$ has basis $v_2 = e_1^2$, $v_0 = e_1e{-1}$, and $v_{-2} = e_{-1}^2$. We observe how $X$ and $Y$ acts on these.
+    $X(v_2) = 0$, $X(v_0) = v_2$, and $X(v_{-2}) = 2v_0$. Similarly $Y(v_2) = (2v_0)$, $Y(v_0) = v_{-2}$, and $Y(v_{-2}) = 0$. From here, it is easy to piece the highest weight vectors by looking at how $X$ acts on various combinations (or known highest weight vectors).
+\end{example}

@@ -1,0 +1,29 @@
+\chapter{What is a hard problem?}
+
+Throughout this section a problem is a decision problem unless otherwise stated.
+
+\begin{definition}
+    A problem is \textbf{efficiently solvable} (or \textbf{tractable}) if it can be solved by an algorithm of time complexity $O(n^k)$, for some $k$; that is, in polynomial-time. The complexity class of efficiently solvable problems is denoted $P$ (polynomial-time).
+\end{definition}
+
+\begin{remark}
+    The definition for efficiently solvable seems inappropriate due to the possibility of large factors hidden by the big-$O$ notation or for large values of $k$, however, problems that are within $P$ do not typically reach these cases.
+\end{remark}
+
+\begin{definition}
+    A decision problem is efficiently checkable if given a potential witness that some instance is a yes-instance, we can check in polynomial-time whether the witness is indeed a witness.
+    
+    Alternatively, we're allowed to guess with a polynomial-time algorithm to solve the problem.
+\end{definition}
+
+\begin{definition}
+    The complexity class $NP$ (non-deterministic polynomial-time) consists of those decision problems that are efficiently checkable.
+\end{definition}
+
+It is clear that $P\subset NP$, and one of the most fundamental problems in CompSCi is whether \[P=NP.\]
+
+\begin{definition}
+    If Y is an $NP$-complete problem then $P=NP$ if and only if $Y\in P$.
+\end{definition}
+
+

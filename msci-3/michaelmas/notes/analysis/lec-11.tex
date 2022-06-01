@@ -1,0 +1,189 @@
+%! TEX root = master.tex
+\lecture{11}{17/11}
+
+\begin{lemma}[]
+	Every interval is measurable.
+\end{lemma}
+
+\begin{proof}
+	It is infact enough to show that $(a, \infty)$ is measurable for every
+	$a \in \R$ since the set of measurable sets is a $\sigma$-algebra.
+	Now let $A \subset \R$, $a \in \R$, $A_1 = A \cap (a, \infty)$, and
+	$A_2 = A \cap (-\infty, a]$.
+	We must show that $
+		m^\star(A) \geq m^\star(A_1) + m^\star(A_2)
+	$.
+	If $m^\star(A) = \infty$ then we are done. Assume otherwise.
+	Let $\varepsilon > 0$, then there is a countable collection of open
+	intervals $\left\{
+		I_n
+	\right\}$ for which \[
+		\sum l(I_n) \leq m^\star(A) + \varepsilon.
+	\]
+	Let 
+	$I_n' = I_n \cap (a, \infty)$ 
+	and
+	$I_n'' = I_n \cap (-\infty, a]$.
+	Then
+	\[
+		l(I_n) = l(I_n') + l(I_n'') = m^\star(I_n') + m^\star(I_n'').
+	\]
+	Since $A_1 \subset \bigcup I_n'$, we have
+	\[
+		m^\star(A_1) \leq m^\star\left( 
+			\bigcup I_n' 
+		\right)
+		\leq \sum m^\star(I_n'),
+	\]
+	and
+	\[
+		m^\star(A_2) \leq m^\star\left( 
+			\bigcup I_n'' 
+		\right)
+		\leq \sum m^\star(I_n'').
+	\]
+	Hence
+	\begin{align*}
+		m^\star(A_1) + m^\star(A_2)
+		&\leq \sum \left( 
+			m^\star(I_n') + m^\star(I_n'') 
+		\right) \\
+		&= \sum l(I_n) \\
+		&\leq m^\star(A) + \varepsilon.
+	\end{align*}
+\end{proof}
+
+Every open set is the disjoint union of a countable number of open intervals.
+Hence, every open set is measurable.
+Furthermore, every closed set is measurable.
+The intersection of all $\sigma$-algebras in $\R$ that contain the open sets is a $\sigma$-algebra called the \emph{Borel $\sigma$-algebra}.
+Members of this collection are called \emph{Borel sets}.
+As the collection of measurable sets contains all open sets and is a
+$\sigma$-algebra, every Borel set is measurable.
+
+\begin{definition}[$G_\delta$ and $F_\sigma$ sets]
+	A countable intersection of open sets is called a
+	\emph{$G_\delta$ set}.
+	A countable union of open sets is called a
+	\emph{$F_\sigma$ set}.
+\end{definition}
+
+Clearly all $G_\delta$ sets and $F_\sigma$ sets are measurable.
+
+\begin{theorem}[]
+	The collection of measurable sets is a $\sigma$-algebra that contains
+	the $\sigma$-algebra of Borel sets.
+	Each interval, each open set, each closed sets, each $G_\delta$, and each
+	$F_\sigma$ set is measurable.
+\end{theorem}
+
+\begin{proposition}[]
+	The translation of a measurable set is measurable.
+\end{proposition}
+
+\begin{proof}
+	Let $E$ be a measurable set,
+	$A \subset \R$, and $y \in \R$.
+	By the measurability of $E$ and the translation invariance of outer
+	measure, we have
+	\begin{align*}
+		m^\star(A)
+		&= m^\star(A - y) \\
+		&= m^\star((A - y) \cap E)
+			+ m^\star((A - y) \cap E^c) \\
+		&= m^\star(A \cap (E + y)) + m^\star(A \cap (E^c + y)).
+	\end{align*}
+	Therefore, $E + y$ is measurable.
+\end{proof}
+
+\subsection{Regularity of measurable sets}
+
+Measurable sets possess the following \emph{excision} property:
+if $A$ is a measureable set of finite outer measure and 
+$A \subset B \subset \R$, then
+\[
+	m^\star\left( 
+		B \setminus A 
+	\right) = m^\star(B) - m^\star(A).
+\]
+Indeed, by the measurability of $A$,
+\begin{align*}
+	m^\star(B) 
+	&= m^\star(B \cap A) + m^\star(B \cap A^c) \\
+	&= m^\star(A) + m^\star(B \setminus A).
+\end{align*}
+
+\begin{proposition}[]
+	Let $E \subset \R$.
+	The following statements are equivalent.
+	\begin{enumerate}
+		\item $E$ is measurable.
+		\item For every $\varepsilon > 0$ there is an open set $G$ with
+			$E \subset G$ and $m^\star(G \setminus E) < \varepsilon$.
+		\item For every $\varepsilon > 0$ there is a closed set $F$ with
+			$F \subset E$ and $m^\star(E \setminus F) < \varepsilon$.
+		\item There is $G \subset G_\delta$ with $E \subset G$ and
+			$m^\star(G \setminus E) = 0$; and
+		\item There is $F \in F_\sigma$ with $F \subset E$ and
+			$m^\star(E \setminus F) = 0$.
+	\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+	$(i) \implies (ii)$: let $E$ be measurable with $m^\star(E) < \infty$.
+	Given $\varepsilon > 0$, there is a countable collection $\left\{
+		I_n
+	\right\}$ such that $\sum l(I_n) \leq m^\star(E) + \varepsilon$.
+	$O = \bigcup I_n$ is an open, $O \supset E$, and
+	\begin{align*}
+		m^\star(O \setminus E)
+		&= m^\star\left( 
+			\bigcup I_n 
+		\right) - m^\star(E) \\
+		&\leq \sum l(I_n) - m^\star(E) \\
+		&\leq \varepsilon.
+	\end{align*}
+	Suppose now $m^\star(E) = \infty$.
+	For each $n$, let $E_n = [-n,n] \cap E$.
+	By a similar argument to before, there is $O_n$ such that
+	$O_n \supset E_n$, $m^\star(O_n \setminus E_n) < \frac{\varepsilon}{2^n}$.
+	Let $O = \bigcup O_n$.zealios v2 67g
+	Then $O \supset E$ and
+	\[
+		m^\star(O \setminus E)
+		= m^\star\left( 
+			 \bigcup(O_n \setminus E_n)
+		\right)
+		< \varepsilon.
+	\]
+
+	$(ii) \implies (iv)$: for every $n \in \N$ there is an open set $O_n$
+	such that $O_n \supset E$ and $m^\star(O_n \setminus E) < \frac1n$.
+	Let $G = \cap O_n$.
+	Then $G \supset E$ and 
+	$m^\star(G \setminus E) \leq m^\star(O_n \setminus E) \leq \frac{1}{n}$.
+	Thus $m^\star(G \setminus E) = 0$.
+
+	$(iv) \implies (i)$: there is $G \in G_\delta$ such that $G \supset E$
+	and $m(G \setminus E) = 0$.
+	$G$ and $G \setminus E$ are measurable sets, so
+	$E = G \setminus (G \setminus E)$ is measurable.
+
+	$(i) \implies (iii)$: suppose $E$ is measurable, then $E^c$ is measurable.
+	For every $\varepsilon > 0$ then there is an open $G$ such that
+	$E^c \subset G$ and $m^\star(G \setminus E^c) < \varepsilon$.
+	Let $F = G^c$, then $F$ is closed,
+	$F \subset E$, and
+	$m^\star(E \setminus F) = m^\star(E \setminus G^c) = m^\star(E \cap G)
+	< \varepsilon$.
+
+	$(iii) \implies (v)$: for every $n \in \N$ there is a closed set $F_n$
+	such that $F_n \subset E$ and $m^\star(E \setminus F_n) < \frac1n$.
+	Thus $m^\star(E \setminus F) = 0$.
+
+	$(v) \implies (i)$: there is $F \in F_\sigma$ such that $F \subset E$
+	and $m^\star(E \setminus F) = 0$.
+	$F$ and $E \setminus F$ are measurable, so $E = F \cup (E \setminus F)$
+	is a measurable set.
+\end{proof}
+

@@ -1,0 +1,26 @@
+\pc{4}{6/12}
+
+\question Give a top-down with memoization algorithm for the longest common subsequence problem. 
+The algorithm should only retyrn the length of an LCS, it need not keep track of the actual subsequence. 
+In other words, it only uses the table $c$, but not the table $b$.
+
+\question A \emph{palidrome} is a nonempty string that reads the same forward and backward, such as \texttt{racecar} or \texttt{rotor}. 
+The longest palindrome subsequence (LPS) problem asks for a longest palindrome subsequence of a given sequence.
+\begin{parts}
+    \part Show how to use the LCS algorithm to solve the LPS problem.
+
+    \part Give the optimal substructure for the LPS problem. (No need to prove it formally)
+    
+    \part Give the recursion for the length of an LPS.
+
+    \part Give a bottom-up algorithm to determine an LPS.
+
+    \part Give an algorithm to print out the LPS.
+\end{parts}
+
+\question A matching $M$ in a graph $G$ is \emph{maximal} if there is no edge $e \in E(G) \setminus M$ such that $M \cup \{e\}$ is a matching.
+Prove that every maximum matching is maximal, 
+but that the reverse may not be necessarily true.
+
+\question Give a $2$-approximation algorithm for the \textsc{Matching} problem on graphs with $m$ edges that runs in $O(m)$ time. 
+That is, give an $O(m)$-time algorithm that for a given $m$-vertex graph $G$ computes a matching $M$ of $G$ such that $v(G) \leq 2 \lvert M \rvert$.

@@ -1,0 +1,159 @@
+%! TEX root = master.tex
+\lecture{6}{23/10}
+
+\begin{proposition}[]
+	Let
+	$ \left\{ F_n : n \in \N \right\} $
+	be a collection of non-empty nested closed sets, one of which is bounded.
+	Then
+	\[
+		\bigcap_{n \in \N} F_n \neq \varnothing.
+	\]
+\end{proposition}
+
+\begin{proof}
+	By contradiction, assume that 
+	$\bigcap_{n \in \N} F_n = \varnothing$.
+	Then $\left( \bigcap_{n \in \N} F_N \right)^c = \R$
+	and so $\bigcup_{n \in \N} F_n^c = \R$.
+	Assume, without loss of generality, that $F_1$ is bounded.
+	As $F_1$ is also closed, then
+	\[
+		F_1 \subset \bigcup_{i=1}^m F_{n_i}^c = F_{n_m}^c.
+	\]
+	and so $F_1 \cap F_{n_m} = \varnothing$;
+	a contradiction to our nested property.
+\end{proof}
+
+\subsection{The Cantor set}
+
+\begin{definition}[Accumulation point]
+	A point $x \in \R$ is called an \emph{accumation point} 
+	of a set $E \subset \R$ if $x$ is a point of closure
+	of $E \setminus \left\{ x \right\}$.
+	The set of accumation points of $E$ is denoted $E'$.
+\end{definition}
+
+\begin{proposition}[]
+	Let $E \subset \R$.
+	Then $E'$ is closed and $\overline E = E \cup E'$.
+\end{proposition}
+
+\begin{proof}
+	Let $x \in \overline{E'}$ and $\varepsilon > 0$.
+	Then there is $y \in E'$ such that
+	$\left\lvert x - y \right\rvert < \frac12\varepsilon$.
+	Now as $y$ is an accumulation point of $E$ there is
+	$z \in E \setminus \left\{ y \right\}$ such that
+	$\left\lvert y - z \right\rvert < \frac{1}{2} \varepsilon$.
+	Thus
+	\[
+		\left\lvert x - z \right\rvert
+		\leq \left\lvert x - y \right\rvert
+		+ \left\lvert y - z \right\rvert
+		< \varepsilon
+		\implies x \in E'.
+	\]
+
+	Now we show that $\overline E = E \cup E'$.
+	Let $x \in E'$.
+	The for all $\delta > 0$ there is 
+	$y \in E \setminus \left\{ x \right\} \subset E$
+	such that
+	$\left\lvert x - y \right\rvert < \delta$.
+	This implies that $x \in \overline E$.
+	Therefore $E' \subset \overline E$.
+	So $E \cup E' \subset \overline E$,
+	we have left to show that $\overline E \subset E \cup E'$.
+	Take $x \in \overline E$.
+	If $x \in E$, we are done.
+	Now assume $x \not\in E$.
+	Hence for every $\delta > 0$ there is 
+	$y \in E \setminus \left\{ x \right\}$ such that
+	$\left\lvert x - y \right\rvert < \delta$;
+	the definition of an accumulation point!
+\end{proof}
+
+\begin{definition}[The Cantor set]
+	The Cantor set $\mathcal C$ can be created by iteratively
+	deleting the middle third from a set of line segments.
+	One starts by deleting the middle third
+	$\left( \frac13, \frac23 \right)$, leaving
+	$\left[ 0, \frac13 \right] \cup \left[\frac23, 1\right]$.
+	Then the open middle third of each of these remaining segments is deleted.
+	This process is continued ad infinitum.
+\end{definition}
+
+\begin{theorem}[]
+	The Cantor set $\mathcal C$ satisfies the following:
+	\begin{enumerate}
+		\item $\mathcal C$ is closed and non-empty;
+		\item $C' = C$;
+		\item there is a function $f$ from $\mathcal C$
+			to $[0,1]$ that is surjective; and
+		\item $\mathcal C$ may be covered by unions of intervals of 
+			arbitrarily small total length.
+	\end{enumerate}
+\end{theorem}
+
+\section{Continuous functions of $\R$}
+\subsection{Continuity}
+
+\begin{definition}[Continuous function]
+	Suppose $E \subset \R$.
+	We say that a function $f: E \to \R$ is \emph{continuous}
+	at $e \in E$ if
+	for every $\varepsilon > 0$ there is $\delta > 0$
+	such that
+	\[
+		\left\lvert x - e \right\rvert < \delta
+		\implies \left\lvert f(x) - f(e) \right\rvert < \varepsilon
+	\]
+	for every $x \in E$.
+	$f$ is said to be \emph{continuous} if for every $e \in E$,
+	$f$ is continuous at $e$.
+\end{definition}
+
+\begin{definition}[Limit of a function]
+	Let $E \subset \R$, $f: E \to \R$, and $e \in E$.
+	We write $\lim_{x \to e} f(x) = l$
+	if for every $\varepsilon > 0$
+	there is $\delta > 0$ such that
+	\[
+		\left\lvert x - e \right\rvert < \delta
+		\implies \left\lvert f(x) - l \right\rvert < \varepsilon.
+	\]
+\end{definition}
+
+\begin{proposition}[]
+	Let $E \subset \R$, $f: E \to \R$ and $e \in E$.
+	Then
+	\[
+		l = \lim_{x \to e} f(x)
+	\]
+	if and only if for every
+	$ \left\{ a_n \right\}_{n \in \N} $
+	with $a_n \to e$, we have $f(a_n) \to l$.
+\end{proposition}
+
+\begin{proof}
+	$(\implies)$: let $\varepsilon > 0$. 
+	Then there exists $\delta > 0$ such that
+	$
+		\left\lvert x - e \right\rvert < \delta
+		\implies \left\lvert f(x) - l \right\rvert < \varepsilon
+	$. Since $a_n \to e$, there is $N \in \N$ such that for every $n \geq N$,
+	$\left\lvert a_n - e \right\rvert < \delta$.
+	So $\left\lvert f(a_n) - l \right\rvert < \varepsilon$.
+	
+	$(\impliedby)$: let $\varepsilon > 0$.
+	Then by definition there is $\delta > 0$
+	and $N \in \N$ such that for every $n \geq N$
+	with $\left\lvert a_n - e \right\rvert < \delta$,
+	then $\left\lvert f(a_n) - l \right\rvert < \varepsilon$.
+	Therefore, for all $x \in E$ with $\left\lvert x - e \right\rvert < \delta$
+	we have $\left\lvert f(x) - l \right\rvert < \varepsilon$.
+\end{proof}
+
+A function $f: E \subset \R \to \R$ is continuous at $e \in E$
+if $\lim_{x \to e} f(x) = f(e)$.

@@ -1,0 +1,91 @@
+\section{Subrings}
+\lecture{3}{15/10}
+
+\begin{definition}[Subring]
+    A subring $S$ in a ring $R$ is a subset $S \subset R$ such that
+    \begin{enumerate}
+        \item (identity) $0, 1 \in S$;
+        \item (closure under addition) $\;\forall\; a, b \in S$, $a + b \in S$;
+        \item (closure under multiplication) $\;\forall\; a, b \in S$, $ab \in S$; and
+        \item (addition inverse) $\;\forall\; a \in S$, $-a \in S$.
+    \end{enumerate}
+\end{definition}
+
+\begin{remark}
+    Any subring $S \subset R$ is equipped with the same $+$ and $\cdot$ operators of $R$.
+\end{remark}
+
+\begin{example}
+    It can be easily shown that $\Q$ is a subring of $\Q[x]$.
+\end{example}
+
+\begin{example}
+    Consider
+    \[ \Z[\sqrt 2] = \{ a + b\sqrt 2 : a, b \in \Z \} \subset \R. \]
+    This may not be immediately obvious, but this is a subring of $\R$.
+\end{example}
+
+\begin{example}
+    Consider 
+    \[ R = \Z / 6 = \{ \bar 0, \bar 1, \bar 2, \bar 3, \bar 4, \bar 5 \} \]
+    and
+    \[ S = \{ \bar 0, \bar 2, \bar 4 \} \subset R. \]
+    As $\bar 1 \not \in S$, it is not a subring of $R$. This is the only criteria it fails. However, $S$ can be made into a ring itself with $\bar 0$ as the additive identity and $\bar 4$ as the multiplicative identity. Even though this is the case, it is not a subring of $R$ as it does not share the same multiplicative identity.
+\end{example}
+
+\begin{remark}
+    The above example illustrates an interesting point that rings can be contained with other rings and not be considered a subring. 
+\end{remark}
+
+\section{Fields}
+
+We saw earlier that $\Q$, $\R$, and $\C$ are fields but we did not formally define the concept.
+
+\begin{definition}[Field] 
+    A ring $R$ is called a \textbf{field} if
+    \begin{enumerate}
+        \item $R$ is a commutative ring;
+        \item $\;\forall\; a \in R$ where $a \neq 0$ there exists $a^{-1} \in R$ such that $aa^{-1} = 1$.
+    \end{enumerate}
+\end{definition}
+
+\begin{example}
+    Consider the commutative ring $\Q$. For all $a, b \in \Q$ where $a, b \neq 0$ we have that
+    \[ \frac ab \cdot \frac ba = 1 \] 
+    and hence
+    \[ \frac ab = \left(\frac ba\right)^{-1}; \]
+    therefore, $\Q$ is a field.
+\end{example}
+
+Looking at the example above, we use the notation 
+\[ \frac ab = ab^{-1} \] for $a, b \in F$ where $F$ is a field and $b \neq 0$. This operation is called \textbf{division} (surely introducted before).
+
+\begin{definition}[Zero divisor]
+    An element $a \in R$ of a ring $R$ is called a \textbf{zero divisor} if there exists $b \in R$ where $b \neq 0$ such that 
+    \[ ab = 0. \]
+\end{definition}
+
+\begin{example}
+    $\bar 2 \in \Z/6$ and $\bar 2 \cdot \bar 3 = \bar 6 = \bar 0$ hence $\bar 2$ is a zero divisor of $\Z / 6$. In fact, $\bar 3$ is too.
+\end{example}
+
+\begin{example}
+    Consider
+    \[ A = \begin{pmatrix} 0 & 1 \\ 0 & 0 \end{pmatrix} \in M_2(\Q). \]
+    As
+    \[ A^2 = \begin{pmatrix} 0 & 0 \\ 0 & 0 \end{pmatrix} \] 
+    $A$ is a zero divisor of $M_2(\Q)$.
+\end{example}
+
+\begin{example}
+    For all rings $R$, $0 \in R$ is a zero divisor as long as $0 \neq 1$.
+\end{example}
+
+\begin{example}
+    Let $F$ be a field and $a \in F$ be a zero divisor. Let $b \in F$ where $b \neq 0$. Then
+    \begin{align*}
+        ab &= 0 \\
+        (ab)b^{-1} &= 0 \cdot b^{-1} \\
+        a \cdot 1 &= a = 0.
+    \end{align*}
+\end{example}

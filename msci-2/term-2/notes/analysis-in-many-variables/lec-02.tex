@@ -1,0 +1,148 @@
+\lecture{2}{14/1}
+
+The \emph{inverse function theorem} says that this invertibility can extend
+beyond the linear approximation.
+
+\begin{theorem}[Inverse function theorem]
+    Let $U \subset \R^n$ be open, $\bm v: U \to \R^n$ be a differentiable
+    vector field with continuous partial derivatives, and $\bm a \in U$.
+    Then provided $\det(\bm J_{\bm v}(\bm a)) \neq 0$, there exists an open set
+    $\tilde U \subset U$ containing $\bm a$ such that
+    \begin{enumerate}
+        \item $\bm v(\tilde U)$ is open; and
+        \item the mapping $\bm v$ from $\tilde U$ to $\bm v(\tilde U)$ has a
+            differentiable inverse.
+    \end{enumerate}
+\end{theorem}
+
+When we say that a mapping $\bm v$ from $\bm U$ to $\bm v(\tilde U)$ has a
+differentiable inverse, 
+we mean that there exists a differential vector field 
+$\bm w: \bm v(\tilde U) \to U$ 
+such that 
+$\bm w(\bm v(\bm x)) = \bm x$
+and 
+$\bm v(\bm w(\bm y)) = \bm y$ 
+for all 
+$x \in \tilde U$ and $y \in \bm v(\tilde U)$.
+
+\begin{definition}[Diffeomorphism]
+    Let $U, V \subset \R^n$ be open.
+    A differentiable mapping $\bm F: U \to V$ is called a \textbf{diffeomorphism}
+    if
+    \begin{enumerate}
+        \item it is a bijection; and
+        \item its inverse $\bm F^{-1}$ is differentiable.
+    \end{enumerate}
+    If such a differentiable mapping exists, $U$ and $V$ are said to be \textbf{diffeomorphic}.
+\end{definition}
+
+We can extend this idea to be more general.
+
+\begin{definition}[Local diffeomorphism]
+    Let $U, V \subset \R^n$ be open.
+    A differntiable mapping $\bm F: U \to V$ is called a \textbf{local diffeomorphism}
+    if for all $\bm x \in U$ there exists and open set $U' \subset U$ containing $x$ such that
+    $V' = \bm F(U')$ is open in $V$ and $\bm F$ is a diffeomorphism from $U'$ to $V'$.
+    If such a mapping exists we say that $U$ and $V$ are locally diffeomorphic.
+\end{definition}
+
+\begin{remark}
+    In general, suppose
+    \[ \bm v: U \to V \subset \R^n, \qquad \bm w: V \to W \subset \R^n \]
+    with $U,V$ both open in $\R^n$ and that $\bm v, \bm w$ are continuously
+    differentiable vector fields.
+    Then $\bm x \to \bm w(\bm v(\bm x))$ is a mapping $U \to W \subset \R^n$
+    and its differential can be found using the chain rule:
+    \begin{align*}
+        D\bm w(\bm v(\bm x))
+        &= \begin{pmatrix}
+            \frac{\partial w_1(\bm v(\bm x))}{\partial x_1} & 
+            \frac{\partial w_1(\bm v(\bm x))}{\partial x_2} & 
+            \ldots & 
+            \frac{\partial w_1(\bm v(\bm x))}{\partial x_n} \\            
+            \frac{\partial w_2(\bm v(\bm x))}{\partial x_1} & 
+            \frac{\partial w_2(\bm v(\bm x))}{\partial x_2} & 
+            \ldots & 
+            \frac{\partial w_2(\bm v(\bm x))}{\partial x_n} \\
+            \vdots & \vdots & \ddots & \vdots \\
+            \frac{\partial w_n(\bm v(\bm x))}{\partial x_1} & 
+            \frac{\partial w_n(\bm v(\bm x))}{\partial x_2} & 
+            \ldots & 
+            \frac{\partial w_n(\bm v(\bm x))}{\partial x_n} \\
+        \end{pmatrix} \\
+        &= \begin{pmatrix}
+            \sum_j \left(\frac{\partial w_1}{\partial v_j}\frac{\partial v_j}{\partial x_1}\right) &
+            \ldots &
+            \sum_j \left(\frac{\partial w_1}{\partial v_j}\frac{\partial v_j}{\partial x_n}\right) \\
+            \vdots & \ddots & \vdots \\
+            \sum_j \left(\frac{\partial w_n}{\partial v_j}\frac{\partial v_j}{\partial x_1}\right) &
+            \ldots &
+            \sum_j \left(\frac{\partial w_n}{\partial v_j}\frac{\partial v_j}{\partial x_n}\right) \\
+        \end{pmatrix} \\
+        &= \begin{pmatrix}
+            \frac{\partial w_1}{\partial v_1} &
+            \ldots &
+            \frac{\partial w_1}{\partial v_n} \\
+            \vdots & \ddots & \vdots \\
+            \frac{\partial w_n}{\partial v_1} &
+            \ldots &
+            \frac{\partial w_n}{\partial v_n} \\
+        \end{pmatrix}
+        \begin{pmatrix}
+            \frac{\partial v_1}{\partial x_1} &
+            \ldots &
+            \frac{\partial v_1}{\partial x_n} \\
+            \vdots & \ddots & \vdots \\
+            \frac{\partial v_n}{\partial x_1} &
+            \ldots &
+            \frac{\partial v_n}{\partial x_n} \\
+        \end{pmatrix} \\
+        &= D\bm w(\bm v) D\bm v(\bm x).
+    \end{align*}
+    For the special case when $\bm v$ is a local diffeomorphism and
+    $\bm w$ is its inverse map, 
+    \[\bm w(\bm v(\bm x)) = 
+        \bm x \implies D\bm w \cdot D\bm x = 
+        D\bm x(\bm x) = I_n. \]
+    Likewise,
+    \[ \bm v(\bm w(\bm y)) = 
+        \bm y \implies D\bm w \cdot D\bm x = 
+        D\bm x(\bm x) = I_n. \]
+    Hence, $D\bm v$ is an invertible matrix with inverse $D\bm w$. 
+    Therefore, 
+    \[
+        \det(D\bm w) = \frac1{\det(D\bm v)}.
+    \]
+\end{remark}
+
+\begin{definition}[]
+    A diffeomorphism $\bm v$ is called
+    \begin{enumerate}
+        \item \textbf{orientation preserving} if $\det(\bm J_{\bm v}) > 0$: and
+        \item \textbf{orientation reversing} if $\det(\bm J_{\bm v}) < 0$.
+    \end{enumerate}
+\end{definition}
+
+\begin{example}
+    Let
+    \[
+        \bm v(\bm x) =
+        \begin{pmatrix}
+            x^2 - y^2 \\
+            2xy \\
+        \end{pmatrix}
+        .
+    \]
+    Then
+    \[ \det(\bm J_{\bm v}) = 4(x^2 + y^2) > 0 \]
+    for all $(x, y) \neq \bm 0$.
+    Then $\bm v: \R^2 \setminus \{\bm 0\} \to \R^2$ is an orientation
+    preserving local diffeomorphism;
+    however, it is not global since
+    \[ \bm v(-\bm x) = \bm v(\bm x) \]
+    there is no global inverse mapping.
+    But $\bm v$ does map $\{(x, y): x > 0\}$ onto
+    $\R^2 \setminus \{(x, 0): x \leq 0\}$
+    diffeomorphically.
+\end{example}

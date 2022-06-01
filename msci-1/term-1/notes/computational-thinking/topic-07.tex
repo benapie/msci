@@ -1,0 +1,69 @@
+\chapter{Algorithm analysis}
+
+\begin{definition}
+    The \textbf{analysis of algorithms} is the consideration of algorithms from the point of view of how good they are in respect some resource.
+\end{definition}
+
+We choose to analyse algorithms instead of implementations as the implementation of any given algorithm will vary in performance depending on programming language and 
+
+To able to measure the time taken by an algorithm we make a fundamental assumption that variables can be manipulated in a small, fixed number $c$ units of time, as can basic operations involving variables. The actual value of $c$ is reflective of the actual processor upon which the algorithm is eventually implemented and executed on. Basic list components treated in the same way as variables.
+
+\begin{example}
+    Using the assumption above, we can analyse the time taken for a simple selection sort, defined by the algorithm below.
+    \begin{verbatim}
+pass = 0
+while pass < n-1:
+    x = A[pass]
+    i = pass + 1
+    while i <= n - 1:
+        if a[i] < x:
+            swap x and A[i]
+        i = i + 1
+    a[pass] = x
+    pass = pass + 1
+output k
+    \end{verbatim}
+    
+    Suppose the input list is $[4,3,6,5]$. We can see that the total time taken for this algorithm is $47c$ units of time.
+\end{example}
+
+\begin{remark}
+    There are an infinite number of different inputs to selection sort and we have only calculated the time taken on one of them. We would like a worst-case upper-bound $b$ so that no matter what our input, selection sort always terminates in $b$ units of time.
+    
+    This is not possible, but we can express our worst-case upper-bound as a function $f:\mathbb N\mapsto\mathbb N$ so that any input of size $n$ is such that selection sort terminates in at most $f(n)$ units of time. 
+
+    Our fundamental assumption is that the size of an input is the number of basic objects it contains and the time taken by an algorithm is strongly influenced by and increases with input size.
+\end{remark}
+
+\begin{example}
+    Fix the size of the input to a selection sort at $n$, we can see that
+    \begin{enumerate}
+        \item on each loop of the outer while loops, pass is incremented by 1;
+        \item on each loop of the inner while loop, i is incremented by 1;
+        \item on the first iteration of the outer while loop, the inner while loop iterates $n-1$ times, then on the second iteration of the outer while loop, the inner while loop iterates $n-2$ times, and so on.
+    \end{enumerate}
+    From this, we see the total number of iterations on the outer while loop is $n-1$ and the total number of iterations on the inner while loop is $(n-1)+(n-2)+\ldots+1=\frac12(n)(n-1)$.
+\end{example}
+
+\begin{definition}[Big-$O$ notation]
+    For two functions $f,g:\mathbb N\mapsto\mathbb N$, we write $f=O(g)$ if there exists $n_0\in\mathbb N$ and $k\in\mathbb Q$ such that $f(n)\leq kg(n)$ whenever $n\geq n_0$.
+\end{definition}
+
+\begin{example}
+    Following are some examples of Big-$O$ notation.
+    
+    \begin{enumerate}
+        \item $2^{100}x^3=O(x^3)$;
+        \item $34n^3=O(n^5)$; 
+        \item $2034n^{789}=O(2^n)$; and
+        \item $a_in^i+a_{i-1}n^{i-1}+\ldots+a_1n+a_0=O(n^i)$.
+    \end{enumerate}
+\end{example}
+
+\begin{definition}[Big-$\Omega$ notation]
+    For two functions $f,g:\mathbb N\mapsto\mathbb N$, we write $g=\Omega(f)$ if there exists $n_0\in\mathbb N$ and $k\in\mathbb Q$ such that $g(n)\geq kf(n)$ whenever $n\geq n_0$.
+\end{definition}
+
+\begin{definition}[Big-$\Theta$ notation]
+    For two functions $f,g:\mathbb N\mapsto\mathbb N$, we write $f=\Theta(g)$ if, and only if, $f=O(g)$ and $f=\Omega(g)$.
+\end{definition}

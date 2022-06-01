@@ -1,0 +1,117 @@
+\lecture{14}{19/2}
+
+\begin{example}
+    Let 
+    \[
+        f(z) = \frac{\tan z}{z} = \frac{\sin z}{z \cos z}.
+    \]
+    $f$ is holomorphic when $z \neq 0$ and $\cos z \neq 0$.
+    That is, on
+    \[
+        D = \C \setminus \left( \{0\} \cup \left\{\frac\pi2 + k\pi: k \in \Z\right\}\right).
+    \]
+    $f$ is zero when $\sin z = 0$ and $z \in D$.
+    That is, $z = \pi n$ for $n \in \Z \setminus \{0\}$.
+    \[
+        f'(z) = \frac{\sin^2z}{z} - \frac{\tan z}{z^2},
+    \]
+    and if $n \in \Z$ then $f(n\pi) = 0$ and 
+    $f'(n\pi) = \frac{1}{n\pi} - \frac{0}{n^2\pi^2} \neq 0$
+    and so $f$ has a zero of order $1$ (simple zero) at each $n \pi$ for 
+    $n \in \Z \setminus \{0\}$.
+    We have
+    \[
+        \lim_{z \to 0} z f(z) = \tan{0} = 0
+    \]
+    and so $f$ has a removable singularity at $z = 0$.
+    Let $h(z) = \frac{1}{f(z)}$.
+    So
+    \[
+        h(z) = \frac{z\cos z}{\sin z}
+    \]
+    which is holomorphic if and only if $\sin z \neq 0$, that is, on
+    \[
+        D = \C \setminus \{n\pi: n \in \Z\}.
+    \]
+    Therefore, $h$ is holomorphic near each $\frac\pi2 + k\pi$.
+    Then
+    \[
+        h\left(\frac\pi2 + k\pi\right) = 0
+    \]
+    so $f$ has a pole at each $\frac\pi2 + k\pi$.
+    \[
+        h'(z) = -z \csc^2z + \cot z
+    \]
+    so
+    \[
+        h'\left(\frac\pi2 + k\pi\right) = -\left(\frac\pi2 + k\pi\right) \neq 0
+    \]
+    and so $h$ has a zero of order $1$ at each $\frac\pi2 + k\pi$
+    and so $f$ has a pole of order $1$ at each $\frac\pi2 + k\pi$.
+\end{example}
+
+\begin{proposition}[]
+    A function $f$ has a pole at $a$ if and only if
+    \[
+        \lim_{z \to a} \abs{f(z)} = \infty.
+    \]
+\end{proposition}
+
+\section{Essential singularities}
+
+\begin{theorem}[Casorati-Weierstrass]
+    Let $R > 0$, $a \in \C$, and $f$ be holomorphic on $B_R^\star(a)$
+    with an essential singularity at $a$.
+    Then for all $w \in \C$, for all $r$ such that $0 < r < R$ and for all $\varepsilon > 0$
+    there exists $z \in B_r^\star(a)$ such that $f(z) \in B_\varepsilon(w)$.
+\end{theorem}
+
+\begin{theorem}[Big Picard]
+    Let $R > 0$, $a \in \C$, and $f$ be holomorphic $B_R^\star(a)$
+    with an essential singularity at $a$.
+    Then there exists $b \in \C$ such that for all $r$ with $0 < r < R$
+    \[
+        f(B_r^\star(a)) \supset \C \setminus \{b\}.
+    \]
+\end{theorem}
+
+\chapter{Cauchy's residue theorem}
+
+\begin{definition}[Meromorphic]
+    Let $D$ be a domain.
+    We say that a function $f$ is \textbf{meromorphic}
+    on $D$ if $f$ is holomorphic on $D \setminus S$ where
+    $S \subset D$ is a set of isolated points where 
+    $f$ has a pole at each element of $S$.
+\end{definition}
+
+If $\gamma$ is a simple closed contour, we say $f$ is meromorphic on 
+$D^{\operatorname{int}}_\gamma \cup \gamma$ 
+if there is a domain 
+$D \supset D^{\operatorname{int}}_\gamma \cup \gamma$
+and $f$ is meromorphic on this domain.
+
+\begin{definition}[]
+    If $f$ is a meromorphic function with a pole of order $k$ at $a$, with Laurent series
+    \[
+        f(z) = \sum^{\infty}_{n=-k} c_n(z-a)^n
+    \]
+    on some $B_R^\star(a)$, the \textbf{residue} of $f$ at $a$ is
+    \[
+        \Res_{z=a} (f) = c_{-1}.
+    \]
+\end{definition}
+
+\begin{theorem}[Cauchy's residue theorem for simple closed contours]
+    Let $D$ be a domain, $\gamma$ be a simple closed contour, 
+    $f$ be a meromorphic function on 
+    $D_\gamma^{\operatorname{int}} \cup \gamma$
+    with no poles on $\gamma$.
+    Assume that $\gamma$ is positively oriented and that 
+    $\{a_1, \ldots, a_n\} \in D_\gamma^{\operatorname{int}}$
+    be all the poles inside $\gamma$.
+    Then
+    \[
+        \int_\gamma f(z) \, dz = 2\pi i \sum^{n}_{i=1} \Res_{z=a_i}(f).
+    \]
+\end{theorem}

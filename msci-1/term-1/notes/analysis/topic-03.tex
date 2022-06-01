@@ -1,0 +1,283 @@
+\chapter{Basics of sequences and limits}
+
+\begin{definition}
+    A real \textbf{sequence} is a function from $\mathbb N$ to $\mathbb R$. That is, for every natural number $n\in\mathbb N$ we define a real number $x_n\in\mathbb R$. We denote the sequence by $(x_n)_{n\in\mathbb N}$ or $(x_n)$ for short.
+    
+    We write the elements of the sequence in order $x_1,x_2,x_3,\ldots$. The number $n\in\mathbb N$ is called the \textbf{index} of $x_n$.
+\end{definition}
+
+\begin{example}\label{exa:simple_sequences}
+    Following are examples of sequences:
+    \begin{enumerate}
+        \item $x_n=6\quad\forall\,n\in\mathbb N$, that is $(x_n)=6,6,6,\ldots$;
+        \item $a_n=\frac1n\quad\forall\,n\in\mathbb N$, that is $(a_n)=1,\frac12,\frac13,\frac14,\ldots$;
+        \item $b_n=(-1)^n\quad\forall\,n\in\mathbb N$, that is $(b_n)=-1,1,-1,1,\ldots$; and
+        \item $y_n=n^2\quad\forall\,n\in\mathbb N$, that is $(y_n)=1,4,9,16,\ldots$.
+    \end{enumerate}
+\end{example}
+
+\begin{definition}
+    An important concept in analysis is the idea of a \textbf{limit of a sequence}. If a sequence $(x_n)$ has limit $L$ as $n\to\infty$ then we say it is \textbf{convergent}, otherwise it is \textbf{divergent}.
+    
+    The sequence $(x_n)$ tends to a limit $x^*$ if the difference been $x_n$ and $x^*$ gets progressively smaller as $n$ gets larger. Or more formally: a real sequence $(x_n)_{n\in\mathbb N}$ has the limit $x^*\in\mathbb R$ if \[\forall\,\epsilon>0\;\exists\;N\in\mathbb N:|x_n-x^*|<\epsilon\;\forall\,n\geq N,n\in\mathbb N.\]
+    
+    We write \[\lim_{n\to\infty}{x_n}=x^*\] to denote the limit of a sequence.
+\end{definition}
+
+
+\begin{example}
+    Using our definition of convergent and divergent sequences, we can see what the sequences in Example \ref{exa:simple_sequences} are.
+    
+    \begin{enumerate}
+        \item As $n\to\infty$, $x_n\to6$, therefore, it is a convergent sequence.
+        
+        \item As $n\to\infty$, $x_n\to0$, therefore, it is a convergent sequence.
+        
+        \item For this one, we suppose $(b_n)$ converges to $b^*\in\mathbb R$ then give $\epsilon>0$. There exists $m$ such that
+        \begin{align*}
+            |b_{2m}-b^*|&=|1-b^*|<\epsilon;\text{ and}\\
+            |b_{2m+1}-b^*|&=|-1-b^*|<\epsilon,
+        \end{align*}
+        then we have
+        \begin{align*}
+            2\epsilon=\epsilon+\epsilon&>|1-b^*|+|-1-b^*|\\
+            &=|1-b^*|+|1+b^*|\\
+            &\geq|(1-b^*)+(1+b^*)|\\
+            &=2
+        \end{align*}
+        and therefore we would need $\epsilon>1$ for this to work which is a contradiction.
+        
+        \item Since $y_n=n^2$ gets larger and larger, if $y_n\to y^*$ as $n\to\infty$ then given $\epsilon$ one could find $n$ so that
+        \begin{align*}
+            \epsilon&>|y_n-y^*|\\
+            &=|n^2-y^*|\\
+            &\geq||n^2|-|y^*||.\\
+        \end{align*}
+        However, one can choose $n$ so that the right hand side is arbitrarily large and thus $(y_n)$ is a divergent sequence.
+    \end{enumerate}
+\end{example}
+
+\begin{theorem}[Uniqueness of limits theorem]
+    Every convergent sequence \[(x_n)_{n\in\mathbb N}\] has a unique limit.
+\end{theorem}
+
+\begin{proof}
+    Suppose that $(x_n)_{n\in\mathbb N}$ is a convergent sequence.
+    
+    Suppose $x_n$ has two limits $x^*$ and $x'$. Given $\epsilon>0$ there exists $N\in\mathbb N$ so that for all $n\geq N$ we have $|x_n-x^*|<\epsilon$ and $|x_n-x'|<\epsilon$.
+    
+    \begin{align*}
+        2\epsilon=\epsilon+\epsilon&>|x_n-x^*|+|x_n-x'|\\
+        &\geq|(x_n-x^*)-(x_n-x')|\\
+        &=|x'-x^*|
+    \end{align*}
+    
+    If $x'\neq x^*$, then we must have \[0<\dfrac{|x'-x^*|}{2}<\epsilon\] which is a contradiction as $\epsilon>0$.
+\end{proof}
+
+\begin{definition}
+    A sequences $(x_n)_{n\in\mathbb N}$ is \textbf{bounded} if there is a constant $c>0$ (independent of $n$) so that \[|x|<c\qquad \text{for all } n\in\mathbb N,\] that is, \[-c<x<c.\]
+\end{definition}
+
+From Example \ref{exa:simple_sequences}, we see that \emph{(i)}, \emph{(ii)}, and \emph{(ii)} are bounded but \emph{(iv)} is not.
+
+\begin{theorem}
+    Every convergent sequence in bounded.
+\end{theorem}
+
+\begin{proof}
+    Let $(x_n)_{n\in\mathbb N}$ be a convergent sequence with limit $x$. There must exist $N\in\mathbb N$ such that $|x_n-x|<1$ for all $n\geq N$, where $n\in N$, and so $|x_n|<|x|+1$.
+    
+    Now consider $n<N$, there exists a maximum value of $x_n$, call it $|m|$, such that \[|m|=\max{\{|x_1|,|x_2|,\ldots,|x_{N-1}|\}}.\]
+    
+        Let $M=\max{\{|x|+1,|x_1|,|x_2|,\ldots,|x_{N-1}|\}}$. Therefore, \[\forall\;n:|x_n|\leq M\] as required.
+\end{proof}
+
+\begin{theorem}[Squeeze theorem]\label{the:squeeze}
+    Let $|x_n|\leq y_n$ for all $n\in\mathbb N$ and suppose \[\lim_{n\to\infty}{y_n}=0\] then $\lim_{n\to\infty}{x_n}=0$.
+\end{theorem}
+
+\begin{proof}
+    Let $\epsilon>0$ be given. Since $\lim_{n\to\infty}{y_n}=0$, there exists $N\in\mathbb N$ so that for all $n\geq N$ we have \[y_n=|y_n-0|<\epsilon.\] This implies that \[|x_n-0|=|x_n|\leq y_n<\epsilon\] for all $n\geq N$. Therefore, $(x_n)_{n\in\mathbb N}$ converges to $0$ as $n\to\infty$.
+\end{proof}
+
+\begin{theorem}
+    Let $(x_n)$ and $(y_n)$ be sequences. Suppose \[\lim_{n\to\infty}x_n=0\] and that $(y_n)$ is bounded. Then \[\lim_{n\to\infty}(x_ny_n)=0.\]
+\end{theorem}
+
+% todo proof, small tweaking of the squeezing theorem?
+
+\begin{theorem}[Calculus of limits theorem, COLT]
+    Let \[\lim_{n\to\infty}x_n=x^*,\qquad\lim_{n\to\infty}y_n=y^*.\] Then
+    \begin{enumerate}
+        \item $x_n+x_n\to x^*+y^*$ as $n\to\infty$;
+        \item $x_ny_n\to x^*y^*$ as $n\to\infty$; and
+        \item $\dfrac{x_n}{y_n}\to\dfrac{x^*}{y^*}$ as $n\to\infty$ given that $y^*\neq 0$ and $y_n\neq0$ for all $n\in\mathbb N$.
+    \end{enumerate}
+\end{theorem}
+
+\begin{proof}
+    \begin{enumerate}
+        \item Let $\epsilon>0$. As $x_n\to\infty$ and $y_n\to\infty$, there exists $N\in\mathbb N$ such that \[|x_n-x^*|,|y_n-y^*|<\epsilon\] for all $n\geq N$. By the triangle inequality, \[|(x_n+y_n)-(x^*+y^*)|<2\epsilon.\] $2\epsilon$ gets arbitrarily small as $\epsilon>0$ gets arbitrarily small so for every $\epsilon'>0$ there exists $M\in\mathbb N$ such that \[|(x_n+y_n)-(x^*+y^*)|<\epsilon'\] for all $n\geq M$, therefore, $x_n+y_n$ is convergent with limit $x^*+y^*$.
+        
+        \item 
+        \begin{align*}
+            |x_ny_n-x^*y^*|&=|(x_ny_n-x_ny^*)+(x_ny^*-x^*y^*)|\\
+            &\leq|x_ny_n-x_ny^*|+|x_ny^*-x^*y^*|\\
+            &=|x_n||y_n-y^*|+|x_n-x^*||y^*|\tag{$\star$}
+        \end{align*}
+        There exists $c>0$ so that $|x_n|<c$ for all $n\in\mathbb N$. Let $k=\max\{c,|y^*|\}$. By $(\star)$, \[|x_ny_n-x^*y^*|<k(|x_n-x^*|+|y_n-y^*|).\] Given $\epsilon>0$, choose $N$ so that \[|x_n-x^*|,|y_n-y^*|<\dfrac{\epsilon}{2k}\] so \[|x_ny_n-x^*y^*|<k\left(\dfrac{\epsilon}{2k}+\dfrac{\epsilon}{2k}\right)=\epsilon\] as required.
+
+        \item With a similar idea to the previous proof.
+        \begin{align*}
+            \left|\dfrac{x_n}{y_n}-\dfrac{x^*}{y^*}\right|&=\left|\left(\dfrac{x_n}{y_n}-\dfrac{x_n}{y^*}\right)+\left(\dfrac{x_n}{y^*}-\dfrac{x^*}{y^*}\right)\right|\\
+            &\leq\left|\dfrac{x^n}{y_n}-\dfrac{x^n}{y^*}\right|+\left|\dfrac{x^n}{y^*}-\dfrac{x^*}{y^*}\right|\\
+            &=|x_n|\left|\dfrac{1}{y_n}-\dfrac{1}{y^*}\right|+\left|\dfrac1{y^*}\right|\left|x^n-x^*\right|\tag{$\star$}
+        \end{align*}
+        There exists $c>0$ so that $|x_n|<c$ for all $n\in\mathbb N$. Let $k=\max\{c,|\frac1{y^*}|\}$. By $(\star)$, \[\left|\dfrac{x_n}{y_n}-\dfrac{x^*}{y^*}\right|<k\left(\left|x^n-x^*\right|+\left|\dfrac{1}{y_n}-\dfrac{1}{y^*}\right|\right).\] Given $\epsilon>0$, choose $N$ so that \[|x_n-x^*|,\left|\dfrac1{y_n}-\dfrac1{y^*}\right|<\dfrac{\epsilon}{2k}\] so \[\left|\dfrac{x_n}{y_n}-\dfrac{x^*}{y^*}\right|<\epsilon\] as required.
+    \end{enumerate}
+\end{proof}
+
+\begin{definition}[Euler's number]
+    The \textbf{Euler number} $e=2.71828\ldots$ is defined as \[e=\lim_{n\to\infty}\left(1+\dfrac1n\right)^n.\]
+\end{definition}
+
+\begin{theorem}[Exponentials beat powers]
+    For any real $c,d>0$, \[\lim_{n\to\infty}\dfrac{n^d}{e^{cn}}=0.\]
+\end{theorem}
+
+\begin{theorem}[Powers beat logarithms]
+    For any real $c,d>0$, \[\lim_{n\to\infty}\dfrac{\log(cn)}{n^d}=0.\]
+\end{theorem}
+
+\begin{theorem}
+    Suppose \[\lim_{n\to\infty}x_n=x^*\] and $f(x)$ is a function continuous at $x^*$. Then \[\lim_{n\to\infty}f(x_n)=f(x^*).\] In natural language, this says the limit of the function is the function of the limit.
+\end{theorem}
+
+\begin{example}
+    Compute \[L=\lim_{n\to\infty}\left(\dfrac{n\sqrt{3n^2+2}}{\sqrt{1+8n^4}}\right).\]
+    
+    By COLT and the continuity of the square root function, \[\dfrac{n\sqrt{3n^2+2}}{\sqrt{1+8n^2}}=\dfrac{\sqrt{3+\frac2{n^2}}}{\sqrt{\frac1{n^4}+8}}\] so
+    \begin{align*}
+        L&=\lim_{n\to\infty}\left(\dfrac{\sqrt{3+\frac2{n^2}}}{\sqrt{\frac1{n^4}+8}}\right)\\
+        &=\dfrac{\sqrt{3}}{\sqrt{8}}=\dfrac{\sqrt3}{2\sqrt 2}.
+    \end{align*}
+\end{example}
+
+\begin{example}
+    Compute \[L=\lim_{n\to\infty}\left(\dfrac{n+\sin{n}}{\sqrt{4n^2+1}}\right).\]
+    
+    To compute this limit we can use the squeeze theorem, as \[-1\leq\sin{n}\leq1\] then \[-\dfrac1n\leq\dfrac1n\sin{n}\leq\dfrac1n.\] So by the squeeze theorem \[\lim_{n\to\infty}\left(\dfrac1n\sin{n}\right)=0.\]
+    \begin{align*}
+        L&=\lim_{n\to\infty}\left(\dfrac{1+\sin{\frac1n}}{\sqrt{4+\frac1{n^2}}}\right)\tag{By COLT}\\
+        &=\dfrac12.
+    \end{align*}
+\end{example}
+
+\begin{example}
+    Compute \[L=\left(\dfrac{n^2+n^3e^{-n}}{(\log(2^n)+\log n)^2}\right).\]
+    
+    \begin{align*}
+        L&=\lim_{n\to\infty}\left(\dfrac{n^2+n^3e^{-n}}{(\log(2^n)+\log(n^8))^2}\right)\\
+        &=\lim_{n\to\infty}\left(\dfrac{1+ne^{-n}}{\frac1{n^2}(\log(2^n)+\log(n^8))^2}\right)\tag{By COLT}\\
+        &=\lim_{n\to\infty}\left(\dfrac{1+ne^{-n}}{(\log(2)+\frac8n\log(n))^2}\right)\\
+        &=\dfrac{1}{(\log{2})^2}.
+    \end{align*}
+\end{example}
+
+\begin{example}
+    Compute \[L=\lim_{n\to\infty}\left(\dfrac{n^2(n!)}{(n+2)!}\right).\]
+    
+    \begin{align*}
+        L&=\lim_{n\to\infty}\left(\dfrac{n^2(n!)}{(n+2)!}\right)\\
+        &=\lim_{n\to\infty}\left(\dfrac{n^2}{(n+2)(n+1)}\right)\\
+        &=\lim_{n\to\infty}\left(\dfrac{1}{(1+\frac2n)(1+\frac1n)}\right)\tag{By COLT}\\
+        &=1.
+    \end{align*}
+\end{example}
+
+\begin{example}
+    Compute \[L=\lim_{n\to\infty}\left(\sqrt{n}\left(\sqrt{(n+1)}-\sqrt{n}\right)\right).\]
+    
+    \begin{align*}
+        L&=\lim_{n\to\infty}\left(\sqrt{n}\left(\sqrt{n+1}-\sqrt{n}\right)\right)\\
+        &=\lim_{n\to\infty}\left(\dfrac{\sqrt{n}(\sqrt{n+1}-\sqrt{n})(\sqrt{n+1}+\sqrt{n})}{\sqrt{n+1}+\sqrt{n}}\right)\\
+        &=\lim_{n\to\infty}\left(\dfrac{\sqrt{n}}{\sqrt{n+1}+\sqrt{n}}\right)\\
+        &=\lim_{n\to\infty}\left(\dfrac{\sqrt{1}}{\sqrt{1+\frac1n}+\sqrt{1}}\right)\tag{By COLT}\\
+        &=\frac12
+    \end{align*}
+\end{example}
+
+\begin{example}
+    Compute \[\lim_{n\to\infty}x_n,\qquad x_n=n^{\frac5n}.\]
+    
+    Consider the sequence $y_n$ defined as 
+    \begin{align*}
+        y_n&=\log(n^{\frac5n})\\
+        &=\frac5n\log(n)\\
+        &\to0
+    \end{align*}
+    as $n\to\infty$ as powers beat logarithms. Note that \[\lim_{n\to\infty}(\log x_n)=\lim_{n\to\infty}y_n=0=\log1.\] Because $\log$ is continuous at $x=1$, we can use the theorem that the limit of the function is the function of the limit to conclude \[\lim_{n\to\infty}x_n=1.\]
+\end{example}
+
+\begin{example}
+    Compute \[L=\lim_{n\to\infty}\left(\dfrac{\log(3^n+n^3)}{n}\right).\]
+    
+    \begin{align*}
+        L&=\lim_{n\to\infty}\left(\dfrac{\log(3^n(1+3^{-n}n^3))}{n}\right)\\
+        &=\lim_{n\to\infty}\left(\dfrac{\log(3^n(1+3^{-n}n^3))}{n}\right)\\
+        &=\lim_{n\to\infty}\left(\dfrac{\log(3^n)+\log(1+3^{-n}n^3)}{n}\right)\\
+        &=\lim_{n\to\infty}\left(\dfrac{n\log(3)}{n}+\dfrac{\log(1+3^{-n}n^3)}{n}\right)\\
+        &=\lim_{n\to\infty}\left(\dfrac{n\log(3)}{n}\right)+\lim_{n\to\infty}\left(\dfrac{\log(1+3^{-n}n^3)}{n}\right)\tag{By COLT}\\
+        &=\log3+\lim_{n\to\infty}\left(\dfrac{\log(1)}{n}\right)\tag{Exponentials beat powers}\\
+        &=\log3
+    \end{align*}
+\end{example}
+
+\begin{corollary}[Generalised squeeze theorem]
+    Let $(a_n)_{n\in\mathbb N},(b_n)_{n\in\mathbb N},(c_n)_{n\in\mathbb N}$ be three real sequences with $a_n\leq b_n\leq c_n$ for all $n\in\mathbb N$. Suppose $(a_n),(c_n)$ are both convergent with the same limit $L$. Then $(b_n)$ is also convergent with limit $L$.
+\end{corollary}
+
+\begin{proof}
+    Since $b_n\geq a_n$, we have \[|b_n-a_n|=b_n-a_n\leq c_n-a_n.\] Moreover, \[\lim_{n\to\infty}(c_n-a_n)=\lim_{n\to\infty}c_n-\lim_{n\to\infty}a_n=L-L\] and using the (classical) squeezing theorem (Theorem \ref{the:squeeze}) with $x_n=b_n-a_n$, $y_n=c_n-a_n$ to conclude that \[\lim_{n\to\infty}(b_n-a_n)=0.\] So 
+    \begin{align*}
+        \lim_{n\to\infty}((b_n-a_n)+a_n)&=\lim_{n\to\infty}(b_n-a_n)+\lim_{n\to\infty}(a_n)\\
+        &=0+L\\
+        &=L
+    \end{align*}
+    as required.
+\end{proof}
+
+\begin{theorem}
+    Let $c\in\mathbb R$ have $|c|<1$. Then the sequence $(c^n)$ is convergent with \[\lim_{n\to\infty}c^n=0.\]
+\end{theorem}
+
+\begin{proof}
+    There are three cases to consider here.
+    \begin{enumerate}
+        \item $c=0$: then $c^n=0$ for all $n\in\mathbb N$.
+        \item $0<c<1$: suppose $\epsilon>0$. We need to find $N\in\mathbb N$ so that for all $n\geq N$ we have \[|c^n-0|=|c^n|<\epsilon\tag{$\star$}.\] Since $c>0$ and $|c^n|=c^n$, $(\star)$ is equivalent to \[\log{\epsilon}>\log(c^n)=n\log c\] so \[\dfrac{\log\epsilon}{\log c}<n\] since $\log{c}>0$. Choose $N$ with \[N>\dfrac{\log\epsilon}{\log c}.\] For all $n\geq N$  we have \[n\geq N>\dfrac{\log\epsilon}{\log c},\] so $|c^n|<\epsilon$ as required.
+        \item $-1<c<0$: Repeat the above with $|c^n|<\epsilon$ to conclude $|c^n|\to0$ as $n\to\infty$. Hence $c^n\to0$ since the absolute value is continuous at $0$.
+    \end{enumerate}
+\end{proof}
+
+\begin{remark}
+    If $|c|>1$ then $(c^n)$ is unbounded and hence divergent.
+\end{remark}
+
+\begin{proposition}
+    Let $(x_n)_{n\in\mathbb N}$ be convergent. Suppose $x_n\geq 0$. Then \[L=\lim_{n\to\infty}x_n\geq0.\]
+\end{proposition}
+
+\begin{proof}
+    Suppose by contradiction that $L<0$, choose $\epsilon=\frac12L$. Thus there exists $N\in\mathbb N$ so that for all $n\geq N$, \[|x_n-L|=x_n-L<\epsilon=\dfrac{|L|}2=-\dfrac L2.\] So, \[x_n<\dfrac L2<0;\] a contradiction. Therefore \[L\geq0.\]
+\end{proof}
+
+\begin{proposition}\label{pro:indexed_convergent_sequence}
+    Let $(x_n)_{n\in\mathbb N}$ be convergent with limit $L$. Let $k\in\mathbb R$ be constant. Define $(y_n)_{n\in\mathbb N}$ where $y_n=x_{n+k}$ for all $n\in\mathbb N$. Then $y_n$ is convergent and \[\lim_{n\to\infty}y_n=\lim_{n\to\infty}x_n=L.\]
+\end{proposition}
+
+\begin{proof}
+    Given $\epsilon>0$, there exists $N_1,N_2\in\mathbb N$ such that \[|x_n-L|<\epsilon\] whenever $n\geq N_1$ and \[|y_n-L|=|x_{n+k}-L|<\epsilon\] whenever $n\geq N_2$. Let $N=\max\{N_1,N_2\}$ then \[|x_n-L|<\epsilon,\,\text{and}\qquad|y_n-L|=|x_{n+k}-L|<\epsilon\] for all $n\geq N$. Therefore \[\lim_{n\to\infty}(x_n)=\lim_{n\to\infty}(y_n)=L.\]
+\end{proof}
+

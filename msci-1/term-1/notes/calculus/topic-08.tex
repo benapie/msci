@@ -1,0 +1,268 @@
+\chapter{Functions of several variables}
+
+In this chapter we are investigating functions of two variables, $ f(x, y)$. We have already seen partial derivatives,
+\begin{align*}
+    \frac{\partial f}{\partial x}(x, y) &= \lim_{h \to 0} \left( \dfrac{f(x + h, y) - f(x, y)}{h} \right) \\
+    \frac{\partial f}{\partial y}(x, y) &= \lim_{h \to 0} \left( \dfrac{f(x, y + h) - f(x, y)}{h} \right).
+\end{align*}
+We have also introduced the total differential $df$ as \[ df = \frac{\partial f}{\partial x} dx + \frac{\partial f}{\partial y} dy. \] The gradient of $f(x, y)$ is defined to be the vector \[ \Delta f = \left( \frac{\partial f}{\partial x}, \frac{\partial f}{\partial y} \right), \] where the symbol $\Delta$ is called \textbf{nabla}. $\Delta y$ points in the direction of the greatest rate of increase of the function $f(x, y)$. A point $(x, y)$ at which $\Delta f$ vanishes, that is $\Delta f = (0, 0)$, is called a stationary point.
+
+\section{Taylor's theorem for functions of two variables}
+
+Suppose $f(x, y)$ and all its partial derivatives up to and including order $n + 1$ are continuous throughout an open rectangular region centered at the point $(a, b)$. Then for all $(x, y)$ in this region 
+\begin{dmath*}
+    f(x, y) = f(a, b) + \left( (x - a) \frac{\partial f}{\partial x}(a, b) + (y - b) \frac{\partial f}{\partial y}(a, b) \right) + \frac{1}{2} \left( (x - a)^2 \frac{\partial^2 f}{\partial x^2}(a, b) + 2 (x - a) (y - b) \frac{\partial^2 f}{\partial x \partial y}(a, b) + (y - b)^2 \frac{\partial^2 f}{\partial y^2}(a, b) \right) + \ldots + \frac{1}{n!} \sum_{k = 0}^{n} \binom{n}{k} (x - a)^k (y - b)^{n - k} \frac{\partial^n f}{\partial x^k \partial y^{n - k}}(a, b) + R_{n}(x, y)
+\end{dmath*}
+where $R_n(x, y)$ is the Lagrange form of the remainder given by \[ R_{n}(x, y) = \frac{1}{(n + 1)!} \sum_{k = 0}^{n + 1} \binom{n + 1}{k} (x - a)^k (y - b)^{n + 1 - k} \frac{\partial^{n + 1} f}{\partial x^k \partial y^{n + 1 - k}}(\alpha, \beta) \] with $(\alpha, \beta)$ a point on the line segment joining $(a, b)$ to $(x, y)$.
+
+If $\lim_{n \to \infty} R_{n}(x, y) = 0$ for all $(x, y)$ in this region then the $n \to \infty$ limit of the above expression is the Taylor series of $f(x, y)$ about $(a, b)$ in this region.
+
+% add an example
+
+\section{Chain rule}
+
+Suppose $f(x, y)$ but in addition $x$ and $y$ are both functions of the independent variable $t$. By substituting the $t$ dependence of $x(t)$ and $y(t)$ into $f(x(t), y(t))$ we obtain a function $f(t)$ with a derivative $\frac{df}{dt}$. The relation between this derivative and $\frac{\partial f}{\partial x}$ and $\frac{\partial f}{\partial y}$ can be obtained by taking the total derivative and dividing by $dt$ to obtain the chain rule \[ \frac{df}{dt} = \frac{\partial f}{\partial x} \frac{dx}{dt} + \frac{\partial f}{\partial y} \frac{dy}{dt}. \]]
+
+\begin{example}
+    Given \[ f(x, y) = x^2 y \] where $x = \cos{t}$ and $y = \sin{t}$, obtain $\frac{df}{dt}$ as a function of $t$ by using the chain rule.
+    
+    \begin{align*}
+        \frac{df}{dt} &= \frac{\partial f}{\partial x} \frac{dx}{dt} + \frac{\partial f}{\partial y} \frac{dy}{dt} \\
+        &= 2 x y \frac{dx}{dt} + x^2 \frac{dy}{dt} \\
+        &= -2 x y \cos{t} + x^2 \cos{t} \\
+        &= -2 \cos{t} \sin^2{t} + \cos^3{t}.
+    \end{align*}
+    This can be confirmed be expressing $f$ in terms of $t$ and differentiating directly.
+\end{example}
+
+The chain rule to a function $f(x, y)$ where $x$ and $y$ are a function of two variables themselves, instead of one, that is $x(u, v)$ and $y(u, v)$.
+\[ \frac{\partial f}{\partial u} = \frac{\partial f}{\partial x} \frac{\partial x}{\partial u} + \frac{\partial f}{\partial y} \frac{\partial y}{\partial u}, \quad \text{and} \quad \frac{\partial f}{\partial x} \frac{\partial x}{\partial v} + \frac{\partial f}{\partial y} \frac{\partial y}{\partial v}. \]
+
+\begin{example}
+    Let \[ f(x, y) = \sin{(x^2 - y^2)} \] where $x = u + v$ and $y = u - v$. Find $\frac{\partial f}{\partial u}$ and $\frac{\partial f}{\partial v}$ in terms of $u$ and $v$ by using the chain rule.
+    
+    \begin{align*}
+        \frac{\partial f}{\partial u} &= \frac{\partial f}{\partial x} \frac{\partial x}{\partial u} + \frac{\partial f}{\partial y} \frac{\partial y}{\partial u} \\
+        &= 2 x \cos{(x^2 - y^2)} (1) - 2 y \cos{(x^2 - y^2)}(1) \\
+        &= 2 (u + v) \cos{(4 u v)} - 2 (u - v) \cos{(4 u v)} \\
+        &= 4v \cos{(4 u v)}; \\
+        \frac{\partial f}{\partial v} &= \frac{\partial f}{\partial x} \frac{\partial x}{\partial v} + \frac{\partial f}{\partial y} \frac{\partial y}{\partial u} \\
+        &= 2 x \cos{(x^2 - y^2)} (1) - 2 y \cos{(x^2 - y^2)} (-1) \\
+        &= 2 (u + v) \cos{(4 u v)} + 2 (u - v) \cos{(4 u v)} \\
+        &= 4 u \cos{(4 u v)}. \\
+    \end{align*}
+\end{example}
+
+\section{Implicit differentiation}
+
+This section is assumed knowledge, but I'll put some examples in here.
+
+\begin{example}
+    Suppose $f(x, y) = x - y$ where $x$ and $y$ are functions of $t$ defined implicitly by
+    \begin{align*}
+        x^2 + y^2 &= t^2, \\
+        x \sin{t} &= y e^y.
+    \end{align*}
+    Find $\frac{df}{dt}$ in terms of $x$, $y$, and $t$.
+
+    The solution to this can be found by implicitly differentiating the two expression, then solving for $\frac{dx}{dt}$ and $\frac{dy}{dt}$. Using the chain rule, an expression for $\frac{df}{dt}$ can be found.
+\end{example}
+
+\begin{example}
+    Suppose the function $z(x, y, z)$ satisfies the equation \[ 4 x^2 y + z^5 x - 3 y z - 2 x y = 0. \] Find the value of $\frac{\partial z}{\partial x}$ at $(x, y, z) = (1, 1, 1)$.
+    
+    The value can be calculated by partially differentiating the equation and setting $x = y = z = 1$.
+\end{example}
+
+\section{Double integrals}
+
+Recall that for a function $f(x)$, the definite integral over the interval $[a, b]$ can be defined as the limit of Reinmann sums, that is  \[ \int_{a}^{b} f(x) \, dx = \lim_{\abs{\Delta x} \to 0}{\sum_{i = 1}^{n}{f(x^{*}_{i}) \Delta x_i}}. \] Similarly, we can define the integral of a function of two variables over a region $D$, \[ \iint\limits_{D} f(x, y) \, dx \, dy, \] as a limit of Reinmann sums.
+
+
+\subsection{Rectangular regions}
+
+Here we strict our double integral to 
+\begin{align*}
+    D &= [a_1, a_2] \times [b_1, b_2] \\
+    &= \{ (x, y) \in \mathbb{R}^2 : a_1 < x < a_2, b_1 < y < b_2 \}.
+\end{align*}
+
+Providing $f$ is continuous in $D$, then the double integral can be calcualted as an integrated integral as follows:
+\begin{align*}
+    \iint\limits_{D} f(x, y) \, dx \, dy &= \int_{a_1}^{a_2} \left( \int_{b_1}^{b_2} f(x, y) \, dy \right) \, dx.
+\end{align*}
+
+\begin{example}
+    Calculate \[ L = \iint\limits_{D} (x^2 + y^2) \, dx \, dy \] where $D = [-2, 1] \times [0, 1]$.
+    
+    \begin{align*}
+        L &= \int_{-2}^{1} \left( \int^{1}_{0} (x^2 + y^2) \, dy \right) \, dx \\
+        &= \int_{-2}^{1} \left[ x^2 y + \frac{1}{3} y^3 \right]^{y = 1}_{y = 0}\, dx \\
+        &= \int^{1}_{-2} \left( x^2 + \frac{1}{3} \right) \, dx \\
+        &= \left[ \frac{1}{3} x^3 + \frac{1}{3} x \right]^{x = 1}_{x = -2} \\
+        &= \left( \frac{1}{3} + \frac{1}{3} \right) - \left( -\frac{8}{3} - \frac{2}{3} \right) = 4.
+    \end{align*}
+\end{example}
+
+\subsection{Beyond rectangular regions}
+
+\begin{definition}
+    A region $D$ is called \textbf{$y$-simple} if every line parallel to the $y$-axis that intersects $D$ does so in a single segment (or a single point if it is on the boundary).
+\end{definition}
+
+Consider a general $y$-simple region $D$, boundaries of $D$ are given as \[ x = a_1, \quad x = a_2, \quad y = \phi_1(x), \quad y = \phi_2(x). \]
+
+For this $y$-simple region, we can use an iterated interval: \[ \iint\limits_{D} f(x, y) \, dx \, dy = \int_{a_1}^{a_2} \left( \int_{\phi_1(x)}^{\phi_2(x)} f(x, y) \, dy \right) \, dx. \]
+
+\begin{example}
+    Let $D$ be the region bounded by the curves \[ y = x, \quad y = x^2 \] for $0 \leq x \leq 1$. Sketch $D$ and calculate \[ L = \iint\limits_{D} 6 x y \, dx \, dy. \]
+    
+    Following is a sketch of region $D$.
+    \begin{center}
+        \begin{tikzpicture}
+            \begin{axis}[width = 15em, 
+                         height = 15em, 
+                         xmin = 0, 
+                         xmax = 1, 
+                         ymin = 0, 
+                         ymax = 1
+                        ]
+                \addplot[domain=0:1,
+                         name path = a
+                        ] 
+                    {x};
+                        
+                \addplot[domain=0:1,
+                         name path = b
+                        ]
+                    {x^2};
+                    
+                \addplot[black!20] fill between[of = a and b];
+            \end{axis}
+        \end{tikzpicture}
+    \end{center}
+    This region is clearly $y$-simple, so
+    \begin{align*}
+        L &= \int_{0}^{1} \left( \int_{x^2}^{x} 6x y \, dy \right) \, dx \\
+        &= \int_{0}^{1} \left[ 3 x y^2 \right]^{y = x}_{y = x^2} \, dx \\
+        &= \int_{0}^{1} \left( 3x^3 - 3x^5 \right) \, dx \\
+        &= \left[ \frac{3}{4} x^4 - \frac{1}{2} x^6 \right]^{x = 1}_{x = 0} = \frac{1}{4}.
+    \end{align*}
+\end{example}
+
+\begin{definition}
+    A region $D$ is \textbf{$x$-simple} if every line parallel to the $x$-axis that intersects $D$ does so in a single line segment (or possibly a point on the boundary of $D$.
+\end{definition}
+
+For a $x$-simple region, the double integral can be calculated as a double integral by integrating over $x$-first: \[ \iint\limits_{D} f(x, y) \, dx \, dy = \int_{b_2}^{b_1} \left( \int_{\varphi_1(y)}^{\varphi_2(y)} f(x, y) \, dx \right) \, dy. \]
+
+\begin{remark}
+    If a region is both $x$-simple and $y$-simple, the double integral can be calculated in any order; however, one order may be easier than the other.
+\end{remark}
+
+\begin{example}
+    $D$ is region with boundary curves \[ y = x, \quad y = \sqrt{x} \] with $0 < x < 1$. Calculate \[ I = \iint\limits_{D} \frac{e^y}{y} \, dx \, dy. \]
+    
+    We can try with $y$ first: \[ I = \int_{0}^{1} \left( \int_{x}^{\sqrt{x}} \frac{e^y}{y} \, dy \right) \, dx; \] however, this is not solvable analytically. So we try with $x$ first: 
+    \begin{align*}
+        I &= \int_{0}^{1} \left( \int_{y^2}^{y} \frac{e^y}{y} \, dx \right) \, dy \\
+        &= \int_{0}^{1} \left[ \frac{x e^y}{y} \, dx \right]_{x = y^2}^{x = y} \, dy \\
+        &= \int_{0}^{1} \left( e^y - y e^y \right) \, dy \\
+        &= \left[ e^y \right]^{y = 1}_{y = 0} - \left( \left[ y e^y \right]^{y = 1}_{y = 0} - \int_{0}^{1}e^y\, dy \right) \\
+        &= (e^1 - e^0) - (1 \cdot e^1 - 0 \cdot e^0) + (e^1 - e^0) = e - 2. \\
+    \end{align*}
+\end{example}
+
+\section{Polar coordinates for double integrals}
+
+Transferring from cartesian coordinates and polar coordinates, we have the substitution $x = r \cos{\theta}$ and $y = r \sin{\theta}$ with the area element $dx \, dy = r\,dr\,d\theta$.
+
+\begin{example}
+    Let $D$ be the region between the curves $x^2 + y^2 = 1$, $x^2 + y^2 = 4$ satisfying $x \geq 0$, $y \geq 0$. Calculate \[ I = \iint\limits_{D} x y \, dx \, dy. \]
+    
+    $D$ is given by the polar coordinates $(r, \theta)$ satisfying $1 \leq r \leq 2$ and $0 \leq \theta \leq \frac{\pi}{2}$. Then
+    \begin{align*}
+        \iint\limits_{D} x y r \, dr \, d\theta &= \iint\limits_{D} r^3 \sin{\theta} \cos{\theta} \, dr \, d\theta \\
+        &= \int_{1}^{2} \left( \int_{0}^{\frac{\pi}{2}} r^3 \sin{\theta} \cos{\theta} \, d\theta \right) \, dr \\
+        &= \int_{1}^{2} \left( \int^{\frac{\pi}{2}}_0 \frac{1}{2} r^3 \sin{2 \theta} \, d\theta \right) \, dr \\
+        &= \int_{1}^{2} \left[ \frac{-r^3}{4} \cos{2 \theta} \right]^{\theta = \frac{\pi}{2}}_{\theta = 0} \, dr \\
+        &= \int_{1}^{2} \frac{r^3}{2} \, dr = \left[ \frac{r^4}{8} \right]^{r = 2}_{r = 1} = \frac{15}{8}.
+    \end{align*}
+\end{example}
+
+\section{Change of variable and the Jacobian determinant}
+
+The use of polar coordinates is a particular examples of a change of variables.
+
+\begin{definition}
+    The \textbf{Jacobian} (or the change of variables) from $x, y$ to $u, v$ is
+    \[
+        J = \frac{\partial (x, y)}{\partial (u, v)} =
+        \begin{vmatrix}
+            \dfrac{\partial x}{\partial u} & \dfrac{\partial x}{\partial v} \\[3ex]
+            \dfrac{\partial y}{\partial u} & \dfrac{\partial y}{\partial v}
+        \end{vmatrix}
+        .
+    \]
+\end{definition}
+
+To obtain the area element in terms of the new variables we first compute the Jacobian $J$ and then use the result \[ dx \, dy = \abs{J} \, du \, dv. \]
+
+\begin{example}
+    The Jacobian for a change of variables from $(x, y)$ to polar coordinates $(r, \theta)$ is
+    \[
+        J =
+        \begin{vmatrix}
+            \cos{\theta} & -r \sin{\theta} \\
+            \sin{\theta} & r \cos{\theta} \\
+        \end{vmatrix}
+        = r \cos^2{\theta} + r \sin^2{\theta} = r = \abs{J}
+    \]
+    therefore, the area element is \[dx \, dy = r \, dr \, d\theta.\]
+\end{example}
+
+\begin{example}
+    Let $D$ be the square in the $xy$-plane with vertices \[ (0,0), \quad (1, 1), \quad (2, 0), \quad (1, -1). \] Calculate \[ I = \iint\limits_{D} (x + y) \, dx \, dy \] using a change of variables $x = u + v$, $y = u - v$.
+    
+    Under this change of variables our region becomes bounded by the vertices \[ (0,0), \quad (1, 0), \quad (1, 1), \quad (0, 1); \] which also a square.
+    We calculate the Jacobian 
+    \[
+        J =
+        \begin{vmatrix}
+            \dfrac{\partial x}{\partial u} & \dfrac{\partial x}{\partial v} \\[3ex]
+            \dfrac{\partial y}{\partial u} & \dfrac{\partial y}{\partial v}
+        \end{vmatrix}
+        = \begin{vmatrix}
+            1 & 1 \\
+            1 & -1 \\
+        \end{vmatrix}
+        = -2.
+    \]
+    Therefore, our integral becomes 
+    \begin{align*}
+        \int_{0}^{1} \left( \int_{0}^{1} (2u) (2) \, dv \right) \, du &= 4 \int_{0}^{1} \left( \int_{0}^{1} u \, dv \right) \, du \\
+        &= 4 \int_{0}^{1} \left[ u v \right]_{v = 0}^{v = 1} \, du \\
+        &= 4 \int_{0}^{1} u \, du \\
+        &= 2 \left[ u^2 \right]_{0}^{1} = 2
+    \end{align*}
+\end{example}
+
+\section{The Gaussian integral}
+
+\begin{definition}
+    The Gaussian integral is defined as follows \[ I = \int_{-\infty}^{\infty} e^{-a x^2} \, dx = \sqrt{\frac{\pi}{a}}, \] for $a > 0$.
+\end{definition}
+
+\begin{proof}
+    \begin{align*}
+        I^2 &= \left( \int_{-\infty}^{\infty} e^{-a x^2} \, dx \right) \left( \int_{-\infty}^{\infty} e^{-a y^2} \, dy \right) \\
+        &= \int_{-\infty}^{\infty} \left( \int_{-\infty}^{\infty} e^{-a (x^2 + y^2)} \, dy \right) \, dx \\
+        &= \iint\limits_{\mathbb{R}^2} e^{-a (x^2 + y^2)} \, dx \, dy \\
+        &= \iint\limits_{\mathbb{R}^2} r e^{-a r^2} \, dr \, d\theta \\
+        &= \int_{0}^{\infty} \left( \int_{0}^{2 \pi} r e^{-a r^2} \, d\theta \right) \, dr \\
+        &= \int_{0}^{\infty} \left[ r \theta e^{-a r^2} \right]^{\theta = 2 \pi}_{\theta = 0} \, dr \\
+        &= \int_{0}^{\infty} 2 \pi r e^{-a r^2} \, dr \\
+        &= \left[ -\frac{\pi}{a} e^{-a r^2} \right]^{r = \infty}_{r = 0} = -\frac{\pi}{a}(0 - 1) = \frac{\pi}{a};
+    \end{align*}
+    therefore, \[ I = \sqrt{\frac{\pi}{a}}. \]
+\end{proof}

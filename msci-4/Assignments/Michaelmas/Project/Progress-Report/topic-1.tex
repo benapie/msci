@@ -1,0 +1,57 @@
+\subsection*{Invariants of simplicial complexes}
+
+In my study of computer science, I was introduced to the concept of graph properties and wondered if there exists generalisation of some common invariants to simplicial complexes.
+
+We first introduce the \emph{chromatic polynomial}.
+
+\begin{definition}
+  Let $G = (V,E)$ be a graph. The \emph{chromatic polynomial} of $G$, $\chi_G \in \Z[\lambda]$, counts the number of its proper $\lambda$-colourings.
+\end{definition}
+
+We take for granted the fact that such a polynomial exists and is unique. Chromatic polynomials do not uniquely identify graphs, but it clearly encodes some information on the number of colourings. 
+
+How may we generalise the chromatic polynomial to simplicial complexes? Well, we may define it only on its 1-skeleton, but then we lose all the higher dimensional information and we haven't really generalised anything. May we abstract the notion of a colouring to a higher-dimensional analogue? We now introduce a lemma-generalisation of the chromatic polynomial on graphs. 
+
+\begin{definition}[Tutte polynomial]
+  Let $G = (V,E)$ be a graph. For $A \subset E$, denote $k(A)$ as the number of connected components on the subgraph $(V,A)$. We define the \emph{Tutte polynomial} of $G$, $T_G \in \Z[x, y]$ as
+  \[
+    T_G(x,y) = \sum_{A \subset E} (x-1)^{k(A) - k(E)} (y-1)^{k(A) + \lvert A \rvert - \lvert V \rvert}.
+  \]
+\end{definition}
+
+This polynomial can shown to specialise to the chromatic polynomial as follows:
+\[
+  \chi_G(k) = (-1)^{\lvert V \rvert - k(G)} \lambda^{k(G)} T_G(1 - \lambda, 0).
+\]
+The Tutte polynomial encodes much more information than the chromatic polynomial. For example, for a graph $G = (V,E)$, we have the following points:
+\begin{enumerate}
+  \item $T_G(1,1)$ counts the number of spanning forests;
+  \item $T_G(2,2) = 2^{\lvert E \rvert}$;
+  \item $T_G(2,0)$ counts the number of acyclic orientations; and
+  \item $T_G(1,2)$ counts the number of spanning subgraphs. 
+\end{enumerate}
+
+Now how can we generalise the Tutte polynomial to simplicial complexes? Well, note that in our definition, the Tutte polynomial is a summation over each spanning subgraph, which is generalised with the notion of a \emph{subcomplex} (details to follow). We also claim that the exponents of each term may be reframed using \emph{homology}, something that we may also generalise to simplicial complexes. 
+
+Firstly, for a graph $G = (V, E)$, $\lvert H_1(G) \rvert = k(E) + \lvert E \rvert - \lvert V \rvert$. Similarly, $\lvert H_0(G) \rvert = k(E)$. Thus, we may define the Tutte polynomial on a graph as
+\[
+  T_G(x,y) = \sum_{G' \subset G} (x-1)^{\lvert H_0(G') \rvert - \lvert H_0(G) \rvert} (y-1)^{\lvert H_1(G') \rvert}
+\]
+where the summation is taken over the \emph{spanning} subgraphs of $G = (V,E)$ (that is, $G'$ is of the form $(V, A)$, $A \subset E$).
+
+It may be clear how we may generalise, but we lack an analogue for spanning subgraph. $L \subset K^{(n)}$ is a spanning $n$-dimensional subcomplex of a simplicial complex $K$ of dimension $\geq n$ if the $(n-1)$-skeleton of $L$ and $K$ coincide. 
+
+For a simplicial complex $K$, we define the $n$-Tutte polynomial as
+\[ 
+  T_{K, n}(x,y) = \sum_{L \subset K^{(n)}} (x-1)^{\lvert H_{n-1}(L) \rvert - \lvert H_{n-1}(K) \rvert} (y-1)^{\lvert H_n(L) \rvert}
+\]
+and indeed this generalises as
+\[
+  T_{G,1}(x,y) = T_G(x,y).
+\]
+Thus, we may define the $n$-chromatic polynomial of a simplicial complex $K$ as
+\[
+  \chi_{K, n}(k) = (-1)^{\lvert C_{n-1}(K) \rvert - \lvert H_{n-1}(K) \rvert}
+    \lambda^{\lvert H_{n-1}(K) \rvert} T_{K, n}(1 - \lambda, 0)
+\]
+where $C_{i}(K)$ denotes the $i$th chain group $K$.

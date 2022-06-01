@@ -1,0 +1,129 @@
+\documentclass[a4paper, answers]{exam}
+\input{../preamble.tex}
+
+\begin{document}
+
+\begin{center}
+	\textbf{\textsc{Computational Complexity, Exercises 1}} \\
+	\textsc{Ben Napier}
+	\vspace{1em}
+\end{center}
+
+\vspace{1em}
+
+\begin{questions}
+	\question Recall the decision problems \textsc{Independent Set} and
+	\textsc{Indepent Neighbours}:
+	\begin{description}
+		\item[\textsc{Independent Set}] \hfill
+
+		Instance: an undirected graph $G = (V,E)$
+		and a positive integer $K$.
+
+		Question: does $G$ contain an independent set of (i.e, a set of
+		vertices no two of whcih are joined by an edge) of size $K$?
+
+		\item[\textsc{Independent Neighbours}] \hfill
+
+		Instance: an undirected graph $G = (V,E)$ and a positive integer $K$.
+		
+		Question: does $G$ have a vertex $v$ whose neighbourhood (i.e. the 
+		set of vertices adjacent to $v$) contains an independent set of size
+		$K$?
+	\end{description}
+	Prove that \textsc{Independent Neighbours} is $\mathsf{NP}$-complete by 
+	reduction from \textsc{Independent Set}.
+
+	\question In a directed graph $D = (V,E)$ a set of vertices $W \subset V$ 
+	is a \emph{feedback vertex set} if every directed cycle in $D$ contains
+	at least one vertex of $W$.
+	\begin{description}
+		\item[\textsc{Feedback Vertex Set}] \hfill
+
+		Instance: a directed graph $D = (V,E)$ and a positive integer $K$.
+		
+		Question: does $D$ contain a feedback vertex set of size $K$?
+	\end{description}
+	Prove that \textsc{Feedback Vertex Set} is $\mathsf{NP}$-complete.
+	Hint: if you change an undirected graph $G$ into a directed graph $D$ by
+	replacing each undirected edge with a pair of directed edges (one in each
+	direction), what is the relationship between a vertex cover of $G$ and a
+	feedback vertex set of $D$?
+
+	\question Consider the following decision problem.
+	\begin{description}
+		\item[\textsc{Dominating Set}] \hfill
+
+		Instance: a connected undirected graph $G = (V,E)$ and a positive
+		integer $K$.
+
+		Question: does $G$ have a dominating set of size at most $K$?
+	\end{description}
+	A dominating set is a set of vertices $D$ such that every vertex is either in
+	$D$ or adjacent to a vertex in $D$.
+	Show that \textsc{Dominating Set} is in $\mathsf{NP}$.
+
+	Given a graph $G = (V,E)$, create a new graph $H$ as follows: for each
+	$(u,v)$ in $G$ add a new vertex and join it by an edge to $u$ and $v$.
+	Prove that
+	\begin{enumerate}
+		\item if $D$ is any dominating set for $H$, then there is also a
+			dominating set $D'$ where 
+			$\left\lvert D \right\rvert \geq \left\lvert D' \right\rvert$
+			and $D'$ contains only vertices of $V$, i.e it does not contain any
+			of the new vertices added to create $H$; and
+		\item for any $D \subset V$, $D$ is a vertex cover for $G$ if and only if
+			it is a dominating set for $H$.
+	\end{enumerate}
+	Use these facts to prove that \textsc{Dominating Set} is 
+	$\mathsf{NP}$-complete.
+
+	\question Consider the following Boolean formula:
+	\[
+		f = 
+		(x_1 \lor \neg x_2) \land
+		(x_2 \lor \neg x_3) \land
+		(x_3 \lor \neg x_4) \land
+		\ldots \land
+		(x_m \lor \neg x_1).
+	\]
+	Show that the only two truth assignments that satisfy $f$ are those where
+	every variable is \textsc{True} or every variable is \textsc{False}.
+
+	Consider the following decision problem.
+	\begin{description}
+		\item[\textsc{Restricted-$3$-Sat}] \hfill
+
+		Instance: A CNF formula $f$ where each clause contains at most $3$
+		literals, each variable occurs at most $3$ times in $f$ and each literal
+		occurs at most twice in $f$.
+
+		Question: is $f$ satisfiable?
+	\end{description}
+	Show that \textsc{Restricted-$3$-Sat} is $\mathsf{NP}$-complete.
+	(Hint: to prove completeness find a reduction from \textsc{$3$-Sat} using
+	your answer to the previous part.)
+
+	\question Consider the following decision problem.
+	\begin{description}
+		\item[\textsc{Half Sat}] \hfill
+
+		Instance: a CNF formula $f$.
+
+		Question: does $f$ have a satisfying assignment in which exactly half of
+		the variables are \textsc{True}?
+	\end{description}
+	Prove that \textsc{Half Sat} is $\mathsf{NP}$-complete.
+
+	\question Consider the following decision problem.
+	\begin{description}
+		\item[\textsc{Exact $4$-Sat}] \hfill
+		
+		Instance: a CNF formula $f$ in whcih every clause contains exactly $4$
+		literals and each variable appears at most once in each clause.
+
+		Question: does $f$ have a satisfying assingment?
+	\end{description}
+	Prove that \textsc{Exact $4$-Sat} is $\mathsf{NP}$-complete.
+\end{questions}
+\end{document}

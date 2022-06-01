@@ -1,0 +1,72 @@
+\assignment{4}{11/12}
+
+\setcounter{question}{34}
+\question Let $R$ be a commutative ring, and let $a, b \in R$ be elements such that $\gcd(a, b)$ exists.
+\begin{parts}
+    \part Prove that $(a, b) \subset (\gcd(a, b))$.
+    \begin{solution}
+        Recall that $(a, b) = \{ax + by: x, y \in R\}$.
+        Now $a = xd$ and $b = yd$ where $d = \gcd(a, b)$ for some $x, y \in R$.
+        Hence, $a, b \in (d)$.
+        As $(d)$ is closed under multiplication and addition, we have
+        \[ (a, b) \subset (d). \]
+    \end{solution}
+
+    \part In the special case $R = \Z$, prove that $(a, b) = (\gcd(a, b))$ for any $a, b \in \Z$.
+    \begin{solution}
+        As $R \in \{\Z, F[x]\}$ where $F$ is a field, 
+        we have that $d = ax + by$ for some $x, y \in R$. 
+        Hence $d \in (a, b)$ and so
+        \[ (d) = (a, b) \]
+        using the previous part.
+    \end{solution}
+\end{parts}
+
+\setcounter{question}{38}
+\question Find a linear polynomial $r(x) \in (\Z/5)[x]$ such that
+\[ \overline{r(x)} = \overline{2x^4 + x^3 +2x + 1} \]
+in $(\Z/5)[x]/(x^2 + x + \overline 2)$.
+\begin{solution}
+    A simple application of the division algorithm shows that
+    \[ \overline 2 x^4 + x^3 + \overline 2 x + 1 = (\overline 2 x^2 - x - \overline 2) (x^2 + x + \overline 2) + (\overline 2 x + \overline 2) \]
+    where we have $f(x) = \overline 2 x^4 + x^3 + \overline 2 x + 1$ and $r(x) = \overline 2 x + \overline 2$. It is clear that $f(x) - r(x) \in I$, and so $\overline f(x) = \overline r(x)$.
+\end{solution}
+
+\setcounter{question}{39}
+\question Which of $\overline 2$, $\overline{1 - i}$, and $\overline{-1 - i}$ is the element $\overline{2 + i} \cdot \overline{1 + i}$ equal to in the ring $\Z[i]/(3 + i)$.
+\begin{solution}
+    We have that
+    \[ \overline{2 + i} \cdot \overline{1 + i} = \overline{(2 + i)(1 + i)} = \overline{1 + 3i}. \]
+    $\overline{3 + i} = \overline 0 \implies \overline i = -\overline 3$, so $\overline{1 + 3i} = \overline{-8}$, $\overline{1 - i} = \overline 4$, and $\overline{-1 - i} = \overline 2$. 
+    We can either have $\overline 2 = \overline{-8}$ or $\overline 4 = \overline{-8}$.
+    If $\overline 2 = \overline{-8}$, we have $\overline{10} = \overline 0$ and so $(3 + i) \mid 10$ which we can confirm as $(3 + i)(3 - i) = 10$. In the other case where $\overline 4 = \overline{-8}$, we have that $\overline{12} = \overline 0$; however, it is easy to see that this cannot occur. Hence,
+    \[ \overline 2 = \overline{-1 - i} = \overline{2 + i} \cdot \overline{1 + i}. \]
+\end{solution}
+
+\setcounter{question}{41}
+\question Let $R = \Z[\sqrt 7]$. Let $\phi: R \to \Z/9$ given by $\phi(a + b\sqrt 7) = \overline{a + 4b}$.
+\begin{parts}
+    \part Show that $\phi$ is a homomorphism.
+    \begin{solution}
+        All that needs to be shown is that the additive and multiplicative identity is mapped to the additive and multiplicative identity, and that there is additivity and multiplicitivity.
+    \end{solution}
+
+    \part Show that $\ker \phi = (9, 4 - \sqrt 7)$.
+    \begin{solution}
+        We have that $\ker\phi = \{a + b\sqrt 7 : \overline{a + 4b} = 0\}$.
+        $\phi(9) = \overline 9 = \overline 0$ and $\phi(4 - \sqrt 7) = \overline{4 - 4} = \overline 0$;
+        hence, $9, 4 - \sqrt 7 \in \ker\phi$ and so $(9, 4 - \sqrt 7) \subset \ker\phi$.
+        Now we will do a bit of manipulation to show the other way round.
+        If $a + b\sqrt 7 \in \ker\phi$, then $9 \mid a + 4b$.
+        Therefore,
+        \[ a + b\sqrt7 = a + 4b - b(4 - \sqrt7) \in (9, 4 - \sqrt 7 \]
+        and so $\ker\phi \subset (9, 4 - \sqrt 7)$.
+        Hence,
+        \[ \ker\phi = (9, 4 - \sqrt 7). \]
+    \end{solution}
+
+    \part Show that $R/(9, 4 - \sqrt 7)$ is isomorphic to $\Z/9$.
+    \begin{solution}
+        Here we will use the First Isometric Theorem.
+    \end{solution}
+\end{parts}

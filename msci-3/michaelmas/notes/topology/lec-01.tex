@@ -1,0 +1,94 @@
+%! TEX root = master.tex
+
+\section{Metric spaces and continuous functions}
+\lecture{1}{5/10}
+
+\begin{definition}[Metric space]
+	A \emph{metric space} is a pair $(X,d)$ where $X$ is a set and
+	$d: X \times X \to [0, \infty)$ is a function satisfying
+	\begin{enumerate}
+		\item $d(x,y) = 0 \implies x = y$ for all $x,y \in X$;
+		\item $d(x,y) = d(y,x)$ for all $x,y \in X$; and
+		\item $d(x,z) \leq d(x,y) + d(y,z)$ for all $x,y,z \in X$.
+	\end{enumerate}
+	We call $d$ a \emph{metric} on $X$.
+\end{definition}
+
+\begin{example}[]
+	Suppose \[
+		C([a,b]) = \left\{ f:[a,b] \to \R: \text{$f$ is continuous} \right\}.
+	\]
+	We will show that the function \[
+		d(f,g) = \sup\left\{ \abs{f(x) - g(x)}: x \in [a,b] \right\}
+	\]
+	defines a metric on $C([a,b])$.
+	
+	$(i)$:
+	\begin{align*}
+		    & d(f,g) = 0 \\
+		\iff& \sup\left\{ \abs{f(x) - g(x)}: x \in [a,b] \right\} = 0 \\
+		\iff& f(x) = g(x) \;\forall\; x \in [a,b] \\
+		\iff& f = g.
+	\end{align*}
+	$(ii)$:
+	\begin{align*}
+		d(f,g) &= \sup\left\{ \abs{f(x) - g(x)} : x \in [a,b] \right\} \\
+			   &= \sup\left\{ \abs{g(x) - f(x)} : x \in [a,b] \right\} \\
+			   &= d(g,f).
+	\end{align*}
+	$(iii)$: as $[a,b]$ is closed it must attain its maximum.
+	Hence there is $c \in [a,b]$ such that $d(f,g) = \abs{f(c) - g(c)}$.
+	So
+	\begin{align*}
+		d(f,g) &=    \abs{f(c) - g(c)} \\
+			   &\leq \abs{f(c) - h(c)} + \abs{h(c) - g(c)} \\
+			   &\leq d(f,h) + d(h,g).
+	\end{align*}
+\end{example}
+
+\begin{example}[]
+	Let $X$ be any set and consider the function \[
+		d(x,y) =
+		\begin{cases}
+			0 & x = y \\
+			1 & x \neq y.
+		\end{cases}
+	\]
+	$d$ satisfies $(i)$ and $(ii)$ by definition.
+	$(iii)$: let $x,y,z \in X$.
+	Suppose that $x = y$, then $d(x,y) = 0$. So
+	$d(x,y) \leq d(x,z) + d(z,y)$.
+	Now suppose $x \neq y$.
+	Then either $x \neq z$ or $y \neq z$. Hence
+	$d(x,z) + d(y,z) \geq 1 = d(x,y)$.
+	Therefore $d$ defines a metric on $X$,
+	called the \emph{discrete metric}.
+\end{example}
+
+\begin{definition}[Open ball]
+	Let $(X,d)$ me a metric space, $r > 0$, and $x \in X$.
+	Then \[
+		B(x;r) = \left\{ y \in X : d(x,y) < r \right\}
+	\]
+	is called the \emph{open ball} of radius $r$ around $x$ and \[
+		D(x;r) = \left\{ y \in X: d(x,y) \leq r \right\}
+	\]
+	is called the \emph{closed ball} of radius $r$ around $x$. 
+\end{definition}
+
+\begin{example}[]
+	Lets look at the balls for the discrete metric, with $X = \R^2$.
+	\begin{align*}
+		B(0;1) &= \{0\} \\
+		D(0;1) &= \R^2.
+	\end{align*}
+\end{example}
+
+\begin{example}[]
+	Now lets consider the balls for $X = C[a,b]$ and the metric defined above.
+	We will take $0:[a,b] \to \R$, $0(x) = 0$ for all $x \in [a,b]$.
+	Then $B(0;1)$ will be all functions $f \in C[a,b]$ where 
+	$\sup\abs f \in [0,1)$.
+	In $D(0;1)$, $f$ must satisfy $\sup\abs f \in [0,1]$.
+\end{example}
+

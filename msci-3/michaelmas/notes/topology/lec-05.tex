@@ -1,0 +1,100 @@
+%! TEX root = master.tex
+
+\section{Topological spaces}
+\lecture{5}{18/10}
+
+\begin{definition}[Topology]
+	Let $X$ be a set.
+	A \emph{topology} on $X$ is a subset $\tau \subset \mathcal P(X)$ which 
+	satisfies the following:
+	\begin{enumerate}
+		\item $X, \varnothing \in \tau$;
+		\item for $i \in I$, 
+			$U_i \in \tau \implies \bigcup_{i \in I} U_i \in \tau$; and
+		\item $U_1, U_2 \in \tau \implies U_1 \cap U_2 \in \tau$.
+	\end{enumerate}
+	The elements of $\tau$ are called the \emph{open subsets} of $X$.
+	If $A \subset X$ and $X \setminus A \in \tau$, we say that $A$ is 
+	\emph{closed}.
+\end{definition}
+
+\begin{examples}
+	\hfill
+	\begin{enumerate}
+		\item 
+		Let $(M,d)$ be a metric space.
+		Then the collection of open sets as defined in the last section defines 
+		a topology.
+		This is confirmed by the previous lemma.
+
+		\item
+		$(X, \mathcal P)$ defines a topological space, namely the 
+		\emph{discrete} topology on $X$.
+
+		\item
+		$(X, \left\{ \varnothing, X \right\})$ 
+		also defines a (boring) topological
+		space, namely the \emph{indiscrete} or \textbf{trivial} topology 
+		on $X$.
+
+		\item
+		Let $X = \Z_{\geq 0}$ and
+		\[
+			\tau = \left\{ \varnothing \right\} \cup
+			\left\{ 
+				U \subset X: \left\lvert X \setminus U \right\rvert < \infty 
+			\right\}.
+		\]
+		We can see that $\varnothing, X \in \tau$.
+		Simiarly, if $U_1, U_2 \in \tau$, then clearly $U_1 \cap U_2 \in \tau$
+		as 
+		$X \setminus (U_1 \cap U_2) = (X \setminus U_1) \cup (X \setminus U_2)$.
+		Now let $U_i \in \tau$ with $i \in I$, $I$ being some arbitrary 
+		labelling set.
+		If all $U_i = \varnothing$, then $U_{i \in I} U_i \in \tau$.
+		Now assume that there is $j \in I$ such that $U_j \neq \varnothing$.
+		Then
+		\[
+			X \setminus \bigcup_i U_i 
+			= \bigcap_i (X \setminus U_i) 
+			\subset X \setminus U_j
+		\]
+		and hence is finite.
+		Therefore, $\tau$ is a topology on $X$.
+
+		\item 
+		Let $(X, \tau)$ be a topological space and $A \subset X$.
+		Then 
+		\[ 
+			\tau_A = \left\{ A \cap U: U \in \tau \right\}
+		\]
+		is a topology  on $A$ called the \emph{induced} topology or 
+		\emph{subspace} topology.
+	\end{enumerate}
+\end{examples}
+
+\begin{problem}
+	Show that the metrics $d_p$ and $d_\infty$ for $p \in [1,\infty)$ both 
+	induce the same topology on $\R^n$.
+\end{problem}
+
+\begin{solution}
+	Recall
+	\begin{align*}
+		d_p(x,y)
+			&= \sum_{i=1}^n \left( 
+				\left\lvert x_i - y_i \right\rvert^p 
+			\right)^{\frac1p} \\
+		d_\infty(x,y)
+			&= \max\left\{ 
+				\left\lvert x_i - y_i \right\rvert: 
+				i \in \left\{ 1, \ldots, n \right\}
+			\right\}.
+	\end{align*}
+	Clearly we have $d_\infty(x,y) < d_p(x,y)$.
+	Simiarly, $d_p(x,y) < \sfrac1{n^{\frac1p}} d_\infty(x,y)$ and so if a 
+	subset is open with $d_p(x,y)$, it is also open with $d_\infty(x,y)$ and
+	vice versa.
+	Therefore, both metrics (regardless of choice of $p$ induce the same
+	topology. 
+\end{solution}

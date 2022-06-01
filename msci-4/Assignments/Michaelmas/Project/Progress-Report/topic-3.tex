@@ -1,0 +1,40 @@
+\subsection*{Implementation}
+
+As described in the last section, our input is a list $K = (K_0, \ldots, K_n)$ where each $K_i$ itself is a list of simplices (which themselves are lists of vertices), we denote $K$ as \texttt{chain\_groups} below. Our first step is to generate a representation of the boundary maps. We will do this by choosing the canonical basis and storing the matrix for each map as a two-dimensional array.
+
+\begin{minted}{python}
+boundary_maps = [[0] * len(chain_groups[1])]
+for i in range(1, len(chain_groups)):
+    chain_group = chain_groups[i]
+    boundary_map = []
+    for chain in chain_group:
+        boundary_map_col = [0] * len(chain_groups[i - 1])
+        for j in range(0, len(chain)):
+            v = j
+            v_boundary = chain[:j] + chain[j+1:]
+            boundary_map_col[chain_groups[i - 1].index(v_boundary)] = (-1) ** j
+        boundary_map.append(boundary_map_col)
+    boundary_maps.append(boundary_map)
+\end{minted}
+
+We initially cover the trivial case of the boundary map $\partial_0: K_0 \to 0$. Then at \texttt{2}, we iterate over the rest of the chain groups in ascending order. At each $i \in (1, \ldots, n)$, we construct its boundary matrix (with the canonical basis) and append it to our list of boundary maps, using the formula
+\[
+	\partial_i(v_0, \ldots, v_i) = \sum_{j=0}^n (-1)^j (v_0, \ldots, \hat v_j, \ldots, v_i).
+\]
+Next, we simply calculate the ranks of the images and kernels for each boundary map and thus the ranks of the homology groups. 
+
+\begin{minted}{python}
+ranks = []
+nullities = []
+homology_ranks = []
+for i in range(0, len(boundary_maps)):
+    ranks.append(rank(boundary_maps[i]))
+    nullities.append(len(chain_groups[i]) - ranks[len(ranks) - 1])
+ranks.append(0)
+for i in range(0, len(boundary_maps)):
+    homology_ranks.append(nullities[i] - ranks[i + 1])
+\end{minted}
+
+Here we make use of the \texttt{rank} function that we have not defined here, but discussed at depth in the preceding section.
+
+We note that this script only calculates the ranks of the homology group, and the Smith normal form gives us excessive information (that is, the torsion subgroups). Thus there is an opportunity to reduce the complexity by using a different matrix reduction algorithm. In fact, we only need reduce rows and bring the matrix into \emph{Hermite normal form}. Which, for a $m \times n$ matrix, can be done in $O(nm\log{N})$ (where $N$ is the number of bits required to store an entry of the matrix). Here we assume that the extended Euclidean algorithm can be executed in $O(\log{N})$ time (more specifically, we can calculate the greatest common divisor and B\'ezout coefficients of $a, b \in \Z$ in time $O(\log\min\{a,b\})$).

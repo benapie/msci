@@ -1,0 +1,116 @@
+\lecture{11}{4/11}
+\begin{theorem}
+    Let $f = u + iv$ be defined on an open subset $U$ of $\C$. Assume that the partial derivatives $u_x, u_y, v_x, v_y$ exist, are continuous, and satisfy the Cauchy-Riemann equations at $z_0 \in U$. Then $f$ is complex differentiable at $z_0$.
+\end{theorem}
+
+\begin{proof}
+    Let $h = h_1 + ih_2$. Then
+    \begin{align*}
+        f(z_0 + h) &= 
+            \begin{pmatrix}
+                u(x_0 + h_1, y_0 + h_2) \\
+                v(x_0 + h_1, y_0 + h_2) \\
+            \end{pmatrix}
+            \\
+        &=
+            \begin{pmatrix}
+                u(x_0, y_0) \\
+                v(x_0, y_0) \\
+            \end{pmatrix}
+            +
+            \begin{pmatrix}
+                u_x(x_0, y_0) & u_y(x_0, y_0) \\
+                v_x(x_0, y_0) & v_y(x_0, y_0) \\
+            \end{pmatrix}
+            \begin{pmatrix}
+                h_1 \\
+                h_2 \\
+            \end{pmatrix}
+            + \varepsilon(h)
+    \end{align*}
+    where $\lim_{h \to 0} \left(\frac{\varepsilon}{h}\right) = 0$. We write $u_x = u_x(x_0, y_0)$ and similar for other partial derivatives to make this a bit cleaner. Then
+    \begin{align*}
+        \begin{pmatrix}
+            u_x & u_y \\
+            v_x & v_y \\
+        \end{pmatrix}
+        \begin{pmatrix}
+            h_1 \\
+            h_2 \\
+        \end{pmatrix}
+            &=
+            \begin{pmatrix}
+                u_x & -v_x \\
+                v_x & u_x  \\
+            \end{pmatrix}
+            \begin{pmatrix}
+                h_1 \\
+                h_2 \\
+            \end{pmatrix}
+            \\
+            &= 
+            \begin{pmatrix}
+                u_x h_1 - v_x h_2 \\
+                v_x h_1 + u_x h_2 \\
+            \end{pmatrix}
+            \\
+            &= (u_x + iv_x)(h_1 + ih_2).
+    \end{align*}
+    Hence we have shown that $f(z_0 + h) = f(z_0) + f'(z_0)h + \varepsilon(h)$. So
+    \[ \frac{f(z_0 + h) - f(z_0)}{h} = f'(z_0) + \frac{\varepsilon(h)}{h}. \]
+    We have that
+    \[ \frac{\varepsilon(h)}{h} = \frac{\varepsilon(h)}{\lvert h \rvert} \frac{\lvert h \rvert}{h} \]
+    and we know that $\sfrac{\lvert h \rvert}h$ is bounded so
+    \[ \lim_{h \to 0} \left(\frac{f(z_0 + h) - f(z_0)}{h}\right) = f'(z_0) = \lim_{h \to 0} \left(\frac{\varepsilon(h)}{h}\right) = f'(z_0). \]
+\end{proof}
+
+\begin{example}
+    \begin{enumerate}
+        \item Consider $\exp{z} = \exp{(x + iy)} = e^x(\cos{y} + i \sin{y})$. If we write $\exp{z} = u + iv$ we get
+            \[ u(x, y) = e^x\cos{y}, \qquad v(x, y) = e^x\sin{y}. \]
+            Hence
+            \begin{align*}
+                u_x(x, y) &= e^x\cos{y} & u_y(x, y) &= -e^x\sin{y} \\
+                v_x(x, y) &= e^x\sin{y} & v_y(x, y) &= e^x\cos{y}.
+            \end{align*}
+            Hence the Cauchy-Riemann equations hold and $u_x, u_y, v_x, v_y$ are continuous everywhere. Therefore, $\exp$ is complex differentiable everywhere in $\C$.
+
+        \item Chain rule shows us that $e^{iz}$ and $e^{-iz}$ are complex differentiable; hence, $\cos$, $\sin$, $\sinh$, $\cosh$ are complex differentiable.
+
+        \item All polynomials are complex differentiable everywhere. So are all functions that are ratios of polynomials as long as they defined (that is, the denominator is not 0).
+
+        \item Continuing part (i), we know that $\exp$ is complex differentiable everywhere. From a previous proposition, we can conclude that
+            \[ \exp'{z_0} = \exp{z_0}, \]
+            which is what we would expect from real analysis. 
+    \end{enumerate}
+\end{example}
+
+\begin{definition}[Holomorphic]
+    If $U \subset \C$ is an open set and $f: U \to \C$, we say that $f$ is \textbf{holomorphic} on $U$ if $f$ is complex differentiable at all points in $U$. We say that $f$ is \textbf{holomorphic} at a point $z_0 \in U$ if $f$ is holomorphic on some ball $B_\varepsilon(z_0) \subset U$ where $\varepsilon > 0$.
+\end{definition}
+
+\section{Connected sets (and zero derivatives)}
+
+\begin{example}
+    Let $U = \{ z \in \C: \lvert z \rvert \neq 1\}$ and $f: U \to \C$ given by
+    \[ 
+        f(z) =
+        \begin{cases}
+            1 & \lvert z \rvert < 1 \\
+            2 & \lvert z \rvert > 1. \\
+        \end{cases} 
+    \]
+    $f$ is holomorphic on $U$. In fact, $f'(z_0) = 0$ for all $z_0 \in U$; however, $f$ is not constant. The point here is that a zero derivative does \emph{not} imply that a function is constant if it is holomorphic. This is where we need a sense of \emph{connectedness} for functions.
+\end{example}
+
+\begin{definition}[Path]
+    A \textbf{path} (or a \textbf{curve}) from $a \in \C$ to $b \in \C$ is a continuous function $\gamma: [0, 1] \to \C$ such that $\gamma(0) = a$ and $\gamma(1) = b$. The path is called \textbf{closed} if $\gamma(0) = \gamma(1)$.
+\end{definition}
+
+\begin{definition}[Smooth]
+    A path $\gamma: [0, 1] \to \C$ is called \textbf{smooth} if $\gamma'(t)$ exists for all $t \in [0, 1]$ and $\gamma'(t)$ is continuous. That is, $\gamma$ is \textbf{continually differentiable} for $t \in [0, 1]$.
+\end{definition}
+
+\begin{definition}[Path-connected]
+    A subset $U \subset \C$ is \text{path-connected} if for all $a, b \in U$ there is a smooth path $\gamma: [0, 1] \to U$ with $\gamma(0) = a$ and $\gamma(1) = b$. 
+\end{definition}

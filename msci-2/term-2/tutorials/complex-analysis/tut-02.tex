@@ -1,0 +1,104 @@
+\tutorial{2}{13/2}
+
+\question Compute the Taylor series expansions for the following function at $z = 0$:
+\[
+    f(z) = \frac{1}{(1-z)^2}. 
+\]
+\begin{solution}
+    \[
+        f'(z) = \frac{2}{(1-z)^3}, \qquad f''(z) = \frac{2 \cdot 3}{(1-z)^4} 
+    \]
+    so we guess
+    \[
+        f^{(n)}(z) = \frac{(n+1)!}{(1-z)^{n+2}}
+    \]
+    which is easy to confirm by induction.
+    Hence
+    \[
+        f(z) 
+        = \sum^{\infty}_{n=0} \frac{f^{(n)}(0)}{n!} \, z^n
+        = \sum^{\infty}_{n=0} (n+1) \, z^n.
+    \]
+\end{solution}
+
+\question Compute the following integral:
+\[
+    \int_{\abs z = 2} \frac{\sin^2z}{z^2} \,dz.
+\]
+\begin{solution}
+    \begin{align*}
+        I
+        &= \int_{\abs z = 2} \frac{\sin^2z}{z^2} \,dz \\
+        &= \frac{2 \pi i}{1!} \cdot 2\sin 0 \cos 0 \\
+        &= 0.
+    \end{align*}
+\end{solution}
+
+\question Compute the Taylor series expansion of $f(z) = e^z$ about an arbitrary point $z_0 \in \C$.
+\begin{solution}
+    \[
+        f(z)
+        = \sum^{\infty}_{n=0} \frac{f^{(n)}(z_0)}{n!} \, (z-z_0)^n
+        = \sum^{\infty}_{n=0} \frac{e^{z_0}}{n!} \, (z-z_0)^n.
+    \]
+\end{solution}
+
+\question Let $P(z)$ be a polynomial of degree at most $d$, for some $d \in \N$, and assume that
+\[
+    \int_{\abs z = 2} \frac{P(z)}{(n+1)z - 1} \,dz = 0,
+\]
+for $n = 0,1,2,\ldots,d$. 
+Show that $P(z) = 0$; that is, it is the zero polynomial.
+\begin{solution}
+    Let $P(z) = a_dz^d + a_{d-1}z^{d-1} + \ldots + a_1z + a_0$ where $a_d \neq 0$.
+    We will use the fact that
+    \[
+        P(z) = a_d(z-z_1)(z-z_2)\ldots(z-z_d)
+    \]  
+    for $z_i \in \C$ and so $\deg P \leq d$ and $P$ can have at most
+    $d$ distinct complex roots.
+    \[
+        \int_{\abs z = 2} \frac{P(z)}{(n+1)z - 1} \,dz 
+        = \int_{\abs z = 2} \frac{f(z)}{z - \frac1{n+1}} \,dz 
+    \]
+    where $f(z) = \frac{P(z)}{n+1}$.
+    So
+    \begin{align*}
+        2i \pi i \, f\left(\frac1{n+1}\right) 
+        &= \frac{2\pi i}{n+1} \, P\left(\frac1{n+1}\right) \\
+        &= \frac{2 \pi i a_d}{n + 1}
+            \left(
+                \frac{1}{n+1} - z_1
+            \right)
+            \left(
+                \frac{1}{n+1} - z_2
+            \right)
+            \ldots
+            \left(
+                \frac{1}{n+1} - z_d
+            \right) \\
+        &= 0
+    \end{align*}
+    for $n=0,1,\ldots,d$.
+    Hence, $P(z)$ has $d+1$ roots but we already know that $P(z)$ can have at most $d$ roots,
+    hence $P \equiv 0$.
+\end{solution}
+
+\question Find the maximum of $\abs{\sin z}$ on the square
+\[
+    \{z = x+iy: 0 \leq x \leq 2 \pi, 0 \leq y \leq 2\pi\} \subset \C.
+\]
+\begin{solution}
+    We set $f(z) = \sin z$ which is holomorphic in the domain
+    \[
+        D = \{z = x+iy: x,y \in (0,2\pi)\}.
+    \]
+    Moreover, $\abs{f(z)}$ is continuous on
+    \[
+        \overline D = \{z = x+iy: x,y \in [0,2\pi]\}
+    \]
+    which is comapct; hence $\abs{f(z)}$ does obtain a maximum value.
+    By the maximum modulus principle, we know this cannot happen in $D$,
+    so it occurs on $\partial \overline D$.
+    We observe $f$ on the boundary to see that it has a maximu mvalue of $\cosh(2\pi)$.
+\end{solution}

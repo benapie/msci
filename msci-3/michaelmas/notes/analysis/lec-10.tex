@@ -1,0 +1,199 @@
+%! TEX root = master.tex
+\lecture{10}{17/11}
+
+\begin{proposition}[]
+	Any set of outer measure zero is measurable.
+	In particular, any countable set is measurable.
+\end{proposition}
+
+\begin{proof}
+	Let $E \subset \R$ have outer measure zero.
+	Let $A \subset \R$.
+	Since $A \cap E \subset E$ and
+	$A \cap E^c \subset A$, by the monotonicity of outer measure
+	\[
+		m^\star(A \cap E) \leq m^\star(E) = 0, \qquad
+		m^\star(A \cap E^c) \leq m^\star(A).
+	\]
+	Thus
+	\begin{align*}
+		m^\star(A)
+		&\geq m^\star(A \cap E^c) \\
+		&= 0 + m^\star(A \cap E^c) \\
+		&\geq m^\star(A \cap E) + m^\star(A \cap E^c)
+	\end{align*}
+	and therefore $E$ is measurable.
+\end{proof}
+
+\begin{proposition}[]
+	The union of a finite collection of measurable sets is measurable.
+\end{proposition}
+
+\begin{proof}
+	Let $E_1, E_2 \subset \R$ be measurable and $A \subset \R$.
+	Then
+	\begin{align*}
+		m^\star(A)
+		&= m^\star(A \cap E_1) + m^\star(A \cap E_1^c) \\
+		&= m^\star(A \cap E_1) + m^\star((A \cap E_1^c) \cap E_2)
+			+ m^\star((A \cap E_1^c) \cap E_2^c) \\
+		&= m^\star(A \cap E_1) + m^\star((A \cap E_1^c) \cap E_2)
+			+ m^\star(A \cap (E_1 \cup E_2)^c) \\
+		&\geq m^\star(A \cap (E_1 \cup E_2)) + m^\star(A \cap (E_1 \cup E_2)^C)
+	\end{align*}
+	as $(A \cap E_1) \cup (A \cap E_1^c \cap E_2) = A \cap (E_1 \cup E_2$.
+	Thus $E_1 \cup E_2$ is measurable.
+\end{proof}
+
+\begin{proposition}[]
+	Let $A \subset \R$ and $
+		\left\{
+			E_k
+		\right\}_{k=1}^n
+		$ be a finite disjoint collection of measurable sets.
+		Then
+		\[
+			m^\star\left( 
+				A \cap \left( 
+					\bigcup_{k=1}^n E_k 
+				\right) 
+			\right) = \sum^{n}_{k=1} m^\star(A \cap E_k).
+		\]
+		In particular,
+		\[
+			m^\star\left( 
+				\bigcup_{k=1}^n E_k 
+			\right) = \sum^{n}_{k=1} m^\star(E_k).
+		\]
+\end{proposition}
+
+\begin{proof}
+	This proof proceeds by induction on $n$.
+	For $n = 1$, this is clearly true.
+	Now assume it is true for $n - 1$.
+	Since the collection $\left\{
+		E_k
+	\right\}_{k=1}^n$ is disjoint we have, \[
+		A \cap \left( 
+			\bigcup_{k=1}^n E_k 
+		\right) \cap E_n = A \cap E_n
+	\]
+	and \[
+		A \cap \left( 
+			\bigcup_{k=1}^n E_k 
+		\right) \cap E^c_n = A \cap \left( 
+			\bigcup_{k=1}^{n-1} E_k 
+		\right).
+	\]
+	By the measurability of $E_n$ and the induction assumption,
+	\begin{align*}
+		m^\star\left( 
+			A \cap \left( 
+				\bigcup_{k=1}^n E_k
+			\right) 
+		\right)
+		&= m^\star(A \cap E_n) + m^\star\left( 
+			A \cap \left( 
+				\bigcup_{k=1}^{n-1} E_k 
+			\right) 
+		\right) \\
+		&= m^\star(A \cap E_n) +
+			\sum^{n-1}_{k=1} m^\star(A \cap E_k) \\
+		&= \sum_{k=1}^n m^\star(A \cap E_n). \qedhere
+	\end{align*}
+\end{proof}
+
+\begin{definition}[Algebra]
+	A collection of subsets of $\R$ is called an \emph{algebra} if it contains
+	$\R$ and is closed under complementation and finite unions.
+\end{definition}
+
+\begin{proposition}[]
+	The collection of measurable sets form an algebra.
+\end{proposition}
+
+It is important to observe that if a set is the union of a countable collection
+of measurable sets, then it is also the union of a countable disjoint collection
+of measurable sets.
+Indeed, let $
+	\left\{
+		A_k
+	\right\}_{k=1}^\infty
+$ be a countable collection of measurable sets.
+We define $A_1' = A_1$ and for each $k \in \left\{
+	2, 3, \ldots
+\right\}$ define \[
+	A_k' = A_k \setminus \bigcup_{i=1}^{k-1} A_i.
+\]
+As the set of measurable sets is an algebra, $
+	\left\{
+		A_k'
+	\right\}_{k=1}^\infty
+$ is a disjoint collection of measurable sets whose union is the same as that of
+$
+	\left\{
+		A_k
+	\right\}_{k=1}^\infty
+$.
+
+\begin{proposition}[]
+	The union of a countable collection of measurable sets is measurable.
+\end{proposition}
+
+\begin{proof}
+	Let $E \subset \R$ be the union of a countable collection of measurable
+	sets.
+	Then there is a disjoint collection $
+		\left\{
+			E_k
+		\right\}_{k=1}^\infty
+	$
+	such that $E = \bigcup_{k=1}^\infty E_k$.
+	Let $A \subset \R$ and $n \in \N$.
+	Define $F_n = \bigcup_{k=1}^n E_k$.
+	Since $F_n$ is measurable and $E^c \subset F_n^c$,
+	\begin{align*}
+		m^\star(A)
+		&= m^\star(A \cap F_n) + m^\star(A \cap F_n^c) \\
+		&\geq m^\star(A \cap F_n) + m^\star(A \cap E^c).
+	\end{align*}
+	Now
+	\[
+		m^\star(A \cap F_n)
+		= \sum_{k=1}^n m^\star(A \cap E_k)
+	\]
+	and thus
+	\[
+		m^\star(A) \geq \sum^{n}_{k=1} \left( 
+			m^\star(A \cap E_k)
+		\right)
+		+ m^\star(A \cap E^c).
+	\]
+	As the LHS of this expression is independent of $n$, we let 
+	$n \to \infty$ to obtain
+	\[
+		m^\star(A) \geq \sum^{\infty}_{k=1} \left( 
+			m^\star(A \cap E_k)
+		\right)
+		+ m^\star(A \cap E^c).
+	\]
+	By the subadditivty property of outer measure,
+	\[
+		m^\star(A) \geq m^\star(A \cap E) + m^\star(A \cap E^c)
+	\]
+	and hence $E$ is measurable.
+\end{proof}
+
+We observe that, by De Morgan's identities,
+a collection of measurable set is also closed with respect to countable
+intersections.
+
+\begin{definition}[$\sigma$-algebra]
+	A collection of subsets of $\R$ is called a
+	\emph{$\sigma$-algebra} if it is closed under complementation and countable
+	unions.
+\end{definition}
+
+\begin{proposition}[]
+	The collection of measurable sets is a $\sigma$-algebra.
+\end{proposition}

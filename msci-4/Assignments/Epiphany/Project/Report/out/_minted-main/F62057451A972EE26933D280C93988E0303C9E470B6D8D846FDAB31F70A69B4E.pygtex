@@ -1,0 +1,65 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{n+nd}{@dataclass}\PYG{p}{(}\PYG{n}{frozen}\PYG{o}{=}\PYG{k+kc}{True}\PYG{p}{)}
+\PYG{k}{class} \PYG{n+nc}{PersPoint}\PYG{p}{:}
+    \PYG{n}{born\PYGZus{}index}\PYG{p}{:} \PYG{n+nb}{int}
+    \PYG{n}{die\PYGZus{}index}\PYG{p}{:} \PYG{n+nb}{int}
+    \PYG{n}{born}\PYG{p}{:} \PYG{n+nb}{float}
+    \PYG{n}{die}\PYG{p}{:} \PYG{n+nb}{float}
+    \PYG{n}{dim}\PYG{p}{:} \PYG{n+nb}{int}
+
+
+\PYG{k}{class} \PYG{n+nc}{PersDiag}\PYG{p}{:}
+    \PYG{n}{\PYGZus{}\PYGZus{}points}\PYG{p}{:} \PYG{n}{Dict}\PYG{p}{[}\PYG{n+nb}{int}\PYG{p}{,} \PYG{n}{Counter}\PYG{p}{[}\PYG{n}{PersPoint}\PYG{p}{]]}
+    \PYG{n}{\PYGZus{}\PYGZus{}point\PYGZus{}count}\PYG{p}{:} \PYG{n+nb}{int}
+
+    \PYG{k}{def} \PYG{n+nf+fm}{\PYGZus{}\PYGZus{}init\PYGZus{}\PYGZus{}}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{p}{):}
+        \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{\PYGZus{}\PYGZus{}points} \PYG{o}{=} \PYG{n+nb}{dict}\PYG{p}{()}
+        \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{\PYGZus{}\PYGZus{}point\PYGZus{}count} \PYG{o}{=} \PYG{l+m+mi}{0}
+
+    \PYG{k}{def} \PYG{n+nf+fm}{\PYGZus{}\PYGZus{}repr\PYGZus{}\PYGZus{}}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{p}{)} \PYG{o}{\PYGZhy{}\PYGZgt{}} \PYG{n+nb}{str}\PYG{p}{:}
+        \PYG{k}{return} \PYG{l+s+sa}{f}\PYG{l+s+s2}{\PYGZdq{}PersDiag with }\PYG{l+s+si}{\PYGZob{}}\PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{\PYGZus{}\PYGZus{}point\PYGZus{}count}\PYG{l+s+si}{\PYGZcb{}}\PYG{l+s+s2}{ points\PYGZdq{}}
+
+    \PYG{k}{def} \PYG{n+nf+fm}{\PYGZus{}\PYGZus{}eq\PYGZus{}\PYGZus{}}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{p}{,} \PYG{n}{other}\PYG{p}{:} \PYG{n}{PersDiag}\PYG{p}{):}
+        \PYG{k}{if} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{\PYGZus{}\PYGZus{}point\PYGZus{}count} \PYG{o}{!=} \PYG{n}{other}\PYG{o}{.}\PYG{n}{\PYGZus{}\PYGZus{}point\PYGZus{}count}\PYG{p}{:}
+            \PYG{k}{return} \PYG{k+kc}{False}
+        \PYG{k}{if} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{\PYGZus{}\PYGZus{}points}\PYG{o}{.}\PYG{n}{keys}\PYG{p}{()} \PYG{o}{!=} \PYG{n}{other}\PYG{o}{.}\PYG{n}{\PYGZus{}\PYGZus{}points}\PYG{o}{.}\PYG{n}{keys}\PYG{p}{():}
+            \PYG{k}{return} \PYG{k+kc}{False}
+        \PYG{k}{for} \PYG{n}{key} \PYG{o+ow}{in} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{\PYGZus{}\PYGZus{}points}\PYG{o}{.}\PYG{n}{keys}\PYG{p}{():}
+            \PYG{k}{if} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{\PYGZus{}\PYGZus{}points}\PYG{p}{[}\PYG{n}{key}\PYG{p}{]} \PYG{o}{!=} \PYG{n}{other}\PYG{o}{.}\PYG{n}{\PYGZus{}\PYGZus{}points}\PYG{p}{[}\PYG{n}{key}\PYG{p}{]:}
+                \PYG{k}{return} \PYG{k+kc}{False}
+        \PYG{k}{return} \PYG{k+kc}{True}
+
+    \PYG{n+nd}{@property}
+    \PYG{k}{def} \PYG{n+nf}{points}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{p}{)} \PYG{o}{\PYGZhy{}\PYGZgt{}} \PYG{n}{Generator}\PYG{p}{[}\PYG{n}{PersPoint}\PYG{p}{,} \PYG{k+kc}{None}\PYG{p}{,} \PYG{k+kc}{None}\PYG{p}{]:}
+        \PYG{k}{for} \PYG{n}{p\PYGZus{}pers\PYGZus{}points} \PYG{o+ow}{in} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{\PYGZus{}\PYGZus{}points}\PYG{o}{.}\PYG{n}{values}\PYG{p}{():}
+            \PYG{k}{for} \PYG{n}{p\PYGZus{}pers\PYGZus{}point} \PYG{o+ow}{in} \PYG{n}{p\PYGZus{}pers\PYGZus{}points}\PYG{p}{:}
+                \PYG{k}{yield} \PYG{n}{p\PYGZus{}pers\PYGZus{}point}
+
+    \PYG{k}{def} \PYG{n+nf}{p\PYGZus{}points}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{p}{,} \PYG{n}{p}\PYG{p}{:} \PYG{n+nb}{int}\PYG{p}{)} \PYG{o}{\PYGZhy{}\PYGZgt{}} \PYG{n}{Generator}\PYG{p}{[}\PYG{n}{PersPoint}\PYG{p}{,} \PYG{k+kc}{None}\PYG{p}{,} \PYG{k+kc}{None}\PYG{p}{]:}
+        \PYG{k}{if} \PYG{n}{p} \PYG{o+ow}{not} \PYG{o+ow}{in} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{\PYGZus{}\PYGZus{}points}\PYG{p}{:}
+            \PYG{k}{return}
+        \PYG{k}{for} \PYG{n}{pers\PYGZus{}point} \PYG{o+ow}{in} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{\PYGZus{}\PYGZus{}points}\PYG{p}{[}\PYG{n}{p}\PYG{p}{]:}
+            \PYG{k}{yield} \PYG{n}{pers\PYGZus{}point}
+
+    \PYG{k}{def} \PYG{n+nf}{add\PYGZus{}point}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{p}{,} \PYG{n}{point}\PYG{p}{:} \PYG{n}{PersPoint}\PYG{p}{)} \PYG{o}{\PYGZhy{}\PYGZgt{}} \PYG{k+kc}{None}\PYG{p}{:}
+        \PYG{k}{if} \PYG{n}{point}\PYG{o}{.}\PYG{n}{dim} \PYG{o+ow}{not} \PYG{o+ow}{in} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{\PYGZus{}\PYGZus{}points}\PYG{p}{:}
+            \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{\PYGZus{}\PYGZus{}points}\PYG{p}{[}\PYG{n}{point}\PYG{o}{.}\PYG{n}{dim}\PYG{p}{]} \PYG{o}{=} \PYG{n}{collections}\PYG{o}{.}\PYG{n}{Counter}\PYG{p}{()}
+        \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{\PYGZus{}\PYGZus{}points}\PYG{p}{[}\PYG{n}{point}\PYG{o}{.}\PYG{n}{dim}\PYG{p}{][}\PYG{n}{point}\PYG{p}{]} \PYG{o}{+=} \PYG{l+m+mi}{1}
+        \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{\PYGZus{}\PYGZus{}point\PYGZus{}count} \PYG{o}{+=} \PYG{l+m+mi}{1}
+
+
+\PYG{k}{class} \PYG{n+nc}{PersHomBase}\PYG{p}{(}\PYG{n}{ABC}\PYG{p}{):}
+    \PYG{n}{\PYGZus{}pers\PYGZus{}diag}\PYG{p}{:} \PYG{n}{PersDiag} \PYG{o}{|} \PYG{k+kc}{None}
+
+    \PYG{k}{def} \PYG{n+nf+fm}{\PYGZus{}\PYGZus{}init\PYGZus{}\PYGZus{}}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{p}{):}
+        \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{\PYGZus{}pers\PYGZus{}diag} \PYG{o}{=} \PYG{k+kc}{None}
+
+    \PYG{n+nd}{@abstractmethod}
+    \PYG{k}{def} \PYG{n+nf}{compute}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{p}{)} \PYG{o}{\PYGZhy{}\PYGZgt{}} \PYG{k+kc}{None}\PYG{p}{:}
+        \PYG{k}{pass}
+
+    \PYG{k}{def} \PYG{n+nf}{get\PYGZus{}pers\PYGZus{}diag}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{p}{)} \PYG{o}{\PYGZhy{}\PYGZgt{}} \PYG{n}{PersDiag}\PYG{p}{:}
+        \PYG{k}{assert} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{\PYGZus{}pers\PYGZus{}diag} \PYG{o+ow}{is} \PYG{o+ow}{not} \PYG{k+kc}{None}\PYG{p}{,}
+            \PYG{l+s+s2}{\PYGZdq{}It seems like that the persistent diagram has not been constructed.\PYGZdq{}}
+        \PYG{k}{return} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{\PYGZus{}pers\PYGZus{}diag}
+\end{Verbatim}

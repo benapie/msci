@@ -1,0 +1,147 @@
+\assignment{1}{18/10}
+
+\setcounter{question}{3}
+\question Find all complex numbers $z$ for which:
+\begin{parts}
+    \part $\lvert \Re{(z)} \rvert = \lvert z \rvert$;
+    \begin{solution}
+        This is clearly only the case for purely real numbers, so $z \in \R$.
+    \end{solution}
+
+    \part $\Im{(z)} = \lvert z \rvert$; and
+    \begin{solution}
+        Again, this is clearly only the case for positive imaginary numbers, so $z = ix$ where $x \in \R_{\geq 0}$.
+    \end{solution}
+
+    \part $\lvert z \rvert^2 = z^2$.
+    \begin{solution}
+        This one requires a little bit more working. Let $z = x + iy$ where $x, y \in \R$.
+        \begin{align*}
+            \lvert x +iy \rvert^2 &= (x + iy)^2 \\
+            x^2+ y^2 &= x^2 + 2ixy - y^2 \\
+            2y(y - ix) &= 0 
+        \end{align*}
+        and as $y \in R$, $y = 0$ must hold. Hence $z \in \R$ are all the complex numbers that satisfy this.
+    \end{solution}
+\end{parts}
+
+\setcounter{question}{8}
+\question Draw the following sets of points in the complex plane.
+\begin{parts}
+    \part $z + \bar{z} = 2$;
+    \begin{solution}
+        \begin{center}
+            \begin{tikzpicture}
+                \begin{scope}[thick,font=\scriptsize]
+                    \draw [->] (-4,0) -- (4,0) node [above left]  {$\Re\{z\}$};
+                    \draw [->] (0,-4) -- (0,4) node [below right] {$\Im\{z\}$};
+                    
+                    \foreach \n in {-3,...,-1,1,2,...,3}{%
+                        \draw (\n,-3pt) -- (\n,3pt)   node [above] {$\n$};
+                        \draw (-3pt,\n) -- (3pt,\n)   node [right] {$\n i$};}
+                        
+                    \draw [thick, color=red] (1,-4) -- (1,4);
+                \end{scope}
+            \end{tikzpicture}
+        \end{center}
+    \end{solution}
+
+    \part $z - \bar{z} = 3i$; 
+    \begin{solution}
+        \begin{center}
+            \begin{tikzpicture}
+                \begin{scope}[thick,font=\scriptsize]
+                    \draw [->] (-4,0) -- (4,0) node [above left]  {$\Re\{z\}$};
+                    \draw [->] (0,-4) -- (0,4) node [below right] {$\Im\{z\}$};
+                    
+                    \foreach \n in {-3,...,-1,1,2,...,3}{%
+                        \draw (\n,-3pt) -- (\n,3pt)   node [above] {$\n$};
+                        \draw (-3pt,\n) -- (3pt,\n)   node [right] {$\n i$};}
+                        
+                    \draw [thick, color=red] (-4,1.5) -- (4,1.5);
+                \end{scope}
+            \end{tikzpicture}
+        \end{center}
+    \end{solution}
+
+    \part $\lvert \bar z \rvert = r + 1$; and
+    \begin{solution}
+        Here I am taking $r \in \R$ as a constant.
+        \begin{center}
+            \begin{tikzpicture}
+                \begin{scope}[thick,font=\scriptsize]
+                    \draw [->] (-4,0) -- (4,0) node [above left]  {$\Re\{z\}$};
+                    \draw [->] (0,-4) -- (0,4) node [below right] {$\Im\{z\}$};
+                    
+                    \foreach \n in {-3,...,-1,1,2,...,3}{%
+                        \draw (\n,-3pt) -- (\n,3pt)   node [above] {};
+                        \draw (-3pt,\n) -- (3pt,\n)   node [right] {};}
+                     
+                    \draw (2,0) node [above left] {$r+1$};  
+                    \draw [thick, color=red] (0,0) circle (2);
+                \end{scope}
+            \end{tikzpicture}
+        \end{center}
+    \end{solution}
+
+    \part $\lvert z + i \rvert = 1$.
+    \begin{solution} 
+        \begin{center}
+            \begin{tikzpicture}
+                \begin{scope}[thick,font=\scriptsize]
+                    \draw [->] (-4,0) -- (4,0) node [above left]  {$\Re\{z\}$};
+                    \draw [->] (0,-4) -- (0,4) node [below right] {$\Im\{z\}$};
+                    
+                    \foreach \n in {-3,...,-1,1,2,...,3}{%
+                        \draw (\n,-3pt) -- (\n,3pt)   node [above] {$\n$};
+                        \draw (-3pt,\n) -- (3pt,\n)   node [right] {$\n i$};}
+                    
+                    \draw [thick, color=red] (0, 1) circle (1);
+                \end{scope}
+            \end{tikzpicture}
+        \end{center}
+    \end{solution}
+\end{parts}
+
+\setcounter{question}{15}
+\question Show that for any complex number $z$,
+\begin{parts}
+    \part $\cos^2{z} + \sin^2{z} = 1$,
+    \begin{solution}
+        \begin{align*}
+            \sin{z} &= \frac{1}{2i}\left(e^{iz} - e^{-iz}\right) \\
+            \cos{z} &= \frac12 \left( e^{iz} + e^{-iz} \right) \\
+            \sin^2{z} + \cos^2{z} &= \frac{-1}4 \left(e^{iz} - e^{-iz}\right)^2 + \frac14\left(e^{iz} + e^{-iz}\right)^2 \\
+            &= \frac14(4) = 1.
+        \end{align*}
+    \end{solution}
+
+    \part $\sin{(2z}) = 2\sin{z}\cos{z}$.
+    \begin{solution}
+        \begin{align*}
+            \sin{(2z)} &= \frac1{2i}\left( e^{2iz} - e^{-2iz} \right) \\
+            &= \frac1{2i} \left(e^{iz} + e^{iz}\right)\left(e^{iz} - e^{iz}\right) \\
+            &= 2 \left(\frac1{2i}\left(e^{iz} - e^{-iz}\right)\right)\left(\frac12\left(e^{iz} + e^{-iz}\right)\right) \\
+            &= 2\sin{z}\cos{z}
+        \end{align*}
+    \end{solution}
+\end{parts}
+
+\setcounter{question}{21}
+\question
+\begin{parts}
+    \part Determine $1^\frac{1}{4}$ if $z^w$ is defined using the principal branch of logarithm.
+    \begin{solution}
+        \begin{align*}
+            1^{\frac{1}{4}} &= \exp{\left(\frac14 \operatorname{Log}{1} \right)} \\
+            &= \exp{\left(\frac14\left(\log{\lvert 1 \rvert} + i\operatorname{Arg}{1}\right)\right)} \\
+            &= 1;
+        \end{align*}
+        hence, is defined.
+    \end{solution}
+
+    \part What are the other possible values of $1^{\frac{1}{4}}$ if the branch is not principal?
+    \begin{solution}
+       The other solutions are $-1$, $i$, and $-i$. 
+    \end{solution}
+\end{parts}

@@ -1,0 +1,77 @@
+\section{Partial differentiation with vector notation}
+\lecture{5}{15/10}
+
+For
+$f(x, y) : \R^2 \to \R$
+we had
+\[ \frac{\partial f}{\partial x} = \lim_{h \to 0} \left( \frac{f(x + h, y) - f(x, y)}{h} \right). \]
+In vector notation we write 
+\[ \frac{\partial f}{partial x} = \lim_{h \to 0} \left( \frac{f(\bm x + h\bm e_1) - f(\bm x)}{h} \right). \]
+Sometimes we use
+$\partial_a f(\bm x)$
+as a shorthand for this.
+
+\section{A chain rule in vector notation}
+
+If we restrict a function 
+$f(x, y) : \R^2 \to R$ 
+to the parametric curve
+$C : (x(t), y(t))$
+we get a fucntion of $t$
+\[ F(t) = f(x(t), y(t)). \]
+We know that
+\[ \frac{dF}{dt} = \frac{dx}{dt} \frac{\partial F}{\partial x} + \frac{dy}{dt} \frac{\partial F}{dy}. \]
+in vector notation $C$ is
+\[ \bm x(t) = x_1(t) \bm e_1 + x_2(t) \bm e_2 \]
+where $x_1 = x(t)$ and $x_2 = y(t)$. Let $f(\bm x) = f(x, y)$. Then
+\[ \frac{df}{dt} (\bm x(t)) = \frac{d x_1}{dt} \frac{\partial f}{\partial x_1} + \frac{dx_2}{dt} \frac{\partial f}{\partial x_2} \]
+and as an operator we write
+\[ \frac{d}{dt} = \frac{dx_1}{dt} \frac{\partial}{\partial x_1}  + \frac{dx_2}{dt} \frac{\partial f}{\partial x_2}. \]
+We can rewrite this expression as a scalar product, that is
+\[ 
+    \frac{dF}{dt} =
+    \left(
+        \bm e_1 \frac{dx_2}{dt} + \bm e_2 \frac{dx_2}{dt}
+    \right)
+    \cdot
+    \left(
+        \bm e_1 \frac{\partial f}{\partial x_1} + \bm e_2 \frac{\partial f}{\partial x_2}.
+    \right).
+\]
+We can also write this as an operator:
+\[ 
+    \frac{d}{dt} =
+    \left(
+        \bm e_1 \frac{dx_2}{dt} + \bm e_2 \frac{dx_2}{dt}
+    \right)
+    \cdot
+    \left(
+        \bm e_1 \frac{\partial}{\partial x_1} + \bm e_2 \frac{\partial}{\partial x_2}.
+    \right).
+\]
+The left side of the scalar product is the tangent to the curve and the right side of the scalar product is called the \emph{gradient of $f$}, deonted $\nabla f$ or $\grad f$. From this we have
+\[ \frac{dF}{dt} = \frac{d\bm x}{dt} \cdot \nabla f. \]
+This applies to $n$-dimensions as well, given $f(\bm x) : \R^n \to \R$ and $F(t) = f(\bm x(t))$ we have
+\[ \frac{dF}{dt} = \frac{d}{dt} f(\bm x(t)) = \frac{dx_i}{dt} \frac{\partial f}{\partial x_i} = \frac{d\bm x}{dt} \cdot \nabla{f} \] 
+via the \emph{Einstein Summation Convention}.
+
+\chapter{The gradient of a scalar function}
+
+\begin{definition}[Gradient]
+    In $n$-dimensions, we define the \emph{del} (or \emph{nabla}) operator $\nabla$ as
+    \[ \nabla \equiv \bm e_1 \frac{\partial}{\partial x_1} + \bm e_2 \frac{\partial}{\partial x_2} + \ldots + \bm e_n \frac{\partial}{\partial x_n} = \bm e_i \frac{\partial}{\partial x_i}. \]
+    If $f : \R^n \to R$ is a scalar field, then we define its \textbf{gradient} to be given by
+    \[ \nabla{f} \equiv \grad{f} \equiv \bm e_1 \frac{\partial f}{\partial x_1} + \bm e_2 \frac{\partial f}{\partial x_2} + \ldots + \bm e_n \frac{\partial f}{\partial x_n} = \bm e_i \frac{\partial f}{\partial x_i}. \] 
+    It is a vector field.
+\end{definition}
+
+\begin{example}
+    In two dimensions, set 
+    $\bm x = x \bm e_1 + y \bm e_2$
+    and 
+    \[ f(\bm x) = \frac{x^2 + y^2}{4}. \]
+    Then
+    \[ \frac{\partial f}{\partial x} = \frac{x}{2}, \qquad \frac{\partial f}{\partial y} = \frac{y}{2} \]
+    and
+    \[ \nabla{f} = \frac{1}{2} x \bm e_1 + \frac{1}{2} y \bm e_2 = \frac{1}{2} \bm x.\]
+\end{example}

@@ -1,0 +1,52 @@
+\documentclass[a4paper, answers]{exam}
+\input{../preamble.tex}
+
+\begin{document}
+
+\begin{center}
+	\textbf{\textsc{Design of Algorithms and Data Structures, Week 3 Exercises}}
+	\\
+	\textsc{Ben Napier}
+\end{center}
+
+\vspace{1em}
+
+\begin{questions}
+	\question Consider the hash function
+	\[
+		h_a(x) = (ax \bmod p) \bmod n
+	\]
+	and the family
+	\[
+		H = \left\{ h_a: a \in \left\{ 1, 2, \ldots, p_1 \right\} \right\}.
+	\]
+	This family is not $2$-universal.
+	Prove that $H$ is almost $2$-universal in the sense that for every
+	$x,y \in \left\{ 0, 1, \ldots, p-1 \right\}$, if $h$ is chosen uniformly
+	at random from $H$ then
+	\[
+		\operatorname{Pr}(h(x) = h(y)) \leq \frac2n.
+	\]
+
+	\question We examine a specific way in which $2$-universal hash functions
+	differ from completely random hash functions.
+	Let $S = \left\{ 0,1, \ldots, k \right\}$ and consider a hash function
+	$h: \left\{ 0, 1, \ldots, p-1 \right\}$ for some prime $p \gg k$.
+	Consider the values $h(0), h(1), \ldots, h(k)$.
+	If $h$ is a completely random hash function, then the probability that $h(0)$
+	is smaller than any of the otehr valeus is roughly $\sfrac1{(k+1)}$.
+	(There may be a tie for the smallest value, so the probability that any
+	$h(i)$ is the unique smallest is slightly less than $\sfrac1{(k+1)}$.)
+	Now consider a hash function $h$ chosen from the family
+	\[
+		H = \left\{ h_{a,b}: a,b \in \left\{ 0, 1 \ldots, p-1 \right\} \right\},
+		\qquad h_{a,b} = (ax + b) \bmod p.
+	\]
+	Estimate the probability that $h(0)$ is smaller than $h(1), \ldots, h(k)$ by
+	randomly choosing $10000$ hash function from $H$ and computing $h(x)$ for all
+	$x \in S$. 
+	Run this experiment for $k = 32$ and $k = 128$, using primes 
+	$p = 5\,023\,309$ and $p = 10\,570\,849$.
+	Is your estimate close to $\sfrac1{(k+1)}$?
+\end{questions}
+\end{document}

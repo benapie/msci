@@ -1,0 +1,441 @@
+\paper{2014}
+
+\question
+\begin{parts}
+    \part 
+    Find $d = \gcd(45,237)$
+    and $n, m \in \Z$
+    with $d = 45n + 237m$.
+    \begin{solution}
+        \begin{align*}
+            45  &= (0)237 + 45 \\
+            237 &= (5)45  + 12 \\
+            45  &= (3)12  + 9  \\
+            12  &= (1)9   + 3  \\
+            9   &= (3)3   + 0;
+        \end{align*}
+        therefore, $d = 3$.
+        We have
+        \begin{align*}
+            3 &= 12 - (1)9                  \\
+              &= 12 - (1)(45 - (3)12)       \\
+              &= (4)12 - (1)45              \\
+              &= (4)(237 - (5)45) - (1)(45) \\
+              &= (4)237 - (21)45
+        \end{align*}
+        so $n = -21$ and $m = 4$.
+    \end{solution}
+
+    \part
+    Let $f(x) = x^7 + x^4 + x^3 + \overline 1$,
+    $g(x) = \overline2 x^4 + \overline2 x^3 + \overline 1$
+    be in $\Z_5[x]$.
+    Find $\gcd(f(x),g(x))$ in monic form.
+    \begin{solution}
+        \begin{align*}
+            f(x) &= (\ov3 x^3 + \ov2 x^2 + \ov3 x) g(x) + (\ov3 x^3 + \ov3 x^2 + \ov2 x + \ov1) \\
+            g(x) &= (\ov4 x)(\ov3 x^3 + \ov3 x^2 + \ov2 x + \ov1) + (\ov2 x^2 + x) \\
+            (\ov3 x^3 + \ov3 x^2 + \ov2 x + \ov1) &= (\ov4 x - \ov2)(\ov2 x^2 + x) + (\ov4 x + 1) \\
+            (\ov2 x^2 + x) &= (\ov3 x + \ov2)(\ov4x + 1) + \ov3 \\
+            (\ov4x + 1) &= (\ov3x)(\ov 3) + \ov1 \\
+            (\ov3) &= (\ov3)(\ov1) + \ov 0.
+        \end{align*}
+        Therefore $\gcd(f(x),g(x)) = \overline 1$.
+        %todo probably an error somewhere
+    \end{solution}
+\end{parts}
+
+\question
+Let $R = \Z[\sqrt{-3}]$.
+For an integer $k > 1$ consider the map $\varphi: R \to \Z_k$
+given by
+\[
+    \varphi(a+b\sqrt{-3}) = \overline{a + 4b}.
+\]
+\begin{parts}
+    \part
+    Find $k > 1$ such that $\varphi$ is a ring homomorphism.
+    \begin{solution}
+        $k = 19$ by the definition of a ring homomorphism.
+    \end{solution}
+
+    \part 
+    Find an element $a + b\sqrt{-3} \in R$ such that
+    $\ker\varphi = \langle a + b\sqrt{-3} \rangle$
+    for this $k$.
+    Show that the element does indeed generate $\ker\varphi$.
+\end{parts}
+
+\question
+Show that
+\[
+    \Z_7[x] / \langle x^4 + 1 \rangle \cong
+    \Z_7[x] / \langle x^2 + \overline3 x + \overline 1 \rangle
+        \times Z_7[x] / \langle x^2 - \overline3 x + \overline 1 \rangle.
+\]
+You may quote theorems from the lecture to do this, but you should justify their use.
+
+\question
+Consider the permutation 
+$\sigma = (1\;3)(2\;4\;6)(5\;7\;6\;4)$
+in $S_7$.
+\begin{parts}
+    \part
+    Determine the order of $\sigma$. (State carefully any result you use.)
+    \begin{solution}
+        \[
+            \sigma = (1\;3)(2\;4\;5\;7).
+        \]
+        If $\sigma$ is a product of disjoint $k_i$-cycles,
+        then $\abs \sigma = \operatorname{lcm}\{k_i\}$.
+        So $\abs\sigma = 4$.
+    \end{solution}
+
+    \part
+    Does $\sigma$ also lie in $A_7$? (Justify your reasoning.)
+    \begin{solution}
+        \[
+            \sigma = (1\;3)(2\;4)(4\;5)(5\;7),
+        \]
+        $\sigma$ factorises into an even number of transpositions;
+        hence, $\sigma \in A_7$.
+    \end{solution}
+
+
+    \part 
+    Either give a permutation that conjugates $\sigma$
+    into $\sigma' = (1\;5\;7\;4)(2\;3)$
+    or show that $\sigma$ and $\sigma'$ are not conjugate to each
+    other in $S_7$.
+    \begin{solution}
+        Let $g$ be the permutation such that
+        $g\sigma g^{-1} = \sigma'$.
+        Then
+        \begin{align*}
+            g\sigma g^{-1} &= \sigma' \\
+            g (1\;3)(1\;5\;7\;4) g^{-1} &= \sigma' \\
+            g (1\;3) g^{-1} g (1\;5\;7\;4) g^{-1} &= \sigma' \\
+            (g(1)\;g(3)) (g(1)\;g(5)\;g(7)\;g(4)) &= (1\;5\;7\;4)(2\;3);
+        \end{align*}
+        which is satisfied by
+        \[
+            g = (1\;2)(4\;5\;7).
+        \]
+    \end{solution}
+\end{parts}
+
+\question
+\begin{parts}
+    \part
+    Consider the pair $(S, \circ)$ 
+    where $S$ denotes the set of $2\times2$-matrices with entries
+    in $\Q$ which ahve determinant an integer power of $2$,
+    and where $\circ$ denotes matrix multication.
+    Does $(S, \circ)$ form a group? (Justify your answer.)
+
+    \part
+    Give a map from $\C \setminus \{0\}$ to 
+    $\{x \in \C: \abs x = 1\}$
+    that defines a \emph{surjective} group homomorphism.
+    (Here $\abs x$ denotes the usual complex norm of $x$.
+    You can assume that the former is a group under multiplication and that
+    the latter is a subgroup thereof.)
+    
+    Furthermore, give the kernel of this homomorphism.
+\end{parts}
+
+\question
+\begin{parts}
+    \part
+    Determine the centre $Z(D_4)$
+    of the dihedral group $D_4$.
+
+    \part
+    Determine all the groups of order 289, and of order 202,
+    up to isomorphism. (State carefully any result you use.)
+\end{parts}
+
+\question 
+Let $R$ be a commutative ring with identity,
+and let $I$ be an ideal in $R$.
+\begin{parts}
+    \part
+    Show that $I[x]$, the polynomiaal ring with 
+    coefficients in $I$,
+    is an ideal in $R[x]$.
+
+    \part
+    Show that $R[x]/I[x]$ is isomorphic to $(R/I)[x]$.
+
+    \part
+    Show that if $I$ is a maximal ideal in $R$,
+    then $I[x]$ is a prime ideal in $R[x]$,
+    but not a maximal ideal in $R[x]$.
+\end{parts}
+(Carefully state any results you use.)
+
+\question
+\begin{parts}
+    \part
+    List all irreducible polynomials of degree $2$ in $\Z_2[x]$.
+
+    \part
+    Show that $f(x) = x^4 + x^3 + x^2 + x + \overline 1 \in \Z_2[x]$
+    is irreducible.
+
+    \part
+    Show that
+    $\varphi: \Z_2[x] \to \Z_2[x]/\langle f(x) \rangle$
+    given by
+    \[
+        \varphi(g(x)) = \overline{g(x) \cdot g(x)}
+    \]
+    is a ring homomorphism.
+
+    \part
+    Show that $\ker\varphi = \langle f(x) \rangle$, and $\varphi$
+    induces an automorphism
+    \[
+        \overline\varphi: \Z_2[x]/\langle f(x) \rangle \to
+        \Z_2[x]/\langle f(z) \rangle.
+    \]
+    which is different from the identity.
+\end{parts}
+
+\question
+Let the group $G$ act on a set $X$, and let $x \in X$.
+\begin{parts}
+    \part
+    Define the $G$-orbit of $x$ and the stabiliser of $x$ in $G$,
+    and state the Orbit-Stabiliser Theorem.
+    \begin{solution}
+        Let $G$ be a group acting on a set $X$.
+        \begin{align*}
+            \Orb(x)  &= \{gx: g \in G\} \\
+            \Stab(x) &= \{g : gx = x \}.
+        \end{align*}
+        Let $x \in X$.
+        The orbit-stabiliser theorem states that
+        there exists a bijection
+        \[
+            \beta: \Orb(x) \to \{g\Stab(x): g \in G\},
+            \qquad \beta(gx) = g\Stab(x).
+        \]
+    \end{solution}
+
+    \part
+    Show that, for a finite group $G$, 
+    the order of a $G$-orbit divides the order of $G$.
+    \begin{solution}
+        $\Stab(x)$ is a subgroup of $G$;
+        hence, by Lagrange's theorem $\abs G = m \abs{\Stab(x)}$
+        where $m$ is the number of left cosets of $\Stab(x)$ in $G$.
+        As $\beta$ is a bijection from an orbit to the set of
+        left cosets, $\abs{\Orb(x)} = m$.
+    \end{solution}
+
+    \part 
+    Show that $G_x$ is a subgroup of $G$.
+    Futhermore, given $y \in G(x)$ show that $G_y$ is conjugate to $G_x$.
+    \begin{solution}
+        Let $a,b \in Stab(x)$.
+        We have $ax = x$, $bx = x$.
+        Then
+        \[
+            ab(x) = a(bx) = ax = x
+        \]
+        so $ab \in \Stab(x)$.
+        We have $e \in \Stab(x)$ and
+        \begin{align*}
+            ax &=       x
+            x  &= a^{-1}x
+        \end{align*}
+        so $a^{-1} \in \Stab(x)$.
+        Therefore,
+        $\Stab(x)$ is a subgroup of $G$.
+        Now, let $y \in Orb(x)$.
+        Then $y = gx$ for some $g \in G$.
+        Consider the mapping $\varphi: \Stab(x) \to \Stab(y)$
+        defined by $\varphi(h) = ghg^{-1}$.
+        Then
+        \[
+            ghg^{-1}y = ghx = gx = y
+        \]
+        therefore $\varphi(h) \in \Stab(y)$,
+        so $\varphi$ is well defined.
+        Now $\varphi^{-1}(h) = g^{-1}hg$,
+        hence, $\varphi$ is surjective.
+        Let $h, h' \in \Stab(x)$.
+        Then if $\varphi(h) = \varphi(h')$ we have
+        \begin{align*}
+            ghg^{-1} &= gh'g^{-1} \\
+            h &= h',
+        \end{align*}
+        so $\varphi$ is injective.
+        Also
+        \[
+            \varphi(hh') = ghh'g^{-1} = ghg^{-1} gh'g^{-1}
+        \]
+        so $\varphi$ is an isomorphism;
+        therefore, $\Stab(y)$ is conjugate to $\Stab(x)$.
+    \end{solution}
+
+    \part
+    Let $X = M_2(\R)$, the set of $2 \times 2$ matrices with real entries,
+    and let $G = \operatorname{GL}_2(\R)$ be the multiplicative
+    group of matrices in $M_2(\R)$ with non-zero determinant.
+    \begin{subparts}
+        \subpart
+        Show that the formula $A * M = AMA^{t}$
+        where $A \in G$, $M \in X$, and $A^t$ is the
+        transpose of $A$, defines a group action of $G$ on $X$.
+        \begin{solution}
+            Let $B \in G$.
+            Then
+            \[
+                A * (B * M) 
+                = A * (BMB^t)
+                = ABMB^tA^t
+                = (AB) M (AB)^t
+                = (AB) * M
+            \]
+            and
+            \[
+                I * A = IAI^t = A
+            \]
+            therefore the formula defines a group action.
+        \end{solution}
+        
+        \subpart 
+        Let $M \in X$ and let $H = G_M$, the stabiliser of $M$ in $G$
+        (with the action define above).
+        For $A \in G$, show that $G_{AMA^t} = AHA^{-1}$.
+        \begin{solution}
+            We want to show that $\Stab(A*M)$ is conjugate to $\Stab(M)$.
+            We know that $A*M \in \Orb(M)$, so we can use part (c).
+            Therefore, $\beta: \Stab(M) \to \Stab(A*M)$
+            defined by $\beta(B) = ABA^{-1}$
+            is an isomorphism and so $\Stab(M)$ is conjugate to $\Stab(A*M)$.
+            Therefore
+            \[
+                AHA^{-1} = \Stab(AMA^t).
+            \]
+        \end{solution}
+    \end{subparts}
+\end{parts}
+
+\question
+\begin{parts}
+    \part 
+    Determine the possible cycle shapes for $A_6$.
+    \begin{solution}
+        \[
+            (2,2),
+            (3,3),
+            (3),
+            (4,2),
+            (2,4),
+            (5).
+        \]
+    \end{solution}
+
+    \part
+    Determine the conjugacy classes of $D_6$.
+    \begin{solution}
+        \begin{align*}
+            \Orb(r)
+            &= \{r, r^5\} \\
+            \Orb(r^2)
+            &= \{r^2, r^4\} \\
+            \Orb(r^3)
+            &= \{r^3\} \\
+            \Orb(s)
+            &= \{s,r^2s,r^4s\} \\
+            \Orb(rs)
+            &= \{rs, r^3s, r^5s\}.
+        \end{align*}
+    \end{solution}
+
+    \part
+    For each of $n \in \{3,4,5,6\}$ decide whether
+    \begin{subparts}
+        \subpart $A_n$ is isomorphic to a subgroup of $D_n$;
+        
+        \subpart $D_n$ is isomorphic to a subgroup of $A_n$; or
+
+        \subpart neither $A_n$ is isomorphic to a subgroup of $D_n$
+            not $D_n$ is isomorphic to a subgroup of $A_n$.
+    \end{subparts}
+
+    (Justify your answers.)
+    \begin{solution}
+        \begin{description}
+            \item[$n = 3$] \hfill \\
+                $\abs{A_3} = 3$ and $\abs{D_3} = 6$
+                so ii cannot hold.
+                Let $G = \langle r \rangle$.
+                It is clear that $G \leq D_3$.
+                Let $\varphi: A_3 \to G$ be defined as:
+                \begin{align*}
+                    \varphi(e)   &= e \\
+                    \varphi(r)   &= (1\;2\;3) \\
+                    \varphi(r^2) &= (1\;3\;2).
+                \end{align*}
+                $\varphi$ is certainly a homomorphism
+                and is surjective;
+                hence,
+                it is an isomorphism and so i holds.
+
+            \item[$n = 4$] \hfill \\
+                $\abs{A_4} = 12$ and $\abs{D_4} = 8$.
+                Therefore, neither are isomorphic a subgroup of the other.
+                So iii holds.
+
+            \item[$n = 5$] \hfill \\
+                $\abs{A_5} = 60$, $\abs{D_5} = 10$.
+                So i cannot hold.
+                But indeed ii does hold.
+                We define $\varphi: D_5 \to A_5$ as follows
+                \begin{align*}
+                    \varphi(r) &= (1\;2\;3\;4\;5) \\
+                    \varphi(s) &= (2\;5)(3\;4).
+                \end{align*}
+                Then
+                \begin{align*}
+                    \varphi(r)\varphi(s)
+                    &= (1\;2\;3\;4\;5)(2\;5)(3\;4) \\
+                    &= (1\;2)(4\;5) \\
+                    &= (4\;3)(5\;2)(5\;4\;3\;2\;1) \\
+                    &= (\varphi(r)\varphi(s))^{-1}, \\
+                    \varphi(r)^5 &= e, \\
+                    \varphi(s)^2 &= e;
+                \end{align*}
+                therefore, $\varphi$ describes an isomorphism between
+                $D_5$ and $G = \langle \varphi(r), \varphi(s) \rangle \leq A_5$.
+
+            \item[$n = 6$]
+                $\abs{A_6} = 360$ and $\abs{D_6} = 12$.
+                Clearly i cannot hold.
+                Assume that ii holds.
+                Let $G$ be the subgroup that $D_6$ is isomorphic to.
+                We will come to a contradiction by analysing the
+                orders of elements in $D_6$ and $A_6$.
+                $D_6$ has $2$ elements of order 6, namely $r$ and $r^5$;
+                however, all permutations in $S_6$ of order $6$
+                are not even; hence, there are no elements of order
+                $6$ in $G$, a contradiction.
+                Therefore iii holds.
+        \end{description}
+    \end{solution}
+    
+    \part 
+    Show that $D_3 \times D_5$ cannot be isomorphic to $A_5$.
+    \begin{solution}
+        The highest element order in $A_5$ is 5;
+        however $(r, r^4)$ has order $15$ in $D_3 \times D_5$;
+        therefore,
+        \[
+            D_3 \times D_5 \not\cong A_5.
+        \]
+    \end{solution}
+\end{parts}

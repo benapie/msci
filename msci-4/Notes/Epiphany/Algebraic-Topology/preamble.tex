@@ -1,0 +1,55 @@
+% tikzcd.yichuanshen.de/ tikcd diagrams
+%======================%
+%   Standard packages  %
+%======================%
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[UKenglish]{babel}
+\usepackage{parskip}
+\usepackage{hyperref}
+
+%======================%
+%        Maths         %
+%======================%
+\usepackage{amsfonts, mathtools, amsthm, amssymb, bm}
+
+\usepackage{tikz-cd}
+% \usepackage{adjustbox}
+\DeclareMathOperator{\id}{id}
+\DeclareMathOperator{\im}{im}
+\DeclareMathOperator{\colim}{colim}
+\DeclareMathOperator{\coker}{coker}
+\DeclareMathOperator{\sign}{sign}
+\DeclareMathOperator{\GL}{GL}
+\DeclareMathOperator{\pt}{pt}
+\DeclareMathOperator{\Hom}{Hom}
+\DeclareMathOperator{\Ext}{Ext}
+\DeclareMathOperator{\ev}{ev}
+\newcommand\restr[2]{{\left.\kern-\nulldelimiterspace#1\vphantom{\big|}\right|_{#2}}}
+
+
+%======================%
+%    Pretty tables     %
+%======================%
+\usepackage{booktabs}
+\usepackage{caption}
+
+%======================%
+%    Theorems          %
+%======================%
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}
+\numberwithin{theorem}{section}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{proposition}[theorem]{Proposition}
+
+
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{problem}[theorem]{Problem}
+\newtheorem{algorithm}[theorem]{Algorithm}
+
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}

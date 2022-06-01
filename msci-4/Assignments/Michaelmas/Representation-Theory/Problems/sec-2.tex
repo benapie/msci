@@ -1,0 +1,107 @@
+\section{}
+
+\question Find the character tables of the following groups (you shouldn't need to use orthogonality for these). Note that you will have to find conjugacy classes.
+\begin{parts}
+    \part $C_4$
+    \begin{solution}
+        $C_4$ is abelian, thus all characters have degree 1. For a generator $g \in C_4$, then a degree 1 character $\chi: g \to \C^\times$ is determined by $\chi(g)$, which can be any of $\{1,i,-1,-i\}$. Thus we get the following character table.
+        \begin{center}
+            \begin{tabular}{CCCCC}
+                \toprule
+                           & e & g  & g^2 & g^3 \\
+                           & 1 & 1  & 1   & 1   \\
+                \midrule
+                \mathbbm 1 & 1 & 1  & 1   & 1   \\
+                \chi       & 1 & i  & -1  & -i  \\
+                \chi^2     & 1 & -1 & 1   & -1  \\
+                \chi^3     & 1 & -i & -1  & i   \\
+                \bottomrule
+            \end{tabular}
+        \end{center}
+    \end{solution}
+
+    \part $C_3 \times C_3$
+    \begin{solution}
+        $C_3 \times C_3$ is abelian, so all characters have degree one. This table is just the cartesian product of the table above with itself.
+    \end{solution}
+
+    \part $D_4$
+    \begin{solution}
+        We have the following conjugacy classes:
+        \[
+            \{e\},
+            \{r, r^{-1}\},
+            \{r^2\},
+            \{s, r^2s\},
+            \{rs, r^3s\}.
+        \]
+        We have already classified $D_4$ into four one-dimensional irreducible representations and one two-dimensional irreducible representation.
+        \clearpage
+        \begin{center}
+            \begin{tabular}{CCCCCC}
+                \toprule
+                            & e & r          & r^2          & s  & rs \\
+                            & 1 & 2          & 1            & 2  & 2  \\
+                \midrule
+                \mathbbm 1  & 1 & 1          & 1            & 1  & 1  \\
+                \varepsilon & 1 & 1          & 1            & -1 & -1 \\
+                \psi_+      & 1 & -1         & 1            & 1  & -1 \\
+                \psi_-      & 1 & -1         & 1            & -1 & 1  \\
+                \chi        & 2 & w + w^{-1} & w^2 + w^{-2} & 0  & 0  \\
+                \bottomrule
+            \end{tabular}
+        \end{center}
+        and we observe that $w + w^{-1} = 0$ and $w^2 + w^{-2} = -2$.
+    \end{solution}
+
+    \part $D_5$
+    \begin{solution}
+        We have the following conjugacy classes:
+        \[
+            \{e\},
+            \{r, r^{-1}\},
+            \{r^2, r^{-2}\},
+            \{s, rs, r^2s, r^3s, r^4s\}.
+        \]
+        We have classified $D_5$ previously too, so we get the following character table.
+        \begin{center}
+            \begin{tabular}{CCCCCC}
+                \toprule
+                            & e & r            & r^2          & s  \\
+                            & 1 & 2            & 2            & 5  \\
+                \midrule
+                \mathbbm 1  & 1 & 1            & 1            & 1  \\
+                \varepsilon & 1 & 1            & 1            & -1 \\
+                \chi_1      & 1 & w + w^{-1}   & w^2 + w^{-2} & 0  \\
+                \chi_2      & 1 & w^2 + w^{-2} & w + w^{-1}   & 0  \\
+                \bottomrule
+            \end{tabular}
+        \end{center}
+        Note that $w = e^{2\pi i/5}$.
+    \end{solution}
+\end{parts}
+
+\question Let $G$ be a finite group acting on a finite set $X$. Let $\chi$ be the character of the permutation representation. Prove that
+\[ \chi(g) = \lvert\{x \in X: gx = x\}\rvert. \]
+Find the character of the regular representation. 
+\begin{solution}
+     $\rho(g)$ is a permutation matrix, and the $i$th column has a 1 in the $i$th row if and only if it is a fixed point. The regular representation is the permutation representation where $X = G$; that is, $G$ (left) acts on itself. For elements $g,h \in G$ where $g \neq e$, $h \neq gh$. Thus $\chi(g) = 0$. If $g = e$, we get the identity, so $\chi(e) = \lvert G \rvert$. 
+\end{solution}
+
+\question Show that $\sum_{g \in G} a_g[g] \in \C[G]$ is in $Z(\C[G])$ if and only if the function $g \mapsto a_g$ is a class function.   
+\begin{solution}
+    If an element of $\C[G]$ with all elements of $\C[G]$, then it clearly commutes for $[g]$ for all $g \in G$. The converse can be easily shown by observing
+    \[ Z(\C[G]) = \{z \in \C[G]: \text{$z[g] = [g]z$ for all $g \in G$}. \]
+\end{solution}
+
+\question Let $(\rho, V)$ be a representation of $G$ with character $\chi$ and dimension $d$. Show that
+\[ \lvert \chi(g) \rvert \leq d \]
+for all $g \in G$ with equality if and only if $\rho(g)$ is a scalar matrix. Deduce that
+\[ \ker\rho = \{g \in G: \chi(g) = d\}. \]
+\begin{solution}
+    $\rho(g)$ has finite order, thus its eigenvalues are roots of unity and have absolute value $1$. Thus, using the triangle equality, $\lvert \chi(g) \rvert \leq d$. 
+    
+    Equality holds if and only if the eigenvalues are proportional with positive real constants of proportionality. As the eigenvalues are roots of unity, they must be equal. Since $\rho(g)$ is diagonalisable, this means it is a scalar matrix. 
+    
+    If $g \in \ker\rho$, the $\chi(g) = d$. Conversely, if $\chi(g) = d$, then $\rho(g) = \lambda I$.
+\end{solution}

@@ -1,0 +1,150 @@
+\section{Analytic continuation and the identity theorem}
+\lecture{10}{10/2}
+
+Let $f: B_r(a) \to \C$ be holomorphic and
+$f \not\equiv 0$. 
+We can write
+\[
+    f(z) = \sum^{\infty}_{n = 0} c_n(z-a)^n.
+\]
+As $f \not\equiv 0$, then not all $c_k = 0$.
+$c_0 = f(a)$, so 
+\[
+    f(a) = 0 \iff c_0 = 0.
+\]
+
+\begin{definition}[]
+    Let $f: B_r(a) \to \C$ be holomorphic, $f \not\equiv 0$,
+    and $m = \min\{n : c_n \neq 0\}$.
+    Then we say $f$ has a zero of order $m$ at $a$.
+\end{definition}
+
+\begin{remark}
+    Since $c_n = f^{(n)}(a) \cdot \frac1{n!}$,
+    $f$ has a zero of order $m$ at $a$ if and only if
+    \[
+        f(a) = 0 
+        = f^{(1)}(a) 
+        = f^{(2)}(a) 
+        = \ldots
+        = f^{(m-1)}(a)
+    \]
+    \emph{but} $f^{(m)}(a) \neq 0$.
+\end{remark}
+
+\begin{example}
+    Let $f(z) = z(e^z - 1)$.
+    $f(0) = 0$.
+    \[
+        f(z) = z
+        \left(
+            \sum^{\infty}_{n=0} \frac{z^n}{n!} - 1
+        \right)
+        = z \sum^{\infty}_{n = 1} \frac{z^n}{n!} 
+        = \sum^{\infty}_{n=1} \frac{z^{n+1}}{n!} 
+        = \sum^{\infty}_{n=2} \frac{z^n}{(n-1)!}.
+    \]
+    So $f$ has a zero of order $2$ at $0$.
+\end{example}
+
+\begin{theorem}[Principle of isolated zeros]
+    Let $f:B_r(a) \to \C$ be holomorphic
+    such that $f \not\equiv 0$.
+    Then there exists $\rho$ where $0 < \rho \leq r$
+    such that $f(z) \neq 0$ for all
+    $z \in B_\rho(a) \setminus \{a\} = B^\star_\rho(a)$.
+\end{theorem}
+
+\begin{proof}
+    \hfill
+    \begin{description}
+        \item[$f(a) \neq 0$]
+            $f$ is continuous, so there exists
+            $0 < \rho \leq r$ such that
+            \[
+                f(B_\rho(a)) \leq B_{\frac{\abs{f(a)}}{2}}(f(a))
+                \subset \C^\star
+            \]
+            hence $f(z) \neq 0$ for all $z \in B_\rho(a)$.
+
+        \item[$f(a) = 0$]
+            We write 
+            \[
+                f(z) = \sum_{n = m}^\infty c_n (z-a)^n
+            \]
+            where $m$ is the order of the zero of $f$
+            at $a$ ($c_m \neq 0$).
+            So
+            \[
+                f(z)
+                = (z-a)^m
+                \sum^{\infty}_{n = 0} c_{n+m} (z-a)^n
+            \]
+            and we set
+            \[
+                h(z)
+                = \sum^{\infty}_{n = 0} c_{n+m} (z-a)^n
+                = \frac{f(z)}{(z-a)^m} 
+            \]
+            for all $z \in B_r^\star(a)$.
+            The power series for $h(z)$ converges on 
+            $B_r^\star(a)$.
+            Hence, it converges on $B_r(a)$.
+            So $h$ is holomorphic on $B_r(a)$.
+            Also $h(a) = c_m \neq 0$.
+            By case one, there exists a $\rho$
+            with $0 < \rho \leq r$
+            such that $h(z) \neq 0$
+            for all $B_\rho(a)$.
+            So $f(z) \neq 0$ for all $z \in B_\rho^\star(a)$
+            as $(z - a)^m \neq 0$ and $h(z) \neq 0$.
+    \end{description}
+\end{proof}
+
+\begin{theorem}[Uniqueness of analytic continuation]
+    Let $D' \subset D$ be non-empty domains in $\C$.
+    Suppose $f: D' \to \C$ is holomorphic.
+    Then there is \emph{at most} one holomorphic function
+    $f: G \to \C$ such that $g(z) = f(z)$ for all 
+    $z \in D$.
+    If $g$ exists, it is called the 
+    \textbf{analytical continuation} of $f$ to $D$.
+\end{theorem}
+
+\begin{example}
+    Let $f(z) = \sum_{n=0}^\infty z^n$.
+    $f$ is holomorphic on $B_1(0)$.
+    Now let $g(z) = \frac{1}{1 - z}$.
+    $g$ agrees with $f$ on $B_1(0)$ but is holomorphic on
+    $\C \setminus \{1\}$.
+    $g$ is the analytic continuation of $f$.
+\end{example}
+
+\begin{proof}
+    Suppose $g_1, g_2: D \to \C$ be holomorphic and suppose
+    $g_1(z) = g_2(z) = f(z)$ for all $z \in D'$.
+    Let $h(z) = g_1(z) - g_2(z)$.
+    Then $h = 0$ for all $z \in D'$.
+    $h$ is holomorphic on $D$.
+    We want to show that $h \equiv 0$ on $D$.
+    We are going to use the fact that $D$ is connected,
+    so $D$ cannot be partitioned into disjoint 
+    non-empty open sets.
+    Let
+    \begin{align*}
+        D_0 &= 
+        \{
+            w \in D: \;\exists\; r>0: h(z)=0
+            \;\forall\; z\in B_r(w)
+        \} \\
+        D_1 &=
+        \{w \in D: h^{(n)}(w) \neq 0, n \geq 0\}.
+    \end{align*}
+    We will prove that $D_0$ is open and non-empty,
+    $D_1$ is open, $D_0 \cup D_1 = D$,
+    and $D_0 \cap D_1 = \varnothing$ next lecture, but we
+    will assume it to finish the proof.
+    So $D_1$ is empty, so $D_0 = D$. Therefore,
+    $h(w) = 0$ for all $w \in D$ and thus
+    $g_1(w) = g_2(w)$ for all $w \in D$.
+\end{proof}

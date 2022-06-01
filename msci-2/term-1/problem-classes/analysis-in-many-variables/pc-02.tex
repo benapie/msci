@@ -1,0 +1,27 @@
+\pc{2}{31/10}
+\question Find the vector equations of tangent and normal lines in $\R^2$ to the following curve at the given point.
+\[ x^2 - y^3 = 3 \quad\text{at}\; (2, 1). \]
+\begin{solution}
+    Let $f(x, y) = x^2 - y^3$. Then the curve corresponds to the level set $f(x, y) = 3$. Hence $\nabla f$ will be orthogonal to the curve.
+    \[ \nabla f = 2x \bm e_1 - 3y^2 \bm e_2. \]
+    At $(2, 1)$, $\nabla f = 4 \bm e_1 - 3\bm e_2$. Hence the normal at $(2, 1)$ is defined by
+    \[ \bm x(t) = (2\bm e_1 + \bm e_2) + t(4 \bm e_1 - 3 \bm e_2). \]
+    The tangent will be orthogonal to $\nabla f$; therefore, defined by
+    \[ \bm x(t) = (2\bm e_1 + \bm e_2) + t(3 \bm e_1 + 4\bm e_2). \]
+\end{solution}
+
+\question Find the equation of the tangent plane in $\R^3$ to the following surface at the given point.
+\[ x^2y^2 + xz - 2y^3 = 10 \quad\text{at}\; (2, 1, 4). \]
+\begin{solution}
+    Set $f(x, y ,z) = x^2y^2 + xz - 2y^3$. Hence our curve corresponds to the level set $f(x, y, z) = 10$. We have that $\nabla f$ is normal to the surface.
+    \[ \nabla f = (2xy^2 + z)\bm e_1 + (2yx^2 - 6y^2)\bm e_2 + (x) \bm e_3. \]
+    So
+    \[ \nabla f(2, 1, 4) = 8 \bm e_1 + 2\bm e_2 + 2 \bm e_3. \]
+    So our tangent plane is given by
+    \begin{align*}
+        (\bm x - (2, 1, 4))\cdot (8, 2, 2) &= 0  \\
+        8(x - 2) + 2(y - 1) + 2(z - 4)     &= 0  \\
+        8x + 2y + 2z                       &= 26 \\
+        4x + y + z                         &= 13.
+    \end{align*}
+\end{solution}

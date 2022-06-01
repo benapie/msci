@@ -1,0 +1,91 @@
+%! TEX root = ../master.tex
+
+\subsection{Bases and countability}
+
+\begin{definition}[Basis]
+	Let $X$ be a topological space.
+	A collection $\mathcal B$ of subsets of $X$ is called a \textbf{basis} 
+	for the topology of $X$ if
+	\begin{enumerate}
+		\item for all $U \in \mathcal B$, $U$ is open in $X$; and
+		\item for all $U$ open in $X$ there exists 
+			$\mathcal B' \subset \mathcal B$ such that
+			$U = \bigcup_{V \in \mathcal B'} V$.
+	\end{enumerate}
+	We use the shorthand \emph{$\mathcal B$ is a basis for $X$} if the topology
+	is understood.
+\end{definition}
+
+\begin{problem}
+	Suppose $X$ is a topological space, 
+	$\mathcal B$ is a basis for $X$, 
+	and $U \subset X$.
+	Show that $U$ is open in $X$ if and only if
+	for all $p \in U$ there exists $B \in \mathcal B$
+	such that $p \in B \subset U$.
+\end{problem}
+
+\begin{solution}
+	\hfill
+	\begin{description}
+		\item[$\implies$] 
+			Immediate from the definition of a basis.
+
+		\item[$\impliedby$]
+			Let $p$ be a point in $U$ and $B_p \in \mathcal B$ be such that
+			$p \in B_p \subset U$.
+			Now $U = \bigcup_{p \in U} B_p$ and as $B_p$ is open,
+			$U$ is open.
+	\end{description}
+\end{solution}
+
+\begin{remark}
+	If a subset $U$ of a topological space $X$ with basis $\mathcal B $ satisfies
+	\[
+		\;\forall\; p \in U \;\exists\; B \in \mathcal B: p \in B \subset U
+	\]
+	we say that it satisfies the \textbf{basis criterion} with respect to
+	$\mathcal B$.
+\end{remark}
+
+\begin{example}[Examples of bases]
+	\hfill
+	\begin{enumerate}
+		\item 
+			Let $M$ be a metric space.
+			The collection of open balls in $M$ forms a basis for
+			the metric topology.
+
+		\item 
+			Let $X$ be a set.
+			The collection of singleton sets form a basis
+			for the discrete toplogy.
+
+		\item 
+			Let $X$ be a set with the trivial topology.
+			Then $\{X\}$ is a basis (and the only basis) for the topology.
+	\end{enumerate}
+\end{example}
+
+\begin{problem}
+	Show that the following collections are a basis for the Euclidean topology
+	on $\R^n$.
+	\begin{enumerate}
+		\item 
+			\[
+				\mathcal B_1 = \left\{
+					C_S(\bm x) : \bm x \in \R^n, \, S > 0 
+				\right\}
+			\]
+			where $C_S(\bm x)$ is the open cube of side length $S$ centered at
+			$\bm x$.
+
+		\item 
+			\[
+				\mathcal B_2 = \left\{ 
+					B_r(\bm x): r \in \Q, \, \bm x \in \Q^n 
+				\right\}.
+			\]
+	\end{enumerate}
+\end{problem}
+

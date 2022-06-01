@@ -1,0 +1,109 @@
+\chapter{Network core}
+\lecture{2}{15/10}
+
+\section{Modes of data tranmission}
+
+\begin{definition}[Network core]
+    We define a \textbf{network core} as a mesh of interconnected routers.
+\end{definition}
+
+\begin{definition}[Packet-switching]
+    \textbf{Packet-switching} is a mode of data transmission in which a message is broken down into smaller chunks called \textbf{packets} and are send independently. Once the packets are received at the destination, it is reassembled.
+\end{definition}
+
+Suppose we are sending are transmitting a packet of size $S$ (in bits). If a link has a transmission rate of $r$, then the packet will take $\frac{S}{r}$ seconds to be transferred.
+
+We say that a computer \textbf{forwards} a packet of data if it moves it onto another link. This is primarily what routers do.
+
+\begin{definition}[End-to-end delay]
+    We define the \textbf{end-to-end} delay of a router as the time taken from when a packet is received to when it has arrived at its destination.
+\end{definition}
+
+We have a concept called \textbf{store-and-forward} where a router will not forward a packet until it has been completely downloaded.
+
+Sometimes the arrival rate (in bits) may acceed our transmission rate (in bits). In this scenario, we must fill a buffer with packets waiting to be transmitted. If this buffer is filled, bits are dropped. This commonly happens when multiple sources transmit to the same router.
+
+\begin{definition}[Routing]
+    \textbf{Routing} is the process of determining the path a packet should take through routers to reach its destination.
+\end{definition}
+
+\begin{definition}[Delay]
+    We define the total \textbf{delay} of a router as \[ d_\text{total} = d_\text{proc} + d_\text{queue} + d_\text{trans} + d_\text{prop} \] where
+    \begin{enumerate}
+        \item $d_\text{proc}$ is the processing time, the amount of time it takes the router for check for bit errors, determine the output link, and more;
+        \item $d_\text{queue}$ is the amount of time the packet will sit in a buffer waiting to be prrocessed, this is heavily dependent on the congestion level of the router; 
+        \item $d_\text{trans}$ is the amount of time taken for the router to prepare and put the packet on the physical media of the output link; and
+        \item $d_\text{prop}$ is the amount of time taken for the electronic signals corresponding to the packet to travel along the physical media (this is typically a function of the speed of light and the length of the physical media).
+    \end{enumerate}
+\end{definition}
+
+Now we will look at an alternate method of moving data throughout a network.
+
+\begin{definition}[Circuit switching]
+    \textbf{Circuit switching} is a mode of data transmission in which a dedicated channel is established between two nodes on a network before they communicate. 
+\end{definition}
+
+Circuit switching has a guaranteed data rate, and is suitable for long continuous tranmission; however, dedicating a path throughout a network will stop any data travelling along the path and can cause blockages. There is also a duration of time needed to establish the dedicated channel. Circuit switching is commonly used in traditional telephone networks. 
+
+\section{Protocol layers}
+\begin{definition}[Protocol]
+    A \textbf{protocol} defines the format and order of messages sent between devices. 
+\end{definition}
+
+We refer to a \textbf{protocol stack} as a collection of different protocols (\emph{layers}) being used together. We \emph{stack} protocols together such that there are dependency between layers. The idea of protocol layering has conceptual and structural advantages. It allows us to deal with complex systems; we decompose requirements into distinct layers with stringent specifications. This modulisation also aids in maintenance and extendability. 
+
+\begin{example}[Internet protocol stack]
+    The \textbf{internet protocol stack} (or suite) is a set of communications protocols used in the internet and similar networks. It consists of the following layers:
+    \begin{enumerate}
+        \item \textbf{application layer}, specifies the protocols and interface methods used by hosts (FTP, HTTP);
+        \item \textbf{transport layer}, specifies the host-to-host data transfer (TCP, UDP);
+        \item \textbf{network layer} (or \textbf{internet layer}), specified the routing of data from source to destination (IP); and
+        \item \textbf{link layer}, data transfer between neighbouring hosts (ethernet, WiFi).
+    \end{enumerate}
+\end{example}
+
+\begin{table}
+    \centering
+    \caption{Internet protocol stack.}
+    \begin{tabular}{c}
+        \toprule
+        Application layer \\
+        \midrule
+        Transport layer \\
+        \midrule
+        Network layer \\
+        \midrule
+        Link layer \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+\begin{example}[ISO]
+    There exists an ISO reference model for internet protocols, which is essentially a small extension of the internet protocol suite. These consist of all the layers specified above as well as
+    \begin{enumerate}
+        \item \textbf{presentation layer}, allow applications to interprete the meaning of data (so information about encryption, compression, etc.); and
+        \item \textbf{session}, specifies synchronisation, checkpointing, and recovery practises.
+    \end{enumerate}
+    The internet stack is \emph{missing} these layers, but there is a question on whether these are needed in a protocol stack. The presentation layer sits below the application layer and the session layer sits below the presentation layer, as shown in Table \ref{tab:iso_stack}.
+\end{example}
+
+\begin{table}
+    \centering
+    \caption{ISO reference internet protocol stack.}
+    \label{tab:iso_stack}
+    \begin{tabular}{c}
+        \toprule
+        Application layer \\
+        \midrule
+        Presentation layer \\
+        \midrule
+        Session layer \\
+        \midrule
+        Transport layer \\
+        \midrule
+        Network layer \\
+        \midrule
+        Link layer \\
+        \bottomrule
+    \end{tabular}
+\end{table}

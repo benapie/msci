@@ -1,0 +1,113 @@
+\assignment{6}{28/11}
+
+\setcounter{question}{38}
+\question
+\begin{parts}
+    \part Give a representation of the vector function $\bm A(x, y) = y \bm e_1$ as a collection of arrows in the region of the $(x, y)$-plane bounded by $(x_1, y_1) = (-2, 2)$, $(x_2, y_2)= (2, 2)$, $(x_3, y_3) = (2, -2)$, $(x_4, y_4) = (-2, -2)$.
+    \begin{solution}
+        \begin{center}
+            \begin{tikzpicture}
+                \begin{scope}[thick, font=\scriptsize]
+                    \draw [->] (-4,0) -- (4,0) node [above left]  {$y$};
+                    \draw [->] (0,-4) -- (0,4) node [below right] {$x$};
+
+                    \foreach \n in {-3,...,-1,1,2,...,3}{%
+                        \draw (\n,-3pt) -- (\n,3pt)   node [above] {$\n$};
+                        \draw (-3pt,\n) -- (3pt,\n)   node [right] {$\n$};
+                    }
+
+                    \draw [red, ->] (2, 2) -- (4, 2);
+                    \draw [red, ->] (-2, 2) -- (0, 2);
+                    \draw [red, ->] (2, -2) -- (0, -2);
+                    \draw [red, ->] (-2, -2) -- (-4, -2);
+                \end{scope}
+            \end{tikzpicture}
+        \end{center}        
+    \end{solution}
+
+    \part Calculate the curl of the vector field 
+    \[ \bm A(x, y) = \frac{-y\bm e_1 + x\bm e_2}{x^2 + y^2} \]
+    defined everywhere in the $(x, y)$-plane except at the origin. 
+    (You can consider $\bm A$ to be embedded in three dimensions, independent of $z$ and with zero $z$ component.)
+    \begin{solution}
+        \begin{align*}
+            \nabla \times \bm A &=
+            \begin{bmatrix}
+                \bm e_1 & \bm e_2 & \bm e_3 \\
+                \sfrac{\partial}{\partial x} & \sfrac{\partial}{\partial y} & \sfrac{\partial}{\partial z} \\
+                A_1 & A_2 & A_3 \\
+            \end{bmatrix}
+            \\
+            &= \bm e_1 (0) + \bm e_2 (0) + \bm e_3 \left(\frac{\partial A_2}{\partial x} - \frac{\partial A_1}{\partial y} \right) \\
+            \frac{\partial A_2}{\partial x} &= \frac{y^2 - x^2}{(x^2 + y^2)^2} \\
+            \frac{\partial A_1}{\partial y} &= \frac{y^2 - x^2}{(x^2 + y^2)^2} \\
+            \nabla \times \bm A &= \bm 0.
+        \end{align*}
+    \end{solution}
+
+    \part Give the unit vector normal to the surface of equation $ax + by = cz$, where $a$, $b$, $c$ are three real constants.
+    \begin{solution}
+        Normal vector is given by
+        \[ \bm n = a\bm e_1 + b \bm e_2 - c \bm e_3. \]
+        Then
+        \[ \norm{\bm n} = \sqrt{a^2 + b^2 + c^2}. \]
+        So
+        \[ \bm{\hat{n}} = \frac{a\bm e_1 + b \bm e_2 - c \bm e_3}{\sqrt{a^2 + b^2 + c^2}}. \]
+    \end{solution}
+
+    \part Let $\bm x$ be the position vector in $3$-dimensions and $\bm a$ be a constant vector. Show that
+    \[ \nabla \cdot (\bm x \times (\bm x \times \bm a)) = 2 \bm a \cdot \bm x. \]
+    \begin{solution}
+        \begin{align*}
+            \nabla \cdot (\bm x \times (\bm x \times \bm a)) &= \frac{\partial}{\partial x_i}(\bm x \times(\bm x \times \bm a)) \\
+            &= \varepsilon_{ijk} \frac{\partial}{\partial x_i} (x_j(\bm x \times \bm a)_k) \\
+            &= \varepsilon_{ijk} \varepsilon_{klm} \frac{\partial}{\partial x_i} (x_j x_l a_m) \\
+            &= (\delta_{il} \delta_{jm} - \delta_{im} \delta_{jl}) (\delta_{ij} x_l a_m + \delta_{il} x_j a_m) \\
+            &= \delta_{il} \delta_{jm} \delta_{ij} x_l a_m + \delta_{il} \delta_{jm} \delta_{il} x_j a_m - \delta_{im} \delta_{jl} \delta_{ij} x_l a_m - \delta_{im} \delta_{jl} \delta_{il} x_j a_m \\
+            &= \delta_{lm} x_l a_m + \delta_{ll} \delta_{jm} x_j a_m - \delta_{ml} x_l a_m - \delta_{mj} x_j a_m \\
+            &= x_m a_m + 3 x_m a_m - x_m a_m - x_m a_m \\
+            &= 2 \bm a \cdot \bm x.
+        \end{align*}
+    \end{solution}
+\end{parts}
+
+\setcounter{question}{42}
+\question Prove that the intersection of two open sets, as defined in lectures, is another open et.
+What about the intersection of a finite number of open sets?
+And what about the intersection of an infinite number of open sets?
+\begin{solution}
+    Let $U_1$, $U_2$ be open sets in $\R^n$.
+    Consider $U_1 \cap U_2 \subset \R^n$.
+    As $U_1$ and $U_2$ are open sets, there exists $\delta_1, \delta_2 > 0$ such that $B_{\delta_1}(x) \subset U_1$ and $B_{\delta_2} (x) \subset U_2$ for all $x \in U_1 \cap U_2$;
+    hence, we pick $\delta = \min\{\delta_1, \delta_2\}$.
+    Then $B_{\delta}(x) \subset U_1 \cap U_2$.
+    So, $U_1 \cap U_2$ is an open set.
+\end{solution}
+
+\question
+\begin{parts}
+    \part Give the definition of the open ball $B_\delta(\bm a)$ with centre $\bm a \in \R^n$ and radius $\delta > 0$, and define what it means for a subset $S$ of $\R^n$ to be open.
+    \begin{solution}
+        \[ B_\delta(\bm a) = \{ x \in \R^n : \norm{\bm x - \bm a} < \delta \}. \]
+        $S \subset \R^n$ is open if and only if for all $\bm x \in S$ there exists $\delta > 0$ such that $B_\delta(\bm x) \subset S$.
+    \end{solution}
+
+    \part Which of the following subsets of $\R^2$ are open? 
+    In each case, justify your answer in terms of the definition you gave in part (a).
+    \begin{subparts}
+        \subpart $S_1 = \{(x, y): x > 2\}$,
+        \begin{solution}
+            $S_1$ is open, we pick $\delta = 2 - x$.
+        \end{solution}
+
+        \subpart $S_2 = \{(x, y): x > 2, y = 2\}$, and
+        \begin{solution}
+            $S_2$ is not open. For every open ball centered at a point in $S_2$, there exists a point in the ball for which $y \neq 2$ and so it is not a subet of $S_2$.
+        \end{solution}
+
+        \subpart $S_3 = \{(x, y): x > 2, y > 2\}$.
+        \begin{solution}
+            $S_3$ is open, we pick $\delta = \min\{2-x, 2-y\}$.
+        \end{solution}
+    \end{subparts}
+\end{parts}

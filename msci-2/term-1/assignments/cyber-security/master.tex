@@ -1,0 +1,91 @@
+\documentclass[a4paper]{article}
+
+\usepackage{booktabs, longtable}
+\usepackage{geometry}
+
+\title{Cyber Security Coursework}
+\date{Due: 6th December 14:00}
+
+\begin{document}
+\maketitle
+
+\paragraph{The mystery, solved}
+
+Jess (the `bleeder') is in love with Mark; however, Mark is in love with Alice (who does not love him back). 
+Out of jealously, Jess murdered a girl for dancing too close to Mark in Klute. 
+Jess was also seen by Karl leaving a note threatening to kill Alice out of jealously of Mark loving her, so she murdered Karl (which is on CCTV).
+The crime to be prevented is Jess killing Alice, which can be done by arresting Jess or by communicating to Jess that Alice \emph{does not} love Mark; infact, she thinks he's annoying.
+As for relationship advice, Jess needs professional help and the rest of the employees should probably learn to communicate their feelings a little better.
+
+\begin{longtable}{p{0.3\textwidth} p{0.3\textwidth} p{0.3\textwidth}}        
+    \toprule
+    Vulnerability & Exploit & Mitigation \\
+    \midrule
+
+    The (weak) root password is `123456789'. &
+    An agent with access to the server could guess the password `12345678' and then gain root access. &
+    The vulnerability can be secured by selecting a more secure password, including specials characters and numbers. \\
+    \addlinespace
+
+    Database is stored insecurely. & 
+    Anyone with access to the database file can open and see the data, which contains sensitive data (such as credit card information). & 
+    Encrypt the database file or ensure that a username and secure password is required to access it. \\
+    \addlinespace
+
+    The web server uses HTTP. &
+    An agent sitting on the Wi-Fi being used to communicate with the web server can see all data transfered between them. &
+    Implement HTTPS on the web server. \\
+    \addlinespace
+
+    There is read access for the bitcoin wallet executable. &
+    An agent can read the executable and see the password and the private key for the bitcoin wallet. &
+    Do not give the user read access for the bitcoin wallet executable. \\
+    \addlinespace
+
+    Password input is not sanitised. &
+    An agent can inject malicious SQL code (such as getting all information or dropping tables). & 
+    Sanitise user input. \\
+    \addlinespace
+
+    The database backup executable has its \texttt{setuid} bit set to 1 and was created by root, giving it root permissions. It also takes an argument which is unsanitised and is executed as a parameter in bash. & 
+    An agent can execute the backup file with an argument of the form \texttt{"./Backup /root/backups/b5.db; ls"} to be able to run commands with root permissions. &
+    Ensuring that there is not root access on this file or santising the user input such that it is not malicious. \\
+    \addlinespace
+
+    Port 8888 is left open with root access. &
+    An agent with access to the server can run the command \texttt{netcat 127.0.0.1 8888} and gain root access. &
+    Close the port or put a password on the port. \\
+    \addlinespace
+
+    Chat messages are not sanitised. &
+    An agent can perform cross-site scripting and inject malicious Javascript code. &
+    Sanitise user input. \\
+    \addlinespace
+
+    Passwords are stored in plain text, not hashed. & 
+    If an agent gets access to the database, he has access to their passwords (which may be used for other services). &
+    Hash (and salt) the passwords. \\
+    \addlinespace
+
+    Boot loader is not password protected. &
+    An agent can login to a root terminal and exploit his privileges. &
+    Password protect the boot loader. \\
+    \addlinespace
+
+    All users have read access on the Linux password file. & 
+    This makes the user passwords suspectible to a dicitonary. &
+    Remove read access on the file for all users. \\
+    \addlinespace
+
+    Paths are not properly verified on the web server. &
+    Agents can gain access to the other files on the system (known as a path traversal attack). &
+    Properly verify paths, this can be done by validating the URL before serving files. \\
+    \addlinespace
+
+    A picture in Jess' files is encrypted using ECB. &
+    Agents can still see what the picture is representing, even though it is meant to be encrypted. & 
+    Encrypt the image with non-ECB methods. \\
+    \bottomrule
+\end{longtable}
+
+\end{document}

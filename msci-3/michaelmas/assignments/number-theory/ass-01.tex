@@ -1,0 +1,106 @@
+\documentclass[a4paper, answers]{exam}
+\input{../preamble.tex}
+
+\begin{document}
+\begin{center}
+	\textbf{\textsc{Number Thoery III, Assignment 1}}
+	\\
+	\textsc{Ben Napier}
+	\vspace{1em}
+\end{center}
+\begin{questions}
+	\question
+		Show that the polynomial $f(x) = x^4 + 1$ is irreducible in $\Q[x]$
+		(Hint: Eisenstein's criterion).
+		\begin{solution}
+			We cannot apply Eisenstein's criterion to $f$, but if we consider
+			\[
+				f(x + 1) = x^4 + 4x^3 + 6x^2 + 4x + 2
+			\]
+			and take $p = 2$, we see that
+			\[
+				p \mid 1, \qquad
+				p \mid 4,6,4, \;\text{and}\; \qquad
+				p^2 \nmid 2;
+			\]
+			hence, by Eisenstein's criterion, $f(x + 1)$ is irreducible.
+			Now, for a contradiction, assume that $f(x)$ is reducible.
+			So $f(x) = g(x) \cdot h(x)$ for non-constant $g(x)$ and $h(x)$.
+			Therefore $f(x + 1) = g(x + 1) \cdot h(x + 1)$; a contradiction.
+			Therefore, $f(x)$ is irreducible.
+		\end{solution}
+
+	\question
+		Let $\sqrt[6]{2}$ denote the (positive) real $6^\text{th}$ root of
+		$2$.
+		\begin{parts}
+			\part
+				Show that $[\Q(\sqrt[6]{2}): \Q] = 6$.
+				\begin{solution}
+					Let $f(x) = x^6 - 2$.
+					By Eisenstein's criterion (picking $p = 2$) we see that
+					$f$ is irreducible.
+					$f$ is also monic and $f(\sqrt[6]{2}) = 0$; therefore,
+					$f$ is the minimal polynomial of $\sqrt[6]{2}$.
+					We see that $\operatorname{deg}{f} = 6$ and so 
+					\[
+						[\Q(\sqrt[6]{2}): \Q] = 6.
+					\]
+				\end{solution}
+
+			\part
+				Show that $x^3 - \sqrt 2$ is irreducible over $\Q(\sqrt 2)$.
+				\begin{solution}
+					First, observe that $x^2 - 2$ is the minimal polynomial
+					of $\sqrt 2$ over $\Q$; hence,
+					\[
+						[\Q(\sqrt 2) : \Q] = 2.
+					\]
+					Now $\sqrt 2 = (\sqrt[6]{2})^3 \in \Q(\sqrt[6]{2})$,
+					so $\Q \subset \Q(\sqrt 2) \subset \Q(\sqrt[6]{2})$.
+					By the tower theorem we have
+					\[
+						[\Q(\sqrt[6]{2}): \Q]
+						= [\Q(\sqrt[6]{2}): \Q(\sqrt 2)]
+							\cdot [\Q(\sqrt 2): \Q]
+					\]
+					and so, by (a), we have 
+					$[\Q(\sqrt[6]{2}): \Q(\sqrt 2)] = 3$.
+					Now we consider $g(x) = x^3 - \sqrt 2$.
+					As $g(\sqrt[6]{2}) = 0$, $g$ is monic, and
+					$\operatorname{deg}{g} = [\Q(\sqrt[6]{2}): \Q(\sqrt 2)]$
+					then $g$ is the minimal polynomial for $\sqrt[6]{2}$ in
+					$\Q(\sqrt 2)$.
+					Thus $g$ is irreducible.
+				\end{solution}
+		\end{parts}
+
+	\question
+		Let $\alpha \in \C$ be algebraic over $\Q$ and assume that its
+		minimal polynomial over $\Q$ is of odd degree.
+		Show that $\Q(\alpha) = \Q(\alpha^2)$.
+		\begin{solution}
+			Let $d$ be the degree of the minimal polynomial for $\alpha$ over
+			$\Q$, then
+			\[
+				[\Q(\alpha): \Q] = d.
+			\]
+			Now suppose, for a contradiction, that 
+			$\Q(\alpha) \neq \Q(\alpha^2)$.
+			Observe that $\alpha \not\in \Q(\alpha^2)$ and so the minimum
+			polynomial of $\alpha$ over $\Q(\alpha^2)$ is 
+			$x^2 - \alpha^2 \in \Q(\alpha^2)[x]$.
+			Hence $[\Q(\alpha): \Q(\alpha^2)] = 2$.
+			Clearly $\Q \subset \Q(\alpha^2) \subset \Q(\alpha)$, so by the
+			tower theorem
+			\begin{align*}
+				[\Q(\alpha): \Q]
+					&= [\Q(\alpha): \Q(\alpha^2)] \cdot
+					[\Q(\alpha^2): \Q] \\
+					&= 2 \cdot [\Q(\alpha^2): \Q];
+			\end{align*}
+			but $d = [\Q(\alpha): \Q]$ is odd; a contradiction.
+			Therefore $\Q(\alpha) = \Q(\alpha^2)$.
+		\end{solution}
+\end{questions}
+\end{document}

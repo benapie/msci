@@ -1,0 +1,216 @@
+%! TEX root = master.tex
+
+\section{Space complexity}
+\lecture{4}{4/11}
+
+Previously, we have defined complexity based on the time used by algorithms.
+We now introduce similar analysis for the space used.
+
+\begin{definition}[Space complexity]
+	The \textbf{space complexity} of a Turing machine $T$
+	is a function 
+	\[
+		\operatorname{Space}_T: \Sigma \to \N
+	\]
+	which denotes the distinct number of tape cells visited during the 
+	computation of $x$ on $T$.
+	If $T$ does not halt on $x$, $\operatorname{Space}_T(x)$ is undefined.
+\end{definition}
+
+
+We use asymptotic notation for space complexity as we did for time complexity.
+
+\begin{definition}[]
+	Let $f: \N \to \R$ and $\mathcal L$ be a decidable language.
+	Then we say that the space complexity of $\mathcal L$ is in $O(f)$
+	is there is a Turing machine $T$ such that $T$ decides $\mathcal L$
+	and there is $n_0 \in \N$ and $c \in \R$ such that for every
+	$x \in \Sigma$ with $\left\lvert x \right\rvert > n_0$ we have
+	\[
+		\operatorname{Space}_T(x) \leq cf(\left\lvert x \right\rvert).
+	\]
+\end{definition}
+
+Now, like we did for time complexity, we can divide up the decidable languages into classes according to their space complexity.
+
+\begin{definition}[Space complexity class]
+	Let $f: \N \to \R$.
+	The \textbf{space complexity class} $\mathsf{SPACE}(f)$ is defined
+	to be the class of all languages with space complexity in $O(f)$.
+\end{definition}
+
+We sometimes call this $\operatorname{DSPACE}[f]$, for \emph{deterministic
+space}.
+As with time complexity, we obtain a \emph{robust} space complexity class by
+by consider all \emph{polynomial} space complexity classes.
+
+\begin{definition}[$\mathsf{PSPACE}$]
+	\[
+		\mathsf{PSPACE} = \bigcup_{k \in \N} \mathsf{SPACE}(n^k)
+	\]
+\end{definition}
+
+\begin{theorem}[]
+	Let $f: \N \to \R$. Then
+	\[
+		\mathsf{TIME}(f)
+		\subset \mathsf{SPACE}(f)
+		\subset \mathsf{TIME}(2^{O(f)}).
+	\]
+\end{theorem}
+
+\begin{proof}
+	The first inclusion is clear since visitng a cell requires at least
+	one tiemstep.
+	Now, for the second inclusion we define a graph $G$ for a given Turing 
+	machine $T$ and input $x$.
+	The vertices are all configurations of $T$, with at most
+	$f(\left\lvert x \right\rvert)$ blank cells.
+	Between any two vertices, there is an edge if there is a single
+	transition linking the two configurations.
+	Deciding whether $T$ accepts $x$ can be done in breadth first search
+	in $2^{O(f(\left\lvert x \right\rvert))}$.
+\end{proof}
+
+Analysing the space complexity of an algorithm can be more useful than time as it can be reused.
+For example, the satisfiability problem can be solved in linear space by
+checking each assignment one at a time and reusing the space.
+It follows that
+\[
+	\mathsf{NP} \subset \mathsf{PSPACE}
+\]
+as for any problem we can simply iterate through every possible value.
+
+\begin{problem}[QSAT]
+	Instance: a quantifier Boolean formula
+	\[
+		\Phi = (Q_1 x_1)(Q_2x_2) \ldots (Q_nx_n) \phi(x_1,x_2,\ldots,x_n)
+	\]
+	where each $x_i$ is a Boolean variable,
+	$\phi$ is a Boolean formula in conjunctive normal form,
+	and $Q_i$ are quantifiers. \\
+	Question: is $\Phi$ logically valid?
+\end{problem}
+
+\begin{algorithm}[$\mathsf{PSPACE}$ algorithm for QSAT]
+	Consider our input $\Phi$ as defined above.
+	\begin{enumerate}
+		\item If $\Phi$ has no quantifiers, it has only constants.
+			Evaluate and accept if true.
+
+		\item If $\Phi = \exists x\, \varphi$, then $\Phi$ is valid if
+			$\varphi[x = \text{true}]$ or $\varphi[x = \text{false}]$
+			are valid.
+			We recursively call this algorithm on the two above and accept if
+			one of them is accepted.
+
+		\item We repeat a similar to last step but for 
+			$\Phi = \forall x\,\varphi$ but we only accept is both are valid.
+	\end{enumerate}
+\end{algorithm}
+
+\begin{proposition}[]
+	The above algorithm uses $O(n)$ space.
+\end{proposition}
+
+\begin{proof}
+	The depth of recursion is $n$, and we only store the value of
+	one variable at each level.
+	Thus, $O(n)$ space.
+\end{proof}
+
+\begin{theorem}[]
+	QSAT is $\mathsf{PSPACE}$-complete.
+\end{theorem}
+
+\begin{proof}
+	Suppose $L \in \mathsf{PSPACE}$ such that $L$ is decided by some
+	Turing machine $T$ in $O(f(n))$ time.
+	Construct a quantified conjunctive normal form formula $\varphi$ of size
+	$O(f(\left\lvert x \right\rvert)^2)$ such that $\varphi$ is true
+	if and only if $T$ accepts $x$.
+	As in Cook-Levin, we build a conjuctive normal form formula
+	$\phi_{T,x}$ of size $O(f(\left\lvert x \right\rvert))$ describing
+	the arcs of $G_{T,x}$. 
+	That is, for any two strings $C$ and $C'$,
+	$\phi_{T,x}(C,C') = 1$ if and only if $(C,C')$ is an arc
+	or $C = C'$.
+	We then use $\phi_{T,x}$ to construct a formula $\varphi$ such that
+	$\varphi(C,C')=1$ if and only if $C'$ can be reached from $C$ in $G_{T,x}$.
+	Then $\varphi(C_{\text{start}}, C_{\text{acc}})$ is what we need.
+	We inductively build the formula $\varphi_i$ such that
+	$\varphi_i(C,C') = 1$ if and only if $C'$ can be reached from $C$
+	in $G_{T,x}$ in at most $2^i$ steps.
+	Note that $\varphi_0 = \phi_{T,x}$ and 
+	$\varphi_{f(\left\lvert x \right\rvert)} = \varphi$.
+	% todo?
+\end{proof}
+
+Now let us describe a game on a conjunctive normal form formula 
+$\phi$ over $x_1, x_2, \ldots, x_n$ between two players: player 1 and player 2.
+The two players take turns assigning trtuh values to the variables in order.
+When all variables are instantiated, player 1 wins if the formula evaluates
+true and player 2 wins otherwise.
+
+\begin{problem}[Formula game]
+	Instance: a conjunctive normal form formula $\phi$ over 
+	$x_1, x_2, \ldots, x_n$. \\
+	Question: is there a winning strategy in the game on $\phi$?
+\end{problem}
+
+\begin{theorem}[]
+	Formula game is $\mathsf{PSPACE}$-complete.
+\end{theorem}
+
+\begin{proof}
+	Formula game is the same problem as QSAT.
+\end{proof}
+
+\begin{problem}[Generalised geography]
+	Instance: a game for 2 players consisting of a directed graph $G$,
+	and a start node $s$.
+	Players take turns to move along the edges from the current node.
+	A player who cannot move without returning to a node already visited loses.
+	\\
+	Question: is there a winning strategy for the first player?
+\end{problem}
+
+Generalised geography can be shown to be $\mathsf{PSPACE}$-complete by
+reduction from QSAT.
+For any quantified Boolean formula, we can construct a game graph
+such that the first player has a winning strategy if and only if the formula
+is valid.
+Many other $2$ player games are also $\mathsf{PSPACE}$-complete.
+
+\begin{definition}[Alternating Turing machines]
+	An \textbf{alternating Turing machine} is a non-deterministic Turing machine
+	$N$ whose states $Q$ are split into parts: $Q_\text{and}$ and $Q_\text{or}$.
+	An \textbf{eventually accept configuration} (EAC) on input $x$ is defined
+	as
+	\begin{enumerate}
+		\item all accepting leaves in the computation are EAC;
+		\item a configuration with state $Q_\text{and}$ is EAC if all
+			successor configurations are  EAC; and
+		\item a configuration with state $Q_\text{or}$ is EAC if there is a
+			successor configuration which is EAC.
+	\end{enumerate}
+	We say that $N$ acceots $x$ if the initial state is EAC.
+	$N$ decides a language $\mathcal L$ is for every $x \in \mathcal L$,
+	$N$ accepts $x$ and for every $x \not\in \mathcal L$, $N$ rejects $x$.
+\end{definition}
+
+\begin{definition}[Alternating polynomial time]
+	A language $\mathcal L$ belongs to the complexity class
+	$\mathsf{AP}$, \textbf{alternating polynomial time},
+	if and only if it can be decided by an alternating Turing machine
+	in polynomial time.
+\end{definition}
+
+\begin{theorem}[]
+	\hfill
+	\vspace{-\baselineskip}
+	\[
+		\mathsf{AP} = \mathsf{PSPACE}.
+	\]
+\end{theorem}
+

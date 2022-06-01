@@ -1,0 +1,24 @@
+\section{Background material}
+
+\emph{Ant colony optimisation} (ACO) is a technique for finding approximate solutions to combinatorial optimisation problems which can be reduced to finding \emph{good} paths through graphs. This paradigm mirrors the pheromone-based communication of biological ants. Artificial \emph{ants} (agents) locate feasible solutions and record the \emph{quality} of each solution (analogous to pheromone trails laid by ants). Ants will use this record of solution quality when locating new feasible solutions.
+
+The \emph{ant system} is an early ant colony optimisation algorithm which is the basis for the extension of \emph{Ant-Q}, and was introduced by \textcite{dorigo1996ant}. Although introduced with its application to the \emph{symmetric travelling salesman problem} (TSP), it was shown to generalise to the \emph{asymmetric travelling salesman problem} (ATSP), and in fact any \emph{appropriate} graph representation, though a strict definition of what this is in not clear. Thus, in the succeeding sections we will be dealing with the application of ACO to ATSP, but we note its application to any problem that can be reduced to ATSP (of which there are many).
+
+We introduce asymmetric travelling salesman problem (ATSP). Given a set $N$ of $n$ cities and for each $r, s \in N$ a distance $d_{rs}$, ATSP is the problem of finding a minimal length closed tour that visits each city only once. This problem can be realised by an directed weighted graph $(N, E)$ where edge $(r, s) \in E$ has weight $d_{rs}$.
+
+We now introduce the notion of reinforcement learning, and encourage the reader to draw similarities between it and ant colony optimisation.
+
+\emph{Reinforcement learning} concerns how agents make actions in an environment in order to maximise cumulative reward. It involves one or many agents, each having a state from some set of states $S$, and able to take an action from some set of actions $A$. By taking an action, agents may transition to different states, and in doing so is given a reward $r \in \mathbb R$. The goal of the agent is to maximise \emph{cumulative reward}; that is, the total reward at the end of its \emph{episode} (when it reaches a terminal state). We may describe an episode of an agent as a sequence of states, actions, and rewards: $e = (s_1, a_1, r_1, s_2, a_2, r_2, \ldots, s_n)$ where $s_n$ is a terminal state.
+
+We now specialise to \emph{Q-learning}, a model-free (by this we mean that we need no model of the environment) reinforcement learning algorithm that quantifies the \emph{quality} of actions an agent may take at a given state.
+
+The core of \emph{Q-learning} is the \emph{Q-function} $Q: S \times A \to \mathbb R$ that predicts the quality of an action at a given state (we call the evaluation of the Q-function at a given state-action a \emph{Q-value}). We first initialise $Q$ for each state-action (typically to a fixed value). Agents in a state $s$ will choose action $a_s$ by considering the Q-value, and for it receives a reward $r_t$. The agent will then move into state $s_{t+1}$ and the Q-value for that state-action will be updated by
+$
+    Q(s_t, a_t) \gets
+    Q(s_t, a_t) + \alpha\left(
+    r_t + \gamma \max_{a \in A} Q(s_{t+1}, a)
+    - Q(s_t, a_t)
+    \right)
+$
+where $\alpha \in (0,1]$ is the \emph{learning rate} (which determines how sceptical the agent is to new information) and $\gamma \in [0,1]$ is the \emph{discount factor} (which dictates how far-sighted the agent's decisions should be).
+

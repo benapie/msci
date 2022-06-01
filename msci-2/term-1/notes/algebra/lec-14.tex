@@ -1,0 +1,92 @@
+\lecture{14}{21/11}
+
+\begin{definition}[Coset]
+    Let $I \subset R$ be an ideal in the ring $R$. Then given any $x \in R$ we define the \textbf{coset} of $x$ to be the set
+    \[ \bar x \coloneqq x + I \coloneqq \{ x + r: r \in I \} \subset R. \]
+    $x$ is said to be a \textbf{representative} of $x + I$.
+\end{definition}
+
+The following lemam says that distinct cosets are either disjoint or equal.
+
+\begin{lemma}
+    Let $x, y \in R$. Then
+    \[ x + I = y + I \iff x + I \cap y + I \neq \emptyset \iff x - y \in I. \]
+\end{lemma}
+
+\begin{proof}
+    The first $\implies$ is obvious. 
+    To prove the second $\implies$, if $x + I \cap y + I \neq \emptyset$ then this means there exists $r_1, r_2 \in I$ such that
+    \[ x + r_1 = y + r_2 \implies x - y = r_2 - r_1 \in I. \]
+    Now for the last (circular) $\implies$, we know that $x - y \in I$. 
+    So $x - y = r'$ for $r' \in I$. 
+    So $x = y + r'$.
+    Therefore
+    \[ x + I = \{ x + r: r \in R \} = \{ y + r' + r: r, r' \in R\} \subset y + I; \]
+    a similar result can be obtained for $y + I$ to show that $x + I = y + I$.
+\end{proof}
+
+We are now going to (roughly) define our quotient ring. We define $R/I$ to be the set of all distinct cosets of $R$ by $I$, that is
+\[ R/I \coloneqq \{ \bar x: x \in R \} = \{ x + I: x \in R \}. \]
+We can now define addition and multiplication on the cosets by
+\begin{align*}
+    (x + I) + (y + I) &\coloneqq (x + y) + I \\
+    (x + I)   (y + I) &\coloneqq xy + I.
+\end{align*}
+
+Initially, it is not obvious that this is well-defined. 
+That is, independent of representatives. 
+For addition to be well defined we need
+\[ (x + y) + I = (x' + y') + I \]
+where $x, y, x', y' \in R$, where $x, x'$ are representatives for $x + I$ and $y, y'$ are representatives for $y + I$.
+Recall that we have $x + I = x' + I$ means that $x - x' \in I$, so similarly $y - y' \in I$. 
+Since $I$ is an ideal, it is closed under addition so 
+\[ x - x' + y - y' = (x + y) - (x' + y') \in I \]
+and so
+\[ (x + y) + I = (x' + y') + I(x + y) + I = (x' + y') + I. \]
+Similarly, for multiplication we have that $x - x' \in I$ and $y - y' \in I$. 
+As $I$ is closed under multiplication for elements in $R$,
+\[ (x - x')y \in I \qquad (y - y')x' \in I \]
+and by adding these together we get
+\[ xy - x'y' \in I \]
+as required.
+
+\begin{definition}[Quotient]
+    Let $R$ be a ring and $I \subset R$ be an ideal. 
+    Then the ring $R/I$ is called the \textbf{quotient} of $R$ by $I$, or $R \bmod I$.
+    Its elements $x + I$ for $x \in R$ are called \textbf{residue classes} ($\bmod \, I$), and are sometimes denoted $\bar x$.
+\end{definition}
+
+Now lets look at an example to try and make this look a little bit less abstract.
+
+\begin{example}
+    Let $R = \Z[i]$ and $I = (2 - i)$. Let's work out what the quotient $R / I$ looks like. First, we need to find representatives of its elements. Every element in $R / I$ is of the form
+    \[ a + bi + (2 - i), \qquad a, b \in \Z \]
+    but when are two such elements equal in $R / I$? 
+    We have
+    \[ \overline{a + bi} = \overline{c + di} \]
+    if and only if 
+    \[ 2 - i \mid (a + bi) - (c + di). \]
+    So, for example, $2 - i + (2 - i) = 0 + (2 - i)$ (as $2 - i \mid 2 - i - 0$), so
+    \[ \overline{2 - i} = \overline 0 \]
+    and so
+    \[ \overline 2 = \overline i. \]
+    Hence
+    \[ \overline{a + bi} = \overline{a} + \overline{2b} = \overline{a + 2b} \]
+    and so every element in $R/I$ has a representative in $\Z$. 
+    We can restrict the distinct equivalence classes $\bmod \, I$ further. 
+    Namely, squaring both sides of $\overline 2 = \overline i$ we get
+    \[ \overline 4 = \overline{-1} \]
+    and so $\overline 5 = \overline 0$.
+    Thus, the equivalence classes are only different $\bmod 5$, that is, we have at most five elements in $R/I$:
+    \[ 0 + I, 1 + I, 2 + I, 3 + I, 4 + I. \]
+    Now, is it possible to reduce this further? 
+    We assume that $a, b \in \Z$ are such that $\overline a = \overline b$. 
+    That is, 
+    \[ a - b \in (2 - i) \implies a - b = (x + iy)(2 - i) \]
+    for some $x, y \in \Z$.
+    This is equivalent to 
+    \[ a - b = 2x + y + (2y - x)i \]
+    and so
+    \[ 2x + y = a - b, \quad 2y - x = 0. \]
+    These equations imply that $5y = a - b$, that is $a = b \bmod 5$; so our representatives are indeed distinct.
+\end{example}

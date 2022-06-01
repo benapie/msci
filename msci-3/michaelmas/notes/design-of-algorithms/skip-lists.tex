@@ -1,0 +1,74 @@
+\documentclass[a4paper]{article}
+\input{../preamble-standalone.tex}
+\begin{document}
+
+\title{Skip Lists}
+\maketitle
+
+A \emph{skip list} is a probabilistic data structure
+that allows $O(\log{n})$ search complexity and insertion complexity
+within an ordered sequence of $n$ elements.
+
+Idea: for a sorted list, we create a duplicate list where a given element
+of the initial list is duplicated with probability $0.5$.
+For every duplicated item, we store a pointer at the item in the second list
+back to the first list.
+We also add \emph{sentinel nodes} for safety.
+Take the sorted list $(0,1,2,3,4,5,6)$ as follows.
+
+\begin{center}
+	\begin{tikzcd}
+		-\infty \arrow[r] & 0 \arrow[d] \arrow[r] & 1 \arrow[rr] \arrow[d]
+		&& 3 \arrow[d] \arrow[rrr] &&& 6 \arrow[d] \arrow[r] & \infty \\
+		-\infty \arrow[r] & 0 \arrow[r] & 1 \arrow[r] & 2 \arrow[r] 
+		& 3 \arrow[r] & 4 \arrow[r] & 5 \arrow[r] & 6 \arrow[r] & \infty
+	\end{tikzcd}
+\end{center}
+
+Searching for $5$ is shown below.
+
+\tikzset{emph/.style={preaction={ % allow highlighting
+	draw,yellow,-, double=yellow, double distance = 3\pgflinewidth
+}}}q
+
+\begin{center}
+	\begin{tikzcd}
+		-\infty \arrow[r, emph] & 0 \arrow[d] \arrow[r, emph] 
+		& 1 \arrow[rr, emph] \arrow[d]
+		&& 3 \arrow[d, emph] \arrow[rrr] &&& 6 \arrow[d] \arrow[r] & \infty \\
+		-\infty \arrow[r] & 0 \arrow[r] & 1 \arrow[r] & 2 \arrow[r] 
+		& 3 \arrow[r, emph] & 4 \arrow[r, emph] & 5 \arrow[r] 
+		& 6 \arrow[r] & \infty
+	\end{tikzcd}
+\end{center}
+
+The probability a given duplicated node is 
+followed by $k$ non-duplicated nodes is $\frac1{2^k}$.
+Thus, the expected number of nodes examined when searching the initial list
+is $\sum_{k = 1}^\infty \frac1{2^k} = 2$.
+So by adding this \emph{shortcut list}, we have reduced the time complexity
+from $n$ to $\frac n2 + O(1)$.
+ 
+An improvement: keep adding shortcut lists of the top shortcut list until we 
+are out of elements.
+
+\begin{center}
+	\begin{tikzcd}
+		-\infty \arrow[rrrrrrrr] \arrow[d] & & & & & & & & \infty \arrow[d] \\
+		-\infty \arrow[rr] \arrow[d] & & 1 \arrow[rrrrrr] \arrow[d] & & & & & 
+		& \infty \arrow[d] \\
+		-\infty \arrow[rr] \arrow[d] & & 1 \arrow[rrrrr] \arrow[d]  & & & & 
+		& 6 \arrow[r] \arrow[d] & \infty \arrow[d] \\
+		-\infty \arrow[r] \arrow[d] & 0 \arrow[r] \arrow[d] 
+		& 1 \arrow[rr] \arrow[d] & & 3 \arrow[rrr] \arrow[d] & & 
+		& 6 \arrow[r] \arrow[d] & \infty \arrow[d] \\
+		-\infty \arrow[r] & 0 \arrow[r] & 1 \arrow[r] & 2 \arrow[r] 
+		& 3 \arrow[r] & 4 \arrow[r] & 5 \arrow[r] & 6 \arrow[r] & \infty 
+	\end{tikzcd}
+\end{center}
+
+The expected number of levels is $\log{n}$, which is easy to prove.
+At each level, we cut search time in half (excluding overhead).
+This gives us a search time of $O(\log{n})$.
+
+\end{document}

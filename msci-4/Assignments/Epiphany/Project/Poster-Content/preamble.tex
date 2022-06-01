@@ -1,0 +1,85 @@
+\documentclass[a4paper, 11pt]{article}
+
+% tikzcd.yichuanshen.de/ tikcd diagrams
+%======================%
+%   Standard packages  %
+%======================%
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[UKenglish]{babel}
+\usepackage{parskip}
+\usepackage{hyperref}
+
+%%%
+%%% Referencing
+%%%
+\usepackage[sorting=none, backend=biber]{biblatex}
+\addbibresource{ref.bib}
+
+
+%======================%
+%        Maths         %
+%======================%
+\usepackage{amsfonts, mathtools, amsthm, amssymb}
+\newcommand\N{\ensuremath{\mathbb{N}}}
+\newcommand\R{\ensuremath{\mathbb{R}}}
+\newcommand\Z{\ensuremath{\mathbb{Z}}}
+\newcommand\Q{\ensuremath{\mathbb{Q}}}
+\newcommand\C{\ensuremath{\mathbb{C}}}
+\newcommand\F{\ensuremath{\mathbb{F}}}
+\newcommand{\encode}[1]{\ensuremath \langle #1 \rangle}
+
+\usepackage{tikz-cd}
+% \usepackage{adjustbox}
+\DeclareMathOperator*{\id}{id}
+\DeclareMathOperator*{\coker}{coker}
+\DeclareMathOperator*{\im}{im}
+\DeclareMathOperator*{\rank}{rank}
+\DeclareMathOperator*{\nullity}{nullity}
+\DeclareMathOperator*{\pers}{pers}
+\DeclareMathOperator*{\ipers}{ipers}
+\DeclareMathOperator*{\dgm}{dgm}
+\DeclareMathOperator*{\codim}{codim}
+\DeclareMathOperator*{\low}{low}
+
+% Code
+\usepackage{minted}
+  \setminted[python]{
+    frame=lines,
+    framesep=2mm,
+    baselinestretch=1.2,
+    bgcolor=LightGray,
+    fontsize=\footnotesize,
+    linenos
+  }
+\usepackage{xcolor}
+  \definecolor{LightGray}{gray}{0.9}
+
+% pseudocode
+\usepackage{algpseudocode, algorithm}
+
+
+%======================%
+%    Pretty tables     %
+%======================%
+\usepackage{booktabs}
+\usepackage{caption}
+
+%======================%
+%    Theorems          %
+%======================%
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}
+% \newtheorem{algorithm}{Algorithm}
+
+\newtheoremstyle{break}{\topsep}{\topsep}{}{}{\bfseries}{}
+{\newline}{\thmname{#1}\thmnumber{ #2}\thmnote{ ({\normalfont\textsc{#3}})}.}
+\theoremstyle{break}
+\newtheorem{problem}[theorem]{Problem}
+
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}

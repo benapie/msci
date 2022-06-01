@@ -1,0 +1,153 @@
+\chapter{Decision problems}
+\lecture{4}{3/2}
+
+We have up to now been focusing on \emph{optimisation problems}, such as
+\begin{enumerate}
+    \item shortest path between two vertices;
+    \item minimum spanning tree of a graph;
+    \item maximum flow; and
+    \item maximum matching.
+\end{enumerate}
+We will now introduce \emph{decision problems} where the answer is
+a yes or no.
+
+\begin{problem}[Shortest path, decision problem]
+    Let $G = (V,E)$ be a graph.
+    Does there exist a path between $u,v \in V$
+    with length at most $k$?
+\end{problem}
+
+\begin{problem}[Minimum spanning tree, decision problem]
+    Does there exists a minimum spanning tree of a graph $G$
+    with weight of at most $k$?
+\end{problem}
+
+\begin{problem}[Graph colouring, decision problem]
+    Can a graph $G$ be coloured with at most $k$ colours?
+\end{problem}
+
+In these examples, we can use this problem to solve the related
+optimisation problem.
+
+\begin{theorem}[]
+    An optimisation algorithm has a polynomial algorithm
+    if and only if the corresponding decision problem
+    has a polynomial algorithm.
+\end{theorem}
+
+\begin{definition}[Decision problem]
+    We define a \textbf{decision problem} as an \emph{instance} 
+    and a yes or no question.
+\end{definition}
+
+\begin{example}
+    To redefine our shortest path problem more formally:
+    \begin{enumerate}
+        \item (instance) a finite directed graph $G = (V,E)$ with $s,t \in V$; and
+        \item (question) does there exist a path $P \subset E$
+            from $s$ to $t$.
+    \end{enumerate}
+\end{example}
+
+Recall alphabets, strings, and languages.
+
+For a problem $\Pi$ and an encoding sceheme $e$ with alphabet $\Sigma$,
+the set of instances corresopnding with an answer \emph{yes} is denoted
+$\mathcal L(\Pi, e)$
+and is called the \textbf{language} asociated with $\Pi$ and $e$.
+
+All problems we have found are \emph{tractable}; however,
+there are some \emph{intractable} problems.
+We are looking to \emph{classify} problems. We have seen that some languages are undecidable.
+Every deciable problem has a turing machine that can solve it.
+The following are some potentials measures that we can have on
+these turing machines:
+\begin{enumerate}
+    \item difficulty of constructing the algorithm;
+    \item static complexity measure; and
+    \item dynamic complexity measure.
+\end{enumerate}
+A static complexity measure is something that will not be influenced
+by the input given,
+while a dynamic complexity measure will typically take the size of the
+input.
+
+\begin{problem}
+    Let $G$ be a finite graph. Does $G$ have an Eulerian circuit?
+\end{problem}
+
+\begin{problem}
+    Let $G$ be a finite graph. Does $G$ have a hamiltonian cycle?
+\end{problem}
+
+\begin{remark}
+    Recall that an Eulerian circuit will visit every edge once
+    and a hamiltonian cycle will visit every vertex once.
+\end{remark}
+
+Although these two problems look similar, there are no
+similar characteristics that would allow us to \emph{reduce}
+one to another. 
+A hamiltonian cycle finder (as far as we know) must have exponetial time.
+
+\begin{problem}[Independent set]
+    Let $G$ be a graph and $k \in \N$.
+    Does $G$ have an independent set of size of atleast $k$?
+\end{problem}
+
+\begin{problem}[Vertex cover]
+    Let $G$ be a graph and $k \in \N$.
+    Does $G$ have a vertex cover of size at most $k$?
+\end{problem}
+
+Now, we \emph{can} link these two problems.
+
+\begin{theorem}[]
+    Let $G = (V,E)$ be a graph.
+    A set $I \subset V$ is independent if and only if
+    $V \setminus I$ is a vertex cover.
+\end{theorem}
+
+\begin{proof}
+    Suppose $I$ is independent and assume $V \setminus I$ is not a vertex cover.
+    Then there exists $(u,v) \in E$ such that $u,v \not \in V \setminus I$.
+    Therefore $u,v \in I$; contradiction. 
+\end{proof}
+
+\begin{problem}[Clique problem]
+    Let $G = (V,E)$ be a graph and $k \in \N$.
+    Does $G$ have a clique of size of at least $k$?
+\end{problem}
+
+\begin{remark}
+    Recall that a clique is a subset of vertices such that 
+    any two distinct vertices are adjacent.
+\end{remark}
+
+\begin{definition}[]
+    Let $G = (V,E)$ be a graph.
+    The \textbf{complement} of $G$, denoted $\overline G = (V, E')$, 
+    is such that two vertices are adjacent in $\overline G$ if
+    there are not adjacent in $G$.
+\end{definition}
+
+\begin{theorem}[]
+    A graph $G$ has an indendent set of size $k$ if and only if
+    $\overline G$ has a clique of size $k$.
+\end{theorem}
+
+The above theorem shows us that the independent set problem and
+the clique problem are equivalent.
+
+\begin{problem}[Set cover]
+    Let $U$ be a set with $\lvert U \rvert = n$ where
+    \[
+        U = \bigcup_{i = 1}^t S_i
+    \]
+    and $k \in \N$.
+    Does there exist a collection of $S_i$ such that
+    at most $k$ of these sets union equals $U$.
+\end{problem}
+
+Can we use the previous examples to solve this one?
+The anser is the vertex cover problem.

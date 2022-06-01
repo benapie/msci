@@ -1,0 +1,93 @@
+\documentclass[a4paper]{article}
+
+\input{../preamble.tex}
+
+\begin{document}
+
+\title{TOPOLOGY III \\ Spaces, Surfaces, and Simplicial complexes}
+\maketitle
+
+\begin{definition}[$n$-simplex]
+	An \emph{n-simplex} $\sigma^n$ in $\mathbb R^n$
+	where $N \geq n$ is a convex hull of $(n+1)$ points
+	in general position in $\mathbb R^N$. We say that such a simplex is
+	$n$-dimensional.
+\end{definition}
+
+A generalisation of triangles to $n$ dimensions.
+
+\begin{definition}[Simplicial complex]
+	A \emph{simplicial complex} $K \subset \mathbb R^N$ is a finite
+	union of simplicies $\sigma^n$ ($n \leq N$) contained in $\mathbb N$
+	such that if $\sigma_1, \sigma_2 \in K$, then $\sigma_1 \cap \sigma_2$
+	is either empty, a single common face of them both, or one is a face of 
+	the other.
+\end{definition}
+
+\begin{definition}[Triangulation]
+	A \emph{triangulation} of a topological space $X$ is a simplicial
+	complex $K$ with a homeomorphism $h:K \to X$.
+\end{definition}
+
+\begin{definition}[Closed surface]
+	A topological space $S$ is a \emph{closed surface} if it is
+	non-empty, Hausdorff, compact, connected, and it is locally Euclidean
+	of dimension $2$.
+\end{definition}
+
+\begin{definition}[Open star]
+	Let $x \in K$ for some finite simplicial complex $K$.
+	The \emph{open star} of $x$ in $K$, denoted $\operatorname{St}(x,K)$,
+	is the union of the interiors of all simplicies containing $x$
+	together with $x$ itself.
+\end{definition}
+
+\begin{lemma}
+	If a topological space $M$ is triangulated by a connected,
+	finite simplicial cmplex $K$ of dimension $2$, then $M$ is a closed
+	surface if and only if for each $x \in K$, $\operatorname{St}(x,K)$
+	is homeomorphic to $E^2$ (the unit open ball).
+\end{lemma}
+
+\begin{corollary}
+	If $X$ is triangulated by the connected finite $2$-dimensional
+	simplicial complex $K$, then $X$ is a closed surface if and only if, for
+	all vertices $v$ in $K$, we have $\operatorname{St}(v,K) \cong E^2$.
+\end{corollary}
+
+\begin{definition}[Orientability]
+	For a surface $S$, we say that it is \emph{orientable}
+	if it has an orientable triangulation; that is, for each pair
+	of simplicies that meet on a common edge incude opposite directions
+	on the common edge.
+\end{definition}
+
+Constructions on surfaces:
+\begin{enumerate}
+	\item Given two surfaces $S_1$ and $S_2$, their \emph{connected sum} 
+	$S_1 \# S_2$ is obtained by removing the interiors of two small open discs,
+	one from $S_1$ and one from $S_2$, and then identifying the two boundary
+	circles formed. 
+	If $S_1$ and $S_2$ are oriented, we select the resulting directions
+	around the boundary circle such that $S_1 \# S_2$ inherits
+	the orientation.
+	
+	\item Adding a \emph{handle} to a surface $S$ runs as follows.
+	Suppose we remove the interiors of two open discs from $S$, then attach
+	to the resulting boundary circles the ends of a cylinder
+	$S^1 \times I$. Again, if $S$ is orientable we choose the direction
+	of the boundary circle as to inherit the orientability property.
+
+	\item Adding a cross-cap on a surface $S$ runs as follows.
+	We remove a single open disc from $S$ and glue the resulting boundary circle to the boundary circle of a M\"obius band.
+	This operation does \emph{not} preserve orientability,
+	the result is non-orientable.
+\end{enumerate}
+
+\begin{definition}[Simplicial map]
+	A map $f$ from a simplicial complex $K$ to another $L$ is
+	called \emph{simplicial} if the image of the vertices of a simplex
+	(of $K$) always spans a simplex (of $L$).
+\end{definition}
+
+\end{document}

@@ -1,0 +1,85 @@
+\input{../preamble.tex}
+
+\begin{document}
+
+\begin{center}
+  \textbf{Assignment 3} \\
+  \textsc{Algebraic Topology IV, \\ Michaelmas Term, Week 7} \\
+  \textsc{Ben Napier}
+  \vspace{1em}
+\end{center}
+
+
+\begin{center}
+  \small
+  \parbox{0.5\textwidth}{
+    \begin{center}
+      \textsc{A note before my solutions}
+    \end{center}
+    \vspace{0.5em}
+    I do find topology problems to require an elevated conceptual line of reasoning, such that I struggle to fully understand perhaps why I have done something (perhaps past a gut feeling) and to know if I have been quite convincing enough. I have littered a few questions (in brackets!) around to ensure you where the above situations may happen. 
+  }
+  \vspace{0.5em}
+\end{center}
+
+\begin{questions}
+  \question Use the Mayer-Vietoris sequence to compute the homology groups of the torus $H_n(S^1 \times S^1)$, for every $n \in \N_0$. Do the same for the Klein Bottle.
+  \begin{solution}
+    We split the torus into two cylinders (or, \emph{annuli}). We have
+    \[H_n(U) = H_n(V) = \begin{cases}
+      \Z & n \in \{0,1\}, \\
+      0 & \text{else}.
+    \end{cases}\]
+    The intersection of our decomposition is two disjoint circles, so
+    \[H_n(U \cap V) = \begin{cases}
+      \Z^2 & n \in \{0,1\}, \\
+      0 & \text{else}.
+    \end{cases}\]
+    (Have I convinced you for such a decomposition?) We now observe a piece of the MVS:
+    \[ \ldots \to H_n(U) \oplus H_n(V) \to H_n(\mathbb T) \to H_{n-1}(U \cap V) \to \ldots \] 
+    which is equivalent to 
+    \[ \ldots \to 0 \to H_n(\mathbb T) \to 0 \to \ldots \]
+    for $n > 2$. Thus, we conclude $H_n(\mathbb T) = 0)$ for all $n > 2$. Now we look at $n \in \{0, 1, 2\}$. From the MVS:
+    {\scriptsize
+    \[ 0 \to H_2(\mathbb T) \to H_1(U \cap V) \to H_1(U) \oplus H_1(V) \to H_1(\mathbb T) \to H_0(U \cap V) \to H_0(U) \oplus H_0(V) \to H_0(\mathbb T) \to 0 \] }equivalent to 
+    \[ 0 \to H_2(\mathbb T) \to \Z^2 \xrightarrow{A} \Z^2 \to H_1(\mathbb T) \to \Z^2 \xrightarrow{B} \Z^2 \to H_0(\mathbb T) \to 0. \]
+    Picking canonical bases, we see that $A$ and $B$ have the following matrix form:
+    \[ \begin{pmatrix}
+      1 & 1 \\ -1 & -1
+    \end{pmatrix}. \]
+    (I do have some confusion on why this is the case for $A$! And perhaps how to motivate such an assertion without talking about $H_0$ in terms of connected components.)
+    So $\ker A \cong \ker B \cong \im A \cong \im B \cong \Z$. By exactness, we see $H_2(\mathbb T) \cong \ker A \cong \Z$. Exactness also allows us to assert that the homomorphism $\Z^2 \to H_0(\mathbb T)$ is surjective, facilitating the use of the first isomorphism theorem (of abelian groups) to conclude $\Z^2/\im B \cong H_0(\mathbb T)$. That is, $H_0(\mathbb T) \cong \Z$, as we expect (and could maybe wholly conclude from the fact that $\mathbb T$ is connected?). Lastly, we have $H_1(\mathbb T)$. First, we observe that as $\coker A = \Z$, we have an induced injective map from the map $\Z^2 \to H_1(\mathbb T)$ of the form $\alpha: \Z \to H_1(\mathbb T^2)$. From this, we build the short exact sequence:
+    \[ 0 \to \Z \xrightarrow{\alpha} H_1(\mathbb T) \to \ker B (=\Z) \to 0 \]
+    and thus, using our splitting lemma: $H_1(\mathbb T) \cong \Z^2$, as we may expect. 
+
+    For the klein bottle, I opt for the reduced MVS (but condense the proof, as much of the understanding was demonstrated for the torus):
+    \[ 0 \to \hat H_2(K) \to \Z^2 \xrightarrow{\beta} \Z^2 \to \hat H_1(K) \to \Z \to 0. \]
+    We follow a similar decomposition as that for the torus, distinct in that in one of the identification circles we identify with opposite orientation. This changes $\beta$ to map $(x,y) \mapsto (x+y, -(x-y))$ (instead of to $(x+y, -(x+y))$. Thus $\ker \beta = 0$ and $\im \beta \cong \Z \oplus 2\Z$. So now we assert that $H_2(K) \cong 0$ (using the same reasoning as before) and we argue that $H_0(K) \cong \Z$ on the grounds of $K$ being connected. Now we similarly construct an induced map $\gamma_\star: \Z/2 \to H_1(K)$ from $\coker \beta = \Z^2/(\Z \oplus 2\Z) = \Z/2$ and fabricate the short exact sequence
+    \[ 0 \to \Z/2 \xrightarrow{\gamma_\star}  H_1(K) \to \Z \to 0 \]
+    and conclude $H_1(K) \cong \Z/2 \oplus \Z$. 
+  \end{solution}
+
+  \question Compute the homology of the products $S^p \times S^q$, also using the Mayer-Vietoris sequence and induction.
+  \begin{solution}
+    I have trouble visualising what is going on here, I assume the notation in the hint denotes removing $S^p \times S^{q-1}$ from each copy of $S^p \times D^q$ and identifying boundaries?
+  \end{solution}
+
+  \question Prove the five lemma.
+  \begin{solution}
+    Consider the following as in the statement of the five lemma.
+    \begin{center}
+      % https://tikzcd.yichuanshen.de/#N4Igdg9gJgpgziAXAbVABwnAlgFyxMJZABgBpiBdUkANwEMAbAVxiRAEEQBfU9TXfIRQBGclVqMWbAELdeIDNjwEiAJjHV6zVohABhOXyWCiAZg0TtbACKGF-ZUOQAWC1qm6AoncUCVKMmFxdx0OAHIfBxMRUiDNSVDpCJ4jPyd1OMsPfWT5X0czWOCEm1zUgpRXTJC2T2TxGCgAc3giUAAzACcIAFskAFZqHAgkADZ4q112sIB9YTsu3rGhkcQAdgns6ZnVBe6+9ZWkAA5N0PaZ0zKQRYPTkGGkAE4ztgvna9ukMgfVwazQnQ5nslohRL9liAGHQAEYwBgABSi-ihMHaOBAr10QN2KRu+yQ6ghhyhsPhSOMKIYaIxWJAQNMIIO5mJ9xq2JmziZSFcxJeALYQP63MQP0eYLpF3meK+iCJ4pZ7JulxFLPFvKV7xF4PFRM1O24FC4QA
+    \begin{tikzcd}
+      A \arrow[d, "a_1"] \arrow[r, "f_1"] & B \arrow[d, "a_2"] \arrow[r, "f_2"] & C \arrow[d, "a_3"] \arrow[r, "f_3"] & D \arrow[d, "a_4"] \arrow[r, "f_4"] & E \arrow[d, "a_5"] \\
+      A' \arrow[r, "f'_1"]                & B' \arrow[r, "f'_2"]                & C' \arrow[r, "f_3'"]                & D' \arrow[r, "f_4'"]                & E'                
+      \end{tikzcd}
+    \end{center}
+    We have to prove that $a_3$ is an isomorphism, i.e. injective and surjective. We start with establishing the surjection. 
+    
+    Let $c' \in C'$. We aim to construct an element in $C$ which maps to $c'$ under $a_3$. We first note that as $a_4$ is surjective. So there is $d \in D$ such that $f'_3(c') = a_4(d)$. We also observe that our isomorphisms induce commutativity in the diagram, so $f'_4(f'_3(c')) = a_5(f_4(d))$. But we see by exactness that $f'_4(f'_3(c')) = 0$, thus $f_4(d) \in \ker a_5$. But $a_5$ is injective, so $f_4(d) = 0$. Thus $d \in \ker f_4$. By exactness along the top row, $d \in \im f_3$, so we may pick $c \in C$ such that $f_3(c) = d$. Again, we play the same commutivity trick to assert that $a_4(f_3(c)) = f'_3(a_3(c))$. But trailing back on our equalities we see that $a_4(f_3(c)) = a_4(d) = f'_3(c')$. With the fact that $f_3'$ is a homomorphism, we have $c' - a_3(c) \in \ker f_3'$. Following the exactness of the bottom row, we see $c' - a_3(c) \in \im f'_2$, so there is $b' \in B'$ such that $f_2'(b') = c' - a_3(c)$. Again, by commutivity $a_3(f_2(b) = f_2'(b') = c' - a_3(c))$, and as $a_3$ is a homomorphism we conclude that $a_3(f_2(b) + c) = c'$. That is, $a_3$ is a surjection.
+
+    Now we establish the injection. We first observe that $a_3$ is injective if and only if $a_3(c) = 0$ implies that $c = 0$. So we let $c \in C$ such that $a_3(c) = 0$. We see that also $f'_3(a_3(c)) = 0$, so we apply our commutivity trick to obtain $a_4(f_3(c)) = 0$. But $a_4$ is injective, so $c \in \ker f_3 = \im f_2$. We let $b \in B$ such that $f_2(b) = c$ and by commutivity we have $a_3(f_2(b)) = f_2'(a_2(b))$. But $f_2(b) = c$ which we defined as being $0$ under $a_3$, so $a_2(b) \in \ker f'_2 = \im f'_1$. So we let $a' \in A'$ such that $f_1'(a') = a_2(b)$. As $a_1$ is surjective, we may find $a \in A$ such that $a_1(a) = a'$ and by commutivity we substantiate $f'_1(a_1(a)) = a_2(f_1(a))$. We earlier stated $g_1(a') = a_2(b)$, thus we see $a_2(b) = a_2(f_1(a))$. $a_2$ is infact a homomorphism, thus $b = f_1(a)$. But $c = f_2(b)$, so we conclude $c = f_2(f_1(a)) = 0$ by the exactness of the top row.
+  \end{solution}
+\end{questions}
+
+\end{document}

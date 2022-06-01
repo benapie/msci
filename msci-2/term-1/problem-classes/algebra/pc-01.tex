@@ -1,0 +1,97 @@
+\pc{1}{16/10}
+\setcounter{question}{1}
+\question Consider the set of polynomials $\Q[x]$ with its normal addition operation $+$, but instead of the normal multiplication, define a new kind of \emph{multiplication}: for any $f, g \in \Q[x]$, let $f \circ g$ be the polynomial obtained by substituting $g(x)$ into $f(x)$, that is,
+\[ (f \circ g)(x) = f(g(x)). \]
+Does $\Q[x]$ equipped with the operations $+$ and $\circ$ form a ring?
+\begin{solution}
+    To check if this is a ring, first we must confirm that it is an abelian group under addition which it clearly is.
+
+    $x \in \Q[x]$ is our multiplicative identity.    
+    \begin{align*}
+        f \circ ( (g \circ h)(x)) &= f \circ (g \circ (h(x))) \\
+                                  &= f(g(h(x))) \\
+                                  &= f\circ g(h(x)) \\
+                                  &= (f \circ g) h(x)
+    \end{align*}
+    hence multiplication is associative.
+
+    However,
+    \[ f \circ(h + g) \neq f \circ h + f \circ g \]
+    so this is not a ring.
+\end{solution}
+
+\setcounter{question}{3}
+\question Let $R$ be a ring. Show, using only the definition of ring, that for any two elements $a, b \in R$ we have
+\begin{parts}
+    \part $0 \cdot a = a \cdot 0 = 0$;
+    \begin{solution}
+        Consider $0 + 0 = 0$. Then
+        \begin{align*}
+            a(0 + 0)              &= a \cdot 0 \\
+            a \cdot 0 + a \cdot 0 &= a \cdot 0 \\
+            a \cdot 0             &= 0;
+        \end{align*}
+        similarily
+        \begin{align*}
+            (0 + 0)a              &= 0 \cdot a     \\
+            0 \cdot a + 0 \cdot a &= 0 \cdot a     \\
+            0 \cdot a             &= a \cdot 0 = 0.
+        \end{align*}
+    \end{solution}
+
+    \part $(-a)b = -(ab)$; and
+    \begin{solution}
+        Well $(-a)b = -(ab)$ iff $(-a)b+ab = 0$. We have $-a + a = 0$ as $R$ is an abelian group with addition. Using this with the distributivity law
+        \begin{align*}
+            0           &= 0 \cdot b            \\
+                        &= (-a + a) \cdot b     \\
+                        &= (-a)b + ab = 0,
+        \end{align*}
+        as required.
+    \end{solution}
+
+    \part $(-a)(-b) = ab$.
+    \begin{solution}
+        \begin{align*}
+            (-a)(-b)        &= ab               \\
+            a(-b)           &= -(-a)(-b)        \\
+            a(-b + (-a)(-b) &= 0                \\
+            (a + (-a))(-b)  &= 0 \cdot (-b) = 0.
+        \end{align*}
+    \end{solution}
+\end{parts}
+
+\setcounter{question}{4}
+\question Let $R$ be a ring such that $r^2 = r$ for all $r \in R$. Show that $r + r = 0$ for all $r$ in $R$, and that $R$ is commutative. Can you find an example of such a ring?
+\begin{solution}
+    \begin{align*}
+        (r + r)^2               &= r + r                \\
+        (r + r)(r + r)          &= r + r                \\
+        r^2 + r^2 + r^2 + r^2   &= r + r                \\
+        r + r                   &= 0
+    \end{align*}
+    as required.
+    \begin{align*}
+        (r + s)^2               &= r + s                \\
+        r^2 + s^2 + rs + sr     &= r + s                \\
+        rs + sr                 &= 0                    \\
+        rs                      &= sr
+    \end{align*}
+    hence commutative. An example of this kind of ring is $\Z/2$.
+\end{solution}
+
+\setcounter{question}{6}
+\question
+\begin{parts}
+    \part Find all the solutions $\bar x \in \Z/12$ to the equation $\bar 3 \bar x = \bar 0$.
+    \begin{solution}
+        This could be brute forced, but following is a nicer solution.
+        \begin{align*}
+            \bar 3 \bar x           &=    \overline{3x}                 \\
+            \overline{3x}           &=    \bar 0                        \\
+            12                      &\mid 3x                            \\
+            4                       &\mid x                             \\
+            x                       &\in  \{ \bar 0, \bar 4, \bar 8 \}. 
+        \end{align*}
+    \end{solution}
+\end{parts}

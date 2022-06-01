@@ -1,0 +1,14 @@
+\chapter{Problems in the computation of persistent homology}
+\label{cha:problems}
+
+Here we apply the knowledge built up in Chapter \ref{cha:background} and Chapter \ref{cha:computational-complexity} to introduce some problems in the computation of persistent homology. As previously mentioned, we focus on two main steps in the pipeline:
+\begin{enumerate}
+    \item construction of a filtered simplicial complex (Section \ref{sec:vietoris-rips-construction}); and
+    \item computation of the corresponding persistent barcodes (Section \ref{sec:computing-persistent-homology}).
+\end{enumerate}
+For (i), we focus on Vietoris-Rips filtrations, as it is the prevalent complex used for point-cloud data \cite{otter2017roadmap}. 
+
+We conduct many experiments in this section. All experiments were computed on a 6-Core processor with \SI{3.60}{\giga\hertz} base clock speed, and \SI{16}{\giga\byte} RAM with clock speed \SI{3733}{\mega\hertz}. The programming language used is \emph{Python} \cite{10.5555/1593511}. Source code for this project can be found in Appendix \ref{app:source-code}.
+
+\input{content/4-comp-top/1-vietoris-rips/main}
+\input{content/4-comp-top/2-persistent-homology/main}

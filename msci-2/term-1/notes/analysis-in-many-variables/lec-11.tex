@@ -1,0 +1,45 @@
+\lecture{11}{4/11}
+
+\begin{remark}
+    If you ever see dummy variables repeaed, you know you've gone wrong somewhere.
+\end{remark}
+
+\begin{example}
+    Let $\delta_{ij}$ be the 3-dimensional Kronecker delta and $\bm A = (A_1, A_2, A_3)$. Simplify
+    \begin{enumerate}
+        \item $A_s\delta_{ts}$;
+        \item $\delta_{rs}\delta_{st}$;
+        \item $\delta_{rs}\delta_{sr}$;
+        \item $\delta_{rs}\delta_{st}\delta_{tp}$;
+        \item $\delta_{rp}\delta_{sq}A_pB_q$; and
+        \item $\delta_{ii}$.
+    \end{enumerate}
+\end{example}
+
+\begin{solution}
+    \begin{enumerate}
+        \item $A_s\delta_{ts} = A_t$;
+        \item $\delta_{rs}\delta_{st} = \delta_{rt}$;
+        \item $\delta_{rs}\delta_{sr} = 3$;
+        \item $\delta_{rs}\delta_{st}\delta_{tp} = \delta_{rp}$;
+        \item $\delta_{rp}\delta_{sq}A_pB_q = A_rB_s$; and
+        \item $\delta_{ii} = 3$.
+    \end{enumerate}
+\end{solution}
+
+\begin{example}
+    Show that 
+    \[ \bm A \times (\bm B \times \bm C) = \bm B(\bm A \cdot \bm C) - \bm C(\bm A \cdot \bm B). \]
+\end{example}
+
+\begin{solution}
+    Let $\bm D = \bm A \times (\bm B \times \bm C)$ and $\bm E = \bm B \times \bm C$. So $\bm D = \bm A \times \bm E$, so 
+    \begin{align*}
+        D_i &= \varepsilon_{ijk}A_jE_k \\
+            &= \varepsilon_{ijk}A_j\varepsilon_{klm}B_lC_m \\
+            &= (\delta_{il}\delta_{jm} - \delta_{im}\delta_{jl})A_jB_lC_m \\
+            &= \delta_{il}\delta_{jm}A_jB_lC_m - \delta_{im}\delta_{jl}A_jB_lC_m \\
+            &= \delta_{il}A_jB_lC_j - \delta_{im}A_jB_jC_m \\
+            &= A_jB_iC_j - A_jB_jC_i  = B_i(A_jC_j) - C_i(A_jB_j).
+    \end{align*}
+\end{solution}

@@ -1,0 +1,22 @@
+\chapter{Introduction}
+
+\emph{Topological data analysis} (TDA) is an emerging field of data analysis, with its mathematical foundations within algebraic topology. It is an approach to the analysis of datasets which exploits the underlying topological structure of data, and provides a general framework for extracting information from high-dimensional and noisy datasets. TDA has provided significant insight into the study of data in multiple applications, such as: the spread of infectious disease, cancer, proteins, and information networks \cite{otter2017roadmap}.
+
+\emph{Persistent homology} is the main tool within topological data analysis, which combines rich theory from algebraic topology with the analysis of point-cloud data (and other forms of data). Persistent homology was first introduced by \textcite{edelsbrunner2000topological}, although many precursors exist.
+
+To find the persistent homology of some \emph{space} (in the case of point-cloud data, we have a metric space), the space must first be represented as a \emph{filtered simplicial complex}. The persistent homology of such a complex is typically given as \emph{persistent barcodes}.
+
+Within this work, we primarily aim to explore various algorithms for the two main steps in the persistent homology pipeline:
+\begin{enumerate}
+    \item construction of a filtered simplicial complex (Section \ref{sec:vietoris-rips-construction}); and
+    \item computation of the corresponding persistent barcodes (Section \ref{sec:computing-persistent-homology}).
+\end{enumerate}
+Within Chapter \ref{cha:problems}, we introduce algorithms for the two steps above, analyse their theoretical running times, and conduct experiments to compare their real-world running times. For (ii), we focus mainly on the methods implemented by the current prevalent persistent homology package, \emph{Ripser} \cite{bauer2021ripser}. These experiments required significant programming, building up data structures for many of the algebraic structures we will introduce. The source code for this project can be found in Appendix \ref{app:source-code}.
+
+To facilitate the exposition of these algorithms, Chapter \ref{cha:background} builds foundational knowledge in algebraic topology and combinatorics, formalising notions such as \emph{filtered simplicial complexes} and \emph{persistent homology}. Chapter \ref{cha:computational-complexity} aims to familiarise the reader with the theory of computation, formalising notions such as \emph{problems} and \emph{algorithms}. 
+
+For readers unfamiliar with topology, Appendix \ref{app:topology} provides a more elementary introduction. Furthermore, for interested readers, Appendix \ref{app:computation} provides some supplementary material on the theory of computation, delving into more rigorous definitions of \emph{Turing machines} and \emph{computational complexity}.
+
+In Chapter \ref{cha:applications}, we also touch on some applications and how persistent barcodes may be interpreted, as well as introducing some novel applications. But note, this is not the main focus of our work.
+
+

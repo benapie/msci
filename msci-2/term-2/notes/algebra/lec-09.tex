@@ -1,0 +1,151 @@
+\chapter{Relating and identifying finite groups}
+\lecture{9}{11/2}
+
+Recall that we have seen that any group of order $2$ must be isomorphic to $\Z/2$,
+and similarly any group of order $3$ must be isomorphic to $\Z/3$.
+
+\begin{lemma}[]
+    \hfill
+    \begin{enumerate}
+        \item Let $G$ be a cyclic group of order $n$.
+            Then $G \cong \Z/n$.
+
+        \item Let $G$ be a group of prime order $p$.
+            Then $G$ is cyclic, so that $G \cong \Z/p$.
+    \end{enumerate}
+\end{lemma}
+
+\begin{proof}
+    \hfill
+    \begin{enumerate}
+        \item Let $G$ be cyclic of order $n$, and let $g$ be a generator.
+            It is easy to check that $g^i \mapsto \overline i \in \Z/n$
+            defines an isomorphism.
+
+        \item Let $G$ be a group of prime order $p$.
+            Then the subgroup $\langle g \rangle \subset G$
+            for any $g \neq 1$ must be of order $p$ by Lagrange's theorem
+            and thus $\langle g \rangle = G$, so $G$ is cyclic.
+            By the previous part, $G \cong \Z/p$.
+    \end{enumerate}
+\end{proof}
+
+Among the finite groups, we have seen 
+the cyclic groups $\Z/n$, 
+the dihedral groups $D_n$, and
+the symmetric groups $S_n$.
+Note that there is some overlap between these, for example 
+$\Z/1 \cong S_1$, $D_1 \cong \Z/2$, and $D_3 \cong S_3$.
+
+\section{Direct products}
+
+\begin{definition}[Direct product]
+    Let $G,H$ be groups.
+    Their \textbf{direct product} is
+    \[
+        G \times H = \{(g,h) \in G \times H\}
+    \]
+    where the binary operation is defined componentwise, 
+    in terms of the operations in $G$ and $H$.
+\end{definition}
+
+\begin{example}
+    Suppose that $G$ is a group of order 4. If $G$ is cyclic, then $G \cong \Z/4$.
+    If $G$ is not cyclic, then every element has order $1$ or $2$
+    (because then no element has order $4$).
+    Since only 1 has order 1, we have
+    \[
+        G = \{1,a,b,c\},
+    \]
+    where $a,b,c$ are distinct and have order $2$.
+    Since none of $a,b,c$ are the identity,
+    we must have $ab \in \{1,c\}$.
+    If $ab = 1$ then $a^2b = a$ and so $b = a$; a contradiction.
+    Thus $ab = c$.
+    Similarly, $ba = c$. So $ab = ba$. By symmetry $ac = ca$ and $bc = cb$;
+    thus $G$ is abelian.
+    We can show (by constructing an isomorphism) that 
+    $G \cong \Z/2 \times \Z/2$.
+    This group is often called the \emph{Klein 4-group}. 
+    Since $D_2$ has order 4 and is not cyclic, we have proved that
+    $D_2 \cong \Z/2 \times \Z/2$.
+\end{example}
+
+Isomorphisms preserve the order of elements.
+Therefore, one can easily prove that groups are not isomorphic by
+showing that one has an element of a certain order, while another does not.
+
+\begin{example}
+    Is $\Z/3 \times S_3$ isomorphic to $D_9$?
+\end{example}
+
+\begin{solution}
+    $\abs{\Z/3 \times S_3} = 3 \cdot 6 = 18 = \abs{D_9}$, so maybe.
+    Every element of $D_9$ must have an order that divdes $9$ or $2$;
+    on the other hand, in $\Z/3 \times S_3$ we have the element
+    \[
+        (\overline 1, (1\;2))
+    \]
+    that has order $6$.
+    Hence, $\Z/3 \times S_3 \not\cong D_9$.
+\end{solution}
+
+\section{$D_3 \cong S_3$}
+
+In this section, we will provide two ways of proving this.
+One is a more direct hands-on approach while the other is more
+\emph{structural}.
+The first method helps us to understand how to define a homomorphism using
+generators, while the second method helps to understand the \emph{structural}/
+\emph{geometrical} connecting between dihedral groups and symmetric groups.
+
+\paragraph{Method 1}
+We know
+\[
+    D_3 = \{1,r,r^2,s,rs,r^2s\}
+\]
+and
+\[
+    S_3 = \{1, (1\;2), (2\;3), (1\;3), (1\;2\;3), (1\;3\;2)\}.
+\]
+Any homomorphism $\varphi: D_3 \to S_3$ is completely determined by the values
+$\varphi(r)$ and $\varphi(s)$ since all other values of $D_3$ are
+products of $r$s and $s$s, and $\varphi$ is multiplicative.
+If $\varphi$ is an isomorphism, it must preserve the order of elements.
+So $\varphi(r)$ must have order $3$ and $\varphi(s)$ must have order $2$.
+So we define $\varphi: D_3 \to S_3$ such that
+\[
+    \varphi(r) = (1\;2\;3), \qquad \varphi(s) = (1\;2).
+\]
+If $\varphi$ is a homomorphism, it follows that $\varphi(1) = 1$ and
+\begin{align*}
+    \varphi(r^2)  &= \varphi(r)^2 = (1\;3\;2) \\
+    \varphi(r^2s) &= \varphi(r)^2\varphi(s) = (1\;3\;2)(1\;2) = (2\;3) \\
+    \varphi(rs)   &= \varphi(r)\varphi(s) = (1\;2\;3)(1\;2) = (1\;3).
+\end{align*}
+What remains to check is that $\varphi$ is \emph{well-defined}.
+We have the relation $srs = r^2$, so in order for $\varphi$ to be a function
+we must have $\varphi(srs) = \varphi(r^2)$.
+But
+\[
+    \varphi(srs) = (1\;2)(1\;2\;3)(1\;2) = (1\;3\;2),
+\]
+so this is true.
+We see that from its values that it is bijective, and hence is an isomorphism.
+
+\paragraph{Second method}
+
+$D_3$ acts on a triangle which was labelled by its vertices $(1,2,3)$.
+Applying an element of $D_3$ to the triangle, we obtain a new triangle
+whose vertices have been permuted. Hence we obtain a function
+$\varphi: D_3 \to S_3$ which sends any symmetry in $D_3$ to the corresponding
+permutation in $S_3$.
+This map is well defined by construction, because given a n element in $D_3$ we
+have uniquely associated a permutation.
+The map is also a homomorphism by construction because composing two symmetries
+corresponds to composing the two corresponding permutations.
+The kernel of $\varphi$ is $\{1\}$ because if a symmetry gives rise
+to the identity permutation, it means it is the identity symmetry.
+Thus $\varphi$ is injective.
+Since $\abs{D_6} = 6 = \abs{S_3}$, any injection must be a bijection.
+Therefore, $\varphi$ is an isomorphism.

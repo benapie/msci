@@ -1,0 +1,18 @@
+\babel@toc {UKenglish}{}\relax 
+\contentsline {section}{\numberline {1}Cohomology}{1}{section.1}%
+\contentsline {subsection}{\numberline {1.1}Homomorphisms of groups}{1}{subsection.1.1}%
+\contentsline {subsection}{\numberline {1.2}Cochain complexes}{2}{subsection.1.2}%
+\contentsline {subsection}{\numberline {1.3}Cohomology of a space}{3}{subsection.1.3}%
+\contentsline {subsection}{\numberline {1.4}Cochain maps}{5}{subsection.1.4}%
+\contentsline {subsection}{\numberline {1.5}Properties of cohomology}{6}{subsection.1.5}%
+\contentsline {subsection}{\numberline {1.6}Cup products}{6}{subsection.1.6}%
+\contentsline {subsection}{\numberline {1.7}The cohomology ring}{8}{subsection.1.7}%
+\contentsline {subsection}{\numberline {1.8}Cap products}{9}{subsection.1.8}%
+\contentsline {section}{\numberline {2}Relationship between homology and cohomology}{10}{section.2}%
+\contentsline {subsection}{\numberline {2.1}Ext groups}{10}{subsection.2.1}%
+\contentsline {subsection}{\numberline {2.2}Universal coefficient theorem}{13}{subsection.2.2}%
+\contentsline {subsection}{\numberline {2.3}Manifolds}{13}{subsection.2.3}%
+\contentsline {subsection}{\numberline {2.4}Orientations}{14}{subsection.2.4}%
+\contentsline {subsection}{\numberline {2.5}The fundamental class}{15}{subsection.2.5}%
+\contentsline {subsection}{\numberline {2.6}Poincar\'e duality}{16}{subsection.2.6}%
+\contentsline {subsection}{\numberline {2.7}Applications of Poincar\'e duality}{16}{subsection.2.7}%

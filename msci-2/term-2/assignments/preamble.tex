@@ -1,0 +1,49 @@
+% Basic packages
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[UKenglish]{babel}
+\usepackage{enumitem}
+\usepackage{graphicx}
+\setlist[enumerate,1]{label={(\roman*)}} % changing default numbering scheme
+
+% Math packages
+\usepackage{amsmath, amsfonts, mathtools, amsthm, amssymb}
+\usepackage{xfrac}
+\usepackage{bm}
+
+% Some shortcuts for sets
+\newcommand\N{\ensuremath{\mathbb{N}}}
+\newcommand\R{\ensuremath{\mathbb{R}}}
+\newcommand\Z{\ensuremath{\mathbb{Z}}}
+\newcommand\Q{\ensuremath{\mathbb{Q}}}
+\newcommand\C{\ensuremath{\mathbb{C}}}
+
+% AMV
+\newcommand\norm[1]{\left\lVert#1\right\rVert}
+\newcommand\infint{\ensuremath{\int_{-\infty}^{\infty}}}
+
+% Algebra
+\DeclareMathOperator\ord{ord}
+\DeclareMathOperator\Orb{Orb}
+\DeclareMathOperator\Stab{Stab}
+
+% Complex
+\DeclareMathOperator\Log{Log}
+\DeclareMathOperator\Arg{Arg}
+\newcommand\abs[1]{\left\lvert#1\right\rvert}
+\DeclareMathOperator\im{im}
+\DeclareMathOperator\Res{Res}
+
+% Tikz
+\usepackage{tikz, pgfplots, pgf}
+
+% Pretty tables
+\usepackage{booktabs}
+\usepackage{caption}
+\captionsetup[table]{skip=10pt}
+
+% Lecture margin note
+\newcommand{\assignment}[2]{\marginpar{Assignment #1 \\ Due #2}}
+
+% Author / date
+\date{2020 Epiphany Term}

@@ -1,0 +1,43 @@
+\lecture{8}{31/10}
+
+In general, we will find that is easier to check whether a polynomial in $\Q[x]$ is irreducible than for a polynomial in $\Z[x]$; however, we do need to be a little bit careful. For example, $2x + 2$ is irreducible as an element of $\Q[x]$ but not as an element of $\Z[x]$ because $2x + 2 = 2(x + 1)$ with $2$ and $x+1$ not being units in $\Z[x]$.
+
+\begin{lemma}[Gauss's lemma]
+    A non-constant polynomial $f(x) \in \Z[x]$ is irreducible if and only if it is irreducible in $\Q[x]$ and $\gcd{(a_0, a_1, \ldots, a_n)} = 1$. 
+\end{lemma}
+
+\begin{proof}
+    \begin{description}
+        \item[$\implies$] Omitted.
+        \item[$\impliedby$] Assume that $f(x)$ is irreducible in $\Q[x]$ and $\gcd{(a_0, a_1, \ldots, a_n)} = 1$. 
+            Let $f(x) = g(x) h(x)$ for some $g(x), h(x) \in \Z[x]$. 
+            If $\deg{g} \geq 1$ and $\deg{h} \geq 1$ then we would also have a proper factorisation in $\Q[x]$, violating irreducibility. 
+            Thus we have either $\deg{g} = 0$ or $\deg{h} = 0$. 
+            Say it is $g$. 
+            Thus $g(x) \in \Z$. 
+            If $g(x) \neq \pm 1$ then there will exist a prime number $p \in \Z$ dividing $g(x)$, and thus $f(x)$ and thus violating $\gcd{(a_0, a_1, \ldots, a_n)} = 1$.
+            Hence $\gcd{(x)} = \pm 1$ (a unit) so $f(x)$ is irreduible in $\Z[x]$.
+    \end{description}
+\end{proof}
+
+\begin{corollary}
+    A polynomial $f(x) \in \Z[x]$ satisfiying $\gcd{(a_0, \ldots, a_n)} = 1$ factors in $\Z[x]$ if and only if it factors in $\Q[x]$.
+\end{corollary}
+
+\begin{lemma}
+    If a monic polynomial in $\Z[x]$ factors in $\Q[x]$, then it factors into integer monic polynomials.
+\end{lemma}
+
+\begin{proof}
+    Let $f(x) = a_0 + a_1x + \ldots + x^n$ as above. 
+    As $f$ factors in $\Q[x]$, it factors in $\Z[x]$ hence
+    \[ f(x) = h(x) g(x) = (b_0 + \ldots + b_m x^m)(c_0 + ldots + c_p x^p) \] 
+    where $m + p = n$ and $b_i, c_j \in \Z$. 
+    Equating coefficients, we have $b_m c_p = 1$; hence, either $b_m = c_p = 1$ or $b_m = c_p = -1$.
+    Either case, either $f(x) = h(x) g(x)$ or $g(x) = (-h(x))(-g(x))$; both a product of two integer monic polynomials.
+\end{proof}
+
+\begin{example}
+    Show that $f(x) = x^4 - 10x^2 - 16$ is irreducible in $\Q[x]$.
+    %todo
+\end{example}

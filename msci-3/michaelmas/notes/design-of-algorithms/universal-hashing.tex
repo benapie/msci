@@ -1,0 +1,127 @@
+\documentclass[a4paper]{article}
+\input{../preamble-standalone.tex}
+\begin{document}
+
+\title{Universal hashing}
+\maketitle
+
+We have thus far assumed that our hash function are uniformly random,
+but obtaining such a hash function in reality is not possible.
+We introduce a weaker notion, a simple class of has functions that gives us 
+guaranteed performance.
+
+\section{Universal families}
+
+Let $S$ be a set of items, and $n \in \N$ such that $\abs S \geq n$.
+We say a collection of (hash) functions
+$\mathcal H = \left\{ h_i \right\}_{i \in I}$
+is \emph{$k$-universal} if for every distinct 
+$x_1, \ldots, x_k \in S$
+we have
+\[
+	\Pr_{h \in \mathcal H}
+	\left( 
+		h(x_1) = h(x_2) = \ldots = h(x_k)
+	 \right) \leq \frac{1}{n^{k-1}}.
+\]
+We say that $\mathcal H$ is \emph{strongly $k$-universal} if for every
+distinct $x_1, \ldots, x_k \in S$ and any 
+$y_1 \ldots, y_k \in \left\{ 0, \ldots, n-1 \right\}$ we have
+\[
+	\Pr_{h \in \mathcal H} \left( 
+		\bigcap_{i=1}^k \left( h(x_i) = y_i \right)
+	 \right)
+	 = \frac1{n^k}.
+\]
+Hash functions from a strongly $2$-universal family are
+\emph{pairwise independent}.
+The notion of strongly $k$-universal is a stronger notion than $k$-universal;
+that is, if a family of (hash) functions is strongly $2$-universal,
+then it is also $k$-universal.
+
+\begin{example}
+	Let $S = (x_1, \ldots, x_m)$ be a collection of items, and 
+	$h: S \to \left\{ 0, \ldots, n-1 \right\}$ be a hash function from a
+	$2$-universal family where $m \leq n \in \N$.
+	Fix $x \in S$ and let 
+	$X = \abs{\left\{ y \in S: h(y) = h(x) \right\}}$
+	(the number of items in bucket $h(x)$).
+	We can compute the bound
+	\[\Pr\left( X \geq \frac{m^2}{n} \right) \leq \frac{1}{2}\]
+	by using Markov's inequality.
+	Let $Y$ be the maximum number of balls in $X$.
+	Then the bound
+	\[\Pr\left( X \geq \frac{m^2}{n} \right) \leq \frac{1}{2}\]
+	concludes this example.
+\end{example}
+
+\begin{example}
+	Let $n, m \in \N$, with $m \geq n$,
+	$U = \left\{ 0, \ldots, m-1 \right\}$, and
+	$V = \left\{ 0, \ldots, n-1 \right\}$.
+	Let $p$ be some prime such that $p \geq m$.
+	We define
+	\begin{align*}
+		h_{a,b}(x) &= \left( (ax + b) \bmod p \right) \bmod n \\
+		\mathcal H &= \left\{ 
+			h_{a,b}: 
+			a \in \left\{ 0, \ldots, p-1 \right\},
+			b \in \left\{ 0, \ldots, p-1 \right\}
+		\right\}.
+	\end{align*}
+	It can be shown that $\mathcal H$ is $2$-universal.
+\end{example}
+
+\begin{example}[Non-example]
+	Let $p \in \Z$ be prime, and $n \in \N$ such that $n \leq p$.
+	Define
+	\begin{align*}
+		h_a &: \left\{ 0, \ldots, p-1 \right\} \to \left\{ 0, \ldots n-1 \right\} \\
+		x &\mapsto \left( ax \bmod p \right) \bmod n
+	\end{align*}
+	and consider the family
+	\[
+		\mathcal H = \left\{ h_a : a \in \left\{ 1, \ldots, p-1 \right\} \right\}.
+	\]
+	It can be shown that $\mathcal H$ is \emph{not} $2$-universal.
+\end{example}
+
+\section{Perfect hashing}
+
+\emph{Perfect hashing} is an efficient data structure for storing
+static dictionaries.
+Once data is stored, it is only used for search operations.
+
+Motivation: suppose that a set $S$ of $m$ items is hashed
+into a table of $n$ bins, using a hash function $h$ from a
+$2$-universal family and utilising chain hashing (with linked lists).
+It can be shown that
+\[
+	E\left( X \right) \leq \begin{cases}
+		\frac mn & x \not\in S, \\
+		1 + \frac{m-1}{n} & x \in S.
+	\end{cases}
+\]
+If $m = n$, $E(X) = 1$.
+But this does not give us an upper bound on worst-case performance.
+Some bins can have more than $\sqrt n$ items.
+
+An injective function $h: S \to K \subset \Z$ for a collection of items
+$S$ is called a \emph{perfect hash function}.
+
+The probability that a hash function 
+$h: S \to \left\{ 0, \ldots, n-1 \right\}$ chosen uniformly at random from
+a $2$-universal family is perfect is at least $\frac12$, 
+given that $n \geq \abs S^2$ (by Markov's inequality).
+This would require $\Omega(\abs S^2)$ buckets in order to get a
+$50\%$ chance of getting a perfect hash function, rather wasteful.
+
+We now introduce a two-level scheme: for a $2$-universal family $\mathcal H$,
+we use $h \in \mathcal H$ to hash our collection $S$
+into $m$ bins. 
+For each bin with a collision, we use a different hash function
+$g \in \mathcal H$ to construct a hash table with $k^2$ bins,
+where $k$ is the number of elements in the bin.
+This scheme can be shown to use $O(m)$ bins.
+
+\end{document}

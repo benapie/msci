@@ -1,0 +1,177 @@
+\lecture{11}{4/2}
+
+We need to check whether $\phi(\bm x)$ satisfies $\bm F = \nabla \phi$.
+\begin{align*}
+    \frac{\partial\phi}{\partial x}
+    &= \lim_{\delta x \to 0} 
+        \frac{\phi(\bm x + \bm e_1 \delta x) - \phi(\bm x)}{\delta x} \\
+    &= \lim_{\delta x \to 0} 
+        \left(
+            \frac{1}{\delta x} 
+            \left(
+                \int_{\bm x_0}^{\bm x + \bm e_1 \delta x}
+                \bm F \cdot d\bm x
+                + \int_{\bm x_0}^{\bm x} 
+                \bm F \cdot d\bm x
+            \right)
+        \right).
+\end{align*}
+We see that
+\[
+    \int_{\bm x_0}^{\bm x + \bm e_1 \delta x} \bm F \cdot d\bm x
+    = \int_{\bm x_0}^{\bm x} \bm F \cdot d\bm x 
+    = \int_{\bm x}^{\bm x + \bm e_1 \delta x} \bm F \cdot d\bm x
+\]
+hence
+\[
+    \frac{\partial \phi}{\partial x}
+    = \lim_{\delta x \to 0}
+    \left(
+        \frac{1}{\partial x} 
+        \int_{\bm x}^{\bm x + \bm e_1 \delta x}
+        \bm F \cdot d\bm x
+    \right).
+\]
+We can parametrise this as 
+\[
+    \bm x(t) = (x + t, y, z), \qquad t \in [0,\delta x]
+\]
+where
+$\frac{d\bm x}{dt} = \bm e_1$.
+So
+\begin{align*}
+    \frac{1}{\delta x}
+        \int_{\bm x}^{\bm x + \bm e_1 \delta x} \bm F \cdot d\bm x
+    &= \frac{1}{\delta x} \int_0^{\delta x} 
+        \bm F(x + t, y, z) \cdot \frac{d\bm x}{dt} \,dt \\
+    &= \frac{1}{\delta x} \int_0^{\delta x} 
+        F_1(x + t, y, z) \,dt \\
+    &= \frac{1}{\delta x} \int_0^{\delta x} 
+        \left(
+            F_1 \delta x 
+            + \frac12 \delta x^2 \frac{\partial F_1}{\partial x} 
+            + \ldots
+        \right)
+        \,dt \\
+    &= \frac{1}{\delta x} \int_0^{\delta x}
+        F_1(x,y,z) + \frac{\delta x}{2} \frac{\partial F_1}{\partial x} + \ldots \\
+    &\to \frac{1}{\delta x} \int_0^{\delta x} F_1(x,y,z)
+\end{align*}
+as $\delta x \to 0$ so 
+\[
+    \frac{\partial\phi}{\partial x} = F_1
+\]
+and similarly
+\[
+    \frac{\partial\phi}{\partial y} = F_2, \qquad
+    \frac{\partial\phi}{\partial z} = F_3.
+\]
+
+$\phi$ (or $-\phi$) is called the \textbf{scalar potential}.
+
+\begin{definition}[Closed]
+    Let $\bm F$ be a vector field.
+    $F$ is \textbf{closed} if $\nabla \times \bm F = \bm 0$.
+\end{definition}
+
+\begin{definition}[Exact]
+    Let $\bm F$ be a vector field.
+    $F$ is \textbf{exact} if there exists some scalar field $\phi$
+    such that $F = \nabla\phi$.
+\end{definition}
+
+\begin{remark}
+    Let $\bm F$ be a vector field.
+    Then
+    \[
+        F \;\text{is exact}\; \implies F \;\text{is closed}.
+    \]
+    If we are in a simply connected domain, then
+    \[
+        \implies F \;\text{is closed}\; \implies F \;\text{is exact}.
+    \]
+    If our region has suitable \emph{holes}, this may fail.
+\end{remark}
+
+Finally, lets note that if $\bm F = \nabla\phi$
+then path independence follows directly.
+
+\begin{theorem}[]
+    If $\bm F = \nabla\phi$ for some scalar field $\phi$
+    and $C$ is a curve from $\bm x = \bm a$ to $\bm x = \bm b$
+    then
+    \[
+        \int_C \bm F \cdot d\bm x = \phi(b) - \phi(a).
+    \]
+\end{theorem}
+
+\begin{proof}
+    Follows from the chain rule.
+\end{proof}
+
+\begin{example}
+    Compute
+    \[
+        I = \int_C \bm F \cdot d\bm x
+    \]
+    where
+    \[
+        \bm F =
+        \begin{pmatrix}
+            y\cos(xy)             \\
+            x\cos(xy) - z\sin(yz) \\
+            -y\sin(yz)            \\
+        \end{pmatrix}
+    \]
+    and $C$ is specified by $t \mapsto \bm x(t)$ where
+    \[
+        \bm x(t) =
+        \begin{pmatrix}
+            \frac{\sin t}{\sin t} \\
+            \frac{\log(t + t)}{\log 2} \\
+            \frac{1 - e^t}{1 - e} \\ 
+        \end{pmatrix}
+    \]
+    with $t \in [0,1]$.
+\end{example}
+
+\begin{solution}
+    Note that $\bm x(0) = (0,0,0)$ and $\bm x(1) = (1,1,1)$.
+    We compute $\nabla \times \bm F = 0$ in all of $\R^3$ (trust me).
+    So $\bm F = \nabla \phi$ for some $\phi$.
+    So we have $\phi_x = F_1$, $\phi_y = F_2$, and $\phi_z = F_3$.
+    Consider $\phi_x$, we have
+    \[
+        \frac{\partial\phi}{\partial x} = y\cos(xy)
+        \implies \phi(x,y,z) = \sin(xy) + f(y,z).
+    \]
+    Then
+    \begin{align*}
+        \frac{\partial}{\partial y} (\sin(xy) + f(y,z))
+        &= x\cos(xy) - z\sin(yz) \\
+        x\cos(xy) + \frac{\partial f}{\partial y}
+        &= x\cos(xy) - z\sin(yz) \\
+        \frac{\partial f}{\partial y}
+        &= -z\sin(yz) \\
+        f(y,z) 
+        &= \cos(yz) + g(z) \\
+        \frac{\partial}{\partial z} (\sin(xy) + \cos(yz) + g(z))
+        &= -y\sin(yz) \\
+        -y\sin(yz) + \frac{\partial g}{\partial z}
+        &= -y\sin(yz) \\
+        \frac{\partial g}{\partial z}
+        &= 0 \\
+        g &= A.
+    \end{align*}
+    So
+    \[
+        \phi(x,y,z) = \sin(xy) + \cos(yz) + A
+    \]
+    solves $\bm F = \nabla\phi$.
+    So
+    \[
+        I = \int_C \bm F \cdot d\bm x 
+        = \phi(1,1,1) - \phi(0,0,0) 
+        = \sin 1 + \cos 1 - 1.
+    \]
+\end{solution}

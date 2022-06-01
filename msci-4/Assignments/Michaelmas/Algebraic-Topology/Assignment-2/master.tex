@@ -1,0 +1,67 @@
+\input{../preamble.tex}
+
+\begin{document}
+
+\begin{center}
+  \textbf{Assignment 2} \\
+  \textsc{Algebraic Topology IV, \\ Michaelmas Term, Week 5} \\
+  \textsc{Ben Napier}
+  \vspace{1em}
+\end{center}
+
+\begin{questions}
+  \question
+  \begin{parts}
+    \part If $0 \to A \to B \to \Z \to 0$ is an exact sequence of abelian groups, prove that $B \cong A \oplus \Z$.
+    \begin{solution}
+      As this is an exact sequence, we have that $\ker f = 0$, $\im f = \ker g$, and $\im g = \Z$. Now, as $f$ is a homomorphism and $\ker f = 0$, then $f$ must be injective. Thus $f(A) \cong A$ by the isomorphism given by the corestriction of $f$ to $f(A)$ (denoted $\corestr fA$). By the first isomorphism theorem, we have $\im g \cong B / \ker g$. That is,
+      \[ \Z \cong B / \ker g \cong B / \im f \cong B / f(A) \cong B/A. \]
+      Thus we conclude $B \cong A \oplus \Z$.
+    \end{solution}
+
+    \part If $0 \to \Z \to G \to \Z \to \Z \to \Z \to 0$ is an exact sequence of abelian groups, identify the isomorphism type of G.
+    \begin{solution}
+      \[ 0 \xrightarrow{0_1} \Z \xrightarrow{f} G \xrightarrow{g} \Z \xrightarrow{h} \Z \xrightarrow{\varphi} \Z \xrightarrow{0_2} 0. \]
+      As this is an exact sequence, we can work from right to left on the maps using the fact that the image of a map is equal to the kernel of the map next along the chain. Thus we get $\im \varphi = \ker 0_2 = \Z$, $\im h = \ker \varphi$, $\im g = \ker h$, $\im f = \ker g$, and $\ker f = \im 0_1 = 0$. We can now apply the first isomorphism theorem. Firstly, $\Z \cong \im \varphi \cong \Z/\ker\varphi$, thus $\im h = \ker\varphi \cong 0$. Next, $0 \cong \im h \cong \Z / \ker h$, thus $\im g = \ker h \cong \Z$. Now from the other side, $\ker g = \im f \cong \Z/\ker f \cong \Z$ (as $\ker f = 0$). Finally, $\im G \cong G / \ker g$, thus we conclude
+      \[ \Z \cong G / \Z \implies G \cong \Z \oplus \Z. \]
+    \end{solution}
+  \end{parts}
+
+  \question Prove that a convex subset $X$ of $\R^n$ is homotopy equivalent to the one point space.
+  \begin{solution}
+    Let $X \subset \R^n$ be convex. Define $f: X \to \{p_0\}$ ($p_0 \in X$) by $x \mapsto p_0$ for all $x \in X$ and define $g: \{p_0\} \to X$ by $p_0 \mapsto p_0$. Now $f \circ g = \id_{\{p_0\}}$, which is indeed homotopic to itself. For $g \circ f$, we define the homotopy $H: X \times I \to X$ by $H(x, t) = tp_0 + (1-t)x$. We now confirm this defines a homotopy. Indeed,
+    \begin{align*}
+      H(x, 0) & = x = {\id}_{X}(x),     \\
+      H(x, 1) & = p_0 = (g \circ f)(x).
+    \end{align*}
+    As $X$ is convex, we claim that $H(x, t) \in X$ for all $x \in X$ and $t \in I$. Observe that for a fixed $x \in X$, $H(x, t)$ describes the line segment from $x$ to $p_0$, which is contained within $X$ by definition.
+  \end{solution}
+
+  \question Group the \textsf{SANS SERIF CAPITAL} letters of the alphabet according to their homeomorphism classes, and according to their homotopy equivalence classes. You do not need to give proofs.
+  \begin{solution}
+    Homotopy equivalence classes:
+    \[
+      \mathsf{
+        \{A, R, O, Q, D, P\}, \quad
+        \{B\}, \quad
+        \{H,I,J,K,L,M,N,S,T,U,V,W,X,Y,Z,C,E,F,G\}.
+      }
+    \]
+    Homeomorphism classes:
+    \[
+      \mathsf{
+        \{D,O\},
+        \{Q\},
+        \{A,R\},
+        \{P\},
+        \{B\},
+        \{H,K\},
+        \{J,L,M,N,S,U,V,W,G,Z,C,I\},
+        \{E,F,Y,T\},
+        \{X\}.
+      }
+    \]
+  \end{solution}
+\end{questions}
+
+\end{document}

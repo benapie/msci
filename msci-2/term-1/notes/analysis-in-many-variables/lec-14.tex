@@ -1,0 +1,88 @@
+\lecture{14}{11/11}
+
+\begin{solution}
+    For $x \neq 0$, $f(x, 0) = 0$ and for $y \neq 0$, $f(0, y) = 0$. So
+    \[ \lim_{x \to 0} f(x, 0) = 0, \qquad \lim_{y \to 0} f(0, y) = 0. \]
+    So we would need to show 
+    $\lim_{\bm x \to \bm 0} f(\bm x) = 0$. 
+    To prove this we would need to show that for any $\varepsilon > 0$ there exists $\delta > 0$ such that
+    \[ \lvert f(\bm x) - 0 \rvert < \varepsilon \]
+    for $0 < \norm{\bm x - \bm a} < \delta$. 
+    So we let $\varepsilon > 0$ and $0 < \norm{\bm x} < \delta$ for some $\delta > 0$. 
+    Then we consider
+    \[ \left\lvert \frac{xy}{x^2 + y^2} \right\rvert. \]
+    If $y = x$, this above expression equals $\frac12$ which cannot be made smaller than $\varepsilon$ by choice of $\delta$; hence, $f \not \to 0$ as $\bm x \to \bm 0$.
+\end{solution}
+
+The following theorem will help us prove when functions are continuous.
+
+\begin{theorem}[]
+    If $f, g$ are continuous functions at $\bm a$, then so are
+    \begin{enumerate}
+        \item $f + g$;
+        \item $f \cdot g$; and
+        \item $\sfrac fg$ given that $g(\bm a) \neq 0$.
+    \end{enumerate}
+    Both $f(\bm x) = c$ for a constant $c$ and $f(\bm x) = x_i$ for some $i = 1,\ldots,n$ are continuous at all points in $\R^n$.
+\end{theorem}
+
+This is easy to prove, and will be left.
+
+\begin{example}
+    Let $f(x, y) = x$ and $g(x, y) = y$ are both continuous. 
+    From above theorem, they are continuous at $(0,0)$ Now we consider 
+    \[ h(x, y) = \frac{x^3 - y^3}{1 + x^2}. \]
+    This is continuous on $\R^n$ be the above theorem.
+\end{example}
+
+\section{Open sets}
+
+We're going to cover a lot of familiar ground here.
+
+\begin{definition}[Open ball]
+    An \textbf{open ball} with centre $\bm a \in \R^n$ and radius $\delta > 0$ is the set of points
+    \[ B_\delta(\bm a) = \{ \bm x \in \R^n: \norm{\bm x - \bm a} < \delta \}. \]
+\end{definition}
+
+\begin{figure}
+    \centering
+    \incfig{open-ball}{0.3\textwidth}
+    \caption{Illustration of the open ball $B_\delta(\bm a)$.}
+\end{figure}
+
+\begin{definition}[Open]
+    A subset $S \subset \R^n$ is \textbf{open} if for all $\bm x \in S$ there exists a $\delta > 0$ such that
+    \[ B_\delta(\bm x) \subset S. \]
+\end{definition}
+
+\begin{definition}[Neighbourhood]
+    A \textbf{neighbourhood} $N$ of a point $\bm a \in \R^n$ is a subset of $\R^n$ which includes an open set $S$ containing $\bm a$.
+\end{definition}
+
+\begin{definition}[Closed]
+    A set $S \subset \R^n$ is \textbf{closed} if $\bar S = \R^n \setminus S$ is open.
+\end{definition}
+
+\begin{example}
+    Let $D = \{ (x, y) \in \R^2 : x > 0 \}$. $D$ is open as given $\bm a = (a_1, a_2) \in D$, pick $\delta = \frac a2$ then $B_\delta(\bm a) \subset D$.
+\end{example}
+
+\begin{example}
+    Let $E = \{ (x, y) \in \R^2 : x \geq 0 \}$ is not open (clearly).
+\end{example}
+
+\begin{example}
+    Let $F = \{(x, y) \in \R^2: 1 < x < 2, 1 < y < 2 \}$
+    and $F' = \{(x, y) \in \R^2: 1 \leq x \leq 2, 1 < y < 2 \}$.
+    $F$ is open and $F'$ is not open or closed.
+\end{example}
+
+\begin{lemma}
+    All open balls in $\R^n$ is open.
+\end{lemma}
+
+This is relatively easy to prove; it is a good exercise.
+
+\begin{definition}[]
+    If $U$ is an open subset of $\R^n$ and $f: U \to \R$ is a function then $f$ is said to be continuous on $U$ if it is continuous at each point in $U$.
+\end{definition}

@@ -1,0 +1,121 @@
+\chapter{The alternating groups}
+\lecture{11}{18/2}
+
+This chapter will introduce a family of normal subgrounds of the symmetric groups,
+called the \emph{alternating groups}.
+
+Let $x_1, \ldots, x_n$ be indeterminates and consider the polynomial
+\[
+    F(x_1, \ldots, x_n) = \prod_{1 \leq i < j \leq n} (x_j - x_i).
+\]
+For example, for $n = 3$ we have
+\[
+    F(x_1,x_2,x_3) = (x_2 - x_1)(x_3 - x_1)(x_3 - x_2).
+\]
+Given $\sigma \in S_n$, we define $F^\sigma$ by appling $\sigma$ to the indices:
+\[
+    F^\sigma(x_1, \ldots, x_n) = \prod_{1 \leq i < j \leq n} (x_{\sigma(j)} - x_{\sigma(i)}).
+\]
+For example, if $\sigma = (2\;3)$ then
+\[
+    F^\sigma(x_1, x_2, x_3) = (x_3 - x_1)(x_2 - x_1)(x_2 - x_3) = -F(x_1, x_2, x_3).
+\]
+We always have
+\[
+    F^\sigma(x_1, \ldots, x_n) = (-1)^s F(x_1, \ldots, x_n)
+\]
+for some integer $s$, and we call $(-1)^s$ the \textbf{sign} of $\sigma$
+and write $\sgn(\sigma) = (-1)^s$.
+We thus have a function $\sgn: S_n \to \{\pm 1\}$.
+The result of applying some $\sigma_1$ and then $\sigma_2$ to $F$
+is just the result of applying $\sigma_2\sigma_1$ to $F$.
+That is,
+\begin{align*}
+    (F^{\sigma_1}(x_1,\ldots,x_2))^{\sigma_2}
+    &= (\sgn(\sigma_1) F(x_1,\ldots,x_n))^{\sigma_2} \\
+    &= \sgn(\sigma_1)\sgn(\sigma_2) F(x_1, \ldots, x_n) \\
+    &= F^{\sigma_2\sigma_1}(x_1,\ldots,x_n).
+\end{align*}
+Hence $\sgn(\sigma_2\sigma_1) = \sgn(\sigma_2)\sgn(\sigma_1)$
+and thus $\sgn$ is a group homomorphism.
+
+\begin{theorem}[]
+    For a given permutation $\sigma \in S_n$,
+    the number of factors in any factorisation of $\sigma$ into transpositions
+    is even if $\sgn(\sigma) = 1$ and odd if $\sgn(\sigma) = -1$.
+\end{theorem}
+
+\begin{proof}
+    \hfill
+    \paragraph{Claim}
+    We claim that for any transposition $\tau \in S_n$ we have
+    \[
+        F^\tau(x_1,\ldots,x_n) = -F(x_1,\ldots,x_n),
+    \]
+    and thus if $\sigma$ is the product of $s$ transpositions then
+    \[
+        F^\sigma(x_1, \ldots, x_n) = (-1)^s F(x_1, \ldots x_n).
+    \]
+
+    \paragraph{Proof of claim}
+    Let $\tau = (a\;b)$ such that $a > b$.
+    Then 
+    \begin{align*}
+        F^\tau(x_1, \ldots, x_n)
+        &= \prod_{1 \leq i < j \leq n} \left(x_{\tau(j)} - x_{\tau(i)}\right) \\
+        &= \prod_{j \in \{2, \ldots, n\}} \prod_{i \in \{1, \ldots, j-1\}}
+            \left(x_{\tau(j)} - x_{\tau(i)}\right) \\
+        &= \left(x_{\tau(2)} - x_{\tau(1)}\right) \ldots
+            \left(x_{\tau(a)} - x_{\tau(b)}\right) \ldots
+            \left(x_{\tau(n)} - x_{\tau(n-1)}\right) \\
+        &= \left(x_{\tau(2)} - x_{\tau(1)}\right) \ldots
+            (-1)\left(x_{a} - x_{b}\right) \ldots
+            \left(x_{\tau(n)} - x_{\tau(n-1)}\right) \\
+        &= -F(x_1, \ldots, x_n).
+    \end{align*}
+    This proves the claim.
+    So if $\sigma \in S_n$ is factorised into transpositions, then
+    \[
+        \sgn(\sigma) =
+        \begin{cases}
+            1 & \text{$\sigma$ has an even number of factors} \\
+            -1 & \text{otherwise}.
+        \end{cases}
+    \]
+\end{proof}
+
+If $\sgn(\sigma) = 1$ for $\sigma \in S_n$ then we 
+say that $\sigma$ is an \textbf{even} permutation.
+If $\sgn(\sigma) = -1$ then we say that it is an \textbf{odd} permutation.
+
+\begin{example}
+    \begin{enumerate}
+        \item $(1\;2\;5) = (1\;2)(2\;5)$ is even.
+        \item $(4\;8\;9\;6)=(4\;8)(8\;9)(9\;6)$ is odd.
+        \item For \emph{any} $k$-cycle $\sigma \in S_n$, we have
+            \[
+                \sgn(\sigma) = (-1)^{k - 1}
+            \]
+            as every permutation is a product of transpositions.
+    \end{enumerate}
+\end{example}
+
+We can now define the \emph{alternating groups}.
+
+\begin{definition}[]
+    The \textbf{alternating group} $A_n$ is the subgroup of $S_n$
+    consisting of even permutations.
+\end{definition}
+
+\begin{remark}
+    In other words, $A_n$ is the kernel of $\sgn$.
+\end{remark}
+
+\begin{example}
+    Recall the subgroups of $S_3$, we have
+    \[
+        A_3 = \langle (1\;2\;3) \rangle = \{1, (1\;2\;3), (1\;3\;2)\}.
+    \]
+    We know that $A_4$ has 12 elements, so $A_4$ is the subgroup consisting
+    of $1$, all $3$-cycles, and all products of $2$-cycles.
+\end{example}

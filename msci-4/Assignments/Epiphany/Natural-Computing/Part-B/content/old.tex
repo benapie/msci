@@ -1,0 +1,34 @@
+\section{Background materials}
+
+We first introduce the concept of \emph{ant colony optimization} (ACO): it is a technique for finding approximate solutions to combinatorial optimization problems which can be reduced to finding \emph{good} paths through graphs. This paradigm mirrors the pheromone-based communication of biological ants. Artificial \emph{ants} (agents) locate feasible solutions and record the \emph{quality} of each solution (analogous to pheromone trails laid by ants). Ants will use this record of solution quality when locating new feasible solutions. We move to formalize the above concepts, first defining the problems it can solve.
+
+\begin{definition}[Combinatorial optimization problem]
+    A \emph{combinatorial optimization problem} is a 4-tuple $(I, f, m, g)$ where: $I$ is a set of instances; $f$ is a function that takes an instance $x \in I$ to a set of feasible solutions; $m: I \times f(I) \to \mathbb R$ is a measure of a feasible solution for a given instance; and $g: \mathcal P(\mathbb R) \to \mathbb R$ is the goal function.
+\end{definition}
+
+For an instance $x \in I$, the goal is to find some feasible solution that is an \emph{optimal solution}; that is, $y \in f(x)$ such that
+\[ m(x,y) = g\left(\left\{m(x, y'): y' \in f(x)\right\}\right). \]
+
+We introduce the \emph{ant system}, as originally described by \textcite{dorigo1996ant} (though we have an attempt to generalize slightly). Let $G = (V, E)$ be a complete weighted directed graph, so $E \subset V^2 \times \mathbb R$. We denote $d: V^2 \to \mathbb R$ as the distance function on $G$. First, for each edge $e = (v_1, v_2, x) \in E$ we let $\tau: V^2 \times \mathbb N_0 \to \mathbb R$ such that $\tau(v_1, v_2, t)$ denotes the \emph{trail intensity} on edge $e$ at time $t$. We have $m \in \mathbb N$ \emph{ants} that act as active agents. At time $t \in \mathbb N_0$, each ant chooses the vertex it will be at time $t+1$ (how the ant will make this choice will be discussed later), with the requirement that ants must make a legal tour. An \emph{iteration} of this algorithm is the $m$ moves carried out by all the ants in a time step $t$ to $t+1$. After $\lvert V \rvert$ iterations (we call this a cycle), each ant has completed a tour. At the end of such a cycle, we update the trail intensities according to
+\[
+    \tau(v_1, v_2, t + \lvert V \rvert) = \rho \tau(v_1, v_2, t) + \Delta\tau(v_1, v_2)
+\]
+where
+\[
+    \Delta\tau(v_1, v_2) = \sum_{k=1}^m \begin{cases}
+        \frac{Q}{L_{k}} & \text{if ant $k$ uses edge $(v_1, v_2)$ in its tour between time $t$ and $t + \lvert V \rvert$}, \\
+        0               & \text{otherwise},
+    \end{cases}
+\]
+where $Q \in \mathbb R$ is a constant, $L_{k} \in \mathbb R$ is the length of the $k$th ant's tour located between $t$ and $t + \lvert V \rvert$, and $\rho$ is a coefficient such that $1 - \rho$ represents the \emph{evaporation} of trail in a given cycle. Ants choose their next vertex with a \emph{transition probability}, defined as
+\[
+    p(v_1, v_2, k, t) = \begin{cases}
+        \frac{
+            \left(\tau(v_1, v_2, t)\right)^\alpha\left(\eta(v_1, v_2)\right)^\beta
+        }{
+            \sum_{k' \in A(k, t)} \left(\tau(v_1, v_2, t)\right)^\alpha\left(\eta(v_1, v_2)\right)^\beta
+        } & \text{if $v_2 \in A(k, t)$}, \\
+        0 & \text{otherwise},
+    \end{cases}
+\]
+where $A(k,t)$ denotes the possible vertices that ant $k$ can move to at time $t$ (without making it an illegal tour) and $\eta(v_1, v_2) = 1/d(v_1,v_2)$ is the \emph{visibility} of the edge $(v_1, v_2)$. At the start of each cycles, the ants are randomly placed on vertices. At the end of each cycle, on top of updating the trail intensities, we store the values $L_k$. We run as many cycles as needed, or until the simulation stagnates (that is, ants always make the same tours).

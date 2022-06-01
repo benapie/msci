@@ -1,0 +1,112 @@
+%! TEX root = master.tex
+
+\section{Interiors and closures, limit points, and product spaces}
+\lecture{11}{?}
+
+\begin{definition}[]
+	Let $X$ be a topological space, $x \in X$, and $A \subset X$.
+	\begin{enumerate}
+		\item An \emph{open neighbourhood} of $x$ is an open set $N$ containing
+			$x$.
+
+		\item A point $x \in X$ is a \emph{limit point} of $A$ if every open
+			neighbourhood $N$ of $x$ satisfies 
+			$(N  \setminus \left\{ x \right\}) \cap A \neq \varnothing$.
+	\end{enumerate}
+\end{definition}
+
+\begin{examples}
+	\begin{enumerate}
+		\item Let $X = \R$ with the standard topology and consider $0 \in X$.
+			$\left( -\frac12, \frac12 \right)$ is an open neighbourhood of $0$.
+
+		\item Let $X$ be a topological space, $U \subset X$ be open and 
+			$p \in U$.
+			Then $U$ is an open neighbourhood of $p$.
+
+		\item Let 
+			$
+				A = 
+				\left\{ 
+					\frac1n : n \in \Z \setminus \left\{ 0 \right\} 
+				\right\} \subset \R
+			$.
+			Clearly $0$ is a limit point of $A$.
+			Now let $x \in \R \setminus \left\{ 0 \right\}$.
+			Then there is $\varepsilon > 0$ such that
+			\[
+				(x - \varepsilon, x + \varepsilon) \cap A =
+				\begin{cases}
+					\varnothing & x \not\in A, \\
+					\left\{ x \right\} & x \in A.
+				\end{cases}
+			\]
+			Hence, $0$ is the only limit point of $A$.
+	\end{enumerate}
+\end{examples}
+
+\begin{definition}[]
+	Let $X$ be a topological space and $A \subset X$.
+	The \emph{interior} of $A$, denoted $\mathring A$, is the largest open set
+	contained in $A$.
+	The \emph{closure} of $A$, denoted $\overline A$,
+	is the smallest closed set containing $A$.
+	More precisely
+	\[
+		\mathring A =
+		\bigcup_{\text{open}\, U \subset A} U, \qquad
+		\overline A=
+		\bigcap_{\text{closed}\, C \supset A} C.
+	\]
+	We say that $A$ is \emph{dense} in $X$ if $\overline A = X$.
+\end{definition}
+
+Like we have with complements of open and closed sets, we also observe that
+for a space $X$ and $A \subset X$ we have
+$
+	\overline{X \setminus A} = X \setminus \mathring A
+$.
+
+\begin{example}[]
+	Let $X = \R$ with the standard topology and $\Q \subset X$.
+	Note that no non-empty subset of $\R$ contains only rational numbers.
+	Hence, $\mathring \Q = \varnothing$.
+	Now 
+	$
+		\overline Q = 
+		\R \setminus \left( \mathring{\R \setminus \Q} \right) = 
+		\R \setminus \varnothing = \R
+	$
+	since $\mathring{\R \setminus \Q}$; hence, $\Q$ is dense in $\R$.
+\end{example}
+
+\begin{lemma}[]
+	Let $X$ be a topological space and $A \subset X$.
+	Then
+	\[
+		\overline A = A \cup \left\{ \text{limit points of $A$} \right\}.
+	\]
+\end{lemma}
+
+\begin{proof}
+	Suppose that $x \not\in \overline A$.
+	Then $x \in X \setminus \overline A$, which is open.
+	$
+		(X \setminus \overline A) \cap A \subset 
+		(X \setminus \overline A) \cap \overline A =
+		\varnothing.
+	$
+	Hence $x$ is not a limit point of $A$, so $\text{RHS} \subset \text{LHS}$.
+	Now we suppose that $x \not\in A$ and is also not a limit point of $A$.
+	Then there is an open $U \subset X$ such that $x \in U$ and
+	$U \cap A \in \left\{ \varnothing, \left\{ x \right\} \right\}$.
+	As $x \not\in A$, we must have $U \cap A = \varnothing$.
+	Then
+	\[
+		x \not\in X \setminus U \supset
+		\overline A.
+	\]
+	Hence $x \not\in \overline A$.
+	Therefore, we have $\text{LHS} = \text{RHS}$.
+\end{proof}
+

@@ -1,0 +1,86 @@
+\clearpage\part\hspace{0em}
+\begin{solution}
+    Let $S = \{W, L, D\}$ where $W$ is the event we win, $L$ is the event we lose, and $D$ is the event that we draw. We let $\mathcal X = (X_n)_{n\in\N}$ be a sequence of random variables such that
+    \begin{align*}
+        \Pr[X_{n+1} = W \mid X_{n} = W] & = \tfrac13, \\[2pt]
+        \Pr[X_{n+1} = L \mid X_{n} = W] & = \tfrac13, \\[2pt]
+        \Pr[X_{n+1} = D \mid X_{n} = W] & = \tfrac13, \\[2pt]
+        \Pr[X_{n+1} = W \mid X_{n} = L] & = \tfrac12, \\[2pt]
+        \Pr[X_{n+1} = L \mid X_{n} = L] & = 0,        \\[2pt]
+        \Pr[X_{n+1} = D \mid X_{n} = L] & = \tfrac12, \\[2pt]
+        \Pr[X_{n+1} = W \mid X_{n} = D] & = \tfrac13, \\[2pt]
+        \Pr[X_{n+1} = L \mid X_{n} = D] & = \tfrac13, \\[2pt]
+        \Pr[X_{n+1} = D \mid X_{n} = D] & = \tfrac13
+    \end{align*}
+    for all $n \in \N$ (as in the question). For $X_1$, the probability of any three events happening is $\tfrac13$. This is clearly a Markov chain, and also time-homogeneous (the transition probabilities depend only on the \emph{result} of the previous, it is not a function of $n+1$). Thus we construct the transition matrix
+    \[
+        P =
+        \begin{blockarray}{cccc}
+            & W & L & D \\
+            \begin{block}{c(ccc)}
+                {W} & \tfrac13 & \tfrac13 & \tfrac13 \\[5pt]
+                {L} & \tfrac12 & 0        & \tfrac12 \\[5pt]
+                {D} & \tfrac13 & \tfrac13 & \tfrac13 \\
+            \end{block}
+        \end{blockarray}
+    \]
+    of $\mathcal X$.
+
+    \vspace{0.5em}
+    \textbf{Claim.} $\mathcal X$ is finite and ergodic.
+    \vspace{0.5em}
+    \textit{Proof.} Consider the transitions
+    \begin{enumerate}
+        \item $W \to W$,
+        \item $W \to L$,
+        \item $W \to D$,
+        \item $L \to W$,
+        \item $L \to W \to L$,
+        \item $L \to D$,
+        \item $D \to W$,
+        \item $D \to L$, and
+        \item $D \to D$.
+    \end{enumerate}
+    which happen with non-zero probability, this can be confirmed by inspecting $P$. All of these transitions have length $1$, except from (v) which has length $2$. But we note that $L \to W \to D \to L$ is a transition of length $3$ with non-zero probability, thus the period of $L$ must divide $2$ and $3$ and so it is $1$. Thus $\mathcal X$ is \emph{irreducible} (you can reach every state from any state with non-zero probability) and \emph{aperiodic} (each state has period 1), thus it is ergodic. $\mathcal X$ is finite as $\lvert S \rvert = 3 < \infty$.
+    \qed
+    \vspace{0.5em}
+
+    As $\mathcal X$ is finite and ergodic, it must converge to to a unique stationary distribution. Let $\bm\pi = (a, b, c)$ be a stationary distribution of $\mathcal X$; that is, $\bm\pi P = \bm\pi$. Combining this with the fact that $\bm\pi$ is a distribution (so $a+b+c =1$), we get the following system of equations.
+    \begin{align*}
+        \tfrac13 a + \tfrac12 b + \tfrac13 c & = a, \\[5pt]
+        \tfrac13 a +              \tfrac13 c & = b, \\[5pt]
+        \tfrac13 a + \tfrac12 b + \tfrac13 c & = c, \\[5pt]
+        a + b +  c                           & = 1.
+    \end{align*}
+    We put this into reduced echelon form, and get
+    \begin{align*}
+        \left(
+        \begin{array}{ccc|c}
+            \sfrac{-2}3 & \sfrac12 & \sfrac13  & 0 \\
+            \sfrac13   & -1       & \sfrac13   & 0 \\
+            \sfrac13  & \sfrac12 & \sfrac{-2}3     \\
+            1         & 1        & 1         & 1 \\
+        \end{array}
+        \right)
+         & =
+        \left(
+        \begin{array}{ccc|c}
+            -4 & 3  & 2  & 0 \\
+            1  & -3 & 1  & 0 \\
+            2  & 3  & -4 & 0 \\
+            1  & 1  & 1  & 1 \\
+        \end{array}
+        \right)
+        \\
+         & \to
+        \left(
+        \begin{array}{ccc|c}
+            8 & 0 & 0 & 3 \\
+            0 & 4 & 0 & 1 \\
+            0 & 0 & 8 & 3 \\
+            0 & 0 & 0 & 0 \\
+        \end{array}
+        \right).
+    \end{align*}
+    Thus $\bm\pi = (\tfrac38, \tfrac14, \tfrac38)$ is the \emph{only} stationary distribution, and $\mathcal X$ converges to $\bm\pi$. This implies that, in the long run, the proportion of games that are won are $\tfrac38$, the proportion that are lost is $\tfrac14$.
+\end{solution}

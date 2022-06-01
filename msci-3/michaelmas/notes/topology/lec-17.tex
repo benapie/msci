@@ -1,0 +1,83 @@
+%! TEX root = master.tex
+\lecture{17}{19/11}
+
+\begin{definition}[Path-connected]
+	A \emph{path} in a topological space $X$ is a continuous function
+	$\gamma: [0,1] \to X$.
+	We say $\gamma$ is a path from $\gamma(0)$ to $\gamma(1)$.
+	$X$ is said to be \emph{path-connected} if for every $x, y \in X$
+	there is a path $\gamma$ such that $\gamma(0) = x$ and $\gamma(1) = y$.
+\end{definition}
+
+\begin{proposition}[]
+	A path-connected space is connected.
+\end{proposition}
+
+\begin{proof}
+	Let $X$ be path-connected and let $p,q \in X$.
+	Len $\gamma_q$ be a path from $p$ to $q$.
+	$\gamma_q([0,1])$ is connected.
+	For every $q,q' \in X$,
+	\[
+		p \in \gamma_q([0,1]) \cup \gamma_{q'}([0,1])
+	\]
+	so they are not disjoint.
+	As
+	\[
+		X
+		= \bigcup_{q \in X} \left\{
+			q
+		\right\}
+		= \bigcup_{q \in X} \left\{
+			\gamma(1)
+		\right\}
+		\subset \bigcup_{q \in X} \gamma([0,1])
+		\subset X;
+	\]
+	thus, $X$ is connected.
+\end{proof}
+
+\begin{example}[]
+	Let \[
+		Z = \left\{
+			\left( 
+				x, \sin\left( 
+					\frac{\pi}x 
+				\right) 
+			\right) \in \R^2 : x \in (0,1]
+		\right\}.
+	\]
+	Observe that $Z$ is path-connected, so $Z$ is connected and so
+	$\overline Z$ is connected.
+	Now $\overline Z = Z \cup \left\{
+		(0,y): y \in [0,1]
+	\right\}A$, but this is \emph{not} path connected.
+	Suppose it is.
+	Let $\gamma$ be a path from $(0,1)$ to $(1, \sin 1)$.
+	Pick $a_1 \in [0,1]$ such that $(\pi_x \circ \gamma)(a_1) = \frac2\pi$
+	which exists by the intermediate value theorem.
+	Now let $a_2 \in (0, a_1)$ such that
+	$(\pi_x \circ \gamma)(a_2) = \frac{2\pi}2$ which again we know exists
+	by the intermediate value theorem.
+	We repeat this to obtain $\left\{
+		a_n
+	\right\}$ where $a_1 > a_2 > \ldots$ and $a_n \in [0,1]$
+	such that $(\pi_x \circ \gamma)(a_n) = \frac2{n\pi}$.
+	Let $a = \lim_{n \to \infty} a_n$.
+	$\gamma$ and $\pi_y$ are continuous, so
+	$(\pi_y \circ \gamma)(a_n) \to (\pi_y \circ \gamma)(a)$
+	as $n \to \infty$.
+	But \[
+		(\pi_y \circ \gamma)(a_n)
+		= \sin\left( 
+			\frac{1}{\left( 
+				\frac{2}{n\pi} 
+			\right)}
+		\right)
+		= \sin\left( 
+			\frac{n\pi}{2} 
+		\right)
+	\]
+	which does not converge.
+\end{example}
+

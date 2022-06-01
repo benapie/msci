@@ -1,0 +1,22 @@
+\question Let $X$ be a random variable defined as $X = \sum_{i=1}^n X_i$ where each $X_i$ is a Bernoulli random variable, and all $X_i$ are independent. Let $p_i = p(X_i = 1)$. Prove that for any $\delta \geq e^2 - 1$,
+\[ p(X \geq (1 + \delta)\E[X]) \leq e^{-(\delta + 2)\E[X]}. \]
+
+\begin{solution}
+    By Chernoff's inequality, we have for any $\delta > 0$
+    \[ p(X \geq (1 + \delta)\E[X]) \leq \left(\frac{e^\delta}{(1+\delta)^{(1+\delta)}}\right)^{\E[X]}. \]
+    As
+    \[ \frac{e^\delta}{(1+\delta)^{(1+\delta)}} \geq 1 \]
+    and $E[X] \geq 0$, we move to upper bound
+    \[ \frac{e^\delta}{(1+\delta)^{(1+\delta)}}. \]
+    Let $\delta \geq e^2 - 1$, then $1 + \delta \geq e^2$ and so we have
+    \[ \frac{e^\delta}{(1+\delta)^{(1+\delta)}} \leq \frac{e^\delta}{e^{2(1+\delta)}} = e^{-2(\delta + 1)}, \]
+    giving the desired result.
+\end{solution}
+
+\question Consider the following probabilistic process. You have a collection of $n$ many ``bins'', and also $n$ many ``balls''. Assume that both are numbered $1,2, \ldots, n$. The balls are thrown into the bins independently and uniformly at random, that is, for each ball, every bin has the same probability of being chosen for the ball.
+
+Formally prove that with high probability (of the form $1 - 1/n^c$ for some constant $c \in \R_{\geq 1}$) the maximum number of balls in any bin is $O(\log n)$.
+
+\begin{solution}
+    \todo[inline]{}
+\end{solution}

@@ -1,0 +1,116 @@
+%! TEX root = master.tex
+\lecture{17}{2/12}
+
+\begin{proposition}[]
+	Let $M \subset R$ be an (additive) subgroup.
+	Then $M$ is of the form
+	\[
+		M = n\Z + (a + m\omega)\Z \tag{$\star$}
+	\]
+	for $n, m \in \Z_{\geq 0}$.
+\end{proposition}
+
+\begin{proof}
+	If $M = R$, then $R = \Z + w\Z$.
+	Now consider any subgroup $M$ of $R$.
+	Consider the group
+	\[
+		H = \left\{
+			s \in \Z: r + s\omega \in M, r \in \Z
+		\right\}.
+	\]
+	All subgroups of $\Z$ are of the form $m\Z$,
+	hence there is $a \in \Z$ such that $a + m\omega \in M$.
+	Consider $M \cap \Z \subset \Z$.
+	It again is a subgroup of $\Z$.
+	Now we prove $(\star)$.
+	$\subset$ is clear, so we assume $r + s\omega \in M$.
+	Since $s \in H$,
+	we have
+	\[
+		s - ua = r + s\omega - (a + m\omega)
+		\in M \cap \Z
+	\]
+	since both summands are in $M$ and $s - ua$ is in $\Z$.
+	Hence $r - ua = vn$ for some $v \in \Z$.
+	Hence we obtain
+	\[
+		r + sw
+		= r - ua + u(a + n\omega)
+		= vn + u(a + n\omega)
+		\in n \Z + (a + m\omega)\Z.\qedhere
+	\]
+\end{proof}
+
+All ideals in $R$ are also an additive subgroup.
+In particular, every ideal $I$ in $R$ is a finitely generated
+abelian group and so $I$ is finitely generated.
+Further, each $I = (\alpha, \beta)_R$ for some
+$\alpha, \beta \in R$.
+We have actually shown that for each
+\[
+	I = n\Z + (a + m\omega)\Z
+\]
+we must have that $n,m \neq 0$.
+Indeed, if $m = 0$ then $\omega I \not\in I$
+and if $n = 0$, $I \cap \Z = 0$,
+which we know is non-zero if $I$ is non-zero.
+We see that $I$, as an abelian group, is also \emph{free}.
+Since if
+\[
+	a_1 n + a_2 (a + m \omega) = b_1 n + b_2(a + m\omega)
+\]
+then $a_1 = b_1$ and $a_2 = b_2$.
+Indeed, if we write 
+\[
+	(a_1 - b_1)n + (b_1 - b_2) (a + m \omega) = 0
+\]
+then
+\[
+	\left( (a_1 - a_2)n + (b_1 - b_2) \right)a
+	+ (b_1 - b_2)(a _ m\omega) = 0.
+\]
+Since $\left\{
+	1, \omega
+\right\}$
+is a basis of $K$ over $\Q$, $(b_1 - b_2) m \omega = 0$
+and as $m \neq 0$, $b_1 = b_2$.
+Moreover, $ \left( (a_1 - a_2)n + (b_1 - b_2)\right)a = 0$
+and since $n \neq 0$, $a_1 = a_2$.
+But we can go even further...
+
+\begin{proposition}[]
+	If an ableina group of the form
+	\[
+		M = n\Z + (a + m\omega)\Z \subset R
+	\]
+	is an ideal in $R$, them $m, n \neq 0$ and
+	\[
+		m \mid n, \qquad
+		m \mid a \quad (a = mb), \qquad
+		n \mid m\operatorname{N}(b + \omega).
+	\]
+\end{proposition}
+
+\begin{proof}
+	Since $M$ is an ideal, $c \in M \cap I$.
+	Tuhs $c \omega \in M$ and so $c \in H$.
+	This gives $n \Z \subset m\Z$ and so $m \mid n$.
+	Furthermore, $\omega^2 = x + y\omega$ for some $x, y \in \Z$.
+	Since $M$ is an ideal, $a + m\omega \in M$
+	gives us
+	\[
+		(a + m\omega)\omega = mx + (a + my) \omega \in M,
+	\]
+	and so $a + my \in H$ and so $m \mid a$.
+	We write $a = mb$ for some $b \in \Z$.
+	Then
+	\[
+		a + m\omega = m(b + \omega) \in M.
+	\]
+	Since $(b + \overline\omega) \in R$, we have
+	\[
+		m(b + \omega)(b + \overline\omega) = M \cap \Z.
+	\]
+	That is, $n \mid m\operatorname{N}(b+\omega)$.  
+\end{proof}

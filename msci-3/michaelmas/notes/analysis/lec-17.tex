@@ -1,0 +1,317 @@
+%! TEX root = master.tex
+\lecture{17}{30/11}
+
+\begin{proposition}[]
+	Let $f: E \to \R$ be a non-negative function for some $E \subset \R$
+	and $\lambda \geq 0$ be a non-negative real number.
+	Then
+	\[
+		m\left( 
+			\left\{
+				x \in E: f(x) \geq \lambda y
+			\right\} 
+		\right)
+		\leq
+		\frac{1}{\lambda}
+		\int_E f. \tag{$\star$}
+	\]
+\end{proposition}
+
+\begin{proof}
+	Let
+	$
+		E_\lambda =
+		\left\{
+			x \in E:
+			f(x) \geq \lambda
+		\right\}
+	$.
+	Suppose $m(E_\lambda) = \infty$,
+	Let $n \in \N$. 
+	Define
+	$
+		E_{\lambda,n} = E_\lambda \cap [-n,n]
+	$
+	and
+	$
+	\psi_n = \lambda \chi_{E_{\lambda,n}}
+	$.
+	$\psi_n$ is bounded and a function of finite support,
+	so
+	\[
+		\lambda m \left( E_{\lambda, n} \right)
+		= \int_{E_{\lambda,n}} \psi_n.
+	\]
+	Furthermore, $0 \leq \psi_n \leq f$
+	for each $n$. 
+	Therefore
+	\[
+		\infty 
+		= \lambda m \left( E_{\lambda} \right)
+		= \lim_{n \to \infty} \left( 
+			\lambda m \left( E_{\lambda, n} \right) 
+		\right)
+		= \lim_{n \to \infty} \int_E \psi_n
+		\leq f
+	\]
+	and so $\int_E f = \infty$; hence, $(\star)$ holds.
+	Now suppose $m(E_\lambda) < \infty$.
+	Let $h = \lambda \chi_{E_\lambda}$.
+	$h$ is bounded and of finite support and
+	$0 \leq h \leq \lambda < f$.
+	So
+	\[
+		h m \left( E_\lambda \right) = \int_E h \leq \int_E f
+	\]
+	therefore
+	\[
+		m \left( 
+			\left\{
+				x \in E: f(x) > \lambda
+			\right\} 
+		\right)
+		\leq
+		\frac{1}{\lambda} \int_E f. \qedhere
+	\]
+\end{proof}
+
+\begin{proposition}[]
+	Let $f: E \to \R$ be a non-negative function on some $E \subset \R$.
+	Then
+	\[
+		\int_E f = 0 \iff \text{$f = 0$ almost everywhere on $E$}.
+	\]
+\end{proposition}
+
+\begin{proof}
+	$(\implies)$: assume $\int_E f = 0$.
+	Then
+	\[
+		m\left( 
+			\left\{
+				x \in E: f(x) \geq \frac1n
+			\right\} 
+		\right)
+		\leq \frac1n \int_E f = 0,
+	\]
+	so
+	\[
+		\left\{
+			x \in E: f(x) > 0
+		\right\}
+		\bigcup
+		\left\{
+			x \in E: f(x) \geq \frac1n
+		\right\}
+	\]
+	and thus
+	\[
+		m \left( 
+			\left\{
+				x \in E: f(x) > 0
+			\right\} 
+		\right)
+		= 0.
+	\]
+	Hence $f = 0$ almost everywhere on $E$.
+	
+	$(\impliedby)$: assume $f = 0$ almost everywhere on $E$.
+	Let $\varphi$ be a simple function
+	and $h$ be a bounded function of finite support such that
+	\[
+		0 \leq \varphi \leq h \leq f \quad\text{on $E$}.
+	\]
+	Since $f = 0$ almost everywhere on $E$,
+	$\varphi = 0$ almost everywhere on $E$.
+	Thus
+	\[
+		\int_E \varphi = 0
+	\]
+	and so
+	\[
+		\int_E h = 0
+	\]
+	and finally
+	\[
+		\int_E f = 0.
+	\]
+\end{proof}
+
+\begin{theorem}
+	[Linearity and monotonicty of the integral of measurable functions]
+	Let $f, g: E \to \R$ be measurable functions on some
+	measurable set $E \subset \R$.
+	Then for every non-negative real numbers $\alpha, \beta > 0$
+	we have
+	\[
+		\int_E \alpha f + \beta g
+		= \alpha \int_E f + \beta \int_E g
+	\]
+	and
+	\[
+		f \leq g \;\text{on $E$}
+		\implies \int_E f \leq \int_E g.
+	\]
+\end{theorem}
+
+\begin{proof}
+	For all $\alpha > 0$ and $h: E \to \R$ bounded and of finite support,
+	\[
+		0 \leq h \leq f \;\text{on} E
+		\iff 0 \leq \alpha h \leq \alpha f.
+	\]
+	Now
+	\[
+		\int_E \alpha h = \alpha \int_E h
+	\]
+	and so we can see that
+	\[
+		\int_E \alpha f = \alpha \int_E f
+	\]
+	(argument needed here TODO) %TODO.
+	It is thus enough to prove linearity for $\alpha = \beta = 1$.
+	Let $h, k$ be bounded measurable functions of finite support with
+	$0 \leq h \leq f$ and $0 \leq k \leq g$ on $E$.
+	Thus $0 \leq h + k \leq f + g$ and so
+	\[
+		\int_E h + \int_E k
+		= \int_E h + k
+		\leq \int_E f + g
+	\]
+	and so $\int_E f + g$ is an upper bound for
+	$\int_E h + \int_E k$.
+	But $\int_E f + \int_E g$ is the least upper bound for
+	$\int_E h + \int_E k$, so
+	\[
+		\int_E f + g \leq \int_E f + \int_E g.
+	\]
+	It remains to prove (for linearity)
+	\[
+		\int_E f + g \leq \int_E f + \int_E g.
+	\]
+	That is,
+	for each bounded measurable function $l$ with finite support
+	with $0 \leq l \leq f + g$ on $E$ we have
+	\[
+		\int_E l \leq \int_E f + \int_E g.
+	\]
+	We define $h, k$ on $E$ such that
+	\[
+		h = \min\{f,l\}, \qquad k = l - h.
+	\]
+	These are measurable, bounded, and of finite support.
+	Let $x \in E$.
+	If $l(x) \leq f(x)$, then $k(x) = l(x) - l(x) = 0 \leq g(x)$.
+	If $l(x) > f(x)$, then $h(x) = f(x)$ and
+	$k(x) = l(x) - f(x) \leq f(x) + g(x) - f(x) = g(x)$.
+	So $k \leq g$ and $h \leq f$.
+	By definition, we have $0 \leq h \leq f$
+	and $0 \leq k \leq g$
+	and so $l = h + k$ on $E$.
+	Thus
+	\[
+		\int_E l
+		= \int_E h + k
+		= \int_E h + \int_E k
+		\leq \int_E f + \int_E g.
+	\]
+	To prove monotonicty, it is enough to show if $h$ is a bounded measurable
+	function of finite support such that $0 \leq h \leq f$, we have
+	\[
+		\int_E h \leq \int_E g.
+	\]
+	Let $h$ be a measurable bounded function of finite support
+	with $0 \leq h \leq f \leq g$.
+	By definition,
+	\[
+		\int_E h \leq \int_E g.
+	\]
+\end{proof}
+
+\begin{theorem}[Additivity over domains of integrals]
+	Let $f: E \to \R$ be a non-negative function on some measurable
+	set $E \subset \R$.
+	Let $A$ and $B$ be two disjoint measurable sets.
+	Then
+	\[
+		\int_{A \cup B} f = \int_A f + \int_B f.
+	\]
+	If $E_0 \subset E$ such that $m(E_0) = 0$,
+	then
+	\[
+		\int_E f = \int_{E \setminus E_0} f.
+	\]
+\end{theorem}
+
+\begin{proof}
+	todo %TODO
+\end{proof}
+
+\begin{lemma}[Fatou's Lemma]
+	Let
+	$
+		\left\{
+			E_n
+		\right\}_{n=1}^\infty
+	$
+	be a collection of non-negative measurable functions
+	with common domain $E$.
+	If $f_n$ converges pointwise almost everywhere on $E$
+	to some limit function $f:E \to \R$, then
+	\[
+		\int_E f \leq \liminf \int_E f_n. \tag{$\star$}
+	\]
+\end{lemma}
+
+\begin{proof}
+	As
+	\[
+		\int_E f = \int_{E \setminus E_0} f
+	\]
+	for all $E_0 \subset E$ such that $m(E_0) = 0$,
+	we may assume $f_n \to f$ on all of $E$
+	(effectively replacing $E$ with $E \setminus E_0$).
+	To prove $(\star)$, we need to show that if $h$ is any
+	bounded measurable function of finite support such that 
+	$0 \leq h \leq f$, then
+	\[
+		\int_E h \leq \liminf \int_E f_n.
+	\]
+	Let $h$ be such a function.
+	Now $h$ is bounded, so we let $M > 0$ such that 
+	$\left\lvert h \right\rvert \leq M$.
+	We define
+	\[
+		E_0 = \left\{
+			x \in E: h(x) \neq 0
+		\right\}
+	\]
+	and note $m(E_0) < \infty$.
+	Let $n \in\ N$ and define
+	$
+		h_n = \min\{h, f_n\}
+	$.
+	$h_n$ is measurable and $0 \leq h_n \leq M$ on $E_0$
+	and $h_n = 0$ on $E \setminus E_0$.
+	Moreover, for every $x \in E$ we have $h(x) \leq f(x)$
+	and as $f_n \to f$, $h_n \to h$.
+	By the bounded convergence theorem (applying to $h_n$),
+	\[
+		\lim_{n \to \infty} \int_E h_n
+		= \lim_{n \to \infty} \int_{E_0} h_n
+		= \int_{E_0} h
+		= \int_E h
+	\]
+	so $h_n \leq f_n$ on $E$.
+	Therefore,
+	\[
+		\int_E h_n \leq \int_E f_n
+	\]
+	and so 
+	\[
+		\int_E h 
+		= \lim_{n \to \infty} \int_E h_n
+		= \liminf \int_E f_n. \qedhere
+	\]
+\end{proof}
+

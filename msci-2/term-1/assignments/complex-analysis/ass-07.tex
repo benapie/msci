@@ -1,0 +1,81 @@
+\assignment{7}{29/11}
+
+\setcounter{question}{2}
+\question Find an automorphism of the unit disc that takes $-\frac i2$ to $0$ and (when considered as a map $\hat\C \to \hat\C$) also takes $1$ to $i$.
+\begin{solution}
+    \begin{align*}
+        (z, -\frac i2; 1, \infty) &= (f(z), 0; i, \infty) \\
+        \frac{z - 1}{-\frac i2} &= \frac{f(z) - i}{-i} \\
+        f(z) &= \frac{2iz - 1}{i + 2}.
+    \end{align*}
+\end{solution}
+
+\setcounter{question}{6}
+\question Use standard examples to find a biholomorphic map from the upper half $\{ z: \D : \Im(z) > 0 \}$ of the unit disc onto the unit disc $\D$.
+\begin{solution}
+    The Cayley map $M_C: \H \to \D$, so the inverse Cayley map $M_{C^{-1}}: \D \to \H$. 
+    To see what $M_{C^{-1}}$ does to the upper unit disc, we look at what happens to the boundary lines.
+    The line segment between $-1$ and $1$ goes to the imaginary non-negative axis.
+    $M_{C^{-1}}(i) = -1$, so the inverse Cayley map takes the upper unit disc to the upper left quarter plane. 
+    We can move this to the upper right quarter plane by multiplying by $-i$, this is in an effect a rotation of $-\frac{\pi}2$ anticlockwise (which is biholomorphic).
+    Then we can extend this to $\H$ using the map $z \mapsto z^2$.
+    Then we can map this back to the unit disc $\D$ using the Cayley map.
+    Hence, our biholomorphic is
+    \[ M_C \circ (z^2) \circ (-iz) \circ M_{C^{-1}}. \]
+\end{solution}
+
+\setcounter{question}{9}
+\question Describe the image of
+\begin{parts}
+    \part $\{z: \abs{z - 1} > 1\}$ under $z \mapsto w = \frac{z}{z-2}$; and
+    \begin{solution}
+        \begin{align*}
+            f(0) &= 0 \\
+            f(2) &= \infty \\
+            f(1 + i) &= -i;
+        \end{align*}
+        hence the circle of center $1$ and radius $1$ is mapped to the imaginary axis.
+        $f(1) = -1$, hence, the disc of center $1$ and radius $1$ is mapped to the set of complex numbers $z$ where $\Re(z) < 0$.
+    \end{solution}
+    \part $\{z: \abs{z - i} < 1, \Re(z) < 0\}$ under $z \mapsto w = \frac{z - 2i}{z}$.
+    \begin{solution}
+        \begin{align*}
+            f(0) &= \infty \\
+            f(2i) &= 0 \\
+            f(i) &= -1 \\
+            f(-1 + i) &= i \\
+            f\left(\frac12 + i\right) &= -\frac15 (3 - 4i).
+        \end{align*}
+        So the line segment from $0$ to $2i$ is mapped to the non positive real axis. 
+        The circular arc intersecting $0$, $-1 + i$, and $2i$ is mapped to the non-negative imaginary axis.
+        As a point in this region is mapped to the upper left quarter plane, and the boundard of the region is move to the non-positive real axis and the non-negative imaginary axis, the region is mapped to the upper left quart plane.
+    \end{solution}
+\end{parts}
+
+\setcounter{question}{11}
+\question
+\begin{parts}
+    \part Find the unique M\"obius transformation $f(z)$ taking the ordered set of points $\{0, -1, -i\}$ to the ordered set of points $\{1, \infty, i\}$ in $\hat\C$.
+    \begin{solution}
+        Easily done by considering the fact that the cross-ratio is preserved by M\"obius transformations.
+        \[ f(z) = \frac{1-z}{1+z}. \]
+    \end{solution}
+
+    \part Let $C_1$ be the circle through $0, -1, i$ and let $C_2$ be the circle through $0, -1, -i$. 
+    Let $R$ be the intersection of the interiors of the two circles. 
+    Find the image of $R$ under your map $f$, and hence construct a biholomorphic map from $R$ to the set $\Omega = \{ w \in \C: -\frac{\pi}{4} < \Arg(w) < \frac{\pi}4\}$.
+    \begin{solution}
+        The function $f$ maps the circular arcs $A_1, A_2$ which intersect the sets of points $\{-1, 0, i\}$ and $\{-1, 0, -i\}$ respectively to the rays $R_1, R_2$ where $R_1$ starts at the point $-i$, intersects $1$, then continues to infinity and $R_2$ starts at the point $i$, intersects $1$, then continues to infinity. 
+        These two rays now define our boundary for our new region $f(R)$. 
+        To see which region bounded by these rays we are mapped to, we look at where a point in $R$ is mapped to.
+        $f(-\frac12) = 3$; hence, we are mapped to the region 
+        \[ \left\{ z : \C: \Arg(z - 1) \in \left(-\frac\pi4, \frac\pi4\right) \right\}. \]
+        And so our biholomorphic map from $R$ to $\Omega$ is defined by $f(z) - 1$.
+    \end{solution}
+
+    \part Find a biholomorphic map from $R$ to the upper half-plane $\H$.
+    \begin{solution}
+        Our biholomorphic map is defined by
+        \[ (z^2) \circ \left(z \cdot \frac12(1 + i)\right) \circ (f(z) - 1)(z).  \]
+    \end{solution}
+\end{parts}

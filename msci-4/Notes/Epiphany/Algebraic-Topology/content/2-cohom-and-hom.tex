@@ -1,0 +1,361 @@
+\section{Relationship between homology and cohomology}
+
+\subsection{Ext groups}
+
+\begin{lemma}
+    Let $G$ be an abelian group and let $0 \to A \to B \to C \to 0$ be a short exact sequeunce of abelian groups. Then
+    \[ 0 \to \Hom(C,G) \to \Hom(B,G) \to \Hom(A,G) \]
+    is exact.
+\end{lemma}
+
+\begin{example}
+    Consider the short exact sequence
+    \[ 0 \to \mathbb Z \xrightarrow{\cdot p} \mathbb Z \to \mathbb Z/p \to 0 \]
+    for $p \in \mathbb Z_{> 1}$. We apply the functor $\Hom(-, \mathbb Z)$ to get
+    \[ 0 \to \Hom(\mathbb Z/p, \mathbb Z) \to \Hom(\mathbb Z, \mathbb Z) \xrightarrow{\cdot p} \Hom{\mathbb Z, \mathbb Z} \to 0 \]
+    which is equivalent to
+    \[ 0 \to 0 \to \mathbb Z \xrightarrow{\cdot p} \mathbb Z \to 0. \]
+    But this is \emph{not} exact, since multiplication by $p$ is not onto.
+\end{example}
+
+We aim to measure the failure of $\Hom(-, G)$ to be right exact, and to do this we define $\Ext$ groups.
+
+\begin{definition}
+    Let $H$ and $G$ be abelian group. An exact sequence
+    \[ 0 \to F_1 \xrightarrow{f_1} F_0 \xrightarrow{f_2} H \to 0 \]
+    with $F_0$ and $F_1$ free abelian group is called a \emph{free resolution} of $H$. Then we define
+    \begin{align*}
+        \Ext^0(H, G) & = \ker(f_1^*: \Hom(F_0, G) \to \Hom(F_1, G)),   \\
+        \Ext^1(H, G) & = \coker(f_1^*: \Hom(F_0, G) \to \Hom(F_1, G)).
+    \end{align*}
+\end{definition}
+
+From a categorical approach, we take the chain complex above with $H = 0$, apply $\Hom(-, G)$ and then take cohomology to get $H^n(\Hom(F_*, G))$ for $n \in \{0, 1\}$. Note that we could continue doing this to get $\Ext^2$, $\Ext^3$, etc. but we note that these are all zero for abelian groups.
+
+Let $H$ be a finitely generated abelian group. Then by the classification of finitely generated abelian groups,
+\[ H \cong \mathbb Z^n \oplus \bigoplus_{i=1}^k \mathbb Z/p_i^{n_i} \]
+for $n \in \mathbb N_0$, primes $p_1, \ldots, p_k$, and positive integers $n_1, \ldots, n_k$. We can construct a resolution of length one:
+\[ 0 \to \bigoplus_{i=1}^k \mathbb Z \xrightarrow{(0, \bigoplus_{i=1}^k p_i^{n_i})} \mathbb Z^n \oplus \bigoplus_{i=1}^k \mathbb Z \to H \to 0. \]
+
+\begin{lemma}
+    Given two resolutions
+    \[ 0 \to F_1 \to F_0 \to H \to 0 \]
+    and
+    \[ 0 \to F_1' \to F_0' \to H \to 0 \]
+    of $H$ and a homomorphism $\varphi: H \to H$, we have the following.
+    \begin{enumerate}
+        \item There is a chain map between the resolutions inducing $\varphi$.
+        \item Any two such chain maps are chain homotopic.
+    \end{enumerate}
+\end{lemma}
+
+\begin{proposition}
+    The grouips $\Ext^i(H, G)$ are independent of the choice of free resoltuion of $H$.
+\end{proposition}
+
+\begin{example}
+    We compute $\Ext^n(\mathbb Z, \mathbb Z)$. There is a free resolution
+    \[ 0 \to 0 \to \mathbb Z \to \mathbb Z \to 0. \]
+    So $F_* = 0 \to \mathbb Z \to 0$. Taking $\Hom(-, \mathbb Z)$ yields
+    \[ 0 \to \Hom(\mathbb Z, \mathbb Z) \to 0. \]
+    Thus
+    \[
+        \Ext^i(\mathbb Z, \mathbb Z) \cong \begin{cases}
+            \mathbb Z & i = 0,       \\
+            0         & \text{else}.
+        \end{cases}
+    \]
+\end{example}
+
+\begin{example}
+    We compute $\Ext^n(\mathbb Z/p, \mathbb Z)$. There is a free resolution
+    \[ 0 \to \mathbb Z \xrightarrow{\cdot p} \mathbb Z \to \mathbb Z/p \to 0. \]
+    So $F_* = 0 \to \mathbb Z \xrightarrow{\cdot p} \mathbb Z \to 0$. Taking $\Hom(-, G)$ yields
+    \[ 0 \to \Hom(\mathbb Z, \mathbb Z) \xrightarrow{\cdot p} \Hom(\mathbb Z, \mathbb Z) \to 0 \]
+    and so
+    \[
+        \Ext^i(H, G) \cong \begin{cases}
+            \mathbb Z/p & i = 1,       \\
+            0           & \text{else}.
+        \end{cases}
+    \]
+\end{example}
+
+\begin{proposition}
+    Let $G$ and $H$ be abelian groups.
+    \begin{enumerate}
+        \item $\Ext^0(H, G) \cong \Hom(H, G)$.
+        \item If $H$ is a free abelian group, then $\Ext^1(H,G) = 0$.
+        \item If $H$ is a finitely generated abelian group, then $\Ext^1(H, \mathbb Z)$ is precisely the torsion subgroup of $H$.
+        \item $\Ext^1(H, \mathbb Q) = 0$ for any $H$.
+        \item Let $H_1, \ldots, H_k$ and $G_1, \ldots, G_k$ be abelian groups. Then
+              \[ \Ext^1\left(\bigoplus_{i=1}^k H_i, G\right) \cong
+                  \bigoplus_{i=1}^k \Ext^1(H_i, G) \]
+              and
+              \[ \Ext^1\left(H, \bigoplus_{i=1}^k G_i\right) \cong
+                  \bigoplus_{i=1}^k \Ext^1(H, G_i). \]
+    \end{enumerate}
+\end{proposition}
+
+\subsection{Universal coefficient theorem}
+
+\begin{definition}
+    Let $(C_*, \partial)$ be a chain complex of free abelian groups and $G$ be an abelian group. The \emph{evaluation map} is
+    \begin{align*}
+        \ev: H^n(C; G)       & \to \Hom(H_n(C), G)               \\
+        [\varphi: C_n \to G] & \mapsto ([c] \mapsto \varphi(c)).
+    \end{align*}
+    We may denote this map $\langle[\varphi], [c]\rangle = \varphi(c)$ (called the Kronecker pairing).
+\end{definition}
+
+\begin{lemma}
+    $\ev$ is a well-defined group homomorphism.
+\end{lemma}
+
+\begin{theorem}
+    Let $(C_*, \partial)$ be a chain complex of free abelian groups, and let $G$ be an abelian group. For each $n \in \mathbb N_0$, there is a natural (in $C_*$) short exact sequence
+    \[ 0 \to \Ext^1(H_{n-1}(C), G) \to H^n(C;G) \xrightarrow{\ev} \Hom(H_n(C), G) \to 0 \]
+    that splits; thus,
+    \[ H^n(C;G) \cong \Ext^1(H_{n-1}, G) \oplus \Hom(H_n(C), G). \]
+\end{theorem}
+
+\begin{theorem}[Universal coefficient theorem]
+    Let $X$ be a space and $G$ an abelian group. For each $n \in \mathbb N_0$, ther eis a natural (in $X$) short exact sequence
+    \[ 0 \to \Ext^1(H_{n-1}(X), G) \to H^n(X; G) \xrightarrow{\ev} \Hom(H_n(X), G) \to 0 \]
+    that splits; thus,
+    \[ H^n(X;G) \cong \Ext^1(H_{n-1}(X), G) \oplus \Hom(H_n(X), G). \]
+\end{theorem}
+
+\begin{theorem}[UCT for field coefficients]
+    Let $X$ be a topological space and $\mathbb F$ be a field. For each $n \in \mathbb N_0$, evaluation gives rise to a vector space isomorphism
+    \[ H^n(X; \mathbb F) \xrightarrow{\cong} \Hom_{\mathbb F}(H_n(X; \mathbb F), \mathbb F). \]
+\end{theorem}
+
+\subsection{Manifolds}
+
+\begin{definition}
+    An \emph{$n$-dimensional manifold} $M$ is a topological space that is Hausdorff, second countable, and locally $n$-Euclidean.
+\end{definition}
+
+\begin{definition}
+    A manifold is said to be \emph{closed} if it is compact and has empty boundary.
+\end{definition}
+
+\begin{example}
+    \begin{enumerate}
+        \item The sphere $S^n$ is an $n$-dimensional manifold.
+        \item A product of spheres $S^{n_1} \times S^{n_2} \times \ldots \times S^{n_k}$ is a manifold of dimension $n_1 + n_2 + \ldots + n_k$.
+        \item The surface of genus $g$, $\Sigma_g$, is a manifold.
+        \item The real project space $\mathbb R \mathbb P^n$ is an $n$-dimensional manifold.
+        \item The complex projective space
+              \[ \mathbb C \mathbb P^n = \mathbb C^{n+1}/\mathbb C^\times \]
+              is a $2n$-dimensional manifold.
+        \item The orthogonal group $O(n)$ is a manifold of dimension $n(n-1)/2$.
+        \item The group $\mathbb Z/p$ acts on $S^3$ as follows: let $p$ and $q$ be coprime positive integers. Consider $S^3 \subset \mathbb C^2$ with $\lvert z \rvert^2 + \lvert w \rvert^2 = 1$.  Write $\mathbb Z/p \cong C_p$ where $C_p$ is the cyclic group generated by $\eta = e^{2\pi i/p} \in S^1$. Then
+              \[ \eta^j \cdot (z, w) = (\eta \cdot z, \eta^q \cdot w). \]
+              The quotient is $S^3/C_p = L(p, q)$, the lens space.
+    \end{enumerate}
+\end{example}
+
+\subsection{Orientations}
+
+Throughout this subset, $M$ is an $n$-dimensional manifold with $\partial M = \varnothing$ and $R$ is a commutative ring. Suppose that $n \geq 1$. Note that $\partial M = \varnothing$ is not essential, but it simplifies exposition.
+
+\begin{lemma}
+    For $x \in M$, $H_n(M, M \setminus \{x\}; R) \cong R$.
+\end{lemma}
+
+\begin{definition}
+    A local $R$-orientation of $M$ at $x$ is a generator of $H_n(M, M \setminus \{x\}; R)$.
+\end{definition}
+
+\begin{lemma}
+    Let $\alpha_x \in H_n(M; M \setminus \{x\}; R)$. There is an open neighbourhood $U$ of $x$ at $\alpha \in H_n(M, M \setminus U; R)$ with $\alpha_x = j_x^U(\alpha)$, where $j_x^U: H_n(M: M \setminus U; R) \to H_n(M, M \setminus \{x\}; R)$ is the inclusion induced map.
+\end{lemma}
+
+\begin{lemma}[Coherence lemma]
+    If $\alpha_x$ generated $H_n(M, M \setminus \{x\}; R)$, then $U \subset M$ and $\alpha$ can be chosen so that $\alpha_y = j_y^U(\alpha)$ generated $H_n(M, M \setminus \{y\}; R)$ for all $y \in U$.
+\end{lemma}
+
+To prove this we need the following lemma.
+
+\begin{lemma}
+    Every neighbourhood $W \ni x$ contains $u \ni x$ open such that for every $y \in U$,
+    \[ j_y^U: H_n(M, M \setminus U; R) \to H_n(M, M \setminus \{y\}; R) \]
+    is an isomorphism.
+\end{lemma}
+
+\begin{definition}
+    Let $U \subset M$. An element $\alpha \in H_n(M, M \setminus U; R)$ such that $j^U_y(\alpha)$ generated $H_n(M, M \setminus \{y\};R)$ for every $y \in U$ is called an \emph{$R$-local orientation at $U$}.
+\end{definition}
+
+\begin{definition}
+    Let $\{U_i\}_{i \in \mathcal I}$ be an open cover of $M$ by open subsets. For each $i$, let $\alpha_i \in H_n(M, M \setminus U_i; R)$ be a local $R$-orientation at $U_i$. This is called an \emph{$R$-orientation system} if for every pair $i, k \in \mathcal I$, if $x \in U_i \cap U_k$ then $j_x^{U_i}(\alpha_i) = j_x^{U_k}(\alpha_k)$.
+\end{definition}
+
+We say that two $R$-orientation systems $(M, \{U_i, \alpha_i\}_{i \in \mathcal I})$ and $(M, \{V_i, \beta_i\}_{i \in \mathcal I})$ if and only if $\alpha_x = \beta_x$ for all $x \in M$. A \emph{global $R$-orientation of $M$} is an equivalence class of $R$-orientation systems on $M$. If a global $R$-orientation of $M$ exists, $M$ is said to be \emph{$R$-orientable}.
+
+\begin{proposition}
+    Suppose that $M$ is connected and $R$-orientable. Then two $R$ orientations that agree at a point are equal.
+\end{proposition}
+
+\begin{proposition}
+    Every manifold $M$ has a unique $\mathbb Z/2$ orientation.
+\end{proposition}
+
+\begin{proposition}
+    If $M$ is orientable then it is $R$-orientable for every $R$.
+\end{proposition}
+
+\begin{proposition}
+    Every simply connected, connected manifold $M$ is orientable.
+\end{proposition}
+
+\subsection{The fundamental class}
+
+\begin{theorem}
+    Let $M$ be a compact, connected $n$-manifold.
+    \begin{enumerate}
+        \item If $M$ is $R$-orientable, then $H_n(M, \partial M; R) \cong R$.
+        \item If $M$ is not $R$-orientable, then $H_n(M, \partial M; R) = 0$.
+    \end{enumerate}
+\end{theorem}
+
+We also note if $\partial M$ is non-empty, or if $M$ is non-compact, then $H_n(M; R) = 0$.
+
+\begin{definition}
+    A choice of generator
+    \[ [M]_R \in H_n(M, \partial M; R) \]
+    is called an \emph{$R$-fundamental class} of $M$.
+\end{definition}
+
+We make some remarks.
+
+\begin{enumerate}
+    \item If $R = \mathbb Z$, then we simply write $[M]$ for the fundamental class.
+    \item Note the special case where $\partial M = \varnothing$.
+    \item If $\partial M = \varnothing$, then the fundamental class has the property that it maps to a local $R$-orientation at $x$, for every $x \in M$, under the map $H_n(M;R) \to H_n(M, M \setminus \{x\}; R)$.
+    \item Given a triangulation of $M$, one can think of $[M]_R$ (roughly) as a formal sum of all the top dimensional simplices of $M$, with coefficients a unit of $R$. Whether or not an orientation exists is essentially the same as asking whether there is a choice of units such that this sum of simplices has trivial boundary, and so gives rise to a cycle.
+\end{enumerate}
+
+\subsection{Poincar\'e duality}
+
+\begin{theorem}[Poincar\'e duality]
+    Let $M$ be a compact, connected, $R$-orientable $n$-manifold. Then capping with an $R$-fundamental class induces isomorphisms
+    \begin{align*}
+        - \frown [M]_R: H^{n-r}(M; R)             & \xrightarrow{\cong} H_r(M, \partial M; R), \\
+        - \frown [M]_R: H^{n-r}(M, \partial M; R) & \xrightarrow{\cong} H_r(M; R)              \\
+    \end{align*}
+    for every $r \in \mathbb N_0$.
+\end{theorem}
+
+We have a variant for closed manifolds.
+
+\begin{theorem}
+    Let $M$ be a closed, connected, $R$-orientable $n$-manifold. Then capping with an $R$-fundamental class induces an isomorphism
+    \[ - \frown [M]_R: H^{n-r}(M; R) \xrightarrow{\cong} H_r(M; R) \]
+    for every $r \in \mathbb N_0$.
+\end{theorem}
+
+\begin{corollary}
+    Let $M$ be a closed and connected $n$-manifold. Then $H_r(M; \mathbb Z/2) \cong H_{n-r}(M; \mathbb Z/2)$.
+\end{corollary}
+
+This is immediate from the Poincar\'e duality and the universal coefficient theorem with field coefficients.
+
+\begin{corollary}
+    Let $M$ be a closed, connected, orientable $n$-manifold. Then
+    \[ H_r(M; R) \cong \Hom(H_{n-r}(M; \mathbb Z), R) \oplus \Ext^1(H_{n-r-1}(M; \mathbb Z), R)). \]
+\end{corollary}
+
+Again, this is immediate from the Poincar\'e duality and the universal coefficient theorem with field coefficients.
+
+\subsection{Applications of Poincar\'e duality}
+
+\begin{example}
+    We now apply Poincar\'e duality to compute some cup products. Recall tthe complex projective plane
+    \[ \mathbb C \mathbb P^2 = \dfrac
+        {\mathbb C^3 \setminus \{(0,0,0)\}}
+        {(z_0, z_1, z_2) \sim (\lambda z_0, \lambda z_1, \lambda z_2); \lambda \in \mathbb C \setminus \{0\}}. \]
+    This has a CW decomposition with three cells: one cell of dimension $0$, $2$, and $4$. That is,
+    \[ \mathbb C \mathbb P^2 = e^0 \cup e^2 \cup e^4 = S^2 \cup_{\eta} D^4. \]
+    This is a $4$-dimensional, oriented manifold. We let $\varphi = [\mathbb C \mathbb P^1]^* \in H_2(\mathbb C \mathbb P^2; \mathbb Z) \cong \mathbb Z$ be a generator and $[\mathbb C \mathbb P^2] \in H_4(\mathbb C \mathbb P^2; \mathbb Z)$ be a fundamental class. Let $\psi \in H^2(\mathbb C \mathbb P^2; \mathbb Z)$. Then
+    \[ \langle \varphi \smile \psi, [\mathbb C \mathbb P^2]\rangle = (\varphi \smile \psi) \frown [\mathbb C \mathbb P^2] = \psi \cup (\varphi \cap [\mathbb C \mathbb P^2]). \]
+    By the Poincar\'e duality, the map $- \frown [\mathbb C \mathbb P^2]: H^2(\mathbb C \mathbb P^2; \mathbb Z) \to H_2(\mathbb C \mathbb P^2; \mathbb Z)$ is an isomorphism; thus, $\varphi \frown [\mathbb C \mathbb P^2]$ is a generator of $H_2(\mathbb C \mathbb P^2)$, so $\varphi \frown [\mathbb C \mathbb P^2] = \pm [\mathbb C \mathbb P^1]$. We now note that $\Ext^1(H_1(\mathbb C \mathbb P^2; \mathbb Z); \mathbb Z) = \Ext^1(0, \mathbb Z) = 0$, so
+    \[ \ev: H^2(\mathbb C\mathbb P^2; \mathbb Z) \to \Hom(H_2(\mathbb C \mathbb P^2; \mathbb Z), \mathbb Z) \]
+    is an isomorphism by UCT. We have that
+    \[ \langle \varphi \smile \psi, [\mathbb C \mathbb P^2] \rangle = \psi \frown (\varphi \cap [\mathbb C \mathbb P^2]) = \ev(\psi) (\varphi \frown [\mathbb C \mathbb P^2]). \]
+    Taking $\psi = \varphi$, we have
+    is an isomorphism by UCT. We have that
+    \[ \langle \varphi \smile \varphi, [\mathbb C \mathbb P^2] \rangle = \ev(\varphi) (\varphi \frown [\mathbb C \mathbb P^2]) = [\mathbb C \mathbb P^1]^* (\pm [\mathbb C \mathbb P^1]) = \pm 1. \]
+    It follows that $\varphi \frown \varphi = \pm [\mathbb C \mathbb P^2]^*$ is a dual fundamental class. In particular, the cup product
+    \[ \smile: H^2(\mathbb C \mathbb P^2; \mathbb Z) \times H^2(\mathbb C \mathbb P^2; \mathbb Z) \to H^4(\mathbb C \mathbb P^2; \mathbb Z) \]
+    is non-trivial. In general, $\psi = n \varphi$ for some $n \in \mathbb Z$ and so
+    \[ \langle \varphi \smile \psi, [\mathbb C \mathbb P^2] \rangle = \ev(n \varphi) (\varphi \frown [\mathbb C \mathbb P^2]) = n \cdot [\mathbb C \mathbb P^1]^*(\pm [\mathbb C \mathbb P^1]) = \pm n. \]
+\end{example}
+
+\begin{proposition}
+    The spaces $S^2 \wedge S^4$ and $\mathbb C \mathbb P^2$ are not homotopy equivalent.
+\end{proposition}
+
+\begin{proof}
+    We note that the homology (and cohomology) of these spaces coincide, ($\mathbb Z$ in dimensions $0$, $2$, and $4$) so we cannot argue on this. Isntead, we use cup products to distinguish the homotopy types. Suppose that there is a homotopy equivalence $f: S^2 \wedge S^4 \to \mathbb C \mathbb P^2$. Then we have the following commutative diagram.
+    \begin{center}
+        % https://tikzcd.yichuanshen.de/#N4Igdg9gJgpgziAXAbVABwnAlgFyxMJZABgBpiBdUkANwEMAbAVxiRAAkA9AJgAoAdfgFs6OABYAjCQAIAwtMEjxU6QAUeASgX88Q+NK59FoyTPnHlM9dw0gAvqXSZc+Qim7kqtRizZcALALCJirmwZZqmvaOIBjYeAREHtxe9MysiBycgQDKPNoA7jBQAOYw0nn+tg5O8a5EZCnUab6Zhrx53IXFZRXZWoK6+u2d3aXlldVePfBEoABmAE4QQkgAzNQ4EEge3ulsgnBCWAysNSBLK0hkIFtIAIzNPhkgh8en0QvLq4g3d4gbPatC6cABU2iGcGk8zBnwu3wem22iF2LReMNB9godiAA
+        \begin{tikzcd}
+            H^2(\mathbb C \mathbb P^2) \times H^2(\mathbb C \mathbb P^2) \arrow[rr, "\smile"] \arrow[dd, "f^* \times f^*"] &  & H^4(\mathbb C \mathbb P^2) \arrow[dd, "f^*"] \\
+            &  &                                              \\
+            H^2(S^2 \wedge S^4) \times H^2(S^2 \wedge S^4) \arrow[rr, "\smile"]                                            &  & H^4(S^2 \wedge S^4)
+        \end{tikzcd}
+    \end{center}
+    This commutes by the functoriality of the cup product. Since $f$ is a homotopy equivalence, the vertical maps are isomorphisms. We let $(1, 1) \in \mathbb Z \times \mathbb Z \cong H^2(\mathbb C \mathbb P^2) \times H^2(\mathbb C \mathbb P^2)$. This maps to $\pm 1 \in H^4(\mathbb C \mathbb P^2)$ and then to $\pm 1 \in H^4(S^2 \wedge S^4)$. If we instead take the other direction, $(1, 1) \in \mathbb Z \times \mathbb Z \cong H^2(\mathbb C \mathbb P^2) \times H^2(\mathbb C \mathbb P^2)$ maps to $\pm (1, 1) \in H^2(S^2 \wedge S^4) \times H^2(S^2 \wedge S^4)$. But the cup product on the product of wedges of spheres vanishes, thus this maps to $0 \in H^4(S^2 \wedge S^4)$. Thus the diagram is not commutative and so no such $f$ may exist. 
+\end{proof}
+
+We recall that $\mathbb C \mathbb P^2 = S^2 \cup_{\eta} D^4$. The 4-cell ($D^4$) is attached by a map $\eta: S^3 \to S^2$, which is a famous map called the Hopf map. If $\eta$ was null homotopic (that is, homotopic to a constant map) then $S^2 \cup_{\eta} D^4 \simeq S^2 \wedge S^4$. Since we showed that this is not the case, $\eta$ must be non-trivial. The set of based homotopy classes of maps from $S^3$ to $S^2$ form a group, a higher dimensional analogue of the fundamental group, called $\pi_3(S^2)$. We have just shown that $\pi_3(S^2)$ is non-trivial. in fact, $\pi_3(S^2) \cong \mathbb Z$ and $\eta$ is a generator.
+
+\begin{example}
+    We compute the cup products of $S^2 \times S^2$:
+    \[ \smile: H^2(S^2 \times S^2) \times H^2(S^2 \times S^2) \to H^4(S^2 \times S^2) \]
+    but note $H^2(S^2 \times S^2) \cong \mathbb Z^2$ and $H^4(S^2 \times S^2) \cong \mathbb Z$. We can represent this by a $2 \times 2$ matrix. Let $p_i: S^2 \times S^2 \to S^2$ be the projection of the $i$th factor and let $\theta \in H^2(S^2)$ be a generator. Then $p_1^*(\theta)$ and $p_2^*(\theta)$ are generators of $H^2(S^2 \times S^2) \cong \mathbb Z^2$. We have that
+    \[ p_i^*(\theta)  \smile p_i^*(\theta) = p_i^*(\theta \smile \theta) = p_i^*(0) = 0. \]
+    Thus the matrix looks like 
+    \[
+        \begin{pmatrix}
+            0 & x \\ x & 0
+        \end{pmatrix}.
+    \]
+    We know that the off-diagonal entries are equal by the symmetry of the cup product. Let $\varphi = (1,0)$ and $\psi = (0,1)$ in $H^2(S^2 \times S^2) \cong \mathbb Z^2$. Then
+    \[ (\varphi \smile \psi) \frown [S^2 \times S^2] = \psi \frown (\varphi \frown [S^2 \times S^2]) = \ev(\psi)(\varphi \frown [S^2 \times S^2]) = m \]
+    for some $m \in \mathbb Z$. This $m$ is such that
+    \[ \varphi \frown [S^2 \times S^2] = n\cdot [S^2 \times \pt] + m \cdot [\pt \times S^2] \]
+
+    \[ 0 = (\varphi \smile \varphi) \frown [S^2 \times S^2] = \ev(\varphi)(\varphi \frown [S^2 \times S^2]) = n. \]
+\end{example}
+
+\begin{proposition}
+    The spaces $S^2 \times S^2$ and $\mathbb C \mathbb P^2 \# \mathbb C \mathbb P^2$ are not homotopy equivalent. 
+\end{proposition}
+
+\begin{proof}
+    Both spaces are closed, orientable $4$-manifolds with homology $\mathbb Z, 0, \mathbb Z^2, \mathbb Z$. The cup product on $S^2 \times S^2$ is represented by
+    \[ \begin{pmatrix}
+        0 & 1 \\ 1 & 0
+    \end{pmatrix} \]
+    and the cup product on $\mathbb C \mathbb P^2$ is represented by
+    \[ \begin{pmatrix}
+        1 & 0 \\ 0 & 1
+    \end{pmatrix}.\]
+    Suppose there is a homotopy equivlance $f: S^2 \times S^2 \to \mathbb C \mathbb P^2 \# \mathbb C \mathbb P^2$. Let $\beta = (1, 0) \in H^2(\mathbb C \mathbb P^2 \# \mathbb C \mathbb P^2)$ be a generator. Then $\beta \smile \beta = \pm[\mathbb C \mathbb P^2 \# \mathbb C \mathbb P^2]^*$. Therefore
+    \[ f^*(\beta) \smile f^*(\beta) = \pm[\mathbb C \mathbb P^2 \# \mathbb C \mathbb P^2]^* = \pm[S^2 \times S^2]^*. \]
+    Suppose $f^*(\beta) = (a,b)$. Then
+    \[ f^*(\beta) \smile f^*(\beta) = \begin{pmatrix}
+        a & b
+    \end{pmatrix}
+    \begin{pmatrix}
+        0 & 1 \\ 1 & 0
+    \end{pmatrix}
+    \begin{pmatrix}
+        a \\ b
+    \end{pmatrix} = 2ab \]
+    which is even, which contradicts the above. Thus, not such $f$ can exist. 
+\end{proof}

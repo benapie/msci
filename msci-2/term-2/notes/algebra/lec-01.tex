@@ -1,0 +1,53 @@
+\chapter{Groups}
+\lecture{1}{14/1}
+
+\begin{example}[Familar examples of groups]
+    \hfill
+    \begin{enumerate}
+        \item Every commutative ring is an abelian group under addition.
+            Abelian means $xy = yx$ for all $x, y$ in the group.
+
+        \item $\{A \in M_n(F): \det A\neq 0\}=\operatorname{GL}_n(F)$
+            is a group for a field $F$.
+    \end{enumerate}
+\end{example}
+
+Let's look at a formal definition.
+
+\begin{definition}[Group]
+    A group $G$ is a set with a binary operation
+    (that is, a function $G \times G \to G$)
+    \[ (g, h) \mapsto g * h \]
+    such that
+    \begin{enumerate}
+        \item (identity) there exists an identity element $1 \in G$ such that
+            \[ g * 1 = 1 * g = g; \]
+        \item (associativity) for all $x, y, z \in G$
+            \[ (x * y) * z = x * (y * z);\;\text{and} \]
+        \item (inverse) for all $g \in G$ there exists $h \in G$ such that
+            \[ g * h = 1 = h * g. \]
+            we typically denote $h = g^{-1}$.
+    \end{enumerate}
+\end{definition}
+
+Sometimes we write $(G, *)$ for a group; however, this is not very common.
+The operator being used is typically clear from context.
+
+\begin{example}[More examples of groups]
+    \hfill
+    \begin{enumerate}
+        \item $\Z/n$ under addition;
+        \item the group of units $(\Z/n)^\times$ under multiplication;
+        \item for any ring $R$, $R^\times$ is a group
+            (but may be non-abelian).
+    \end{enumerate}
+\end{example}
+
+\section{Groups and symmetry}
+
+A \textbf{symmetry} is a function $f: X \to X$ where $X$ is some object.
+Often $f$ is taken to be an isometry, then it is called \textbf{rigid}.
+There exists an identity $\operatorname{Id}$ which does not change $X$.
+We can compose two symmetries
+\[ f \circ g: X \xrightarrow{g} X \xrightarrow{f} X \]
+and every symmetry is invertible.

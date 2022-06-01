@@ -1,0 +1,29 @@
+\subsection{Betti numbers as a measure of complexity}
+
+An information network may be described as \emph{complex} if it exhibits substantial \emph{non-trivial topological features}. A precise definition does not exist; however, some such features include:
+\begin{enumerate}
+    \item a high \emph{clustering coefficient} (a measure of how \emph{clique-like} each neighbourhood of a graph is is);
+    \item a high assortativity (the tendency for \emph{similar} nodes to attach to each others); and
+    \item a high disassortativity (defined as you would expect).
+\end{enumerate}
+Some examples of graphs that are not \emph{complex} (we may call these \emph{simple graphs}) include: random graphs and lattice graphs.
+
+1-dimensional Betti numbers may be used as a measure of a graph's \emph{complexity}, although this is not a perfect measure (and given the ambiguity of the definition, a perfect measure can't exist). In fact, \textcite{benzekry2015design} found a correlation between a specific $1$-dimensional Betti number of a protein-protein interaction graph and the survival of cancer patients.
+
+A \emph{protein-protein interaction graph} is a graph $G = (V,E)$ such that each vertex $v \in V$ corresponds to a specific protein (in a biological process), and each edge $(v,w) \in E$ corresponds to some form of interaction between the proteins $v$ and $w$. \textcite{benzekry2015design} utilised the power filtration of such graphs in order to measure the complexity of specific proteins, by measuring the drop of a specific Betti number when dropping proteins (vertices).
+
+\begin{lemma}
+    Let $G = (V,E)$. Then $\beta_1^{1,1}(\Pow(G))$ is the number of independent cycles of length $4$ or more in $G$.
+\end{lemma}
+
+\begin{proof}
+    $\beta_1^{1,1}(\Pow(G))$ denotes the number of $1$-holes that are present in $\Cl(G^1) = \Cl(G)$; that is, the number of linearly independent cycles. If a linearly independent cycle in $G$ has length 3, then it is filled in $\Cl(G)$ as all faces are present. But if a linearly independent cycle has length 4 or more, it is present in $\Cl(G)$.
+\end{proof}
+
+\textcite{benzekry2015design} took a protein-protein interaction graph $G = (V,E)$ consisting of proteins with a high impact of cancer progression and computed $\beta_1^{1,1}(\Pow(G))$, which we will denote $\beta_0$. Then, for each protein $v \in V$ they dropped its node from $G$ and calculated $\beta_1^{1,1}(\Pow(G - v))$, which we will denote $\beta_v$. Then for each $v \in V$, they calculated
+\[ \tilde\beta_v = \beta_0 - \beta_v, \]
+which shows the difference in the Betti number with that specific protein removed. This shows us how much \emph{complexity} is imparted by a specific protein in $G$, and may give us a good indication of what proteins to target for drug treatment.
+
+\textcite{benzekry2015design} also did significant exploratory work into the correlation of Betti numbers and clinical results; for example, they found a significant negative correlation between the Betti number discussed and the five year survival rates for a certain cancer network, reaffirming that its indication for protein targets are worthwhile.
+
+A review of this publication highlighted that this Betti number alone was not sufficient in the selection of proteins to target, and the author agreed with this sentiment. Further posing that persistent homology is but another tool to make rational decisions, and should be used in conjunction with other techniques.

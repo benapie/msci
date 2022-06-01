@@ -1,0 +1,57 @@
+\section{The Ant-Q algorithm, pseudocode}
+
+\begin{algorithmic}
+    \Function{Initialise}{}
+    \For{each ant $k$}
+    \State pick an initial city for $k$
+    \EndFor
+    \For{$s \in S$}
+    \For{$a \in A_s$}
+    \State $\AQ(s, a) \gets \AQ_0$
+    \Comment initialise $\AQ$ values
+    \EndFor
+    \EndFor
+    \EndFunction
+\end{algorithmic}
+\begin{algorithmic}
+    \Function{DoEpisode}{}
+    \For{$t \gets 1$ to $n$}
+    \For{each ant $k$}
+    \State choose next city $a_t^k \in A_{s_t^k}$
+    \Comment according to Equation (\ref{eq:action-choice-rule})
+    \State $\Ep_k(t) \gets (s_t^k, a_t^k)$
+    \Comment record ants action choice
+    \EndFor
+    \For{each ant $k$}
+    \State update $\AQ(s_t^k, a_t^k)$
+    \Comment according to Equation (\ref{eq:aq-update}), note $\DAQ = 0$
+    \State $s_{t+1} \gets a_t^k$
+    \Comment sets the state of the ant for the next step
+    \EndFor
+    \EndFor
+    \EndFunction
+\end{algorithmic}
+\begin{algorithmic}
+    \Function{Update}{}
+    \For{each ant $k$}
+    \State $L_k \gets \text{length of $k$'s tour}$
+    \EndFor
+    \For{$s \in S$}
+    \For{$a \in A_s$}
+    \State compute $\DAQ(r, s)$
+    \Comment this is done dependent on the variant
+    \EndFor
+    \EndFor
+    \State update $\AQ$ values
+    \Comment according to Equation (\ref{eq:aq-update}), note $\DAQ \neq 0$
+    \EndFunction
+\end{algorithmic}
+\begin{algorithmic}
+    \Function{Ant-Q}{}
+    \While{not endCondition}
+    \State \Call{Initialise}{}
+    \State \Call{DoEpisode}{}
+    \State \Call{Update}{}
+    \EndWhile
+    \EndFunction
+\end{algorithmic}

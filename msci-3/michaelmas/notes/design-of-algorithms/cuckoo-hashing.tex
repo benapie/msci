@@ -1,0 +1,96 @@
+\documentclass[a4paper]{article}
+\input{../preamble-standalone.tex}
+\begin{document}
+
+\title{Cuckoo Hashing}
+\maketitle
+
+We may use linked lists to inefficiently implement a \emph{dictionary}.
+A less inefficient implementation may use balanced search trees.
+Here, we will introduce two implementations based on \emph{hashing}.
+We will use the following assumptions:
+\begin{enumerate}
+	\item all stored items have the same size and can be compared in constant
+	time;
+	\item the set of items to store $S$ is finite (say, bounded by $n$); and
+	\item we have access to two uniform hash functions
+	$h_1, h_2: S \to \{1, \ldots r\}$ for some $r \geq n$.
+\end{enumerate}
+
+\section{Hashing with chaining}
+
+Idea: determine the location an item is stored using a hash function.
+
+\begin{center}
+	\begin{tikzcd}[column sep=1.4em,row sep=1.4em]
+		\fbox{1} \arrow[d] & \fbox{2} & \fbox{3} \arrow[d] & \fbox{4} \arrow[d] 
+		& \fbox{5} & \fbox{6} \arrow[d] & \fbox{7} & \fbox{8} \arrow[d] \\
+		\fbox A \arrow[d] & & \fbox P & \fbox J \arrow[d] & & \fbox Q & 
+		& \fbox D \arrow[d] \\
+		\fbox H & & & \fbox B \arrow[d] & & & & \fbox W \\
+ 		& & & \fbox M & & & &            
+	\end{tikzcd}
+\end{center}
+
+We store our data in an array of size $r$.
+At each data location $a \in \{1, \ldots, r\}$ in our array, 
+we store a data structure holding the \emph{bucket}
+$S_a = \{x \in S: h_1(x) = a\}$.
+The efficiency of this data structure is not relevant (as collision aren't
+likely), so we use a linked list.
+
+From our assumptions of our hash functions, we see that any operation on an
+item $x \in S$ depends on the time to complete the operation on $S_a$
+(as a linked list).
+Now, the expected number of items in a given bucket is $n \times \frac 1r$; thus, all our operations are constant.
+
+\section{Cuckoo hashing}
+
+In Cuckoo hashing, each item has two possible position that it may
+be stored in, corresponding to the values of $h_1$ and $h_2$.
+When inserting an item $x \in S$, if $h_1(x)$ is occupied, say by $y \in S$,
+then $y$ is removed from position $h_1(x)$ and $x$ is inserted,
+then $y$ is inserted into the the alternative position of $y$ (which may not be $h_1(y)$ if $y$ has already been moved) using the same insertion protocol. 
+This is repeated until a vacant position is found, or a loop is discovered.
+In the latter case, we rehash the data structure and reinsert.
+
+Follow is what we call a \emph{cuckoo graph}:
+it shows where values are stored and where their alternative positions are.
+
+\begin{center}
+	\begin{tikzcd}[column sep=1em,row sep=1em]
+		\fbox A \arrow[rrr, bend left] & \fbox C \arrow[r, bend right] 
+		& \fbox{$\cdot$} & \fbox B \arrow[rrrrr, bend right] 
+		& \fbox H \arrow[rrr, bend right] & \fbox P \arrow[rrr, bend left] 
+		& \fbox{$\cdot$} & \fbox W \arrow[lll, bend right] & \fbox{$\cdot$} 
+		& \fbox{$\cdot$}
+	\end{tikzcd}
+\end{center}
+
+It can be shown that the expected insertion time (in absence of a rehash)
+is constant.
+We can see that rehashing is expensive, but it is not an issue as
+it occurs infrequently; that is, for $\Theta(n)$ elements, the
+expected number of rehashes is $O(1)$.
+We claim the time for a rehash is $O(n)$, so the expected time for all
+rehashes is $O(n)$.
+Thus, the \emph{amortised} cost of rehashing is constant.
+
+Infact, we can show:
+\begin{enumerate}
+	\item look-up runs in $O(1)$ worst-case;
+	\item deletion runs in $O(1)$ worst-case; and
+	\item insertion runs in $O(1)$ expected (amortised).
+\end{enumerate}
+
+The applicablility of cuckoo hashing disappears for situations where
+having to rehash at a random time becomes infeasible. 
+We can make Cuckoo hashing more reliable by using using a part of memory
+of size $m \in \N$.
+If we obtain an element that cannot be added to the list (without causing
+a rehash) then we put it in the stash.
+This infact lowers the \emph{rehash rate} from $O\left( \sfrac1n \right)$
+to $O\left( \sfrac1{n^{m+1}} \right)$.
+
+
+\end{document}

@@ -1,0 +1,406 @@
+\section{Persistent homology library}
+
+The following is an abstract base class, for which our persistent homology implements inherit and implement. We also have defined here data classes for persistence points and persistence diagrams.
+
+\begin{minted}{python}
+@dataclass(frozen=True)
+class PersPoint:
+    born_index: int
+    die_index: int
+    born: float
+    die: float
+    dim: int
+
+
+class PersDiag:
+    __points: Dict[int, Counter[PersPoint]]
+    __point_count: int
+
+    def __init__(self):
+        self.__points = dict()
+        self.__point_count = 0
+
+    def __repr__(self) -> str:
+        return f"PersDiag with {self.__point_count} points"
+
+    def __eq__(self, other: PersDiag):
+        if self.__point_count != other.__point_count:
+            return False
+        if self.__points.keys() != other.__points.keys():
+            return False
+        for key in self.__points.keys():
+            if self.__points[key] != other.__points[key]:
+                return False
+        return True
+
+    @property
+    def points(self) -> Generator[PersPoint, None, None]:
+        for p_pers_points in self.__points.values():
+            for p_pers_point in p_pers_points:
+                yield p_pers_point
+
+    def p_points(self, p: int) -> Generator[PersPoint, None, None]:
+        if p not in self.__points:
+            return
+        for pers_point in self.__points[p]:
+            yield pers_point
+
+    def add_point(self, point: PersPoint) -> None:
+        if point.dim not in self.__points:
+            self.__points[point.dim] = collections.Counter()
+        self.__points[point.dim][point] += 1
+        self.__point_count += 1
+
+
+class PersHomBase(ABC):
+    _pers_diag: PersDiag | None
+
+    def __init__(self):
+        self._pers_diag = None
+
+    @abstractmethod
+    def compute(self) -> None:
+        pass
+
+    def get_pers_diag(self) -> PersDiag:
+        assert self._pers_diag is not None, 
+            "It seems like that the persistent diagram has not been constructed."
+        return self._pers_diag
+\end{minted}
+
+\subsection{Standard algorithm}
+
+The following implements the standard algorithm, \textsc{S}. 
+
+\begin{minted}{python}
+class PersHom1(PersHomBase):
+    __simplex_ordering: List[Simplex]
+    __simplex_count: int
+    __weights: List[float]
+    __boundary_matrix: np.ndarray
+    __working_matrix: np.ndarray | None
+
+    def __init__(self, filtered_complex: FilteredSimplicialComplex):
+        super().__init__()
+        self.__simplex_ordering = filtered_complex.get_simplex_ordering()
+        self.__simplex_to_order = dict()
+        for i, simplex in enumerate(self.__simplex_ordering):
+            self.__simplex_to_order[simplex] = i
+        self.__simplex_count = len(self.__simplex_ordering)
+        self.__weights = filtered_complex.get_weight_ordering()
+        self.__boundary_matrix = np.zeros((len(self.__simplex_ordering), 
+            len(self.__simplex_ordering)))
+        for i, simplex in enumerate(self.__simplex_ordering):
+            for facet in simplex.facets:
+                if facet not in self.__simplex_to_order:
+                    if facet.dim != -1:
+                        raise Exception()
+                    continue
+                j = self.__simplex_to_order[facet]
+                self.__boundary_matrix[j][i] = 1
+        self.__working_matrix = None
+
+    def __get_last_in_col(self, i: int) -> int | None:
+        if np.all(self.__working_matrix[:, i] == 0):
+            return None
+        return max(j for j, val in enumerate(self.__working_matrix[:, i]) if val == 1)
+
+    def __add_col(self, i: int, j: int) -> None:
+        """
+        R_i <- R_i + R_j
+        """
+        assert i < self.__simplex_count and j < self.__simplex_count, 
+            "Column index out of range."
+        assert self.__working_matrix is not None, "Working matrix is not initialised."
+        self.__working_matrix[:, i] = np.mod(
+            self.__working_matrix[:, i] + self.__working_matrix[:, j], 2)
+
+    def compute(self) -> None:
+        low: Dict[int, int] = dict()
+        self.__working_matrix = self.__boundary_matrix.copy()
+
+        for i in range(self.__simplex_count):
+            last_in_col = self.__get_last_in_col(i)
+            if last_in_col is None:
+                continue
+            if last_in_col not in low:
+                low[last_in_col] = i
+                continue
+            while last_in_col in low and last_in_col is not None:
+                competing_col = low[last_in_col]
+                self.__add_col(i, competing_col)
+                last_in_col = self.__get_last_in_col(i)
+            if last_in_col is not None:
+                low[last_in_col] = i
+
+        self._pers_diag = PersDiag()
+        for row, col in low.items():
+            pers_point = PersPoint(
+                born_index=row,
+                die_index=col,
+                born=self.__weights[row],
+                die=self.__weights[col],
+                dim=self.__simplex_ordering[row].dim
+            )
+            self._pers_diag.add_point(pers_point)
+
+\end{minted}
+
+\subsection{Sparse matrix implementation}
+
+The following implements the sparse matrix algorithm, \textsc{SS}.
+
+\begin{minted}{python}
+class PersHom2(PersHomBase):
+    """
+    Implements the standard persistent homology algorithm, with no speed-ups.
+    """
+    __simplex_ordering: List[Simplex]
+    __simplex_count: int
+    __weights: List[float]
+    __boundary_matrix: List[Set[int]]
+    __working_matrix: List[Set[int]] | None
+
+    def __init__(self, filtered_complex: FilteredSimplicialComplex):
+        super().__init__()
+        self.__simplex_ordering = filtered_complex.get_simplex_ordering()
+        self.__simplex_to_order = dict()
+        for i, simplex in enumerate(self.__simplex_ordering):
+            self.__simplex_to_order[simplex] = i
+        self.__simplex_count = len(self.__simplex_ordering)
+        self.__weights = filtered_complex.get_weight_ordering()
+        self.__boundary_matrix = []
+        for i, simplex in enumerate(self.__simplex_ordering):
+            self.__boundary_matrix.append(set())
+            for facet in simplex.facets:
+                if facet not in self.__simplex_to_order:
+                    if facet.dim != -1:
+                        raise Exception()
+                    continue
+                j = self.__simplex_to_order[facet]
+                self.__boundary_matrix[i].add(j)
+        self.__working_matrix = None
+
+    def __get_last_in_col(self, i: int) -> int | None:
+        if not self.__working_matrix[i]:
+            return None
+        return max(j for j in self.__working_matrix[i])
+
+    def __add_col(self, i: int, j: int) -> None:
+        """
+        R_i <- R_i + R_j
+        """
+        for k in self.__working_matrix[j]:
+            if k not in self.__working_matrix[i]:
+                self.__working_matrix[i].add(k)
+                continue
+            self.__working_matrix[i].remove(k)
+
+    def compute(self) -> None:
+        low: Dict[int, int] = dict()
+        self.__working_matrix = list()
+        for i in self.__boundary_matrix:
+            self.__working_matrix.append(i.copy())
+
+        for i in range(self.__simplex_count):
+            last_in_col = self.__get_last_in_col(i)
+            while last_in_col in low and last_in_col is not None:
+                competing_col = low[last_in_col]
+                self.__add_col(i, competing_col)
+                last_in_col = self.__get_last_in_col(i)
+            if last_in_col is not None:
+                low[last_in_col] = i
+
+        self._pers_diag = PersDiag()
+        for row, col in low.items():
+            pers_point = PersPoint(
+                born_index=row,
+                die_index=col,
+                born=self.__weights[row],
+                die=self.__weights[col],
+                dim=self.__simplex_ordering[row].dim
+            )
+            self._pers_diag.add_point(pers_point)
+\end{minted}
+
+\subsection{Reduction by killing}
+
+The following implements the reduction by killing algorithm, \textsc{SSR}.
+
+\begin{minted}{python}
+class PersHom3(PersHomBase):
+    __simplex_ordering: List[Simplex]
+    __simplex_to_order: Dict[Simplex, int]
+    __simplex_count: int
+    __dim: int
+    __weights: List[float]
+    __boundary_matrix: List[Set[int]]
+    __working_matrix: List[Set[int]] | None
+
+    def __init__(self, filtered_complex: FilteredSimplicialComplex):
+        super().__init__()
+        self.__simplex_ordering = filtered_complex.get_simplex_ordering()
+        self.__simplex_to_order = dict()
+        for i, simplex in enumerate(self.__simplex_ordering):
+            self.__simplex_to_order[simplex] = i
+        self.__simplex_count = len(self.__simplex_ordering)
+        self.__dim = filtered_complex.dim
+        self.__weights = filtered_complex.get_weight_ordering()
+        self.__boundary_matrix = []
+        for i, simplex in enumerate(self.__simplex_ordering):
+            self.__boundary_matrix.append(set())
+            for facet in simplex.facets:
+                if facet not in self.__simplex_to_order:
+                    if facet.dim != -1:
+                        raise Exception()
+                    continue
+                j = self.__simplex_to_order[facet]
+                self.__boundary_matrix[i].add(j)
+        self.__working_matrix = None
+
+    def __get_last_in_col(self, i: int) -> int | None:
+        if not self.__working_matrix[i]:
+            return None
+        return max(j for j in self.__working_matrix[i])
+
+    def __add_col(self, i: int, j: int) -> None:
+        """
+        R_i <- R_i + R_j
+        """
+        for k in self.__working_matrix[j]:
+            if k not in self.__working_matrix[i]:
+                self.__working_matrix[i].add(k)
+                continue
+            self.__working_matrix[i].remove(k)
+
+    def compute(self) -> None:
+        low: Dict[int, int] = dict()
+        self.__working_matrix = list()
+        for i in self.__boundary_matrix:
+            self.__working_matrix.append(i.copy())
+
+        for dim in range(self.__dim, -1, -1):
+            for i in range(self.__simplex_count):
+                if self.__simplex_ordering[i].dim == dim:
+                    last_in_col = self.__get_last_in_col(i)
+                    while last_in_col in low and last_in_col is not None:
+                        competing_col = low[last_in_col]
+                        self.__add_col(i, competing_col)
+                        last_in_col = self.__get_last_in_col(i)
+                    if last_in_col is not None:
+                        low[last_in_col] = i
+                        self.__working_matrix[last_in_col] = set()
+
+        self._pers_diag = PersDiag()
+        for row, col in low.items():
+            pers_point = PersPoint(
+                born_index=row,
+                die_index=col,
+                born=self.__weights[row],
+                die=self.__weights[col],
+                dim=self.__simplex_ordering[row].dim
+            )
+            self._pers_diag.add_point(pers_point)
+\end{minted}
+
+\subsection{Reducing the coboundary matrix}
+
+The following implements the persistent cohomology algorithm, \textsc{SSRCoh}.
+
+\begin{minted}{python}
+class PersHom4(PersHomBase):
+    __simplex_ordering: List[Simplex]
+    __simplex_to_order: Dict[Simplex, int]
+    __simplex_count: int
+    __dim: int
+    __weights: List[float]
+    __boundary_matrix: List[Set[int]]
+    __working_matrix: List[Set[int]] | None
+
+    def __init__(self, filtered_complex: FilteredSimplicialComplex):
+        super().__init__()
+        self.__simplex_ordering = filtered_complex.get_simplex_ordering()
+        self.__simplex_to_order = dict()
+        for i, simplex in enumerate(self.__simplex_ordering):
+            self.__simplex_to_order[simplex] = i
+        self.__simplex_count = len(self.__simplex_ordering)
+        self.__dim = filtered_complex.dim
+        self.__weights = filtered_complex.get_weight_ordering()
+        self.__boundary_matrix = []
+        for i, simplex in enumerate(self.__simplex_ordering):
+            self.__boundary_matrix.append(set())
+            for facet in simplex.facets:
+                if facet not in self.__simplex_to_order:
+                    if facet.dim != -1:
+                        raise Exception()
+                    continue
+                j = self.__simplex_to_order[facet]
+                self.__boundary_matrix[i].add(j)
+        self.__coboundary_matrix = list()
+        for i in range(self.__simplex_count):
+            self.__coboundary_matrix.append(set())
+        for col_i, row_is in enumerate(self.__boundary_matrix):
+            for row_i in row_is:
+                self.__coboundary_matrix[self.__simplex_count - 1 - row_i] \
+                    .add(self.__simplex_count - 1 - col_i)
+        self.__working_matrix = None
+
+    def __get_last_in_col(self, i: int) -> int | None:
+        if not self.__working_matrix[i]:
+            return None
+        return max(j for j in self.__working_matrix[i])
+
+    def __add_col(self, i: int, j: int) -> None:
+        """
+        R_i <- R_i + R_j
+        """
+        for k in self.__working_matrix[j]:
+            if k not in self.__working_matrix[i]:
+                self.__working_matrix[i].add(k)
+                continue
+            self.__working_matrix[i].remove(k)
+
+    def compute(self) -> None:
+        low: Dict[int, List[int]] = dict()
+        self.__working_matrix = list()
+        cocycles = []
+        marked = set()
+        for i in range(self.__simplex_count):
+            cocycles.append({i})
+
+        self._pers_diag = PersDiag()
+
+        for i in range(self.__simplex_count - 1, -1, -1):
+            indices = set()
+            for j in self.__boundary_matrix[self.__simplex_count - 1 - i]:
+                j_index = self.__simplex_count - 1 - j
+                if j_index in marked:
+                    continue
+                for k in cocycles[j_index]:
+                    if k in indices:
+                        indices.remove(k)
+                        continue
+                    indices.add(k)
+            if not indices:
+                continue
+            marked.add(i)
+            p = min(indices)
+            marked.add(p)
+
+            # print(cocycles)
+            row_i = self.__simplex_count - 1 - p
+            col_i = self.__simplex_count - 1 - i
+            pers_point = PersPoint(
+                born_index=row_i,
+                die_index=col_i,
+                born=self.__weights[row_i],
+                die=self.__weights[col_i],
+                dim=self.__simplex_ordering[row_i].dim
+            )
+            self._pers_diag.add_point(pers_point)
+
+            for j in indices:
+                if j == p:
+                    continue
+                cocycles[j].add(p)
+\end{minted}

@@ -1,0 +1,53 @@
+
+\section{Theory}
+
+We first discuss some intuition about persistent homology, in effort to motivate a following definition, and a (more traditional) alternative definition. Consider a filtration of some simplicial complex. Persistent homology aims to describe how \emph{features} (homology classes) are \emph{born} at a certain part of the filtration, and then \emph{die} at a later date (this terminology will be shortly formalised).
+
+Consider a filtration $\{K_i\}_{i=0}^n$ of some simplicial complex $K$. For each $i \leq j$, we have an inclusion map $\iota_{i,j}: K_i \xhookrightarrow{} K_j$ from which we form an induced homomorphism on the homology groups $f_p^{i,j}: H_p(K_i) \to H_p(K_j)$, $[c] \mapsto [\iota_{i,j}(c)]$ for each $p \in \Z_{\geq 0}$. Thus the filtration corresponds to a sequence of homology groups as follows. 
+
+\begin{center}
+  % https://tikzcd.yichuanshen.de/#N4Igdg9gJgpgziAXAbVABwnAlgFyxMJZABgBpiBdUkANwEMAbAVxiRAAkB9NACgGlOxAJQgAvqXSZc+QigCM5KrUYs2XXgLkjxk7HgJEATIur1mrRCAA6VhlAg4EOkBj0yiAZhPLza7v04wbSUYKABzeCJQADMAJwgAWyQyEBwIJAUfVUto7gA9YDI5UTEJEDjEjOo0pGMsi3L84AVDEucKpMQ6msQverZctAKwAFoFMDaKUSA
+  \begin{tikzcd}
+    H_p(K_0) \arrow[r, "{f_p^{0,1}}"] & H_p(K_1) \arrow[r, "{f_p^{1,2}}"] & \ldots \arrow[r, "{f_p^{n-1,n}}"] & H_p(K_n)
+  \end{tikzcd}
+\end{center}
+
+As we move from $K_i$ to $K_{i+1}$, we may gain new homology classes, and we may also lose classes as they become trivial or merge with others. 
+
+\begin{definition}[Persistent homology]
+  Let $\{K_i\}_{i=0}^n$ be a filtration of some simplicial complex $K$. For $p \in \Z_{\geq0}$ and $i,j \in \Z_{\geq 0}$ with $i \leq j$, we define the \emph{$p$th persistent homology} as
+  \[H_p^{i,j}(K)=\frac{Z_p(K_i)}{Z_p(K_i) \cap B_p(K_j)}.\]
+\end{definition}
+
+That is, the cycles of $K_i$ that modulo the boundaries of $K_j$ (sans any boundaries that are not cycles of $K_i$). This definition is easier to accept, but the following is the more traditional definition and is easier to get around with.
+
+\begin{definition}[Persistent homology, alt.]
+  Let $\{K_n\}_{i=0}^n$ be a filtration of some simplicial complex $K$. Let $f_p^{i,j}: H_p(K_i) \to H_p(K_j)$ be the homomorphism on homology groups induced by the inclusion map $K_i \xhookrightarrow{} K_j$ as previously discussed. We define the \emph{$p$th persistent homology} as the image of this homomorphism, $H_p^{i,j}(K)=\im f_p^{i,j}$.
+\end{definition}
+
+The \emph{$p$th persistent Betti numbers} are defined as one may expect: $\beta_p^{i,j}$ is the rank of the corresponding $p$th persistent homology group. Now that we have some formal groundwork, we will introduce some terminology. Let $\{K_i\}_{i=0}^n$ be some filtration of a simplicial complex $K$, let $p \in \Z_{\geq 0}$, and let $i, j \in \Z_{\geq 0}$ with $i \leq j$.
+
+\begin{itemize}
+  \item Let $p \in \Z_{\geq 0}$. A \emph{$p$-hole} is another word for a $p$-dimensional homology class; that is, $[c] \in H_p(K)$.
+  \item A $p$-hole $[c]$ is \emph{born} at $K_i$ if $[c] \in H_p(K_i)=H_p^{i,i}(K)$ but $[c] \not\in H_p^{i-1,i}(K)$.
+  \item A $p$-hole $[c]$ that is born at $K_i$ \emph{dies entering} $K_j$ if it merges with an older class from $K_{j-1}$ to $K_j$; that is, $f_p^{i,j-1} ([c]) \not\in H_p^{i-1,j-1}(K)$ but $f_p^{i,j}([c]) \in H_p^{i-1,j}(K)$.
+  \item Suppose $[c]$ is a $p$-hole that is born at $K_i$ and dies entering $K_j$. The \emph{index persistence} of $[c]$ is $\ipers([c]) = j - i$.
+  \item Denote $\mu_p^{i,j}$ as the number of $p$-holes that are born at $K_i$ and dies entering $K_j$; that is, $\mu_p^{i,j} = (\beta_p^{i,j-1} - \beta_p^{i,j}) - (\beta_p^{i-1,j-1} - \beta_p^{i-1,j})$.
+\end{itemize}
+
+We move to visualise persistent Betti numbers in $\R^2$, but to do so we need the following property.
+
+\begin{lemma}
+  Let $\{K_i\}_{i=0}^n$ be a filtration of some simplicial complex $K$. For each $i, j \in \{0, 1, \ldots, n\}$ with $i \leq j$ and $p \in \Z_{\geq 0}$ we have
+  \[\beta^{i,j}_p = \sum_{k \in \{0, \ldots, i\}} \sum_{l \in \{j+1, \ldots, n\}} \mu_p^{k,l}.\]
+\end{lemma}
+
+This fits with our intuition, $\beta_p^{i,j}$ is the number of $p$-holes that are alive from $K_i$ to $K_j$; that is, the number of $p$-holes that are born at $K_i$ or earlier, and die entering $K_{j+1}$ or later. 
+
+Up to now, we have only needed a simplicial complex with a filtration defined upon it, but to continue with our visualisation of persistent Betti numbers, we need more. Let $f: K \to \R$ be some map defined on a simplicial complex $K$ such that $f$ is non-decreasing on increasing sequences of faces (that is, if $\sigma \subset \tau \in K \implies f(\sigma) \leq f(\tau)$). Then we let $\{K_i\}_{i=0}^n$ be the induced filtration of $K$ such that $K_0 = \varnothing$, $K_n = K$, and for each $i \in \{1, \ldots, n-1\}$: $K_i = f^{-1}(-\infty, a]$ for some $a \in \R$. 
+
+Now, we let $\{a_i\}_{i=0}^n$ be such that $K_i = f^{-1}(-\infty, a_i]$. Suppose $[c]$ is a $p$-hole that is born at $K_i$ and dies entering $K_j$. The \emph{persistence} of $[c]$ is $\pers([c]) = a_j - a_i$.
+
+We define the \emph{$p$th persistence diagram} of $f$ as the multiset
+\[ \dgm{\hspace{-0.15em}}_p(f) = \{(a_i, a_j)^{\mu_p^{i,j}}: \mu_p^{i,j} > 0, 0 \leq i < j \leq n\}, \]
+where $(a_i, a_j)^{\mu_p^{i,j}}$ denotes the element $(a_i, a_j)$ with multiplicity $\mu_p^{i,j}$. We observe that $\mu_p^{i,i} = 0$. 

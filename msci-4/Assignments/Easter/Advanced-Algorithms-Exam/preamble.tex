@@ -1,0 +1,38 @@
+\newlength{\alphabet}
+\settowidth{\alphabet}{\normalfont abcdefghijklmnopqrstuvwxyz}
+\usepackage{geometry}
+\geometry{textwidth=3\alphabet}
+\usepackage{mathtools, amssymb}
+\marksnotpoints
+
+\usepackage{todonotes}
+
+\usepackage{tikz}
+\tikzset{main/.style = {draw, circle}, node distance={15mm}}
+\usepackage{complexity}
+
+%======================%
+%    Theorems          %
+%======================%
+\usepackage{amsthm}
+\theoremstyle{plain}
+\newtheorem*{lemma}{Lemma}
+\newtheorem*{corollary}{Corollary}
+\newtheorem*{theorem}{Theorem}
+\newtheorem*{proposition}{Proposition}
+
+
+\theoremstyle{definition}
+\newtheorem*{definition}{Definition}
+\newtheorem*{problem}{Problem}
+
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+
+\DeclareMathOperator{\adj}{adj}
+\DeclareMathOperator{\MSO}{MSO_2}
+\DeclareMathOperator{\tw}{tw}
+\DeclareMathOperator{\cw}{cw}
+\DeclareMathOperator{\I}{I}
+\renewcommand{\P}{\mathoperator P}
+\newcommand{\sunlet}{\ensuremath{\text{sunlet}_6}}

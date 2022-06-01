@@ -1,0 +1,29 @@
+\chapter{Introduction and pseudocode}
+
+There is no precise definition of an algorithm that is agreed upon by everyone, however, for this course we will use the following definition.
+
+\begin{definition}
+    An \textbf{algorithm} is a method or a process followed to solve a problem. An algorithm must meet the following criteria:
+    \begin{enumerate}
+        \item correctness, that is, it solves the problem it is designed for;
+        \item composed of concrete unambiguous steps;
+        \item the number of steps must be finite; and
+        \item must terminate.
+    \end{enumerate}
+\end{definition}
+
+Algorithms will execute steps on data, so in order to use algorithms effectively we need concrete definitions on how are data will be organised.
+
+\begin{definition}
+    A \textbf{data structure} is a particular way of storing and organising data in a computer such that it can be used efficiently.
+\end{definition}
+
+We study data structures and algorithms to be able to solve problems efficiently: making the best use of resources such as space and time. Our choice in data structure or algorithm can make the difference between a program running in a few seconds or many days.
+
+\begin{definition}
+    A \textbf{random-access machine} (RAM) is a simple \textbf{model of computation}. Its memory consists of an infinite number of registers and each instruction is executed sequentially (one at a time). Each instruction take unit time, therefore, the running time is the number of instruction executed.
+\end{definition}
+
+Using the definition of a random-access machine, we can analyse algorithm and see how efficient they are on instructions and memory usage.
+
+A basic knowledge of Python is going to be assumed in these notes as it would take me a long time to type out the definitions of variables, operations, if-statements, etc. All pseudocode in these notes will just be in Python syntax.\footnote{Just because I use Python syntax does not mean that every code example will run; I may omit certain lines of code (that are unneeded for understanding) to save time.}

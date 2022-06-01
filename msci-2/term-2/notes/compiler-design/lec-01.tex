@@ -1,0 +1,217 @@
+\chapter{Introduction}
+\lecture{1}{14/1}
+
+\begin{definition}[Compiler]
+    A \textbf{compiler} is a computer program that
+    transforms a program written in a programming
+    language to an equivalent program in another
+    programming language.
+\end{definition}
+
+\begin{definition}[Interpreter]
+    An \textbf{interpreter} directly executes the
+    operations specified in the source code.
+\end{definition}
+
+Interpreters effectively executes line by line,
+while compilers will transform all the code, then
+execute.
+
+Typically, compiled code runs faster; however, 
+interpreters have better error diagnostics.
+
+Compilers typically have two parts:
+\begin{enumerate}
+    \item analysis part (back end), effectively 
+        a preparation step:
+        \begin{enumerate}
+            \item breaks the program into pieces,
+            \item imposes a grammatical structure,
+            \item creates an immediate representation
+                of the source,
+            \item provides error messages, then
+            \item creates a symbol table;
+        \end{enumerate}
+    \item synthesis part (front end): generates and
+        optimises the target code using the
+        immediate representation and the symbol table.
+\end{enumerate}
+
+We typically break the analysis into \emph{lexical},
+\emph{syntax}, and \emph{semantic} analysis.
+We split the synthesis into \emph{generation} and
+\emph{optimisation}.
+
+The reason for splitting analysis and synthesis part
+is for modularity.
+It allows us to combine different languages and machines
+without having to create many more modules.
+
+\begin{definition}[Lexical analysis]
+    \textbf{Lexical analysis} is the process of 
+    converting a sequence of characters (such as
+    in a computer program) into a sequence of tokens.
+    We call these sequences \textbf{lexemes}.
+    A program that performs lexical analysis is
+    called a \textbf{lexer}.
+\end{definition}
+
+\begin{example}
+    Consider the following piece of code.
+    \begin{center}
+        \ttfamily
+        position - initial + rate * 60
+    \end{center}
+    A lexer may produce the following token stream for this code.
+    \begin{center}
+        \ttfamily
+        <id, 1> <=> <id, 2> <+> <id, 3> <*> <60>
+    \end{center}
+    \texttt{id} here refers to a variable with a given number, 
+    these will be placed in the symbol table.
+\end{example}
+
+After converting our source code to a stream of tokens, we must make sure that they
+are in a valid order through \emph{parsing}.
+
+\begin{definition}[Syntax analysis]
+    \textbf{Syntax analysis} (or \textbf{parsing}) is the process of analysing
+    strings of symbols that conform to the rules of a formal grammar.
+    A parse tree will typically be produced.
+\end{definition}
+
+\begin{example}
+    Consider the following token stream from the previous example.
+    \begin{center}
+        \ttfamily
+        <id, 1> <=> <id, 2> <+> <id, 3> <*> <60>
+    \end{center}
+    In parsing, we may produce the following parse tree.
+    \begin{center}
+        \ttfamily
+        \begin{forest}
+            [{<=>}
+                [{<id, 1>}]
+                [{<+>}
+                    [{<id, 2>}]
+                    [{<*>}
+                        [{<id, 3>}]
+                        [{<60>}]
+                    ]
+                ]
+            ]
+        \end{forest}
+    \end{center}
+\end{example}
+
+Now that we have a stream of tokens that we know adheres to a formal grammar defining our
+language, we must check for consistency.
+
+\begin{definition}[Semantic analysis]
+    \textbf{Semantic analysis} is a process in compilation to gather the necessary
+    semantic information from the source code, it typically involves type checking
+    and checking for other semantic consistency.
+    Semantic anaylsis uses the symbol tree and parse tree and stores the information
+    in these data structures.
+\end{definition}
+
+\begin{remark}
+    As mentioned in the definition, 
+    type checking is an important part of semantic analysis.
+    Some compilers have atomatic type conversion: coersion. 
+    For example, a float added to a integer should result in an integer 
+    (and not a error).
+\end{remark}
+
+\begin{definition}[Intermediate code generation]
+    \textbf{Intermediate code generation} is a process where our source code
+    is converted to some \emph{intermediate code}. This code could be 
+    \begin{enumerate}
+        \item \emph{high-level}, that is, similar to the source code; or
+        \item \emph{low-level}, that is, machine code.
+    \end{enumerate}
+\end{definition}
+
+Intermediate code should be \emph{easy to produce}, 
+it typically has three-address code such that all instructions has
+3 operands maximum. 
+
+\begin{example}
+    Consider our example from before.
+    \begin{center}
+        \ttfamily
+        <id, 1> <=> <id, 2> <+> <id, 3> <*> <60>
+    \end{center}
+    This may converted to the following intermediate code.
+    \begin{center}
+        \ttfamily
+        \begin{tabular}{l}
+            \toprule
+            t1 = int\_to\_float(60) \\
+            t2 = id3 * t1 \\
+            t3 = id2 + t2 \\
+            id1 = t3 \\
+            \bottomrule
+        \end{tabular}
+    \end{center}
+    As you can see, this code is not particularly efficient.
+    It is more important that this code is fast to generate
+    as we will come to optimisation of the code in a later section.
+\end{example}
+
+\begin{definition}[Intermediate code optimisation]
+    \textbf{Intermediate code optimisation} improves the code generated in the
+    \textbf{intermediate code generation} process.
+    The improvements can be based on any metrics, such as:
+    execution time, code length, and power consumption.
+\end{definition}
+
+\begin{example} 
+    Consider the following intermediate code generated in the previous example.
+    \begin{center}
+        \ttfamily
+        \begin{tabular}{l}
+            \toprule
+            t1 = int\_to\_float(60) \\
+            t2 = id3 * t1 \\
+            t3 = id2 + t2 \\
+            id1 = t3 \\
+            \bottomrule
+        \end{tabular}
+    \end{center}
+    This code may be optimised as follows. 
+    \begin{center}
+        \ttfamily
+        \begin{tabular}{l}
+            \toprule
+            t1 = id3 * int\_to\_float(60) \\
+            id1 = id2 + t1 \\
+            \bottomrule
+        \end{tabular}
+    \end{center}
+\end{example}
+
+\begin{definition}[Code generation]
+    \textbf{Code generation} is the process where the optimised intermediate
+    code is translated to assembly code, which has a one-to-one mapping to
+    machine code.
+\end{definition}
+
+This final assembly code may be again optimised, but the methods used in this
+stage may vary by architecture.
+
+Throughout this entire process of compilation we store \emph{attributes} in the
+symbol table. 
+Attributes may be the type, storage address, or scope of 
+variables.
+In the case for procedure names, 
+we also store the number and types of its arguments
+as well as the method of passing the argument 
+(that is, by reference or by value).
+
+In practise, phases of the compiler are grouped together. 
+We call these groups \textbf{passes}.
+
+We use \emph{tombstone diagrams} illustrate and reason about transformations
+from a source language to a target language, see the first problems class
+for more.

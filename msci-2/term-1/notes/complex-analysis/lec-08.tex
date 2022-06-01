@@ -1,0 +1,96 @@
+\lecture{8}{28/10}
+
+\begin{proof}[Continued proof for open sets]
+    \begin{description}
+        \item[$\impliedby$] Let $\varepsilon > 0$ and $U = B_\varepsilon(f(x)) \subset X_2$ (which we know exist as $U$ is open). Then we know that $f^{-1}(B_\varepsilon(f(x)))$ is open in $X_1$. Hence there exists $\delta > 0$ such that
+            \[ B_\delta(x) \subset f^{-1}(B_\varepsilon(f(x))) \]
+            and hence
+            \[ f(B_\delta(x)) \subset B_\varepsilon(f(x)); \]
+            and so $f$ is continuous at all $x \in X_1$.
+    \end{description}
+\end{proof}
+
+\begin{example}
+    Let $f: \R^2 \to \R$, where
+    \[ 
+        f(x, y) =
+        \begin{cases}
+            \frac{xy}{x^2 + y^2} & (x, y) \neq (0, 0) \\
+            0                    & \text{otherwise}.
+        \end{cases}
+        .
+    \]
+    Lets investigate the continuity of $f$. Consider the ball $B_{\frac12}(0)$. Then
+    \begin{align*}
+        f^{-1}(B_{\frac12}(0)) &= \left\{ (x, y) : \frac{xy}{x^2 + y^2} < \frac{1}{2}, (x, y) \neq (0, 0) \right\} \cup \{ (0, 0) \} \\
+        \frac{xy}{x^2 + y^2} &< \frac{1}{2} \\
+        (x - y)^2 &> 0 \\
+        x &\neq y;
+    \end{align*}
+    hence
+    \[ f^{-1}(B_{\frac12}(0)) = \{(x, y) : x \neq y\} \cup \{(0,0)\}\]
+    which is not open as for all $\varepsilon > 0$, there exists (infinite) points $(x, x) \in B_\varepsilon((0,0))$ such that $x \neq 0$.
+\end{example}
+
+\section{Compactness}
+
+\begin{definition}[Sequential compactness]
+    Let $(X, d)$ be a metric space. $K \subset X$ is \textbf{sequentially compact} if and only if any sequence $\{x_n\}_{n \in \N} \subset K$ has a subsequence $\{x_{n_k}\}_{k \in \N}$ which converges to a value $x \in K$.
+\end{definition}
+
+\begin{remark}
+    Compactness normally means that if $K \subset \bigcup_{i \in I} U_i$ where $U_i$ is open, then there exists a finite collection of these subsets $i_1, i_2, \ldots, i_n$ such that
+    \[ K \subset \bigcup_{j = 1}^n U_j. \]
+    We call this a finite subcover. The definition above is called sequential compactness; however, this is the same as compactness for metric spaces.
+\end{remark}
+
+\begin{lemma}[]
+    If $\{x_n\}_{n \in \N}$ is a convergent seqence in a metric space, any subsequence converges to the same limit.
+\end{lemma}
+
+\begin{proof}
+    The proof for this is identical to the proof from Analysis I (you are going to hear this a lot).
+\end{proof}
+
+\begin{proposition}[Closed sets via convergent sequence]
+    If $(X, d)$ is a metric space and $F \subset X$, then $F$ is closed if and only if
+    \[ \forall\; \{x_n\}_{n = 1}^\infty \subset F \;\text{with}\; x_n \to x \;\text{as}\; n \to \infty, \;\text{then}\; x \in F. \]
+\end{proposition}
+
+\begin{proof}
+    \begin{description}
+        \item[$\implies$] Assume that $F \subset X$ is closed and let $\{x_n\} \subset F$ and $x_n \to x$ as $n \to \infty$. Then $X \setminus F$ is open (by definition). Now suppose (for a contradiction) that $x \not \in F$. Now, as $X \setminus F$ is open there exists $\varepsilon > 0$ such that
+            \[ B_\varepsilon(x) \subset X \setminus F \]
+            for all $x \not \in F$; however, we have that $x_n \to x$ as $n \to \infty$ so 
+            \[ \;\forall\; \varepsilon > 0 \;\exists\; N \in \N \;\forall\; n \geq N: d(x_n, x) < \varepsilon \]
+            hence $x_n \in B_\varepsilon(x) \subset X \setminus F$ for all $n \geq N$ for some $N \in \N$; a contradiction (as required).
+
+        \item[$\impliedby$] Let $F \subset \C$ and that all convergent sequences contained with $F$ converge to a limit in $F$. We want to show that $F$ is closed, so we want to show that $X \setminus F$ is open. Assume for a contradiction that $X \setminus F$ is closed. Hence there exists $x \not \in F$ such that for all $\varepsilon < 0$
+            \[ B_\varepsilon(x) \not \subset X \setminus F. \]
+            In other words, $B_\varepsilon(x)$ intersects $F$ and so
+            \[ B_\varepsilon(x) \cap F \neq \emptyset. \]
+            For all $n \in \N$, we pick $x_n \in B_{\frac 1n}(x) \cap F$. Hence $\{x_n\}_{n \in N} \subset F$ and so $x_n \to x \in F$ as $n \to \infty$.
+    \end{description}
+\end{proof}
+
+\begin{corollary}
+    In a metric space $(X, d)$:
+    \begin{enumerate}
+        \item compact sets are closed; and
+        \item closed subsets of compact sets are compact.
+    \end{enumerate}
+\end{corollary}
+
+\begin{proof}
+    \begin{enumerate}
+        \item Let $K \subset X$ be compact. To show that $K$ is closed, we show that the convergent sequence $\{x_n\}_{n = 1}^{\infty} \subset K$ has a limit in $K$. As $K$ is compact, we know that there exists a subsequence $\{x_{n_k}\}_{k = 1}^{\infty}$ such that
+            \[ \lim_{k \to \infty} x_{n_k} = x \in K \]
+            and by an earlier lemma, we know that any convergent sequence in a metric space must converge to the same limit of any existing convergent subsequences.
+            
+        \item Let $K \subset X$ which is compact and $V \subset K$ which is closed. Let $\{ x_n \}_{n = 1}^{\infty} \subset V$, this is also contained within $K$ (clearly) so there exists $\{ x_{n_k}\}_{k = 1}^\infty$ which conerges to $x \in K$. As $\{x_n\}_{n = 1}^\infty \subset V$ and that $V$ is closed, then $x \in V$ and hence $V$ is compact.
+    \end{enumerate}
+\end{proof}
+
+\begin{remark}
+    Not all closed sets are compact! For example, in $\R$ we have $V = [0, \infty)$ with the sequence $x_n = n$ which has no convergent subsequence. Be need another notion to connect compactness and closedness.
+\end{remark}

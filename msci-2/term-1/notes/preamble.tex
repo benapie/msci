@@ -1,0 +1,160 @@
+% Basic packages
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[UKenglish]{babel}
+\usepackage{enumitem}
+\usepackage{graphicx}
+%\usepackage{showframe}
+
+% Clickable table of contents
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks,
+    citecolor=black,
+    filecolor=black,
+    linkcolor=black,
+    urlcolor=black
+}
+
+% For rendering vector images
+\usepackage{import}
+\usepackage{xifthen}
+\usepackage{pdfpages}
+\usepackage{transparent}
+\newcommand{\incfig}[2]{%
+    \def\svgwidth{#2}
+    \import{./images/}{#1.pdf_tex}
+}
+\usepackage{pgf,tikz,pgfplots}
+\pgfplotsset{compat=1.15}
+\usepackage{mathrsfs}
+\usetikzlibrary{arrows}
+
+% Pretty tables
+\usepackage{booktabs}
+\usepackage{caption}
+\captionsetup[table]{skip=10pt}
+
+% No paragraph indentations
+\usepackage{parskip}
+
+% Make enunerate look better
+\setlist[enumerate,1]{label={(\roman*)}} % changing default numbering scheme
+
+% Math packages
+\usepackage{amsmath, amsfonts, mathtools, amsthm, amssymb}
+\usepackage{xfrac}
+
+% CompSci packages
+\usepackage{algorithm, algpseudocode}
+\usepackage{listings}
+\lstset{
+    language=Python,
+    basicstyle=\small\ttfamily,
+    numbers=left,
+    numberstyle=\tiny,
+    frame=tb,
+    columns=fullflexible,
+    showstringspaces=false,
+    breaklines=true,
+    postbreak=\mbox{{$\hookrightarrow$}\space},
+}
+
+% Bold math
+\usepackage{bm}
+
+% Some shortcuts for sets
+\newcommand\N{\ensuremath{\mathbb{N}}}
+\newcommand\R{\ensuremath{\mathbb{R}}}
+\newcommand\Z{\ensuremath{\mathbb{Z}}}
+\newcommand\Q{\ensuremath{\mathbb{Q}}}
+\newcommand\C{\ensuremath{\mathbb{C}}}
+
+% Tikz & pgfplots
+\usepackage{tikz, pgfplots}
+\usetikzlibrary{decorations.markings, arrows.meta, angles, quotes}
+
+% Choose more favourable characters
+\let\implies\Rightarrow
+\let\impliedby\Leftarrow
+\let\iff\Longleftrightarrow
+\let\epsilon\varepsilon
+
+% Lets make matrices easier
+\newcommand\mat[4]{
+    \ensuremath{
+        \begin{pmatrix}
+            #1 & #2 \\
+            #3 & #4 \\
+        \end{pmatrix}
+    }
+}
+
+% SI units
+\usepackage{siunitx}
+
+% Algebra
+\DeclareMathOperator{\Ker}{Ker}
+\DeclareMathOperator{\im}{im}
+
+% Complex analysis
+\DeclareMathOperator{\Arg}{Arg}
+\DeclareMathOperator{\Log}{Log}
+\DeclareMathOperator{\GL}{GL}
+\DeclareMathOperator{\SL}{SL}
+\DeclareMathOperator{\SU}{SU}
+\DeclareMathOperator{\Aut}{Aut}
+\newcommand\norm[1]{\left\lVert#1\right\rVert}
+\newcommand\D{\ensuremath{\mathbb{D}}}
+\newcommand\abs[1]{\left\lvert#1\right\rvert}
+\let\H\relax
+\newcommand\H{\ensuremath{\mathbb{H}}}
+\DeclareMathOperator{\Mob}{Mob}
+
+% Analysis in many variables
+\DeclareMathOperator{\grad}{grad}
+\let\div\relax
+\DeclareMathOperator{\div}{div}
+\DeclareMathOperator{\curl}{curl}
+\DeclareMathOperator{\inte}{int} % interior
+\definecolor{skyblue}{rgb}{0.447,0.624,0.812}
+\definecolor{scarletred}{rgb}{0.937,0.161,0.161}
+\definecolor{chameleon}{rgb}{0.541,0.886,0.204}
+
+% Environments
+\usepackage{mdframed}
+\mdfsetup{skipabove=0em,
+          skipbelow=0.6em,
+          startcode=\leavevmode}
+\theoremstyle{definition}
+\newmdtheoremenv[nobreak=true]{definition}{Definition}[chapter]
+\newmdtheoremenv[nobreak=true]{theorem}[definition]{Theorem}
+\newmdtheoremenv[nobreak=true]{proposition}[definition]{Proposition}
+\newmdtheoremenv[nobreak=true]{corollary}[definition]{Corollary}
+\newmdtheoremenv[nobreak=true]{lemma}[definition]{Lemma}
+\newmdtheoremenv[nobreak=true]{problem}[definition]{Problem}
+\let\algorithm\relax
+\newmdtheoremenv[nobreak=true]{algorithm}[definition]{Algorithm}
+\newtheorem*{example}{Example}
+\newtheorem*{remark}{Remark}
+\newenvironment{solution}{\begin{proof}[Solution]}{\end{proof}}
+
+% Fancy header/title
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+
+\fancyhf{}
+
+\fancyhead[RO,LE]{\rightmark}
+\fancyhead[RE,LO]{}
+
+\fancyfoot[RO,LE]{\thepage}
+\fancyfoot[RE,LO]{\leftmark}
+%\fancyfoot[C]{\leftmark}
+\renewcommand{\footrulewidth}{1pt}
+
+% Lecture margin note
+\newcommand{\lecture}[2]{\marginpar{Lecture #1 \\ On #2}}
+
+% Author / date
+\date{2019 Michaelmas Term}

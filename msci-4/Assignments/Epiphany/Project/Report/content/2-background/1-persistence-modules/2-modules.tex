@@ -1,0 +1,123 @@
+\subsection{On modules and their structure}
+
+Here we briefly touch on \emph{module theory} and a fundamental result from abstract algebra on the structure of finitely generated modules over principal ideal domain.
+
+A module is a generalization of a vector spaces, but we replace the field of scalars with a ring.
+
+\begin{definition}[Module] \label{def:module}
+    Let $R$ be a commutative ring with multiplicative identity $1$. A \emph{$R$-module} $M$ consists of an abelian group $(M, +)$ and an operation $\cdot: R \times M \to M$ such that for all $r, s \in R$ and $m, n \in M$, we have
+    \begin{enumerate}
+        \item $(r + s) \cdot m = r \cdot m + s \cdot m$;
+        \item $(rs) \cdot m = r \cdot (s \cdot m)$;
+        \item $r \cdot (m + n) = r \cdot m + r \cdot n$; and
+        \item $1 \cdot m = m$.
+    \end{enumerate}
+\end{definition}
+
+The use of studying modules is vast; we may study some object by making it into a module over some ring with \emph{well-behaved} properties, giving us insight into the structure the original object. We note that we can define modules for a non-commutative ring $R$, but in this case we define \emph{left $R$-modules} and \emph{right $R$-modules} (when $R$ is commutative, these coincide). We will be dealing with commutative rings only.
+
+\begin{example}[Examples of modules] \hspace{0em}
+    \begin{enumerate}
+        \item Every abelian group is a $\Z$-module (and in fact this correspondence is bijective). Thus every ring is a $\Z$-module.
+        \item Every ideal of a commutative ring $R$ is an $R$-module.
+        \item Every quotient ring of a commutative ring $R$ is an $R$-module.
+        \item Every polynomial ring over a commutative ring $R$ is a $R$-module.
+    \end{enumerate}
+\end{example}
+
+We define the morphisms in the category of modules as one would expect.
+
+\begin{definition}[Module homomorphism] \label{def:module-homomorphism}
+    Let $R$ be a commutative ring and $M$ and $N$ be $R$-modules. A function $f:M \to N$ is a \emph{$R$-module homomorphism} (or \emph{$R$-linear map}) if for all $m, n \in M$ and $r \in R$, $f(m + n) = f(m) + f(n)$ and $f(rx) = rf(x)$.
+\end{definition}
+
+The category of \emph{modules and module homomorphisms} indeed forms a category, which is easy to check. 
+
+A module homomorphism is called a \emph{module isomorphism} if it is a bijection, and if there is such a homomorphism between two modules then they are said to be \emph{isomorphic} (denoted with the typical $\cong$).
+
+\begin{example}[Examples of module homomorphisms] \hspace{0em}
+    \begin{enumerate}
+        \item For a commutative ring $R$ and $R$-modules $M$ and $N$, the zero map $M \to N$ is a module homomorphism.
+        \item Let $R$ be a commutative ring, then $R[x]$ is a ring (and thus a $R$-module). We define $f: R[x] \to R[x]$ where $f(p(x)) \mapsto xp(x)$. This is indeed a module homomorphism; however, it is not a ring homomorphism as
+              \[ f((x)(x)) = x^3 \neq x^4 = f(x)f(x). \]
+    \end{enumerate}
+\end{example}
+
+We now introduce \emph{exact sequences}, which are useful tools in algebraic topology. They also motivate our definition of \emph{homology}.
+
+\begin{definition}[Exact sequence]
+    A sequence of modules and homomorphisms
+    \[ M_0 \xrightarrow{f_1} M_1 \xrightarrow{f_2} M_2 \xrightarrow{f_3} \ldots \xrightarrow{f_n} M_n \]
+    is said to be \emph{exact} if $\im f_{i} = \ker f_{i+1}$ for all $i \in \{1, \ldots, n-1\}$.
+\end{definition}
+
+\begin{example}[Examples of exact sequences] \hspace{0em}
+    \begin{enumerate}
+        \item Consider the sequence
+              \[ 0 \to \mathbb Z \xrightarrow{\cdot p} \mathbb Z \to \mathbb Z / p \to 0 \]
+              where the map $\mathbb Z \to \mathbb Z/p$ is the quotient map. This sequence is exact. In fact, this can be generalised to the sequence
+              \[ 0 \to A \xrightarrow{f} B \to B/f(A) \to 0 \]
+              where $f$ is injective.
+        \item Consider the sequence \[0 \to A \to B.\] This sequence is exact if and only if the map $A \to B$ is injective. Now consider the sequence \[ A \to B \to 0. \] This sequence is exact if and only if the map $A \to B$ is surjective. Thus if the sequence \[ 0 \to A \to B \to 0 \] is exact if and only if the map $A \to B$ is a bijection.
+    \end{enumerate}
+\end{example}
+
+We borrow the notion of \emph{finitely generated} from linear algebra and apply this to modules in the way you would expect, but we benefit from the following algebraic definition.
+
+\begin{definition}[Finitely generated module]
+    Let $R$ be a commutative ring and $M$ be a $R$-module. $M$ is \emph{finitely generated} if there is an exact sequence $R^p \to M \to 0$ for some $p \in \N_0$. Additionally, $M$ is \emph{finitely presented} if there exists an exact sequence $R^q \to R^p \to M \to 0$ for some $p, q \in \N_0$.
+\end{definition}
+
+We now introduce the notion of \emph{grading}, which is a decomposition of a ring or module.
+
+\begin{definition}[Graded ring] \label{def:graded-ring}
+    A \emph{graded ring} is a ring $R$ equipped with a direct sum decomposition of abelian groups $R \cong \bigoplus_{i \in \N_0} R_i$ such that $R_m R_n \subset R_{m+n}$ for all $m,n \in \N_0$.
+\end{definition}
+
+We similarly define the grading of a module.
+
+\begin{definition}[Graded module] \label{def:graded-module}
+    Let $R \cong \bigoplus_{i\in \N_0} R_i$ be a graded commutative ring and $M$ a $R$-module. $M$ is a \emph{graded module} if there is a direct sum of abelian groups $M \cong \bigoplus_{i \in \N_0} M_i$ such that $R_m M_n \subset M_{m + n}$ for all $m,n \in \N_0$.
+\end{definition}
+
+We note here that our gradation is a decomposition over $\N_0$, which may be referred to as a \emph{$\N_0$-grading}. Other texts may choose $\Z$-grading as the standard, for which we would call the above a \emph{non-negatively graded ring} or \emph{module}.
+
+\begin{example}[Examples of graded rings] \hspace{0em}
+    \begin{enumerate}
+        \item For any ring $R$, we have the trivial grading \[R = R_0 \oplus \bigoplus_{i=1}^\infty 0.\]
+        \item Let $R$ be a commutative ring. Then the polynomial ring is graded by its degree:
+              \[ R[x] = \bigoplus_{i \in \mathbb N_0} \{rx^i: r \in R\}. \]
+    \end{enumerate}
+\end{example}
+
+We now present the standard structure theorem for finitely generated modules over a principal ideal domain.
+
+\begin{theorem} \label{the:module-over-pid-structure}
+    Let $R$ be a principal ideal domain and $M$ a finitely generated $R$-module. Then there is a unique decomposition
+    \begin{equation} \label{eq:module-over-pid-structure}
+        M \cong R^\beta \oplus \bigoplus_{i=1}^m R/(d_i)
+    \end{equation}
+    where $d_i \in R$ such that $d_1 \mid d_2 \mid \ldots \mid d_m$ and $\beta \in \Z$.
+\end{theorem}
+
+\begin{proof}[Sketch of proof]
+    As $R$ is a principal ideal domain, it is a Noetherian ring in which the concepts of finitely generated and finitely presented coincide. Thus, $M$ is finitely presented. That is, there exists an exact sequence $R^q \to R^p \to M \to 0$ where $p, q \in \N$. We take $A$ as a presentation matrix isomorphic to the morphism $R^q \to R^p$. Then $\SNF A$ yields the required decomposition, where diagonal entries correspond the to $d_i$'s.
+\end{proof}
+
+$\SNF A$ above denotes the Smith normal form of the matrix $A$. A similar result holds for the graded case.
+
+\begin{theorem} \label{the:graded-module-over-pid-structure}
+    Let $R$ be a graded principal ideal domain and $M$ a finitely generated graded $R$-module. Then there is a unique decomposition
+    \begin{equation} \label{eq:graded-module-over-pid-structure}
+        M \cong
+        \left(\bigoplus_{i=1}^n \Sigma^{\alpha_i} R \right) \oplus
+        \left(\bigoplus_{i=1}^m \Sigma^{\gamma_i} R/(d_i)\right)
+    \end{equation}
+    where $d_i \in R$ such that $d_1 \mid d_2 \mid \ldots \mid d_m$, $\alpha_i, \gamma_i \in \Z$, and $\Sigma^k$ denotes a $k$-shift upward in grading.
+\end{theorem}
+
+A proof for this mimics that for Theorem \ref{the:module-over-pid-structure}, for which there exists a variant of the Smith normal form algorithm for graded principal ideal domains \cite{skraba2013persistence}.
+
+We have thus established a resemblance of the structure of finitely generated modules and finitely generated graded modules to that of vector spaces, but with some finite size \emph{torsional} portion.
+
+We will use this structure theorem to form our bijection between the isomorphism classes of persistent modules of finite type and $\mathcal P$-intervals. 

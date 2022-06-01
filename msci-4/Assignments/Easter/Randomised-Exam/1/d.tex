@@ -1,0 +1,28 @@
+\clearpage\part\hspace{0em}
+\begin{solution}
+   We construct $H \subset G$ as follows. Let $V_H = A \cup B$. For each vertex $u \in V$, flips a coin. If the coin reads tails, put $u$ in $A$. If the coin reads heads, put $u$ in $A$. Thus, for all $u \in V$, $\Pr[u \in A] = \tfrac12$ and $\Pr[u \in B] = \tfrac12$, and $A \cap B = \varnothing$. For each $uv \in E$, we let $uv \in E_H$ if and only if:
+   \begin{enumerate}
+       \item $u \in A$ and $v \in B$; or 
+       \item $u \in B$ and $v \in A$.
+   \end{enumerate}
+   Then, for all $uv \in E$
+   \[ \Pr[uv \in E_H] = 1 - \Pr[(u,v \in A)\lor(u,v \in B)]. \]
+   Both events $[u,v \in A]$ and $[u,v \in B]$ are mutually exclusive (that is, they can't both happen), thus
+   \[ \Pr[uv \in E_H] = 1 - (\Pr[u,v \in A] + \Pr[u,v \in B]). \]
+   The events $[u \in A]$ and $[v \in A]$ are independent, thus we conclude 
+   \begin{align*}
+        \Pr[uv \in E_H] &= 1 - (\Pr[u \in A]\Pr[v \in A] + \Pr[u \in B]\Pr[v \in B]) \\
+        &= \frac12.
+   \end{align*}
+   Enumerate the edges of $G$ as $E = \{e_1, \ldots e_m\}$ and for all $i \in \{1, \ldots, m\}$ let $X_i$ be the indicator function for edge $e_i$ being in $H$. We have
+   \[
+        \E[X_i] = 1\cdot \Pr[e_i \in H] + 0\cdot \Pr[e_i \not\in H] = \tfrac12.    
+   \]
+   Let $X = \sum_{i=1}^m X_i$; that is, $X$ is the random variable corresponding to the number of edges in $H$ in our construction. Then
+   \begin{align*}
+       \E[X] &= \E\left[\sum_{i=1}^m X_i\right] \\
+       &= \sum_{i=1}^m \E[X_i] \\[5pt]
+       &= \frac m2.
+   \end{align*}
+   As the expected number of edges in our random construction $H$ is $\tfrac m2$, there must be at least one $H$ with $\tfrac m2$ edges.
+\end{solution}

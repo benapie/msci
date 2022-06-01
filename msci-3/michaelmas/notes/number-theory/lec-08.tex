@@ -1,0 +1,186 @@
+%! TEX root = master.tex
+\lecture{8}{5/11}
+
+\begin{definition}[Ring of integers]
+	For a number field $K$, we define
+	\[
+		\mathcal O_K = K \cap \overline\Z,
+	\]
+	the \emph{ring of integers of $K$}.
+\end{definition}
+
+$\mathcal O_K$ is indeed a ring as it is the intersection of a field
+and a ring.
+
+\begin{lemma}[]
+	$\mathcal O_\Q = \Z$.
+\end{lemma}
+
+\begin{proof}
+	As $\Z$ is contained within $\overline\Z$ and $\Q$, we have
+	$\Z \subset \mathcal O_\Q$.
+	Now let $\alpha \in \mathcal O_\Q$.
+	Since $\alpha \in \Q$, there is minimal polynomaial $p(x) \in \Q[x]$ 
+	with $\deg p = 1$;
+	that is, $p(x) = x - \alpha$.
+	As $\alpha \in \overline\Z$, we have that $p(x) \in \Z[x]$, and so
+	$\alpha \in \Z$.
+\end{proof}
+
+\begin{lemma}[]
+	Let $K$ be a number field. Then
+	\[
+		K =
+		\left\{ 
+			\frac{\alpha}m : 
+			\alpha \in \mathcal O_K, m \in \Z \setminus \left\{ 0 \right\} 
+		\right\}.
+	\]
+\end{lemma}
+
+\begin{proof}
+	Let $\beta \in K$.
+	As $\beta$ is algebraic, there is $a_0, \ldots, a_n \in \Z$
+	such that
+	\[
+		a_n\beta^n + \ldots + a_0 = 0,
+	\]
+	with $a_n \neq 0$.
+	We multiply this by $a_n^{n-1}$ to get
+	\[
+		(a_n\beta)^n
+		+ a_{n-1}(a_n\beta)^{n-1}
+		+ \ldots
+		+ a_1 a_n^{n-1} (\alpha_n\beta) + a_n^{n-1}a_0
+		= 0
+	\]
+	and so $\alpha = a_n\beta$ is an algebraic integer.
+	Paired with the fact that $\alpha \in K$, we see
+	that $\alpha \in \mathcal O_K$.
+	That is, $\beta = \frac{\alpha}{a_n}$, which shows
+	our statement by taking $m = a_n$.
+\end{proof}
+
+\subsection{Quadratic fields}
+
+\begin{definition}[Square-free integer]
+	A \textbf{square-free integer} is an integer which is divisible by
+	no perfect square other than 1.
+\end{definition}
+
+\begin{proposition}[]
+	Let $K$ be an extension field of $\Q$ of degree 2.
+	Then there is some square-free integer $d$ such that $K = \Q(\sqrt d)$.
+\end{proposition}
+
+\begin{definition}[Quadratic field]
+	A \textbf{quadratic field} is a field $K = \Q(\sqrt d)$.
+	If $d > 0$, $K$ is a \emph{real quadratic field}.
+	If $d < 0$, $K$ is a \emph{imaginary quadratic field}.
+\end{definition}
+
+We will work towards determining the ring of integers for quadratic fields.
+
+\begin{lemma}[]
+	Let $K = \Q(\sqrt d)$ with $1 \neq d \equiv 1 \pmod 4$.
+	Then
+	\begin{enumerate}
+		\item
+			\[
+				\Z \left[ \frac{1+\sqrt d}2 \right] 
+				\subset \mathcal O_K;\;\text{and}
+			\]
+
+		\item
+			\[
+				\Z \left[
+					\frac{1 + \sqrt d}2
+				\right] = \left\{
+					\frac{r + s\sqrt d}2:
+					r,s \in \Z, r \equiv s \pmod 2
+				\right\}.
+			\]
+	\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+	$(i)$: it is enough to show that $\frac{1 + \sqrt d}2 \in \mathcal O_K$
+	since $\mathcal O_K$ is a ring.
+	Clearly $\frac{1 + \sqrt d}2 \in K$ and it is a root of
+	$x^2 - x - \frac{d-1}4 \in \Z[x]$.
+	$(ii)$: let $\theta = \frac{1 + \sqrt d}2$.
+	Observe that $\Z[\theta] = \Z + \theta\Z$ as
+	$\theta^2 = \theta + \frac{d-1}4$.
+	So if $\beta \in \Z[\theta]$ then there is $x,y \in \Z$ such that
+	$\beta = x + y\theta$ or equivalently
+	$
+		\frac{(2x+y)+y\sqrt d}{2}.
+	$
+	Since $2x + y \equiv y \pmod 2$, we can take $r = 2x + y$ and
+	$s = y$ to conclude the first inclusion.
+	Conversely, if $\beta = \frac{r+s\sqrt d}2$ with $r,s \in \Z$ and
+	$r \equiv s \pmod 2$ then 
+	\[
+		\beta = \frac{r-s}2 + s\left( 
+			\frac{1 + \sqrt d}{2}  
+		\right) \in \Z + \Z\theta = \Z[\theta].\qedhere
+	\]
+\end{proof}
+
+We are ready to look at the ring of integers of quadratic fields.
+
+\begin{theorem}[]
+	Let $d$ be a square-free integer and $K = \Q(\sqrt d)$.
+	Then
+	\[
+		\mathcal O_K =
+		\begin{cases}
+			\Z[\sqrt d] & d \equiv 2,3 \pmod 4, \\
+			\Z\left[\frac{1 + \sqrt d}2\right] & d \equiv 1 \pmod 1. \\
+		\end{cases}
+	\]
+\end{theorem}
+
+\begin{proof}
+	If $d \equiv 1 \pmod 4$, then 
+	$\Z\left[\frac{1+\sqrt d}2\right] \subset \mathcal O_K$.
+	If $d \equiv 2,3 \pmod 4$, then $\Z[\sqrt d] \subset \mathcal O_K$ as
+	$\sqrt d \in \mathcal O_K$.
+
+	Now we show the other inclusion.
+	We let $\alpha = \frac{a + b\sqrt d}c \in \mathcal O_K$ with 
+	$a,b,c \in \Z$.
+	If $b = 0$, then $\alpha \in \Q \cap \overline\Z = \Z$.
+	Now assume $b \neq 0$.
+	Without loss of generality, we assume $\gcd(a,b,c) = 1$ and
+	$c \in \N$.
+	Then the minimum polynomial of $\alpha$ is given by
+	\[
+		p(x) = \left( 
+			x - \frac{a + b\sqrt d}c 
+		\right) \left( 
+			x - \frac{a - b\sqrt d}c 
+		\right)
+		= x^2 - \frac{2a}c x + \frac{a^2 - b^2d}{c^2}
+		\in \Z[x].
+	\]
+	Thus $\frac{2a}c, \frac{a^2 - b^2d}{c^2} \in \Z$.
+	Now let $p$ be prime such that $p \mid a,c$.
+	Then $p^2 \mid b^2d$.
+	As $d$ is square free, $p \mid b^2$ and then
+	$p \mid a,b,c$. 
+	That is, $\gcd(a,b,c) > 1$; a contradiction.
+	Hence $\gcd(a,c) = 1$.
+	Thus $c \in \left\{
+		1,2
+	\right\}$.
+	If $c=1$, then $\alpha = a+b\sqrt d \in \Z[\sqrt d]$ and
+	$\alpha \in \Z\left[\frac{1 + \sqrt d}2\right]$ 
+	since $a + b\sqrt d = (a - b) + 2b \frac{1 + \sqrt d}2$.
+	If $c=2$, then $a$ and $b$ are odd.
+	Furthermore, as $\frac{a^2 - b^2d}4 \in \Z$,
+	$a^2 - b^2d \equiv 0 \pmod 4$.
+	As $a$ and $b$ are odd, $a^2 \equiv b^2 \equiv 1 \pmod 4$.
+	Hence $d \equiv 1 \pmod 4$.
+\end{proof}
+

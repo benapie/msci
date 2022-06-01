@@ -1,0 +1,102 @@
+%! TEX root = master.tex
+\lecture{22}{6/12}
+
+\begin{definition}[Action of a group]
+	An \emph{action of a group} $G$ on a topological space $X$ is a
+	map $\cdot : G \times X \to X$ such that
+	\begin{enumerate}
+		\item $(hg) \cdot x = h \cdot (g \cdot x)$
+			for every $h,g \in G$, $x \in X$;
+		\item $1 \cdot x = x$ for every $x \in X$; and
+		\item $g: G \to G$, $g(x) = g \cdot x$ is continuous
+			for every $g \in G$.
+	\end{enumerate}
+\end{definition}
+
+Now when $G$ is a topological group, we replace (iii) with the 
+requirement that $\cdot: G \times X \to X$ is continuous.
+Note that $X \xhookrightarrow{} G \times X \xrightarrow{\cdot}$ defines
+$g$.
+
+\begin{examples}
+	\begin{enumerate}
+		\item Trivial action:
+		$G \times X \to X$, $(g,x) \mapsto g \cdot x = x$.
+
+		\item Let $G = \operatorname{GL}_n(\R)$, $X = \R^n$.
+		We define $(A, \bm v) \mapsto A \bm v$.
+		This is continuous.
+		Similarly, $\operatorname{O}(n)$ and $\operatorname{SL}(n)$
+		act on $\R^n$ and similarly $S^{n-1}$.
+
+		\item For a topological group $G$
+		and $H \subset G$ subgroup, 
+		then $H$ acts on $G$ by $h \cdot g = hg$.
+
+		\item Let $N$ be a normal subgroup of a topological group
+		$G$. Then $G$ acts on $N$ by
+		$g \cdot n = gng^{-1}$.
+
+		\item $S^3$ acts on $\R^4$ by quaternion multiplication.
+	\end{enumerate}
+\end{examples}
+
+\begin{definition}[Orbit]
+	If a group $G$ acts on a topological space $X$,
+	we can define an equivalence relation $\sim$ on $X$ by saying
+	$x \sim y$ if there is $g \in G$ with $gx = y$.
+	An equivalence class is called an \emph{orbit}, denoted
+	$Gx$.
+	The corresponding quotient space is called the \emph{orbit space},
+	denoted $X/G$.
+	If $X/G$ is just a point, then the action is called \emph{transitive}.
+\end{definition}
+
+\begin{examples}
+	\begin{enumerate}
+		\item If $G$ acts trivially on $X$, every orbit is a point
+		and $X/G = X$.
+
+		\item The action of $\operatorname{O}(n)$ on $S^{n-1}$
+		is transistive for $n \geq 1$.
+		If $v_1 \in S^{n-1}$, complete to orthonormal basis
+		$(v_1, \ldots, v_n)$.
+		Then take $A \in \operatorname{O}(n)$,
+		$A: e_i \mapsto v_i$ where
+		$\left\{ e_1, \ldots, e_n \right\}$ is the standard basis.
+		So $\operatorname{O}(n) e_1 = S^{n-1}$.
+		$\operatorname{SO}(n)$ acts on $S^{n-1}$ transistively
+		if and only if $n \geq 2$.
+	\end{enumerate}
+\end{examples}
+
+\begin{theorem}
+	Let $G$ be a connected topological group that acts on a topological space
+	$X$ such that $X/G$ is connected.
+	Then $X$ is connected.
+\end{theorem}
+
+\begin{proof}
+	Let $x \in X$, $f_x: G \to X$, $g \mapsto g \cdot x$.
+	This map is continuous.
+	\begin{center}
+		\begin{tikzcd}
+			G \arrow[r, "{g \mapsto (g,x)}"] \arrow[rr, "f_x"', bend right] 
+			& G \times X \arrow[r, "\cdot"] & X
+		\end{tikzcd}
+	\end{center}
+	$\operatorname{im}(f_x) = Gx$, hence orbits are connected as continuous
+	images of connected spaces are connected. 
+	Suppose $X = U \cup V$ for disjoint open sets $U$ and $V$.
+	THen $Gx = (U \cap Gx) \cup (V \cap Gx)$ partitions $Gx$ into two
+	clopen sets.
+	Hence either $Gx \subset U$ or $Gx \subset V$.
+	Thus $U$ and $V$ are both unions of orbits.
+	Let $\pi: X \to X/G$.
+	We have $U = \pi^{-1}(A)$ and 
+	$V = \pi^{-1}(B)$ for some $A, B \subset X/G$ with 
+	$A \cap B = \varnothing$, $A \cup B = X/G$.
+	$A$ and $B$ are both open by definition of quotient topology.
+	Hence either $X/G = A$ or $X/G = B$.
+	Thus $X = U$ or $X = V$.
+\end{proof}

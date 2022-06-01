@@ -1,0 +1,26 @@
+\newlength{\alphabet}
+\settowidth{\alphabet}{\normalfont abcdefghijklmnopqrstuvwxyz}
+\usepackage{geometry}
+\geometry{textwidth=2.5\alphabet}
+
+\usepackage{mathtools, amssymb, bm, bbm}
+
+\usepackage{titlesec}
+\titleformat{\section}
+{\centering\scshape}{{\Large $\mathtt{\thesection}$}}{1em}{}
+\newcommand{\sectionbreak}{\clearpage}
+
+\newcommand{\R}{\ensuremath{\mathbb R}}
+\newcommand{\C}{\ensuremath{\mathbb C}}
+\newcommand{\K}{\ensuremath{\mathbb K}}
+\newcommand{\N}{\ensuremath{\mathbb N}}
+\newcommand{\Z}{\ensuremath{\mathbb Z}}
+\newcommand{\triv}{\ensuremath{\mathbbm 1}}
+
+\DeclareMathOperator{\Hom}{Hom}
+\DeclareMathOperator{\GL}{GL}
+\DeclareMathOperator{\tr}{tr}
+\DeclareMathOperator{\Irr}{Irr}
+
+\usepackage{booktabs, array}
+\newcolumntype{C}{>{$}c<{$}} % math-mode version of "l" column type

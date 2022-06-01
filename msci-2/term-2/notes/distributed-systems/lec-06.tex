@@ -1,0 +1,53 @@
+\chapter{Concurrent events and consistency controls}
+\lecture{6}{17/2}
+
+\begin{definition}[Shared object]
+    A \textbf{shared object} is an object that may be simultaneously accessed by
+    multiple \emph{events}.
+\end{definition}
+
+Servers managing shared objects are responsible for maintaining consistency.
+Such a control is called \textbf{concurrency control}.
+This is typically done by \textbf{locking}.
+If event $T$ happens before event $U$ in their conflicting access to
+objects at one of the servers then they must be in that order at all of the
+servers whose objects are accessed in a conflicting manner by both $T$ and $U$.
+\emph{Locking} is one way to deal with concurrency control.
+
+\begin{definition}[Locking]
+    A \textbf{lock} (or \textbf{mutex}) is a synchronisation mechanism for
+    limiting access to a resource in an environmentment with many threads of execution.
+\end{definition}
+
+A local lock manager will decide whether to grant a lock or to make a transaction wait.
+Lockaing has an issue with distrubuted transactions:
+if a lock is applied to a resource, they cannot be released until the transaction
+has been committed \emph{at all servers}.
+Objects cannot be accessed by anyone else while locked.
+
+\emph{Timestamp ordering} is a non-locl concurrency control method.
+\begin{definition}[Timestamp ordering]
+    In timestamp-based concurrency control,
+    each transaction $T_i$ is an ordered list of actions $A_{ix}$.
+    Before the transaction performs its first action ($A_{i1}$)
+    it is marked with the current timestamp.
+    \textbf{Serial equivalence} is enforced by commiting versions of objects
+    in the order of the timestamps.
+\end{definition}
+
+Servers of distributed transactions are responsible for enforcing serial equivalence;
+coordinators \emph{must} agree on the timestamps.
+In practise, timestamps are generated locally.
+This makes it hard to sort by timestamp as we have \emph{no global clock}.
+But, we can use the \emph{network-time protocol} to synchronise our clocks.
+
+\textbf{Deadlock} can occur within a single server when locking is used for concurrency control.
+A clumsy solution to this is \textbf{timeouts}; however,
+it is difficult to pick suitable intervals for timeout and some transactions may be
+aborted unnecessarily.
+
+We can make use of a \textbf{wait-for graph} for detecting deadlocks.
+In a wait-for graph, processes are represented by nodes
+and a edge between processes $P_i$ and $P_j$ indicates that
+$P_j$ is holding a resource that $P_i$ needs to execute.
+It is clear that the possibility of a deadlock is implied by graph cycles. 

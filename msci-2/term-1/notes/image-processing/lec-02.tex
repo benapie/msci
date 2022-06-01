@@ -1,0 +1,95 @@
+\chapter{Point transforms, arithmetic, and logical operators}
+\lecture{2}{18/10}
+
+A transformation of an image may be 
+\begin{enumerate}
+    \item a \textbf{point transform}, involving one pixel at a time;
+    \item a \textbf{local transform}, involving the surrounding pixel in processing; and
+    \item a \textbf{global transform}, involving the entire image.
+\end{enumerate}
+
+\begin{definition}[Point transform]
+    Let $A, B \in M(\R)$ be images. A \textbf{point transformation} is defined to be an operator $\circ$ such that given $C = A \circ B$, $C_{ij} = f(A_{ij}, B_{ij})$ for all $i, j$ within the image bounds for some function $f$. Informally, this is saying that every pixel of the output image is calculated as a function of the corresponding pixels in the input images. A point transform may act on more than two images or on one image only. That is, $C = A \circ k$ so $C_{ij} = f(A_{ij}, k)$.
+\end{definition}
+
+\begin{remark}
+    Even though not stated explicitly (always), transformations are applied over the width and height of an image.
+\end{remark}
+
+The following are some simple point transformations, used for describing single value pixels (grayscale).
+
+\begin{example}[Brightness]
+    Let $A \in M(\R)$ and $k \in \R_+$. Transformations of the form
+    \[ A_{ij} \circ k = \begin{cases} A_{ij} + k & A_{ij} + k \leq L \\ L & \text{otherwise} \end{cases} \]
+    describe a simple increase in brightness where if the maximum pixel value ($L$) is reached it is just limited to the maximum.
+\end{example}
+
+\begin{example}[Absolute difference]
+    Let $A, B, O$ be images. Consider the transformation
+    \[ O(i, j) = \lvert A(i, j) - B(i, j) \rvert. \]
+    This transformation will produce an image of the differences between the input images. This is especially helpful for surviellance systems.
+\end{example}
+
+\begin{example}[Blending]
+    Given images $A, B$ we can produce a \textbf{blended} image $O$ via the transformation
+    \[ O_{ij} = \alpha A_{ij} + \beta B_{ij} \]
+    where $\alpha, \beta \in (0, 1]$. Be warned that integer overflow can occur without implementing some strategies for behaviour when pixel values hit the maximum.
+\end{example}
+
+There are many different ways of handing integer overflow in image processing. In the first example above, a simple limiting technique was used such that if a pixel value hits a limit it stays at the limit. However, this can cause \textbf{artifacts} developing in the image. 
+
+\begin{example}[Brightness by a factor]
+    To combat the issue of artifacts being generated from limiting pixel values, we can employ brightness by using a factor, that is
+    \[ O_{ij} = \frac{A_{ij}}{\alpha} \]
+    for images $O, A$ and constant $\alpha$.
+\end{example}
+
+\begin{example}[$n$-image blending]
+    We can blend $n$ images together using the transformation
+    \[ O(i, j) = \frac{1}{n} \sum_{k = 1}^n I_k(i, j)\]
+    where $I(i, j) = I_{ij}$.
+\end{example}
+
+\begin{definition}[Bit plane]
+    A \textbf{bit plane} of a digital discrete signal (such as an image or sound) is a plane of bits corresponding to a specific bit position in each of the binary numbers representing the signal.
+\end{definition}
+
+\begin{example}
+    Given a $8$-bit grayscale image of dimensions $200 \times 200$, we have $8$ bit planes each containing $200 \cdot 200 = 40000$ bits.
+\end{example}
+
+We can use bit planes to apply logical operations to images.
+
+\begin{definition}[NOT transformation]
+    In a \textbf{NOT transformation}, every bit of the image is inverted. It can be represented as
+    \[ \operatorname{not}{(A_{ij})} = 2^n - 1 - A_{ij} \]
+    for a $n$-bit single channel image.
+\end{definition}
+
+\begin{definition}[AND transformation]
+    By considering individual bits in each bit plane, we can perform a \textbf{AND transformation}. Mathematically, we can show this by representing a $n$-bit single channel image as $A = M(\{0, 1\})^n$ (so a $n$-tuple of binary values). Then
+    \[ 
+        O = A + 
+        \begin{pmatrix} 
+            \begin{pmatrix} 
+                1 & \ldots & 1 \\
+                \vdots & \ddots & \vdots \\
+                1 & \ldots & 1 \\
+            \end{pmatrix} \\
+            \vdots \\ 
+            \begin{pmatrix} 
+                1 & \ldots & 1 \\
+                \vdots & \ddots & \vdots \\
+                1 & \ldots & 1 \\
+            \end{pmatrix}
+        \end{pmatrix}
+    \]
+    where $1 + 1 = 0$ ($\bmod 2$). 
+\end{definition}
+
+\begin{example}[Colour to grayscale transformation]
+    This is a lossy transform of the form
+    \[ O(i, j) = \alpha R(i, j) + \beta G(i, j) + \gamma B(i, j) \]
+    where $R, G, B$ are the red, green, and blue components of some image and $\alpha, \beta, \gamma$ are constants relating to the human sensitivity to colour. Typically,
+    \[ \alpha = 0.2989, \quad \beta = 0.5870, \quad \gamma = 0.1140. \]
+\end{example}

@@ -1,0 +1,148 @@
+%! TEX root = master.tex
+\lecture{6}{21/10}
+
+\begin{definition}[Field norm and trace]
+	Let $F$ be a field, $L$ a finite extension of $F$
+	with $d = [L:F]$, and $\alpha \in L$.
+	We consider the $F$-linear map
+	\[
+		\hat\alpha: L \to L, \qquad 
+		x \mapsto \alpha x.
+	\]
+	Let $A \in M_d(F)$ be the corresponding to the above linear map
+	respective to some basis.
+	We define the \emph{norm} of $\alpha$ from $L$ to $F$ as
+	$N_{L/F}(\alpha) = \det(A)$
+	and we define the \emph{trace} of $\alpha$ from $L$ to $F$ as
+	$\operatorname{Tr}_{L/F}(\alpha) = \operatorname{Tr}(A)$.
+\end{definition}
+
+Recall from Linear Algebra I that the characteristic polynomial
+does not depend on the basis fixed.
+We can also find the trace and the determinant in the coefficients
+of $A$ as
+$
+	p_A(X) 
+	= X^d 
+		- \operatorname{Tr}(A) X^{d-1} 
+		+ \ldots + (-1)^d \det(A)
+$.
+
+\begin{problem}
+	Let $L = \Q(\sqrt m) \supset \Q = F$ for some square free integer
+	$m$ and consider any element
+	$\alpha = a + b\sqrt m \in L$.
+	Compute $N_{L/K}(\alpha)$ and $\operatorname{Tr}_{L/K}(\alpha)$.
+\end{problem}
+
+\begin{solution}
+	Fix basis $ \left\{ 1, \sqrt m \right\} $
+	for $L$. 
+	Observe that $\hat\alpha(1) = a + b\sqrt m$
+	and $\hat\alpha(\sqrt m) = bm + a\sqrt m$, 
+	so we construct our corresponding matrix
+	\[
+		A =
+		\begin{pmatrix}
+			a & bm \\
+			b & a \\
+		\end{pmatrix}
+		.
+	\]
+	Thus $N_{L/K}(\alpha) = a^2 - b^2m$
+	and $\operatorname{Tr}_{L/K}(\alpha) = 2a$.
+\end{solution}
+
+\begin{proposition}[Properties of $N_{L/K}$ and $\operatorname{Tr}_{L/K}$]
+	Let $F$ be a field and $L$ a finite extension of $F$
+	with $d = [L:F]$.
+	Then
+	\begin{enumerate}
+		\item for all $\alpha \in L$,
+			$N_{L/F}(\alpha) = 0 \iff \alpha = 0$;
+
+		\item for all $\alpha, \beta \in L$,
+			$N_{L/F}(\alpha\beta) = N_{L/F}(\alpha) N_{L/F}(\beta)$;
+
+		\item for all $\alpha \in F$,
+			$N_{L/F}(\alpha) = \alpha^d$ and
+			$\operatorname{Tr}_{L/F}(\alpha) = d\alpha$;
+
+		\item for all $\alpha, \beta \in L$ and $\lambda, \mu \in F$,
+			$\operatorname{Tr}_{L/F}(\lambda\alpha + \mu\beta)
+			= \lambda \operatorname{Tr}_{L/F}(\alpha)
+			+ \mu \operatorname{Tr}(\beta)$; and
+
+		\item consider the tower $F \subset K \subset L$, 
+			then for $\alpha \in L$,
+			\[
+				N_{L/F}(\alpha) = N_{K/F} \left( N_{L/K}(\alpha) \right),
+				\quad
+				\operatorname{Tr}_{L/F}(\alpha)
+				= \operatorname{Tr}_{K/F} \left( 
+					\operatorname{Tr}_{L/K}(\alpha)
+				\right).
+			\]
+	\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+	$(i)$: we see that $\hat\alpha$ is injective if and only if $\alpha$ is 
+	non-zero, that is, $\det(A) \neq 0$.
+	$(ii)$, $(iii)$, and $(iv)$ are clear from the definitions of the
+	norm and trace.
+	$(v)$ is the hardest proof to obtain and we will omit it.
+\end{proof}
+
+\section{Algebraic integers}
+
+Recall that if $\alpha \in \overline\Q$, then there exists a
+$f(x) \in \Q[x]$ such that $f(\alpha) = 0$.
+After clearing the denominaors, we can obtain a $g(x) \in \Z[x]$
+such that $g(\alpha) = 0$; however,
+this polynomial does not have to be monic.
+
+\begin{definition}[Algebraic integers]
+	An algebraic number $\alpha$ is said to be an \emph{algebraic integer} 
+	if there is $g(x) \in \Z[x]$ which is monic and $g(\alpha) = 0$.
+	We denote the set of algebraic integers as $\overline\Z$.
+\end{definition}
+
+\begin{examples}
+	\begin{enumerate}
+		\item
+		Clearly all integers are also algebraic integers, as for $\alpha \in \Z$
+		we can construct $g(x) = x - \alpha$ which is monic and $g(\alpha) = 0$.
+
+		\item
+		Let $m \in \N$ and $D \in \Z$.
+		Then $\sqrt[m]{D}$ is an algebraic integer, since it is the root of
+		$x^m - D$.	
+
+		\item
+		$\frac{1 + \sqrt{-3}}{2}$ is a root of $x^2 - x + 1 \in \Z[x]$,
+		and so it is an algebraic integer.
+	\end{enumerate}
+\end{examples}
+
+Our aim is to show that $\overline\Z$ defines a ring,
+which is not immediately obvious.
+For example, it is not clear from a glance whether the element
+$i + \frac{1 + \sqrt{-3}}{2}$ is a root of a monic polynomial 
+with coefficients in $\Z$.
+
+\begin{theorem}[]
+	Let $\alpha$ be an algebraic number and $p(x) \in \Q[x]$
+	be its minimal polynomial.
+	Then the following are equivalent.
+	\begin{enumerate}
+		\item $\alpha$ is an algebraic integer.
+		\item $p(x) \in \Z[x]$.
+		\item $
+			\Z[\alpha] 
+			= \left\{ \sum_{i=0}^{d-1} a_i\alpha^i : a_i \in \Z \right\}
+		$.
+	\item There is a non-trivial finitely generated abelian group (under
+		addition) $G \subset \C$ such that $\alpha G \subset G$.
+	\end{enumerate}
+\end{theorem}

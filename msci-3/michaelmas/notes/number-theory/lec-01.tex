@@ -1,0 +1,93 @@
+%! TEX root = master.tex
+
+\section{Introduction}
+\lecture{1}{6/10}
+
+\begin{problem}
+	Find $x,y,z \in \N$ such that \[
+		x^n + y^n = z^n.
+	\]
+\end{problem}
+
+\begin{solution}
+	For $n = 1$, this is trivial.
+	For $n = 2$, we ahve the Pythagorus triples (which we can enumerate).
+	For $n > 2$, this problem gets a lot more difficult. A theorem directly
+	addressing this problem is called \emph{Fermat's Last Theorem}.
+\end{solution}
+
+A lot of content in this module is based of Algebra II, 
+so having access to these notes will be useful.
+
+\begin{problem}
+	Find all $x, y \in \Z$ such that \[
+		y^2 - y = x^3.
+	\]
+\end{problem}
+
+\begin{solution}
+	We clearly have $x = y = 0$ and $x = 0, y = 1$.
+	But is this all of the solutions?
+	We rewrite \[
+		y(y - 1) = x^3.
+	\]
+	\emph{Claim:} there exists $u, v \in \Z$ such that
+	$y = u^3$ and $y - 1 = v^3$.
+	Note that $\gcd(y,y-1)=1$.
+	Recall that $\Z$ is a unique factorisation domain, so \[
+		y = \pm \prod_i p_i^{e_i}, \qquad y - 1 = \pm \prod_j q_j^{f_j}
+	\]
+	where $p_i$ and $q_j$ are primes.
+	As $\gcd(y,y-1) = 1$, we have $p_i \neq q_j$ for all $i,j$. 
+	Now we let \[
+		x = \pm \prod_k r_k^{g_k}
+	\]
+	where $r_k$ is prime.
+	Now \[
+		y(y-1) = 
+		\left( 
+			\pm \prod_i p_i^{e_i} 
+		\right) 
+		\left( 
+			\pm \prod_j q_j^{f_j} 
+		\right) 
+		= \pm \prod_k r_k^{3g_k}
+	\]
+	and hence we have established our claim that
+	$y = u^3$ and $y - 1 = v^3$ for some $u,v \in \Z$.
+	We have
+	\begin{align*}
+		        & u^3 - v^3 = 1 \\
+		\implies& (u - v)(u^2 + uv + v^2) = 1 \\
+		\implies& (u - v = 1,\, u^2 + uv + v^2 = 1) 
+		\;\text{or}\; 
+		(u - v = -1,\, u^2 + uv + v^2 = -1).
+	\end{align*}
+	We will assume that $u - v = 1$ and $u^2 + uv + v^2 = 1$.
+	Then we get $v(v+1) = 0$ and so $v = 0$ or $v = -1$ and so $(x,y) = (0,1)$
+	or $(x,y) = (0,0)$.
+	Now we will assume that $u - v = -1$ and $u^2 + uv + v^2 = -1$.
+	Then $3v^2 - 3v + 2 = 0$ which has a negative discriminant and so it only has
+	complex solutions.
+	Therefore the two solutions we found at the start are the only solutions.
+\end{solution}
+
+\begin{problem}
+	Find $x,y \in \Z$ such that \[
+		y^2 + 2 = x^3.
+	\]
+\end{problem}
+
+\begin{solution}
+	As before, we factorise: \[
+		\left( y + \sqrt{-2} \right) \left( y - \sqrt{-2} \right).
+	\]
+	Note that $y \pm \sqrt{-2} \in \Z[\sqrt{-2}]$.
+	We would like to say that $y + \sqrt{-2}$ and $y - \sqrt{-2}$ are
+	coprime in $\Z[\sqrt{-2}]$, and that $\Z[\sqrt{-2}]$ is a UFD.
+	We will assume that these two hold, and then we will prove the claim that \[
+		y + \sqrt{-2} = (u + v\sqrt{-2})^3
+	\]
+	and then use this to show that the only solutions are
+	$(x,y) = (3,5)$ and $(x,y) = (3,-5)$.
+\end{solution}

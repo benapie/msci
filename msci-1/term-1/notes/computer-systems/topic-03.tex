@@ -1,0 +1,435 @@
+\chapter{Logic gates and transistors}
+
+\section{Transistors}
+
+% \begin{definition}
+%     A transistor is an electronically controlled switch with 2 ports ($d$ and $s$) are connecting depending on the voltage of the 3rd (g)
+    
+%     There are two types of transistors:
+%     \begin{enumerate}
+%         \item nMOS
+%         \item pMOS
+%     \end{enumerate}
+% \end{definition}
+
+\begin{definition}
+    A transistor is an electronic device that has three terminals: a \textbf{source}, a \textbf{drain}, and a \textbf{gate}.
+    In a transistor, the drain and the source are connected depending on the voltage of the gate. There are two types of transistors:
+    \begin{enumerate}
+        \item \textbf{nMOS}, if the voltage of the gate is high, the drain and source are connected; and
+        \item \textbf{pMOS}, if the voltage of the gate is low, the drain and source are connected.
+    \end{enumerate}
+    Diagrams for both types of resistors can be found in Figure \ref{fig:nmos_pmos}.
+\end{definition}
+
+\begin{figure}
+    \centering
+    \begin{circuitikz}
+        \draw
+            (0,0) node[nmos] (nmos) {}
+            (nmos.base) node[left] {$g$}
+            (nmos.collector) node[above] {$d$}
+            (nmos.emitter) node[below] {$s$}
+        ;
+    \end{circuitikz}
+    \hspace{4em}
+    \begin{circuitikz}
+        \draw
+            (0,0) node[pmos] (pmos) {}
+            (pmos.base) node[left] {$g$}
+            (pmos.collector) node[below] {$d$}
+            (pmos.emitter) node[above] {$s$}
+        ;
+    \end{circuitikz}
+    \caption{Diagrams for a nMOS (left) and a pMOS (right) transistor where $d$ is the drain, $s$ is the source, and  $g$ is the gate.}
+    \label{fig:nmos_pmos}
+\end{figure}
+
+
+% bit more on the physics of transistors?
+
+The most common transistor is the MOSFET: metal-oxide-semiconductor field effect transistor.
+
+Silicon is a poor conductor of electricity, all the available electrons are used to form bonds with neighbouring atoms. Impurities (dopands) provide extra electrons or electron-holes which increase conductivity.
+
+\begin{definition}
+    At a junction between a $p$-type and $n$-type silicon, current can only flow from the $p$-type to the $n$-type, this is a \textbf{diode}.
+    
+    If a positive voltage is applied to the $p$-type and a negative voltage is applied to the $n$-type, then the holes in the $p$-type are attracted towards the $n$-type and the electrons in the $n$-type are attracted to the $p$-type. This allows current to flow.
+\end{definition}
+
+\begin{definition}
+    A capacitor is two pieces of conductive material separated by an insulator. If a positive voltage is applied to one side, it accumulates charge $Q$ and the other side accumulates the opposite charge $-Q$. It takes time and energy to charge or discharge a capacitor.
+\end{definition}
+
+\section{Basic logic gates}
+
+Firstly, we will look at one-input logic gates.
+
+% NOT gate
+\begin{figure}
+    \centering
+    \begin{circuitikz}
+        \draw
+			(0,0) node[not port] (not) {}
+			(not.in) node[left] {$A$}
+			(not.out) node[right] {$Y$}
+		;
+    \end{circuitikz}
+    \caption{The NOT gate symbol.}
+    \label{fig:not_gate}
+\end{figure}
+
+\begin{table}
+    \centering
+    \begin{tabular}{cc}
+        \toprule
+        $A$ & $Y$ \\
+        \midrule
+        0 & 1 \\
+        1 & 0 \\
+        \bottomrule
+    \end{tabular}
+    \caption{The NOT gate truth table.}
+    \label{tab:not_gate}
+\end{table}
+
+\begin{definition}
+    The \textbf{NOT gate} is a basic logic gate that implements \textbf{logical negation}. A high output (1) results only if the input is low (0). The symbol and truth tables can be found in Figure \ref{fig:not_gate} and \ref{tab:not_gate} respectively.
+\end{definition}
+
+% Buffer
+\begin{figure}
+    \centering
+    \begin{circuitikz}
+        \draw
+			(0,0) node[buffer] (not) {}
+			(not.in) node[left] {$A$}
+			(not.out) node[right] {$Y$}
+		;
+    \end{circuitikz}
+    \caption{The buffer symbol.}
+    \label{fig:buffer_gate}
+\end{figure}
+
+\begin{table}
+    \centering
+    \begin{tabular}{cc}
+        \toprule
+        $A$ & $Y$ \\
+        \midrule
+        0 & 0 \\
+        1 & 1 \\
+        \bottomrule
+    \end{tabular}
+    \caption{The buffer truth table.}
+    \label{tab:buffer_gate}
+\end{table}
+
+\begin{definition}
+    The other one-input logic gate is called a \textbf{buffer} and copies the input to the output. Logically, this is no different to a node, however, it it is useful in an analogue point of view as buffers can have desirable characteristics, such as the ability to delivery large amounts of current to a motor. The symbol and truth tables can be found in Figure \ref{fig:buffer_gate} and \ref{tab:buffer_gate} respectively.
+\end{definition}
+
+Two input logic gates are more interesting, and is what we use to build complicated circuits.
+
+% AND gate
+\begin{figure}
+    \centering
+    \begin{circuitikz}
+        \draw
+			(0,0) node[and port] (and) {}
+			(and.in 1) node[left] {$A$}
+			(and.in 2) node[left] {$B$}
+			(and.out) node[right] {$Y$}
+		;
+    \end{circuitikz}
+    \caption{The AND gate symbol.}
+    \label{fig:and_gate}
+\end{figure}
+
+\begin{table}
+    \centering
+    \begin{tabular}{ccc}
+        \toprule
+        $A$ & $B$& $Y$ \\
+        \midrule
+        0 & 0 & 0 \\
+        0 & 1 & 0 \\
+        1 & 0 & 0 \\
+        1 & 1 & 1 \\
+        \bottomrule
+    \end{tabular}
+    \caption{The AND gate truth table.}
+    \label{tab:and_gate}
+\end{table}
+
+\begin{definition}
+    The \textbf{AND gate} is a basic logic gate that implements \textbf{logical conjunction}. A high output (1) results only if both of the inputs are high. The symbol and truth tables can be found in Figure \ref{fig:and_gate} and \ref{tab:and_gate} respectively.
+\end{definition}
+
+% OR gate
+\begin{figure}
+    \centering
+    \begin{circuitikz}
+        \draw
+			(0,0) node[or port] (or) {}
+			(or.in 1) node[left] {$A$}
+			(or.in 2) node[left] {$B$}
+			(or.out) node[right] {$Y$}
+		;
+    \end{circuitikz}
+    \caption{The OR gate symbol.}
+    \label{fig:or_gate}
+\end{figure}
+
+\begin{table}
+    \centering
+    \begin{tabular}{ccc}
+        \toprule
+        $A$ & $B$& $Y$ \\
+        \midrule
+        0 & 0 & 0 \\
+        0 & 1 & 1 \\
+        1 & 0 & 1 \\
+        1 & 1 & 1 \\
+        \bottomrule
+    \end{tabular}
+    \caption{The OR gate truth table.}
+    \label{tab:or_gate}
+\end{table}
+
+\begin{definition}
+    The \textbf{OR gate} is a basic logic gate that implements \textbf{logical disjunction}. A high output (1) results only if one or both of the inputs is high. The symbol and truth tables can be found in Figure \ref{fig:or_gate} and \ref{tab:or_gate} respectively.
+\end{definition}
+
+\begin{remark}
+    There are also multi-input logic gates above two, for example, we can a $n$-input AND gate that results in a high (1) output only when all $n$ inputs are also high.
+\end{remark}
+
+\section{Other logic gates}
+
+We can combine the AND and OR gates defined above with the NOT gate to produce the \textbf{NAND gate} and the \textbf{NOR gate}.
+
+% NAND gate
+\begin{figure}
+    \centering
+    \begin{circuitikz}
+        \draw
+			(0,0) node[nand port] (nand) {}
+			(nand.in 1) node[left] {$A$}
+			(nand.in 2) node[left] {$B$}
+			(nand.out) node[right] {$Y$}
+		;
+    \end{circuitikz}
+    \caption{The NAND gate symbol.}
+    \label{fig:nand_gate}
+\end{figure}
+
+\begin{table}
+    \centering
+    \begin{tabular}{ccc}
+        \toprule
+        $A$ & $B$& $Y$ \\
+        \midrule
+        0 & 0 & 1 \\
+        0 & 1 & 1 \\
+        1 & 0 & 1 \\
+        1 & 1 & 0 \\
+        \bottomrule
+    \end{tabular}
+    \caption{The NAND gate truth table.}
+    \label{tab:nand_gate}
+\end{table}
+
+\begin{definition}
+    The \textbf{NAND gate} is a logic gate that produces an output which is low (0) only if all its inputs are high (1). The symbol and truth tables can be found in Figure \ref{fig:nand_gate} and \ref{tab:nand_gate} respectively.
+\end{definition}
+
+% NOR gate
+\begin{figure}
+    \centering
+    \begin{circuitikz}
+        \draw
+			(0,0) node[nor port] (nor) {}
+			(nor.in 1) node[left] {$A$}
+			(nor.in 2) node[left] {$B$}
+			(nor.out) node[right] {$Y$}
+		;
+    \end{circuitikz}
+    \caption{The NOR gate symbol.}
+    \label{fig:nor_gate}
+\end{figure}
+
+\begin{table}
+    \centering
+    \begin{tabular}{ccc}
+        \toprule
+        $A$ & $B$& $Y$ \\
+        \midrule
+        0 & 0 & 1 \\
+        0 & 1 & 0 \\
+        1 & 0 & 0 \\
+        1 & 1 & 0 \\
+        \bottomrule
+    \end{tabular}
+    \caption{The NOR gate truth table.}
+    \label{tab:nor_gate}
+\end{table}
+
+\begin{definition}
+    The \textbf{NOR gate} is a logic gate that produces an output which is high (1) only if all its inputs are low (0). The symbol and truth tables can be found in Figure \ref{fig:nor_gate} and \ref{tab:nor_gate} respectively.
+\end{definition}
+
+There is one more (technically two) logic gates that are commonly used, the XOR (and XNOR) gate.
+
+% XOR gate
+\begin{figure}
+    \centering
+    \begin{circuitikz}
+        \draw
+			(0,0) node[xor port] (xor) {}
+			(xor.in 1) node[left] {$A$}
+			(xor.in 2) node[left] {$B$}
+			(xor.out) node[right] {$Y$}
+		;
+    \end{circuitikz}
+    \caption{The XOR gate symbol.}
+    \label{fig:xor_gate}
+\end{figure}
+
+\begin{table}
+    \centering
+    \begin{tabular}{ccc}
+        \toprule
+        $A$ & $B$& $Y$ \\
+        \midrule
+        0 & 0 & 1 \\
+        0 & 1 & 0 \\
+        1 & 0 & 0 \\
+        1 & 1 & 0 \\
+        \bottomrule
+    \end{tabular}
+    \caption{The XOR gate truth table.}
+    \label{tab:xor_gate}
+\end{table}
+
+\begin{definition}
+    The \textbf{XOR gate}, or exclusive OR, is a logic gate that produces an output which is high (1) only if there are an odd number of high inputs (1). The symbol and truth tables can be found in Figure \ref{fig:xor_gate} and \ref{tab:xor_gate} respectively.
+\end{definition}
+
+% XNOR gate
+\begin{figure}
+    \centering
+    \begin{circuitikz}
+        \draw
+			(0,0) node[xnor port] (xnor) {}
+			(xnor.in 1) node[left] {$A$}
+			(xnor.in 2) node[left] {$B$}
+			(xnor.out) node[right] {$Y$}
+		;
+    \end{circuitikz}
+    \caption{The XNOR gate symbol.}
+    \label{fig:xnor_gate}
+\end{figure}
+
+\begin{table}
+    \centering
+    \begin{tabular}{ccc}
+        \toprule
+        $A$ & $B$& $Y$ \\
+        \midrule
+        0 & 0 & 1 \\
+        0 & 1 & 0 \\
+        1 & 0 & 0 \\
+        1 & 1 & 0 \\
+        \bottomrule
+    \end{tabular}
+    \caption{The XNOR gate truth table.}
+    \label{tab:xnor_gate}
+\end{table}
+
+\begin{definition}
+    The \textbf{XNOR gate}, or exclusive NOR, is a logic gate that produces an output which is high (1) only if both inputs are equal (both high, 1, or both low, 1). The symbol and truth tables can be found in Figure \ref{fig:xnor_gate} and \ref{tab:xnor_gate} respectively.
+\end{definition}
+
+\section{From transistors to logic gates}
+
+\begin{figure}
+    \centering
+    \begin{circuitikz}
+    	\draw
+    		(1,1) node[pmos] (pmos) {}
+    		(1,-1) node[nmos] (nmos) {}
+    		(-0.5,0) node[left] {$A$} -- (0,0)
+    		(2,0) node[right] (S) {$S$}
+    		(pmos.emitter) node[above] {$V_{DD}$}
+    		(nmos.emitter) node[sground] {}
+    		(0,0) |- (pmos.base)
+    		(0,0) |- (nmos.base)
+    		(pmos.drain) -- (nmos.drain)
+        	(pmos.drain) |- (S)
+    	;
+    \end{circuitikz}
+    \caption{NOT gate schematic using CMOS transistors.}
+    \label{fig:not_cmos_schematic}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \begin{circuitikz}
+    	\draw
+    		(1,4) node[pmos] (pmos1) {}
+    		(3,4) node[pmos] (pmos2) {}
+    		(3,2) node[nmos] (nmos1) {}
+    		(3,0) node[nmos] (nmos2) {}
+    		(3,-1) node[sground] (sground) {}
+    		(-0.5,2) node[left] {$A$} -- (0,2)
+    		(-0.5,0) node[left] {$B$} -- (0,0)
+    		(4,3) node[right] {$S$}
+    		(2,5) node[above] {$V_{DD}$}
+    		(pmos1.drain) |- (4,3)
+    		(pmos2.drain) -- (nmos1.drain)
+    		(nmos1.emitter) -- (nmos2.drain)
+    		(nmos2.emitter) -- (3,-1)
+    		(2,5) |- (pmos1.emitter)
+    		(2,5) |- (pmos2.emitter)
+    		(0,2) -- (nmos1.base)
+    		(pmos2.base |- nmos1.base) -- (pmos2.base)
+    		(0,0) -- (nmos2.base)
+    		(0,0) |- (pmos1.base)
+    	;
+    	\draw[fill] (3,3) circle [radius=0.05];
+    \end{circuitikz}
+    \caption{NAND gate schematic using CMOS transistors.}
+    \label{fig:nand_cmos_schematic}
+\end{figure}
+
+We can build logic gates using transistors, Figure \ref{fig:not_cmos_schematic} is a schematic for a NOT gate using CMOS transistors.
+
+\begin{remark}
+    In the gate schematics using CMOS transistors, at 3 way intersections all the wires are connected and at 4 way intersections the wires are only all connected if there is a black dot, otherwise, only parallel wires are connected.
+\end{remark}
+
+\section{Difference between digital abstraction and reality}
+
+Until now, we have been talking about our gates as taking discrete-valued variables, but in reality the physical circuits rely on the continuous voltage on the wire to discern between high (1) and low (0).
+
+\begin{definition}
+    The \textbf{supply voltage} into a given circuit is $V_{DD}$ is the highest voltage in the system. Historically, $V_{DD}=\SI{5}{\volt}$, however, $V_{DD}$ can change depending on the chip and has tended to be decreasing in size to save power and avoid overloading transistors.
+\end{definition}
+
+\section{Digital design principles}
+
+Digital design is all about managing the complexity of huge numbers of interacting elements. Some principles help humans do this:
+
+\begin{enumerate}
+    \item abstraction: hiding details when they aren't important.
+    \item discipline: restricting design choices to make things easier to model, design, and combine. For example, the logic families and the digital abstraction.
+\end{enumerate}
+
+The three -y's:
+\begin{enumerate}
+    \item hierarchy: dividing a system into modules and submnodules
+    \item modularity, well-defined functions and interfaces for modules
+    \item regularity, encouraging uniformity to modules can be swapped or reused.
+\end{enumerate}

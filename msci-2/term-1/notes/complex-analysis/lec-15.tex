@@ -1,0 +1,69 @@
+\lecture{15}{15/11}
+
+\begin{proof}[Proof for $c \neq 0$]
+    \[ M_T(z) = \frac{az + b}{cz + d}. \]
+    By quotient rule we have that $M_T$ is differentiable for $cz + d \neq 0$, that is $z \neq -\frac dc$. We have
+    \[ M'_T(z) = \frac{a(cz + d) - c(az+b)}{(cz+d)^2} = \frac{\det{T}}{(cz+d)^2}; \]
+    hence, the derivative exists at all points on $\C \setminus \{-\frac dc\}$ and hence $M_T$ is holomorphic there. It is bijective given with the inverse M\"obius transformation, which is also holomorphic on $\C \setminus \{\frac ac\}$ by a similar argument. Therefore, $M_T: \C \setminus \{-\frac dc\} \xrightarrow{\sim} \C \setminus \{ \frac ac \}$.
+\end{proof}
+
+\begin{corollary}
+    A M\"obius transformation $M_T = \frac{az + b}{cz + d}$ is conformal
+    \begin{enumerate}
+        \item on $\C$ if $c = 0$; and
+        \item on $\C \setminus \{-\frac dc\}$ if $c \neq 0$.
+    \end{enumerate}
+\end{corollary}
+
+\begin{proof}
+    We know that biholomorphic maps are conformal. A M\"obius transformation is a biholomorphism at all points on $\C$ that don't map to $\infty$. 
+\end{proof}
+
+\begin{corollary}
+    Any M\"obius transformation gives a bijection from $\hat \C$ to $\hat \C$.
+\end{corollary}
+
+\begin{proof}
+    $M_T$ has inverse $M_{T^{-1}}$.
+\end{proof}
+
+\section{Fixed points, the cross-ratio, and the three points theorem}
+
+\begin{lemma}[]
+    For $T \in \GL_2(\C)$, if $M_T \neq \text{id}$ then $M_T$ has at most 2 fixed points in $\hat \C$.
+\end{lemma}
+
+\begin{proof}
+    First, suppose $M_T(\infty) = \infty$. This can only happen if $c = 0$, so $M_T$ preserves $\C$ (this is because it does not map $\C \to \hat \C$) and for some $z \in \C$, $M_T(z) = \frac ad z + \frac bd$ for some $a, d \neq 0$. 
+    \begin{enumerate}
+        \item If $a = d$, then $b \neq 0$ as we assumed that $M_T$ was not the identity. Then $M_T$ is a translation which has no fixed points.
+
+        \item If $a \neq d$, then $M_T$ has a unique fixed point given by $z = \frac{b}{d - a}$ (this is found by setting $M_T(z) = z$ and solving for $z$).
+    \end{enumerate}
+    Hence we have at most two fixed points for when $c = 0$. Now we assume $c \neq 0$, that is, $M_T(\infty) \neq \infty$. Then all fixed points are in $\C$. Suppose $M_T(z_0) = z_0$. Then 
+    \[ \frac{az_0 + b}{cz_0 + d} = z_0 \iff cz^2 + (d - a)z - b = 0. \]
+    We know that quadratics have at most two complex roots, and so $M_T(z)$ has at most two fixed points in $\hat \C$.
+\end{proof}
+
+\begin{definition}[Cross-ratio]
+    Given 4 distinct points $z_0, z_1, z_2, z_3$ in $\C$, the cross-ratio of these points is defined by
+    \[ (z_0, z_1; z_2, z_3) = \frac{(z_0 - z_2)(z_1 - z_3)}{(z_0 - z_3)(z_1 - z_2)}.  \]
+    We can extend this definition such that if one of the 4 points is equal to $\infty$, then we define the cross-ratio by removing all differences involving that number.
+\end{definition}
+
+\begin{example}
+    \[ (\infty, z_1; z_2, z_3) = \frac{z_1 - z_3}{z_1 - z_2}. \]
+\end{example}
+
+\begin{theorem}[3 points theorem]
+    Let $\{z_1, z_2, z_3\}$ and $\{w_1, w_2, w_3\}$ be two ordered sets of distinct points in $\C$. Then there is a unique M\"obius transformation $f$ such that $f(z_i) = w_i$ for all $i = 1, 2, 3$.
+\end{theorem}
+
+\begin{proof}
+    Let $F(z) = (z, w_1; w_2, w_3)$ and $G(z) = (z, z_1; z_2, z_3)$ be M\"obius transformations with the following properties:
+    \begin{align*}
+        G(z_1) &= 1 & G(z_2) &= 0 & G(z_3) &= \infty \\
+        F(w_1) &= 1 & F(w_2) &= 0 & F(w_3) &= \infty.
+    \end{align*}
+    Let $f = F^{-1} \circ G$ be a M\"obius transformation. This function maps each $z_i$ to $w_i$; hence, we have proved the existence of $f$. Now we must show that it is unique. Assume that there are two maps $\bar f(z_i) = f(z_i) = w_i$. Now we can construct the M\"obius transformation $H = f^{-1} \circ f$. This function satisfies $H(z_i) = z_i$, this shows that $H$ has three fixed points. By an earlier Lemma, this shows that $H = \text{id}$ and so $f = \bar f$.
+\end{proof}

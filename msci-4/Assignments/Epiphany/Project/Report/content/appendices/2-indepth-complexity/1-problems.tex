@@ -1,0 +1,100 @@
+\section{Computational problems}
+
+\subsection{Decision problems}
+
+Within this section we aim to formalise the notion of a \emph{problem}; we move towards a rigorous description of a computational problem. This will lay the foundation for our framework of computation of choice: \emph{Turing machines}. 
+
+We may look at a \emph{computation problem} as a problem that we may expect a computer to be able to solve, though this is not particularly specific or helpful. Instead, we view a computational problem as a set of \emph{instances} with a (potentially empty) set of \emph{solutions}.
+
+\begin{example}[\textsc{Primality}]
+  Consider the following problem: given $n \in \N$, determine whether $n$ is prime. In this scenario, an instance is any $n \in \N$, and our \emph{solutions} (or \emph{yes-instances}) are the prime $n \in \N$. 
+\end{example}
+
+\begin{example}[\textsc{Reachability}]
+  We will come to realise that many computational problems are concerned with graphs. The most basic of which is the following: suppose we have a graph $G$ and $v, w \in V(G)$, is there a path from $v$ to $w$? We call this problem \textsc{Reachability}. For example an example, let $G$ be a graph with the following geometric realisation. 
+  \begin{center}
+    \begin{tikzpicture}[shorten >=1pt,->]
+      \node[vertex] (1) at (-1,-1) {1};
+      \node[vertex] (2) at (0,0)   {2};
+      \node[vertex] (3) at (1,-1)  {3};
+      \node[vertex] (4) at (3,-0.5)  {4};
+      \draw (1) -- (2) -- (3) -- cycle;
+    \end{tikzpicture}
+  \end{center}
+  If $v, w \in \{1,2,3\}$, then \textsc{Reachability} would have the answer \emph{yes}, where if either $v = 4$ or $w = 4$ (but not both!), then the answer would be \emph{no}. In this case, our \emph{instance} is a graph and two of its vertices. An instance is a solution only if a path exists between the two vertices.
+\end{example}
+
+We now formalise our earlier discussion, focussing first on \emph{decision problems}.
+
+\begin{definition}[Decision problem]
+  A \emph{decision problem} is a two-tuple $(I, Y)$ where $I$ is a set of \emph{instances} and $Y \subset I$ is a set of \emph{yes-instances}. 
+\end{definition}
+
+We now revisit our two initial examples,
+\begin{align*}
+  \textsc{Primality} &= \left(\N, \{n \in \N: \text{$n$ is prime}\}\right) \\
+  \textsc{Reachability} &= (I, Y)
+\end{align*}
+where $I = \{(G, u, v): u,v \in V(G)\}$ and $Y \subset I$ such that $(G,u,v) \in Y$ if and only if there exists a path from $u$ to $v$ in the graph $G$. 
+
+% It is often the case that a corresponding \emph{search problem} can be derived from any decision problems.
+
+% \begin{example}[\textsc{Factor}]
+%   Given a $n \in \N$, find a non-trivial factor of $n$. This problem can be thought of as the search problem analogue of the decision problem \textsc{Primality}. Here our set of instances is $\N$, and a solution is a $m \in \N$. A solution $m$ is \emph{acceptable} if $m \not\in \{1,n\}$ and $m \mid n$. 
+% \end{example}
+
+% \begin{example}[\textsc{Path}]
+%   Given a graph $G$ and $u, v \in V(G)$, determine a path from $u$ to $v$. The set of instances is the same for \textsc{Reachability}, and the set of solutions is the set of paths on $G$. A solution $\bm w = (w_1, \ldots, w_n)$ is acceptable if $w_1 = u$ and $w_n = v$.
+% \end{example}
+
+% We note above that we can pick the set of solutions arbitrarily. For example, in \textsc{Path} we may have picked the set of solutions to be any finite-length sequence of vertices. In this case, we would have to ensure that an acceptable solution is also a valid path. 
+
+% \begin{definition}[Search problem]
+%   A search problem is a 3-tuple $(I, J, R)$ where: $I$ is a set of \emph{instances}, $J$ is a set of solutions, and $R \subset I \times J$ is a binary search relation such that $(x, y) \in R$ dictates that $y$ is a \emph{acceptable solution} for instance $x$. 
+% \end{definition}
+
+\subsection{Encoding}
+
+We start with some notation and terminology. 
+
+\begin{definition}[Words over an alphabet]
+  \label{def:word-alphabet}
+  An \emph{alphabet} $\Sigma$ is some non-empty set of symbols. The elements of $\Sigma$ are called \emph{letters} and a finite sequence of letters is called a \emph{word} or a \emph{string}. 
+\end{definition}
+
+Let $\Sigma = \{v_i\}_{i \in I}$ be some alphabet. We denote a word $(v_1, v_2, \ldots)$, although we may use $v_1v_2\ldots v_n$. We indicate the set of all strings of length $n \in \N$ as $\Sigma^n$, and the set of all finite strings as $\Sigma^*$. We may use $\Sigma^\omega$ to denote the set of all infinite sequences of $\Sigma$. We point out the existence of the empty string, denoted $\varepsilon$, for any alphabet. 
+
+\begin{example}
+  \label{exa:binary-alphabet}
+  A common alphabet we will see is $\{0,1\}$, the \emph{binary alphabet}. We see that $010, 1100, 1111111 \in \{0,1\}^*$. 
+\end{example}
+
+\begin{definition}[Formal language]
+  A \emph{formal language} (or just \emph{language}) $\mathcal L$ over an alphabet $\Sigma$ is some subset of $\Sigma^*$. 
+\end{definition}
+
+
+We now look to represent computational problems; encoding them so we can study them as objects. In general, we aim to study the complexity of computing a function $f: \{0,1\}^n \to \{0,1\}^m$ (input and output are finite sequences of zeroes and ones). Note that we can represent any general object as a string of bits, with a number of different encodings to choose from (for example, we may choose to encode a graph as an adjancency matrix or alternatively an adjancency list). We avoid the details of such an encoding, and denote some unspecified canonical binary representation of an object $x$ as $\langle x \rangle$ (depending on context, we may simply use $x$ to denote both the object and its encoding). For a sequence $(x_1, \ldots, x_n)$ we may denote its binary representation as $\langle x_1, \ldots, x_n \rangle$. For example, we may write $\langle G, u, v \rangle$ for the binary representation of an instance of \textsc{Reachability}. 
+
+Now, we consider a Boolean function $f: \{0,1\}^* \to \{0,1\}$ and consider the corresponding language $\mathcal L_f = \{x: f(x) = 1\} \subset \{0,1\}^* = \Sigma$. We observe that $(\Sigma, \mathcal L_f)$ is a decision problem, and we typically interchange the terms \emph{language} and \emph{decision problems}. When referring to a problem as a language, we may drop alphabet from the tuple; for example, we write
+\[
+  \textsc{Primality} = \{ \langle n \rangle: \text{$n$ is prime} \}.   
+\]
+
+\begin{example}
+  An \emph{independent set} is a subset of the vertices of a graph such that no two vertices are adjacent. Thus we define
+  \begin{align*}
+    \textsc{IndSet} &= \{\langle G, k \rangle: \text{there is $S \subset V(G)$ such that} \\
+    &\qquad\qquad \text{$\lvert S \rvert \geq k$ and for all $u, v \in S$, $uv \not\in E(G)$}\}
+  \end{align*}
+  which corresponds to the problem of deciding whether a graph has an independent set of size $k$. 
+\end{example}
+
+From now on decision problems will be formatted as an \emph{instance} and a \emph{question}. We give the above example to illustrate.
+
+\begin{problem}[\textsc{IndSet}] 
+  Instance: let $G$ be a graph and $k \in \N$. \newline
+  Question: does $G$ have an independent set of size $k$? 
+\end{problem}
+
+The reason for this is to benefit from the natural language description, but also stay close towards the formal language description (which becomes relevant when looking at our model of computation). Building the language from this format using set builder notation is clear. 

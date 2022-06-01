@@ -1,0 +1,66 @@
+% Basic packages
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[UKenglish]{babel}
+\usepackage{enumitem}
+\usepackage{graphicx}
+\setlist[enumerate,1]{label={(\roman*)}} % changing default numbering scheme
+
+% Clickable table of contents
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks,
+    citecolor=black,
+    filecolor=black,
+    linkcolor=black,
+    urlcolor=black
+}
+
+% Math packages
+\usepackage{amsmath, amsfonts, mathtools, amsthm, amssymb}
+\usepackage{xfrac}
+\usepackage{bm}
+
+% Titling
+\usepackage{titling}
+\setlength{\droptitle}{23.5em}
+
+% Some shortcuts for sets
+\newcommand\N{\ensuremath{\mathbb{N}}}
+\newcommand\R{\ensuremath{\mathbb{R}}}
+\newcommand\Z{\ensuremath{\mathbb{Z}}}
+\newcommand\Q{\ensuremath{\mathbb{Q}}}
+\newcommand\C{\ensuremath{\mathbb{C}}}
+
+% AMV
+\newcommand\norm[1]{\left\lVert#1\right\rVert}
+\newcommand\infint{\ensuremath{\int_{-\infty}^{\infty}}}
+
+% Algebra
+\DeclareMathOperator\ord{ord}
+\DeclareMathOperator\Orb{Orb}
+\DeclareMathOperator\Stab{Stab}
+\newcommand\ov[1]{\overline{#1}}
+
+% Complex
+\DeclareMathOperator\Log{Log}
+\DeclareMathOperator\Arg{Arg}
+\newcommand\abs[1]{\left\lvert#1\right\rvert}
+\DeclareMathOperator\im{im}
+\DeclareMathOperator\Res{Res}
+
+% Tikz
+\usepackage{tikz, pgfplots, pgf}
+\usetikzlibrary{positioning}
+
+% Pretty tables
+\usepackage{booktabs}
+\usepackage{caption}
+\captionsetup[table]{skip=10pt}
+
+% Paper command (used at start of a new paper)
+\setcounter{secnumdepth}{0} % sections are level 1
+\newcommand{\paper}[1]{\clearpage\setcounter{question}{0}\section{#1}}
+
+% Author / date
+\date{2020 Easter Term}

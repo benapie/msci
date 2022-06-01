@@ -1,0 +1,90 @@
+\section{Conservation laws and the continuity equation}
+\lecture{10}{3/2}
+
+This is an application of the divergence theorem.
+Suppose that $\rho(x,y,z,t)$ is the \emph{density} of something
+and that $\bm j(x,y,z,t)$ is the corresponding \emph{current} or \emph{flux}.
+
+\begin{example}[Bees]
+    Let $\rho$ be the density of bees in a volume
+    and $\bm v$ be the average velocity of the bees.
+    Then $\bm j = \rho \bm v$.
+    That is,
+    the number of bees passing through the area element $d\bm A$
+    at $(x,y,z)$ is
+    \[
+        \bm j \cdot d \bm A.
+    \]
+    Let us apply the conservation of bees in some fixed region $F$ at time $t$:
+    \begin{align*}
+        B                                          &= \int_V \rho \,dV \\
+        \text{rate of change of $B$}               &= \frac{\partial}{\partial t} 
+            \int_V \rho \,dV = \int_V \frac{\partial\rho}{\partial t} \,dV \\
+        \text{rate of flow of bees out of $V$} = R &= \int_{S=\partial V}
+            \bm j \cdot d\bm A.
+    \end{align*}
+    If no bees are being born or killed then we have
+    \[
+        \frac{dB}{dt} = -R
+    \]
+    hence
+    \begin{align*}
+        \int_V \frac{\partial\rho}{\partial t} \,dV
+        &= -\int_S \bm j \cdot d\bm A \\
+        &= -\int_V \nabla \cdot \bm j \cdot d\bm A \tag{div thm} \\
+        \int_V 
+        \left(
+            \frac{\partial\rho}{\partial t} + \nabla \cdot \bm j
+        \right)
+        \,dV &= 0
+    \end{align*}
+    for all fixed volumes $V$ and so we get 
+    \[
+        \frac{\partial \rho}{\partial t} = -\bm v \cdot \bm j
+    \]
+    which is known as a \emph{continuity equation} and is a consequence of a
+    \emph{conservation law}.
+\end{example}
+
+\section{Path independence of line integrals}
+
+If $C$ is the boundary of a surface $S$ on which 
+$\nabla \times \bm F = \bm 0$
+then
+\[
+    \oint_C \bm F \cdot d\bm x 
+    = \int_S \nabla \times \bm F \cdot d\bm A 
+    = \int_S \bm 0 \cdot d\bm A 
+    = 0.
+\]
+
+If a vector field $\bm F$ has zero curl in some simply connected region $D$
+and if $C_1$ and $C_2$ are two paths connecting the points $\bm a, \bm b \in D$
+then
+\[
+    \int_{C_1} \bm F \cdot d\bm x = \int_{C_2} \bm F \cdot d\bm x.
+\]
+So the integral depends only on the endpoints.
+
+\begin{remark}
+    \emph{Simply connected} just means that all closed curves in $D$ 
+    can be shrunk down to a point in $D$ (topology).
+\end{remark}
+
+\paragraph{The scalar potential}
+
+If $\bm F = \nabla \phi$ for some scalar field $\phi$ then
+$\nabla \times \bm F = \bm 0$ is automatic.
+Does this work the other way? That is, does
+\[
+    \nabla \times \bm F = \bm 0 \implies \bm F = \nabla \phi \;\text{for some $\phi$}.
+\]
+If $D$ is simply connected, then yes.
+Pick $\bm x_0 \in D$ and set
+\[
+    \phi(\bm x) = \int_{\bm x_0}^{\bm x} \bm F \cdot d\bm x,
+\]
+this is well-defined as 
+$\nabla \bm F = 0$
+and $D$ is simply connected.
+By the fundamental theorem of calculus, $\nabla \phi = \bm F$.

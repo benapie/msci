@@ -1,0 +1,133 @@
+%! TEX root = master.tex
+\lecture{18}{6/12}
+
+\begin{theorem}[The monotone convergence theorem]
+	Let $\{f_n\}$ be an increasing sequence of non-negative
+	measurable functions on $E$.
+	If $\{f_n\} \to f$ pointwise almost everywhere on $E$, then
+	\[
+		\lim_{n \to \infty} \int_E f_n = \int_E f.
+	\]
+\end{theorem}
+
+\begin{proof}
+	By Fatou's Lemma,
+	$\int_E f \leq \liminf \int_E f_n$.
+	But for each $n$, $f_n \leq f$.
+	So, by the monotonicity of integration for nonnegative measurable
+	functions and as $\int_E f = \int_{E \setminus E_0} f$
+	for $E_0 \subset E$, $m(E_0) = 0$, we have
+	$\int_E f_n \leq \int_E f$.
+	Thus $\limsup\int_E f_n \leq \int_E f$ and hence
+	$\int_E f = \lim_{n \to \infty} \int_E f_n$.
+\end{proof}
+
+\begin{definition}
+	A nonnegative measurable function on a measurable set $E$ is said to be
+	\emph{integrable} over $E$ given
+	\[
+		\int_E f < \infty.
+	\]
+\end{definition}
+
+\subsection{The Lebesgue integral on $R$}
+
+Let $f$ be an extended real-valued function on$R$.
+We have already defined $f^=$ and $f-$ by
+\begin{align*}
+	f^+(x) &= \max\{f(x), 0\} \\
+	f^-(x) &= \max\{-f(x), 0\}.
+\end{align*}
+Both $f^+$ and $f^-$ are nonnegative functions on $E$.
+Now observe that
+\[
+	f = f^+ - f^-, \qquad \abs f = f^+ + f^-.
+\]
+Observe that $f$ is measurable if and only if $f^+$ and $f^-$
+are measurable.
+
+\begin{proposition}
+	Let $f$ be a measurable function on $E$.
+	Then $f^+$ and $f^-$ are integrable over $E$ if and only if 
+	$\abs{f^+}$ and $\abs{f^-}$ are integrable over $E$.
+\end{proposition}
+
+\begin{proof}
+	$(\implies)$: assume $f^+$ and $f^-$ are integrable.
+	So $\int_E f^+, \int_E f^- < \infty$.
+	Thus
+	\[\int_E \abs f = \int_E f^+ + f^- = \int_E f^+ + \int_E f^- < \infty.\]
+
+	$(\impliedby)$: assume $\abs f$ is integrable, since
+	$0 \leq f^+ \leq \abs f$, $0 \leq f^- \leq \abs f$ we have
+	$\int_E f^= \leq \int_E \abs f < \infty$
+	and
+	$\int_E f^- \leq \int_E \abs f < \infty$.
+\end{proof}
+
+\begin{definition}[Integrable]
+	A measurable function $f$ on $E$ is said to be
+	\emph{integrable} over $E$ if $\abs f$ is integrable.
+	When this is so, we define
+	\[\int_E f = \int_E f^+ - \int_E f^-.\]
+\end{definition}
+
+Observe that if $f$ is nonnegative, $f = f^+$ and
+$f^- = 0$, so $\int_E f = \int_E f^+$.
+
+\begin{proposition}
+	Let $f$ be integrable over $E$.
+	Then $f$ is finite almost everywhere on $E$
+	and $\int_E f = \int_{E \setminus E_0} f$
+	if $E_0 \subset E$, $m(E_0) = 0$.
+\end{proposition}
+
+\begin{proof}
+	% todo
+\end{proof}
+
+\begin{proposition}[The integral comparison test]
+	Let $f$ be a measurable function on $E$.
+	Suppose that there is a nonnegative function $g$ that is integrable over
+	$E$ and dominates $f$ in the sense that $\abs f \leq g$ on $E$.
+	Then $f$ is integrable over $E$ and
+	$\abs{\int_E f} \leq \int_E \abs f$.
+\end{proposition}
+
+\begin{proof}
+	Since $\abs f \leq g$, by the monotonicity of integration for nonnegative functions 
+	$\int_E \abs f \leq \int_E g < \infty$
+	and so $f$ is integrable. 
+	Now
+	\[
+		\abs{\int_E f} 
+		= \abs{\int_E f^+ - f^-}
+		= \abs{\int_E f^+ - \int_E f^-}
+		\leq \int_E f^+ + \int_E f^-
+		= \int_E \abs f.
+	\]
+\end{proof}
+
+Observe that for two integrable functions $f$ and $g$ over $E$,
+the sum $f + g$ is \emph{not} properly defined on points in $E$ 
+where $f$ and $g$ takes infinite values 
+ of opposite sign.
+However, by a previous proposition, if we define $A$ to be the points 
+where $f$ and $g$ are finite then $m(E \setminus A) = 0$. 
+Then we can consider $f + g$ on $A$ once we prove that 
+$f + g$ is integrable on $A$, we define 
+\[\int_E (f + g) = \int_A (f + g).\]
+
+\begin{theorem}[Linearity and monotonicty of integration]
+	Let $f, g$ be integrable over $E$. 
+	Then for every $\alpha, \beta \in \R$,
+	$\alpha f + \beta g$ is integrable over $E$ and 
+	\[ \int_E \alpha f + \beta g 
+	= \alpha \int_E f + \beta \int_E g \] 
+	and
+	\[f \leq g \implies \int_E f \leq \int_E g.\]
+\end{theorem}
+
+\begin{proof}
+	% todo
+\end{proof}

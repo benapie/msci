@@ -1,0 +1,139 @@
+\assignment{3}{27/2}
+
+\setcounter{question}{24}
+\question Prove that none of the following groups are isomorphic to one another:
+\[
+    \Z/8, \qquad \Z/4 \times \Z/2, \qquad D_4, \qquad S_4.
+\]
+
+\begin{solution}
+    \begin{description}
+        \item[$\Z/8 \not \cong \Z/4 \times \Z/2$] \hfill
+
+            $\Z/8$ has four elements 
+            $\overline 1$, 
+            $\overline 3$, 
+            $\overline 5$, and
+            $\overline 7$ of order $8$.
+            $\Z/4 \times \Z/2$ has no such elements.
+
+        \item[Abelian to non-abelian] \hfill
+
+            As $\Z/8$ and $\Z/4 \times \Z/2$ are abelian
+            and $D_4$ and $S_4$ is not, neither of the abelian groups
+            can be isomorphic to either of the non-abelian groups.
+
+        \item[$D_4 \not \cong S_4$] \hfill
+
+            $D_4$ has $8$ elements while $S_4$ has $24$ elements.
+    \end{description}
+\end{solution}
+
+\setcounter{question}{28}
+\question Determine the well-known group which the quotient
+\[
+    (\Z/2 \times \Z/4) / \langle (\overline 1, \overline 2) \rangle
+\]
+is isomorphic to.
+
+(Hint: write down the elements as cosets, compute their orders, and deduce the
+structure of the group.)
+
+\begin{solution}
+    \begin{align*}
+        (\overline 0, \overline 0) + H &= \{(\overline 1,\overline 2), (\overline 0, \overline 0)\} \\
+        (\overline 0, \overline 1) + H &= \{(\overline 1,\overline 3), (\overline 0, \overline 1)\} \\
+        (\overline 0, \overline 2) + H &= \{(\overline 1,\overline 0), (\overline 0, \overline 2)\} \\
+        (\overline 0, \overline 3) + H &= \{(\overline 1,\overline 1), (\overline 0, \overline 3)\},
+    \end{align*}
+    this includes all of our elements and so we are looking for a group of 4 elements each with
+    order 2.
+    That is,
+    the Klein 4-group $K_4$.
+\end{solution}
+
+\setcounter{question}{29}
+\question Let $G$ be a group, 
+$H \subset G$ an arbitrary subgroup, 
+and $N \subset G$ a normal subgroup.
+Let
+\[
+    HN = \{ hn: h \in H, n \in N \}.
+\]
+
+\begin{parts}
+    \part Show that $HN$ is a subgroup of $G$.
+
+    \begin{solution}
+        \begin{description}
+            \item[Identity] \hfill
+
+                Let $e$ be the identity element of $G$.
+                $e \in H$ and $e \in N$ as they are both subgroups,
+                hence $e = ee \in HN$.
+            
+            \item[Closure]
+
+                Let $h_1, h_2 \in H$ and $n_1, n_2 \in N$.
+                \[
+                    (h_1n_1)(h_2n_2)
+                    = h_1 h_2 (h_2^{-1}n_1h_2) n_2
+                \]
+                as $H$ is a subgroup, $h_1 h_2 \in H$.
+                As $N$ is a normal subgroup, $h_2^{-1}n_1h_2 \in N$
+                and as it is a subgroup $(h_2^{-1}n_2h_2)n_2 \in N$;
+                hence, we have closure.
+
+            \item[Existence of inverse] \hfill 
+
+                Let $h \in H$ and $N \in N$.
+                Then
+                \[
+                    (hn)^{-1} = n^{-1} h^{-1} = h^{-1} h n^{-1} h^{-1} = h^{-1} (hn^{-1}h^{-1}) \in HN.
+                \]
+        \end{description}
+    \end{solution}
+
+    \part Show that $H \cap N$ is a normal subgroup of $H$.
+
+    \begin{solution}
+        $H \cap N$ is clearly a subgroup of $H$, but we must show that it is \emph{normal}.
+        Let $x \in H \cap N$ and $h \in H$.
+        Then
+        \[
+            hxh^{-1} \in H
+        \]
+        as $H \cap N \subset H$, and we also have
+        \[
+            hxh^{-1} \in N
+        \]
+        as $H \cap N \subset N$;
+        therefore, $H \cap N$ is a normal subgroup of $H$.
+    \end{solution}
+
+    \part Show that $HN/N$ is isomorphic to $H/(H \cap N)$.
+
+    (Hint: define a map from the latter group to the first and hope that it's an isomorphism.)
+
+    \begin{solution}
+        Let us define $\varphi: H \to HN/N$ by $\varphi(h) = hN$.
+        Let $h_1, h_2 \in H$. 
+        \[
+            \varphi(h_1h_2) = (h_1h_2)N = (h_1N)(h_2N) = \varphi(h_1)\varphi(h_2)
+        \]
+        and so $\varphi$ is a homomorphism.
+        We have
+        \begin{align*}
+            \ker\varphi 
+            &= \{ h \in H : \varphi(h) = e_{HN/N} \} \\
+            &= \{ h \in H : \varphi(h) = N \} \\
+            &= \{ h \in H : hN = N \} \\ 
+            &= \{ h \in H: h \in N \} \\
+            &= H \cap N.
+        \end{align*}
+        Therefore, by the first isomorphism
+        \[
+            HN/N \cong H/(H \cap N).
+        \]
+    \end{solution}
+\end{parts}

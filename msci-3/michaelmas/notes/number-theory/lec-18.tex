@@ -1,0 +1,339 @@
+%! TEX root = master.tex
+\lecture{18}{2/12}
+
+We showed $I \subset R$ has a particular form:
+$I = n\Z + (a + b\omega)\Z$ with
+\begin{enumerate}
+	\item $n,m \neq 0$,
+	\item $n \mid m$,
+	\item $n \mid a$,
+	\item $n \mid m \operatorname{N}(b + \omega)$ where $a = bm$, \emph{and}
+	\item
+		$\omega = \begin{cases}
+			\sqrt d & d \equiv 2,3 \pmod 4, \\
+			\frac{1 + \sqrt d}{2} & d \equiv 1 \pmod 4. \\
+		\end{cases}$
+\end{enumerate}
+
+In particular, for any ideal $I \subset R$, there is $\alpha, \beta \in R$
+such that $I = (\alpha, \beta)_R$ since we can always take
+$\alpha = n$ and $\beta = a + b \omega$.
+
+We may not need two generators though,
+for example if $I = R$ then $\alpha = 1$ is enough,
+we don't need $\beta$.
+
+Our aim is to, given an ideal $I = (\alpha, \beta)_R \subset R$,
+calcualted $I^{-1}$.
+
+\begin{lemma}[Hurwitz]
+	Let $\alpha, \beta \in R$ and $m \in \N$.
+	If
+	\[
+		m \mid \operatorname{N}(\alpha), \qquad
+		m \mid \operatorname{N}(\beta), \qquad
+		m \mid \operatorname{Tr}(\alpha\overline\beta)
+	\]
+	then
+	\[
+		m \mid \alpha\overline\beta, \qquad
+		m \mid \overline\alpha\beta
+	\]
+	in $R$.
+\end{lemma}
+
+\begin{proof}
+	Set $\gamma = \frac{\alpha\overline\beta}{m} \in K$.
+	Our aim is to show that $\gamma \in R$.
+	Now 
+	\[
+		\overline\gamma 
+		= \overline{\frac{\alpha\overline\beta}{m}}
+		= \frac{\overline\alpha\beta}{m}
+	\]
+	so
+	\[
+		\operatorname{Tr}(\gamma)
+		= \gamma + \overline\gamma
+		= \frac{\alpha\overline\beta}{m}
+			+ \frac{\overline\alpha\beta}{m}
+		= \frac{\alpha\overline\beta + \overline\alpha\beta}{m}
+		= \frac{\operatorname{Tr}(\alpha\overline\beta)}{m} 
+	\]
+	and
+	\[
+		\operatorname{N}(\gamma)
+		= \gamma\overline\gamma
+		= \left( \frac{\alpha\overline\beta}m \right)
+			\left( \frac{\overline\alpha\beta}m \right)
+		= \frac{\alpha\overline\alpha}{m} \frac{\beta\overline\beta}{m}
+		= \frac{\operatorname{N}(\alpha)}{m} \cdot
+			\frac{\operatorname{N}(\beta)}{m}.
+	\]
+	In particular,
+	$m \mid \operatorname{N}(\alpha)$, $m \mid \operatorname{N}(\beta)$,
+	and
+	$m \mid \operatorname{N}(\alpha\overline\beta)$.
+	We have $\operatorname{Tr}(\gamma), \operatorname{N}(\gamma) \in \Z$,
+	hence $\gamma$ is the root of the following polynomial
+	\[
+		x^2 - \operatorname{Tr}(\gamma) x + \operatorname{N}(\gamma) = 0
+	\]
+	and we substitute to get
+	\[
+		x^2 - (\gamma + \overline\gamma) x + \gamma\overline\gamma = 0.
+	\]
+	\emph{But}, 
+	$x^2 - (\gamma + \overline\gamma)x + \gamma\overline\gamma \in \Z[x]$.
+	Thus $\gamma \in \overline\Z \cap K = R$.
+	So $\frac{\alpha\overline\beta}m \in R$ and so 
+	$m \mid \alpha\overline\beta$.
+	Similarly $\frac{\overline \alpha \beta}m \in R$ and so
+	$m \mid \overline\alpha \beta$.
+\end{proof}
+
+\begin{proposition}[]
+	Let $I = (\alpha, \beta)_R$ for some $\alpha, \beta in R$.
+	Then
+	\[
+		I \cdot \overline I 
+		= (\alpha, \beta)_R (\overline\alpha, \overline\beta)_R
+		= (f)_R,
+	\]
+	where $f = \operatorname{gcd}\left(
+		\operatorname{N}(\alpha),
+		\operatorname{N}(\beta),
+		\operatorname{Tr}(\alpha\overline\beta)
+	\right) \in \N$.
+	In particular, $I^{-1} = (f^{-1})_R \cdot \overline I$.
+\end{proposition}
+
+\begin{proof}
+	Now
+	$
+		\overline I = \left\{
+			\overline x \in R: x \in I
+		\right\}
+	$
+	so if $I = (\alpha, \beta)_R$,
+	$\overline I = (\overline\alpha, \overline\beta)_R$.
+	Observe
+	\begin{align*}
+		I \cdot \overline I
+		&= (\alpha, \beta)_R (\overline\alpha, \overline\beta)_R \\
+		&= (\alpha\overline\alpha, \beta\overline\beta, \alpha\overline\beta,
+			\overline\alpha\beta)_R \\
+		&= (\operatorname{N}(\alpha), \operatorname{N}(\beta),
+			\alpha\overline\beta, \overline\alpha\beta)_R.
+	\end{align*}
+	We set 
+	$f = \gcd(\operatorname{N}(\alpha),
+	\operatorname{N}(\beta),
+	\operatorname{Tr}(\alpha\overline\beta))$.
+	By Hurwitz Lemma,
+	\[
+		\frac{\alpha\overline\beta}f, \frac{\overline\alpha\beta}f \in \Z.
+	\]
+	By the definition of $f$, $f \mid \operatorname{N}(\alpha)$,
+	$f \mid \operatorname{N}(\beta)$, 
+	and $f \mid \operatorname{Tr}(\alpha\overline\beta)$.
+	So by the satement of Hurwitz, $f \mid \alpha\overline\beta$ and
+	$f \mid \overline\alpha\beta$.
+	So
+	\[
+		I \cdot \overline I
+		= (\operatorname{N}(\alpha), \operatorname{N}(\beta),
+			\alpha\overline\beta, \overline\alpha \beta)_R
+		= (f)_R \left( \frac{\operatorname{N}(\alpha)}f,
+			\frac{\operatorname{N}(\beta)}{f},
+			\frac{\alpha\overline\beta}{f},
+			\frac{\overline\alpha\beta}{f} 
+		\right)_R
+	\]
+	with 
+	$
+		\frac{\operatorname{N}(\alpha)}{f},
+		\frac{\operatorname{N}(\beta)}{f},
+		\frac{\alpha\overline\beta}{f},
+		\frac{\overline\alpha\beta}{f}
+		\in R
+	$.
+	Now define
+	\[
+		J = \left( 
+			\frac{\operatorname{N}(\alpha)}{f},
+			\frac{\operatorname{N}(\beta)}{f},
+			\frac{\alpha\overline\beta}{f},
+			\frac{\overline\alpha\beta}{f}
+		\right).
+	\]
+	We need tos how that $J = R$.
+	To show this, we show that $1 \in J$.
+	Since $f = \gcd(\operatorname{N}(\alpha), \operatorname{N}(\beta),
+	\operatorname{Tr}(\alpha\overline\beta)$
+	there is $m_1, m_2, m_3 \in \Z$ such that 
+	\[
+		f = m_1 \operatorname{N}(\alpha)
+		+ m_2 \operatorname{N}(\beta)
+		+ m_3 \operatorname{Tr}(\alpha\overline\beta)
+	\]
+	and hence
+	\[
+		1 
+		= m_1 \frac{\operatorname{N}(\alpha)}{f} 
+			+ m_2 \frac{\operatorname{N}(beta)}{f} 
+			+ m_3 \frac{\operatorname{Tr}(\alpha\overline\beta}{f} 
+	\]
+	but
+	\[
+		J = \left( 
+			\frac{\operatorname{N}(\alpha)}f,
+			\frac{\operatorname{N}(\beta)}{f},
+			\frac{\alpha\overline\beta}{f},
+			\frac{\overline\alpha\beta}{f} 
+		\right).
+	\]
+	In particular,
+	\[
+		\frac{\alpha\overline\beta + \overline\alpha\beta}{f} 
+		= \frac{\operatorname{Tr}(\alpha\overline\beta)}{f}.
+	\]
+	Thus, $1 \in J$ and so $J = R$.
+	Thus $I \cdot \overline I = (f)_R$.
+	So
+	\[
+		I \cdot \left( \left( f^{-1} \right)_R \overline I \right) = R
+	\]
+	and therefore
+	\[
+		I^{-1} = \left( f^{-1} \right)_R (\overline\alpha,
+		\overline\beta)_R.
+	\]
+\end{proof}
+
+Note that above, we may have $\beta = 0$.
+In this case, $I = (\alpha)_R$, 
+$f = \left\lvert \operatorname{N}(\alpha) \right\rvert$.
+So \[
+	I \cdot \overline I
+	= \left( \left\lvert \operatorname{N}(\alpha) \right\rvert \right)_R
+	= \left( \operatorname{N}(\alpha) \right)_R
+\]
+thus
+\[
+	(\alpha)_R (\overline\alpha)_R
+	= (\alpha\overline\alpha)_R
+\]
+and therefore
+\[
+	\left( (\alpha)_R \right)^{-1}
+	= \left( \alpha^{-1} \right)_R.
+\]
+
+\begin{example}[]
+	Let $K = \Q(\sqrt{-11})$ and observe that
+	$R = \Z\left[\frac{1 + \sqrt{-11}}2\right]$
+	since $-11 \equiv -3 \equiv 1 \pmod 4$.
+	Define
+	\[
+		I = (5 + 7\sqrt{-11}, 13 - 10\sqrt{-11}).
+	\]
+	We set $\alpha = 5 + 7\sqrt{-11}$ and
+	$\beta = 13 - 10\sqrt{-11}$
+	and calculate
+	\begin{align*}
+		f
+		&= \gcd(\operatorname{N}(\alpha),
+		\operatorname{N}(\beta),
+		\operatorname{Tr}(\alpha\overline\beta)) \\
+		&= \gcd(25 + 11\cdot49,
+		169 + 11\cdot100,
+		-705-141\sqrt{-11} -705 + 141\sqrt{-11}) \\
+		&= \gcd(564,1269,-1410) \\
+		&= 141.
+	\end{align*}
+	Hence
+	\[
+		I^{-1} = \left( \frac1{141} \right)_R \cdot
+		\left(5 - 7\sqrt{-11}, 13 + 10\sqrt{-11}\right).
+	\]
+\end{example}
+
+Our next aim is to understand the norm of an ideal with respect to its
+generators.
+
+\begin{lemma}[]
+	Let $I = n\Z + (a + m\omega) \Z$ be an ideal in $R$ for some
+	$n,m \in \N$.
+	Then
+	\[
+		N(I) = \left\lvert R/I \right\rvert = nm.
+	\]
+\end{lemma}
+
+\begin{proof}
+	Claim: the following are all the representations of the classes
+	of $R$ modulo $I$:
+	\[
+		S = \left\{
+			r + s\omega:
+			r \in \left\{
+				0, \ldots, n-1
+			\right\},
+			s \in \left\{
+				0, \ldots, m-1
+			\right\}
+		\right\}.
+	\]
+	First, we show that every element of $R$ ($x + y\omega$
+	for $x, y \in \Z$) is congruent modulo $I$ to some element in $S$.
+	We write $y = mq + s$ for some $q \in \Z$ and
+	$s \in \left\{
+		0, \ldots, m-1
+	\right\}$.
+	Then
+	\[
+		x + y\omega - q(a + m\omega) 
+		= x - qa + (y - q \omega) \omega
+		= x' + s\omega
+	\]
+	where $x' = x - qa$.
+	Then
+	\[
+		x' + s\omega \equiv x + y \omega \pmod I
+	\]
+	since $q(a + m\omega) \in I$.
+	Similary, we write
+	\[
+		x' = nq' + r, \qquad q' \in \Z, r \in \left\{
+			0, \ldots,n-1
+		\right\}.
+	\]
+	So
+	\[
+		x' + s\omega = nq' + r + s\omega \equiv r + sw \pmod I
+	\]
+	since $nq' \in I$.
+	So
+	\[
+		x + y\omega \equiv r + s\omega \pmod I.
+	\]
+	So every element has a representation in $S$.
+	We now must show that no two elements in $S$ are congruent.
+	Assume otherwise.
+	Then then is $r, r' \in \left\{
+		0, \ldots,n-1
+	\right\}$
+	and $s, s' \in \left\{
+		0, \ldots, m-1
+	\right\}$
+	such that
+	\[
+		r + s\omega \equiv r' + s'\omega \pmod I.
+	\]
+	So $(r - r') + (s - s') \omega \in I$.
+	Therefore $m \mid s - s'$ and $n \mid r - r'$,
+	a contradiction.
+\end{proof}
+
+

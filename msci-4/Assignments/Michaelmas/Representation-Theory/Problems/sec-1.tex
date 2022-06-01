@@ -1,0 +1,131 @@
+\section{}
+
+\question Suppose that $V$ is a representation of $G$ and that $W_1$ and $W_2$ are irreducible subrepresentations. Show that either $W_1 = W_2$ or $W_1 \cap W_2 = \{0\}$.
+\begin{solution}
+    Let $\bm v \in W_1 \cap W_2$. Then, as $W_1$ and $W_2$ are subrepresentations we have $\rho(g)\bm v \in W_1$ and $\rho(g)\bm v \in W_2$ for all $g \in G$.Thus $\rho(g)\bm v \in W_1 \cap W_2$ for all $g \in G$; thus, $W_1 \cap W_2$ is a subrepresentation of $W_1$ and $W_2$. As $W_1$ and $W_2$ are irreducible, then either $W_1 \cap W_2 = \{0\}$ or $W_1 = W_2 = W_1 \cap W_2$.
+\end{solution}
+
+\question Consider $G = S_n$ with its permutation representation action on $\C^n$ characterized by
+\[ \pi(g)e_i = e_{g(i)}, \]
+and let $V \subset \C^n$ be the subspace
+\[ \left\{(a_1, \ldots, a_n) \in \C^n: \sum_{i=1}^n a_i = 0\right\}. \]
+Show that $V$ is irreducible.
+\begin{solution}
+    Let $W \subset V$ be a non-zero representation, and let $\bm a = (a_1, \ldots, a_n) \in W$. Without loss of generality, we may assume $a_1 \neq a_2$ (if this is not the case, then we can apply a permutation such that it is, since membership in $V$ implies that for all non-zero elements, the entries cannot be equal). Thus
+    \[ \bm a - \pi((1\,2))\bm a = (a_1 - a_2, a_2 - a_1, 0, \ldots, 0) \in W. \]
+    As $a_1 \neq a_2$, we divide through by $a_1 - a_2$ to get
+    \[ \bm e_1 - \bm e_2 = (1, -1, 0, \ldots, 0) \in W. \]
+    We see that $\bm e_1 - \bm e_i \in W$ by applying the permutation $(2\,i)$ to $\bm e_1 - \bm e_2$ for all $i \in \{2, \ldots, n\}$. We see that $\{\bm e_1 - \bm e_i\}_{i \in \{2,\ldots, n\}}$ are linearly independent, thus $\dim W \geq n - 1 = \dim V$; thus $W = V$. It is also not hard to see that $\{\bm e_1 - \bm e_i\}_{i \in \{2,\ldots, n\}}$ is a basis of $V$ by inspection.
+\end{solution}
+
+\question Let $(\pi_V, V)$ and $(\pi_W, W)$ be two representations of a finite group $G$.
+\begin{parts}
+    \part Show that if $T \in \Hom_G(V,W)$ is a $G$-homomorphism and an isomorphism of vector spaces, then $T^{-1}$ is also a $G$-homomorphism.
+    \begin{solution}
+        As $T$ is an isomorphism, $T^{-1}$ is well defined. Let $w \in W$ and $v \in V$ such that $T(v) = w$. Using that $T$ is a $G$-homomorphism, we get
+        \begin{align*}
+            T\pi_V v        & = \pi_W T v,     \\
+            T\pi_V T^{-1} w & = \pi_W w,       \\
+            \pi_V T^{-1}w   & = T^{-1}\pi_W w,
+        \end{align*}
+        as required.
+    \end{solution}
+
+    \part Assume $\dim V = \dim W = n$ and identify $V$ and $W$ with $\C^n$ by choosing bases. Show that $V \cong W$ as representations of $G$ if and only if there exists a $T \in \GL_n(\C)$ such that
+    \[ T\pi_V(g)T^{-1} = \pi_W(g) \]
+    for all $g \in G$.
+    \begin{solution}
+        $T$ is a $G$-homomorphism if and only if the matrix of $T$ is invertible.
+    \end{solution}
+\end{parts}
+
+\question Prove the following. Let $(\pi, V)$ be an irreducible representation of a finite group $G$ and $Z = Z(G)$ be the center of $G$. Then $Z$ acts on $V$ as a character. That is, there exists a homomorphism $\chi: Z \to \C^\times$ such that
+\[ \pi(z)v = \chi(z)v \]
+for all $v \in V$.
+\begin{solution}
+    $\pi(z)$ is a $G$-homomorphism for all $z \in Z$, as it commutes with $\rho(g)$ for all $g \in G$. Thus, by Schur's Lemma, $\rho(z)$ acts by a non-zero scalar, $\chi(z)$, on $V$. As $\pi$ is a homomorphism, $\chi$ must be too.
+\end{solution}
+
+\question Find a two-dimensional irreducible representation of $C_n$ over $\R$ (for $n \geq 3$), and prove that it is irreducible. Why does this mean that Schur's lemma doesn't hold with real coefficients?
+\begin{solution}
+    We can consider $\rho: C_n \to \GL_2(\R)$ the \emph{rotation} representation, given by
+    \[
+        \rho(g) =
+        \begin{pmatrix}
+            \cos(2\pi/n)  & \sin(2\pi/n) \\
+            -\sin(2\pi/n) & \cos(2\pi/n) \\
+        \end{pmatrix}
+    \]
+    where $g$ is the generator of $C_n$. Since $\rho(g^k) = \rho(g)^k$, this defines a representation. Let $W \subset \R^2$ be a non-zero proper subrepresentation of this representation. Then $W$ must be a one-dimensional representation which is invariant under $\rho(g)$, but it is clear that this cannot happen. Thus the rotational representation is irreducible.
+
+    Schur's Lemma does not hold here, as if it did, every irreducible representation of an abelian group would be one-dimensional.
+\end{solution}
+
+\question Show that, if $V$ is a vector space, $W \subset V$ is a subspace, and $\pi: V \to W$ is a projection, then
+\begin{parts}
+    \part $V = W \oplus \ker\pi$, and
+    \begin{solution}
+        Note that for all $v \in V$, $\pi^2(v) = \pi(v)$. Thus
+        \[ \pi(v - \pi(v)) = 0 \]
+        and so $v = \pi(v) + (v - \pi(v))$. We have left to show that $W \cap \ker\pi = \{0\}$, but this is immediate.
+    \end{solution}
+
+    \part $\tr\pi = \dim W$.
+    \begin{solution}
+        We consider $\pi: V \to V$. We can write $\pi$ as the block matrix
+        \[
+            \left(
+            \begin{array}{c|c}
+                    I_W & * \\ \hline
+                    0   & 0 \\
+                \end{array}
+            \right).
+        \]
+        From this, the result is clear.
+    \end{solution}
+\end{parts}
+
+% \question Let $V$ be the permutation representation of $D_5$ on the set of vertices of the regular pentagon. Write $V$ as a direct sum of irreducible subrepresentations.
+% \begin{solution}
+%     Let $e_1, \ldots, e_5$ be the basis vectors of $V$ corresponding to the vertices labelled $1, \ldots, 5$ in anticlockwise order. Then $\rho(r) e_i = e_{i+1}$ with addition modulo 5. We take $s$ as the reflection in the axis through vertex $1$, so $\rho(s)e_1 = e_1$, $\rho(s)e_2 = e_5$, $\rho(s)e_3 = e_4$, $\rho(s)e_4 = e_3$, and $\rho(s)e_5 = e_1$.
+% \end{solution}
+
+\question Suppose that $G$ is a group and $V = \C[G]$, and that $\chi: G \to \C^\times$ is a one-dimensional character. Show that
+\[ v_X = \sum_{g \in G} \chi^{-1}(g)[g] \]
+spans a one-dimensional subrepresentation on which $G$ acts via $\chi$. 
+\begin{solution}
+    We have to show that $gv_x = \chi(g)v_x$ for all $g \in G$. 
+    \begin{align*}
+        gv_X
+        &= g \sum_{h \in G} \chi^{-1}(h)[h] \\
+        &= \sum_{h \in G} \chi^{-1}(h)[gh] \\
+        &= \sum_{g' \in G} \chi^{-1}(g^{-1}g')[g'] \\
+        &= \chi^{-1}(g^{-1}) \sum_{g' \in G} \chi^{-1}(g')[g'] \\
+        &= \chi(g) v_X
+    \end{align*}
+    as required. 
+\end{solution}
+
+\question Decompose the group ring $\C[S_3]$ as the direct sum of irreducible representations of $S_3$. That is, find explicit irreducible subrepresentations of $\C[S_3]$ such that it is the direct sum of those subrepresentations. 
+\begin{solution}
+    We have
+    \[ \C[G] \cong \bigoplus_{\rho \in \Irr(G)} \rho^{\dim \rho} \]
+    and so 
+    \[ \C[S_3] \cong \triv \oplus \varepsilon \oplus \rho \oplus \rho \]
+    where $\rho$ is the regular representation (that is, the permutation representation for the action of $G$ on itself). We have left to find the subspaces $V_0, V_1, V_2, V_3 \subset \C[S_3]$ such that $V_0$ is one-dimensional and $S_3$ acts trivially on it, $V_1$ is one-dimensional and $S_3$ acts as the sign representation on it, and $V_2$ and $V_3$ are two-dimensional and distinct, each isomorphic to $\rho$.
+
+    We first note that
+    \[ \alpha = \sum_{h \in G} [h] \]
+    is preserved under multiplication by $g$, thus we take $V_0 = \langle \alpha \rangle$. Next consider
+    \[ \beta = \sum_{h \in G} \varepsilon(h) [h]. \]
+    Observe
+    \begin{align*}
+        g\beta &= g\sum_{h \in G} \varepsilon(h) [h]\\
+        &= \sum_{h \in G} \varepsilon(h) [gh] \\
+        &= \sum_{g' \in G} \varepsilon(g^{-1}g') [g'] \\
+        &= \varepsilon(g^{-1}) \sum_{g' \in G} \varepsilon(g') [g'] \\
+        &= \varepsilon(g) \beta
+    \end{align*}
+    and so $V_1 = \langle \beta \rangle$. By examining the eigenvectors of $(1\,2\,3)$, we get our last two representations. 
+\end{solution}
+

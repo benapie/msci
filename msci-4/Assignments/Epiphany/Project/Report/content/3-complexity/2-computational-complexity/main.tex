@@ -1,0 +1,80 @@
+\section{Computational complexity}
+
+The \emph{complexity} of an algorithm is the amount of resources required to run it, but we focus on the \emph{time} (time complexity) and \emph{memory} (space complexity) requirements.
+
+\begin{definition}[Time complexity] \label{def:time-complexity}
+    Let $M$ be a Turing machine that halts on all inputs. The \emph{time complexity} (or \emph{running time}) of $M$ is a function $T_M: \N \to \N$ where $T_M(n)$ denotes the maximum number of steps that $M$ uses on an input of length $n$.
+\end{definition}
+
+We have already discussed variations of Turing machines that are equivalent that may lead to subtle differences to running times of algorithm, and we need a tool to deal with this.
+
+Time complexities of algorithms are given in terms of Big O notation, which has the analogue of $\leq$ on the reals. We also have a similar notation for an analogue of $\geq$ and $=$ on the reals.
+
+\begin{definition}[Big O notations]
+    Let $f, g: \N \to \R_{\geq 0}$
+    \begin{enumerate}
+        \item (Big O notation, $\leq$) $f(n) = O(g(n))$ if there is $C \in \R$ and $k \in \N$ such that for all $n \geq k$, $f(n) \leq Cg(n)$;
+        \item (Big $\Omega$ notation, $\geq$) $f(n) = \Omega(g(n))$ if there is $C \in \R$ and $k \in \N$ such that for all $n \geq k$, $f(n) \geq Cg(n)$; and 
+        \item (Big $\Theta$ notation, $=$) $f(n) = \Theta(g(n))$ if $f(n) = O(g(n))$ and $f(n) = \Omega(g(n))$.
+    \end{enumerate}
+\end{definition}
+
+Table \ref{tab:common-time-complexities} shows some common time complexity and algorithms with that complexity.
+
+\begin{table}
+    \centering
+    \caption{A list of common time complexities.}
+    \label{tab:common-time-complexities}
+    \begin{tabular}{lll}
+        \toprule
+        Notation             & Name         & Example                                      \\
+        \midrule
+        $O(1)$               & Constant     & Search in hash table                         \\
+        $O(\log n)$          & Logarithmic  & Binary search                                \\
+        $O(n)$               & Linear       & Searching an unsorted list                   \\
+        $O(n\log n)$         & Linearithmic & Fastest comparison-based sorting             \\
+        $O(n^c)$, $c \geq 1$ & Polynomial   & \textsc{Reachability}                        \\
+        $O(2^n)$             & Exponential  & Dynamic programming solution to \textsc{TSP} \\
+        $O(n!)$              & Factorial    & Brute-force solution to \textsc{TSP}         \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+\begin{problem}[Sorting]
+Instance: let $(A, \lesssim)$ be a totally preordered finite set. \\
+Question: find an enumeration $\{a_i\}_{i=1}^{\lvert A \rvert}$ of $A$, so $a_i \lesssim a_j$ for all $i < j$.
+\end{problem}
+
+We informally introduce the \emph{comparison model} for sorting algorithms. A \emph{comparison sort} is a sorting algorithm that may only read the elements of a totally preordered set $(A, \lesssim)$ through the operation $\lesssim$.
+
+\begin{theorem}
+    Any deterministic comparison sort algorithm has time complexity $\Omega(n\log n)$.
+\end{theorem}
+
+\begin{proof}
+    We recall that our definition of time complexity considers the \emph{worst-case performance} of an algorithm. Let $M$ be a sorting algorithm (Turing machine) with time complexity $T_M(n)$. We now fix a set $A$ of $n \in \N$ elements. We may construct a tree $G$ where the leaves correspond to all possible outputs of our algorithm depending on the total preorder given on $A$, and the internal nodes correspond to a comparison. For example, below we see such a decision tree for $A = \{a,b,c\}$.
+    \begin{center}
+        % https://tikzcd.yichuanshen.de/#N4Igdg9gJgpgziAXAbVABwnAlgFyxMJZAJgBoAGAXVJADcBDAGwFcYkR6ACAHW8fjjYAtpwBGIAL6l0mXPkIoAjKUXU6TVu1E8+A4ZwDGk6SAzY8BIuVLE1DFm0QgAFPVKjSBgJTGZ5+UTKtjT2mk5cvPyC+kZSfnKWSqQAzHYaji5uBu4+caayFgokKWkO7M7ZbqK5JmYJRckqpWEcOlGCWCKxtQUBKI3B6mVO2pF6nYa++f6JyAAsNs0Zzh5ZNfGFRI2pIenlHpXr0-VECztDLRXupPS5ajBQAObwRKAAZgBOEEJI1iA4ECQyguGUUU0+3yBNABSDIIPYYLyEJ+iGBMMQjXhTnI4K+KMx6IWWJAiJMyKQBMBiAArLthiAcUi8b9oVSAGx0lo4miMeiiGCMAAKvUSIA+WEeAAscLjIYgOf8qQB2TkZRlk5ny1lIAAcqoRspRKsVSAAnPqnKT3prjejFH9QmrJJQJEA
+        \begin{tikzcd}
+            &                                             & a \lesssim b \arrow[ld, "1"] \arrow[rd, "0"'] &                                             &           \\
+            & b \lesssim c \arrow[ld, "1"] \arrow[d, "0"] &                                               & a \lesssim c \arrow[d, "0"] \arrow[rd, "1"] &           \\
+            {(a,b,c)} & a \lesssim c \arrow[d, "1"] \arrow[rd, "0"] &                                               & b \lesssim c \arrow[d, "1"] \arrow[rd, "0"] & {(b,a,c)} \\
+            & {(a,c,b)}                                   & {(c,a,b)}                                     & {(b,c,a)}                                   & {(c,b,a)}
+        \end{tikzcd}
+    \end{center}
+    The number of leaves for such a decision tree is the number of permutations of the input set; that is, $n!$. It is understood this balanced binary tree has a height $h = \log(n!)$. It follows that
+    \[
+        h = \log(n!)
+        = \log\left(\prod_{i=1}^n i\right)
+        = \sum_{i=1}^n \log i
+        \leq \sum_{i=1}^n \log n
+        = n\log n
+    \]
+    and so, as $h$ corresponds to the maximum number of operations we may perform, $T_M(n) = \Omega(n\log n)$. 
+\end{proof}
+
+\begin{definition}[Space complexity]
+    Let $M$ be a Turing machine that halts on all inputs. The \emph{space complexity} of $M$ is a function $S_M: \N \to \N$ where $S_M(n)$ denotes the maximum number of distinct tape cells that $M$ visits on an input of length $n$. 
+\end{definition}
+
+One may see that, for any Turing machine $M$, that $S_M(n) = \Omega(n)$ as we have to store the input at the start of the computation. In order to allow for meaningful analysis into algorithms that use sublinear space, we consider two tapes on our Turing machine: a read-only tape in which the input sits and a read/write tape which we consider to be the \emph{working space}.

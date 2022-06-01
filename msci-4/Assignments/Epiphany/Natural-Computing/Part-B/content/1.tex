@@ -1,0 +1,28 @@
+\section{Family of Ant-Q algorithms}
+
+The section provides an overview of the family of Ant-Q algorithms studied in \cite{dorigo1996study}. This family is defined by the choice of parameters and structural choices, which are outlined below. We assume knowledge of Q-learning and Ant-Q reinforcement learning algorithms.
+
+First we present the parameters of the family of Ant-Q algorithms.
+
+\begin{description}
+    \item[$\delta$] The weight of importance of the AQ-value in the action choice rule.
+    \item[$\beta$] The weight of importance of the HE-value in the action choice rule.
+    \item[$q_0$] The probability that we consider the AQ and HE-values in the action choice rule, instead of the random variable $S$.
+    \item[$\alpha$] The learning rate in the range $(0,1]$, from Q-learning: how sceptical ants are to new information.
+    \item[$\gamma$] The discount factor in the range $[0,1]$, from Q-learning: how far-sighted the agent is.
+    \item[$\AQ_0$] The initial AQ-value for each state-action. 
+    \item[$m$] The number of ants, a positive integer.
+    \item[$s_0^k$] The initial city for the ants.
+\end{description}
+
+We also have the following structural choices.
+
+\begin{description}
+    \item[Action choice rule] For a set of states $S$ and a set of actions $A$, this is a function $C: S \to A$ such that if an ant is in state $s$, it will pick action $C(s)$.  
+    \item[Heuristic function] The heuristic function as used in the action choice rule.
+    \item[Delayed reinforcement] The value $\DAQ$ as used in the update function for the AQ-values.   
+\end{description}
+
+The best values for the parameters were determined to be $\delta = 1$, $\beta = 2$, $q_0 = 0.9$, $\alpha = 0.1$, $\gamma = 0.45$, $W = 10$, and $\AQ_0 = (n\overline L_e)^{-1}$ where $\overline L_e$ denotes the average length of the edges in the induced weighted graph. If not otherwise stated, these are the value the parameters will take in the succeeding sections.
+
+In terms of the structural choices, the best performing were found to be the pseudo-random-proportional action choice rule and the iteration-best delayed reinforcement, and we assume these unless otherwise stated. It is stated that the heuristic function is (at the time) a vital but an optimal is unknown. In the paper, it was chosen to be the inverse of the distances between cities, which is the obvious heuristic and the one we will use.  

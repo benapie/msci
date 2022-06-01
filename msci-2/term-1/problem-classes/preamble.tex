@@ -1,0 +1,74 @@
+% Basic packages
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[UKenglish]{babel}
+\usepackage{enumitem}
+\usepackage{booktabs}
+\usepackage{graphicx}
+
+% No paragraph indentations
+\usepackage{parskip}
+
+% Make enunerate look better
+\setlist[enumerate,1]{label={(\roman*)}} % changing default numbering scheme
+
+% Math packages
+\usepackage{amsmath, amsfonts, mathtools, amsthm, amssymb}
+\usepackage{xfrac}
+
+% CompSci packages
+\usepackage{algorithm, algpseudocode}
+\usepackage{listings}
+\lstset{
+    language=Python,
+    basicstyle=\small\ttfamily,
+    numbers=left,
+    numberstyle=\tiny,
+    frame=tb,
+    columns=fullflexible,
+    showstringspaces=false,
+    breaklines=true,
+    postbreak=\mbox{{$\hookrightarrow$}\space},
+}
+
+% Pretty tables
+\usepackage{booktabs}
+\usepackage{caption}
+\captionsetup[table]{skip=10pt}
+
+% Bold math
+\usepackage{bm}
+
+% Some shortcuts for sets
+\newcommand\N{\ensuremath{\mathbb{N}}}
+\newcommand\R{\ensuremath{\mathbb{R}}}
+\newcommand\Z{\ensuremath{\mathbb{Z}}}
+\newcommand\Q{\ensuremath{\mathbb{Q}}}
+\newcommand\C{\ensuremath{\mathbb{C}}}
+
+% Tikz & pgfplots
+\usepackage{tikz, pgfplots}
+\usetikzlibrary{decorations.markings, arrows.meta, angles, quotes}
+
+% Choose more favourable characters
+\let\implies\Rightarrow
+\let\impliedby\Leftarrow
+\let\iff\Leftrightarrow
+\let\epsilon\varepsilon
+
+% SI units
+\usepackage{siunitx}
+
+% Complex analysis
+\DeclareMathOperator{\Arg}{Arg}
+\DeclareMathOperator{\Log}{Log}
+\newcommand\norm[1]{\left\lVert#1\right\rVert}
+
+% Analysis in many variables
+\DeclareMathOperator{\grad}{grad}
+
+% Date
+\date{Michaelmas Term 2019}
+
+% Problem class margin note
+\newcommand{\pc}[2]{\marginpar{Problem class #1 \\ On #2}}

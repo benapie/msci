@@ -1,0 +1,63 @@
+\chapter{Index notation}
+\lecture{10}{29/10}
+
+\begin{definition}[Kronecker delta]
+    The \textbf{Kronecker delta} is a function of two variables, usually non-negative integers. The function is $1$ if the variables are equal and $0$ otherwise. That is,
+    \[ 
+        \delta_{ij} =
+        \begin{cases}
+            0 & \text{if}\; i \neq j, \\
+            1 & \text{if}\; i = j
+        \end{cases}
+        .
+    \]
+\end{definition}
+
+In three dimensions, we can define an index object $\varepsilon_{ijk}$ as follows.
+
+\begin{definition}[Levi-Civita symbol]
+    We define the \textbf{Levi-Civita symbol} in three dimensions by
+    \[
+        \varepsilon_{ijk} =
+        \begin{cases}
+            1  & \text{if}\; (i,j,k) \in \{(1,2,3),(2,3,1),(3,1,2)\}        \\
+            -1 & \text{if}\; (i,j,k) \in \{(3,2,1),(1,3,2),(2,1,3)\}        \\
+            0  & \text{if}\; i = j \;\text{or}\; j = k \;\text{or}\; k = i. \\
+        \end{cases}
+    \]
+\end{definition}
+
+We can also uniquely identify $\varepsilon_{ijk}$ as follows:
+\begin{enumerate}
+    \item $\varepsilon_{ijk} = -\varepsilon_{jik} = -\varepsilon_{ikj}$; and
+    \item $\varepsilon_{123} = 1$.
+\end{enumerate}
+
+\begin{proposition}[Properties of Levi-Civita symbol]
+    Other than two above, we have:
+    \begin{enumerate}
+        \item $\varepsilon_{ijk} = -\varepsilon_{kji}$;
+        \item $\varepsilon_{ijk} = 0$ if any two indices have the same value (from above);
+        \item $(ijk)$ is a peermutation of $(123)$;
+        \item $\varepsilon_{ijk} = 1$ if $(ijk)$ is an even permutation of $(123)$;
+        \item $\varepsilon_{ijk} = -1$ if $(ijk)$ is an odd permutation of $(123)$; and
+        \item $\varepsilon_{ijk} = \varepsilon_{kij} = \varepsilon_{jki}$.
+    \end{enumerate}
+\end{proposition}
+
+\begin{proof}
+    The proof for this is relatively trivial from the definition and by the first two properties stated.
+\end{proof}
+
+An application for the Levi-Civita symbol is as follows.
+
+\begin{proposition}
+    If $\bm A = (A_1, A_2, A_3)$ and $\bm B = (B_1, B_2, B_3)$ then $\bm C = \bm A \times \bm B$ has components
+    \[ C_i = \sum_{j = 1}^3\sum_{k = 1}^3 \varepsilon_{ijk}A_jB_k = \varepsilon_{ijk}A_jB_k. \]
+\end{proposition}
+
+Following is a useful formula.
+
+\begin{proposition}[Levi-Civita formula]
+    \[ \sum_{k = 1}^3 \varepsilon_{ijk}\varepsilon_{klm} = \varepsilon_{ijk}\varepsilon_{klm} = \delta_{il}\delta_{jm} - \delta_{im}\delta_{jl}. \]    
+\end{proposition}

@@ -1,0 +1,45 @@
+\lecture{2}{8/10}
+\begin{remark}
+    It is important to note that \[ \frac{\partial r}{\partial x} \neq \frac{1}{ \frac{\partial x}{\partial r} } \] except for in 1D. The reason for this is that in multiple dimensions we are holding different variables whereas in 1D we are not holding anything.
+\end{remark}
+
+\section{Second partial derivatives}
+
+Let's look at some notation... \[ \frac{\partial}{\partial u} \left( \frac{\partial f}{\partial v} \right) \equiv \frac{\partial^2 f}{\partial u \partial v}, \qquad \frac{\partial}{\partial v} \left( \frac{\partial f}{\partial u} \right) \equiv \frac{\partial^2 f}{\partial v \partial u}. \]
+
+If these functions are both continuous, they are equal. We will revisit this. 
+
+\begin{example}
+    Lets look at polar coordinates. We have $x = r \cos{\theta}$.
+    \begin{align*}
+        \frac{\partial x}{\partial r} &= \cos{\theta} & \frac{\partial x}{\partial \theta} = -r\sin{\theta} \\
+        \frac{\partial^2 x}{\partial \theta \partial r} &= \frac{\partial}{\partial \theta} \left( \cos{\theta} \right) = -\sin{\theta} & \frac{\partial^2 x}{\partial r \partial \theta} &= \frac{d}{dr} \left( -r\sin{\theta} \right) = -\sin{\theta}.
+    \end{align*}
+\end{example}
+
+\begin{remark}
+    Note that this does not work if you mix up the sets of variables.
+\end{remark}
+
+\section{Chain rule} 
+
+\begin{example}
+    \[ \frac{d}{dt} \left( \sin{(e^t)} \right) = \cos{(e^t)} e^t. \] This is clear from our previous knowledge, but here we will formalise it.
+\end{example}
+
+Set $F(t) = \sin{(e^t)}$, $f(x) = \sin{x}$, and $x = e^t$. Then $F(t) = f(x(t))$ and \[ \frac{dF}{dt} = \frac{df}{dx} \cdot \frac{dx}{dt}. \] This is the chain rule.
+
+\begin{definition}[Chain rule]
+    Let $F(t) = f(x(t))$. Then  \[ \frac{dF}{dt} = \frac{df}{dx} \cdot \frac{dx}{dt}. \] 
+\end{definition}
+
+Let's look at the chain rule for a multivariate function. Let $f(x, y)$ for $x(t), y(t)$. Set $F(t) = f(x(t), y(t))$. Then \[ \frac{dF}{dt} = \frac{\partial f}{\partial x} \frac{dx}{dt} + \frac{\partial f}{\partial y} \frac{dy}{dt}. \] The proof for this is particularly long and would likely take the most part of a lecture, but we can check this result. 
+
+\begin{example}
+    Let $F(t) = f(x(t), y(t))$, $x = \cos{t}$, $y = \cos{t}$, and $f(x, y) = \frac{x}{y}$. So \[ F(t) = \frac{\cos{x}}{\sin{x}}.\] Clearly, \[ \frac{dF}{dt} = - \frac{1}{\sin^2{t}}. \] But let us confirm this with the chain rule.
+    \begin{align*}
+        \frac{\partial f}{\partial x} \frac{dx}{dt} + \frac{\partial f}{\partial y} \frac{dy}{dt} &= - \frac{\sin{t}}{\sin{t}} - \frac{\cos{t}}{\sin^2{t}} \cos{t} \\
+        &= -1 - \frac{\cos^2{t}}{\sin^2{t}} \\
+        &= - \frac{1}{\sin^2{t}}.
+    \end{align*}
+\end{example}

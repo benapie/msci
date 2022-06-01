@@ -1,0 +1,247 @@
+\chapter{Process management}
+
+\begin{definition}[Burst time]
+    The \textbf{burst time} of a process is the amount of time a process needs to execute.
+\end{definition}
+
+We generally see lots of processes with a short burst time and fewer elements with longer burst time, as shown in Figure \ref{fig:burst_time_graph}.
+
+\begin{figure}
+    \centering
+    \begin{tikzpicture}
+        \begin{axis}[
+            xmin = 0,
+            xmax = 20,
+            samples = \samples,
+            ylabel = {Process frequency},
+            xlabel = {Burst time}
+        ]
+            \addplot [very thick,cyan!50!black, domain = 0:20] {100 * x*e^(-x)};
+        \end{axis}
+    \end{tikzpicture}
+    \label{fig:burst_time_graph}
+    \caption{Distribution of processes based on their burst time.}
+\end{figure}
+
+\begin{definition}
+    There are two types of processes:
+    \begin{enumerate}
+        \item independent processes, such that the execution of a process cannot be affected by th execution of other processes;
+        \item co-operating processes, such that the execution of processes can be affect by other processes.
+    \end{enumerate}
+\end{definition}
+
+Co-operative processing can be useful, benefits include
+\begin{enumerate}
+    \item utilisation of multicore CPUs;
+    \item convenience;
+    \item information sharing; and
+    \item modularity, for object orientated programming.
+\end{enumerate}
+
+We use a method called \textbf{multiprogramming} for co-operative processing.
+
+\begin{definition}[Multiprogramming]
+    \textbf{Multiprogramming} is where we have multiple processes running at the same time on one processor.
+\end{definition}
+
+The goal of multiprogramming is to maximise CPU utilisation. Multiple processes are kept in memory concurrently. When one process is waiting another one may be executing. The processes \textbf{take turns} with the CPU resources; this is called \textbf{CPU scheduling}. There are three types (or levels) or CPU schedulers:
+\begin{enumerate}
+    \item long term scheduler (job scheduler), this decides which processes move into the ready queue;
+    \item medium-term scheduler, this swaps processes in and out of the ready queue to manage the size of the ready queue;
+    \item short-term scheduler, selects the processes that are going to be executed next.
+\end{enumerate}
+
+When a CPU switches a process it must save the context of the old process and load the new process. Context-switch time is an overhead which must be taken into account when scheduling.
+
+A good scheduling specification can be evaluated on the following criteria:
+\begin{enumerate}
+    \item CPU utilisation;
+    \item process completion throughput;
+    \item turnaround time (time to execute given process);
+    \item waiting time for a given process; and
+    \item response time.
+\end{enumerate}
+
+We will see that the most reasonable criteria to judge an algorithm is the waiting time for a given process.
+
+\section{Scheduling algorithms}
+
+Scheduling algorithms that we will look at are
+\begin{enumerate}
+    \item first come first serve;
+    \item shortest job first;
+    \item shortest remaining time first;
+    \item priority (with or without pre-emptying and with or without aging);
+    \item round-robin; and
+    \item multilevel queue / feedback queue.
+\end{enumerate}
+
+We can evaluate algorithms through
+\begin{enumerate}
+    \item deterministic modelling, take a pre-defined workload and analyse the performance;
+    \item simulation, consists of a complex model of a system;
+    \item live testing.
+\end{enumerate}
+
+The following algorithms are fairly obvious (however priority aging and pre-emptive scheduling is important), but the definitions are here for completeness.
+
+
+\begin{definition}[Pre-emptive scheduling]
+    A pre-emptive scheduling algorithm is one that may move a process from running to ready if the CPU time is decided to be needed elsewhere.
+\end{definition}
+
+\begin{definition}[First come first served scheduling]
+    The first come first served scheduling algorithm will assign the processor to the first process that comes into the ready queue. If two processes come to the ready queue at the same time, it may use priority to decide who goes first.
+\end{definition}
+
+\begin{definition}[Shortest job first scheduling]
+    The short job first scheduling algorithm will find the job in the ready queue with the shortest burst time. If two processes have the same burst time, it may use priority to decided who goes first.
+\end{definition}
+
+\begin{definition}[Shortest remaining time first scheduling]
+    The shortest remaining time first scheduling algorithm is a pre-emptive algorithm that will execute the job with the shortest time remaining at any given point. So if a job comes in that has a shorter burst time than the remaining burst time on the current running process, it with switch processes. This is effectively a pre-emptive version of shortest job first scheduling.
+\end{definition}
+
+\begin{definition}[Priority scheduling]
+    Priority scheduling will execute the job in the ready list with the smallest (or largest) priority. If two jobs have the same priority, it may use another attribute of the processes to decided who goes first (burst time, owner, etc.).
+\end{definition}
+
+\begin{definition}[Priority aging]
+    \textbf{Priority aging} is a technique used in scheduling algorithms such that the longer a process is in the ready queue waiting for CPU resources, the higher the priority goes. The avoids the \textbf{starvation} of processes.
+\end{definition}
+
+\begin{definition}[Round-robin scheduling]
+    In the round-robin scheduling algorithm, each process is given a quanta of CPU time each \textbf{round}. After this time is elapsed, the process is pre-emptied and the next process is loaded into the CPU. For $n$ processes in the ready queue, each process gets $\frac{1}{n}$ of the CPU's time in $q$ quanta blocks in a given round. Priority can be used in round robin, we can either use a priority queue for running or a normal queue where priority is used when competing for entry into the queue.
+\end{definition}
+
+\begin{example}
+    Consider the following table of processes with their arrival time, burst time, and priority. 
+    \begin{center}
+        \begin{tabular}{ccccc}
+            \toprule
+            Process & Priority & Arrival time & Burst time \\
+            \midrule
+            P1 & $3$ & $0$ & $9$ \\
+            P2 & $2$ & $1$ & $3$ \\
+            P3 & $4$ & $3$ & $8$ \\
+            P4 & $1$ & $4$ & $7$ \\
+            P5 & $5$ & $2$ & $4$ \\
+            \bottomrule
+        \end{tabular}
+    \end{center}
+    Schedule the processes using the first come first serve algorithm, shortest job first algorithm, and round robin algorithm with a time slice of 4.
+\end{example}
+
+\begin{solution}
+    \begin{enumerate}
+        \item \hspace{0em}
+            \begin{center}
+                \begin{ganttchart}[vgrid, hgrid, x unit = 1.2em]{1}{31} 
+                    \gantttitle{First come first served scheduling}{31} \\ 
+                    \gantttitlelist{1, ..., 31}{1} \\
+                    \ganttbar{P1}{1}{9} \\
+                    \ganttbar{P2}{10}{12} \\
+                    \ganttbar{P3}{13}{20} \\
+                    \ganttbar{P4}{21}{27} \\
+                    \ganttbar{P5}{28}{31}
+                \end{ganttchart}
+            \end{center}
+            
+        \item \hspace{0em}
+            \begin{center}
+                \begin{ganttchart}[vgrid, hgrid, x unit = 1.2em]{1}{31} 
+                    \gantttitle{Shortest job first scheduling}{31} \\ 
+                    \gantttitlelist{1, ..., 31}{1} \\
+                    \ganttbar{P1}{1}{9} \\
+                    \ganttbar{P2}{10}{12} \\
+                    \ganttbar{P3}{24}{31} \\
+                    \ganttbar{P4}{17}{23} \\
+                    \ganttbar{P5}{13}{16}
+                \end{ganttchart}
+            \end{center}
+            
+        \item \hspace{0em}
+            \begin{center}
+                \begin{ganttchart}[vgrid, hgrid, x unit = 1.2em]{1}{31} 
+                    \gantttitle{Round robin scheduling}{31} \\ 
+                    \gantttitlelist{1, ..., 31}{1} \\
+                    \ganttbar{P1}{1}{4}
+                    \ganttbar{}{15}{18}
+                    \ganttbar{}{19}{19} \\
+                    \ganttbar{P2}{12}{14} \\
+                    \ganttbar{P3}{20}{23}
+                    \ganttbar{}{24}{27}\\
+                    \ganttbar{P4}{5}{8}
+                    \ganttbar{}{9}{11} \\
+                    \ganttbar{P5}{28}{31} 
+                \end{ganttchart}
+            \end{center}
+            
+    \end{enumerate}
+\end{solution}
+
+The following scheduling algorithms are getting more sophisticated and closer to how modern operating system operate.
+
+\begin{definition}[Multilevel queue]
+    In this scheduling algorithm, processes are \textbf{partitioned} into different queues
+\end{definition}
+
+\begin{example}
+    In a multilevel queue scheduling algorithm implemented on a desktop computer, we could split processes into foreground processes (graphical user interface processes, user input processes, etc.) and background processes (background application processes, updates, etc.).
+\end{example}
+
+Multilevel feedback queues rely on processes being able to be partitioned into groups of varying performance requirements (such as response time, average completion time, etc.).
+
+\begin{definition}[Multilevel feedback queues]
+    This is an adaption of multilevel queue scheduling; however, the process may proceed from one queue to another. This is the most common approach to scheduling but the most difficult to implement. A multilevel feedback queue may have the following attributes:
+    \begin{enumerate}
+        \item the number of queues;
+        \item the scheduling algorithm for each queue;
+        \item the method to upgrade a process;
+        \item the method to demote a process; and
+        \item the method to determine which queue a process will enter.
+    \end{enumerate}
+\end{definition}
+
+\begin{example}
+    As before, a multilevel feedback queue may split processes into foreground processes and background processes. When foreground applications are minimised, this may move its processes to the background queue and vice versa with a program that is maximised.
+\end{example}
+
+\section{Threads}
+
+Call our definition of multiprogramming and that we use CPU scheduling to achieve multiprogramming. Now we are going to look at \textbf{threads}.
+
+\begin{definition}[Thread]
+    A \textbf{thread} of execution is the smallest sequence of programmed instructions that can be managed independently by a scheduler, a basic unit of CPU utilisation.
+\end{definition}
+
+Threads may share common attributes, such as priority, with peer threads but typically execute different code.
+
+Benefits of using threads include
+\begin{enumerate}
+    \item responsiveness, part of a program can remain running even if a part of it is blocked or performing a length operation;
+    \item resource sharing;
+    \item economy; and %todo
+    \item multiprocessor architecutre, a single-threaded program (a program running on one thread) can only be performed on a single core, the cooperatino of multiple cores on a single process can deliver higher throughput and improved performance.
+\end{enumerate}
+
+We can split threads into \textbf{user threads} and \textbf{kernal threads}. User threads are managed by the user whereas kernel threads are supported by a kernel module.
+
+User threads can be managed by kernel threads in various ways:
+\begin{enumerate}
+    \item one-to-one;
+    \item many-to-one; and
+    \item many-to-many.
+\end{enumerate}
+
+\begin{example}[Windows scheduling]
+    Windows may schedule threads using a priority-based pre-emptive scheduling algorithm. A thread selected by the dispatched will run until:
+    \begin{enumerate}
+        \item pre-empted by a higher priority thread;
+        \item it terminates;
+        \item time quantum ends; and
+        \item a system call is made.
+    \end{enumerate}
+    Windows uses a $32$-level priority scheme such that the higher the level the higher the priority. We divide processes into variable classes. If a process with priority $p$ ($1 \leq p \leq 32$) is such that $p \leq 15$, then it is considered in the \textbf{variable class} and if it is such that $p > 15$, then it is considering the \textbf{real-time class}. If the time quantum on a process is elapsed the priority is decreased but never below the base priority given. Priority aging is also implemented such that the longer a process is waiting the higher the priority raises.
+\end{example}

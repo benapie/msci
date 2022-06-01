@@ -1,0 +1,246 @@
+\chapter{Number systems}
+
+\section{Introduction to binary and hexadecimal}
+
+\begin{definition}[Positional number system]
+    A \textbf{positional number system} is a system for representation of numbers by an ordered set of numerals symbols (called digits) which the value of a numeral symbol depends on its position. Binary, hexadecimal, and decimal are all exmples of positional number systems. The \textbf{base} of the number system is the number of symbols. 
+\end{definition}
+
+\begin{definition}
+    The \textbf{radix point} is the symbol used in number system to separate the integer part of the number from its fractional part. This should be familiar to the decimal point in base 10.
+\end{definition}
+
+Binary is a positional number system in base 2. Reading (and writing) in the basic binary number system is assumed, as it more practise than anything else. A few examples will be included.
+
+\begin{example}
+    Write the binary number $110.11$ in decimal.
+\end{example}
+
+\begin{solution}
+    \hspace{0em}
+    \begin{center}
+        \begin{tabular}{lcccccc}
+            \toprule
+            Position & 2 & 1 & 0 & . & -1 & -2 \\
+            Binary value & 1 & 1 & 0 & . & 1 & 1 \\
+            \bottomrule
+        \end{tabular}
+    \end{center}
+    So, 
+    \begin{align*}
+        110.11_2 &= (1 \times 2^2 + 1 \times 2^1 + 0 \times 2^0 + 1 \times 2^{-1} + 1 \times 2^{-2})_{10} \\
+        &= \left( 4 + 2 + 0.5 + 0.25 \right)_{10} \\
+        &= 6.75_{10}.
+    \end{align*}
+\end{solution}
+
+\begin{example}
+    Write the decimal number $31.375$ in binary.
+\end{example}
+
+\begin{solution}
+    \begin{align*}
+        31.375_{10} &= (16 + 8 + 4 + 2 + 1 + 0.25 + 0.125)_{10} \\
+        &= (2^4 + 2^3 + 2^2 + 2^1 + 2^0 + 2^{-2} + 2^{-3})_{10} \\
+        &= 11111.011_2
+    \end{align*}
+\end{solution}
+
+\begin{example}
+    Prove that \[ (0.10\dot{1}\dot{0})_2 = \left( \frac23 \right)_{10}.\]
+\end{example}
+
+\begin{solution}
+        \[ (0.10\dot{1}\dot{0})_2 = \left( \frac12 + \frac18 + \frac1{32} + \ldots \right)_{10}, \] this is a geometric series so we can apply infinite series formula \[ \frac{a}{1 - r} \] with $a$ being the first term and $r$ being the common ratio to get \[ \frac{\frac12}{1 - \frac14} = \frac23. \]
+\end{solution}
+ 
+\begin{definition}[Bytes and nibbles]
+    The \textbf{byte} is a unit of digital information, most commonly representing eight bits. A four-bit quantity is often called a \textbf{nibble}.
+\end{definition}
+
+\begin{definition}[Word]
+    A \textbf{word} is the natural unit of data used by a particular processor design. Modern processors usually have a word size of between 8 and 64 bits. We use the terms \textbf{half word} and \textbf{double word} to refer to a unit of data that is half or double size of a normal word size, respectively. 
+\end{definition}
+
+\begin{definition}[Hexadecimal]
+    \textbf{Hexadecimal} is a positional numeral system with a radix of 16. It is commonly used to interprete binary values as it is more compact and it is easy to convert numbers between binary and hexadecimal. We typically use the prefix \texttt{0x} to represent numbers in hexadecimal, such that \[ \normalfont \texttt{0x1234} = 1234_{16}. \]
+\end{definition}
+
+\begin{example}
+    Write $\mathtt{1F8C.C_{16}}$ in decimal.
+\end{example}
+
+\begin{solution}
+    \begin{align*}
+        \mathtt{1F8C.C_{16}} &= (1 \times 16^3 + 15 \times 16^2 + 8 \times 16^1 + 12 \times 16^0 + 12 \times 16^{-1})_{10} \\
+        &= \left( 4096 + 3840 + 128 + 12 + \frac34 \right)_{10} \\
+        &= 8076.75_{10}
+    \end{align*}
+\end{solution}
+
+We can translate binary to hexadecimal easily if you note that every 4 binary digits can represent one binary digit, and vice versa for hexadecimal to binary translation
+
+\begin{example}
+    Write $\mathtt{2EF9}_{16}$ in binary.
+\end{example}
+
+\begin{solution}
+    \[ \mathtt{2}_{16} = 2_{10} = 0010_2, \quad \mathtt{E}_{16} = 14_{10} = 1110_2, \quad \mathtt{F}_{16} = 15_{10} = 1111_2, \quad \mathtt{9}_{16} = 9_{10} = 0101_2, \] so \[ \mathtt{2EF9}_{16} = (0010 \; 1110 \; 1111 \; 0101)_2. \]
+\end{solution}
+
+\section{Binary arithmetic}
+
+We can clearly add and multiply in other binary much like we do in decimal, multiplication in binary can be effectively accomplished with left-shift and add operations.
+
+\begin{example}
+    Calculate $0101_2 + 0111_2$ in binary and in decimal.
+\end{example}
+
+\begin{solution}
+    \[ 0101_2 + 0111_2 = 1100_2 = 12_{10}. \]
+\end{solution}
+
+\begin{example}
+    Calculate $11100_2 \times 01110_2$.
+\end{example}
+
+\begin{solution}
+    \begin{align*}
+        11100_2 \times 01110_2 &= (2^1 \times 11100 + 2^2 \times 11100 + 2^3 \times 11100)_2 \\
+        &= (111000 + 1110000 + 11100000)_2 \\
+        &= 1 \; 1000 \; 1000
+    \end{align*}
+\end{solution}
+
+\begin{example}
+    Consider that an arithmetic logic unit must add the binary numbers $1000_2$ and $1001_2$ and store it in a 4-bit register. It is clear that this cannot be done.
+\end{example}
+
+\begin{definition}[Integer overflow]
+    An \textbf{integer overflow} occurs when an arithmetic operation attempts to create a numeric value that is outside of the range that can be represented with a given number of digits. Typically, if overflow occurs it should trigger a flag in the \textbf{status register}.
+\end{definition}
+
+\section{Negative numbers in binary}
+
+There are a number of methods that we can use to represent negative numbers in binary.
+
+\begin{definition}[Signed magnitude representation]
+    In the approach, the first bit of a binary number is a flag for whether a number is negative; $0$ for a positive number and $1$ for a negative number.
+\end{definition}
+
+\begin{example}
+    The following numbers are evaluate being in signed magnitude representation.
+    \begin{enumerate}
+        \item $0000 \; 0110 = 6$;
+        \item $1000 \; 0110 = -6$;
+        \item $1111 \; 1111 = -127$; and
+        \item $1000 \; 0000 = -0$.
+    \end{enumerate}
+\end{example}
+
+\begin{definition}[Ones' complement representation]
+    The \textbf{ones' complement} of a binary numnber is defined as the value obtained by inverting all the bits in the binary representation of the number, that is, all 0s go to 1s and all 1s go to 0s.
+\end{definition}
+
+\begin{example}
+    \hspace{0em}
+    \begin{center}
+        \begin{tabular}{ccc}
+            \toprule
+            Bits & Unsigned value & Ones' complement value \\
+            \midrule
+            $0111 \; 1111$ & 127 & 127 \\
+            $1111 \; 1111$ & 255 & 0 \\
+            $1111 \; 0101$ & 245 & -10 \\
+            $0100 \; 1001$ & 73 & 73 \\ 
+            \bottomrule
+        \end{tabular}
+    \end{center}
+\end{example}
+
+\begin{definition}[Two's complement]
+    The \textbf{two's complement} of a $n$-bit binary number is defined to be the value of which, when added to the original value, makes $2^n$. Or more informally, it can be obtained by inverting all the digits then adding $1$. This is the most common form of representation for negative numbers as it makes binary arithmetic much simplier.
+\end{definition}
+
+\begin{example}
+    \hspace{0em}
+    \begin{center}
+        \begin{tabular}{ccc}
+            \toprule
+            Bits & Unsigned value & Two's complement value \\
+            \midrule
+            $0111 \; 1111$ & 127 & 127 \\
+            $1111 \; 1111$ & 255 & 0 \\
+            $1111 \; 0101$ & 245 & -11 \\
+            $0100 \; 1001$ & 73 & 73 \\ 
+            \bottomrule
+        \end{tabular}
+    \end{center}
+\end{example}
+
+\begin{definition}[Biased represenation]
+    Biased representation, also known as offset binary or excess-$K$, uses a prespecified number $K$ as a biasing value. A value is represented by the unsigned number which is $K$ greater than the intended value.
+\end{definition}
+
+\begin{example}
+    \hspace{0em}
+    \begin{center}
+        \begin{tabular}{ccc}
+            \toprule
+            Bits & Unsigned value & Excess-128 interpretation \\
+            \midrule
+            $0000 \; 0000$ & 0 & -128 \\
+            $1111 \; 1111$ & 255 & 127 \\
+            $1111 \; 0101$ & 245 & 117 \\
+            $0100 \; 1001$ & 73 & -55 \\ 
+            \bottomrule
+        \end{tabular}
+    \end{center}
+\end{example}
+
+As it is the most common, most negative numbers in this course will be in two's complement unless specified otherwise.
+
+\section{Floating point representation in binary}
+
+Sometimes we need to deal with numbers outside the usual range, especially in scientific settings, such as experiments where very large or very small values are recorded.
+
+\begin{definition}[Binary floating point representation]
+    The typical floating-point representation has three fields:
+    \begin{enumerate}
+        \item the \textbf{sign bit}, $S$, as described before;
+        \item the \textbf{exponent bit}, $e$; and
+        \item the \textbf{mantissa} $M$.
+    \end{enumerate}
+    This will represent the binary number \[ (-1)^{S} \times M \times 2^e. \]
+\end{definition}
+
+\begin{definition}[Single precision floating point representation]
+    Single precision (32-bit) floating point numbers have:
+    \begin{enumerate}
+        \item a 1-bit sign, 0 indicates a positive number and 1 indicates a negative number (as before);
+        \item a 8-bit exponent, this is stored with excess-127 (a bias of 127) such that it can store a value in the range -126 to 127; and
+        \item a 23-bit mantissa, this is always scaled such that the radix point is after the leading 1 (the first 1), we do not store this leading 1, we assume it is there.
+    \end{enumerate}
+    These are stored sequentially, such that the first bit is the sign bit, then the next 8 bits are the exponent, then the last 23 bits are the mantissa. There are some special values in this representation:
+    \begin{enumerate}
+        \item $e = 0, M = 0$ gives the number 0;
+        \item $e = 0, M \neq 0$ are knowwn as \textbf{subnormal numbers};
+        \item $e = 255, M = 0$ gives $\pm \infty$; and
+        \item $e = 255, M \neq 0$ does not give a number.
+    \end{enumerate}
+\end{definition}
+
+\begin{example}
+    Evaluate the following single precision floating point numbers in decimal.
+    \begin{enumerate}
+        \item $00111110001000000000000000000000$; and
+        \item $11000001010001100000000000000000$;
+    \end{enumerate}
+\end{example}
+
+\begin{solution}
+    \begin{enumerate}
+        \item $S = 0$, so positive. $e = 0111 \; 1100$ in excess-127, so in decimal $e = 64 + 32 + 16 + 8 + 4 - 127 = -3$. $M = 1.01_2 = 1.25_{10}$. So the decimal equivalent is \[ 1.25 * 2^{-3} = 0.15625. \]
+        \item $S = 1$, so negative. $e = 1000 \; 0010$ in excess-127, so in decimal $e = 128 + 2 - 127 = 3$. $M = 1.100011_2 = \left( 1 + \frac12 + \frac1{32} + \frac1{64} \right) = \frac{99}{64}$. Hence the decimal equivalent is \[ \frac{99}{64} \times 2^3 = \frac{99}{8} = 12.375. \]
+    \end{enumerate}
+\end{solution}

@@ -1,0 +1,71 @@
+\lecture{7}{27/1}
+\paragraph{Method 2}
+
+We can express a surface $S$ as a level set, that is $f(x, y, z) = c$
+for some constant $c$.
+Then $\nabla f$ is a normal vector to $S$ and
+\[
+    \hat{\bm n} = \frac{\nabla f}{\norm{\nabla f}}
+\]
+is a unit normal.
+By the implicit function theorem, $S$ can be written as 
+$z = g(x, y)$
+for some function $g$
+(as long as $\frac{\partial f}{\partial z} \neq 0 \in S$).
+So
+\[
+    f(x, y, g(x,y)) = c.
+\]
+Hence we can use $(x,y)$ to parametrise $S$ as
+\[
+    \bm x(x, y) = (x, y, g(x, y)).
+\]
+Then we have
+\[
+    \frac{\partial \bm x}{\partial x} \times \frac{\partial \bm x}{\partial y}
+    = (1, 0, g_x) \times (0, 1, g_y) = -\bm e_1 g_x - \bm e_2 g_y + \bm e_3.
+\]
+Additionally, from last term we saw that
+\begin{align*}
+    g_x &= \frac{
+        \left(
+            - \frac{\partial f}{\partial x} 
+        \right)}{
+        \left(
+            \frac{\partial f}{\partial z}
+        \right)} &
+    g_y &= \frac{
+        \left(
+            - \frac{\partial f}{\partial y} 
+        \right)}{
+        \left(
+            \frac{\partial f}{\partial z}
+        \right)} 
+\end{align*}
+hence
+\[
+    \frac{\partial \bm x}{\partial x} \times \frac{\partial \bm x}{\partial y}
+    = \bm e_1 \frac{
+            \left(
+                \frac{\partial f}{\partial x}
+            \right)}{
+            \left(
+                \frac{\partial f}{\partial z}
+            \right)}
+    + \bm e_2 \frac{
+            \left(
+                \frac{\partial f}{\partial y}
+            \right)}{
+            \left(
+                \frac{\partial f}{\partial z}
+            \right)}
+    + \bm e_3
+    = \frac{\nabla f}{\left(\frac{\partial f}{\partial z}\right)}
+    = \frac{\nabla f}{\bm e_3 \cdot \nabla f}.
+\]
+Now, using method 1 we get
+\[
+    \int_S \bm F \cdot d \bm A 
+    = \int_A \frac{\bm F \cdot \nabla F}{\bm e_3 \cdot \nabla F} \,dx\,dy
+\]
+where $A$ is the projection of $S$ to the $x$-$y$ plane.

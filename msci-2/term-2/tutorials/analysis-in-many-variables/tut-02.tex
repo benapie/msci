@@ -1,0 +1,51 @@
+\tutorial{2}{6/2}
+
+\question Write the line lintegral
+\[
+    \int_C x\,dx + y\,dy + (xz - y)\,dz
+\]
+in the form $\int_C \bm v \cdot d\bm x$ for a suitable vector field $\bm v(\bm x)$,
+and compute its value when $C$ is the curve given by 
+\[
+    \bm x(t) = t^2 \bm e_1 + 2t \bm e_2 + 4t^3 \bm e_3, \qquad t \in [0,1].
+\]
+
+\question Let $\bm A(\bm x)$ be the vector field
+\[
+    \bm A(x,y,z) = x\bm e_1 + y\bm e_2 + z\bm e_3.
+\]
+\begin{parts}
+    \part Compute the line integral $\int_C \bm A \cdot d\bm x$ where $C$ is the straight line
+    from the origin to the point $(1,1,1)$.
+    \part Show (by finding $f$) that the vector field $\bm A$ from part (a) is equal to
+    $\nabla f(\bm x)$ for some scalar field $f$, and that your answer to part (a)
+    is equal to $f(1,1,1) - f(0,0,0)$.
+\end{parts}
+
+\question Show that the result from question 78 applies in general: if the vector field $\bm v(\bm x)$
+in $\R^n$ is the gradient of a scalar field $f(\bm x)$, so that $\bm v = \nabla f$,
+and if $C$ is a curve in $\R^n$ running from $\bm x = \bm a$ to $\bm x = \bm b$,
+then $\int_C \bm v \cdot d\bm x = f(\bm b) - f(\bm a)$.
+
+\question Let $\bm v$ be the radial vector field $\bm v(\bm x) = \bm x$.
+\begin{parts}
+    \part Compute $l_1 = \int_{C_1} \bm x \cdot d\bm x$ where $C_1$ is the straight-line
+    contour from the origin to the point $(2,0,0)$.
+
+    \part Compute $l_2 = \int_{C_2} \bm v \cdot d\bm x$ where $C_2$ is the semi-circular contour
+    from the origin to the point $(2,0,0)$ defined by 
+    $x \in [0,2]$,
+    $y = \sqrt{1 - (x-1)^2}$,
+    $z = 0$.
+
+    \part You should have found that $l_1 = l)2$.
+    Explain this result using Stokes' theorem.
+\end{parts}
+
+\question The paraboloid of equation $z = x^2 + y^2$ intersects the plane $z = y$ in a curve $C$.
+Calcualte 
+$\oint_C \bm x \cdot d\bm x$ 
+for 
+$\bm v = 2z \bm e_1 + x \bm e_2 + y \bm e_3$ 
+using Stokes' theorem.
+Check your answer by evaluating the line integral directly.

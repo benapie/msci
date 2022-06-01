@@ -1,0 +1,115 @@
+%! TEX root = master.tex
+
+\section{Introduction}
+\lecture{1}{5/10}
+
+\begin{definition}[Deep learning]
+	\emph{Deep learning} is a class of machine learning algorithms that are 
+	composed of multiple processing layers to extract representations of data 
+	with multiple layers of abstraction.
+\end{definition}
+
+\begin{remark}
+	When we say \emph{representations}, we are referring to feature vectors.
+\end{remark}
+
+We will start with observing how learning is defined in nature.
+\emph{Learning} is the process of taking novel data, combining it with data we 
+have seen before, and using it to adapt our actions.
+
+The brain can be split into five sections:
+\begin{enumerate}
+	\item the frontal lobe: for memory and planning;
+	\item the pariental lobe: for sensation and spatial awareness;
+	\item the temporal lobe: for hearing and language;
+	\item the occipital lobe: for vision; and
+	\item the cerebellum: for coordination and timing.
+\end{enumerate}
+
+The architecture of the brain is key for its operation.
+Likewise, the architectrure of a neural network is vital for its operation.
+The brain has thousands of inputs. 
+
+\paragraph{Overview of the brain}
+Impulses from the inputs travel along
+\emph{neurons} (nerve cells). Each neuron has thousands of branches called
+\emph{dendrites} and an output called an fbaxon.
+The axon is coated in \emph{myelin} to help it conduct electricity.
+The places where neurons connect are called \emph{synapses}.
+There is a small gap between the neurons called the \emph{synaptic cleft}.
+Sodium and potassium gates control the voltrage permitted across this cleft.
+
+\paragraph{Frequent stimulation}
+When a neuron is stimulated frequently, the level of postsynaptic stimulation
+increases for the same level of presynaptic stimulation (called an increase in 
+\emph{synaptic efficacy}).
+This gain in signal strength, if maintained for a long period of time,
+is called \emph{long term potentiation} (with the opposite called
+\emph{long term depression}).
+This is formalised in the following theorem.
+
+\begin{theorem}[Hebbian theory]
+	An increase in synpatic efficacy arises from a presynaptic cell's
+	repeated and persistent stimulation of a postsynaptic cell.
+\end{theorem}
+
+\begin{figure}
+	\centering
+	\includegraphics[width=0.8\linewidth]{images/artifical-neuron.png}
+	\caption{An artifical neuron.}
+	\label{fig:artificial-neuron}
+\end{figure}
+
+\begin{definition}[Artifical neuron]
+	For a given \emph{artifical neuron} $j$ let there be $n$ inputs with signals
+	$x_1, \ldots, x_n$ and weights $w_{1,j}, \ldots, w_{n,j}$. 
+	Then the output of the $j$th neuron is
+	\[
+		o_j = \varphi\left( \sum_{i = 1}^n w_{i,j} x_i \right)
+	\]
+	where $\varphi$ is called the activation function.
+\end{definition}
+
+\begin{example}
+	A common activation function is
+	\[
+		\varphi(x) = \max\left\{ 0, x \right\},
+	\]
+	called the reactified linear unit.
+\end{example}
+
+\begin{remark}
+	In the early development of neural networks, weights were manually tweaked.
+	Modern neural networks utilise a technique called back-propogation
+	(or reverse-mode differentation) via stochastic gradient descent.
+	Modern development has been facilitated by the frequent technological 
+	advancements in graphical processing units (GPUs).
+\end{remark}
+
+\begin{examples}[Modern examples of neural network]
+	\begin{enumerate}
+		\item (LeNet) is a convolutional neural network structure.
+			It is one of the earliest convolutional neural networks and 
+			promoted the development of deep learning.
+
+		\item (Adversial neural networks) is a recently developed class of neural
+			networks where two neural networks contest each other in a zero-sum
+			game. This class has been shown to be particularly good with images.
+
+		\item (Transformer) is a deep learning model introduced in 2017 which has
+			shown to be particularly useful in natural language proceessing.
+	\end{enumerate}
+\end{examples}
+
+We still use the same framework that we established in Machine Learning last
+year.
+We learn from an experience $E$ coming from a data distribution $p$, specifying
+a task $T$ and a measure $P$.
+We will only look at fixed data distributions and will typically look at multiple
+performance measures.
+
+\begin{remark}
+	Deep learning is not as much as a black box as it used to be.
+	Our understanding of what is going on is improving, but are finding that the
+	inner workings are increasingly complex.
+\end{remark}

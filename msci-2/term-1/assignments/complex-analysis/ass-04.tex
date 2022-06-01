@@ -1,0 +1,71 @@
+\assignment{4}{8/11}
+
+\setcounter{question}{1}
+\question
+\begin{parts}
+    \part Prove that $f(z) = \lvert z \rvert$ is not complex differentiable anywhere.
+    \begin{solution}
+        We know that if $f(x + iy) = u(x, y) + iv(x, y)$ is complex differentiable then $u_x(x, y)$ and $v_y(x, y)$ must exist (as a requirement for the Cauchy-Riemann equations) and $u_x = v_y$; however, as $v(x, y) = 0$, $v_y(x, y)$ does not exist and hence $f(z)$ is not complex differentiable anywhere.
+    \end{solution}
+
+    \part Show that $g(z) = z \bar z = \lvert z \rvert^2$ is differentiable at the origin and nowhere else. Find $g'(0)$.
+    \begin{solution}
+        Consider $z = 0$. Then
+        \begin{align*}
+            \frac{f(z + h) - f(z)}{h} &= \frac{f(h) - f(0)}{h} \\
+                                      &= \frac{h \bar h - 0}{h} \\
+                                      &= \bar h \to 0 \;\text{as}\; h \to 0;
+        \end{align*}
+        hence, $g$ is complex differentiable at the origin and $g'(0) = 0$.
+        Now we consider $z \neq 0$.
+        \begin{align*}
+            \frac{f(z+h) - f(z)}{h} &= \frac{(z + h)\overline{(z + h)} - z\bar z}{h} \\
+                                    &= \frac{z \bar h + \bar z h + h \bar h}{h}.
+        \end{align*}
+        Now, this expression above will tend to $\bar z + z$ as $h \to 0$ along the real axis; however, it will tend to $\bar z - z$ along the imaginary axis. As the limit is not consistent with the direction $h$ is tending to $0$ by, then it is not complex differentiable anywhere.
+    \end{solution}
+\end{parts}
+
+\setcounter{question}{3}
+\question Define $f: \C \to \C$ by $f(0) = 0$, and
+\[ f(z) = \frac{(1+i)x^3 - (1-i)y^3}{x^2 + y^2} \quad \;\text{for}\; z = x + iy \neq 0. \]
+Show that $f$ satisfies the Cauchy-Riemann equations at $0$ but is not differentiable there.
+\begin{solution}
+    \begin{align*}
+        u(x, y)   &= \frac{x^3 - y^3}{x^2 + y^2} \\
+        v(x, y)   &= \frac{x^3 + y^3}{x^2 + y^2} \\ 
+        u_x(0, 0) &= \lim_{h \to 0} \left( \frac{u(h, 0) - u(0, 0)}{h} \right) \\
+                  &= \lim_{h \to 0} \left( \frac{h}{h} \right) = 1 \\
+        u_y(0, 0) &= \lim_{h \to 0} \left( \frac{u(0, h) - u(0, 0)}{h} \right) \\
+                  &= \lim_{h \to 0} \left( \frac{-h}{h} \right) = -1 \\
+        v_x(0, 0) &= \lim_{h \to 0} \left( \frac{v(h, 0) - v(0, 0)}{h} \right) \\
+                  &= \lim_{h \to 0} \left( \frac{h}{h} \right) = 1 \\
+        v_y(0, 0) &= \lim_{h \to 0} \left( \frac{v(0, h) - v(0, 0)}{h} \right) \\
+                  &= \lim_{h \to 0} \left( \frac{h}{h} \right) = 1;
+    \end{align*}
+    hence, satisfies the Cauchy-Riemann equations. Now we must show that $f$ is not complex differentiable at $0$. We set $z = x + ix$. So $f(x) = ix$. Then 
+    \[ f'(0) = \lim_{h \to 0} \left(\frac{f(h) - f(0)}{h}\right) = i. \]
+    Now we consier $z = x$, so $f(x) = (1+i)x$. Now
+    \[ f'(0) = \lim_{n \to 0} \left( \frac{f(h) - f(0)}{h}\right) = 1 + i; \]
+    hence, we are getting different limits depending on how we approach $0$ and thus $f$ is not complex differentiable.
+\end{solution}
+
+\setcounter{question}{5}
+\question Find all complex differentiable functions defined on the whole set of $\C$ of the form $f(z) = u(x) + iv(y)$ where $u$ and $v$ are both real-valued.
+\begin{solution}
+    We already have $u_y = -v_x$ as $u_y = v_x = 0$. We also have
+    \[ u_x(x) = u_y(y) \]
+    hence $u_x$ and $v_y$ are constant, so we set
+    \[ a = u_x(x) = u_y(y). \]
+    By integrating we get
+    \begin{align*}
+        u(x) &= ax + b \\
+        v(x) &= ax + c
+    \end{align*}
+    and so 
+    \begin{align*}
+        f(z) &= (ax + b) + i(ay + c) \\
+             &= az + z_0
+    \end{align*}
+    for some $z_0 \in \C$.
+\end{solution}

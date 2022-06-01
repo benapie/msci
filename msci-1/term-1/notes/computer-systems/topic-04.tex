@@ -1,0 +1,250 @@
+\chapter{Combinational logic design}
+
+\section{Circuits}
+
+\begin{definition}
+    A \textbf{circuit} has:
+    \begin{enumerate}
+        \item one or more discrete valued input terminals;
+        \item one or more discrete valued output terminals;
+        \item a specification of the relationship between inputs and outputs;
+        \item a specification of the delay between inputs changing and outputs responding.
+    \end{enumerate}
+    
+    A circuit is made up of \textbf{elements} and \textbf{nodes}:
+    \begin{enumerate}
+        \item an element is itself a circuit with inputs, outputs, and specifications; and
+        \item a node is a wire joining elements, whose voltage conveys a discrete valued variable.
+    \end{enumerate}
+\end{definition}
+
+Any logic circuit can be constructed with just these three operators: AND, OR, and NOT, they form a functionally complete set. Charles Sanders Peirce showed that NOR gates alone form a functionally complete set.
+
+
+% above and below definition needs to be combined
+
+\begin{definition}
+    A \textbf{circuit} is a network that processes \textbf{discrete-valued variables}. A circuit can be viewed as a black box (Figure \ref{fig:black_box}) which has \textbf{inputs} and \textbf{outputs}. Inside the \textbf{black box} we will have specifications for how it will behave. Inside of this black box, circuits consist of
+    \begin{enumerate}
+        \item \textbf{elements}, these are circuits themselves with their own input, outputs, and specifications; and
+        \item \textbf{nodes}, these are wires whose voltages represent the discrete-value variables and are classified as
+        \begin{enumerate}
+            \item \textbf{inputs}, nodes that receive values from the external world;
+            \item \textbf{outputs}, nodes that deliver values to the external world; or
+            \item \textbf{internal}, nodes that are neither inputs or outputs.
+        \end{enumerate}
+    \end{enumerate}
+\end{definition}
+
+\begin{figure}
+    \centering
+    \begin{tikzpicture}[scale=1]
+        \draw % rectangle
+            (0,0) rectangle (4,2)
+        ;
+        \draw[->] (-0.5,0.5) -- (0,0.5);
+        \draw[->] (-0.5,1) -- (0,1);
+        \draw[->] (-0.5,1.5) -- (0,1.5);
+        \draw[->] (4,0.6) -- (4.5,0.6);
+        \draw[->] (4,1.4) -- (4.5,1.4);
+        \node[left] at (-0.5,1) {inputs};
+        \node[right] at (4.5,1) {outputs};
+    \end{tikzpicture}
+    \caption{Circuit as a black box with inputs and outputs.}
+    \label{fig:black_box}
+\end{figure}
+
+\section{Boolean equations}
+
+The algebra of 0/1 variables... used for specifying the function of a combinatorional circuit and used to analyse and simply the circuits required to give a specified truth table.
+
+Variables are represented by letters, eg. A,B,C.... The complement or inverse of a variable is written with a bar. 
+
+A variable or its complement is called a literal. 
+
+The AND of several literals is called a product or implicant. Products may be written A.B.C, ABC,  AcapBcapC or AlandBlandC. A minterm is a product involving all the inputs to a function.
+
+The OR of several literals is called a sum or implicant, e.g. A+B+C, or A+C. Sums may be written A+B+C, AcupBcupC or AlorBlorC.
+
+A maxterm is a sum involving all the inputs to a function.
+
+\begin{description}
+    \item[sum of products] every boolean expression can be written as minterms ORed together: (A.B.C)+(A.barBdotbarC)
+\end{description}
+
+% product of sum form and sum of products todo
+
+\section{Boolean algebra}
+
+% restructure
+
+\section{Karnaugh maps}
+
+Karnaugh maps are a graphical way of representing equations to make identifying terms in a truth table easier.
+
+\begin{enumerate}
+    \item Create the map so that neighbouring terms differ in the negation of one variable
+    \item Circle all rectangular blocks of ones in the map using as few circles as possible
+    \item each circle must be a power of 2 in each dimension (i.e. 1,2,4).
+    \item Read off the implicants that were circled.
+\end{enumerate}
+
+If a Boolean expression is minimal then it is the sum of prime implicants: implicants that cannot be combined with each other. Each circle represents an implicant. Largest possible circles represent prime implicants.
+
+\begin{example}
+    \begin{table}
+        \centering
+        \begin{tabular}{cccc}
+            \toprule
+            A & B & C & Y \\
+            \midrule
+            0 & 0 & 0 & 1 \\
+            0 & 0 & 1 & 1 \\
+            0 & 1 & 0 & 0 \\
+            0 & 1 & 1 & 0 \\
+            1 & 0 & 0 & 0 \\
+            1 & 0 & 1 & 0 \\
+            1 & 1 & 0 & 0 \\
+            1 & 1 & 1 & 0 \\
+            \bottomrule
+        \end{tabular}
+        \caption{Caption}
+        % \label{tab:my_label}
+    \end{table}
+    
+    \begin{figure}
+        \centering
+        \begin{karnaugh-map}[4][2][1][$AB$][$C$]
+            \manualterms{1,0,0,0,1,0,0,0}
+            \implicant{0}{4}
+        \end{karnaugh-map}
+        \caption{Caption}
+        % \label{fig:my_label}
+    \end{figure}
+\end{example}
+
+\section{Circuits}
+
+Combinatorial circuits, where output depends only on current input
+\begin{enumerate}
+    \item adders, add the contents of two register;
+    \item decorders, use a binary number to activate a single line; and
+    \item multiplexors, use a binary number to select an input.
+\end{enumerate}
+
+Sequential circuits, output depends on state and input, that is, the history of inputs
+\begin{enumerate}
+    \item latches / flip-flops, basic memory element.
+\end{enumerate}
+
+% figure out how to make logic diagrams in latex
+
+\section{Timing and advanced adders}
+
+In any physical gate or circuit there is a delay between the input changing and the output adjusting appropriately. 
+
+\begin{remark}
+    Output voltages do not change instantaneous between one level and another, there is a continuous change as it changes.
+\end{remark}
+
+\begin{definition}
+    We define \textbf{propagation delay} $t_{pd}$ as the \textbf{maximum duration} before the output is stable after an input is changed.
+\end{definition}
+
+\begin{definition}
+    We define the \textbf{contamination delay} $t_{cd}$ as the \textbf{minimum duration} before the output is stable after an input is changed.
+\end{definition}
+
+So we can bound the time for a given circuit to have stable outputs $T_c\in[t_{cd},t_{pd}]$. 
+
+The delay between inputs and outputs is due to
+\begin{enumerate}
+    \item the capacitance and resistance in the circuit; and
+    \item the speed of light limitation.
+\end{enumerate}
+
+$t_{pd}$ and $t_{cd}$ may be different because
+\begin{enumerate}
+    \item a circuit may have different inputs and outputs, some of which are faster than others; and
+    \item a circuits speed is dependent on its temperature.
+\end{enumerate}
+
+\begin{definition}
+    In a circuit, the \textbf{critical path} is the path determining the propagation delay of the circuit, in other words, the longest path in the circuit.
+\end{definition}
+
+\begin{definition}
+    The \textbf{short path} is the path determining the contamination delay of the circuit, in other words, the shortest path in the circuit.
+\end{definition}
+
+\begin{example}
+    Following are circuits with the critical path (red) and short path (blue) highlighted, with contamination delays and propagation delays given for each gate.
+    \begin{enumerate}
+        \item $\operatorname{tpd}{and}$
+        \begin{center}
+            \begin{circuitikz}
+                \coordinate (O) at (0,0);
+                \draw
+                    (2,0) node[and port] (and) {}
+                    (4,1) node[nor port] (nor) {}
+                    (0,1.5) node[left] (A) {$A$} -| (and.in 1)
+                    (O |- and.in 2) node[left] (B) {$B$} |- (and.in 2)
+                    (nor.out) node[right] (S) {$S$}
+                    (A) -| (nor.in 1)
+                    (and.out) -| (nor.in 2)
+                ;
+                \draw[preaction={draw,red,-,double=red,double distance=2\pgflinewidth,}] % critical path
+                    (B) |- (and.in 2)
+                    (and.out) -| (nor.in 2)
+                ;
+                \draw[preaction={draw,blue,-,double=blue,double distance=2\pgflinewidth,}] % short path
+                    (A) -| (nor.in 1)
+                ;
+            \end{circuitikz}
+        \end{center}
+        
+        \item \hspace{0em}
+        \begin{center}
+            \begin{circuitikz}
+                \coordinate (O) at (0,0);
+                \draw
+                    (2,2) node[and port] (and1) {}
+                    (4,1) node[or port] (or) {}
+                    (6,0) node[and port] (and2) {}
+                    (and1.in 1) node[left] (A) {$A$}
+                    (and1.in 2) node[left] (B) {$B$}
+                    (and1.in 1 |- or.in 2) node[left] (C) {$C$} |- (or.in 2)
+                    (and1.in 1 |- and2.in 2) node[left] (D) {$D$} |- (and2.in 2)
+                    (and2.out) node[right] (S) {$S$}
+                    (and1.out) |- (or.in 1)
+                    (or.out) |- (and2.in 1)
+                ;
+                \draw[preaction={draw,red,-,double=red,double distance=2\pgflinewidth,}] % critical path
+                    (and1.out) |- (or.in 1)
+                    (or.out) |- (and2.in 1)
+                ;
+                \draw[preaction={draw,blue,-,double=blue,double distance=2\pgflinewidth,}] % short path
+                    (D) -- (and2.in 2)
+                ;
+                
+            \end{circuitikz}
+        \end{center}
+    \end{enumerate}
+\end{example}
+
+% draw logic circuit for ((A and B) or C) and D and show the critical path and short path for the circuit as example
+
+\begin{definition}
+    Sometimes the output of a circuit can temporarily move to an incorrect value before stabilising after inputs have been changed, we call this a \textbf{glitch} or a \textbf{hazard}.
+    
+    As long as we wait for propagation delay to elapse before we depend on the output, glitches are not an issue.
+\end{definition}
+
+% example of a glitch
+
+% 4 multiplexor example, 3 designs with different delays.
+
+\begin{example}
+    The full adder circuit we have looked at takes 3 gate delays for the carry out to be computer.
+\end{example}
+

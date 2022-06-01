@@ -1,0 +1,51 @@
+\subpart\hspace{0em}
+\begin{solution}
+    We take $X_i$ and $Y$ as in the previous answer. To apply Chebyshev's inequality, we must compute the variance of $Y$. Let $X = \sum_{i=1}^n X_i$ (so $Y = \tfrac12 X$). Then
+    \begin{align*}
+        \Var[X] & = \sum_{i=1}^n \Var[X_i]                                       \\
+                & = \sum_{i=1}^n \left(\E[X_i^2] - \left(\E[X_i]\right)^2\right) \\
+                & = \sum_{i=1}^n \left(p - p^2\right)                            \\
+                & = np(1 - p)
+    \end{align*}
+    by the linearity of variance for pairwise independence, and that $X_i$ is an indicator variable (so $\E[X_i^2] = \E[X_i]$).
+
+    \vspace{0.5em}
+    \begin{lemma}
+        Let $(\Omega, \Pr)$ be a finite discrete probability space with random variable $Z$ and $a \in \R$. Then
+        \[ \Var[aZ] = a^2\Var[Z]. \]
+    \end{lemma}
+
+    \begin{proof}
+        \begin{align*}
+            \Var[aX] & = \E[(aX)^2] - \left(\E[aX]\right)^2  \\
+                     & = a^2(\E[X^2] - \left(\E[X]\right)^2) \\
+                     & = a^2\Var[X]. \qedhere
+        \end{align*}
+    \end{proof}
+    \vspace{0.5em}
+    Thus
+    \[ \Var[Y] = \Var[\tfrac12 X] = \tfrac14 \Var[X] = \tfrac14 np(1-p). \]
+    See that
+    \begin{align*}
+        \Pr[Y \geq 600] & = \Pr\left[Y - \tfrac 12pn \geq 600 - \tfrac 12pn\right]                      \\
+                        & = \Pr\left[Y - \E[Y] \geq 600 - \tfrac12pn\right]                   \\
+                        & \leq \Pr\left[\lvert Y - \E[Y] \rvert \geq 600 - \tfrac12pn\right].
+    \end{align*}
+    Thus was can apply Chebyshev's inequality, but only when $600 - \tfrac12pn \geq 0$; that is, $n \leq 1500$. We keep this in mind when we get to maximising $n$. By Chebyshev's inequality (assuming $n \leq 1500$),
+    \begin{align*}
+        \Pr\left[\lvert Y - \E[Y] \rvert \geq 600 - \tfrac12pn\right] & \leq \frac{1}{\left(600 - \tfrac12pn\right)^2} \Var[Y] \\
+                                                   & = \frac{\tfrac14 np(1-p)}{\left(600 - \tfrac12pn\right)^2} \\
+                                                   & = \frac{np(1-p)}{4\left(600 - \tfrac12pn\right)^2}.
+    \end{align*}
+    So
+    \begin{align*}
+        \frac{np(1-p)}{4\left(600 - \tfrac12pn\right)^2} &\leq \frac{1}{50}, \\
+        16n^2 - \num{48200}n + \num{36000000} &\geq 0
+    \end{align*}
+    which is true for 
+    \[n \not\in \left(\tfrac{25}{4}(241 -\sqrt{481}), \tfrac{25}{4}(241 + \sqrt{481})\right) \] 
+    (as an open interval).
+    This gives the following critical values
+    \[ n \approx 1369.177, \qquad n \approx 1643.323 \]
+    correct to three decimal figures. Thus $n \lessapprox 1369.177$ or $n \gtrapprox 1643.323$. Recall that $n \leq 1500$ to apply the Chebyshev's inequality, thus we take $n = 1369$. That is, a greatest integer value $n$ can take (using Chebyshev's inequality) such that the campaign will cost Lucy at most £600 is \num{1369}.
+\end{solution}

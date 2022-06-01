@@ -1,0 +1,97 @@
+\chapter{Convergence and power series}
+\lecture{18}{6/12}
+
+Just a forward thought onto what we are studying this chapter, we are looking at functions of the form
+\[ f(z) = \sum^{\infty}_{n=0} c_n (z - a)^n; \]
+this is called a \emph{power series} (you should remember from Analysis I). For example, does
+\[ e^z = \sum_{n = 0}^\infty \frac{z^n}{n!} \]
+converge how we expect for $z \in \C$ (that is, the same as for the reals)?
+
+\section{Convergence}
+
+\begin{definition}[Pointwise convergence]
+    Let $(X, d_X)$ and $(Y, d_Y)$ be two metric spaces. 
+    A sequence $\{f_n\}_{n = 1}^\infty$ of functions $f_n: X \to Y$ converges \textbf{pointwise} on $X$ to $f: X \to Y$ if for all $x \in X$ we have
+    \[ \lim_{n \to \infty} f_n(x) = f(x). \]
+    That is,
+    \[ \;\forall\; \varepsilon > 0 \;\forall\; x \in X \;\exists\; N \in \N \;\forall\; n > N: d_Y(f_n(x), f(x)) < \varepsilon. \]
+\end{definition}
+
+\begin{example}
+    \begin{enumerate}
+        \item Let $f_n: [0, 1] \to \R$, $f_n = x^n$. 
+            Then we have $f_n \to f$ pointwise where
+            \[ 
+                f(x) =
+                \begin{cases}
+                    1 & x \in (0, 1] \\
+                    0 & x = 0. \\
+                \end{cases}
+            \]
+
+        \item Let $f_n : \C \to \C$ where $f_n = z^n$. Then we have three scenarios:
+            \begin{enumerate}
+                \item if $\abs{z} < 1$ then, given $\varepsilon > 0$, we choose $N$ such that 
+                    \[ N > \frac{\log{\varepsilon}}{\log\abs z}, \]
+                    then for $n  > N$ we have
+                    \[ \abs{f_n(x) - 0} = \abs{z^n} = \abs{z}^n \leq \abs{z}^N < \varepsilon \]
+                    so $f_n \to 0$ pointwise on $\D$;
+
+                \item if $\abs{z} = 1$ and if $z = 1$ then $f_n \to 1$ pointwise; however, if $\abs z = 1$ and $z \neq 1$ then $f_n$ does not converge, it just constantly spins around the unit circle (cool!); and
+
+                \item if $\abs z > 1$ then $f_n$ is unbounded and hence does not converge.
+            \end{enumerate}
+            Therefore, $f_n \to 0$ pointwise on $\D$.
+    \end{enumerate}
+\end{example}
+
+\begin{definition}[Uniform convergence]
+    Let $X$ and $Y$ be metric spaces as above. 
+    A sequence $\{f_n\}_{n = 1}^\infty$ converges \textbf{uniformly} if
+    \[ \;\forall\; \varepsilon > 0 \;\exists\; N \in \N \;\forall\; n > N \;\forall\; x \in X: d_Y(f_n(x), f(x)) < \varepsilon. \]
+\end{definition}
+
+\begin{lemma}[]
+    If $f_n \to f$ uniformly then $f_n \to f$ pointwise.
+\end{lemma}
+
+\begin{remark}
+    The above Lemma shows us that uniform convergence is a \emph{stronger notion of convergence} than pointwise convergence.
+\end{remark}
+
+\begin{theorem}[]
+    Uniform limits of continuous functions are continuous.
+\end{theorem}
+
+\begin{proof}
+    The proof for this follows a similar reasoning found in Analysis I, but with complex numbers, so will not be repeated here.
+\end{proof}
+
+The following Lemma is a useful tool for determining whether or not a function is uniform convergent. 
+Remember, as uniform convergence is a stronger notion of convergence then pointwise convergence, 
+it is useful to check whether a sequence of functions is pointwise convergence before looking at using the following techniques (given that it is so easy). 
+This can normally be done just be looking at the sequence. 
+
+\begin{lemma}[Test for uniform convergence (or lack of)]
+    Let $f_n : X \to \C$ for a metric space $X$ be a sequence of functions such that $f_n \to f: X \to \C$ pointwise.
+    Then
+    \begin{enumerate}
+        \item if there exists $\{s_n\}_{n = 1}^\infty \subset \R$ with $s_n \to 0$ and $\abs{f_n(x) - f(x)} < s_n$ for all $n$ and $x$ then $f_n \to f$ uniformly; and
+        \item if there exists a sequence $\{x_n\}_{n = 1}^\infty$ and constant $c > 0$ such that
+            \[ \abs{f_n(x_n) - f(x_n)} \geq c \]
+            for all $n$ and $x$ then $f_n$ does \emph{not} converge uniformly to $f$.
+    \end{enumerate}
+\end{lemma}
+
+\begin{proof}
+    Part (i) falls through by writing the definitions of $s_n \to 0$ and uniform convergence. 
+    (ii) happens to be the negation of uniform convergence.
+\end{proof}
+
+\begin{example}
+    Let $f_n(z) = e^z + \frac 1n$ and $g(z) = e^z + \frac zn$ where $f, g: \C \to \C$. Both $f_n, g_z \to e^z$ pointwise. To see if $f_n \to f$ uniformly, take $s_n = \frac 1n$. Then
+    \[ \abs{f_n - f} = \abs{e^z + \frac 1n - e^z} = \frac 1n \leq s_n \]
+    for all $z \in \C$ so $f_n \to f$ uniformly.
+    To see if $g_n \to f$ uniformly, we take $z_n = n$. Then 
+    \[ \abs{g_n(x_n) - f(x_n)} = \abs{e^{z_n} + \frac{z_n}n - e^{z_n}} = 1 \] and by taking $c = 1$ we see that $g_n \not \to f$ uniformly.
+\end{example}

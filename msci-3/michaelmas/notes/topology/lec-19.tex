@@ -1,0 +1,205 @@
+%! TEX root = master.tex
+\lecture{19}{25/11}
+
+\begin{theorem}[]
+	Let $X$ and $Y$ be compact topological spaces.
+	Then $X \times Y$ is compact.
+\end{theorem}
+
+\begin{proof}
+	Let
+	\[
+		\mathcal U = \left\{
+			U_i \times V_i: i \in I
+		\right\}
+	\]
+	be an open cover of $X \times Y$ by basis sets.
+	Let $p \in X$ and set
+	\[
+		\mathcal U^p = \left\{
+			U \times V: U \times V \in \mathcal U, p \in U
+		\right\}.
+	\]
+	Observe that
+	$
+		\left\{
+			p
+		\right\}
+		\times Y
+		\subset
+		\bigcup_{U \times V \in \mathcal U^p} U \times V
+	$
+	and so
+	$
+		Y =
+		\bigcup_{U \times V \in \mathcal U^p} V
+	$
+	is an open cover of $Y$.
+	As $Y$ is compact, there is a finite set
+	$\mathcal U_f^p \subset \mathcal U^p$
+	such that
+	$
+		\left\{
+			p
+		\right\}
+		\times Y 
+		\subset
+		\bigcup_{U \times V \in \mathcal U_f^p} U \times V.
+	$
+	Hence
+	$
+		p \in \bigcap_{U \times V \in \mathcal U_f^p} U = U_p
+	$
+	is an open neighbourhood of $p$.
+	Thus $X = \bigcup_{p \in X} U_p$
+	is an open cover.
+	As $X$ is compact, there is $p_1, \ldots, p_n \in X$
+	such that $X = \bigcup_{i=1}^n U_{p_i}$.
+	Note
+	\[
+		U_{p_i} \times Y \subset
+		\bigcup_{U \times V \in \mathcal U_f^p} U \times V
+	\]
+	and so
+	\[
+		X \times Y =
+		\bigcup_{i=1}^n \left( 
+			\bigcup_{U \times V \in \mathcal U_f^p} U \times V 
+		\right). \qedhere
+	\]
+\end{proof}
+
+\begin{theorem}[Heine-Borel]
+	A subset of $\R^n$ is compact if and only if it is closed and bounded.
+\end{theorem}
+
+\begin{proof}
+	$(\implies)$: let $A \subset \R^n$ be compact.
+	As $\R^n$ is Hausdorff, $A$ is closed.
+	Observe that
+	\[
+		A = \bigcup_{n=1}^\infty \left( 
+			A \cap B(\bm 0; n) 
+		\right)
+	\]
+	is an open cover of $A$.
+	Hence there is $n_1, \ldots, n_r \in \N$ with $n_1 < \ldots < n_r$
+	such that
+	\[
+		A =
+		\bigcup_{n=1}^r \left( 
+			A \cap B(\bm n; n) 
+		\right)
+		= A \cap B(\bm 0; r).
+	\]
+	Hence $A \subset B(\bm 0; r)$ is bounded.
+
+	$(\impliedby)$: let $A \subset \R^n$ be closed and bounded.
+	Let $R . )$ such that $A \subset [-R, R]^n$.
+	Hence $A$ is a closed subset of a compact space, so itself is compact.
+\end{proof}
+
+\begin{examples}
+	\begin{enumerate}
+		\item
+			We claim that $S^n$ is compact.
+			Let
+			\[
+				f: S^n \to \R, \qquad
+				f(x_1, \ldots, x_{n+1})
+				= \sum^{n+1}_{i=1} x_i^2.
+			\]
+			$f$ is clearly continuous and $\{1\}$ is closed.
+			Hence
+			$
+				f^{-1}\left( 
+					\left\{
+						1
+					\right\} 
+				\right) = S^n
+			$
+			is closed.
+			Clearly $S^n$ is bounded and $S^n \subset \R^{n+1}$;
+			hence, $S^n$ is compact.
+
+		\item
+			$T^n = S^1 \times S^1$ is clearly compact.
+
+		\item
+			We claim
+			$
+				X = \left\{
+					\bm x \in \R^3:
+					x_1^2 + x_2^2 - x_3^3 = 1
+				\right\}
+			$
+			is not compact.
+			Indeed, consider the sequence
+			\[
+				\left\{
+					\left( 
+						n,0,\left( 
+							n^2 - 1 
+						\right)^{\frac13} 
+					\right)
+				\right\}_{n \in \N}
+				\subset X.
+			\]
+			But the first coordinate of this sequence is unbounded;
+			hence $X$ is unbounded.
+			Thus, as $X \subset \R^3$, it is not compact.
+	\end{enumerate}
+\end{examples}
+
+\begin{corollary}
+	Let $X$ be a compact space and $f: X \to \R$ be a continuous function.
+	Then $f$ attains its minimum and maximum.
+\end{corollary}
+
+\begin{proof}
+	$f(X) \subset \R$ is compact, and so it is closed and bounded.
+	Thus $\sup f$ and $\inf f$ exist and are limit points of $f(X)$.
+	But as $f$ is closed, it contains all its limit points.
+	Hence $f$ attains its minimum and maximum.
+\end{proof}
+
+\begin{theorem}[Bolzano-Weierstrass]
+	An infinite subset of a compact space must have a limit point.
+\end{theorem}
+
+\begin{proof}
+	Suppose not.
+	Let $A \subset X$ be an infinite subset of a compact space with no limit
+	points.
+	So for every $p \in X$ there is $U_p \subset X$ such that
+	$
+	\left( 
+		U_p \setminus \left\{
+			p
+		\right\} 
+	\right)
+	\cap A = \varnothing.
+	$
+	Now
+	$
+		\left\{
+			U_p
+		\right\}_{p \in X}
+	$
+	is an open cover of $X$.
+	So there is $p_1, \ldots, p_n$ suich that
+	$
+		X = \bigcup_{i=1}^n U_{p_i}.
+	$
+	But
+	\[
+		A
+		= A \cap X
+		= \bigcup_{i=1}^n (A \cap U_{p_i})
+		\subset \left\{
+			p_1, \ldots, p_n
+		\right\};
+	\]
+	a contradiction.
+\end{proof}
+

@@ -1,0 +1,142 @@
+% Basic packages
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[UKenglish]{babel}
+\usepackage{enumitem}
+\usepackage{booktabs}
+\usepackage{graphicx}
+
+% No paragraph indentations
+\usepackage{parskip}
+
+% Make enunerate look better
+\setlist[enumerate,1]{label={(\roman*)}} % changing default numbering scheme
+
+% Math packages
+\usepackage{amsmath, amsfonts, mathtools, amsthm, amssymb}
+\usepackage{xfrac}
+% Bold math
+\usepackage{bm}
+% Some shortcuts for sets
+\newcommand\N{\ensuremath{\mathbb{N}}}
+\newcommand\R{\ensuremath{\mathbb{R}}}
+\newcommand\Z{\ensuremath{\mathbb{Z}}}
+\newcommand\Q{\ensuremath{\mathbb{Q}}}
+\newcommand\C{\ensuremath{\mathbb{C}}}
+
+% Tikz & pgfplots
+\usepackage{tikz, pgfplots}
+\usetikzlibrary{decorations.markings, arrows.meta, angles, quotes}
+
+% Choose more favourable characters
+\let\implies\Rightarrow
+\let\impliedby\Leftarrow
+\let\iff\Leftrightarrow
+\let\epsilon\varepsilon
+
+% SI units
+\usepackage{siunitx}
+
+% Linear algebra
+\usepackage{mathtools}
+% Augmented matrices
+    \newcommand*{\eroarrowext}[4]{\xrightarrow[\substack{#3 \\ #4}]{\mathmakebox[3em]{\substack{#1 \\ #2}}}}
+    \newcommand*{\eroarrow}[2]{\xrightarrow[#2]{\mathmakebox[3em]{#1}}}
+    \newcommand{\eroequals}[1]{\ensuremath{\stackrel{#1}{=}}}
+    \makeatletter
+    \renewcommand*\env@matrix[1][*\c@MaxMatrixCols c]{
+        \hskip -\arraycolsep
+        \let\@ifnextchar\new@ifnextchar
+        \array{#1}}
+    \makeatother
+    % Systems of linear equations
+        \usepackage{systeme} % for linear equations formatting
+        \newcommand{\linsys}{\sysdelim..\systeme} % cleaner linear systems command
+    % Some common delimiters and operators
+        \DeclarePairedDelimiter{\norm}{\lVert}{\rVert} % norm operator
+        \DeclareMathOperator{\Det}{det} % Determinant operator
+        \DeclareMathOperator{\trace}{tr}
+        \DeclareMathOperator{\mspan}{span}
+        \DeclareMathOperator{\rank}{rank}
+    \DeclareMathOperator{\nullity}{nullity}
+    \newcommand{\middlest}{\;\middle\vert\;}
+
+% Analysis
+    \newcommand{\tor}{\;\text{or}\;}
+    \newcommand{\tand}{\;\text{and}\;}
+    \newcommand{\tnot}{\text{not}\;}
+    \usepackage{float}
+    \usepackage{venndiagram}
+    
+% Calculus
+    \DeclareMathOperator{\Dom}{Dom}
+    \DeclareMathOperator{\Ran}{Ran}
+    % Drawing graphs
+        \usepackage{tikz}
+        \usepackage{pgfplots}
+        \usepgfplotslibrary{fillbetween}
+        \pgfplotsset{soldot/.style={only marks, mark=*}} 
+        \pgfplotsset{holdot/.style={fill=white, only marks, mark=*}}
+        \pgfplotsset{compat=1.13}
+    \usepackage{breqn}
+\DeclarePairedDelimiter{\abs}{\lvert}{\rvert} % absolute operator    
+
+% Computer Systems
+    \usepackage{siunitx}
+    % Binary arithmetic
+        \newcommand*{\carry}[1][1]{\overset{#1}}
+        \newcolumntype{B}[1]{r*{#1}{@{\,}r}}
+    % Circuits
+        \usepackage{tikz}
+        \usepackage{circuitikz}
+    % Karnaugh maps 
+        \usepackage{karnaugh-map}
+
+% Listings
+    \usepackage{listings}
+    \lstset{ 
+        basicstyle = \ttfamily\footnotesize,
+        frame = single,
+        framesep = 12pt,
+    }
+
+% Algorithms
+    \usepackage{algorithm}
+    \usepackage{algpseudocode}
+    
+% Regular expressions
+    \newcommand{\reg}[1]{\begin{center} \ttfamily #1 \normalfont \end{center}}
+    \usepackage{textgreek}
+% Drawing trees
+    \usepackage{forest}
+
+% Environments
+\usepackage{mdframed}
+\mdfsetup{skipabove=1em,
+          skipbelow=1em,
+          startcode=\leavevmode}
+\theoremstyle{definition}
+\newmdtheoremenv[nobreak=true]{definition}{Definition}[chapter]
+\newmdtheoremenv[nobreak=true]{theorem}[definition]{Theorem}
+\newmdtheoremenv[nobreak=true]{proposition}[definition]{Proposition}
+\newmdtheoremenv[nobreak=true]{corollary}[definition]{Corollary}
+\newmdtheoremenv[nobreak=true]{lemma}[definition]{Lemma}
+\newtheorem*{example}{Example}
+\newtheorem*{remark}{Remark}
+\newenvironment{solution}{\begin{proof}[Solution]}{\end{proof}}
+
+% Fancy header/title
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+
+\fancyhf{}
+
+\fancyhead[RO,LE]{\rightmark}
+\fancyhead[RE,LO]{}
+
+\fancyfoot[RO,LE]{\thepage}
+\fancyfoot[RE,LO]{\leftmark}
+%\fancyfoot[C]{\leftmark}
+\renewcommand{\footrulewidth}{1pt}
+% Author / date
+\date{2018 Michaelmas Term}

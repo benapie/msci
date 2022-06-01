@@ -1,0 +1,64 @@
+\chapter{Constraint satisfaction problem}
+\lecture{7}{18/11}
+
+\begin{definition}[Constraint satisfaction problem]
+    A \textbf{constraint satisfaction problem} (CSP) is defined as the triple $\langle X, D, C \rangle$ where
+    \begin{align*}
+        X = \{ X_1, \ldots, X_n \} &\;\text{is a set of variables;} \\
+        D = \{ D_1, \ldots, D_n \} &\;\text{is a set of the respective domains of values; and} \\
+        C = \{ C_1, \ldots, C_m \} &\;\text{is a set of constraints.}
+    \end{align*}
+    For every $C_i \in C$ we have $C = \langle t_j, R_j \rangle$ where $t_j \subset X$ is the \textbf{scope} ($\lvert t_j \rvert = k$) and $R_j$ is a $k$-ary relation on the corresponding subset of domains (from the variables). 
+    An \textbf{assignment} associates a value in $D_i$ to $X_i$ for some or all of the variables. 
+    An assignemnt is \textbf{complete} if every variable is assigned a value. 
+    It is \textbf{consistent} (or \textbf{legal}) if no constraint is violated. 
+    A \textbf{solution} is a complete, consistent assignemnt. 
+    Some CSPs require a solution to maximise or minimise an \textbf{objective function} define on the set of assignments.
+\end{definition}
+
+That was a long definition... hopefully some examples will make this more clear.
+
+\begin{example}[Graph 3-colourability]
+    Let $G$ be our graph.
+    To construct this problem as a CSP we have a variable $X_i$ for each vertex $v_i \in G$. 
+    The domain of values for each $X_i$ is $\{R, W, B\}$ (this is arbritrary, it can be any 3 unique elements). 
+    For every edge $(v_i, v_j) \in E(G)$ we define a constraint with scope $(X_i, X_j)$ and such that the values of these two cannot be equal.
+\end{example}
+
+\begin{problem}[Boolean satisfiability problem]
+    The \textbf{boolean satisfiability problem} (SAT) is, given a boolean formula, to check whether it is \textbf{satisfiable}. That is, is there an input that the function will evaluate as true.
+\end{problem}
+
+\begin{example}[Boolean satisfiability problem]
+    This is clearly a constraint satisfaction problem. 
+    We write our boolean formula in conjunctive normal form, so $f = \phi_1 \land \ldots \land \phi_n$. 
+    We assign a variable $X_i$ to every variable in this function each with the domain $\{ \text{true}, \text{false}\}$.
+    For every $\phi_i$ in our formula, we construct a constraint with the scope being the variables associated with $\phi_i$ and the set of possible values that will evaluate $\phi_i$ as true.
+\end{example}
+
+\begin{remark}
+    We can see CSPs as a global path-based search problem as follows.
+    \begin{enumerate}
+        \item A state in the state space is an assignment.
+        \item The initial state is the empty assignment.
+        \item A state $x'$ is a sucessor of a state $x$ if $x$ is consistent and $x'$ is the extension of $x$ via the assignment of some value to some unassigned variable.
+        \item A goal state is a complete, consistent assignment.
+        \item We have a consistent step-cost of $1$.
+    \end{enumerate}
+\end{remark}
+
+\begin{remark}
+    We can also look at CSPs as a local path-based search problem by using (i) to (iii) but also the objective function
+    \[ f(x) = \begin{cases} 1 & x \;\text{is a complete, consistent assignement} \\ 0 & \text{otherwise}. \\ \end{cases}\]
+    We will not be considering this though.
+\end{remark}
+
+You may be wondering that if we can represent CSPs as global path-based search problems, why bother? Well, CSPs lend themselves to specific heuristics that are not available to the general set5ting.0 It allows us to simply the search algorithm.
+
+\begin{proposition}[]
+    In a CSP, in order to come up with an assignment it does not matter the order we choose to assign values to variables.
+\end{proposition}
+
+So in a CSP search algorithm, we expand all possible assignments of only a single variable, but we get to choose the variable.
+
+%todo lecture ended early.

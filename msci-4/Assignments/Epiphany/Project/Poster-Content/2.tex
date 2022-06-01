@@ -1,0 +1,66 @@
+\section{Problem definition}
+
+We introduce a simplified problem before tackling the problem of calculating persistent Betti numbers.
+
+\begin{definition}[Abstract simplicial complex]
+  An \emph{abstract simplicial complex} $A$ is a finite collection of non-empty sets such that $\alpha \in A$ and $\beta \subset \alpha$ implies $\beta \in A$.
+\end{definition}
+
+In this section, when referring to a simplicial complex we mean an abstract simplicial complex. The definitions for homology still hold.
+
+For a $n$-dimensional simplicial complex $K$, define $\beta_i(K)$ for $i \in \Z_{\geq 0}$ as the $i$th Betti number of $K$; that is, $\beta_i(K) = \rank H_i(K)$ where $H_i(K)$ denotes the $i$th homology group of $K$. Such a set is well-defined, and so we can define a total function problem. Denote $\mathcal K$ the set of all simplicial complexes (up to homeomorphism).
+
+\begin{problem}[Betti]
+The Betti number problem is the total function problem defined from the language
+\[\textsc{Betti} = \{ \encode{K, \{\beta_i(K)\}_{i=0}^{\dim K}}: K \in \mathcal K\}. \]
+\end{problem}
+
+By default, this problem assumes integral homology, but we define a variation of it with coefficients over a given abelian group. For a simplicial complex $K$ and an abelian group $A$, we define $\beta_i(K; A) = \rank H_i(K; A)$.
+
+\begin{problem}[\textsc{$A$-Betti}]
+Let $A$ be an abelian group. The Betti number with coefficients in $A$ problem is the total function problem defined from the language
+\[\textsc{$A$-Betti} = \{ \encode{K, \{\beta_i(K; A)\}_{i=0}^{\dim K}}: K \in \mathcal K\}. \]
+\end{problem}
+
+\begin{remark}
+  The universal coefficients theorem shows us that integral homology determines homology with coefficients over any abelian group; however, it does not necessarily give us an efficient reduction from \textsc{$A$-Betti} to \textsc{Betti}, for some abelian group $A$.
+\end{remark}
+
+We first look at \textsc{$\F_2$-Betti}. Let $K$ be a simplicial complex with simplicial chain complex $(\{C_i\}_{i=0}^n, \{\partial_i\}_{i=0}^n\})$. We pick canonical bases for $\partial_i$ and represent $\partial_i \in M_{\lvert C_{i-1} \rvert \times \lvert C_i \rvert}(\F_2)$. The Betti numbers. We then have $\beta_i(K; \F_2) = \ker\partial_i - \rank\partial_{i+1}$, so we can linearly reduce (in the number of simplices) this problem to the following.
+
+\begin{problem}[$\F_2$-RankNullity]
+Given $M \in M_{m \times n}(\F_2)$, what is the rank and nullity of $M$?
+\end{problem}
+
+\begin{algorithm}
+  \caption{Efficient algorithm for \textsc{$\F_2$-RankNullity}}
+  \label{alg:f2-ranknull}
+  \begin{algorithmic}[1]
+    \Function{CalcRankNull}{$m \times n$ bit array $M$}
+      \State $N \gets M$
+      \For{$i \gets 1$ to $\min\{m,n\}$}
+        \If{$N[i,i] = 0$}
+          \If{there is $a,b \geq i$ s.t. $N[a,b] = 0$}
+            \State exchange rows $i$ and $a$
+            \State exchange columns $i$ and $b$
+          \Else
+            \State\Return $N$
+          \EndIf
+        \EndIf
+        \For{$j \gets i+1$ to $n$} \Comment{Clear row $i$}
+          \If{$N[i,j] = 1$}
+            \State add row $x$ to $k$
+          \EndIf
+        \EndFor
+        \For{$j \gets i+1$ to $m$} \Comment{Clear column $i$}
+          \If{$N[j,i] = 1$}
+            \State add row $x$ to $k$
+          \EndIf
+        \EndFor
+      \EndFor
+      \State\Return $N$
+    \EndFunction
+  \end{algorithmic}
+\end{algorithm}
+
+Algorithm \ref{alg:f2-ranknull} gives an efficient algorithm which solves \textsc{$\F_2$-RankNullity}. We now analyse the worst-case complexity of this algorithm, which occurs when we input a matrix of ones. At \texttt{3}, we loop $\min\{m, n\}$ times. In each loop, we have a full row and column to reduce, which is $m + n - 2i$ at each $i$. 

@@ -1,0 +1,40 @@
+\part[15] Prove that \textsc{$3$-Safety Number} is polynomial-time solvable for every graph class of bounded treewidth.
+
+\begin{solution}
+    We will first describe the property of have a safe $3$-colouring in $\operatorname{MSO}_2$.
+
+    Let $G = (V,E)$ be a graph. We first define some formulas to make our writing more economical.
+    \begin{enumerate}
+        \item For $u, v \in V$, $\adj(u,v)$ is true if and only if $u$ and $v$ are adjacent, so
+              \[ \adj(u,v) = \lnot (u = v) \land \exists_{e \in E} (i(u,e) \land i(v,e)). \]
+        \item Given $u \in V$ and $A \subset V \setminus \{u\}$, $\adj_0(u, A)$ is true if and only if $u$ is not adjacent to any vertex in $A$. Thus
+              \[ \adj_0(u, A) = \forall_{w \in A}(\lnot \adj(u,w)). \]
+        \item Given $u \in V$ and $A \subset V \setminus \{u\}$, $\adj_1(u, A)$ is true if and only if $u$ is adjacent to exactly one vertex in $A$. Thus
+              \[ \adj_1(u, A) = \exists_{v_1 \in A}\forall_{w \in A}(\adj(u,w) \iff (w = v_1)). \]
+              We similarly define $\adj_2(u, A)$ and $\adj_3(u,A)$ as true if and only if $u$ is adjacent to two and three vertices of $A$ respectively, so
+              \begin{align*}
+                  \adj_2(u, A) & = \exists_{v_1, v_2 \in A}((v_1 \neq v_2)                                            \\
+                               & \qquad \land \forall_{w \in A}(\adj(u,w) \iff (w = v_1 \lor w = v_2))),              \\
+                  \adj_3(u, A) & = \exists_{v_1, v_2, v_3 \in A}((v_1 \neq v_2 \land v_1 \neq v_3 \land v_2 \neq v_3) \\
+                               & \qquad \land \forall_{w \in A}(\adj(u,w) \iff (w = v_1 \lor w = v_2 \lor w = v_3))).
+              \end{align*}
+        \item Given $u \in V$ and $A \subset V \setminus \{u\}$, $\adj_{\leq 3}(u, A)$ is true if and only if $u$ is adjacent to at most $3$ vertices in $A$, so combining the last point:
+              \[ \adj_{\leq 3}(u, A) = \adj_0(u,A) \land \adj_1(u,A) \land \adj_2(u,A) \land \adj_3(u,A). \]
+        \item Given $A \subset V(A)$, $\I(A)$ is true if and only if $A$ is an independent set in $G$, thus
+              \[ \I(A) = \forall_{u, v \in A} (\lnot\adj(u, v)). \]
+        \item Given $V_1, V_2, V_3 \subset V$, $P(V_1,V_2,V_3)$ is true if and only if $\{V_1, V_2, V_3\}$ forms a partition of $G$; that is,
+              \begin{align*}
+                  P(V_1, V_2, V_3) = \forall_{v \in V}( & (v \in V_1 \land v \not\in V_2 \land v \not\in V_3)   \\
+                  \lor                                  & (v \not\in V_1 \land v \in V_2 \land v \not\in V_3)   \\
+                  \lor                                  & (v \not\in V_1 \land v \not\in V_2 \land v \in V_3)). \\
+              \end{align*}
+    \end{enumerate}
+    We conclude with the $\MSO$ formula for a graph having a safe $3$-colouring.
+    \begin{align*}
+        \exists_{V_1, V_2, V_3 \subset V} ( & I(V_1) \land I(V_2) \land I(V_3) \land P(V_1, V_2, V_3)                     \\
+        & \land\forall_{v \in V_1} (\adj_{\leq 3}(v, V_2) \land \adj_{\leq 3}(v, V_3) \\
+        & \land\forall_{v \in V_2} (\adj_{\leq 3}(v, V_1) \land \adj_{\leq 3}(v, V_3) \\
+        & \land\forall_{v \in V_3} (\adj_{\leq 3}(v, V_1) \land \adj_{\leq 3}(v, V_2)).
+    \end{align*}
+    As the bound for this formula is constant (does not depend on the size of $G$), we may use Courcelle's theorem to conclude that \textsc{$3$-Safety Number} is polynomial-time solvable for every class of bounded treewidth. 
+\end{solution}

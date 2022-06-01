@@ -1,0 +1,190 @@
+%! TEX root = master.tex
+
+\lecture{5}{?}
+
+\begin{proposition}[]
+	Let $B \subset \R$ and $A \subset B$.
+	Then $\overline A \subset \overline B$ and 
+	$\overline{A \cup B} = \overline A \cup \overline B$.
+\end{proposition}
+
+\begin{proof}
+	Let $x \in \overline A$, $r > 0$, and $y \in A$.
+	As $x$ is a point of closure, $\left\lvert x-y \right\rvert < r$.
+	Now as $y \in A$ and $A \subset B$, $y \in B$.
+	Hence $x \in \overline B$ and so $\overline A \subset \overline B$.
+	Now we know that $A \subset A \cup B$, so 
+	$\overline A \subset \overline{A \cup B}$.
+	Similarly $\overline B \subset \overline{A \cup B}$
+	Hence $\overline A \cup \overline B \subset \overline{A \cup B}$.
+	Now take $x \not\in \overline A \cup \overline B$, then 
+	$x \not\in\overline A$ and $x \not\in\overline B$.
+	Therefore, there is $\delta_1 > 0$ such that for every $y \in A$ we have
+	$\left\lvert x - y \right\rvert \geq \delta$.
+	Similarly there is $\delta_2 > 0$ such that for all $y \in B$ we have
+	$\left\lvert x - y \right\rvert \geq \delta_2$.
+	Now we take $\delta = \min\left\{ \delta_1, \delta_2 \right\}$ and observe
+	that for all $y \in A \cup B$ we have
+	$\left\lvert x - y \right\rvert \geq \delta$.
+	Therefore, $x \not\in \overline{A \cup B}$.
+	Therefore $\overline{A \cup B} \subset \overline A \cup \overline B$.
+\end{proof}
+
+\begin{definition}[Closed set]
+	We say that a set $F \subset \R$ is \emph{closed} if $F = \overline F$.
+\end{definition}
+
+\begin{proposition}[]
+	For any set $E$, $\overline E$ is closed.
+	Namely, $\overline E = \overline{\left(\overline E\right)}$.
+\end{proposition}
+
+\begin{proof}
+	Take $x \in \overline{\left( \overline E \right)}$ and $\delta > 0$.
+	Then there is $y \in \overline E$ such that 
+	$\left\lvert x - y \right\rvert < \frac{\varepsilon}{2}$.
+	Now since $y \in \overline E$, there is $z \in E$ such that
+	$\left\lvert y - z \right\rvert < \frac{\varepsilon}{2}$.
+	Now observe
+	\begin{align*}
+		\left\lvert x - z \right\rvert
+		&\leq \left\lvert x - y \right\rvert + \left\lvert y - z \right\rvert \\
+		&< \frac{\varepsilon}{2} + \frac{\varepsilon}{2} = \varepsilon.
+	\end{align*}
+	Therefore, $x \in \overline E$ and so 
+	$\overline{\left( \overline E \right)} \subset \overline E$, and as we know
+	$\overline E \subset \overline{\left( \overline E \right)}$; hence, we have
+	equality.
+\end{proof}
+
+\begin{proposition}[]
+	Let $F_1, F_2 \subset \R$ be closed.
+	Then $F_1 \cup F_2$ is closed.
+\end{proposition}
+
+\begin{proof}
+	\[
+		F_1 \cup F_2 
+		= \overline{F_1} \cup \overline{F_2}
+		= \overline{F_1 \cup F_2}.
+	\]
+\end{proof}
+
+\begin{proposition}[]
+	The intersection of any collection of closed sets is closed.
+\end{proposition}
+
+\begin{proof}
+	Let $\left\{ F_{\alpha} \right\}_{\alpha \in I}$ be a collection of closed
+	sets.
+	We want to show that
+	\[
+		\bigcap_{\alpha} F_{\alpha} = \overline{\bigcap_{\alpha} F_\alpha}.
+	\]
+	Now let $x \in \overline{\bigcap_{\alpha} F_\alpha}$ and $\delta > 0$.
+	Then there is $y \in \bigcap_{\alpha} F_\alpha$ such that
+	$\left\lvert x - y \right\rvert < \delta$.
+	$y \in F_\alpha$ for all $\alpha$; therefore, 
+	$x \in \overline{F_\alpha} = F_\alpha$ for all $\alpha$.
+	Hence $x \in \bigcap_{\alpha} F_\alpha$.
+\end{proof}
+
+\begin{proposition}[]
+	The complement of an open set is closed and the complement of a closed set
+	is open.
+\end{proposition}
+
+\begin{proof}
+	Suppose that $O \subset \R$ is open and $O^c$ is not closed.
+	Hence there is $x \in \overline{O^c} \setminus O^c$.
+	Thus $x \in O$.
+	As $O$ is open, there is $\delta > 0$ such that if
+	$\left\lvert x - y \right\rvert < \delta$ then $y \in O$.
+	But $x$ is a point of closure for $\overline{O^c}$, so for every $\delta > 0$
+	there exists $y \in O^c$ with $\left\lvert x - y \right\rvert < \delta$;
+	a contradiction.
+	Now let $F \subset \R$ be closed and let $x \in F^c$.
+	As $x \not\in F = \overline F$, there is $\delta > 0$ such that there is no
+	$y \in F$ with $\left\lvert x - y \right\rvert < \delta$.
+	Hence, if $\left\lvert x - y \right\rvert < \delta$, then $y \in F^c$.
+	Therefore, $F^c$ is open.
+\end{proof}
+
+\subsection{Coverings}
+
+\begin{definition}[]
+	We say a collection $\mathcal C$ of sets \emph{covers} a set $F$ if
+	\[
+		F \subset \bigcup_{O \in C} O.
+	\]
+	$\mathcal C$ is called a \emph{covering} of $F$.
+	If each $O \in \mathcal C$ is open, we call it an \emph{open covering}.
+	If $\left\lvert \mathcal C \right\rvert < \infty$, we call it an 
+	\emph{finite covering}.
+\end{definition}
+
+\begin{theorem}[Heine-Borel]
+	Let $F \subset \R$ be closed and bounded.
+	Then each open covering of $F$ has a finite subcovering.
+\end{theorem}
+
+\begin{proof}
+	We first assume that $F = [a,b]$
+	for $-\infty < a < b < \infty$.
+	Let $\mathcal C$ be an open covering of $F$ and
+	\[
+		E = \left\{
+			x \in \R:
+			(x \leq b)
+			\;\text{and}\;
+			\left(\exists\left\{ O_1, \ldots, O_n \right\} \subset \mathcal C:
+			[a,x] \subset \bigcup_{i=1}^n O_i\right)
+		\right\}.
+	\]
+	That is, $E$ is the collection of points in $[a,b]$
+	such that $[a,x]$ has a finite subcovering.
+	Now we know that $E \neq \varnothing$ as $a \in E$.
+	Every element in $E$ is bounded by $b$, so there is a least
+	upper bound $c$.
+	As $c \in F$, there in an open set $O \in \mathcal C$ such that $c \in O$
+	and hence there is $\varepsilon > 0$ such that 
+	$(c - \varepsilon, c + \varepsilon) \subset O$.
+	As we choose $c$ to be our least upper bound, then there is $x \in E$
+	such that $x > c - \varepsilon$.
+	Since $x \in E$, there is a finite collection
+	$ \left\{ O_1, \ldots, O_n \right\} $
+	of sets in $\mathcal C$ that cover $[a,x]$.
+	Hence
+	$ \left\{ O_1, \ldots, O_n, O \right\} $
+	covers $[a, c + \varepsilon)$.
+	In particular, each point of $[c, c + \varepsilon)$
+	is in $E$ if it is smaller than equal to $b$. 
+	Since no point of $[c, c + \varepsilon)$ can belong to $E$
+	except for $c$, we must have that $c = b$ and $b \in E$.
+	Hence, $[a,b]$ is covered by a finite collection of elements of 
+	$\mathcal C$.
+
+	Let us now consider the general case where $F$ is any
+	closed and bounded set and let $\mathcal C$ be an open covering of $F$.
+	Since it is bounded, it is contained in some interval $[a,b]$.
+	Now consider the collection 
+	$\mathcal C^* = \mathcal C \cup \left\{ F^c \right\}$.
+	We clearly see that
+	\[
+		\R 
+		= F^c \cup F 
+		= F^c \cup \bigcup \left\{ O: O \in \mathcal C \right\}
+		= \bigcup \left\{ O : O \in \mathcal C^\star \right\}.
+	\]
+	As a consequence, $\mathcal C^\star$ is an open covering of $\R$
+	and in particular $[a,b]$.
+	By our previous case, there is a finite subcollection of $\mathcal C^\star$
+	that coverrs $[a,b]$ and then $F$.
+	If this subcollection does not contain $F^c$, it is a subcollection of 
+	$\mathcal C$ and we are done.
+	Otherwise, denote it by 
+	$ \left\{ O_1, \ldots, O_n, F^c \right\} $.
+	Since no points of $F$ are in $F^c$, 
+	$ \left\{ O_1, \ldots, O_n \right\} $ covers $F$ and we are done.
+\end{proof}
+

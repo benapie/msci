@@ -1,0 +1,135 @@
+\documentclass[a4paper, answers]{exam}
+\input{../preamble.tex}
+
+\begin{document}
+\begin{center}
+	\textbf{\textsc{Analysis III, Assignment 1}}
+	\\
+	\textsc{Ben Napier}
+	\vspace{1em}
+\end{center}
+\begin{questions}
+	\question
+		Let $E \subset \R$.
+		Prove that $\inf E \leq \sup E$
+		if and only if $E \neq \varnothing$.
+		\begin{solution}
+			Assume that $\inf E$ and $\sup E$ exist and satisfy 
+			$\inf E \leq \sup E$.
+			For a contradiction, assume $E = \varnothing$.
+			As $\sup E$ is the least upper we bound,
+			we must have $\sup E = -\infty$.
+			Similarly $\inf E = \infty$; a contradiction.
+			Hence $E \neq \varnothing$.
+
+			Now we assume $E \neq \varnothing$.
+			$\inf E$ is a lower bound of $E$, so $x \geq \inf E$ for all 
+			$x \in E$.
+			Similarly, $\sup E$ is an upper bound of $E$ so $x \leq \sup E$
+			for all $x \in E$.
+			Hence $\inf E \leq x \leq \sup E$
+			and so $\inf E \leq \sup E$.
+		\end{solution}
+	
+	\question
+		Consider a sequence of real numbers
+		and prove that if a limit exists, then it is unique.
+		\begin{solution}
+			Suppose $x_n$ converges to limits $l_1$ and $l_2$.
+			Let $\varepsilon > 0$.
+			Then there is $N, M \in \N$
+			such that for all $n \geq N$ and $m \geq M$
+			we have
+			\[
+				\left\lvert x_n - l_1 \right\rvert < \varepsilon,
+				\qquad \left\lvert x_m - l_2 \right\rvert < \varepsilon.
+			\]
+			Then
+			\begin{align*}
+				\left\lvert l_1 - l_2 \right\rvert
+				&= \left\lvert l_1 - x_n + x_n - l_2 \right\rvert \\
+				&= \left\lvert x_n - l_1 \right\rvert 
+					+ \left\lvert x_n - l_2 \right\rvert \\
+				&< 2 \varepsilon.
+			\end{align*}
+			Now, we fix $\varepsilon = \left\lvert l_1 - l_2 \right\rvert$.
+			We see 
+			$
+				\left\lvert l_1 - l_2 \right\rvert 
+				< 2 \left\lvert l_1 - l_2 \right\rvert
+			$
+			and so $l_1 = l_2$.
+		\end{solution}
+
+	\question
+		Let $\left\{ x_n \right\}$ and $\left\{ y_n \right\}$
+		be two sequences of real numbers.
+		Prove that
+		\[
+			\limsup x_n + \liminf y_n
+			\leq \limsup(x_n + y_n)
+			\leq \limsup x_n + \limsup y_n
+		\]
+		provided the right and left sides are not of the form 
+		$\infty - \infty$.
+		\begin{solution}
+			For all $r \geq n$, we have
+			\[
+				x_r + y_r 
+				\leq \sup_{k \geq n} \left\{ x_k \right\}
+					+ \sup_{k \geq n} \left\{ y_k \right\}.
+			\]
+			As $\sup$ describes a least upper bound, we have
+			\[
+				\sup_{k \geq n} \left\{ x_k + y_k \right\}
+				\leq \sup_{k \geq n} \left\{ x_k \right\}
+					+ \sup_{k \geq n} \left\{ y_k \right\}
+			\]
+			and hence
+			\[
+				\limsup(x_n + y_n) \leq \limsup x_n + \limsup y_n
+			\]
+			given that the right side is not of the form $\infty - \infty$.
+			Now, for all $r \geq n$ we also have
+			\[
+				x_r + \inf_{k \geq n} \left\{ y_k \right\} \leq x_r + y_r
+			\]
+			and so
+			\begin{align*}
+				\sup_{r \geq n}
+					\left\{ 
+						x_r + \inf_{k \geq n} \left\{ y_k \right\} 
+					\right\}
+				&= \sup_{r \geq n}
+					\left\{ x_r \right\} 
+					+ \inf_{k \geq n} \left\{ y_k \right\} \\
+				&= \sup_{k \geq n}
+					\left\{ x_k \right\} 
+					+ \inf_{k \geq n} \left\{ y_k \right\} \\
+				&\leq \sup_{k \geq n} \left\{ x_k + y_k \right\}
+			\end{align*}
+			and so
+			\[
+				\limsup x_n + \liminf x_n \leq \limsup(x_n + y_n)
+			\]
+			given that the left side is not of the form $\infty - \infty$.
+		\end{solution}
+		
+	\question
+		Consider the sequence $\left\{ x_n \right\}$
+		defined by $x_n = e^{(-1)^nn}$.
+		Prove or disprove that $0$ is a cluster point of 
+		$\left\{ x_n \right\}$.
+		\begin{solution}
+			Let $n_k = 2k+1$.
+			Then the subsequence $\left\{ x_{n_k} \right\}$
+			is convergent to the limit $0$.
+			Let $\varepsilon > 0$.
+			Then there is $N \in \N$ such that for all $n \geq N$,
+			$\left\lvert x_{n_k} \right\rvert < \varepsilon$.
+			Now let $M \in \N$.
+			We select $m > \max\{N, M\}$.
+			$|x_m| < \varepsilon$; hence, $0$ is a cluster point.
+		\end{solution}
+\end{questions}
+\end{document}

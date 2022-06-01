@@ -1,0 +1,244 @@
+\part[10] Basics
+
+Among one million coins one erroneously shows ``heads'' on both sides; all other coins are fine. Suppose you pick one of those one million coins uniformly at random and toss it twenty times. Further suppose that it shows ``heads'' every single time. What is the probability that it's one of the good coins? Show your work and provide a numerical approximation.
+
+\begin{solution}
+    First, we introduce a needed result.
+    \vspace{0.5em}
+    \begin{theorem}[Bayes' theorem]
+        Let $(\Omega, \Pr)$ be a finite discrete probability space and $A, B \subset \Omega$ events with $\Pr(B) > 0$. Then
+        \[ \Pr[A \mid B] = \frac{\Pr[B \mid A] \cdot \Pr[A]}{\Pr[B]}. \]
+    \end{theorem}
+    \begin{proof}
+        Consider the definition of conditional probability:
+        \begin{equation} \label{eq:1}
+            \Pr[A \mid B] = \frac{\Pr[A \cap B]}{\Pr[B]}.
+        \end{equation}
+        We similarly have
+        \begin{equation} \label{eq:2}
+            \Pr[B \mid A] = \frac{\Pr[A \cap B]}{\Pr[A]}.
+        \end{equation}
+        Rearranging (\ref{eq:2}) yields
+        \[ \Pr[A \cap B] = \Pr[B \mid A] \Pr[A] \]
+        and substituting this into (1) yields
+        \[ \Pr[A \mid B] = \frac{\Pr[B \mid A] \cdot \Pr[A]}{\Pr[B]} \]
+        as required.
+    \end{proof}
+    Let $A$ be the event that we pick a good coin, and $B$ be the event that our picked coin shows ``heads'' every time. Note $\overline A$ is the event we pick the erroneous coin. We are looking for $\Pr[A \mid B]$, which we can find using Bayes' theorem.
+    We have
+    \begin{align*}
+        \Pr[A]        & = 1 - 10^{-6}, \\
+        \Pr[B \mid A] & = 2^{-20}.
+    \end{align*}
+    We have left to find $\Pr[B]$, but we have
+    \[ \Pr[B] = \Pr[B \mid A] \Pr[A] + \Pr[B \mid \overline A] \Pr[\overline A] \]
+    by the law of total probabilities (as $\{A, \overline A\}$ form a partition of our sample set). We have
+    \begin{align*}
+        \Pr[\overline A]        & = 10^{-6}, \\
+        \Pr[B \mid \overline A] & = 1.
+    \end{align*}
+    thus
+    \[ \Pr[B] = 2^{-20}(1 - 10^{-6}) + 10^{-6}. \]
+    We can now apply Bayes' theorem:
+    \begin{align*}
+        \Pr[A \mid B] & = \frac{\Pr[B \mid A] \cdot \Pr[A]}{\Pr[B]}                            \\
+                      & = \frac{(2^{-20}) \cdot (1 - 10^{-6})}{2^{-20}(1 - 10^{-6}) + 10^{-6}} \\
+                      & = 0.488
+    \end{align*}
+    correct to 3 significant figures.
+\end{solution}
+
+\part Tail bounds
+
+Consider the digits in your CIS username as an integer number $C$, e.g., if your username were ``kqlz36'' then that would be $C = 36$. If you find $C < 10$ then instead let $C = 17$. Let $p = 1/C$. Consider the independent random variables $X_1, X_2, \ldots, X_{10}$ with $P(X_i = 1) = p$. Let $X = \sum_{i=1}^{10} X_i$.
+
+Derive numerical bounds, rounded to the first non-zero digit, for $P(X \geq 10)$ using
+\begin{subparts}
+    \subpart[3] Markov's inequality,
+    \begin{solution}
+        We have $p = 1/55$ and $\E[X] = 10p$. By Markov's bound,
+        \[
+            \Pr[X \geq 10] \leq \frac{\E[X]}{10} = p.
+        \]
+    \end{solution}
+
+    \subpart[5] Chebyshev's inequality,
+    \begin{solution}
+        We have
+        \[ \Var[X] = \E[X^2] - (\E[X])^2 = p - p^2 = p(1-p). \]
+        By Chebyshev's inequality, we have
+        \[
+            \Pr[\lvert X - 10p \rvert \geq \alpha] \leq \frac{1}{\alpha^2} \Var[X].
+        \]
+        We pick $\alpha = 10(1-p)$.
+
+        \vspace{0.5em}
+        \textbf{Claim.} $[\lvert X - 10p \rvert \geq \alpha] = [X - 10p \geq \alpha]$.
+
+        \textit{Proof.} Let $\omega$ be an outcome such that $\lvert X(\omega) - 10p \rvert \geq \alpha$. Then either $X(\omega) - 10p \geq \alpha$ or $X(\omega) - 10p \leq - \alpha$. For a contradiction, assume $X(\omega) - 10p \leq - \alpha$. Then
+        \begin{align*}
+            X(\omega) & \leq -\alpha + 10p                  \\
+                      & \leq -10(1-p) + 10p                 \\
+                      & \leq 10(2p-1)                       \\
+                      & \leq 10\left(\tfrac{2}{55}-1\right) \\
+                      & \leq -\tfrac{106}{11},
+        \end{align*}
+        but $X(\omega) \in \{0, 1\}$, so we have a contradiction. \qed
+        \vspace{0.5em}
+
+        Thus,
+        \begin{align*}
+            \Pr[X \geq 10] & = \Pr[\lvert X - \E[X]\rvert \geq 10] \\
+                           & \leq \tfrac{1}{10^2} \Var[X]          \\
+                           & \leq \tfrac{1}{10^2} p(1-p).
+        \end{align*}
+    \end{solution}
+
+    \subpart[8] the generic version of Chernoff bound.
+    \begin{solution}
+        By Chernoff bound,
+        \[ \Pr[X \geq (1 + \delta)\E[X]]  \leq \left(\frac{e^\delta}{(1+\delta)^{1+\delta}}\right)^{\E[X]}.\]
+        Thus we pick $\delta$ such that $(1+\delta)\E[X] = 10$:
+        \begin{align*}
+            (1+\delta)10p & = 10                   \\
+            \delta        & = \tfrac1p - 1 \geq 0.
+        \end{align*}
+        Thus
+        \begin{align*}
+            \Pr[X \geq 10] & = \Pr[X \geq (1+\delta)\E[X]]                                                   \\
+                           & \leq \left(\frac{e^\delta}{(1+\delta)^{1+\delta}}\right)^{\E[X]}                \\
+                           & = \left(\frac{e^{\tfrac1p - 1}}{\left(\tfrac1p\right)^{\tfrac1p}}\right)^{10p}.
+        \end{align*}
+    \end{solution}
+\end{subparts}
+
+\part[12] Martingales
+
+Consider the Markov chain $(X_n)_{n \geq 0}$ representing a two-dimensional random walk on $\Z^2$, starting at $X_0 = (0,0)$, with the transition probabilities
+\[ \Pr[X_{n+1} = (i + a, j+b) \mid X_n = (i,j)] = \tfrac18 \]
+for all $a, b \in \{-1, 0, 1\}$ with $a=b=0$ excluded. Prove that $Z_n = \lVert X_n \rVert^2 - \tfrac32n$ is a martingale with respect to $X_0, X_1, \ldots, X_{n-1}$.
+
+\begin{solution}
+    $Z_n$ is clearly a function of $(X_i)_{i=0}^n$, and has finite expectation. We now prove that $Z_n = \E[Z_{n+1} \mid (X_i)_{i=0}^n]$.
+    \begin{align*}
+        \E[Z_{n+1} \mid (X_i)_{i=0}^n] & = \E[\lVert X_n \rVert^2 - \tfrac32(n+1) \mid (X_i)_{i=0}^n]      \\
+                                       & = \E[\lVert X_{n+1} \rVert^2 \mid (X_i)_{i=0}^n] - \tfrac32(n+1).
+    \end{align*}
+    Now
+    \begin{align*}
+        \E[\lVert X_{n+1} \rVert^2 \mid (X_i)_{i=0}^n] & = \E[\lVert X_{n+1} \rVert^2 \mid X_n = (i,j)]              \\
+                                                       & = \frac18 \sum_{(a,b) \in A} \left((i+a)^2 + (j+b)^2\right)
+    \end{align*}
+    where $A = \{-1,0,1\}^2 \setminus \{0,0\}$. Thus
+    \[ \E[\lVert X_{n+1} \rVert^2 \mid (X_i)_{i=0}^n] = \lVert X_n \rVert^2 + \tfrac32 \]
+    giving the required result.
+\end{solution}
+
+\part Markov Chains
+
+\begin{subparts}
+    \subpart[20] Consider a state space $S = \{s_1, \ldots,  s_m\}$, and two distributions $\sigma, \tau$ on $S$. Recall that the total variation distance $d_\TV(\sigma, \tau)$ is defined to be $d_\TV(\sigma, \tau) = \tfrac12 \sum_{i=1}^m \lvert \sigma_i - \tau_i \rvert$. Prove that
+    \[ d_\TV(\sigma, \tau) = \max_{A \subset S} \lvert \sigma(A) - \tau(A) \rvert \]
+    where $\sigma(A) = \sum_{i \in A} \sigma_i$ and $\tau(A) = \sum_{i \in A} \tau_i$.
+    \begin{solution}
+        Let $f$ be a real-valued function and define $f^+ = \max\{0, f\}$ and $f^- = -\min\{0, f\}$. Then $f = f^+ - f^-$ and $\lvert f \rvert = f^+ + f^-$.
+
+        We apply this to $\sum_{i=1}^m \lvert \sigma_i - \tau_i \rvert$.
+        \begin{align*}
+            0 = \sum_{i=1}^m (\sigma_i - \tau_i)       & = \sum_{i=1}^m (\sigma_i - \tau_i)^+ - \sum_{i=1}^m (\sigma_i - \tau_i)^-  \\
+            \sum_{i=1}^m \lvert\sigma_i - \tau_i\rvert & = \sum_{i=1}^m (\sigma_i - \tau_i)^+ + \sum_{i=1}^m (\sigma_i - \tau_i)^-.
+        \end{align*}
+        Then
+        \[ \sum_{i=1}^m (\sigma_i - \tau_i)^+ = \sum_{i=1}^m (\sigma_i - \tau_i)^- \]
+        and so
+        \[ d_\TV(\sigma, \tau) = \sum_{i=1}^m (\sigma_i - \tau_i)^+ = \sum_{i=1}^m (\sigma_i - \tau_i)^-. \]
+
+        \vspace{0.5em}
+        \textbf{Claim.} $\lvert\sigma(A) - \tau(A)\rvert \leq d_\TV(\sigma, \tau)$ for all $A \subset S$.
+
+        \textit{Proof.}
+        \begin{align*}
+            \sigma(A) - \tau(A) & = \sum_{i \in A} (\sigma_i - \tau_i)                                          \\
+                                & = \sum_{i \in A} (\sigma_i - \tau_i)^+ - \sum_{i \in A} (\sigma_i - \tau_i)^- \\
+                                & \leq \sum_{i \in A} (\sigma_i - \tau_i)^+                                     \\
+                                & \leq \sum_{i = 1}^m (\sigma_i - \tau_i)^+                                     \\
+                                & = d_\TV(\sigma, \tau).
+        \end{align*}
+        It can be similarly be shown for $\tau(A) - \sigma(A)$. \qed
+        \vspace{0.5em}
+
+        We have left to show that there is a $A \subset S$ which attains the upper bound. This is, by definition, the maximum value, thus we pick $A = \{i \in S: \sigma_i \geq \tau_i\}$ (such that $\sigma_i - \tau_i \geq 0$). Then
+        \begin{align*}
+            \sigma(A) - \tau(A) & = \sum_{i\in A} (\sigma_i - \tau_i)^+ - \sum_{i \in A} (\sigma_i - \tau_i)^- \\
+                                & = \sum_{i\in A} (\sigma_i - \tau_i)^+                                        \\
+                                & = \sum_{i=1}^m (\sigma_i - \tau_i)^+                                         \\
+                                & = d_\TV(\sigma, \tau),
+        \end{align*}
+        as required.
+    \end{solution}
+
+    \subpart Let $(X_n)_{n\in\N}$ be a Markov chain with state space $S$ and transition matrix $P = (p_{ij})_{i,j\in S}$. We say two states $i,j \in S$ are reachable from each other if there are $n,m, \in \N$ such that $p_{ij}^{(m)} > 0$ and $p_{ji}^{(n)} > 0$. Prove that two states that are reachable from each other must have the same period.
+    \begin{solution}
+        Define $\per: S \to \N$ such that $\per(s)$ denotes the period of state $s \in S$. We have
+        \begin{align*}
+            \per(i) = \{n \in \N: p_{ii}^{(n)} > 0\}, \\
+            \per(j) = \{n \in \N: p_{jj}^{(n)} > 0\}.
+        \end{align*}
+        We trivially have
+        \[ p_{jj}^{(n + m)} \geq p_{ji}^{(n)}p_{ij}^{(m)} > 0,\]
+        and so $\per(j) \mid (n + m)$.
+        Define $A_i = \{n \in \N: p_{ii}^{(n)} > 0\}$. Then for all $k \in A_i$,
+        \[ p_{jj}^{(n + k + m)} \geq p_{ji}^{(n)}p_{ii}^{(k)}p_{ij}^{(m)} > 0, \]
+        thus $\per(j) \mid n + k + m$. Thus, $\per(j) \mid k$. As $\per(i) = \gcd A_i$, $\per(j) \leq \per(i)$. We can use a similar method to show that $\per(i) \leq \per(j)$, and thus $\per(i) = \per(j)$.
+    \end{solution}
+\end{subparts}
+
+\part Probabilistic Method
+
+For $k \in \N$ we say that a graph $G = (V,E)$ is \emph{$k$-strong-and-stable} if for every pair $X, Y \subset V$ with $X \cap Y = \varnothing$ and $\lvert X \rvert = \lvert Y \rvert = k$ we can find a vertex $u \in V$ outside of $X$ and $Y$ with the following properties: $\forall v \in X: (u, v) \in E$ and $\forall v \in Y: (u, v \not\in E)$.
+
+\begin{subparts}
+    \subpart[4] Provide an explicit $1$-strong-and-stable graph. Justify your claim.
+    \begin{solution}
+        We have the trivial empty graph, which is $k$-strong-and-stable for all $k \in \N$. For a non-trivial example, we may consider $C_5$.
+    \end{solution}
+
+    \subpart[15] Prove that, for each $k \in \N$, $k \geq 1$, there exists a $k$-strong-and-stable graph.
+    \begin{solution}
+
+        \vspace{0.5em}
+        \textbf{Definition.} Let $G = (V,E)$ be a graph. A \emph{$k$-vertex-pair} is a pair of vertex subsets $(X, Y)$, $X, Y \subset V$, such that $\lvert X \rvert = \lvert Y \rvert = k$ and $X \cap Y = \varnothing$.
+        \vspace{0.5em}
+
+        \vspace{0.5em}
+        \textbf{Definition.} Let $G = (V,E)$ be a graph and $k \in \N$. A $k$-vertex-pair $X, Y \subset V$ is a \emph{bad pair} if for all $u \in V \setminus (X \cup Y)$ either
+        \begin{itemize}
+            \item there is $v \in X$ such that $(u, v) \not\in E$; or
+            \item there is $v \in Y$ such that $(u, v) \in E$.
+        \end{itemize}
+        \vspace{0.5em}
+
+        Randomly construct a (undirected) graph $G = (V,E)$ with $n > 2k$ vertices such that for all disjoint $u, v \in V$, the probability of an edge between $u$ and $v$ is $1/2$. Let be $(X_i, Y_i)_{i=1}^m$ be an enumeration of all possible $k$-vertex pairs, and for each $i \in \{1, \ldots, m\}$ define the event $A_i = [\text{$(X_i, Y_i)$ is a bad pair}]$. $A_i$ depends on every other event, thus $\lvert \Gamma(A_i) \rvert \leq m$. Furthermore, $\lvert V \setminus (X_i \cup Y_i) \rvert = n - 2k$ for all $i \in \{1, \ldots, m\}$.
+
+        Fix a $k$-vertex-pair $(X_i, Y_i)$ and let $u \in V \setminus (X_i \cup Y_i)$. Let
+        \begin{align*}
+            B &= [\exists v \in X: (u,v) \not\in E], \\
+            B' &= [\exists v \in Y: (u,v) \in E].
+        \end{align*}
+        Then
+        \[
+            \Pr[B] = \Pr[B'] = 1 - \left(\tfrac12\right)^k = 1 - 2^{-k}
+        \]
+        and
+        \[
+            \Pr[B \land B'] = \left(1 - 2^{-k}\right)^2.
+        \]
+        Thus
+        \[ \Pr[B \lor B'] = \Pr[B] + \Pr[B'] - \Pr[B \cap B'] = 1 - 2^{-2k}. \]
+        So
+        \[ \Pr[A_i] = (1 - 2^{-2k})^{(n-2k)} = p. \]
+        Therefore, by the Lov\'asz local lemma, we generate a $k$-strong-and-stable graph with non-zero probability if
+        \[ ep(m+1) < 1, \]
+        which is true for sufficiently large $n$.
+    \end{solution}
+\end{subparts}

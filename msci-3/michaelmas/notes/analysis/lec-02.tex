@@ -1,0 +1,176 @@
+%! TEX root = master.tex
+
+\lecture{2}{9/10}
+
+\begin{proposition}[]
+	The set $\Q$ is dense in $\R$.
+	That is, if $x, y \in \R$
+	with $x < y$ then there is $r \in \Q$ such that
+	$r \in (x,y)$.
+\end{proposition}
+
+\begin{proof}
+	Let $x, y \in \R$ with $x < y$
+	and first suppose that $x \geq 0$.
+	Then $y - x > 0$.
+	Consider $\frac1{y-x} \in \R$.
+	By the Archimedian principle there is $q \in \N$
+	such that \[
+		q > \frac{1}{y-x},
+	\]
+	and so $y - x > \frac1q$.
+	Consider the set \[
+		S = \left\{ k \in \Z: y < \frac{k}{q} \right\}.
+	\]
+	Clearly $S$ is non-empty and bounded by below.
+	Take $p \in \Z$ to be the smallest element of $S$.
+	Then $p - 1$ is not in $S$ and so \[
+		\frac{p-1}{q} \leq y < \frac{p}{q}
+	\]
+	thus we can write \[
+		x = y - (y - x) < \frac pq - \frac1q = \frac{p-1}{q}.
+	\]
+	Take $r = \frac{p-1}q$ and we see $x < r < y$.
+	Now we suppose $x < 0$.
+	By the archimedian property there is $n \in N$
+	such that $n > -x$.
+	In particular, $n + x > 0$.
+	As $n + x < n + y$,
+	from the previous argument there is $r \in \Q$ such that \[
+		n + x < r < n + y
+	\]
+	and thus $x < r - n < y$.
+\end{proof}
+
+\begin{definition}[]
+	We define the set of extended real numbers as 
+	$\R \cup \left\{ -\infty, \infty \right\}$
+	with $+, \cdot$ satisfying the following:
+	\begin{enumerate}
+		\item $a + \infty = \infty$; and
+		\item $a \cdot \infty = \begin{cases}
+				\infty  & a > 0 \\
+				-\infty & a < 0 \\
+		\end{cases}$.
+	\end{enumerate}
+\end{definition}
+
+
+\subsection{Countability and uncountability}
+
+\begin{definition}[]
+	A set $A$ is countable if it is empty, 
+	finite, 
+	or there is a bijection
+	$\varphi: \N \to A$.
+	Otherwise, $A$ is uncountable.
+\end{definition}
+
+\begin{proposition}[]
+	The set $\Q$ is countable.
+\end{proposition}
+
+\begin{proof}
+	The map \[
+		\phi: \N \to \left\{ 
+			\frac11,
+			\frac21,
+			\frac12,
+			\frac13,
+			\frac22,
+			\frac31,
+			\ldots
+		\right\}
+	\]
+	is a bijection from $\N$ to $\Q_{>0}$.
+	We now the bijection $\varphi: \N \o \Q$ as follows:
+	\begin{align*}
+		\varphi(0) &= 0 \\
+		\varphi(2n) &= \phi(n) \\
+		\varphi(2n + 1) &= -\phi(n). \qedhere
+	\end{align*}
+\end{proof}
+
+\begin{proposition}[]
+	$\R$ is uncountable.
+\end{proposition}
+
+\begin{proof}
+	It is sufficient to show that $[0,1]$ is uncountable.
+	Suppose $\varphi: \N \to [0,1]$ is a bijection.
+	Denote $\phi_n = \varphi(\{1, \ldots, n\})$.
+	We may assume (without loss of generality)
+	that $\varphi(1) = 1$.
+	We are going to prove that for all $n \in \N$
+	there exists an open interval $I_n = (y_n, z_n)$
+	such that $I_n \cap \phi_n = \varnothing$ and the closure is strictly
+	contained with $I_{n - 1}$. 
+	The proof is by induction. So we start with the base case.
+	For $n = 1$, we take $I_1 = (0,1)$.
+	Now we assume that there exists an $I_n$ as stated.
+	As $\Q$ is dense in $\R$,
+	there exists $m > n$ such that $\varphi(m) \in I_n$
+	and there exists $m' > m$ with $\varphi(m') \in (\varphi(m), z_n)$.
+	We define $y_{n+1} = \varphi(m)$ and $z_{n+1} = \varphi(m')$,
+	so $I_{n+1} = (y_{n+1}, z_{n+1})$. 
+	By construction $I_{n+1} \cap \phi_{n+1} = \varnothing$
+	and the closure $\overline I_{n+1}$ is strictly contained within $I_n$.
+
+	Now we consider the set $A = \{y_n : n \in \N\}$.
+	$A$ is clearly bounded from above, then by the completeness of $\R$
+	there is $c = \sup A$ with $c > y_n$ for all $n \in \N$.
+	Observe that for all $n, m \in \N$, $z_n > y_m$.
+	So $z_n$ is an upper bound for $A$ for all $n \in \N$.
+	Hence $y_n < c < z_n$ and so $c \in I_n$.
+	Moreover, as $\varphi$ is a bijection, there is $n_0 \in \N$ such that
+	$c \in \phi_{n_0}$;
+	a contradiction since $I_n \cap \phi_n = \varnothing$.
+\end{proof}
+
+\section{Sequences in $\R$}
+
+\begin{definition}[Sequence of real numbers]
+	A sequence $\left\{ x_n \right\}$ of real numbers is a map
+	\[
+		x: \N \to \R, \qquad
+		x: m \in \N \to x_m \in \R.
+	\]
+\end{definition}
+
+\begin{definition}[Limit of a sequence]
+	A real number $l$ is a \emph{limit of a sequence} $\left\{ x_n \right\}$ if
+	for every $\varepsilon > 0$ there is $N \in \N$ such that for all $n \geq N$
+	we have $\left\lvert x_n - l \right\rvert < \varepsilon$.
+	We denote this $x_n \to l$.
+\end{definition}
+
+\begin{definition}[Limit of infinity]
+	We say that $\lim_{n \to \infty} x_n = \infty$
+	if for all $\Delta > 0$ there is $N \in \N$ such that
+	for all $n \geq N$ we have $x_n > \Delta$.
+\end{definition}
+
+\begin{definition}[Cluster point]
+	Let $\left\{ x_n \right\}$ be a sequence of real numbers.
+	An element $l \in \R$ is a \emph{cluster point} of $x_n$
+	if for every $\varepsilon > 0$ and $N \in N$
+	there exists $n \in \N$ such that $n > N$ and
+	$\left\lvert x_n - l \right\rvert < \varepsilon$.
+\end{definition}
+
+If $x_n \to l$, then $l$ is a cluster point.
+
+\begin{lemma}[]
+	If a sequence of real numbers has a cluster point, 
+	then that point is a limit of some subsequence.
+\end{lemma}
+
+\begin{proof}
+	Let $\left\{ x_n \right\}$ be a sequence of real numbers
+	and let $\left\{ x_{n_k} \right\}$ be a subsequence.
+	Let $\varepsilon = \frac1k$ and $N = k$, then by the definition of cluster
+	points there exists $n_k \geq N$ with 
+	$\left\lvert x_{n_k} - l \right\rvert < \varepsilon$
+	and hence $l = \lim x_{n_k}$.
+\end{proof}
+

@@ -1,0 +1,53 @@
+\subsection{An aside on cohomology}
+
+Cohomology is a dual concept to homology, and is particularly useful in algebraic topology; it may be given a ring structure with the cup product. We will not delve into the details of this, but elementary understanding is needed for a particular speed-up to the persistent homology algorithm. 
+
+\begin{definition}[Cochain complex]
+    Let $R$ be a commutative ring. A \emph{cochain complex} $C = (C^*, \delta^*)$ is a sequence of $R$-modules $\{C_i\}_{i \in \N_0}$ connected by module homomorphism $\{\delta^i\}_{i \in \N_0}$ with $\delta^i: C_i \to C_{i+1}$ such that $\partial_i \circ \partial_{i-1} = 0$ for all $i \in \Z$. We may write a cochain complex as follows.
+    \[ \ldots \xrightarrow{\partial_0} C_0 \xrightarrow{\partial_1} C_1 \xrightarrow{\partial_2} C_2 \xrightarrow{\partial_3} \ldots \]
+\end{definition}
+
+Cochain complexes closely resemble chain complexes, but we flip the direction of the boundary map. 
+
+\begin{definition}[Cohomology of a cochain complex]
+    Let $C = (C^*, \delta^*)$ be a cochain complex. An element $c \in C_n$ is called an \emph{$n$-cochain}. An $n$-cochain that is in the kernel of $\delta^n$ is called an \emph{$n$-cocycle}, and an $n$-cochain that is in the image of $\delta^{n-1}$ is called an \emph{$n$-coboundary}. The \emph{$n$th cohomology group} of $C$, denoted $H^n(C)$ is the group of $n$-cocycles modulo the group of $n$-coboundaries; that is,
+    \[ H^n(C) = \frac{\ker{\delta^n}}{\im{\delta^{n-1}}}. \]
+\end{definition}
+
+We will show that each chain complex in fact has a corresponding cochain complex, from which we can define cohomology (of a chain complex).
+
+Let $f: A \to B$ be a group homomorphism and $G$ be an abelian group. Then there is an induced group homomorphism
+\begin{align*}
+    f^*: \Hom(B, G)    & \to \Hom(A, G),                           \\
+    (\varphi: B \to G) & \mapsto (\varphi \circ f: A \to B \to G).
+\end{align*}
+
+Thus for a chain complex $C = (C_*, \partial_*)$, we may define the corresponding cochain complex $D = (D^*, \delta^*)$ by the following.
+\[ 0 \to \Hom(C_0, G) \xrightarrow{\partial^*_{1}} \Hom(C_1, G) \xrightarrow{\partial^*_{2}} \Hom(C_2, G) \xrightarrow{\partial^*_{3}} \ldots \]
+
+Thus we define cohomology for a chain complex as follows.
+
+\begin{definition}[Cohomology of a chain complex]
+    Let $C = (C_*, \partial_*)$ be a chain complex. The \emph{$n$th cohomology group} of $C$ is defined by
+    \[ H^n(C) = \frac{\ker\partial^*_{n+1}}{\im\partial^*_n}. \]
+\end{definition}
+
+It turns out that the persistent barcodes of the homology and cohomology of a persistent complex coincides.
+
+\begin{lemma}
+    \label{lem:hom-cohom-barcodes-equiv}
+    Let $\mathcal C$ be a persistence complex and $F$ be a field. Then
+    \[ \Pers(H_n(\mathcal C)) \cong \Pers(H^n(\mathcal C)) \]
+    for each $n \in \mathbb N_0$.
+\end{lemma}
+
+\begin{proof}
+    By the universal coefficients theorem for field coefficients \cite{rosenberg1987kunneth}, there is a natural isomorphism
+    \[ H^k(\mathcal C; F) \cong \Hom(H_k(\mathcal C; F), F). \]
+    By natural, we mean that the induced maps
+    \[ H_k(K_i, F) \to H_k(K_j, F) \quad\text{and}\quad
+        H^k(K_j, F) \to H^k(K_i, F) \]
+    are \emph{adjoint} (that is, one is the transpose of the other) and thus they have the same rank. Persistent (co)homology is uniquely determined by these induced map, and thus the barcodes must be the same.
+\end{proof}
+
+We will use this fact to our advantage, the cohomology boundary map has superior properties when computing persistent homology (for certain persistent complexes).

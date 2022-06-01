@@ -1,0 +1,93 @@
+\clearpage
+\question[30] Alice and Bob share an EPR pair. Alice, in addition, holds a random bit $x \in \{0,1\}$ that she wishes to communicate to Bob with no interaction. Prove that it is not possible to do this with the following method. First, Alice performs a measurement of her qubit in a basis with real amplitudes. Next Bob measures his qubit in a second basis with real amplitudes, and outputs a guess $x'$ for $x$ based on the measurement outcome. (Hint: You may use a well-known property of the EPR pair. If you do so, you should state and prove this property.)
+
+\begin{solution}
+    We first have two assertion to make.
+
+    \textbf{Lemma 1.} Let $\ket u =  a_u\ket 0 +  b_u \ket 1$ be a real unit vector in $\mathbb C^2$ with the standard inner product. Then $\ket u$ and a real unit vector $\ket v = a_v\ket0 + b_v\ket1$ are orthonormal if and only if
+    \[  a_v = \mp  b_u, \qquad  b_v = \pm  a_u. \]
+
+    \textit{Proof.} As $\ket u$ and $\ket v$ are orthogonal, we have
+    \begin{align*}
+        \braket{u|v}
+                                              & = 0 \\
+        \begin{pmatrix}
+            \overline a_u & \overline b_u
+        \end{pmatrix}
+        \begin{pmatrix}
+            a_v \\  b_v
+        \end{pmatrix}
+                                              & = 0 \\
+        \overline a_u a_v + \overline b_u b_v & = 0 \\
+        a_u a_v +  b_u b_v                    & = 0
+    \end{align*}
+    and so $ a_u a_v = - b_u b_v$. As $\ket u$ and $\ket v$ are unit vectors, we have $ a_u^2 +  b_u^2 = 1$ and $ a_v^2 +  b_v^2 = 1$. Thus
+    \begin{align*}
+        a_u a_v             & = - b_u b_v                & a_u a_v                & = - b_u b_v          \\
+        a_u^2 a_v^2         & =  b_u^2 b_v^2             & a_u^2 a_v^2            & =  b_u^2 b_v^2       \\
+        (1 -  b_u^2)  a_v^2 & =  b_u^2  b_v^2            & a_u^2 a_v^2            & = (1- a_u^2) b_v^2   \\
+        a_v^2               & = ( a_v^2 +  b_v^2)  b_u^2 & a_u^2( a_v^2 +  b_v^2) & =  b_v^2             \\
+        a_v^2               & =  b_u^2                   & a_u^2                  & =  b_v^2             \\
+        a_v                 & \in \{ b_u, - b_u\}        & b_v                    & \in \{ a_u, - a_u\}.
+    \end{align*}
+    If $\ket v \in \{b_u\ket0 + a_u\ket1, -b_u\ket0 -a_u\ket1\}$, then $\braket{u|v} = 1$. If $\ket v \in \{- b_u \ket0 + a_u\ket1),b_u\ket0 - a_u\ket1\}$, then $\braket{u|v} = 0$, the required result. \qed
+
+    Next we have an assertion on the invariance of the Bell state (or EPR pairs).
+
+    \textbf{Lemma 2.} Let $\ket\Phi = \frac{1}{\sqrt 2}(\ket{00} + \ket{11})$ be the Bell state (sometimes denoted $\ket{\Phi^+}$). Let $(\ket u, \ket v)$ be a real orthonormal basis (in $\mathbb C^2$ with the standard inner product). Then
+    \[ \ket\Phi = \frac{1}{\sqrt 2}(\ket{uu} + \ket{vv}). \]
+
+    \textit{Proof.} Let $\ket u = a\ket0 + b\ket1$ for some $a, b \in \mathbb R$ with $a^2 + b^2 = 1$. As $\ket u$ and $\ket v$ are orthonormal, by Lemma 1, we have $\ket v = \mp b\ket0 + \pm a\ket1$. Thus
+    \begin{align*}
+        \frac{1}{\sqrt2} (\ket{uu} + \ket{vv})
+         & = \frac{1}{\sqrt2}(
+        (\ket u \otimes \ket u) +
+        (\ket v \otimes \ket v)
+        )
+        \\
+         & = \frac{1}{\sqrt2}\left(
+        (a\ket0 + b\ket1) \otimes (a\ket0 + b\ket1) +
+        (\mp b\ket0 + \pm a\ket1) \otimes (\mp b\ket0 + \pm a\ket1)
+        \right)
+        \\
+         & = \frac{1}{\sqrt 2}(
+        (a^2\ket{00} + ab\ket{01} + ab\ket{10} + b^2\ket{00}) +
+        (a^2\ket{00} - ab\ket{01} - ab\ket{10} + b^2\ket{00})
+        )
+        \\
+         & = \frac{1}{\sqrt 2} (
+        (a^2 + b^2)\ket{00} + (a^2 + b^2)\ket{11}
+        )
+        \\
+         & = \frac{1}{\sqrt 2}(\ket{00} + \ket{11}).
+        \pushQED{\qed}
+        \qedhere
+        \popQED
+    \end{align*}
+
+    We now answer the question. Suppose Alice measures in real basis $(\ket{u_A}, \ket{v_A})$ and Bob measures in real basis $(\ket{u_B}, \ket{v_B})$. We note that measurement bases must be orthonormal, to avoid ambiguity. Let $\theta$ be the angle between $\ket{u_A}$ and $\ket{u_B}$. Suppose that Bob has some strategy of correctly guessing $x$ based on his measurement; that is, a function $f: \{\ket{u_B}, \ket{v_B}\} \to \{0,1\}$ such that $f$ applied to Bob's measurement gives $x$.
+
+    First, Alice measures her qubit. By Lemma 2,
+    \[ \ket\Phi = \frac{1}{\sqrt 2}(\ket{u_Au_A} + \ket{v_Av_A}) \]
+    and thus Alice measures $\ket{u_A}$ with probability $1/2$, and $\ket{v_A}$ with probability $1/2$, irrespective of the value of $x$.
+
+    Consider the scenario in which Alice measures $\ket{u_A}$. Then Bob will measure $\ket{u_B}$ with probability $\cos^2\theta$, and $\ket{v_B}$ with probability $\sin^2\theta$, again irrespective of the value of $x$.
+
+    If $\cos^2\theta \neq 0$, then Bob will measure $\ket{u_B}$ with a non-zero probability. In such a scenario, if $x = 0$, then $f(\ket{u_B}) = 0$. But if $x = 1$, then $f(\ket{u_B}) = 1$; a contradiction.
+
+    If $\cos^2\theta = 0$, then Bob will measure $\ket{v_B}$ with probability $1$. In this scenario, if $x = 0$, then $f(\ket{v_B}) = 0$. But if $x = 1$, then $f(\ket{v_B}) = 1$; a contradiction. \qed
+
+    A similar result holds even if Alice chooses a basis based on the value of $x$, given the invariance of the Bell state. Regardless of the basis chosen, Alice will measure either basis element with probability $1/2$. 
+
+    % We now suppose that Bob has such a strategy for correctly guessing $x$ based on his measurement; that is, a function $f: \{\ket{u_B}, \ket{v_B}\} \to \{0,1\}$ such that $f$ applied to result of Bob's measurement gives $x$.
+
+    % Assume that $\cos^2\theta \not\in \{0,1\}$; that is, Bob can either measure $\ket{u_B}$ and $\ket{v_B}$ with non-zero probability. 
+
+    % Suppose $x = 0$. Then, with probability $\frac12\cos^2\theta \neq 0$, Alice measures $\ket{u_A}$ and Bob measures $\ket{u_B}$. Thus, by the correctness of $f$, $f(\ket{u_B}) = 0$. 
+
+    % Now suppose $x = 1$. Then, with probability $\frac12\sin^2\theta$, Alice measures $\ket{u_A}$ and Bob measures $\ket{u_B}$. But then $f(\ket{u_B}) = 1$; a contradiction. 
+
+    % We now consider $\cos^2\theta = 0$. If $x = 0$ then, with probability $\frac12$, Alice measures $\ket{u_A}$ and Bob measures $\ket{v_B}$. So $f(\ket{v_B}) = 0$. But if $x = 1$, then with probability $\frac12$, Alice measures $\ket{u_A}$ and Bob measures $\ket{v_B}$. Thus $f(\ket{v_B}) = 1$; a contradiction.
+
+    % Finally, we consider $\cos^2\theta = 1$.If $x = 0$, then with probability $\frac12$, Alice measures $\ket{u_A}$ and Bob measures $\ket{u_B}$. 
+\end{solution}

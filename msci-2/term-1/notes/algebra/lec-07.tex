@@ -1,0 +1,82 @@
+\lecture{7}{29/10}
+
+\begin{theorem}
+    Let $R$ be either $\Z$ or $F[x]$, and let $a, b \in R$. Then
+    \begin{enumerate}
+        \item $\gcd{(a, b)}$ exists;
+        \item if $a \neq 0$ and $b \neq 0$ we can compute a $\gcd{(a, b)}$ by the Euclidean algorithm; and
+        \item if $d$ is a $\gcd{(a, b)}$, then there exists $x, y \in R$ such that $ax + by = d$.
+    \end{enumerate}
+\end{theorem}
+
+\chapter{Factorisations in rings}
+
+A nice (and important) property of the ring of integers is that every positive integer can be uniquely factorised into a product of primes. The situation is not so nice in general rings; however, there still exists relating theorems in the ring $F[x]$ ($F$ field) and the more general class of rings called \textbf{unique factorisation domains} (which we will briefly touch on).
+
+\section{Irreducible polynomials in $F[x]$}
+
+Some polynomials can be factored into a product of other polynomials, for example
+
+\[ x^3 - x = (x - 1)(x^2 + x + 1) \in \Q[x]. \]
+
+Since constantsa re also polynomials, we can also factorise then like
+
+\[ 13x + 13 = 13 (x + 1) \]
+
+but this is not \emph{proper} factorisation. Atleast, we don't consider it such as then $7 = 1 \cdot 7 = 1 \cdot 1 \cdot 7$ would start popping up. Polynomails or integers which we can't properly factorise are called irreducible, here is a more formal definition though.
+
+\begin{definition}[Irreducible]
+    Let $R$ be a commutative ring and $a, b \in R$. An element $r \in R$ is called \textbf{irreducible} if
+    \begin{enumerate}
+        \item $r$ is not a unit; and
+        \item $r = ab \implies a \;\text{is a unit}\; \text{or}\; b \;\text{is a unit}$.
+    \end{enumerate}
+\end{definition}
+
+\begin{example}
+    \begin{enumerate}
+        \item Let $F$ be a field. Then $f(x) \in F[x]$ is irreducible if it is not constant and cannot be written as the product of two non-constant polynomials in $F[x]$.
+
+        \item $x^2 + 1 \in \R[x]$ is irreducible, but $x^2 + 1 \in \C[x]$ is not.
+    \end{enumerate}
+\end{example}
+
+\begin{example}
+    Let $F$ be a field and $f(x) \in F[x]$.
+    \begin{enumerate}
+        \item If $\deg{f} = 1$, then it is irreducible.
+        \item If $\deg{f} \in \{2, 3\}$, then it is irreducible if and only if it has no roots in $F$. 
+            We will prove this. 
+            Let $\alpha '\in F$ be a root of $f(x)$. 
+            So we write $f(x) = q(x)(x - \alpha) + r(x)$ with $\deg{r} \leq 0$ (using an eariler result).
+            Thus, $r(x)$ must be constant.
+            Then
+            \[ 0 = f(\alpha) = r(\alpha) \]
+            but $r$ is constant, so $f(x) = q(x)(x - \alpha)$ and so it is not irreducible.
+            Conversely, if $f$ is not irreducible, then $f(x) = g(x) h(x)$ with $\deg{g} \geq 1$ and $\deg{h} \geq 1$.
+            But $\deg{f} = \deg{g} + \deg{h}$, so if $\deg{f} \in \{2, 3\}$ we must have that either
+            \begin{enumerate}
+                \item $\deg{g} = 1$; or
+                \item $\deg{h} = 1$.
+            \end{enumerate}
+            Say that $\deg{g} = 1$, so $g(x) = ax + b$ for some $a, b \in F$ with $a \neq 0$. Thus
+            \[ 0 = g\left(\frac{-b}{a}\right) = f\left(\frac{-b}{a}\right) \]
+            so $f$ has a root.
+        \item If $\deg{f} = 4$, then it is irreducible if and only if it has no zeros in $F$ and it is not the product of two quadratic polynomails, the proof for this is similar to above.
+    \end{enumerate}
+\end{example}
+
+\begin{proposition}[]
+    Let $f(x) = a_0 + a_1x + \ldots + a_n x^n \in \Z[x]$ with $\deg{f} \geq 1$. Then if $f\left(\frac pq\right) = 0$ where $p, q \in \Z$ and $\gcd{(p, q)} = 1$ then
+    \[ p \mid a_0 \quad \text{and} \quad q \mid a_n. \]
+\end{proposition}
+
+\begin{proof}
+    We have
+    \[ f\left(\frac pq\right) = a_0 + a_1 \left(\frac pq\right) + \ldots + a_n \left(\frac pq\right)^n = 0. \]
+    So if we multiply both sides by $q_n$ and take a factor of $p$ out we get
+    \[ p(a_1 q^{n - 1} + a_2 pq^{n - 2} + \ldots + a_n p^{n - 1}) = -a_0q^n; \]
+    hence $p \mid a_n p^n$ but as $\gcd{(p, q)} = 1$ we have $p \mid a_0$. Simiarly, going back to our first equations and shifting the leading term instead we get
+    \[ q(a_0q^{n - 1} + a_1 p q^{n - 2} + \ldots a_{n - 1} p^{n - 1}) = -a_np^n \]
+    and so $q \mid a_n$ as required.
+\end{proof}

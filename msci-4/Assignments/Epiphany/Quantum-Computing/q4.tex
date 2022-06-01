@@ -1,0 +1,117 @@
+\clearpage 
+\question[15] Show that the following two circuits are functionally equivalent.
+
+\begin{center}
+    \begin{quantikz}
+        \lstick{} & \gate{H} & \ctrl{1} & \gate{H} & \qw \\
+        \lstick{} & \gate{H} & \targ{} & \gate{H} & \qw
+    \end{quantikz}
+    \hspace{2em}
+    \begin{quantikz}
+        \lstick{} &  \targ{} & \qw \\
+        \lstick{} & \ctrl{-1} & \qw
+    \end{quantikz}
+\end{center}
+
+\begin{solution}
+    An equivalent statement of this question is
+    \[ \text{CNOT} = (H \otimes H) \; \overline{\text{CNOT}} \; (H \otimes H). \]
+    We first look at some truth tables for CNOT gates. Note $\overline{\text{CNOT}}$ is the CNOT gate with the input source and target qubits swapped.
+    \begin{center}
+        \begin{tabular}{cccccc}
+            \toprule
+            \multicolumn{2}{c}{Input} & \multicolumn{2}{c}{CNOT} & \multicolumn{2}{c}{$\overline{\text{CNOT}}$}                                  \\
+            \midrule
+            $A$                       & $B$                      & $A$                                          & $B$      & $A$      & $B$      \\
+            \midrule
+            $\ket 0$                  & $\ket 0$                 & $\ket 0$                                     & $\ket 0$ & $\ket 0$ & $\ket 0$ \\
+            $\ket 0$                  & $\ket 1$                 & $\ket 0$                                     & $\ket 1$ & $\ket 1$ & $\ket 1$ \\
+            $\ket 1$                  & $\ket 0$                 & $\ket 1$                                     & $\ket 0$ & $\ket 1$ & $\ket 0$ \\
+            $\ket 1$                  & $\ket 1$                 & $\ket 1$                                     & $\ket 1$ & $\ket 0$ & $\ket 1$ \\
+            \bottomrule
+        \end{tabular}
+    \end{center}
+    Pick the basis $\ket{00},\ket{01},\ket{10},\ket{11}$. Then we have the matrices
+    \[
+        \text{CNOT} =
+        \begin{pmatrix}
+            1 & 0 & 0 & 0 \\
+            0 & 1 & 0 & 0 \\
+            0 & 0 & 0 & 1 \\
+            0 & 0 & 1 & 0 \\
+        \end{pmatrix},
+        \qquad
+        \overline{\text{CNOT}} =
+        \begin{pmatrix}
+            1 & 0 & 0 & 0 \\
+            0 & 0 & 0 & 1 \\
+            0 & 0 & 1 & 0 \\
+            0 & 1 & 0 & 0 \\
+        \end{pmatrix}.
+    \]
+    For $H$, we have
+    \[
+        H = \frac{1}{\sqrt 2}
+        \begin{pmatrix}
+            1 & 1  \\
+            1 & -1 \\
+        \end{pmatrix}.
+    \]
+    Thus
+    \[
+        H \otimes H = \frac{1}{2}
+        \begin{pmatrix}
+            1 & 1 & 1 & 1 \\
+            1 & -1 & 1 & -1 \\
+            1 & 1 & -1 & -1 \\
+            1 & -1 & -1 & 1 \\
+        \end{pmatrix}.
+    \]
+    We then conclude,
+    \begin{align*}
+        (H \otimes H) \; \overline{\text{CNOT}} \; (H \otimes H)
+        &= \frac14
+        \begin{pmatrix}
+            1 & 1 & 1 & 1 \\
+            1 & -1 & 1 & -1 \\
+            1 & 1 & -1 & -1 \\
+            1 & -1 & -1 & 1 \\
+        \end{pmatrix}
+        \begin{pmatrix}
+            1 & 0 & 0 & 0 \\
+            0 & 0 & 0 & 1 \\
+            0 & 0 & 1 & 0 \\
+            0 & 1 & 0 & 0 \\
+        \end{pmatrix}
+        \begin{pmatrix}
+            1 & 1 & 1 & 1 \\
+            1 & -1 & 1 & -1 \\
+            1 & 1 & -1 & -1 \\
+            1 & -1 & -1 & 1 \\
+        \end{pmatrix}
+        \\
+        &= \frac14
+        \begin{pmatrix}
+            1 & 1 & 1 & 1 \\
+            1 & -1 & 1 & -1 \\
+            1 & 1 & -1 & -1 \\
+            1 & -1 & -1 & 1 \\
+        \end{pmatrix}
+        \begin{pmatrix}
+            1 & 1 & 1 & 1 \\
+            1 & -1 & -1 & 1 \\
+            1 & 1 & -1 & -1 \\
+            1 & -1 & 1 & -1 \\
+        \end{pmatrix}
+        \\
+        &= 
+        \begin{pmatrix}
+            1 & 0 & 0 & 0 \\
+            0 & 1 & 0 & 0 \\
+            0 & 0 & 0 & 1 \\
+            0 & 0 & 1 & 0 \\
+        \end{pmatrix}
+        \\
+        &= \text{CNOT}.
+    \end{align*}
+\end{solution}

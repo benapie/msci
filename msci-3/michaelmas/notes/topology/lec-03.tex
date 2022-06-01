@@ -1,0 +1,93 @@
+%! TEX root = master.tex
+
+\lecture{3}{6/10}
+
+\begin{definition}[Sequences]
+	Let $(X,d)$ be a metric space and $a \in X$.
+	A \emph{sequence} in $X$ is a function $a: \N \to X$.
+	We write $(a_n)_{n \in \N}$ where $a_n = a(n)$.
+	We say that a sequence $(a_n)_{n \in \N}$ converges to $a$ if for every
+	$\varepsilon > 0$ there is $n_0 \in \N$ such that $d(a_n, a) < \varepsilon$
+	for all $n \geq n_0$.
+	We write $\lim_{n \to \infty} \left( a_n \right) = a$ or $a_n \to a$.
+\end{definition}
+
+\begin{proposition}[]
+	\label{prop:continuous-metric-space}
+	Suppose that $X$ and $Y$ are metric spaces, $a \in X$, and $f: X \to Y$.
+	Then the following statements are equivalent.
+	\begin{enumerate}
+		\item 
+			For every $\varepsilon > 0$ there is $\delta > 0$ such that
+			\[
+				d(a,x) < \delta \implies d(f(a), f(x)) < \varepsilon.
+			\]
+
+		\item 
+			For all sequences $(a_n)_{n \in \N}$ such that $a_n \to a$ we have 
+			$f(a_n) \to f(a)$.
+
+		\item
+			For all open subsets $U \subset Y$ such that $f(a) \in U$, 
+			$f^{-1}(U)$ is a neighbourhood of $a$.
+	\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+	$i \implies ii$: assume $i$.
+	Let $(a_n)_{n \in \N}$ such that $a_n \to a$.
+	Then there is $\delta > 0$ such that 
+	$d(a,a_n) < \delta \implies d(f(a),f(a_n)) < \varepsilon$.
+	But $a_n \to a$, so there is $n_0 \in \N$ such that for all $n \geq n_0$ we
+	have $d(a, a_n) < \delta$ and hence $d(f(a), f(a_n)) < \varepsilon$ for all
+	$n \geq n_0$. 
+	Therefore, $f(a_n) \to f(a)$.
+	$ii \implies iii$: assume $ii$ and, for a contradiction, assume that $iii$
+	does not hold.
+	Then there exists $U \subset Y$ open with $f(a) \in U$ such that $f^{-1}(U)$
+	is not a neighbourhood of $a$.
+	So $B\left( a; \frac1n \right)$ is not contained within $f^{-1}(U)$ for all
+	$n \in \N$.
+	Now let $a_n \in B(a; \frac1n) \setminus f^{-1}(U) \neq \varnothing$.
+	Then $d(a,a_n) < \frac1n$ and so $a_n \to a$.
+	As $U$ is open there is $\varepsilon > 0$ such that 
+	$B(f(a); \varepsilon) \subset U$.
+	Now $f(a_n) \not\in U$ so $d(f(a), f(a_n)) \geq \varepsilon$.
+	Therefore $f(a_n) \not\to f(a)$; a contradiction.
+	$iii \implies i$: let $\varepsilon > 0$.
+	Then $B(f(a); \varepsilon)$ is open.
+	So $f^{-1}(B(f(a); \varepsilon)$ is a neighbourhood of $a$.
+	So there is $\delta > 0$ such that
+	$B(a; \delta) \subset f^{-1}\left( B(f(a); \varepsilon) \right)$.
+	That is,
+	$d(a,x) < \delta \implies d(f(a),f(x)) < \varepsilon$.
+\end{proof}
+
+\begin{definition}[Continuous function]
+	Let $f$ be a function that satisfies any of the statements in Proposition
+	\ref{prop:continuous-metric-space}.
+	Then $f$ is \emph{continuous} at $a$.
+	If $f$ is continuous for all points $a \in X$, we say that $f$ is 
+	\emph{continuous}.
+\end{definition}
+
+\begin{proposition}[]
+	Let $X$ and $Y$ be metric spaces and $f: X \to Y$.
+	$f$ is continuous if and only if $f^{-1}(U)$ is open for all open 
+	$U \subset Y$.
+\end{proposition}
+
+\begin{proof}
+	Suppose $f$ is continuous and $U \subset Y$ is open.
+	If $a \in f^{-1}(U)$, then $f(a) \in U$ and so $f^{-1}(U)$ is a neighbourhood
+	of $a$.
+	Hence there is $\varepsilon > 0$ such that 
+	$B(a; \varepsilon) \subset f^{-1}(U)$.
+	Hence $f^{-1}(U)$ is open.
+	Now we suppose $f^{-1}(U)$ is open for all open $U \subset Y$.
+	If $a \in f^{-1}(U)$ then there exists $\varepsilon > 0$ such that
+	$B(a; \varepsilon) \subset f^{-1}(U)$. 
+	Hence $f^{-1}(U)$ is a neighbourhood of $a$ and hence $f$ is continuous at
+	$a$.
+\end{proof}
+

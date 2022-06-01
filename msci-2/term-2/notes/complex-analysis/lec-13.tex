@@ -1,0 +1,149 @@
+\lecture{13}{17/2}
+
+\begin{proposition}[]
+    Let
+    \[
+        f(z) = \sum^{\infty}_{n=-\infty} c_n(z-a)^n
+    \]
+    be convergent on $A_{r,R}(z)$ with $a \in \C$ and
+    $0 \leq r < R \leq \infty$.
+    Then for any $\rho$ with $0 < r < \rho < R$
+    \[
+        c_n = \frac1{2\pi i} \int_{\abs{z-a}=\rho} \frac{f(z)}{(z-a)^{n+1}} \,dz.
+    \]
+\end{proposition}
+
+\begin{theorem}[Laurent's]
+    Let $a \in \C$, $0 \leq r < R \leq \infty$, and
+    $f: A_{r,R}(a) \to \C$ be holomorphic.
+    Then there exists an unique $c_n$ such that
+    \[
+        f(z) = \sum^{\infty}_{n = -\infty} c_n (z-a)^n
+    \]
+    converges for all $z \in A_{r,R}(a)$.
+\end{theorem}
+
+\section{Classifications of singularities}
+
+Given $f: B_r^\star(a) \to \C$ holomorphic, what can happen at $a$?
+Let us write
+\[
+    f(z) = \sum_{n=-\infty}^\infty c_n(z-a)^n
+\]
+as our unique representation of $f$ in $B_r^\star(a)$.
+Then we have the following cases.
+
+\begin{description}
+    \item[$f$ has a removable singularity at $a$.]
+        If $c_n = 0$ for all $n < 0$ 
+        (that is, the principal part of $f$ is zero)
+        then we say that $f$ has a removable singularity.
+        \begin{example}
+            Let
+            \[
+                f(z) = \frac{e^z - 1}{z}.
+            \]
+            $f$ is holomorphic on $B_1^\star(0)$ but it is \emph{not} defined at $0$.
+            \[
+                f(z) = \frac1z
+                \left(
+                    \sum^{\infty}_{n=0} \frac{z^n}{n!}
+                \right)
+                = \frac1z \sum^{\infty}_{n=0} \frac{z^n}{n!} 
+                = \sum^{\infty}_{n=0} \frac{z^n}{(n+1)!} 
+            \]
+            and so $f$ has a power series;
+            therefore, $f$ has a removable singularity at $0$.
+        \end{example}
+
+    \item[$f$ has a pole at $z=a$.]
+        If there exists a $k>0$ such that $c_{-k} \neq 0$
+        and $c_n = 0$ for all $n < -k$
+        then we say that $f$ has a \textbf{pole} of order $k$ at $z=a$.
+        Note that this means that the principal part of $f$ is not zero,
+        but contains finitely many non-zero terms.
+        \begin{example}
+            Let
+            \[
+                g(z) = \frac{e^z - 1}{z^2} 
+            \]
+            be holomorphic on $B_1^\star(0)$.
+            Then
+            \[
+                g(z) = \frac{f(z)}{z} = \sum^{\infty}_{n = -1} \frac{z^n}{(n+2)!}
+            \]
+            so this is \emph{not} a power series and therefore $g$ has a pole of order $1$
+            at $0$.
+        \end{example}
+
+    \item[$f$ has an essential singularity at $z = a$]
+        If there are infinitely many $n<0$ such that $c_n \neq 0$ then
+        $f$ has an \textbf{essential singularity} at $z = a$.
+        \begin{example}
+            Let $f(z) = e^{\frac1z}$ be holomorphic on $\C^\star$.
+            Then
+            \[
+                f(z) 
+                = e^{\frac1z} 
+                = \sum^{\infty}_{n=0} \frac{\left(\frac1z\right)^n}{n!}
+                = \sum^{\infty}_{n=0} \frac{1}{z^n\,n!} 
+                = \sum^{0}_{n=-\infty} \frac{z^n}{(-n)!}  
+            \]
+            is the Laurent series of $f$ and therefore $f$ has an essential singularity at
+            $0$.
+        \end{example}
+\end{description}
+
+\section{Removable singularities}
+
+\begin{lemma}[]
+    Let $a \in \C$, $r > 0$, and $f$ be holomorphic on $B_r^\star(a)$.
+    Then $f$ has a removable singularity at $a$ if and only if $f$ extends to
+    a holomorphic function on $B_r(a)$.
+\end{lemma}
+
+\begin{proposition}[]
+    Let $a \in \C$, $r > 0$, and $f: B_r^\star(a) \to \C$ be holomorphic.
+    Then $f$ has a removable singularity at $a$ if and only if
+    \[
+        \lim_{z \to a} (z-a) \, f(z) = 0.
+    \]
+\end{proposition}
+
+\begin{example}
+    Let
+    \[
+        f(z) = \frac{e^z - 1}{z}.
+    \]
+    $f$ is holomorphic on $B_r^\star(0)$ for all $r > 0$.
+    We have
+    \[
+        \lim_{z \to 0} z f(z) 
+        = \lim_{z \to 0} \left(e^z-1\right)
+        = 0
+    \]
+    and so $f$ has a removable singularity at $0$.
+\end{example}
+
+\begin{theorem}[Riemann extension]
+    If $f: B_r^\star(a) \to \C$ is bounded then $f$ has a removable singularity.
+\end{theorem}
+
+\section{Poles}
+
+\begin{proposition}[]
+    Let $a \in C$, $r>0$, and $f: B_r^\star(a) \to \C$ be holomorphic.
+    Then the following are equivalent.
+    \begin{enumerate}
+        \item $f$ has a pole of order $k$ at $a$.
+        \item $f(z) = (z-a)^{-k}g(z)$ where $g:B_r(a) \to \C$ is holomorphic and $g(a) \neq 0$.
+        \item There exists $\varepsilon$ such that $0 < \varepsilon < r$
+            and there exists $h: B_\varepsilon(a) \to \C$ with a zero of order $k$ at $a$
+            such that 
+            \[
+                f(z) = \frac{1}{h(z)} 
+            \]
+            for all $z \in B_{\varepsilon}^\star(a)$.
+    \end{enumerate}
+\end{proposition}
+

@@ -1,0 +1,116 @@
+\chapter{Integral domains}
+\lecture{4}{17/10}
+
+\begin{definition}[Integral domain]
+    A commutative ring $R$ with at least two elements ($0 \neq 1$) is called an \textbf{integral domain} if it has no non-zero zero divisor. Alternatively, where $R$ satisfies
+    \[ \;\forall\; a, b \in R: a \cdot b = 0 \implies a = 0 \;\text{or}\; b = 0. \]
+\end{definition}
+
+\begin{example}
+    Any field $F$ has no non-zero zero divisor. Hence any field $F$ where $0 \neq 1$ is an integral domain. So clearly $\Q$, $\C$, and $\R$ are all integral domain over typical operations. $\Z$ is also an integral domain.
+\end{example}
+
+\begin{example}
+    Consider
+    \[ \Z/3 = \{ \bar 0, \bar 1,\bar 2 \}. \]
+    Let's consider the multiplication table.
+    \begin{center}
+        \begin{tabular}{cccc}
+            \toprule
+            $+$ & $\bar 0$ & $\bar 1$ & $\bar 2$ \\
+            \midrule
+            $\bar 0$ & $\bar 0$ & $\bar 0$ & $\bar 0$ \\
+            $\bar 1$ & $\bar 0$ & $\bar 1$ & $\bar 2$ \\
+            $\bar 2$ & $\bar 0$ & $\bar 2$ & $\bar 1$ \\
+            \bottomrule
+        \end{tabular}
+    \end{center}
+    It is clear that $\Z/3$ has no non-zero divisor; hence, $\Z/3$ is an integral domain. In fact, $\Z/3$ is a field.
+\end{example}
+
+\begin{example}
+    Consider
+    \[ \Z/4 = \{ \bar 0, \bar 1, \bar 2, \bar3 \}. \]
+    This is not an integral domain as $\bar 2 \cdot \bar 2 = \bar 0$.
+\end{example}
+
+\begin{example}
+    Let $R$ be an integral domain. Let
+    \[ R[x] = \left\{ \sum_{i = 0}^n a_i x_i : a_i \in R \right\}. \]
+    $R[x]$ is an integral domain. Let's prove it. Let $f(x) = a_0 + a_1x + \ldots + a_nx^n$ and $g(x) = b_0 + b_1x + \ldots + b_mx^m$ such that $a_n \neq 0$ and $b_m \neq 0$. 
+    \[ f(x)g(x) = a_0b_0 + \ldots + a_nb_m x^{n + m} \neq 0 \]
+    hence an integral domain.
+\end{example}
+
+\section{The group of units in a ring}
+
+\begin{definition}[Unit]
+    Let $R$ be a ring. An element $u \in R$ is called a \textbf{unit} if there exists $u^{-1}$ such that
+    \[ uu^{-1} = u^{-1}u = 1. \]
+    Given a ring $R$,
+    \[ R^\times = \{ u \in R : u \;\text{is a unit}\} \]
+    is the set of all units in $R$.
+\end{definition}
+
+\begin{proposition}
+    Let $R$ be a ring. $R^\times$ is a group under multiplication ($\cdot$).
+\end{proposition}
+
+\begin{proof}
+    Let $a, b, c \in R^\times$. Then
+    \begin{enumerate}
+        \item (closure under $\cdot$)
+            \[ (ab)(b^{-1}a^{-1}) = abb^{-1}a^{-1} = a \cdot 1 \cdot a^{-1} = aa^{-1} = 1; \]
+        \item (multiplicative identity) $1 \in R^\times$;
+        \item (associativity)
+            \[ (ab)c = a(bc); \]
+        \item (inverse)
+            \[ aa^{-1} = 1 = a^{-1}a \implies a^{-1} \in R^\times. \]
+    \end{enumerate}
+\end{proof}
+
+\begin{example}
+    \begin{enumerate}
+        \item $R = \Z/4 = \{ \bar 0, \bar 1, \bar 2, \bar 3 \}$. $\R^\times = \{ \bar 1, \bar 3 \}$.
+        \item $\Z = \{0, \pm 1, \pm 2, \ldots \}$. $\Z^\times = \{ \pm 1 \}$.
+        \item $M_2(\R)^\times = \operatorname{GL}_2(\R) = \text{all invertible matrices}$.
+    \end{enumerate}
+\end{example}
+
+\begin{example}
+    Let $R$ be an integral domain. Consider
+    \begin{align*}
+        f(x) &= a_0 + a_1x + \ldots + a_nx^n \in R[x] \\
+        g(x) &= b_0 + b_1x + \ldots + b_nx^n \in R[x]
+    \end{align*}
+where $f(x) \neq 0$ and $g(x) \neq 0$. $f(x)g(x) \neq 1$ for $n \geq 1$, hence if $f(x)$ is a unit then $n = 0$. In fact, $R[x]^\times = R^\times$.
+\end{example}
+
+\begin{proposition}
+    Let $\bar x \in \Z/n$. Then $\bar x$ is a unit if and only if 
+    \[ \gcd{(x, n)} = 1. \]
+\end{proposition}
+
+\begin{proof}
+    \begin{description}
+        \item[$\implies$] Let $\bar x \in \Z/n^\times$. Then there exists some $y \in \Z/n^\times$ such that $\bar x \cdot \bar y = 1$. Then
+            \begin{align*}
+                \overline{x \cdot y} &= \bar 1 \\
+                \overline{xy - 1} &= \bar 0 \\
+                n &\mid xy - 1 \\
+                xy - 1 &= kn, \quad k \in \Z \\
+                1 &= xy - kn \\
+                \gcd{(x, n)} &\mid 1 \\
+                \gcd{(x, n)} &= 1§
+            \end{align*}
+
+        \item[$\impliedby$] Via Euclid's algorithm we have
+            \begin{align*}
+                1 &= xy + nz \\
+                n &\mid xy - 1 \\
+                \overline{xy - 1} &= \bar 0 \\
+                \overline{xy} &= \bar 1 \\
+                \bar x &\in \Z/n^\times.
+            \end{align*}
+    \end{description}
+\end{proof}

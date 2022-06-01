@@ -1,0 +1,212 @@
+\documentclass[a4paper, answers]{exam}
+\input{../preamble.tex}
+
+\begin{document}
+
+\begin{center}
+	\textbf{\textsc{Analysis III, 2018}} \\
+	\textsc{Ben Napier}
+	\vspace{1em}
+\end{center}
+
+Credit will be given for the best \emph{four} answers from Section A
+and the best \emph{three} answers from Section B.
+Questions in Section B carry \emph{twice} as many marks as those in Section A.
+
+\begin{center}
+	\textsc{\textbf{Section A}}
+\end{center}
+
+\begin{questions}
+	\question
+	\begin{parts}
+		\part
+		Define what it means for a set to be countable.
+
+		\part
+		Let $\Q\left[\sqrt 2\right] = \left\{
+			a + b\sqrt 2: a, b \in \Q
+		\right\} \subset \R$.
+		Show that $\Q\left[\sqrt 2\right]$ is countable.
+
+		\part
+		Show that the set of all infinite sequences of natural numbers is
+		uncountable.
+	\end{parts}
+
+	\question
+	Let $\left\{a_n\right\}$ be a sequence of real numbers, 
+	and let $A$ be the set of all elements of $\left\{a_n\right\}$.
+	\begin{parts}
+		\part
+		Define $\limsup a_n$.
+
+		\part
+		Show that $\sup A \geq \limsup a_n$.
+
+		\part
+		Assume that $\limsup a_n \in A$.
+		Does this imply that $\sup A \in A$?
+	\end{parts}
+
+	\question
+	\begin{parts}
+		\part
+		Define what it means for a set $E \subset \R$ to be measurable.
+
+		\part
+		Show that if $E \subset \R$ is measurable and bounded and
+		$\varepsilon > 0$, then there exists a finite collection
+		$\left\{E_1, \ldots, E_n\right\}$ of mutually disjoint measurable sets
+		such that $\bigcup_{i=1}^n E_i = E$ and $m(E_i) \leq \varepsilon$
+		for all $i = 1, \ldots, n$.
+
+		\part
+		Is the assertion of (b) true if $E$ is unbounded of finite measure?
+	\end{parts}
+
+	\question
+	\begin{parts}
+		\part
+		Define what it means for $f: \R \to \R$ to be measurable.
+
+		\part
+		Prove that $f(x) \vcentcolon= \sin(3x)$ is measurable.
+		You may use that open intervals are measurable.
+
+		\part
+		Let $f: \R \to \R$ be measurable, $a \in \R$ and define the function
+		$g: \R \to \R$ by $g \vcentcolon= f(x - a)$.
+		Prove that $g$ is measurable.
+	\end{parts}
+
+	\question
+	\begin{parts}
+		\part
+		Define $\int f$ for a nonnegative measurable function $f: \R \to \R$.
+
+		\part
+		Prove that for measurable functions $f,g$
+		with $0 \leq f(x) \leq g(x)$ we have
+		$\int f \leq \int g$.
+
+		\part
+		Let $f$ be as in (a), assume that $\int f = 0$, $c > 0$, and
+		$A_c \vcentcolon= \left\{x \in \R: f(x) > c\right\}$.
+		Prove that $m(A_c) = 0$, where $m$ denotes the Lebesgue measure
+		of $\R$.
+	\end{parts}
+
+	\question
+	\begin{parts}
+		\part
+		State the Lemma of Fatou.
+
+		\part
+		Let
+		\[
+			f_n(x) =
+			\begin{cases}
+				0 & x \leq n; \\
+				1 & x > n.
+			\end{cases}
+		\]
+		Do the \textbf{assumptions} of the Lemma of Fatou apply to the
+		sequence?
+		Prove your answer.
+
+		\part
+		Does the \textbf{conclusion} of the Lemma of Fatou apply to the 
+		sequence $f_n$ as in $(b)$? 
+		Prove your answer.
+	\end{parts}
+
+	\begin{center}
+		\textsc{\textbf{Section B}}
+	\end{center}
+
+	\question
+	\begin{parts}
+		\part 
+		Define the outer measure $m^\star(E)$ of a set $E \subset \R$.
+
+		\part
+		Use the definition (a) to show that the outer measure is monotone, i.e.
+		$m^\star(A) \leq m^\star(B)$ for $A \subset B$.
+
+		\part
+		Show that a set $E \subset \R$ is measurable if and only if
+		for every $\varepsilon > 0$ there exists an open set $U$
+		and a close set $F$ such that $F \subset E \subset U$
+		and $m^\star(U \setminus F) < \varepsilon$.
+
+		\part
+		Let $E \subset \R$ have finite outer measure.
+		Show that there exists a countable intersection $G$ of open sets such
+		that $E \subset G$ and $m^\star(E) = m^\star(G)$.
+		Does this imply that $m^\star(G \setminus E) = 0$?
+	\end{parts}
+
+	\question
+	A set $A \subset \R$ is called \emph{nowhere dense} if every open
+	non-empty subset $U_0 \subset U$ such that $U_0 \cap A = \varnothing$.
+	A set $B \subset \R$ is called \emph{dense} if the closure of $B$
+	conincides with $\R$.
+	\begin{parts}
+		\part
+		Let $N \in \N$.
+		Show that the set $\left\{\frac pq: p,q \in \N, p \leq N\right\}$
+		is nowhere dense.
+
+		\part
+		Let $B \subset \R$ be dense.
+		Is it true that $\R \setminus B$ has to be nowhere dense?
+
+		\part
+		Let $A \subset \R$ be nowhere dense.
+		Is it true that $\R \setminus A$ has to be dense?
+
+		\part
+		Show that for every $\varepsilon > 0$ there exists a nowhere dense set
+		$E \subset \R$ such that $m^\star(\R \setminus E) < \varepsilon$.
+	\end{parts}
+
+	\question
+	\begin{parts}
+		\part
+		Define the collection of functions
+		$L^1([0,2\pi])$
+		and the collection of functions
+		$L^2([0,2\pi])$.
+
+		\part
+		Prove or disprove by counterexample the following claim:
+		$L^1([0,2\pi]) \subset L^2([0,2\pi])$.
+
+		\part
+		State the Dominated Convergence Theorem.
+	\end{parts}
+
+	\question
+	\begin{parts}
+		\part
+		Define an inner product on $L^2([0,2\pi])$ and define what it means that
+		$L^2([0,2\pi])$ isa  Hilbert space.
+
+		\part
+		State and prove the Bessel Inequality on the Hilbert space 
+		$L^2([0,2\pi])$.
+
+		\part
+		Define functions $f_n: \R \to \R$ by 
+		$f_n(x) = \left(\frac 1n\right)_{\chi_{[0,n]}}$
+		and $f(x) = 0$.
+		Here, $\chi_{[0,n]}$ has value $1$ on $[0, n]$ and vanishes
+		elsewhere.
+		Show that $f_n$ converges uniformly to $f$ but that
+		$\lim \int f_n \neq \int f$.
+		Why does this not contradict the Monotone Convergence Theorem?
+	\end{parts}
+\end{questions}
+
+\end{document}

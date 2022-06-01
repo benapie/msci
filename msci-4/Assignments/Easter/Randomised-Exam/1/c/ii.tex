@@ -1,0 +1,32 @@
+\subpart\hspace{0em}
+\begin{solution}
+    Denote the in-degree of a vertex $v \in V(G)$ of some graph $G$ by $\ideg(v)$.
+
+    Fix $i$ and at $t$ fix two outcomes of $(R_t, S_t)$:
+    \begin{enumerate}
+        \item let $u$ be the vertex we selected in the first trial, and $w_1, \ldots, w_{k-1}$ be the sampled neighbours from the first trial;
+        \item let $u'$ be the vertex we selected in the second trial, and $w'_1, \ldots, w'_{k-1}$ be the sampled neighbours from the second trial.
+    \end{enumerate}
+    Let $A = \{u, w_1, w_2, \ldots, w_{k-1}\}$, $A_j = \{a \in A: \ideg(a) = j\}$, $B = \{u', w_1', w_2', \ldots, w_{k-1}'\}$, and $B_j = \{b \in B: \ideg(j)\}$.
+    $X_i^{(t)}$ is the number of nodes with in-degree $i$ at $t$. Let $X$ be the random variable $X_i^{(t)}$ given the first outcome of $(R_t, S_t)$, and $Y$ be the random variable $X_i^{(t)}$ given by the second outcome of $(R_t, S_t)$.
+
+    \vspace{0.5em}
+    \textbf{Claim.}
+    \begin{align*}
+        X  & = X_i^{(t-1)} + A_{i-1} - A_i,   \\
+        Y & = X_i^{(t-1)} + B_{i-1} - B_i.
+    \end{align*}
+    \textit{Proof.} We consider the case only for $A$, as it is the same for $A'$ (and in fact any outcome). In the transition $X_i^{(t-1)} \to X_i^{(t)}$, we introduced a new vertex to the graph and connected it to each element of $A$. Thus the in-degree of each element of $A$ increases by $1$ (from time $t-1$ to $t$). As these are the only edges added, the in-degree of every node outside of $A$ does not change. We add the nodes with in-degree $i$ at the time $t-1$, and add or remove the nodes for which this change. Any node that had in-degree $i-1$ before this transition now has in-degree $i$, thus we add this. Similarly, any node that had in-degree $i$ before now has in-degree $i+1$, so we minus this.
+    \qed
+    \vspace{0.5em}
+
+    For the two trials we selected, the maximum difference is 
+    \begin{align*}
+        \lvert X - Y \rvert &= \left\lvert \left(X_i^{(t-1)} + A_{i-1} - A_{i}\right) - \left(X_i^{(t-1)} + B_{i-1} - B_{i}\right) \right\rvert \\
+        &= \left\lvert \left(A_{i-1} - A_{i}\right) - \left(B_{i-1} - B_{i}\right) \right\rvert \\
+        &\leq \left\lvert A_{i-1} - A_{i} \right\rvert + \left\lvert B_{i-1} - B_{i} \right\rvert
+    \end{align*} 
+    by the triangle inequality. But for all $j$, $A_j \subset A$. Thus $\lvert A_j \rvert \leq \lvert A \rvert = k$. As $\lvert A_j \rvert \geq 0$ for all $j$, we have $\left\lvert A_{i-1} - A_{i} \right\rvert \leq k$ and similarly $\left\lvert B_{i-1} - B_{i} \right\rvert \leq k$. Thus
+    \[ \lvert X - Y \rvert \leq k + k = 2k \]
+    as required.
+\end{solution}

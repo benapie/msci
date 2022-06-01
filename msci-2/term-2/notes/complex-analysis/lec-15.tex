@@ -1,0 +1,123 @@
+\lecture{15}{28/2}
+
+It is important to note that the \emph{residue} of $f$ at $a$
+is \emph{not} always the first term of the Laurent series, that is, it is $c_{-1}$
+not $c_{-k}$ (where $k$ is the order of the pole at $a$).
+
+So the last theorem indicates that in order to compute a complex integral of
+a meromorphic function along a simple closed contour, all we need to find is the
+location of the poles inside the contour and then compute the residues of the function here.
+
+\section{Rules for calculating residues}
+
+Before we look at examples of Cauchy's residue theorem, we need
+some ways to calculate resiudes that are more efficient then calculating
+the Laurent series.
+
+\begin{enumerate}
+    \item (Linear combinations)
+        \[
+            \Res_{z=a}(Af + Bg) = A\Res_{z=a}(f) + B\Res_{z=a}(g)
+        \]
+        for $A,B \in \C$.
+        This is clear from the definition of a residue.
+
+    \item (Cover up rule)
+        If $f$ has a pole of order 1 (a simple pole) at $z=a$ then
+        \[
+            \Res_{z=a}(f) = \lim_{z\to a} (z-a)f(z).
+        \]
+        The proof of this is clear be evaluating the formula.
+        \begin{example}
+            Let $f(z) = \frac1{z^2-9}$.
+            Then $f$ has simple poles at $3$ and $-3$ and the residues can be calculated
+            by the cover up rule.
+            For example,
+            \[
+                \Res_{z=3}(f) 
+                = \lim_{z\to3} \left((z-3)f(z)\right)
+                = \lim_{z\to3} \left(\frac{1}{z+3}\right)
+                = \frac16.
+            \]
+        \end{example}
+
+    \item (Simple zero on denominator)
+        If $f(z) = \frac{g(z)}{h(z)}$ with $g$ and $h$ holomorphic at $z=a$,
+        $g(a) \neq 0$, and $h$ has a simple zero then
+        \[
+            \Res_{z=a}(f) = \frac{g(a)}{h'(a)}.
+        \]
+        This is easily provable by considering $h(z) = (z-a)h_1(z)$ (as $h$ has a simple zero)
+        and then using the cover up rule.
+        \begin{example}
+            Consider the function $f(z) = \frac1{\sin z}$.
+            We will calculate the residue of $f$ at $0$.
+            Indeed, since $\sin(0) = 0$ and $\sin'(0) = 1$, $\sin$ has a simple
+            zero at $0$ and so $f$ has a simple pole at $0$.
+            Hence we have
+            \[
+                \Res_{z=0} (f) = \frac{1}{\sin'(0)} = 1.
+            \]
+        \end{example}
+
+    \item
+        If $f(z) = \frac{g(z)}{(z-a)^k}$ for some $k > 0$ and $g$ is holomorphic at $z = a$,
+        then
+        \[
+            \Res_{z=a} (f) = \frac{g^{(k-1)}(a)}{(k-1)!}.
+        \]
+        The proof of this comes from writing $g$ as a Laurent series.
+\end{enumerate}
+
+\begin{example}
+    Compute the integral
+    \[
+        \int_{\abs z = \rho} \frac{1}{\sin z} \,dz
+    \]
+    for $0 < \rho < \pi$.
+\end{example}
+
+\begin{solution}
+    The function $f(z) = \frac{1}{\sin z}$ is meromorphic on $\C$ with poles at the zeros of
+    $\sin z$, that is, at $k\pi$ for $k\in \Z$.
+    The only pole inside the contour is at $0$.
+    We have
+    \[
+        \Res_{z=0} f = \frac{1}{\sin'(0)} = 1.
+    \]
+    Therefore, 
+    \[
+        \int_{\abs z = \rho} \frac{1}{\sin z} \,dz = 2\pi i \Res_{z=0}(f) = 2\pi i.
+    \]
+\end{solution}
+
+\begin{example}
+    Compute the integral
+    \[
+        \int_\gamma \frac{e^z}{z^2 + z^3} \,dz
+    \]
+    where $\gamma$ is any positively orientated simple closed contour
+    with $-1 \in D^\text{ext}_\gamma$ and $0 \in D^\text{int}_\gamma$.
+\end{example}
+
+\begin{solution}
+    Let 
+    $f(z) = \frac{e^z}{z^2 + z^3} = \frac{e^z}{z^2(z + 1)}$.
+    We have poles at $-1$ and $0$, but we only have to consider the pole at $0$
+    as $-1$ is outside of our contour.
+    We have
+    \[
+        \Res_{z=0} (f) = g'(0)
+    \]
+    where $g(z) = \frac{e^z}{z+1}$.
+    So
+    \[
+        g'(z) = \frac{e^z(z+1) - e^z(1)}{(z+1)^2}, \qquad g'(0) = 0. 
+    \]
+    Therefore
+    \[
+        \int_\gamma \frac{e^z}{z^2 + z^3} \,dz
+        = 2\pi i \Res_{z=0}(f)
+        = 0.
+    \]
+\end{solution}

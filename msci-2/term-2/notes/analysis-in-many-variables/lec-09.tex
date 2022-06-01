@@ -1,0 +1,63 @@
+\lecture{9}{30/1}
+
+\begin{example}
+    Evaluate
+    \[
+        I = \oint_C \bm F \cdot d\bm x
+    \]
+    where
+    \[
+        \bm F = x^2e^{5z} \bm e_1 + x \cos y \bm e_2 + 3y \bm e_3
+    \]
+    and $C$ is the circle defined by
+    \[
+        x = 0, 
+        \quad y = 2 + 2\cos\theta, 
+        \quad z = 2 + 2\sin\theta,
+        \quad \theta \in [0,2\pi].
+    \]
+\end{example}
+
+We will solve this problem in two ways.
+
+\begin{solution}
+    First, the direct route.
+    Let 
+    \[
+        \bm x(\theta) = (0, 2 + 2\cos\theta, 2 + 2\sin\theta),
+        \qquad \bm x'(\theta) = (0, -2\sin\theta, 2\cos\theta).
+    \]
+    Then
+    \begin{align*}
+        \bm F(\bm x(\theta)) \cdot \bm x'(\theta)
+        &= (0, 0, 6+6\cos\theta) \cdot (0, -2\sin\theta, 2\cos\theta) \\
+        &= 12(1 + \cos\theta)\cos\theta.
+    \end{align*}
+    Therefore
+    \[
+        I = 12 \int_0^{2\pi} (1+\cos\theta) \cos\theta \,d\theta = 12\pi.
+    \]
+\end{solution}
+
+\begin{solution}
+    Now we will use Stokes' theorem.
+    \begin{align*}
+        \nabla \times \bm F
+        &=
+        \begin{vmatrix}
+            \bm e_1 & \bm e_2 & \bm e_3 \\
+            \sfrac{\partial}{\partial x} & 
+            \sfrac{\partial}{\partial y} & 
+            \sfrac{\partial}{\partial x} \\
+            x^2 e^{5x} & x\cos y & 3y \\
+        \end{vmatrix}
+        \\
+        &= (3, 5x^2e^{5z}, \cos y).
+    \end{align*}
+    We have that $\bm{\hat n}$ everywhere on $S$. sp $d\bm A = e_1\,dA$.
+    Therefore $(\nabla \times \bm F) \cdot d\bm A = 3\,dA$.
+    Hence
+    \[
+        I = \int_A 3\,dA = 12\pi.
+    \]
+\end{solution}

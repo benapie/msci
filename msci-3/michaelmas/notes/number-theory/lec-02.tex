@@ -1,0 +1,184 @@
+%! TEX root = master.tex
+
+\section{Number fields}
+\lecture{2}{7/10}
+
+\begin{definition}[Field]
+	A set $F$ with binary operations $+$ and $\cdot$ is called a \emph{field}
+	if
+	\begin{enumerate}
+		\item $(F, +)$ is an abelian group with identity $0$;
+		\item $(F^\times, \cdot)$ is an abelian group with identity $1$; and
+		\item $a \cdot (b + c) = a \cdot b + a \cdot c$.
+	\end{enumerate}
+\end{definition}
+
+\begin{example}[Fields]
+	$\R$, $\C$, $\Q$, and $\F_p = \Z/p\Z$ (for $p$ prime) are fields.
+\end{example}
+
+\begin{problem}
+	Prove that $\Q[\sqrt{-2}]$ is a field.
+\end{problem}
+
+\begin{solution}
+	Clearly $\Q[\sqrt{-2}]$ forms an abelian group with the addition operator,
+	and has the distributivity property.
+	If you consider \[
+		(a + b\sqrt{-2})(a - b\sqrt{-2}) = a^2 + 2b^2
+	\]
+	then we can see all $0 \neq \alpha \in \Q[\sqrt{-2}]$ has an inverse.
+	Hence $\Q[\sqrt{-2}]$ is a field.
+\end{solution}
+
+\begin{definition}[]
+	Let $F$ and $L$ be fields.
+	If $F \subset L$, then $F$ is called a \emph{subfield} of $L$
+	and $L$ is called a \emph{field extension} of $F$.
+\end{definition}
+
+In the above definition, we assume that the field operations are compatible.
+
+\begin{examples}[Subfields]
+	\begin{enumerate}
+		\item $\Q \subset \R \subset \C$;
+		\item $\Q \subset \Q[\sqrt{-2}] \subset \C$; and
+		\item $\Q[\sqrt{-2}] \not\subset \R$.
+	\end{enumerate}	
+\end{examples}
+
+Let $L$ and $F$ be fields such that $L$ is a field extension of $F$.
+Then $L$ is a \emph{vector space} over $F$.
+Indeed we have
+$v_1 + v_2 \in L$ for every $v_1, v_2 \in L$ and
+$av \in L$ for every $a \in F$ and $v \in L$.
+
+\begin{example}[]
+	Note that as $\Q[\sqrt{-2}]$ is a field extension of $\Q$, it is a 
+	$\Q$-vector space. 
+	We note the isomorphism \[
+		\Q[\sqrt{-2}] \cong \Q^2
+	\]
+	with the correspondance $
+		a + b\sqrt{-2} \mapsto \begin{pmatrix} a \\ b \end{pmatrix}
+	$. We think of $\{1, \sqrt{-2}\}$ as our \emph{standard basis.}
+	Note that here we are not claiming a field isomorphism, we are just
+	looking at them as vector spaces.
+	Clearly $\Q^2$ is not field.
+\end{example}
+
+\begin{definition}[]
+	Let $F$ and $L$ be fields such that $L$ is a field extension of $F$.
+	We define \[
+		[L:F] = \dim_F L
+	\]
+	where $\dim_F L$ is the dimension of $L$ over $F$.
+\end{definition}
+
+\begin{example}
+	Taking the example above, we have \[
+		[\Q[\sqrt{-2}] : \Q] = 2.
+	\]
+\end{example}
+
+
+\begin{example}[]
+	Consider $\C$ as a field extension of $\R$, then clearly \[
+		[\C: \R] = 2
+	\]
+	as $\C$ as a $\R$-vector space has the standard basis $\{1, i\}$.
+\end{example}
+
+\begin{definition}[]
+	Let $F$ and $L$ be fields such that $L$ is a field extension of $F$.
+	We say that $L$ is a \emph{finite extension} if $[L:F] < \infty$.
+\end{definition}
+
+Recall the notation $F[x]$ as the ring of polynomials in $x$ with
+coefficients in $F$. That is, \[
+	F[x] = \left\{ \sum_{i=0}^d a_ix^i: a_i \in F \right\}.
+\]
+
+\begin{definition}[]
+	Let $L$ be a field extension of a field $F$.
+	An element $\alpha \in L$ is said to be \emph{algebraic} over $F$ if
+	there is a non-zero $f(x) \in F[x]$ such that $f(\alpha) = 0$.
+	If all elements of $L$ are algebraic over $F$, then $L$ is called an
+	\emph{algebraic extension} of $F$.
+\end{definition}
+
+\begin{example}[]
+	Consider $\C$ as a field extension of $\R$.
+	$i \in \C$ is algebraic over $\R$ since $f(x) = x^2 + 1 \in \R[x]$
+	satisfies $f(i) = 0$.
+	Infact, $i$ is algebraic over $\Q$.
+\end{example}
+
+\begin{problem}
+	Prove that $\C$ is an algebraic extension over $\R$.
+\end{problem}
+
+\begin{solution}
+	Let $z = a + bi \in \C$ with $a,b \in \R$.
+	Consider $f(x) = x^2 -2ax + a^2 + b^2$.
+	By definition, $f(x) \in \R[x]$.
+	Then $
+		f(z)
+		= (a + bi)^2 - 2a(a + bi) + a^2 + b^2
+		= 0
+	$.
+\end{solution}
+
+\begin{example}[]
+	Consider $\R$ as a field extension of $\Q$.
+	Now consider $\pi \in \R$.
+	$\pi$ is transcendental over $\R$, and so $\R$ is not an
+	algebraic extension over $\Q$.
+	The proof for $\pi$ being transcendental is outside the scope of this 
+	course.
+\end{example}
+
+\begin{proposition}[]
+	Let $L$ be a field extension of some field $F$.
+	If $[L:F] < \infty$, then $L$ is an algebraic extension.
+\end{proposition}
+
+\begin{proof}
+	Let $d = [L:F] < \infty$.
+	Let $\alpha \in L$.
+	Trivially we have $0 \inf$, which is clearly algebraic. So we assume $\alpha$
+	is non-zero.
+	Let \[
+		S = \{1, \alpha, \ldots \alpha^d\}.
+	\]	
+	If there exists $i, j \in \left\{ 0, \ldots, d \right\}$ 
+	such that $\alpha^i = \alpha^j$, then
+	$\alpha^{i - j} = 1$.
+	Thus let $f(x) = x^{i - j} - 1 \in F[x]$.
+	Then $f(\alpha) = 0$.
+	So clearly $\alpha$ is algebraic over $F$.
+	Now letrs assume that for all $i, j \in \left\{ 0, \ldots, d \right\}$
+	we have $\alpha_i \neq \alpha_j$.
+	In other words, $S$ has distinct elements.
+	As $\dim_F L = d$ and $S \subset L$, the elements of $S$ are linearly 
+	dependent.
+	That is, there exists $r_0, \ldots, r_d \in F$ such that \[
+		\sum_{i = 0}^d r_i \alpha^i = 0
+	\]
+	with at least one $r_i$ being non-zero.
+	We then let \[
+		f(x) =
+		\sum_{i = 0}^d r_i \alpha^i \in F[x],
+	\]
+	clearly $f(\alpha) = 0$.
+	Hence $\alpha$ is algebraic over $F$.
+\end{proof}
+
+Note that the converse of the above proposition is not always true.
+That is, an algebraic extension $L$ of a field $F$ may not satisfy
+$[L:F] < \infty$.
+We will see examples of this later.
+Moreover, for a field extension $L$ of some field $F$,
+every element of $F$ is algebraic over $F$.
+For $a \in F$, we simply consider $f(x) = x - a \in F[x]$,
+which satisfies $f(a) = 0$.

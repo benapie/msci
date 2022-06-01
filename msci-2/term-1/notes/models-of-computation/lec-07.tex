@@ -1,0 +1,60 @@
+\lecture{7}{21/11}
+
+\begin{definition}[Composition]
+    Let $f: R^k \to S$ and $g_1, g_2, \ldots g_k: R^n \to S$. The function $h: R^n \to S$ is obtained from $f$ and $g_1, g_2, \ldots, g_k$ by \textbf{composition} if
+    \[ h(\bm x) = f(g_1(\bm x), g_2(\bm x), \ldots, g_k(\bm x)). \]
+\end{definition}
+
+\begin{definition}
+    Let $f: R^n \to S$ and $g: R^{n + 2} \to S$ be total functions. The function $h: R^{n + 1}$ is obtained from $f$ and $g$ by primitive recursion if
+    \begin{align*}
+        h(x_1, \ldots, x_n, 0)     &= f(x_1, \ldots, x_n) \\
+        h(x_1, \ldots, x_n, t + 1) &= g(t, h(x_1, \ldots, x_n, t), x_1, \ldots, x_n).
+    \end{align*}
+\end{definition}
+
+\begin{definition}[Primitive recursion]
+    A function is called \textbf{primitive recursive} if it can be obtained from the initial functions by a finite number of applications of composition and primitive recursion.
+\end{definition}
+
+\begin{definition}[Total function and partial functions]
+    A \textbf{total function} $f: R \to S$ is such that for all $x \in R$, $f(x)$ exists (that is, it is a function). A \textbf{partial function} from $R$ to $S$ (denoted maybe by $f: R \to / S$) is defined as the function $f: R' \to S$ such that $R' \subset R$.
+\end{definition}
+
+\begin{proposition}[]
+    The following functions are primitive recursive:
+    \begin{enumerate}
+        \item addition;
+        \item subtraction;
+        \item multiplication;
+        \item integer division;
+        \item exponentiation;
+        \item integer logarithm; and
+        \item $n$th prime number.
+            % todo ith digit in base b expansion? what
+    \end{enumerate}
+\end{proposition}
+
+\begin{definition}[G\"odel number]
+    Let $(x_1, x_2 \ldots x_n)$ be a sequence. The \textbf{G\"odel number} of the sequence is defined as
+    \[ p_1^{x_1} \cdot p_2^{x_2} \cdot \ldots \cdot x_{n - 1}^{x_{n - 1}} \cdot x_n^{x_n} \]
+    where $p_i$ is the $i$th prime number.
+\end{definition}
+
+\begin{proposition}[]
+    The G\"odel number of any sequence is primitive recursive.
+\end{proposition}
+
+It is clear to see that a G\"odel number can uniquely identify a sequence; hence, a string $w$ over a finite alphabet $\Sigma$ can be encoded by a single number $[w]$, and so can a Turing machine $[\langle M \rangle]$ but we shorten this to $[M]$ or even just $M$. 
+
+We can also see that a configuration of a Turing machine $M$ can be uniquely encoded as a single number. 
+
+Moreover, (albeit less obvious) if a configuration $C$ yields the configuration $C'$, the step function $S$ such that $S(C) = C'$ is primitive recursive.  % hard to prove
+
+Then, of course, our step-counter function $f$ can be defined as
+\begin{align*}
+    f(M, w, 0)     &= (q_\text{initial}, 0, w) \\
+    f(M, w, t + 1) &= S(f(M, w, t)).
+\end{align*}
+
+%todo finish this

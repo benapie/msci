@@ -1,0 +1,117 @@
+\assignment{1}{24/1}
+
+\setcounter{question}{0}
+\question Find parametrisations for the following curves:
+\begin{parts}
+    \part The line segment from $-1$ to $1 - i$,
+    \begin{solution}
+        \[
+            \gamma(t) = -1 + t(2-i): [0, 1] \to \C.
+        \]
+    \end{solution}
+
+    \part The circle of radius $2$ centred at $1 + i$.
+    \begin{solution}
+        \[
+            \gamma(\theta) = 2e^{i\theta} + 1 + i: [0, 2\pi] \to \C.
+        \]
+    \end{solution}
+\end{parts}
+
+\setcounter{question}{1}
+\question Let $\gamma: [a,b] \to \C$ be a $C^1$-curve,
+and define $(-\gamma): [-b,-a] \to \C$,
+by $(-\gamma)(t) = \gamma(-t)$.
+Show that for any $f$ such that 
+$\int_\gamma f(z) \,dz$ 
+is well defined we have that
+\[
+    \int_{-\gamma} f(z) \,dz = -\int_\gamma f(z) \,dz.
+\]
+\begin{solution}
+    \begin{align*}
+        \int_{(-\gamma)} f(z) \,dz
+        &= \int_{-b}^{-a} f((-\gamma)(t))(-\gamma)'(t) \, dt \\
+        &= \int_{-b}^{-a} f(\gamma(-t)) \gamma'(-t) \, dt \\
+        &= \int_b^a f(\gamma(t)) \gamma'(t) \,dt \\
+        &= -\int_a^b f(\gamma(t)) \gamma'(t) \,dt \\
+        &= -\int_\gamma f(z) \,dz.
+    \end{align*}
+\end{solution}
+
+\setcounter{question}{3}
+\question Calculate $\int_\gamma \lvert z \rvert \,dz$ when
+$\gamma$ is the straight line from $-i$ to $i$,
+and when $\gamma$ is the segment of the unit circle which joints
+$-i$ to $i$ in the right hand half-plane.
+\begin{solution}
+    \begin{enumerate}
+        \item First we consider $\gamma(t) = -i + 2it: [0,1] \to \C$.
+            Then
+            \begin{align*}
+                \int_\gamma \lvert z \rvert \,dz
+                &= \int_0^1 f(\gamma(t)) \gamma'(t) \,dt \\
+                &= \int_0^1 (-1 + 2t)(2i) \,dt \\
+                &= -2i \int_0^1 (1 - 2t) \,dt \\
+                &= -2i \left(t - t^2\right)_0^1 = 0.
+            \end{align*}
+
+        \item Now we consider 
+            $\gamma(\theta) = e^{i\theta}: [\frac{5\pi}2, \frac{3\pi}2] \to \C$.
+            \begin{align*}
+                \int_\gamma \lvert z \rvert \,dz
+                &= \int^{\frac{5\pi}2}_{\frac{3\pi}2} 
+                    f(\gamma(\theta)) \gamma'(\theta) \, d\theta \\
+                &= \int^{\frac{5\pi}2}_{\frac{3\pi}2} ie^{i\theta} \\
+                &= \left(e^{i\theta}\right)^{\frac{5\pi}2}_{\frac{3\pi}2} = 2i.
+            \end{align*}
+    \end{enumerate}
+\end{solution}
+
+\setcounter{question}{5}
+\question Evaluate the integral
+\[
+    \int_\gamma \lvert z \rvert^2 \,dz
+\]
+when $\gamma: [0,1] \to \C$ is given by
+\begin{parts}
+    \part $\gamma(t) = e^{\frac12i\pi t}$,
+    \begin{solution}
+        \begin{align*}
+            \int_\gamma \lvert z \rvert^2 \,dz
+            &= \int_0^1 \lvert \gamma(t) \rvert^2 \gamma'(t) \,dt \\
+            &= \int_0^1 \frac12i\pi e^{\frac12\pi it} \,dt \\
+            &= \left(e^{\frac12\pi it}\right)^1_0 \\
+            &= i - 1.
+        \end{align*}
+    \end{solution}
+
+    \part $\gamma(t) = 1 - t + it$.
+    \begin{solution}
+        \begin{align*}
+            \int_\gamma \lvert z \rvert^2 \,dz
+            &= \int_0^1 f(\gamma(t)) \gamma'(t) \,dt \\
+            &= \int_0^1 (1 - 2t + 2t^2)(-1 + i) \,dt \\
+            &= (-1+i) \left(t - t^2 + \frac23t^3\right)^1_0 = \frac23(-1+i).
+        \end{align*}
+    \end{solution}
+\end{parts}
+Do the same for $\int_\gamma z^2 \,dz$.
+\begin{solution}
+    \begin{enumerate}
+        \item $\gamma(t) = e^{\frac12\pi i t}$.
+            \begin{align*}
+                \int_\gamma z^2 \,dz
+                &= \int_0^1 \frac12i\pi e^{\frac{3\pi it}2} \,dt \\
+                &= \left(\frac13e^{\frac{3\pi it}2}\right)^1_0 = -\frac13(i + 1).
+            \end{align*}
+
+        \item $\gamma(t) = 1 - t + it$.
+            \begin{align*}
+                \int_\gamma z^2 \,dz
+                &= \int_0^1 (t + 2t(i-1) + t^2(i-1)^2)(-1+i) \,dt \\
+                &= (-1+i) \left(t + t^2(i-1) + \frac13t^3(i-1)^2\right)^1_0 
+                = -\frac13(i+1).
+            \end{align*}
+    \end{enumerate}
+\end{solution}

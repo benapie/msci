@@ -1,0 +1,112 @@
+\chapter{Generalised functions and identities}
+\section{Preamble}
+\lecture{19}{16/3}
+In section 12 of the online notes we looked at the convergence
+of Fourier series.
+The following function was examined:
+\[
+    h_N(x) = \frac{\sin\left(\left(N + \frac12\right)x\right)}{\pi x}
+\]
+and its behaviour as $N \to \infty$ considered.
+It is \emph{not} defined in this limit;
+however, its behaviour inside an integral can be well defined!
+
+For example, it was shown that
+\[
+    \lim_{N \to \infty} \int_a^b f(y) h_N(y) \,dy =
+    \begin{cases}
+        f(0) & \text{if $a < 0 < b$}, \\
+        0    & \text{otherwise}.
+    \end{cases}
+    \tag{$\star$}
+\]
+That is, it \emph{selects} only the value of $f(y)$ at $y = 0$.
+We sometimes write the LHS of $(\star)$ as
+\[
+    \int_a^b f(y) \delta(y) \,dy
+\]
+where $\delta(y)$ is the \textbf{Dirac delta function};
+however, it is \emph{not} a function as we can't assign a value
+to it at each $x$.
+It only makes sense when it is multiplied by another function
+and then integrated.
+It is called a \textbf{generalised function},
+or a \textbf{distribution}.
+
+\section{Informal definitions}
+
+Generalised functions are interesting objects in their own right.
+It is worthwhile to see how to manipulate them.
+They are defined by their effects within integrals
+rather than by their values at all values of $x$. 
+For example
+\[
+    \int f(x) \delta(x) \,dx = \lim_{N \to \infty} \int f(x) h_N(x) \,dx.
+\]
+Similarly, we can define equality between two generalised functions $g$ and $h$
+by saying: $g = h$ as generalised fucntions if
+\[
+    \int_{-\infty}^\infty f(x) g(x) \,dx = \int_{-\infty}^\infty f(x) h(x) \,dx
+\]
+for \emph{all} functions $f$ in some class $K$ (see below).
+Note that we integrate over all of $\R$ for simplicity.
+We will take $K$, sometimes called the \textbf{space of test functions},
+to be the set of all functions which satisfy the following:
+\begin{enumerate}
+    \item 
+        (K1) the functions have finite derivatives of all orders; and
+
+    \item 
+        (K2) they vanish outside some bounded region of $\R$ 
+        (so we can neglect contributions from $\pm \infty$ when
+        integrating by parts).
+\end{enumerate}
+Furthermore, we will suppose (or define) the usual operations on integrals
+(that is, substitution and integration by parts)
+to work for generalised functions just as for ordinary functions.
+This allows the derivative of any generalised function to be derived as follows.
+
+Say $g$ is a generalised function, then for $f \in K$
+\begin{align*}
+    \int_{-\infty}^{\infty} f(x) g'(x) \,dx
+    &=
+    \left[
+        f(x) g(x)
+    \right]_{-\infty}^{\infty}
+    - \int_{-\infty}^{\infty} f'(x) g(x) \,dx \\
+    &= -\int_{-\infty}^{\infty} f'(x) g(x) \,dx
+\end{align*}
+using (K1) and (K2).
+This effectively \emph{defines} the derivative $g'(x)$ of any generalised function $g(x)$.
+
+\begin{example}
+    Find $\theta'(x)$ where
+    \[
+        \theta(x) =
+        \begin{cases}
+            1 & x > 0, \\
+            0 & x < 0.
+        \end{cases}
+    \]
+\end{example}
+
+\begin{solution}
+    We have for $f \in K$
+    \begin{align*}
+        \int_{-\infty}^{\infty} f(x) \theta'(x) \,dx
+        &= -\int_{-\infty}^{\infty} f'(x) \theta(x) \,dx \\
+        &= -\int_0^{\infty} f'(x) \,dx \\
+        &= -(f(\infty) - f(0)) \\
+        &= f(0).
+    \end{align*}
+    Now we know
+    \[
+        \int_{-\infty}^{\infty} f(x) \delta(x) \,dx = f(0)
+    \]
+    from our definition of $\delta(x)$ from before;
+    hence, $\theta'(x) = \delta(x)$ as
+    \[
+        \int_{-\infty}^{\infty} f(x) \theta'(x) \,dx 
+        = \int_{-\infty}^{\infty} f(x) \delta(x) \,dx.
+    \]
+\end{solution}

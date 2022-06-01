@@ -1,0 +1,115 @@
+\documentclass[a4paper, answers]{exam}
+\input{../preamble.tex}
+
+\begin{document}
+\begin{center}
+	\textbf{\textsc{Number Thoery III, Assignment 2}}
+	\\
+	\textsc{Ben Napier}
+	\vspace{1em}
+\end{center}
+\begin{questions}
+	\question 
+	Let $\theta \in \C$ with $\theta^3 - 7 = 0$,
+	and set $K = \Q(\theta)$.
+	Calculate
+	$\operatorname{Tr}_{K/\Q}(a + b\theta + c\theta^2)$
+	and
+	$\operatorname{N}_{K/\Q}(a + b\theta + c\theta^2)$,
+	where $a,b,c \in \Q$.
+	Your answer will depend on $a$, $b$, and $c$.
+	\begin{solution}
+		As $\theta$ is algebraic: $\Q(\theta) = \Q[\theta]$.
+		By Eisenstein's criterion with $p = 7$,
+		we see that $\theta^3 - 7$ is irreducible and
+		as it is also monic, it is the minimal polynomial for $\theta$.
+		Hence $[K : \Q] = 3$, and so we may fix the basis
+		$ \left\{ 1, \theta, \theta^3 \right\}$.
+		Now for $\alpha = a + b\theta + c\theta^2$
+		we see
+		\begin{align*}
+			1 \cdot \alpha
+				&= a + b\theta + c\theta^2 \\
+			\theta \cdot \alpha
+				&= a\theta + b\theta^2 + c\theta^3
+				= 7c + a\theta + b \theta^2 \\
+			\theta^2 \cdot \alpha
+				&= a\theta^2 + b\theta^3 + c\theta^4
+				= 7b + 7c\theta + a\theta^2,
+		\end{align*}
+		and so we get the following matrix that corresponds to our linear
+		map:
+		\[
+			A =
+			\begin{pmatrix}
+				a & 7c & 7b \\
+				b & a & 7c \\
+				c & b & a \\ 
+			\end{pmatrix}.
+		\]
+		Hence
+		$
+			\operatorname{Tr}_{K/\Q}(\alpha) = 3a
+		$
+		and
+		\begin{align*}
+			\operatorname{det}_{K/\Q}(\alpha)
+				&= (a^3 - 7abc) - (7abc - 49c^3) + (7b^3 - 7abc) \\
+				&= a^3 + 7b^3 + 49c^3 - 21abc.
+		\end{align*}
+		
+	\end{solution}
+
+	\question
+	Let $f(x) \in \Z[x]$ be a monic polynomial and
+	$\alpha \in \overline{\Q}$.
+	Show that $f(\alpha) \in \overline{\Z}$
+	if and only if $\alpha \in \overline{\Z}$.
+	\begin{solution}
+		Let $f(x) = a_0 + a_1x + \ldots + a_{n-1} x^{n-1} + x^n$
+		and assume $f(\alpha) \in \overline\Z$.
+		Then there is is a monic $g(x) \in \Z[x]$ such that
+		\[
+			g(f(\alpha)) = 0.
+		\]
+		Let $g(x) = b_0 + b_1x + \ldots + b_{m-1} x^{m-1} + x^m$.
+		Then
+		\begin{align*}
+			g(f(\alpha))
+			&= g(a_0 + \ldots a_{n-1}\alpha^{n-1} + \alpha^n) \\
+			&= b_0 + b_1(a_0 + \ldots a_{n-1}\alpha^{n-1} + \alpha^n) + \ldots
+				+ (a_0 + \ldots a_{n-1}\alpha^{n-1} + \alpha^n)^m \\
+			&= (b_0 + b_1a_0 + \ldots) + \ldots + \alpha^{n+m} \in \Z[x],
+		\end{align*}
+		and so $\alpha \in \overline\Z$.
+		
+		Now assume $\alpha \in \overline\Z$.
+		Hence there is a monic $g(x) \in \Z[x]$ such that $g(\alpha) = 0$.
+		Let $g(x) = b_0 + \ldots + x^m$.
+		Observe that $f(\alpha) = a_0 + \ldots + \alpha^n$.
+		As $\alpha \in \overline\Z$ and $\overline\Z$ is a ring,
+		then clearly $f(\alpha) \in \overline\Z$
+		(since $f(x) \in \Z[x]$ and $\Z \subset \overline\Z$).
+	\end{solution}
+
+	\question
+	Let $K$ be a number field and write $\mathcal O_K$ for it
+	ring of integers.
+	Let $I$ be a non-zero ideal in $\mathcal O_K$.
+	Show that $I \cap \Z$ is a non-zero ideal of $\Z$.
+	\begin{solution}
+		Recall that
+		\[
+			K = \left\{ \frac{\alpha}{m}:
+				\alpha \in \mathcal O_K, m \in \Z \setminus \left\{ 0 \right\}
+			\right\}.
+		\]
+		Let $x \in I \cap \Z \subset K$.
+		Then there is $\alpha \in \mathcal O_K$ and 
+		$m \in \Z \setminus \left\{ 0 \right\}$
+		such that $x = \frac{\alpha}{m}$.
+		As $I$ is an ideal in $\mathcal O_K$ we have
+		$\frac{n\alpha}{m} \in I$ for all $n \in \mathcal O_K$.
+	\end{solution}
+\end{questions}
+\end{document}

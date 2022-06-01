@@ -1,0 +1,181 @@
+%! TEX root = master.tex
+\lecture{12}{?}
+
+\begin{example}[]
+	Consider $\Z$ with the Furstenberg's topology.
+	Let 
+	\[
+		A = 
+		\left\{ 
+			p \in \Z: \text{$p$ is prime}
+		\right\}
+		\subset \Z.
+	\]
+	What is $\overline A$?
+	Recall that $\overline A$ is the collection of limit points of $A$
+	and the points of $A$.
+	So what are the limit points of $A$?
+	Suppose $a \in \Z \setminus \left( A \cup \left\{ -1,0,1 \right\} \right)$.
+	Let $U = \left\{ a + 10na: n \in \Z \right\}$
+	which is an open set and observe that $a \in U$.
+	Note that
+	\[
+		U =
+		\left\{ a + 10na: n \in \Z \right\} = 
+		\left\{ \ldots, -9a, a, 11a, 21a, \ldots \right\}.
+	\]
+	We see that there are no primes in $U$, so $U \cap A = \varnothing$.
+	Therefore, there are no limit points of $A$ in
+	$\Z \setminus \left( A \cup \left\{ -1,0,1 \right\} \right)$.
+	Now we see that
+	\[
+		0 \in \left\{ \ldots, -20, -10, 0, 10, 20 \ldots \right\}
+	\]
+	which is clearly open and disjoint from $A$, so $0$ cannot be a limit point.
+	We have left to investigate $\pm 1$.
+	Suppose $U$ is open and $1 \in U$.
+	Then there is $d \neq 0$ such that
+	\[
+		1 \in \left\{ 1 + dn: n \in Z \right\}.
+	\]
+	But, by Dirichlet's theorem, the above set must contain primes
+	(and likewise for $ \left\{ -1 + dn: n \in \Z \right\} $).
+	Therefore, $1$ and $-1$ are limit points of $A$.
+	Thus
+	$
+		\overline A = A \cup \left\{ -1, 1 \right\}.
+	$
+\end{example}
+
+Dirichlet's theorem states that for every $a, d \in \N$ such that
+$\gcd(a,d) = 1$, there are infinitely many primes of the form $a + nd$
+where $n \in \N$.
+In other words, there are infinitely many primes that are congruent to $a$
+modulo $d$.
+
+\begin{lemma}[]
+	Let $M$ be a metric space, $A \subset M$, and $x$ be a limit point of $A$.
+	Then there is $x_n \in A$ such that $x_n \to x$.
+	Furthermore, if $x \in M \setminus A$ and there is $x_n \in A$ such that
+	$x_n \to x$ then $x$ is a limit point of $A$.
+\end{lemma}
+
+\begin{proof}
+	We first prove the initial statement.
+	Obserse that for each $n \in \N$, $B\left( x; \frac1n \right) \cap A$ 
+	contains a point not equal to $x$, since $x$ is a limit point.
+	We let $x_n \in B(x; \frac1n) \cap A$ such that $x_n \neq x$.
+	We see that $d(x,x_n) < \frac1n$, and so $x_n \to x$.
+
+	Now we prove the second statement.
+	Suppose $x \in M \setminus A$ and $x_n \in A$ such that $x_n \to x$.
+	Let $U$ be an open neighbourhood of $x$.
+	Then there is $\varepsilon > 0$ such that $B(x; \varepsilon) \subset U$.
+	Now, as $x_n \to x$ there is some $N \in \N$ such that 
+	$d(x,x_N) < \varepsilon$.
+	Hence
+	\[
+		x_N \in B(x; \varepsilon) \cap A \subset U \cap A
+	\]
+	and so $x$ is a limit point of $A$.
+\end{proof}
+
+\begin{definition}[Basis]
+	Let $X$ be a topological space.
+	We define a \emph{basis} $\mathcal B$ to be a collection of open subsets
+	such that every open set is a union of elements in $\mathcal B$.
+\end{definition}
+
+\begin{examples}[]
+	\begin{enumerate}
+		\item Let $M$ be a metric space.
+			Then $\mathcal B = \left\{ B(x;\varepsilon: x \in M, \varepsilon > 0 \right\}$ is a valid basis.
+
+		\item Let $X = \R^n$ with the standard topology.
+			Then
+			\[
+				\mathcal B = \left\{ B\left( q; \frac1m \right): q \in \Q^n, m
+				\in \N \right\}
+			\]
+			is a \emph{countable} basis for the topology.
+			We will prove this.
+			Let $U \subset \R^n$ be open.
+			Consider $p \in U$.
+			Then there is $\varepsilon > 0$ such that $B(p; \varepsilon) \subset
+			U$.
+			Now choose $m \in \N$ such that $\frac1m < \frac{\varepsilon}{2}$
+			and choose $q \in \Q^n \cap B\left( p; \frac{1}{m} \right)$.
+			Then $p \in B\left( q; \frac1m \right)$.
+			Also, $B\left( q; \frac1m \right) \subset B(p; \varepsilon)$ as
+			$\frac 1m < \frac{\varepsilon}{2}$ and $d(p,q) < \frac1m < 
+			\frac{\varepsilon}{2}$.
+			So if $x \in B\left( q; \frac1m \right)$ then
+			\begin{align*}
+				d(x,p)
+				&\leq d(x,q) + d(q,p) \\
+				&< \frac{\varepsilon}{2} + \frac{\varepsilon}{2} = \varepsilon.
+			\end{align*}
+			If we find such a $q_p$ and $m_p$ for each $p \in U$, then
+			\[
+				U =
+				\bigcup_{p \in U} \left\{ p \right\} \subset
+				\bigcup_{p \in U} B\left( q_p; \frac{1}{m_p}  \right) \subset U.
+			\]
+	\end{enumerate}
+\end{examples}
+
+\begin{theorem}[]
+	\label{the:top-spaces-equiv}
+	Let $X$ and $Y$ be topological spaces and $f: X \to Y$.
+	The following statements are equivalent.
+	\begin{enumerate}
+		\item $f$ is continuous.
+		\item $\mathcal B$ is a basis for $Y$ $\implies$ 
+			for all $B \in \mathcal B$, $f^{-1}(B)$ is open.
+
+		\item For all $A \subset X$, $f(\overline A) \subset \overline{f(A)}$.
+		\item For all $B \subset Y$, 
+			$\overline{f^{-1}(B)} \subset f^{-1}(\overline B)$.
+		\item $B \subset Y$ is closed $\implies$ $f^{-1}(B)$ is closed.
+	\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+	$(i) \implies (ii)$ is clear since the elements of $\mathcal B$ are open.
+	$(ii) \implies (iii)$: note that, if $A \subset X$ then $f(A) \subset \overline{f(A)}$.
+	So we will be done if we can show that for all $x \in \overline A \setminus A$ (that is, the limit points of $A$ not in $A$) $f(x) \in \overline{f(A)}$.
+	Suppose $x \in \overline A \setminus A$, observe that $x$ is a limit point.
+	Now suppose $f(x) \not\in \overline{f(A)}$.
+	Then $x \in Y \setminus \overline{f(A)}$, which we can see is open.
+	Let $U \in \mathcal B$ such that $f(x) \in U \subset Y \setminus \overline{f(A)}$.
+	So $x \in f^{-1}(U)$, which is open by $(ii)$. 
+	But observe that
+	\[
+		f^{-1}(U) 
+		\subset f^{-1}\left(Y \setminus \overline{f(A)}\right)
+		= X \setminus f^{-1}\left(\overline{f(A)}\right) 
+		\subset X \setminus f^{-1}\left( f(A) \right)
+		= X \setminus A
+	\]
+	and so $f^{-1}(U) \cap A = \varnothing$, hence $x$ is not a limit point;
+	a contradiction. 
+	$(iii) \implies (iv)$: consider $\overline{f^{-1}(B)}$.
+	By $(iii)$
+	\[
+		f\left( \overline{f^{-1}(B)} \right)
+		\subset \overline{f\left(f^{-1}(B)\right)}
+		= \overline B
+	\]
+	and so $\overline{f^{-1}(B)} \subset f^{-1}(\overline B)$ as required.
+	$(iv) \implies (v)$: let $B \subset Y$ be closed.
+	So $\overline B = B$.
+	Then
+	\[
+		f^{-1}(B) 
+		\subset \overline{f^{-1}(B)} 
+		\subset f^{-1}(\overline B) 
+		= f^{-1}(B).
+	\]
+	So $f^{-1}(B) = \overline{f^{-1}(B)}$, and so $f^{-1}(B)$ is closed.
+	Finally, $(v) \implies (i)$ has already been shown by a previous lemma.
+\end{proof}

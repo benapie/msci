@@ -1,0 +1,166 @@
+\subsection*{Computational methods for simplicial homology}
+
+First, we introduce the problem formally.
+
+\begin{problem}[\textsc{BettiNumbers}]
+	Let $K$ be a $n$-dimensional simplicial complex. Calculate the rank of all the non-trivial homology groups of $K$; that is, the non-zero Betti numbers. 
+\end{problem}
+
+Before approaching this, let us fix a representation of a (abstract) simplicial complex. Let $K$ be a $n$-dimensional simplicial complex, which we represent as
+\[
+ K = (K_0, K_1, \ldots, K_n)
+\]
+where $K_i$ is the set of $i$-simplices in $K$. $K_0$ denotes the vertex set of $K$, and $K_i$ for $i \in \{1, \ldots, n\}$ denotes a $i$-tuple of vertices. For example, we represent a 2-simplex (a triangle) as
+\[ K = (\{u,v,w\}, \{(u,v), (v,w), (w,u)\}, \{(u,v,w)\}). \]
+Note the slight abuse of notation here, for the vertex set we may omit the brackets on the 1-tuple ($u = (u)$). It is clear to see how we may use standard data structures to store $K$. 
+
+Observe that $K_i$ represents the $i$th chain group, upon which we have a boundary operator defined as
+\[
+	\partial_i: K_i \to K_{i-1}, \qquad
+	(u_0, \ldots, u_n) \mapsto \sum_{i=0}^n (-1)^i (u_0, \ldots, \hat u_i, \ldots, u_n).
+\]
+
+If we fix the canonical basis for $K_i$, for each map $\partial_i$ we can construct a matrix representation $D_i \in M_{\lvert K_{i-1} \rvert \times \lvert K_i \rvert}(\{1,-1,0\})$ in which we can calculate the rank of the image and rank of the kernel by transforming the $D_i$'s to SNF, and thus the ranks of the homology groups. 
+
+So the major computation here is to calculate the Smith normal form for a matrix.
+
+\begin{problem}[\textsc{SmithNormalForm}]
+	Let $M$ be a $m \times n$ integer matrix. Calculate the Smith normal form of $M$.
+\end{problem}
+
+Before introduce our first approach, we need some definitions. We extend the function $\gcd: \Z^2 \to \Z$ to any set of finite size $\geq 2$ with $\gcd(\{a_1, \ldots, a_n\}) = \gcd(a_1, \gcd(\{a_2, \ldots, a_n\})) = \ldots = \gcd(a_1, \gcd(a_2, \ldots, \gcd(a_{n-1}, a_n)))$ as one may expect.
+
+\begin{definition}[$i$th determinant divisor]
+	Let $M$ be a $m \times n$ matrix over a commutative ring and denote $M_i$ as the set of order-$i$ minors of $M$. We define the \emph{$i$th determinant divisor} of $M$, denoted $d_i(M)$, as the greatest common divisor of all $i \times i$ minors of $M$ (we trivially define $d_0(M) := 1$). Formally, $d_i(M) = \gcd M_i$.
+\end{definition}
+
+For brevity, we take for granted the existence and uniqueness (the diagonal entries are unique up to multiplication by a unit, in our case $\pm 1$) of the Smith normal form of any integer matrix $M$.
+
+\begin{theorem}
+	Let $M$ be a $m \times n$ matrix and $S = (s_{ij})$ be a Smith normal form of $M$ with $\alpha_i = s_{ii}$ for $i \in \{1, \ldots, r\}$ the non-zero diagonal entries of $S$ (so $S_{ij} = 0$ if not $i = j \in \{1, \ldots, r\}$). Then
+	$\alpha_i = \frac{d_i(M)}{d_{i-1}(M)}$ (up to multiplication by a unit).
+\end{theorem}
+
+Thus, we now need a way to calculate the $i$th determinant divisor of a matrix. For a $m \times n$ matrix $M$, there are $\binom m{m-i} \times \binom n{n-i}$ different $i \times i$ minors, each of which can be computed in $O(i^3)$ time giving a total time for the computation of $d_i$ as $O\left( \binom m{i} \binom n{i} i^3 \right)$ and thus for all $d_i$,
+\[
+	O\left(
+		\sum_{i=1}^{\min\{m,n\}} \binom mi \binom ni i^3 
+	\right)
+	=
+	O\left(
+		\sum_{i=1}^{\min\{m,n\}} O\left(
+			i^2\sqrt i \left(
+				\frac{mni}{e}
+			\right)^i
+		\right)
+	\right)
+\]
+using Stirling's approximation, which is indeed not a very useful upper bound. One may reduce this bound by considering a dynamic programming approach along with the following fact. For a $n \times n$ matrix $M = (m_{ij})$, denote $M_{ij}$ denote the minor obtained from deleting the $i$th row and the $j$th column. Then
+\[ \det(M) = \sum_{i=1}^n (-1)^{i+1} m_{ij} M_{ij}, \]
+however, it is unlikely this method would outperform the following method.
+
+Now we introduce the standard Smith normal form algorithm. We denote $\operatorname{snf}(M)$ the set of Smith normal forms of integer matrix $M$. We will take the following for granted.
+
+\begin{theorem}
+	Let $M$ be an $m \times n$ integer matrix, $R$ a $m \times m$ invertible integer matrix, and $C$ a $n \times n$ invertible integer matrix. Then $\operatorname{snf}{(M)} = \operatorname{snf}{(RM)} = \operatorname{snf}{(MC)}$.
+\end{theorem}
+
+Note that the inverse of an integer matrix is an integer matrix if and only if the determinant of said matrix is $\pm 1$.
+
+This theorem justifies much of the techniques we can use within the standard algorithm. We can apply operations to our matrix $M$ without changing $\operatorname{snf}{(M)}$, as long as our operations are invertible linear maps. So what kind of operations does this lend us to use? Well, interchanging two rows or columns is clearly an invertible linear map. But we (generally) cannot multiply any row or column by a non-zero element. Indeed, consider the operation of multiplying the $i$th column by $k \in \Z \setminus \{0\}$. This operation has the following elementary matrix:
+\[
+	\begin{pmatrix}
+		1      & 0      & \ldots & 0      & 0      & 0      & \ldots & 0      & 0      \\
+		0      & 1      & \ldots & 0      & 0      & 0      & \ldots & 0      & 0      \\
+		\vdots & \vdots & \ddots & \vdots & \vdots & \vdots & \ddots & \vdots & \vdots \\
+		0      & 0      & \ldots & 1      & 0      & 0      & \ldots & 0      & 0      \\
+		0      & 0      & \ldots & 0      & k      & 0      & \ldots & 0      & 0      \\
+		0      & 0      & \ldots & 0      & 0      & 1      & \ldots & 0      & 0      \\
+		\vdots & \vdots & \ddots & \vdots & \vdots & \vdots & \ddots & \vdots & \vdots \\
+		0      & 0      & \ldots & 0      & 0      & 0      & \ldots & 1      & 0      \\
+		0      & 0      & \ldots & 0      & 0      & 0      & \ldots & 0      & 1      \\
+	\end{pmatrix}
+\]
+which has determinant $k$. Thus, unless $k \in \{1, -1\}$, this operation is not invertible. We can however replace two rows with certain linear combinations of each other. First, consider the the operation of replacing row $i$ with $a$ multiplied by row $i$ sum $b$ multiplied by row $j$ and replacing row $j$ with $c$ multiplied by row $i$ sum $d$ multiplied by row $j$. This operation may be represented as follows:
+\[
+	\setcounter{MaxMatrixCols}{20}
+	\begin{pmatrix}
+		1      & 0      & \ldots & 0      & 0      & 0      & \ldots & 0      & 0      & 0      & \ldots & 0      & 0      \\
+		0      & 1      & \ldots & 0      & 0      & 0      & \ldots & 0      & 0      & 0      & \ldots & 0      & 0      \\
+		\vdots & \vdots & \ddots & \vdots & \vdots & \vdots & \ddots & \vdots & \vdots & \vdots & \ddots & \vdots & \vdots \\
+		0      & 0      & \ldots & 1      & 0      & 0      & \ldots & 0      & 0      & 0      & \ldots & 0      & 0      \\
+		0      & 0      & \ldots & 0      & a      & 0      & \ldots & 0      & b      & 0      & \ldots & 0      & 0      \\
+		0      & 0      & \ldots & 0      & 0      & 1      & \ldots & 0      & 0      & 0      & \ldots & 0      & 0      \\
+		\vdots & \vdots & \ddots & \vdots & \vdots & \vdots & \ddots & \vdots & \vdots & \vdots & \ddots & \vdots & \vdots \\
+		0      & 0      & \ldots & 0      & 0      & 0      & \ldots & 1      & 0      & 0      & \ldots & 0      & 0      \\
+		0      & 0      & \ldots & 0      & c      & 0      & \ldots & 0      & d      & 0      & \ldots & 0      & 0      \\
+		0      & 0      & \ldots & 0      & 0      & 0      & \ldots & 0      & 0      & 1      & \ldots & 0      & 0      \\
+		\vdots & \vdots & \ddots & \vdots & \vdots & \vdots & \ddots & \vdots & \vdots & \vdots & \ddots & \vdots & \vdots \\
+		0      & 0      & \ldots & 0      & 0      & 0      & \ldots & 0      & 0      & 0      & \ldots & 1      & 0      \\
+		0      & 0      & \ldots & 0      & 0      & 0      & \ldots & 0      & 0      & 0      & \ldots & 0      & 1      \\
+	\end{pmatrix}
+	\setcounter{MaxMatrixCols}{10}
+\]
+which has determinant $ad - bc$ (obtained through repeated expansion along rows that are standard unit vectors). Now suppose we have entries $(i,t)$ and $(j,t)$ such that $m_{it} \nmid m_{jt}$, and set $\beta = \gcd(m_{it}, m_{jt})$. Then there is $a, b \in \Z$ such that $am_{it} + bm_{jt} = \beta$ (B\'ezout's identity). We then pick (rather purposely) $c = -m_{jt}/\beta$ and $d = m_{it}/\beta$ and note that
+\[
+	ad - bc = \frac{am_{it} + bm_{jt}}{\beta} = 1,
+\]
+thus giving an invertible operation. This may seem like a particularly obscure operation, but will come in handy in the algorithm. Finally, if we have entries $(i,t)$ and $(j,t)$ such that $m_{it} \mid m_{jt}$, then we can set $a = d = 1$, $b = 0$, and $c = -m_{jt}/m_{it}$ to get an another invertible operation.
+
+\begin{algorithm}[Standard Smith normal form algorithm]
+	\hspace{0em} \\
+	Input: let $M = (m_{ij})$ be a $m \times n$ integer matrix.
+	\begin{enumerate}
+		\item Perform the necessary interchange operations to obtain $m_{11} \neq 0$. If this is not possible, $M$ is empty and we go to (vii).
+		\item For each $i \in (2, \ldots, m)$, do the following.
+		\begin{enumerate}
+			\item If $m_{11} \mid m_{i1}$, continue to the next $i$.
+			\item Otherwise, perform the row operation:
+			\begin{align*}
+				aR_1                     + bR_i 										&\to R_1, \\
+				-\frac{m_{i1}}{\beta}R_1 + \frac{m_{11}}{\beta}R_i  &\to R_i,
+			\end{align*}
+			where $\beta = \gcd(m_{11}, m_{i1})$ and $a$ and $b$ are chosen such that $am_{11} + bm_{i1} = \beta$ (existence by B\'ezout's identity).
+		\end{enumerate}
+		\item For each $i \in (2, \ldots, m)$, do the following.
+		\begin{enumerate}
+			\item If $m_{i1} = 0$, continue to the next $i$.
+			\item Otherwise, perform the row operation:
+				\[ R_{i1} -\frac{m_{i1}}{m_{11}} R_{11} \to R_{i1}. \]
+		\end{enumerate}
+		\item For each $i \in (2, \ldots, n)$, do the following.
+		\begin{enumerate}
+			\item If $m_{11} \mid m_{1i}$, continue to the next $i$.
+			\item Otherwise, perform the column operation:
+			\begin{align*}
+				aC_1                     + bC_i 										&\to C_1, \\
+				-\frac{m_{1i}}{\beta}C_1 + \frac{m_{11}}{\beta}C_i  &\to C_i,
+			\end{align*}
+			where $\beta = \gcd(m_{11}, m_{1i})$ and $a$ and $b$ are chosen such that $am_{11} + bm_{1i} = \beta$ (existence by B\'ezout's identity).
+		\end{enumerate}
+		\item For each $i \in (2, \ldots, n)$, do the following.
+		\begin{enumerate}
+			\item If $m_{1i} = 0$, continue to the next $i$.
+			\item Otherwise, perform the row operation:
+				\[ C_{1i} -\frac{m_{1i}}{m_{11}} C_{11} \to C_{1i}. \]
+		\end{enumerate}
+		\item If all entries of the first row and column except for $m_{11}$ are zero, then we invoke this algorithm on the submatrix obtained by deleting the first column and row (unless this causes an empty matrix, then we continue). Otherwise, we go back to (ii).
+		\item If we are a submatrix invocation, we return. Otherwise, let $r = \argmax_i\{a_{ii}: a_{ii} \neq 0\}$ and for each $i \in \{r, \ldots, 2\}$ do the following.
+		\begin{enumerate}
+			\item Perform the column operation: $C_{i-1} + C_{i} \to C_{i-1}$.
+			\item Mimic the elimination process from (ii) to (v) on the $(i-1)$th row and column.
+		\end{enumerate}
+	\end{enumerate}
+\end{algorithm}
+
+There is some needed support to this algorithm, which is the succeeding commentary.
+
+An assumption underpinning this algorithm is that the matrix $M$ is stored a single piece of memory, and when we recursively invoke the function we are modifying the same piece of memory every time.
+
+In steps (ii)(b) and (iv)(b), the method of which to choose $a$ and $b$ (called \emph{B\'ezout coefficients}) is not specified. With the ring of integers (and indeed with any Euclidean domain), we may use the extended Euclidean algorithm, although this implementation was omitted mainly to keep the core ideas at front, as this algorithm may be (slightly) adapted for a general principal ideal domain.
+
+We have a conditional branch at (vi), linking back to (ii). Thus we must assert that this loop will eventually resolve, and not loop forever. For $a \in \Z \setminus \{0\}$, we define $\delta(a)$ to be the number of prime factors of $a$, which we know to exist and are unique in the ring of integers. Let $a$ be the value of $m_{11}$ before executing a single iteration of (ii) and $b$ be the value of $m_{11}$ after executing, and also assume that through execution a row operation was performed (that is, $m_{11}$ did not divide the entry it was being compared against). We note that $b$ is the greatest common divisor of $a$ and another entry, thus $b \mid a$. We assert that $a \neq b$ as $a \nmid b$ by assumption. Thus we must have that $\delta(b) < \delta(a)$. Notice that each application of (ii) must reduce the value of $\delta(m_{11})$, and so the process must eventually to lead to $m_{11}$ being the only non-zero entry in the first row and column. A similar argument to this can be applied to (vii)(b).
+
+The invertability of the operations has largely been covered, bar (vii)(a). Given a column (or the corresponding row) operation $C_i + C_j \to C_i$, we construct the inverse operation $C_i - C_j \to C_i$.
+
+The complexity of this algorithm is a topic for future work; it is not immediately obvious the number of times (ii) to (iv) must be executed in order to eliminate a row/column.

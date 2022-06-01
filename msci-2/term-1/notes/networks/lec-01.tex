@@ -1,0 +1,53 @@
+\chapter{Introduction}
+\lecture{1}{8/10}
+
+\begin{definition}[Computer network]
+    A \textbf{computer network} is a group of devices that are connected together in order to exchange information or share resources.
+\end{definition}
+
+We refer to all computerised systems that are intended to be used by a user as a \textbf{host} or \textbf{end system}.
+
+Within a network, we have a number of different types of \textbf{communication links} that connect our devices. For example, fiber, copper, radio, etc. We will be interested in the \textbf{transmission rate} (bandwidth) of these links.
+
+We have \textbf{packet switches} in networks that forward \textbf{packets} (chunks of data) on to other devices in the network. These devices include routers and switches.
+
+\begin{definition}[Protocol]
+    \textbf{Protocols} define the format and order of messages send and received among network entities as well as the actions done on transmission receipt. It is a set of rules that govern communication.
+\end{definition}
+
+\begin{definition}[Access network]
+    An \textbf{access network} is a type of network that connects subscribers to a service provider.
+\end{definition}
+
+\textbf{Digital subscribe line} (DSL) is a technology that uses existing phone line infrastructure to form an access number. In this situation, we have asymmetric access (such that downstream and upstream rates differ) with typically a higher downstream rate.
+
+\textbf{Cable network} is a network connectec via coaxial cables. These are common for television but have poor transmission rates.
+
+\textbf{Enterprise access networks} (ethernet) is widely used in companies, universities, etc. and they consist of wired (copper cables) connections between devices. They typical have much higher transmission rates over technologies such as DSL or cable.
+
+Within a home network, we typically have a wireless access point (WiFi), a router and firewall, and then a cable or DSL modem to convert data into a form that can be used by an ISP. These tasks used to have separate devices that performed them, but now they are done by a single device.
+
+\begin{definition}[Wireless access networks]
+   A \textbf{wireless access network} is a access network where end systems connects to the router wirelessly. 
+\end{definition}
+
+The standard for wireless data transmission is \textbf{WiFi} (802.11).
+
+\begin{definition}[Physical media]
+   We refer to the physical materials that is used to transmit data as \textbf{physical media}. 
+\end{definition}
+
+There are two commonly used type of copper-based physical media:
+\begin{enumerate}
+    \item twisted pair, two insulated cpoper wires (such as ethernet); and
+    \item coaxial cable, two concentrial copper conductors (can achieve high data transmission rates).
+\end{enumerate}
+
+Copper cables are prone to electromagnetic noise which can cause data to become corrupt. This issue is not present in fibre as it is a glass fibre carrying light pulses (representing bits). Fibre has very high transmission rate and low error rate.
+
+Radio physical media are signals carried in the electromagnetic spectrum with no physical wire. We classify radio into three groups:
+\begin{enumerate}
+    \item very short distance over \SI{5}{\metre} - \SI{10}{\metre} (Bluetooth);
+    \item local area over \SI{10}{\metre} - \SI{1000}{\metre} (WiFi); and
+    \item wide area over miles (cellular/mobile).
+\end{enumerate}

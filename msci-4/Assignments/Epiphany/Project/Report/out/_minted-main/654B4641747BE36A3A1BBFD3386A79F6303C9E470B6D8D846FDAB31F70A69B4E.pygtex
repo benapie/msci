@@ -1,0 +1,17 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{k}{class} \PYG{n+nc}{Sklearn}\PYG{p}{(}\PYG{n}{VRBase}\PYG{p}{,} \PYG{n}{ABC}\PYG{p}{):}
+    \PYG{k}{def} \PYG{n+nf}{compute\PYGZus{}skeleton}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{p}{):}
+        \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{\PYGZus{}complex} \PYG{o}{=} \PYG{n}{FilteredSimplicialComplex}\PYG{p}{()}
+        \PYG{k}{for} \PYG{n}{i}\PYG{p}{,} \PYG{n}{\PYGZus{}} \PYG{o+ow}{in} \PYG{n+nb}{enumerate}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{\PYGZus{}points}\PYG{p}{):}
+            \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{\PYGZus{}complex}\PYG{o}{.}\PYG{n}{add\PYGZus{}simplex}\PYG{p}{(}\PYG{n}{Simplex}\PYG{p}{(\PYGZob{}}\PYG{n}{i}\PYG{p}{\PYGZcb{}),} \PYG{l+m+mi}{0}\PYG{p}{)}
+
+        \PYG{n}{points} \PYG{o}{=} \PYG{n}{array}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{\PYGZus{}points}\PYG{p}{)}
+        \PYG{n}{neighbours} \PYG{o}{=} \PYG{n}{neighbors}\PYG{o}{.}\PYG{n}{NearestNeighbors}\PYG{p}{(}
+            \PYG{n}{radius}\PYG{o}{=}\PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{\PYGZus{}epsilon}\PYG{p}{)}\PYG{o}{.}\PYG{n}{fit}\PYG{p}{(}\PYG{n}{points}\PYG{p}{)}
+        \PYG{n}{distances\PYGZus{}list}\PYG{p}{,} \PYG{n}{indices\PYGZus{}list} \PYG{o}{=} \PYG{n}{neighbours}\PYG{o}{.}\PYG{n}{radius\PYGZus{}neighbors}\PYG{p}{(}\PYG{n}{points}\PYG{p}{)}
+        \PYG{k}{for} \PYG{n}{i}\PYG{p}{,} \PYG{p}{(}\PYG{n}{distances}\PYG{p}{,} \PYG{n}{indices}\PYG{p}{)} \PYG{o+ow}{in} \PYG{n+nb}{enumerate}\PYG{p}{(}
+            \PYG{n+nb}{zip}\PYG{p}{(}\PYG{n}{distances\PYGZus{}list}\PYG{p}{,} \PYG{n}{indices\PYGZus{}list}\PYG{p}{)):}
+            \PYG{k}{for} \PYG{n}{distance}\PYG{p}{,} \PYG{n}{j} \PYG{o+ow}{in} \PYG{n+nb}{zip}\PYG{p}{(}\PYG{n}{distances}\PYG{p}{[}\PYG{l+m+mi}{1}\PYG{p}{:],} \PYG{n}{indices}\PYG{p}{[}\PYG{l+m+mi}{1}\PYG{p}{:]):}
+                \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{\PYGZus{}complex}\PYG{o}{.}\PYG{n}{add\PYGZus{}simplex}\PYG{p}{(}\PYG{n}{Simplex}\PYG{p}{(\PYGZob{}}\PYG{n}{i}\PYG{p}{,} \PYG{n}{j}\PYG{p}{\PYGZcb{}),} \PYG{n}{distance}\PYG{p}{)}
+        \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{\PYGZus{}is\PYGZus{}skeleton\PYGZus{}constructed} \PYG{o}{=} \PYG{k+kc}{True}
+\end{Verbatim}

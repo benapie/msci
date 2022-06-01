@@ -1,0 +1,169 @@
+\documentclass[a4paper, answers]{exam}
+\input{../preamble.tex}
+
+\begin{document}
+
+\begin{center}
+	\textbf{\textsc{Topology III, Assignment 7}}
+	\\
+	\textsc{Ben Napier}
+	\vspace{1em}
+\end{center}
+
+\begin{questions}
+	\question Let $X$ be a compact space, and
+	$C_1 \supset C_2 \supset \ldots \supset C_n \supset C_{n+1} \supset \ldots$
+	be a sequence of non-empty, closed subsets of $X$.
+	Show that
+	\[
+		\bigcup_{n=1}^\infty C_n \neq \varnothing.
+	\]
+	Give an example of a non-compact $X$ and a sequence
+	\[
+		C_1 \supset C_2 \supset \ldots \supset C_n \supset C_{n+1} \supset
+		\ldots
+	\]
+	of non-empty, closed subsets of $X$, such that
+	\[
+		\bigcap_{n=1}^\infty C_n = \varnothing.
+	\]
+	\begin{solution}
+		$C_n$ is a closed subset in a compact space, hence $C_n$ is compact.
+		Assume $\bigcap_{n=1}^\infty = \varnothing$.
+		Then
+		\[
+			\bigcup_{n=1}^\infty 
+			\left( 
+				X \setminus C_n 
+			\right)
+			= X \setminus \bigcap_{n=1}^\infty C_n
+			= X \setminus \varnothing
+			= X
+		\]
+		is an open cover of $X$.
+		As $X$ is compact, there is $N \in \N$ such that
+		$
+			\left\{
+				X \setminus C_n
+			\right\}_{n=1}^N
+		$
+		covers $X$ and so
+		\[
+			X
+			= \bigcup_{n=1}^N X \setminus C_n
+			= X \setminus \bigcap_{n=1}^N C_n
+		\]
+		and so there is
+		$
+			i \in \left\{
+				1 \ldots, n
+			\right\}
+		$
+		such that $C_n = \varnothing$
+		for every
+		$
+			n \in \left\{
+				i, \ldots, n
+			\right\}
+		$;
+		a contradiction.
+		Hence $\bigcap_{n=1}^\infty C_n \neq \varnothing$.
+
+		Consider $\R$.
+		Let $C_n = [n, \infty)$, which is clearly non-empty, closed,
+		and $C_1 \supset C_2 \supset \ldots$.
+		Then
+		$
+			\bigcap_{n=1}^\infty C_n
+			= \bigcap_{n=1}^\infty [n, \infty)
+			= \varnothing
+		$.
+	\end{solution}
+
+	\question Let $X$ be a compact Hausdorff space.
+	Let $V \subset X$ be a closed subset and let $p \in X \setminus V$.
+	\begin{parts}
+		\part Show that there exists open sets $U$ and $U'$ such that
+		$U \cap U' = \varnothing$, $V \subset U$, and $p \in U'$.
+		\begin{solution}
+			If $V = \varnothing$,
+			then we select $U = \varnothing$ and $U' = X$.
+			Now assume $V \neq \varnothing$.
+			Let $q \in V$.
+			Then there is open disjoint sets $U_q$, $V_q$ such that
+			$p \in U_q$ and $q \in V_q$.
+			Then
+			$
+				\left\{
+					V_q
+				\right\}_{q \in V}
+			$
+			covers $V$.
+			As $V$ is a closed subset of a compact space,
+			then there is $q_1, \ldots, q_n \in V$ such that
+			$
+				\left\{
+					V_{q_k}
+				\right\}_{k=1}^n
+			$
+			covers $V$.
+			Now let 
+			$U = \bigcup_{k=1}^n V_{q_k}$
+			and 
+			$U' = \bigcap_{k=1}^n U_{q_k}$.
+			For each $x \in U'$, $x \in U_{q_k}$ for every $k$.
+			So $x \not\in V_{q_k}$,
+			and so $U \cap U' = \varnothing$.
+			We have also shown that $V \subset U$ since
+			$
+				\left\{
+					V_{q_k}
+				\right\}_{k=1}^n
+			$
+			covers $V$.
+			Finally, as $p \in U_{q_k}$ for every $k$,
+			we have
+			$p \in U'$.
+		\end{solution}
+
+		\part Hence show that if $V \subset X$ and $V' \subset X$ are
+		two closed sets with $V \cap V' = \varnothing$, there exists
+		open sets $U$ and $U'$ such that $U \cap U' = \varnothing$,
+		$V \subset U$, and $V' \subset U'$.
+		\begin{solution}
+			Let $p \in V' \subset X \setminus V$.
+			Then, by (a), there exists disjoint open sets $U_p$ and $U_p'$
+			with $V \subset U_p$ and $p \in U_p'$.
+			$
+				\left\{
+					U_p'
+				\right\}_{p \in V'}
+			$
+			covers $V'$ and, as $V'$ is a closed subset of a compact space,
+			$V'$ is compact.
+			Thus there is $p_1, \ldots, p_n \in V'$ such that
+			$
+				\left\{
+					U_{p_i}'
+				\right\}_{i=1}^n
+			$
+			covers $V'$.
+			We set
+			\[
+				U = \bigcap_{i=1}^n U_{p_i}, \qquad
+				U' = \bigcup_{i=1}^n U_{p_i}'.
+			\]
+			$V \subset U_p$ for all $p \in V'$, so $V \subset U$.
+			Similarly, as
+			$
+				\left\{
+					U_{p_i}'
+				\right\}_{i=1}^n
+			$
+			covers $V'$, $V' \subset U'$.
+			Finally, as $U_p \cap U_p' = \varnothing$
+			for each $p \in V'$, then $U \cap U' = \varnothing$.
+		\end{solution}
+	\end{parts}
+\end{questions}
+\end{document}

@@ -1,0 +1,75 @@
+\tutorial{3}{18/2}
+
+\setcounter{question}{27}
+\question Let $A$ be an abelian group and let
+\[
+    D = \{(a,a): a \in A\}.
+\]
+Show that
+\[
+    (A\times A)/D \cong A.
+\]
+Show that the statement is \emph{not} true in general for non-abelian $A$.
+\begin{solution}
+    We are going to use the first isomorphism theorem in the question.
+    We need to find a isomorphism $\varphi$ such that $\ker\varphi = D$ and
+    $\im\varphi = A$.
+    We define $\varphi(a,b) = ab^{-1}$, which fits all of our requirements and thus 
+    by FIT
+    \[
+        (A\times A)/D \cong A.
+    \]
+\end{solution}
+
+\setcounter{question}{26}
+\question Show that $\Z \times \Z$ is \emph{not} isomorphic to $\Z$.
+\begin{solution}
+    Assume that $\Z \times \Z \cong \Z$.
+    Then there eists an isomorphism $\varphi: \Z \times \Z \to \Z$.
+    Consider $a = \varphi(1,0)$ and $b = \varphi(0,1)$.
+    $a$ and $b$ cannot be $0$ as $\varphi$ is an isomorphism.
+    So
+    \begin{align*}
+        \varphi(b,0) &= \varphi(\sum_{n=1}^b 1, 0) \\
+                     &= b\varphi(1,0) = ba. \\
+        \varphi(0,a) &= \varphi(0,\sum_{n=1}^a 1) \\
+                     &= a\varphi(0,1) = ab.
+    \end{align*}
+    So $\varphi(b,0) - \varphi(0,a) = ab - ab = 0$
+    and so $\varphi(b,-a) = 0$ so $(b,-a) \in \ker\varphi$; a contradiction.
+\end{solution}
+
+\setcounter{question}{25}
+\question Which of the following groups are isomorphic to one another?
+Justify your answers.
+\begin{parts}
+    \part
+    \[
+        \Z/4 \times \Z/3, 
+        \qquad \Z/6 \times \Z/2, 
+        \qquad \Z/2 \times \Z/2 \times \Z/3,
+        \qquad S_3 \times \Z/2.
+    \]
+    \begin{solution}
+        \begin{align*}
+            \Z/4 \times \Z/3 &\cong \Z/12 \\
+            \Z/2 \times \Z/2 \times \Z/3 &\cong \Z/2\times \Z/6.
+        \end{align*}
+    \end{solution}
+    
+    \part
+    \[
+        \Z/6 \times \Z/4,
+        \qquad D_4 \times \Z/3,
+        \qquad D_{12},
+        \qquad \Z/2 \times D_6,
+        \qquad S_4,
+        \qquad \Z/12 \times \Z/2.
+    \]
+    \begin{solution}
+        \begin{align*}
+            \Z/6 \times \Z/4 &\cong \Z/2 \times \Z/3 \times \Z/4 \\
+            \Z/12 \times \Z/2 &\cong \Z/4 \times \Z/6.
+        \end{align*}
+    \end{solution}
+\end{parts}

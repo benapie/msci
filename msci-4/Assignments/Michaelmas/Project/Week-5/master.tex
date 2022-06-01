@@ -1,0 +1,24 @@
+\input{../preamble.tex}
+
+% \addbibresource{ref.bib}
+
+\begin{document}
+
+\begin{center}
+  \textbf{Graph homology to motivate the generalisation of the Tutte polynomial to simplicial complexes} \\
+  \textsc{Project IV: Computational Topology, \\ Michaelmas Term, Week 5} \\
+  \textsc{Ben Napier}
+  \vspace{1em}
+\end{center}
+
+\begin{theorem}
+  Let $G = (V,E)$ be a directed graph. Then
+  \[ H_0(G) \cong \Z^{\lvert C \rvert}, \qquad H_1(G) \cong \Z^{\lvert E \rvert - \lvert V \rvert + \lvert C \rvert} \]
+  where $C \subset G$ denotes the set of components of $G$.
+\end{theorem}
+
+\begin{proof}
+  Recall that $H_0(G) = \ker \partial_0 / \im \partial_1$. Now we consider a component of $G$. We see that any vertex can be obtained by another vertex by adding elements of $\im \partial_1$. Thus all vertices belong to the same equivalence class. It is clear that we cannot do the same for two vertices within different components, thus $H_0(G) \cong \Z^{\lvert C \rvert}$. Now we let $T \subset E'$ be a spanning tree of a component $G' = (V', E')$. We observe that if we add another edge (not in $T$) to $T$, we get a cycle. Thus each edge in $E' \setminus T$ corresponds to a cycle in $G'$. $\lvert E' \setminus T \rvert = \lvert E' \rvert - (\lvert V' \rvert - 1)$. Considering every component, we get $H_1(G) \cong \Z^{\lvert E \rvert - \lvert V \rvert + \lvert C \rvert}$.
+\end{proof}
+
+\end{document}

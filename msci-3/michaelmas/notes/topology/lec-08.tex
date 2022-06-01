@@ -1,0 +1,68 @@
+%! TEX root = master.tex
+
+\lecture{8}{25/10}
+
+\begin{example}[]
+	Consider
+	\[
+		S^n 
+		= \left\{ (x_1, \ldots, x_{n+1}) \in \R^{n+1}:
+			\sum_{i=1}^{n+1} x_i^2 = 1\right\}.
+	\]
+	We call this the $n$-sphere and it is infact a closed subset of $\R^{n+1}$.
+	Proof: consider 
+	\[
+		f:\R^{n+1} \to \R, \qquad
+		f(x_1, \ldots, x_{n+1}) = \sum_{i=1}^{n+1} a_i^2.
+	\]
+	$f$ is continuous and $\left\{ 1 \right\} \subset \R$ is closed, so
+	$S^n = f^{-1}(\left\{ 1 \right\})$ is closed.
+\end{example}
+
+\begin{example}[]
+	Consider the set of $n \times n$ matrices with real elements: 
+	$M_{n,n}(\R) \cong \R^{(n^2)}$ with the usual Euclidean topology.
+	Now consider
+	\[
+		\operatorname{GL}_n(\R) 
+		= \left\{ A \in M_{n,n}(\R): \det A \neq 0 \right\}
+		\subset M_{n,n}(\R).
+	\]
+	We now observe that $\det: M_{n,n}(\R) \to \R$ is a continuous function
+	since it is a polynomial of the entries of the matrix.
+	Therefore, 
+	$\operatorname{GL}_n(\R) = \det^{-1}(\R \setminus \left\{ 0 \right\})$ 
+	and so it is open.
+	We can also consider
+	\[
+		\operatorname{SL}_n(\R)
+		= \left\{ A \in M_{n,n}(\R) : \det(A) = 1 \right\}.
+	\]
+	We see that $\operatorname{SL}_n(\R) = \det^{-1}(\left\{ 1 \right\})$, and 
+	so $\operatorname{SL}_n(\R)$ is closed.
+	Consider
+	\[
+		O(n)
+		= \left\{ A \in M_{n,n}(\R) : AA^t = I \right\}.
+	\]
+	Observe
+	\[
+		(AA^t)_{ij} = \sum_{k = 1}^n a_{ik}a_{jk} = (I)_{ij}.
+	\]
+	So we define $f_{ij}: M_{n,n}(\R) \to \R$ such that 
+	$A \mapsto \sum_{k=1}^n a_{ik} a_{jk}$.
+	Now
+	\[
+		O(n) 
+		= \bigcap_{i,j \in \left\{ 1, \ldots, n \right\}}
+			f^{-1}_{ij}\left( \left\{ \delta_{ij} \right\} \right),
+	\]
+	a finite intersection of closed subsets; hence, $O(n)$ is closed.
+	Finally, we have
+	\[
+		\operatorname{SO}(n) 
+		= \left\{ A \in O(n): \det(A) = 1 \right\} 
+		= \operatorname{SL}_n(\R) \cap O(n)
+	\]
+	which is closed.
+\end{example}

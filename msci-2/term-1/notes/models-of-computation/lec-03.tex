@@ -1,0 +1,67 @@
+\lecture{3}{24/10}
+
+The following is less of a theorem in mathematical theorem and more of an important concept.
+
+\begin{theorem}[Church-Turing]
+    The intuitive notion of an algorithm is equivalent to the notion of computation defined by a Turing machine.
+\end{theorem}
+
+\begin{proposition}
+    Every Turing machine $M$ can be encoded as a word over a finite alphabet. We use $\langle M \rangle$ to denote the \textbf{encoding} of a Turing machine $M$.
+\end{proposition}
+
+\begin{theorem}
+    There is a Turing machine $U$ that takes input $\langle M \rangle$ and a word $w$ and can simulate $M$ on $w$. $U$ is called a \textbf{universal Turing machine}.
+\end{theorem}
+
+\begin{example}[The halting problem]
+    The \textbf{halting problem} is the problem of determining, given a Turing machine $M$ and a word $w$, does $M$ terminate on $w$.
+\end{example}
+
+\begin{proposition}[]
+    The halting problem is Turing-recognisable.
+\end{proposition}
+
+\begin{proof}
+    This is quite clear; we construct a universal Turing machine on $(M, w)$ which accepts if $M$ terminates.
+\end{proof}
+
+\begin{proposition}[]
+    The halting problemn is not Turing-decidable.
+\end{proposition}
+
+\begin{proof}
+    Let $M$ be a Turing machine. Assume for a contradiction that there exists a Turing machine
+    \[ 
+        H(M, w) = 
+        \begin{cases} 
+            \;\text{accept} & M \;\text{terminates on}\; w \\
+            \;\text{reject} & M \;\text{does not terminate on}\; w.
+        \end{cases}.
+    \]
+    Now let us construct another Turing machine $D$ such that
+    \[ 
+        D(M) =
+        \begin{cases}
+            \;\text{accept} & H(M, M) \;\text{rejects} \\
+            \;\text{loop}   & H(M, M) \;\text{accepts}.
+        \end{cases}
+    \]
+    Now let us consider what happens when we run $D$ on itself, $D(D)$. There are two scenarios:
+    \begin{enumerate}
+        \item $D(D)$ accepts (thus terminates), and therefore $H(D, D)$ rejects and hence $D$ does not terminate on $D$; a contradiction;
+        \item $D(D)$ does not terminate, and therefore $H(D, D)$ accepts and hence $D$ terminates on $D$; a contradiction.
+    \end{enumerate}
+    Therefore, $H$ can not exist.
+\end{proof}
+
+\begin{theorem}[]
+    A language $L$ is Turing-decidable if and only if both $L$ and $\bar L$ are Turing-recognisable.
+\end{theorem}
+
+\begin{proof}
+    \begin{description}
+        \item[$\implies$] This is clear.
+        \item[$\impliedby$] Here, we run the machines that $L$ and $\bar L$ is parallel. If $L$'s machine accepts then we accept, if $\bar L$ machine accepts then we reject. 
+    \end{description}
+\end{proof}

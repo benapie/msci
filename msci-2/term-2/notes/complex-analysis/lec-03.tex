@@ -1,0 +1,166 @@
+\lecture{3}{20/1}
+
+\paragraph{Problem}
+Given $U \subset \C$ open and $f: U \to \C$,
+when does $f$ have a holomorphic antiderivative $F$ on $U$?
+
+We call $F$ the \textbf{primitive} of $f$.
+
+\begin{definition}[Contour length]
+    Let $\gamma: [a, b] \to \C$ be a contour.
+    The \textbf{length} of $\gamma$ is
+    \[ 
+        L(\gamma) = \int_a^b \abs{\gamma'(t)} \, dt. 
+    \]
+\end{definition}
+
+\begin{lemma}[Estimation lemma]
+    Let $U \subset \C$ be open,
+    $f: U \to \C$ be continuous, and
+    $\gamma: [a, b] \to U$ be a contour.
+    Then
+    \[
+        \left\lvert
+            \int_\gamma f(z) \,dz
+        \right\rvert
+        \leq L(\gamma) \sup_\gamma \lvert f \rvert.
+    \]
+\end{lemma}
+
+\begin{proof}
+    This proof is for $C^1$ curves,
+    proving this for contours is left as an exercise %todo
+    but it is not that hard.
+    
+    \paragraph{Claim}
+    If $g: [a, b] \to \C$ is continuous then
+    \[
+        \left\lvert
+            \int_a^b g(t) \,dt
+        \right\rvert
+        \leq \int_a^b \lvert g(t) \rvert \, dt.
+    \]
+    You can think of this as the triangle equality where instead
+    of having sum, you have an integral.
+    Let
+    \[
+        \int_a^b g(t) \,dt = re^{i\theta};
+    \]
+    so $\left\lvert\int_a^b g(t) \,dt \right\rvert = r$.
+    Then
+    \begin{align*}
+        \left\lvert\int_a^b g(t) \,dt \right\rvert
+        &=    e^{-i\theta} \int_a^b g(t) \,dt \\
+        &=    \Re\left(e^{-i\theta}\int_a^bg(t)\,dt\right) \\
+        &=    \int_a^b \Re\left(e^{-i\theta} g(t)\right) \,dt \\
+        &\leq \int_a^b \left\lvert e^{-i\theta} g(t) \right\rvert \,dt \\
+        &=    \int_a^b \left\lvert g(t) \right\rvert \,dt.
+    \end{align*}
+    This proves our claim.
+    Then
+    \begin{align*}
+        \left\lvert \int_\gamma f(z)\,dz \right\rvert
+        &=    \left\lvert \int_a^b f(\gamma(t)) \gamma'(t) \,dt \right\rvert \\
+        &\leq \int_a^b \lvert f(\gamma(t)) \rvert \lvert \gamma'(t) \rvert \,dt \\
+        &\leq \sup_\gamma \lvert f \rvert \int_a^b \lvert \gamma'(t) \rvert \,dt \\
+        &=    L(\gamma) \sup_\gamma \lvert f \rvert
+    \end{align*}
+\end{proof}
+
+\begin{theorem}[Converse to FTC]
+    Let $D \subset \C$ be a domain,
+    $f: D \to \C$ be continuous, and
+    \[
+        \int_\gamma f(z) \, dz = 0
+    \]
+    for all closed contours $\gamma$.
+    Then $f$ has a holomorphic antiderivative
+    $F: D \to \C$
+    such that
+    $F'(z) = f(z)$
+    for all $z \in D$.
+\end{theorem}
+
+\begin{proof}
+    Fix $a \in D$.
+    Then for all $w \in D$ there exists a smooth path connecting $a$ and $w$,
+    from the definition of a domain.
+    Let $\gamma_w$ be this path, define
+    \[ F(w) = \int_{\gamma_w} f(z) \, dz. \]
+    We will skip the rest of this proof into two parts.
+    \begin{enumerate}
+        \item
+            First we will show that the choice of $\gamma$ does \emph{not}
+            affect $F$.
+
+            Consider $\tilde\gamma_w$, another contour connecting $a$ and $w$.
+            Now consider the closed contour
+            $\gamma_w + (-\tilde\gamma_w)$.
+            Now
+            \[ 
+                0 
+                = \int_{\gamma_w + (-\tilde\gamma_w}) f(z) \, dz
+                = \int_{\gamma_w} f(z) \, dz - \int_{\tilde\gamma_w} f(z) \, dz; 
+            \]
+            hence,
+            \[
+                \int_{\gamma_w} f(z) \, dz = \int_{\tilde\gamma_w} f(z) \, dz.
+            \]
+            Therefore, $F$ does not depend on $\gamma$.
+
+        \item
+            Now we will show that $F$ is holomorphic with deriative $f$.
+            That is, for all $w \in D$
+            \[
+                \lim_{h \to 0} \left( \frac{F(w + h) - F(w)}{h} \right) = f(w).
+            \]
+            Now we pick $r > 0$ such that $B_r(w) \subset D$.
+            This ball exists since $D$ is open.
+            Then for any $h \in \C$ with $\lvert h \rvert < r$
+            we consider the straight line $\delta_h$ that connects 
+            the point $w$ to $w + h$.
+            A parametrisation of such a line is given by
+            \[
+                \delta_h: [0, 1] \to D, \qquad t \mapsto w + th.
+            \]
+            Then
+            \begin{align*}
+                F(w + h)
+                &= \int_{\gamma + \delta_h} f(z) \, dz \\
+                &= \int_\gamma f(z) \, dz + \int_{\delta_h} f(z) \, dz \\
+                &= F(w) + \int_{\delta_h} f(z) \, dz \\
+                \frac{F(w + h) - F(w)}{h} 
+                &= \frac1h \int_{\delta_h} f(z) \, dz \\
+                \frac{F(w + h) - F(w)}{h} - f(w)
+                &= \frac1h \int_{\delta_h} (f(z) - f(w)) \, dz
+            \end{align*}
+            as
+            \[
+                \int_{\delta_h} f(w) \, dz
+                = f(w) \int_{\delta_h} 1 \, dz
+                = hf(w).
+            \]
+            Now
+            \begin{align*}
+                \left\lvert \frac{F(w + h) - F(w)}{h} - f(w) \right\rvert
+                &=    \left\lvert \frac1h \int_{\delta_h} (f(z) - f(w)) \, dz \right\rvert \\
+                &=    \frac1{\lvert h \rvert}
+                    \left\lvert
+                        \int_{\delta_h} (f(z) - f(w)) \, dz
+                    \right\rvert \\
+                &\leq \frac1{\lvert h \rvert} L(\delta_h) 
+                    \sup_{\delta_h}\lvert f(z) - f(w) \rvert
+                \tag{est. lemma} \\
+                &=    \sup_{\delta_h} \lvert f(z) - f(w) \rvert.
+            \end{align*}
+            As $h \to 0$, $\delta_h$ just becomes the point $w$.
+            Therefore
+            \[
+                \left\lvert
+                    \frac{F(w + h) - F(w)}{h} - f(w)
+                \right\rvert
+                \to 0
+            \]
+            as $h \to 0$.
+    \end{enumerate}
+\end{proof}

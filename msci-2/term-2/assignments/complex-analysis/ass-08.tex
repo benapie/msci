@@ -1,0 +1,190 @@
+\assignment{8}{20/3}
+
+\setcounter{question}{0}
+\question 
+Evaluate the following integral:
+\[
+    \int_{-\infty}^{\infty} \frac{\cos(mx)}{x^4 + 1} \,dx, \qquad m > 0.
+\]
+\begin{solution}
+    We consider the contour $\gamma_R = L_R + C_R$ where
+    $L_R$ is the line segment from $-R$ to $R$
+    and $C_R = Re^{i\theta}$, $\theta \in [0, \pi]$.
+    Now we consider the function
+    \[
+        g(z) = \frac{e^imz}{z^4 + 1}
+    \]
+    as we will be applying Jordan's lemma.
+    First, we will consider integrating $g(z)$ over $\gamma_R$,
+    which we can do using Cauchy's residue theorem.
+    \begin{align*}
+        \int_{\gamma_R} g(z) \,dz
+        &= \int_{\gamma_R} \frac{e^{imz}}{z^4 + 1} \\
+        &= \int_{\gamma_R} 
+        \frac{e^{imz}}
+        {
+            \left(
+                z - e^{\frac{i\pi}{4}}
+            \right)
+            \left(
+                z - e^{\frac{3i\pi}{4}}
+            \right)
+            \left(
+                z - e^{\frac{5i\pi}{4}}
+            \right)
+            \left(
+                z - e^{\frac{7i\pi}{4}}
+            \right)
+        } \,dz \\
+        &= 2\pi i \left(\Res_{z=e^{\frac{i\pi}4}}(g) + \Res_{z=e^{\frac{3i\pi}4}}(g)\right) \\
+        \Res_{z=e^{\frac{i\pi}4}}(g)
+        &= \frac{e^{ime^{\frac{i\pi}4}}}
+        {
+            \left(
+                e^{\frac{i\pi}4} - e^{\frac{3i\pi}{4}}
+            \right)
+            \left(
+                e^{\frac{i\pi}4} - e^{\frac{5i\pi}{4}}
+            \right)
+            \left(
+                e^{\frac{i\pi}4} - e^{\frac{7i\pi}{4}}
+            \right)
+        } \\
+        &= \frac{e^{ime^{\frac{i\pi}4}}}
+        {
+            \left(
+                \sqrt 2 (1+i) - \sqrt 2(-1+i)
+            \right)
+            \left(
+                \sqrt 2 (1+i) - \sqrt 2 (-1-i)
+            \right)
+            \left(
+                \sqrt 2 (1+i) - \sqrt 2 (1-i)
+            \right)
+        } \\
+        &= \frac{e^{ime^{\frac{i\pi}4}}}{\frac{2\sqrt 2}{8} (2)(2 + 2i)(2i)} \\
+        &= \frac{-(1+i)e^{ime^{\frac{i\pi}4}}}{4\sqrt 2} \\
+        \Res_{z=e^{\frac{3i\pi}4}}(g)
+        &= \frac{(1-i)e^{ime^{\frac{i\pi}4}}}{4\sqrt 2} \\
+        \int_{\gamma_R} g(z) \,dz
+        &= 2\pi i
+        \left(
+            \frac{(1-i)e^{ime^{\frac{i\pi}4}}}{4\sqrt 2}
+            + \frac{-(1+i)e^{ime^{\frac{i\pi}4}}}{4\sqrt 2}
+        \right) \\
+        &= \pi e^{-\frac{m}{\sqrt 2}} \cos\left(\frac{m}{\sqrt 2} - \frac{\pi}4\right).
+    \end{align*}
+    Now, to calculate $\int_{C_R} g(z) \,dz$ we consider the function
+    \[
+        f(z) = \frac1{z^4+1}
+    \]
+    on the domain
+    \[
+        D = \{z: \lvert z \rvert > R\}.
+    \]
+    $f$ is holomorphic on $D$ and for all $z \in D$
+    \begin{align*}
+              \abs{zf(z)}
+        &=    \abs{\frac z{z^4 + 1}} \\
+        &\leq \frac{\abs z}{\abs{\abs z^4  - 1}} \\
+        &=    \frac{\abs z}{\abs z^4 - 1} \\
+        &=    \frac{1}{\abs z^3 - \frac{1}{\abs z}} \\
+        &\leq \frac{1}{2 - \frac12} \\
+        &=    \frac23
+    \end{align*}
+    hence by Jordan's lemma
+    \[
+        \lim_{R \to \infty} \int_{C_R} g(z) \,dz = 0.
+    \]
+    So up to now we have
+    \[
+        \pi e^{-\frac{m}{\sqrt 2}} \cos\left(\frac{m}{\sqrt 2} - \frac{\pi}4\right)
+        = \int_{\gamma_R} \frac{e^{imz}}{z^4 + 1} \,dz
+        = \int_{L_R} \frac{e^{imz}}{z^4 + 1} \,dz
+            + \int_{C_R} \frac{e^{imz}}{z^4 + 1} \,dz.
+    \]
+    Taking real parts we get
+    \[
+        \pi e^{-\frac{m}{\sqrt 2}} \cos\left(\frac{m}{\sqrt 2} - \frac{\pi}4\right)
+        = \Re\left(\int_{L_R} \frac{e^{imz}}{z^4 + 1} \,dz\right)
+        + \Re\left(\int_{C_R} \frac{e^{imz}}{z^4 + 1} \,dz\right)
+    \]
+    and taking $R \to \infty$ gives
+    \[
+        \pi e^{-\frac{m}{\sqrt 2}} \cos\left(\frac{m}{\sqrt 2} - \frac{\pi}4\right)
+        = \lim_{R \to \infty} \Re\left(\int_{L_R} \frac{e^{imz}}{z^4 + 1} \,dz\right).
+    \]
+    Note that
+    \[
+        \Re\left(\int_{L_R} \frac{e^{imz}}{z^4 + 1} \,dz\right)
+        = \Re\left(\int_{R}^{R} \frac{e^{imx}}{x^4 + 1} \,dx\right)
+        = \int_{-R}^{R} \frac{\cos(mx)}{x^4 + 1} \,dx.
+    \]
+    So combining everything we have
+    \[
+        \int_{-\infty}^{\infty} \frac{\cos(mx)}{x^4 + 1} \,dx
+        = \pi e^{-\frac{m}{\sqrt 2}} \cos\left(\frac{m}{\sqrt 2} - \frac{\pi}4\right).
+    \]
+\end{solution}
+
+\setcounter{question}{3}
+\question 
+Evaluate
+\[
+    \frac{1}{2\pi i} \int_{\lvert z \rvert = 4} \frac{f'(z)}{f(z)} \,dz,
+\]
+when $f(z) = (z^2 + 1)^2(z^2-4z-1)$.
+\begin{solution}
+    By the argument principle
+    \[
+        \frac{1}{2\pi i} \int_{\abs z = 4} \frac{f'(z)}{f(z)} \,dz
+        = Z_f - P_f 
+        = 5.
+    \]
+\end{solution}
+
+\setcounter{question}{5}
+\question 
+Show that all zeros of the polynomial 
+$z^3 + z^2 - z + 2$ 
+are in the disc $\lvert z \rvert < 2$.
+\begin{solution}
+    Consider the contour $\gamma: \abs z = 2$.
+    Now consider the function $g(z) = z^3$.
+    We have
+    \begin{align*}
+              \abs{f(z) - g(z)}
+        &=    \abs{z^2 - z + 1}      \\
+        &\leq \abs{z^2} + \abs z + 1 \\
+        &=    7                      \\
+        &<    8                      \\
+        &=    \abs{g(z)};
+    \end{align*}
+    therefore, $f$ and $g$ have the same number of zeros within $\gamma$.
+    $g$ clearly has 3 zeros where $z = 0$; hence,
+    $f$ has 3 zeros within $\gamma$.
+    As $\deg(f) = 3$, these roots are exhaustive;
+    that is, all roots exist within $\gamma$.
+\end{solution}
+
+\setcounter{question}{6}
+\question Find the number of zeros of the following functions in the unit disk:
+\[
+    \cos(\pi z) - 100z^{100}.
+\]
+\begin{solution}
+    Consider $g(z) = -100 z^{100}$.
+    Then
+    \begin{align*}
+        \abs{f(z) - g(z)}
+        &=    \abs{\cos(\pi z)}                                         \\
+        &=    \frac12 \abs{e^{i\pi z} + e^{-i\pi z}}                    \\
+        &\leq \frac12 \left(\abs{e^{i\pi z}} + \abs{e^{-i\pi z}}\right) \\
+        &=    \frac12 \left(e^{-\pi \Re(z)} + e^{\pi \Re(z)}\right)     \\
+        &\leq \frac12 \left( e^{\pi} + e^{-\pi} \right)                 \\
+        &\leq e^{\pi}                                                   \\
+        &<    100                                                       \\
+        &=    \abs{g(z)};
+    \end{align*}
+    therefore, $f$ has $100$ zeros in the unit disk.
+\end{solution}

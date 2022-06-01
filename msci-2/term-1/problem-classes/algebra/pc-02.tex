@@ -1,0 +1,41 @@
+\question Let $R$ be an integral domain. Show that it has the cancellation property:
+\[ ax = ay \implies x = y, \]
+for any $a, x, y \in R$ such that $a \neq 0$.
+\begin{solution}
+    \[ ax = ay \implies ax - ay = 0 \implies a(x - y) = 0 \implies x - y = 0 \implies x = y. \]
+\end{solution}
+
+\question
+\begin{parts}
+    \part Let $r$ be a nonzero element of an integral domain $R$. Show that the function $f$ from $R$ to $R$ given by $f(x) = rx$ is injective.
+    \begin{solution}
+        $f$ is injective if and only if $f(x_1) = f(x_2) \implies x_1 = x_2$. So
+        \[ f(x_1) = f(x_2) \implies rx_1 = rx_2 \implies r(x_1 - x_2) = 0 \implies x_1 = x_2; \]
+        hence, $f$ is injective.
+    \end{solution}
+
+    \part Let $X$ be a finite set. Show that an injective function $g: X \to X$ must be surjective.
+    \begin{solution}
+        $g$ is injective if and only if $g(x_1) = g(x_2) \implies x_1 = x_2$. $g: X \to X$ is surjective if and only if for all $x \in X$, there exists (atleast one) $y \in X$ such that $f(y) = x$. As $g$ is injective, it maps every point in $X$ to a distinct point in $X$, so there exists a distinct inverse for every point in $X$.
+    \end{solution}
+
+    \part Conclude that every finite integral domain is a field.
+    %todo
+\end{parts}
+
+\question Show that $f(x) = x^4 - 10x^2 - 16$ is irreducible in $\Q[x]$.
+\begin{solution}
+    We know that $f$ is irreducible if and only if $f$ has not roots in $\Q$ and is not a product of two polynomials. $f(\sfrac pq) = 0 \implies p \mid 16, q \mid 1$. Hence we have
+    \[ \frac pq = \pm 1, \pm 2, \pm 4, \pm 8, \pm 16 \]
+    %todo
+\end{solution}
+
+\question Let $n \in \Z$. For any polynomial
+\[ f(x) = c_0 + c_1 x + \ldots + c_k x^k \in \Z[x] \]
+we call
+\[ \bar f(x) = \bar c_0 + \bar c_1 x + \ldots + \bar c_k x^k \in (\Z/n)[x] \]
+its reduction modulo $n$. Now let $f(x), g(x), h(x) \in \Z[x]$ be such that $f(x) = g(x) h(x)$. Prove that 
+\[ \bar f(x) = \bar g(x) \bar h(x). \]
+\begin{solution}
+    This is just a simple expanding of two polynomials multiplied together and collecting terms.
+\end{solution}

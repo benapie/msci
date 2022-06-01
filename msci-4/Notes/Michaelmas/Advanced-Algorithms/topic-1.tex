@@ -1,0 +1,49 @@
+\section{An introduction, with lots of examples}
+
+We will recall some elementary results in complexity theory. 
+
+First, recall the graph colouring problems $\mathsc{Col}$ and $\mathsc{$k$-Col}$ and the following core result.
+
+\begin{theorem}
+  $\mathsc{3-Col} \in \NPC$.
+\end{theorem}
+
+There are many ways of dealing with $\NP$-completeness, we will focus on algorithms for restricted inputs. We aim to exploit properties of our input to develop faster algorithms, and in doing so we develop a framework. In the way of justification, problems typically have more structure in their inputs then the most abstract statement of itself, and by exploring the input structure we may learn \emph{why} such a problem is hard.
+
+\begin{example}
+  Every planar graph is $4$-colourable, thus $\mathsc{4-Col}$ is trivial for planar graphs, but this is certainly not the case for non-planar graphs. 
+\end{example}
+
+\begin{example}
+  Now we examine $\mathsc{3-Col}$. If we restrict our input to planar graphs as we did for $\mathsc{4-Col}$, it is still $\NP$-complete; however, every \emph{triangle-free} (this means what you may think, but we will formalise this idea) planar graph is $3$-colourable. Hence $\mathsc{3-Col}$ is trivial for triangle-free planar graphs. 
+\end{example}
+
+\begin{example}
+  Consider $\mathsc{Col}$ for graphs on diameter 1; that is, the complete graphs. This problem is trivial, and requires $n$ different colours.
+\end{example}
+
+\begin{example}
+  Consider $\mathsc{4-Col}$ for graphs of diameter at most 2. We claim this this problem is $\NP$-complete by reduction from $\mathsc{3-Col}$. Let $G$ be a graph of diameter at most 2. We then construct the graph $G'$ as a copy of $G$, then we add a new vertex adjacent to every vertex of $G$. We now claim that $G$ is $3$-colourable if and only if $G'$ is $4$-colourable, which is easy to confirm. It can also be shown that $G'$ has diameter at most 2, and we are done.
+\end{example}
+
+\begin{example}
+  Consider $\mathsc{$k$-Col}$ for graphs of diameter at most 2, where $k \geq 5$. Again, we claim that this is $\NP$-complete by reduction from $\mathsc{3-Col}$. We can show this a similar to the last example, but instead of adding a single vertex we add a disjoint clique of $k-3$ new vertices and attached every vertex of the clique to every vertex of $G$. After checking that the original graph being $3$-colourable if and only if the new graph is $k$-colourable and that the new graphs has a diameter at most 2, we are done. 
+\end{example}
+
+\begin{example}
+  Consider $\mathsc{3-Col}$ for graphs of diameter at most $4$. We solve this by reduction again. We build $G'$ as a copy of $G$. Let $v_1, \ldots, v_n$ be the vertices of $G$, then we add the vertices $u_1, \ldots, u_n$ to $G'$ such that $v_i$ is adjacent to $u_i$ for all $i$. Now add a vertex $w$ which is adjacent to all of $u_i$. The remaining checking is clear, and thus we are done. 
+\end{example}
+
+We infact have a near-complete classification of complexity of $\mathsc{$k$-Col}$.
+
+\begin{theorem}
+  Let $d, k \geq 1$. Then $\mathsc{$k$-Col}$ for graphs of diameter at most $d$ is: in $\P$ if $k \leq 2$ or $d = 1$; or in $\NPC$ if $k = 3, d \geq 4$ or $k \geq 4, d \geq 2$.
+\end{theorem}
+
+With the missing cases $(k,d) \in \{(3,2), (3,3)\}$, one of these cases has been solved.
+
+\begin{theorem}
+  $\mathsc{3-Col}$ for graphs of diameter 3 is $\NP$-complete.
+\end{theorem}
+
+Leaving the last open question: what is the complexity of $\mathsc{3-Col}$ for graphs of diameter 2?

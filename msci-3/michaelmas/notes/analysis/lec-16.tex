@@ -1,0 +1,256 @@
+%! TEX root = master.tex
+\lecture{16}{28/11}
+
+\begin{definition}[Lower and upper Lebesgue integral]
+	Let $f: E \to \R$ be a bounded function with $m(E) < \infty$.
+	We define the \emph{lower Lebesgue integral} as
+	\[
+		\sup \left\{
+			\int_E \varphi: 
+			\text{$\varphi$ simple},\,
+			\varphi \leq f \;\text{on $E$}
+		\right\}
+	\]
+	and the \emph{upper Lebesgue integral} as
+	\[
+		\inf \left\{
+			\int_E \varphi:
+			\text{$\varphi$ simple},\,
+			f \leq \varphi \;\text{on $E$}
+		\right\}.
+	\]
+\end{definition}
+
+As $f$ is bounded and by the monotonicty of the Lebesgue integral of
+simple functions, the lower and upper Lebesgue integral is well-defined.
+
+\begin{definition}[Lebesgue integrable]
+	Let $f: E \to \R$ be a bounded function with $m(E) < \infty$.
+	We say that \emph{$f$ is Lebesgue integrable} if the upper and lower
+	Lebesgue integrals are equal.
+	This common value is called the \emph{Lebesgue integral}
+	(or just \emph{the integral of $f$ over $E$}), denoted
+	$\int_E f$.
+\end{definition}
+
+\begin{theorem}[]
+	Let $f: E \to \infty$ be a bounded, measurable function and
+	$m(E) < \infty$.
+	Then $f$ is integrable over $E$.
+\end{theorem}
+
+\begin{proof}
+	By the Simple Approximation Lemma, setting $\varepsilon = \frac1n$ for some
+	$n \in \N$, there is simple functions $\varphi_n$ and $\psi_n$ such that
+	$0 \leq \varphi_n \leq \psi_n$ and $0 \leq \psi_n - \varphi_n \leq \frac1n$
+	on $E$.
+	By the monotonicty of $\int_E \varphi$,
+	\[
+		0 
+		\leq \int_E \varphi_n - \int_E \psi_n
+		\leq \int_E (\varphi_n - \psi_n)
+		\leq \int_E
+		\frac1n m(E)
+	\]
+	and
+	\begin{align*}
+		0 &\leq
+		\inf\left( 
+			\left\{
+				\int_E \psi: \psi \geq n
+			\right\} 
+		\right) - \sup\left( 
+			\left\{
+				\int_E \varphi: \varphi \leq f
+			\right\} 
+		\right) \\
+		&\leq \int_E \psi_n - \int_E \varphi_n \\
+		&\leq \frac1n m(E).
+	\end{align*}
+	Since $m(E) < \infty$,
+	\[
+		\inf\left\{
+			\int_E \psi: \psi \geq f
+		\right\}
+		= \sup\left\{
+			\int_E \varphi: \varphi \leq f
+		\right\}
+	\]
+	and thus $f$ is integrable.
+\end{proof}
+
+\begin{theorem}[Linearity and monoticity of the integral of bounded,
+	measurable functions on a finite domain]
+	Let $f, g : E \to \R$ be bounded, measurable functions with $m(E) < \infty$.
+	For every $\alpha, \beta \in \R$
+	\[
+		\int_E \alpha f + \beta g = \alpha \int_E f + \beta \int_E g
+	\]
+	and
+	\[
+		f \leq g \implies \int_E f \leq \int_E g.
+	\]
+\end{theorem}
+
+\begin{proof}
+	A linear combination of bounded and measurable functions is bounded and
+	measurable,
+	so $\int_E \alpha f + \beta g$ is well-defined and exists.
+	First let $\alpha \neq 0 = \beta$.
+	We claim that if $\psi$ is simple, $\alpha \psi$ is also simple.
+	Now let $\alpha > 0$.
+	Since the lower Lebesgue integral is equal to the upper Lebesgue integral,
+	\[
+		\int_E \alpha f
+		= \inf_{\psi \geq \alpha f} \int_E \psi
+		= \inf_{\sfrac{\psi}{\alpha} \geq f}\int_E\frac{\alpha \psi}{\alpha}
+		= \alpha \inf_{\sfrac{\psi}{\alpha}} \int_E \frac{\psi}{\alpha}
+		= \alpha \int_E f.
+	\]
+	Now if $\alpha < 0$,
+	\[
+		\int_E \alpha f
+		= \inf_{\psi \geq \alpha f} \int_E \psi
+		= \sup_{\sfrac{\psi}{\alpha} \leq f} \int_E \frac{\alpha \psi}{\alpha}
+		= \alpha \sup_{\sfrac{\psi}{\alpha} \leq f} \frac{\psi}{\alpha}
+		= \alpha \int_E f.
+	\]
+	Now it is enough to prove linearity in the case that $\alpha = \beta = 1$.
+	Now let $\psi_1$ and $\psi_2$ be simple with $f \leq \psi_1$ and
+	$g \leq \psi_2$.
+	Then $\psi_1 + \psi_2$ is also simple.
+	Observe that $f + g \leq \psi_1 + \psi_2$.
+	Then
+	\[
+		\int_E f + g
+		= \inf\left\{
+			\int_E \psi: f + g \leq \psi
+		\right\}
+	\]
+	and so
+	\[
+		\int_E f + g
+		\leq \int_E(\psi_1 + \psi_2)
+		= \int_E \psi_1 + \int_E \psi_2.
+	\]
+	So $\int_E f + g$ is a lower bound for
+	$\int_E \psi_1 + \int_E \psi_2$.
+	But $\int_E f + \int_E g$ is the largest lower bound for
+	$\int_E \psi_1 + \int_E \psi_2$.
+	So
+	\[
+		\int_E f + g \leq \int_E f + \int_E g.
+	\]
+	Let $\varphi_1$ and $\varphi_2$ be simple functions with
+	$\varphi_1 \leq f$ and $\varphi_2 \leq g$.
+	Then $\varphi_1 + \varphi_2 \leq f + g$ is simple.
+	Observe that
+	\[
+		\int_E f + g
+		= \sup\left\{
+			\int_E \varphi: \varphi \leq f + g
+		\right\}
+		\geq \int_E \varphi_1 + \varphi_2
+		= \int_E \varphi_1 + \int_E \varphi_2
+	\]
+	but $\int_E f + \int_E g$ is the smallest upper bound for
+	$\int_E \varphi_1 + \int_E \varphi_2$.
+	So $\int_E f + g \geq \int_E f + \int_E g$ and thus
+	$\int_E f + g = \int_E f + \int_E g$.
+	So now we have left to prove monotonicty.
+	Let $h = g - f \geq 0$.
+	Then
+	\[
+		\int_E g - \int_E f = \int_E g - f = \int_E h.
+	\]
+	Take $\psi = 0$ on $E$ an observe that $\psi \leq h$.
+	Then
+	\[
+		0 = \int_E \psi \leq \int_E h
+	\]
+	and so $\int_E g - f \geq 0$.
+	Hence $\int_E g - \int_E f \geq 0$.
+\end{proof}
+
+\begin{corollary}[]
+	Let $f: E \to \R$ be a bounded, measurable function with $m(E) < \infty$.
+	Then
+	\[
+		\left\lvert \int_E f \right\rvert 
+		\leq \int_E \left\lvert f \right\rvert.
+	\]
+\end{corollary}
+
+\begin{proof}
+	$\left\lvert f \right\rvert$ is measurable and bounded.
+	As $-\left\lvert f \right\rvert \leq f \leq \left\lvert f \right\rvert$
+	and by the linearity and monotonicty on the Lebesgue integral
+	\[
+		-\int_E \left\lvert f \right\rvert
+		\leq \int_E f
+		\leq \int_E \left\lvert f \right\rvert
+	\]
+	and thus
+	\[
+		\left\lvert \int_E f \right\rvert 
+		\leq \int_E \left\lvert f \right\rvert.
+	\]
+\end{proof}
+
+\begin{theorem}[Bounded convergence theorem]
+	Let
+	$
+		\left\{
+			f_n: E \to \R
+		\right\}
+	$
+	be a sequence of measurable functions with $m(E) < \infty$
+	which is uniformly pointwise bounded
+	(that is, there is $M \in \R$ such that 
+	$\left\lvert f_n \right\rvert \leq M$ for each $n$).
+	Then if $f_n \to f$ pointiwse on $E$ then
+	\[
+		\lim_{n \to \infty} \int_E f_n = \int_E f.
+	\]
+\end{theorem}
+
+\begin{definition}[Vanish]
+	A measurable function $f: E \to \R$ is said to
+	\emph{vanish outside a set of finite measure}
+	if there is $E_0 \subset E$ with $m(E_0) < \infty$ such that
+	$f = 0$ on $E \setminus E_0$.
+\end{definition}
+
+It is convenient to say that a function that vanishes outside a set of
+finite measure has \emph{finite support}.
+We define the \emph{support} of a function $f: E \to \R$ as
+\[
+	\left\{
+		x \in E: f(x) \neq 0
+	\right\}.
+\]
+If $m(E) = \infty$, $f$ is bounded, and measurable on $E$
+but has finite support then we can define its integral as
+\[
+	\int_E f = \int_{E_0} f
+\]
+where $m(E_0) < \infty$ and $f = 0$ on $E \setminus E_0$.
+
+\begin{definition}[]
+	Let $f: E \to \R$ be a non-negative measurable function.
+	We define the \emph{integral of $f$ over E}
+	by
+	\[
+		\int_E f
+		= \sup\left\{
+			\int_E h:
+			\begin{array}{l}
+				\text{$h$ bounded}, \\
+				\text{$h$ measurable}, \\
+				\text{$h$ of finite support}, \\
+				0 \leq h \leq f
+			\end{array}
+		\right\}.
+	\]
+\end{definition}
+

@@ -1,0 +1,16 @@
+\documentclass[a4paper, answers]{exam}
+\input{../preamble.tex}
+
+\begin{document}
+
+\begin{center}
+	\textbf{\textsc{? III, ?}} \\
+	\textsc{Ben Napier}
+	\vspace{1em}
+\end{center}
+
+\begin{questions}
+	\question 
+\end{questions}
+
+\end{document}

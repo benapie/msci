@@ -1,0 +1,175 @@
+\lecture{2}{20/1}
+
+\begin{remark}
+    We have many issues that we must overcome when designing distributed
+    systems, such as
+    \begin{enumerate}
+        \item highly variable bandwidth;
+        \item possibly large and variable latency;
+        \item no native support for clock synchronisation;
+        \item difficult to ensure data consistency;
+        \item system failure; and
+        \item security.
+    \end{enumerate}
+
+    To add on to point (v), as we add more components to a distributed system
+    the probability of a component failing increases.
+    This is a property of all distributed systems, we cannot prevent it.
+    Because of this, we design our system to be robust against individual
+    component failure (by using redudancy).
+
+    Additionally, with regards to point (vi), when we have a single centralised
+    system we can rely on physical security to prevent people having access
+    to things they shouldn't; however, this is not possible in a widely
+    distributed system.
+\end{remark}
+
+\begin{definition}[Transparency]
+    A \textbf{transparency} is some aspect of a distributed system
+    that is hidden from the user.
+\end{definition}
+
+\begin{remark}
+    In this context, the user can be a programmer, system developer,
+    or the end user of an operating system.
+\end{remark}
+
+\begin{example}[Examples of transparencies]
+    \hfill
+    \begin{enumerate}
+        \item Access transparency:
+            hide differences in data representation / how the components are 
+            accessed.
+            
+        \item Location transparency:
+            hide where the components are located.
+
+        \item Migration transparency:
+            hide that a component or resource may be moved to another location.
+
+        \item Relocation transparency:
+            hide that a component or resource may be moved
+            \emph{while it is in use}.
+        
+        \item Replication transparency:
+            hide that a component or resource may have many copied.
+            
+        \item Concurrency transparency:
+            hide that a resource may be shared by several users.
+
+        \item Failure transparency:
+            hide the failure/recovery of a component or resource.
+    \end{enumerate}
+\end{example}
+
+\chapter{Middleware technology}
+
+Middleware hides the implementation and \emph{distributed} nature of
+distributed systems from the user.
+It provides a common programming abstraction for constructing distributed
+applications for developers, 
+while still hiding low-level detail.
+
+\begin{definition}[Middleware]
+    \textbf{Middleware} is software that facilitates components of
+    distributed systems to communicate and work together.
+\end{definition}
+
+\begin{example}[Examples of middleware]
+    \hfill
+    \begin{enumerate}
+        \item 
+            \textbf{Java Database Connectivity} (JDBC) is an API that provides connectivity
+            between Java and many different database systems.
+
+        \item 
+            \textbf{Remote component integration} is a piece of middleware 
+            (that we will define soon) 
+            that allows remote procedural calls to be made to other computers.
+            We have \textbf{remote procedure call} which allows procedures to
+            be executed remotely and \textbf{remote method invocation} which
+            allows objects to be used remotely.
+
+        \item A \textbf{service broker} is a service that provides matching
+            services to the ones requested. 
+            They identify suitable components to serve a purpose and provides
+            features such as
+            \begin{enumerate}
+                \item concurrency control;
+                \item load distribution; and
+                \item fault tolerance.
+            \end{enumerate}
+    \end{enumerate}
+\end{example}
+
+\begin{remark}
+    When developing a distributed system, our main goals are to:
+    \begin{enumerate}
+        \item focus on application logics; and
+        \item avoid implementating socket communications or working with any
+            network architectures due to its dynamic changes.
+    \end{enumerate}
+\end{remark}
+
+\section{Remote procedure call}
+
+\begin{definition}[Remote procedure call]
+    A \textbf{remote procedure call} (RPC) is when a computer program causes
+    a procedure to execute in a different address space,
+    typically a different computer on the network,
+    without the programmer esxplicitly coding the details for the remote
+    interaction.
+\end{definition}
+
+\begin{remark}
+    In a RPC, the programmer would write the same code
+    whether the subroutine is local or remote.
+\end{remark}
+
+Now we will look into a remote procedure call would work.
+
+\begin{definition}[Stub]
+    A \textbf{stub} is a piece of code that converts parameters passed
+    between client and server during a RPC.
+\end{definition}
+
+\paragraph{Sequence of events in a RPC}
+\begin{enumerate}
+    \item 
+        The client will call the client stub.
+
+    \item 
+        The client stub will pack the parameters into a message 
+        (known as \textbf{marshalling})
+        and make a system call to send the message to the server.
+
+    \item 
+        The client's operating system sends the message from the client
+        machine to the server machine.
+
+    \item 
+        The server's operating system passes the incoming packets
+        to the server stub.
+
+    \item 
+        The server stub unpacks the parameters
+        (known as \textbf{unmarshalling}).
+    \item 
+        Finally, the server stub calls the server procedure and traces the same
+        steps backwards for the reply.
+\end{enumerate}
+
+\begin{definition}[Interface description language]
+    An \textbf{interface description language} (IDL) (or \textbf{interface definition language})
+    is a specification language (see formal language)
+    used to to describe a software component's API.
+\end{definition}
+
+\begin{remark}
+    IDLs are language-independent, 
+    this allows communication between software components that do not share 
+    a language.
+\end{remark}
+
+Stubs can be generated automatically using a \textbf{stub compiler}.
+Stub compilers use IDLs to generate the client stub and the server stub.

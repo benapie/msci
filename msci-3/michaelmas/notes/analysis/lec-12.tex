@@ -1,0 +1,232 @@
+%! TEX root = master.tex
+\section{Lebesgue measure}
+\lecture{12}{19/11}
+
+\begin{definition}[Lebesgue measure]
+	The restriction of outer measure to the set of measurable sets is called the
+	\emph{Lebesgue measure}.
+	We denote it $m$.
+\end{definition}
+
+So for a measurable set $E$, we have
+\[
+	m(E) = m^\star(E).
+\]
+
+\begin{proposition}[]
+	The Lebesgue measure is countably additive.
+\end{proposition}
+
+That is, for a collection
+$
+	\left\{
+		E_k
+	\right\}_{k=1}^\infty
+$
+of disjoint and measurable sets, then
+$
+	\bigcup_{k=1}^\infty E_k
+$
+is also measurable and
+\[
+	m\left( 
+		\bigcup_{k=1}^\infty E_k 
+	\right)
+	= \sum^{\infty}_{k=1} m(E_k).
+\]
+
+\begin{proof}
+	We already know that
+	$
+		\bigcup_{k=1}^\infty E_k
+	$
+	is measurable as the set of measurable sets is a $\sigma$-algebra.
+	Now outer measure is subadditive, so we have left to prove
+	\[
+		m\left( 
+			\bigcup_{k=1}^\infty E_k 
+		\right) \geq \sum^{\infty}_{k=1} m(E_k). \tag{$\star$}
+	\]
+	Now observe that
+	\[
+		m\left( 
+			\bigcup_{k=1}^n E_k 
+		\right) = \sum^{n}_{k=1} (E_k)
+	\]
+	and
+	$
+		\bigcup_{k=1}^n E_k \subset \bigcup_{k=1}^\infty E_k 
+	$.
+	By the monotonicity of outer measure,
+	\[
+		m\left( 
+			\bigcup_{k=1}^\infty E_k 
+		\right) \geq \sum^{n}_{k=1} m(E_k)
+	\]
+	and as the LHS does not depend on $n$, we let $n \to \infty$ to get
+	$(\star)$.
+\end{proof}
+
+\begin{theorem}[]
+	The Lebesgue measure is translation invariant and countable additive.
+\end{theorem}
+
+\subsection{Continuity of measure}
+
+\begin{definition}[]
+	A countable collection of sets
+	$
+		\left\{
+			E_k
+		\right\}_{k=1}^\infty
+	$
+	is said to be \emph{ascending} provided for each $k \in \N$,
+	$E_k \subset E_{k+1}$.
+	Similarly, the collection is said to be \emph{descending} if 
+	$E_{k+1} \subset E_k$.
+\end{definition}
+
+\begin{theorem}[]
+	The Lebesgue measure possesses the following continuity properties.
+	\begin{enumerate}
+		\item
+		If
+		$
+			\left\{
+				A_k
+			\right\}_{k=1}^\infty
+		$
+		is an ascending collection of measurable sets, then
+		\[
+			m\left( 
+				\bigcup_{k=1}^\infty A_k
+			\right) = \lim_{k \to \infty} \left( 
+				m(A_k) 
+			\right).
+		\] 
+
+		\item
+		If
+		$
+			\left\{
+				B_k
+			\right\}_{k=1}^\infty
+		$
+		is a descending collection of measurable sets and $m(B_1) < \infty$,
+		then
+		\[
+			m\left( 
+				\bigcap_{k=1}^\infty B_k 
+			\right) = \lim_{k\to\infty} \left( 
+				m(B_k) 
+			\right).
+		\]
+	\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+	$(i)$: we may assume that $m(A_k) < \infty$ for every $k \in \N$ as
+	otherwise our statement holds trivially.
+	We define $A_0 = \varnothing$ and $C_k = A_k \setminus A_{k-1}$.
+	As 
+	$
+		\left\{
+			A_k
+		\right\}
+	$ 
+	is ascending,
+	$
+		\left\{
+			C_k
+		\right\}
+	$
+	are disjoint and $\bigcup A_k = \bigcup C_k$.
+	Thus
+	\[
+		m\left( 
+			\bigcup A_k 
+		\right) = \sum m \left( 
+			A_k \setminus A_{k-1}
+		\right).
+	\]
+	Since
+	$
+		\left\{
+			A_k
+		\right\}
+	$
+	is ascending, by the excision property
+	\begin{align*}
+		\sum^{\infty}_{k=1} m\left( 
+			A_k \setminus A_{k-1} 
+		\right)
+		&= \sum^{\infty}_{k=1} \left( 
+			m(A_k) - m(A_{k-1}) 
+		\right) \\
+		&= \lim_{n\to\infty} \left( 
+			\sum^{n}_{k=1} \left( 
+				m(A_k) - m(A_{k-1}) 
+			\right) 
+		\right) \\
+		&= \lim_{n\to\infty} \left( 
+			m(A_n) - m(A_0) 
+		\right) \\
+		&= \lim_{n\to\infty} \left( 
+			m(A_n) 
+		\right).
+	\end{align*}
+	$(ii)$:
+	define $D_k = B_1 \setminus B_k$ for each $k \in \N$.
+	Since
+	$
+		\left\{
+			B_k
+		\right\}
+	$
+	is descending then
+	$
+		B_1 \setminus B_k \subset B_1 \setminus B_{k+1}
+	$.
+	So
+	$
+		\left\{
+			D_k
+		\right\}
+	$
+	is ascending.
+	By $(i)$,
+	\[
+		m\left( 
+			\bigcup_{k=1}^n B_k 
+		\right) = \lim_{k \to \infty} m(B_k).
+	\]
+	Moreoever,
+	\[
+		\bigcup_{k=1}^\infty D_k
+		= \bigcup_{k=1}^\infty (B_1 \setminus B_k)
+		= B_1 \setminus \left( 
+			\bigcap_{k=1}^\infty B_k
+		\right).
+	\]
+	By the excision property (since $m(B_k) < \infty$),
+	\[
+		m\left( 
+			B_1 \setminus \bigcap_{k=1}^\infty B_k
+		\right) = \lim_{k \to \infty}(m(B_1) - m(B_k)).
+	\]
+	As $\bigcap_{k=1}^\infty B_k \subset B_1$, we have
+	\begin{align*}
+		m(B_1) - m\left( 
+			\bigcap_{k=1}^\infty B_k 
+		\right)
+		&= m\left( 
+			B_1 \setminus \bigcap_{k=1}^\infty B_k 
+		\right) \\
+		&= \lim_{k \to \infty} \left( 
+			m(B_1) - m(B_k) 
+		\right) \\
+		&= m(B_1) - \lim_{k\to\infty} \left( 
+			m(B_k) 
+		\right). \qedhere
+	\end{align*}
+\end{proof}

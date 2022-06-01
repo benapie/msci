@@ -1,0 +1,253 @@
+\documentclass[a4paper, answers]{exam}
+\input{../preamble.tex}
+
+\begin{document}
+\begin{center}
+	\textbf{\textsc{Topology III, Assignment 3}}
+	\\
+	\textsc{Ben Napier}
+	\vspace{1em}
+\end{center}
+\begin{questions}
+	\question
+		Consider the followinmg topologies on $X = \left\{ 1,2,4 \right\}$
+		that we saw in the last problem sheets.
+		Decide which pairs are homeomorphic.
+		Write down a homeomorphism for the homeomorphic ones.
+		\begin{enumerate}
+			\item $\tau_2 = \left\{
+					\varnothing,
+					\left\{ 1 \right\},
+					\left\{ 2 \right\},
+					\left\{ 1,2 \right\},
+					\left\{ 1,2,4 \right\}
+				\right\}$;
+
+			\item $\tau_4 = \left\{
+					\varnothing,
+					\left\{ 2 \right\},
+					\left\{ 4 \right\},
+					\left\{ 2,4 \right\},
+					\left\{ 1,2,4 \right\}
+				\right\}$;
+
+			\item $\tau_5 = \left\{
+					\varnothing,
+					\left\{ 2,4 \right\},
+					\left\{ 1,2,4 \right\}
+				\right\}$; and
+
+			\item $\tau_6 = \left\{
+					\varnothing,
+					\left\{ 2 \right\},
+					\left\{ 1,2,4 \right\}
+				\right\}$.
+		\end{enumerate}
+
+		\begin{solution}
+			We know that neither $\tau_2$ or $\tau_4$ cannot be homeomorphic
+			to $\tau_5$ or $\tau_6$ as 
+			$
+				\left\lvert \tau_2 \right\rvert
+				= \left\lvert \tau_4 \right\rvert
+				= 5
+			$
+			and 
+			$
+				\left\lvert \tau_5 \right\rvert
+				= \left\lvert \tau_6 \right\rvert
+				= 3.
+			$
+			We have left to check two pairs.
+			$\tau_2 \cong \tau_4$ with map $h: X \to X$ such that:
+			$1 \mapsto 2$, $2 \mapsto 4$, $3 \mapsto 3$, and $4 \mapsto 1$.
+			As any bijection must map a singleton set to a singleton set, we
+			have that $\tau_5 \not\cong \tau_6$ as there is no singleton set
+			in $\tau_5$ to map $\left\{ 2 \right\} \in \tau_6$ to.
+		\end{solution}
+
+	\pagebreak
+	\question
+		Suppose that $f: X \to Y$ is a homeomorphism, and suppose
+		$A \subset X$.
+		Show that the induced map
+		\[
+			\restr{f}{A}: A \to f(A)
+		\]
+		is a homeomorphism between $A$ (with its topology induced from that 
+		of $X$) and $f(A)$ (with its topology induced from that of $Y$).
+		\begin{solution}
+			Let $U \subset f(A)$ be open.
+			Then, as $f$ is continuous, $f^{-1}(U)$ is open in $X$.
+			Now $\left( \restr fA \right)^{-1}(U) = f^{-1}(U) \cap A$; hence,
+			$\restr fA$ is continuous.
+			Similarly, let $V \subset A$ be open.
+			Then $f(V)$ is open (as $f^{-1}$ is continuous).
+			As $V \subset A$, $\restr fA(V) = f(V)$ as $V \subset A$, so
+			$\left( \restr fA \right)^{-1}$ is continuous.
+			Clearly $\restr fA$ is a bijection; hence, it is a homeomorphism.
+		\end{solution}
+
+	\pagebreak
+	\question
+		Show that the following subset of $\R^2$ is neither open nor closed
+		(in the standard topology on $\R^2$).
+		\[
+			A = \left\{
+				(x,y) \in \R^2 : x \geq 0, y > 0
+			\right\}.
+		\]
+		
+		\begin{solution}
+			Observe that $(0,1) \in A$ and let $\varepsilon > 0$.
+			Now, see that 
+			$A \not\ni (-\sfrac{\varepsilon}2, 1) \in B((0,1);\varepsilon)$; 
+			hence, $B((0,1); \varepsilon) \not\subset A$.
+			Therefore, $A$ is not open (since $\varepsilon$ was chosen 
+			arbitrarily).
+			Now, observe that
+			\[
+				\R^2 \setminus A = \left\{ 
+					(x,y) \in \R^2: x < 0 \;\text{or}\;y \leq 0 
+				\right\}
+			\]
+			and we see that $(1,0) \in A$. 
+			Again, let $\varepsilon > 0$.
+			We see that 
+			$A \not\ni (1, \sfrac{\varepsilon}2) \in B((1,0); \varepsilon)$
+			and so $B((1,0); \varepsilon) \not\subset A$;
+			hence, $\R^2 \setminus A$ is not open.
+			Therefore $A$ is not closed.
+		\end{solution}
+
+	\pagebreak
+	\question
+		Decide which of the following subsets of $\R^n$ is open, and which
+		ones are closed (some might be both, and some might be neither).
+		Justify your statements for each set.
+		\begin{parts}
+			\part $X_1 = \left\{ (x,y,z) \in \R^3 : x > y > z \right\}$;
+			\begin{solution}
+				Observe that $X_1 = O_1 \cup O_2$ where 
+				\begin{align*}
+					O_1
+					&= \left\{ (x,y,z) \in \R^3 : x > y \right\},
+					O_2
+					&= \left\{ (x,y,z) \in \R^3 : y > z \right\}.
+				\end{align*}
+				We define $f_1(x,y,z) = x - y$ and $f_2(x,y,z) = y - z$.
+				We see that $f_1^{-1}((0,\infty)) = O_1$ and
+				$f_2^{-1}((0,\infty)) = O_2$ and both functions are
+				continuous; hence, $O_1$ and $O_2$ are open.
+				Therefore $X_1$ is open.
+				Now see
+				\[
+					\R \setminus X_1 = \left\{ 
+						(x,y,z) \in \R^3: x \leq y \;\text{or}\; y \leq z 
+					\right\}.
+				\]
+				Let $\varepsilon > 0$.
+				We have $(0,0,0) \in \R \setminus X_1$ but
+				$
+					(
+						\sfrac{2\varepsilon}3, 
+						\sfrac{\varepsilon}{3}, 
+						0
+					) \not\in \R \setminus X_1.
+				$
+				Therefore 
+				$B((0,0,0); \varepsilon) \not\subset \R \setminus X_1$;
+				hence, $\R \setminus X_1$ is not open and so $X_1$ is not
+				closed.
+			\end{solution}
+
+			\part 
+				$
+					X_2 = \left\{ 
+						(x,y,z,w) \in \R^4: x^4 + y^3 + z^2 = w
+					\right\}
+				$;
+			\begin{solution}
+				We define $f(x,y,z,w) = x^4 + y^3 + z^2 - w$.
+				Clearly $f$ is continuous; hence, the preimage
+				$f^{-1}(\left\{ 0 \right\}) = X_2$ is closed (since
+				$\left\{ 0 \right\}$ is closed in $\R$).
+				Now suppose $X_2$ is open.
+				Let $(x_1,y_1,z_1,w_1) \in X_2$.
+				There is $\delta > 0$ such that 
+				\[
+					(x_1,y_1,z_1,w_1 + \sfrac{\delta}2) 
+					\in B((x_1,y_1,z_1,w_1); \delta)
+					\subset X_2
+				\]
+				but if $x_1^4 + y_1^3 + z_1^2 = w_1$ and
+				$x_1^4 + y_1^3 + z_1^2 = w_1 + \sfrac{\delta}2$
+				then $\sfrac{\delta}2 = 0$; a contradiction.
+				Therefore $X_2$ is not open.
+			\end{solution}
+
+			\part 
+				$
+					X_3 = \left\{ 
+						(x_1, x_2) \in \R^2: x_1 \geq x_2^2 
+					\right\}
+				$; and
+			\begin{solution}
+				We define $h(x_1, x_2) = x_1 - x_2^2$, clearly continuous.
+				Then $h^{-1}([0,\infty)) = X_3$ and so $X_3$ is closed.
+				Now assume that $X_3$ is open.
+				We see that $(0,0) \in X_3$ and so there is $\delta > 0$ such
+				that
+				\[
+					(-\sfrac{\delta}2,0) 
+					\in B((0,0); \delta)
+					\subset X_3
+				\]
+				but clearly $(-\sfrac{\delta}2, 0) \not\in X_3$; a 
+				contradiction. 
+				Therefore $X_3$ is not open.
+			\end{solution}
+
+			\part 
+				$
+					X_4 = \left\{ 
+						(x_1, x_2, x_3) \in \R^3: 
+						x_1 < x-2 + x_3^3, x_3 \leq 5
+					\right\}
+				$.
+			\begin{solution}
+				Suppose $X_4$ is open and observe that $(0,0,5) \in X_4$.
+				Then there is $\delta > 0$ such that
+				\[
+					(0,0,5 + \sfrac{\delta}2) 
+					\in B((0,0,5); \delta)
+					\subset X_4
+				\]
+				but clearly $(0,0,5 + \sfrac{\delta}2) \not\in X_4$; a
+				contradiction. Hence $X_4$ is not open.
+				Now suppose $X_4$ is closed.
+				So $\R^3 \setminus X_4$ is open.
+				Observe
+				\[
+					\R^3 \setminus X_4
+					= \left\{
+						(x_1,x_2,x_3) \in \R^3: x_1 \geq x_2 + x_3^3
+						\;\text{or}\;
+						x_3 > 5
+					\right\}
+				\]
+				and $(0,0,0) \in \R^3 \setminus X^4$.
+				Now, as $\R^3 \setminus X_4$ is open, there is $\delta > 0$
+				such that
+				\[
+					(-\sfrac{\delta}2, 0, 0) 
+					\in B((0,0,0); \delta)
+					\subset X_4
+				\]
+				but we can see that $(-\sfrac{\delta}2, 0, 0) \not\in X_4$;
+				a contradiction.
+				Therefore $X_4$ is not closed.
+			\end{solution}
+		\end{parts}
+\end{questions}
+\end{document}

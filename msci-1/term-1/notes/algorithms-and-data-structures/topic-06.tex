@@ -1,0 +1,207 @@
+\chapter{Recurrences}
+
+We've seen two types of algorithms: \emph{iterative} and \emph{recursive}. To analyse iterative algorithms we
+\begin{enumerate}
+    \item look at loop structure;
+    \item identify relevant operations; and
+    \item count them.
+\end{enumerate}
+
+One typically ends up with some sort of sum for the time complexity.
+
+\begin{remark}
+    First of all note that most recursive algorithms are a hybrid between iterative and strictly recursive (for example, the \texttt{Partition} function in \emph{QuickSort} is iterative).
+\end{remark}
+
+\begin{example}
+    In this example, we will form a recurrence relation for the time complexity of the MergeSort algorithm. We will simplify our example such that the input is of the form $n=2^k$ where $k\in\mathbb N$. 
+    
+    In the MergeSort algorithm (described previously) we split the input list of size $n$ into two halves of size $\frac n2$ and independently recurse into each half, then we merge the resulting sorted sequence. From this, we can form an upper bound recurrence relation
+    \[
+        T(n)\leq
+        \begin{cases}
+            2T(\frac n2)+an&\text{if}\;n>1\\
+            b&\text{if}\;n=1\\
+        \end{cases}
+    \]
+    where $a,b\in\mathbb R_{>0}$ are constants. In the case where $n>1$, we get the term $2T\left(\frac n2\right)$ from the two halves of the list we need to recurse through and the term $an$ from the merging of these two once they are sorted. In the case where $n=1$, we get a fixed constant $b$.
+    
+    We can also establish a time complexity using the notations learned in the asymptotic section: 
+    \[
+        T(n)=
+        \begin{cases}
+            2T(\frac n2)+\Theta(n)&\text{if}\;n>1\\
+            \Theta(1)&\text{if}\;n=1\\
+        \end{cases}
+        .
+    \]
+\end{example}
+
+\begin{remark}
+    There is a remark to be made about the simplification of the MergeSort input such that it is of length $2^k$ where $k\in\mathbb N$. If this was not the case, we would get the recurrence relation 
+    \[
+        T(n)=
+        \begin{cases}
+            T\lfloor\frac n2\rfloor+T\lceil\frac n2\rceil+\Theta(n)&\text{if}\;n>1\\
+            \Theta(1)&\text{if}\;n=1\\
+        \end{cases}
+        ,
+    \]
+    however, this makes the recurrence much harder to solve.
+\end{remark}
+
+There are three time-tested methods for solving such recurrences which we will use to analyse the asymptotic behaviour of the time complexity for MergeSort using the above recurrence relation.
+\begin{enumerate}
+    \item induction;
+    \item iterative substitution; and
+    \item Master theorem.
+\end{enumerate}
+
+\section{Solving recurrences by induction}
+
+As with all induction proofs, we need to guess the correct solution, verify the base case, then prove the inductive step.
+
+\begin{example}
+    Consider again the recurrence for MergeSort:
+    \[
+        T(n)\leq
+        \begin{cases}
+            2T(\frac n2)+an&\text{if}\;n>1\\
+            b&\text{if}\;n=1\\
+        \end{cases}
+    \]
+    for constants $a,b\in\mathbb R_{>0}$. Guess $T(n)=O(n\log_2{n})$, so \[T(n)\leq\alpha n\log_2{n}\] for some constant $\alpha>0$. Now we verify this guess. Looking at the base case, $T(n)\leq b$ if $n=2$ for constant $b$ so choose $\alpha$ large enough \[b\leq\alpha n\log_2{n}\leq 2\alpha\log_2{2}\iff\alpha\geq\dfrac b2.\] Looking at the inductive step:
+    \begin{align*}
+        T(n)&\leq2T\left(\frac n2\right)+an\\
+        &\leq2\alpha\frac n2\log_2{\frac n2}+an\\
+        &\leq\alpha n(\log_2{n}-\log_2{2})+an\\
+        &\leq\alpha n\log_2{n}-\alpha n+an\\
+        &\leq\alpha n\log_2{n}
+    \end{align*}
+    for all $\alpha\geq a$. By induction, $T(n)=O(n\log_2n)$ for all \[\alpha\geq\max\left\{\dfrac b2,a\right\}.\]
+\end{example}
+
+\section{Solving recurrences by iterative substitution}
+
+In this technique we expand the recurrence, spot the pattern, and solve algebraically. 
+
+\begin{example}
+    Consider the recurrence for our MergeSort algorithm:
+    \[
+        T(n)\leq
+        \begin{cases}
+            2T(\frac n2)+an&\text{if}\;n>1\\
+            b&\text{if}\;n=1\\
+        \end{cases}
+        .
+    \]
+    
+    We then expand:
+    \begin{align*}
+        T(n)&\leq2T\left(\frac n2\right)+an\\
+        &\leq2\left(2\left(T\left(\frac n4\right)+\frac{an}2\right)\right)+an=4T\left(\frac n4\right)+2an
+    \end{align*}
+\end{example}
+
+\section{Master theorem}
+
+We have seen how to solve recurrences through induction and iterative substitution, but neither of these methods provide a thorough way to analyse the asymptotic behaviour of recurrence relation. The \textbf{Master theorem} for divide-and-conquer recurrences provides this analysis.
+
+\begin{remark}
+    Not all recurrence relations can be solved with the use of this theorem, the Akra-Bazzi method is its generalisation.
+\end{remark}
+
+\begin{theorem}[Master theorem]
+    Let $a\geq 1$ be an integer and $b>1$ be a real number. Let $c$ be a positive real number and $d\geq 0$ a real number. Given a recurrence of the form 
+    \[
+        T(n)=
+        \begin{cases}
+            aT\left(\frac nb\right)+f(n)&\text{if}\;n>1\\
+            d&\text{if}\;n=1\\
+        \end{cases}
+        ,
+    \]
+    then
+    \begin{enumerate}
+        \item if $f(n)=O(n^{\log_b(a)-\epsilon})$ for some $\epsilon>0$, then \[T(n)=\Theta(n^{\log_b(a)});\]
+        
+        \item if $f(n)=\Theta(n^{\log_b(a)})$, then \[T(n)=\Theta(n^{\log_b(a)}\log{n});\;\text{and}\]
+        
+        \item if $f(n)=\Omega(n^{\log_b(a)+\epsilon})$ for some epsilon $\epsilon>0$ and if \[af\left(\frac nb\right)\leq cf(n)\] for some constant $c<1$ and all $n$ large enough then \[T(n)=\Theta(f(n)).\]
+    \end{enumerate}
+\end{theorem}
+
+\begin{example}
+    Recall to MergeSort, we have the time complexity
+    \[
+        T(n)\leq
+        \begin{cases}
+            2T(\frac n2)+a'n&\text{if}\;n>1\\
+            b'&\text{if}\;n=1\\
+        \end{cases}
+    \]
+    for constants $a',b'\in\mathbb N$. We see that this is in the correct form for Master theorem where $a=2$, $b=2$, $f(n)=an$, and $d=b'$. As $f(n)=an=\Theta(n)=n^{\log_22}$, case (ii) applies and we find that \[T(n)=\Theta(n\log n).\]
+\end{example}
+
+\section{Solving other recurrences}
+
+\begin{example}[Worst-case QuickSort]
+    With our QuickSort algorithm, we have the recurrence 
+    \[
+        T(n)\leq
+        \begin{cases}
+            T(q)+T(n-q-1)+an&\text{if}\;n>1\\
+            b&\text{if}\;n=1\\
+        \end{cases}
+    \]
+    with pivot index $q\in\mathbb Z$ where $0\leq q<n$ and constants $a,b\in\mathbb R_{>0}$. Here we cannot use iterative substitution or the Master theorem, however we can solve it as follows.
+    
+    Let $T_w(n)$ be the worst-case running time of our QuickSort with input of size $n$. Then \[T_w(n)=\max_{0\leq q<n}(T_w(q)+T_w(n-q-1))+an.\] Guess $T_w(n)\leq\alpha n^2$ for some constants $\alpha>0$. Substituting this into the worst-case running time then
+    \begin{align*}
+        T_w(n)&=\max_{0\leq q<n}(T_w(q)+T_w(n-q-1))+an\\
+        &\leq\max_{0\leq q<n}(\alpha q^2+\alpha(n-q-1)^2)+an\\
+        &=\alpha\max_{0\leq q<n}(q^2+(n-q-1)^2)+an\\
+        &=\alpha\max_{0\leq q<n}(q^2+(n-(q-1))^2)+an\\
+        &=\alpha\left(n^2-2n+1+2\max_{0\leq q<n}\left(\left(q+\frac{1-n}2\right)^2-\frac{(1-n)^2}4\right)\right)+an.\\
+    \end{align*}
+    As \[\left(q+\frac{1-n}2\right)^2-\frac{(1-n)^2}4\] is a quadratic equation of $q$, we know that: it is symmetrical around the minimum where $q=\frac{n-1}2$, monotone increasing for $q>\frac{n-1}2$, and (hence) monotone decreasing for $q<\frac{n-1}2$, therefore, the maximum in the range $0\leq q<n$ exists at $q=0$ and $q=n-1$. By choosing $q=n-1$ \[q^2-(n-q-1)^2\leq(n-1)^2-(n-(n-1)-1)^2=(n-1)^2\] and, therefore,
+    \begin{align*}
+        T_w(n)&\leq\alpha\max_{0\leq k<n}(q^2+(n-q-1)^2)+an\\
+        &=\alpha(n-1)^2+an\\
+        &=\alpha n^2+(-2\alpha+a)n+\alpha\\
+        &\leq\alpha n^2
+    \end{align*}
+    for all \[(-2\alpha+a)n+\alpha\leq 0\iff\alpha\geq\frac{an}{2n-1}=\Theta(1).\] Thus, the worse case running time of QuickSort is $O(n^2)$.
+\end{example}
+
+\begin{example}[Best-case QuickSort]
+    Recall our QuickSort algorithm, we have the recurrence 
+    \[
+        T(n)\leq
+        \begin{cases}
+            T(q)+T(n-q-1)+an&\text{if}\;n>1\\
+            b&\text{if}\;n=1\\
+        \end{cases}
+    \]
+    with pivot index $q\in\mathbb Z$ where $0\leq q<n$ and constants $a,b\in\mathbb R_{>0}$. Let $T_b(n)$ be the best running time of our QuickSort algorithm on input of size $n$. Then \[T_b(n)=\min_{0\leq q<n}(T_b(q)+T_b(n-q-1)+an.\] We guess $T_b(n)\leq\alpha n\log{n}$ for some constant $\alpha>0$. We substitute this into the recurrence to get
+    \begin{align*}
+        T_b(n)&=\min_{0\leq q<n}(T_b(q)+T_b(n-q-1)+an\\
+        &\leq\min_{0\leq q<n}(\alpha q\log q+\alpha(n-q-1)\log(n-q-1))+an\\
+        &=\alpha\min_{0\leq q<n}(q\log q+(n-q-1)\log(n-q-1))+an.
+    \end{align*}
+    Considering the expression we want to minimise,
+    \begin{align*}
+        f(n, q) &= q \log{q} + (n - q - 1) \log{(n - q - 1)} \\
+        \dfrac{\partial}{\partial q} (f(n, q)) &= \log{q} + 1 - \log{(n - q - 1)} - 1 \\
+        &= \log{q} - \log{(n - q - 1)}, \\
+    \end{align*}
+    we see that a stationary point exists when $q = \frac{n - 1}{2}$. We can confirm this is a minimum through a second derivative test:
+    \begin{align*}
+        \dfrac{\partial^2}{\partial q^2}\left(f\left(n, \frac{n - 1}{2}\right)\right) &= \frac{2}{n - 1} + \frac{1}{n - \frac{n - 1}{2} - 1} \\
+        &= \frac{3}{n - 1}
+    \end{align*}
+    for all $n \in \mathbb{N}_{>1}$; therefore, $f(n, q)$ is minimum when $q = \frac{n - 1}{2}$. Following this through we see we are back to our MergeSort example; that is \[ O(n\log{n}). \]
+\end{example}
+
+   
+% For example, for merge sort $a=2$, $b=2$, $f(n)=an$.

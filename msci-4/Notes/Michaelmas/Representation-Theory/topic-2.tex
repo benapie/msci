@@ -1,0 +1,562 @@
+\section{Character theory}
+
+\subsection{Characters}
+
+\begin{definition}[Character]
+    Let $(\rho, V)$ be a finite-dimensional complex representation of $G$. The \emph{character} of $(\rho, V)$ is the function $\chi_\rho: G \to \mathbb C$ defined by
+    \[ \chi_p(g) = \tr(\rho(g)). \]
+\end{definition}
+
+We note that trace is a function defined on matrices, but to represent $\rho(g): V \to V$ as a matrix we must pick a basis for $V$. The definition above assumes that the trace of any such representation is the same, which is not immediately obvious. But we can see that by applying a change of basis matrix $P$ to a matrix $M$ yields $\tr PMP^{-1} = \tr M$. We can apply a similar argument to get the following lemma.
+
+\begin{lemma}
+    Isomorphic representations have the same character.
+\end{lemma}
+
+It may seem that the character only encodes certain information about the representation; however, the character completely determines the representation. There is also additional structure that allow us to find all of the characters of a group, even if we cannot construct the representations.
+
+\begin{example}
+    Let $\chi: G \to \mathbb C^\times$ be a one-dimensional representation. Then it is its own character.
+\end{example}
+
+\begin{example}
+    Let $\rho$ be the irreducible two-dimensional representation of $S_3$ and let $\chi$ be its character. We observe that $S_3 \cong D_3$, and we have already seen what this representation is; that is
+    \[ \rho(r) = \begin{pmatrix}
+            e^{2\pi i/n} & 0 \\ 0 & e^{-2\pi i/n}
+        \end{pmatrix}, \qquad
+        \rho(s) =
+        \begin{pmatrix}
+            0 & 1 \\ 1 & 0
+        \end{pmatrix} \]
+    and so
+    \begin{align*}
+        \chi(e)                                    & = 2                                  \\
+        \chi((1\;2)) = \chi((1\;3)) = \chi((2\;3)) & = 0                                  \\
+        \chi((1\;2\;3) = \chi(1\;3\;2)             & = e^{2\pi i/3} + e^{-2\pi i/3} = -1.
+    \end{align*}
+\end{example}
+
+\begin{lemma}
+    If $(\rho, V)$ is a representation of $G$, then $\chi_\rho(e) = \dim\rho$.
+\end{lemma}
+
+\begin{proof}
+    We pick some basis of $V$. Since $e$ is the identity element of $G$, it will be mapped to the identity matrix. Thus
+    \[\chi_\rho(e) = \tr I = \sum_{i=1}^{\dim V} 1 = \dim\rho. \]
+\end{proof}
+
+We call $\dim\rho$ the \emph{degree} (or \emph{dimension} of the character $\chi_\rho$).
+
+\begin{lemma}
+    If $V$ and $W$ are representations with characters $\chi$ and $\psi$, then $V \oplus W$ has character $\chi + \psi$.
+\end{lemma}
+
+\begin{proof}
+    This can be shown by examining the block matrices for these representations.
+\end{proof}
+
+\begin{lemma}
+    If $\chi$ is the character of a representation $V$ of $G$, then
+    \[ \chi(g) = \overline{\chi(g)} \]
+    for $g \in G$.
+\end{lemma}
+
+\begin{proof}
+    Let $g \in G$ with order $m$. We can find a basis such that $\rho(g)$ is diagonal with eigenvalues $\lambda_1, \ldots, \lambda_n$ such that $\lambda_i$ is the $i$th root of unity. Then $\rho(g)^{-1}$ is diagonal with eigenvalues $\lambda_1^{-1}, \ldots, \lambda_n^{-1}$; that it $\overline\lambda_1, \ldots, \overline\lambda_n$.
+\end{proof}
+
+It immediately follows that if $g$ is conjugate to $g^{-1}$, then $\chi(g)$ is real for every character $\chi$.
+
+\begin{lemma}
+    Let $\chi$ be the character of a representation $\rho$ of $G$. If $g$ and $h$ are in the same conjugacy class of $G$, then
+    \[ \chi(g) = \chi(h). \]
+\end{lemma}
+
+\begin{proof}
+    Let $h = xgx^{-1}$ for some $x \in G$. Then
+    \[ \chi(h) = \tr\rho(xgx^{-1}) = \tr\left(\rho(x)\rho(g)\rho(x^{-1})\right) = \tr\rho(g) = \chi(g). \qedhere \]
+\end{proof}
+
+\begin{definition}[Class function]
+    Let $G$ be a group. A \emph{class function} on $G$ is a function $G \to \mathbb C$ that is constant on conjugacy classes.
+\end{definition}
+
+The previous lemma can be rephrased as: the character of a representation is a class function. We can organise the character information of a group into a \emph{character table}. This columns are the conjugacy classes of the group, and the rows are the irreducible representations. The entries are the values of the characters of the irreducible representations on elements on the conjugacy class.
+
+\begin{example}
+    Consider $S_3$. The following is the character table.
+    \begin{center}
+        \begin{tabular}{cccc}
+            \toprule
+                           & \multicolumn{3}{c}{Class}                          \\
+            \cmidrule{2-4}
+            Representation & $e$                       & $(1\;2)$ & $(1\;2\;3)$ \\
+            \midrule
+            $\mathbbm{1}$  & 1                         & 1        & 1           \\
+            $\varepsilon$  & 1                         & -1       & 1           \\
+            $\rho$         & 2                         & 0        & -1          \\
+            \bottomrule
+        \end{tabular}
+    \end{center}
+\end{example}
+\begin{example}
+    Consider $C_5$ and $\omega = e^{2\pi i/n}$. Since $G$ is abelian, all conjugacy classes are singletons. The following is the character table.
+    \begin{center}
+        \begin{tabular}{cccccc}
+            \toprule
+                           & \multicolumn{5}{c}{Class}                                                     \\
+            \cmidrule{2-6}
+            Representation & $e$                       & $g$        & $g^2$      & $g^3$      & $g^4$      \\
+            \midrule
+            $\mathbbm{1}$  & 1                         & 1          & 1          & 1          & 1          \\
+            $\chi$         & 1                         & $\omega$   & $\omega^2$ & $\omega^3$ & $\omega^4$ \\
+            $\chi^2$       & 1                         & $\omega^2$ & $\omega^4$ & $\omega$   & $\omega^3$ \\
+            $\chi^3$       & 1                         & $\omega^3$ & $\omega$   & $\omega^4$ & $\omega^2$ \\
+            $\chi^4$       & 1                         & $\omega^4$ & $\omega^3$ & $\omega^2$ & $\omega$   \\
+            \bottomrule
+        \end{tabular}
+    \end{center}
+\end{example}
+
+\begin{example}
+    Let $G$ act on a finite set $X$ and let $\rho$ be the permutation representation. Then the character $\chi$ is given by
+    \[ \chi(g) = \lvert \operatorname{Fix}(g) \rvert \]
+    for $g \in G$, where $\operatorname{Fix}(g)$ is the number of fixed points of $g$. This can be seen by observing that $\rho(g)$ is of the form $(0, \ldots, 0, 1, 0, \ldots, 1)$ and each fixed point of $g$ has a one-to-one correspondence to a column $C_i$ of $\rho(g)$ such that $C_i[j] = 0$ for $j \neq i$ and $C_i[i] = 1$.
+\end{example}
+
+\begin{example}
+    Let $G$ be a finite group and consider the regular representation $V = \bigoplus_{g \in G} \mathbb C[g]$. This representation associates to each $g \in G$ the matrix $M_g$ that permutes the basis according to the multiplication of $G$. For all $x \in G$ and $g \neq e$, $gx \neq X$. Thus, $M_g$ have zero trace for all $g \neq 1$. Thus $\chi(e) = \lvert G \rvert$ and $\chi(g) = 0$ for all $g \neq e$.
+\end{example}
+
+\subsection{Orthogonality of characters}
+
+\begin{definition}
+    If $\chi$ and $\varphi$ are two class functions on $G$, we define their \emph{inner product} to be
+    \[ \langle \chi, \psi \rangle = \frac{1}{\lvert G \rvert} \sum_{g \in G} \overline{\chi(g)} \psi(g). \]
+\end{definition}
+
+This is in fact a Hermitian inner product on the space of class functions of $G$, whose dimension is the number of conjugacy classes of $G$.
+
+\begin{theorem}
+    \label{the:orthonormal-characters}
+    Let $G$ be a finite group with conjugacy classes $\mathcal C_1, \ldots, \mathcal C_r$. If $\chi$ is a class function, we write $\chi(\mathcal C_i) = \chi(g)$ for any $g \in \mathcal C_i$.
+    \begin{enumerate}
+        \item The irreducible characters are orthonormal with respect to their inner product. We can also see this inner product as the standard inner product of the rows of the character table with entries weighted by $\sqrt{\lvert \mathcal C_i \rvert/\lvert G \rvert}$.
+        \item The number of irreducible representations is equal to the number of conjugacy classes.
+        \item The columns of the character table are orthonormal with respect to the weighted inner product from 1.
+    \end{enumerate}
+\end{theorem}
+
+\begin{theorem}
+    Two irreducible representations of $G$ are isomorphic if and only if they have the same character.
+\end{theorem}
+
+\begin{theorem}
+    \hspace{0em}
+    \begin{enumerate}
+        \item A representation is determined up to isomorphism by its character.
+        \item If $V$ is a representation with character $\chi$, then $V$ is irreducible if and only if $\langle \chi, \chi \rangle = 1$.
+    \end{enumerate}
+\end{theorem}
+
+\subsection{Example, $S_4$}
+
+\begin{example}
+    We will determine the character table of $S_4$. We first have the trivial representation $\mathbbm 1$ and the sign character $\varepsilon$, which give us the following partial character table.
+    \begin{center}
+        \begin{tabular}{cccccc}
+            \toprule
+                          & $e$ & $(1\;2)$ & $(1\;2)(3\;4)$ & $(1\;2\;3)$ & $(1\;2\;3\;4)$ \\
+            \midrule
+            $\mathbbm 1$  & $1$ & $1$      & $1$            & $1$         & $1$            \\
+            $\varepsilon$ & $1$ & $-1$     & $1$            & $1$         & $-1$           \\
+            \bottomrule
+        \end{tabular}
+    \end{center}
+    Next we consider the permutation representation $V$ of $S_4$ on $\{1,2,3,4\}$. This contains a copy of the trivial representation, so we write $V = \mathbbm 1 \oplus W$ for some representation $W$, where
+    \[ \chi(g) = \lvert \Fix(g) \rvert - 1. \]
+    We notice that we may perform an operation on representation (known as \emph{twisting}), if $(\rho, V)$ is an irreducible representation of $G$ with character $\chi$ and $\psi$ is a one-dimensional character of $G$, then we can define a new representation $\rho\psi$ of $G$ on $V$ by the formula
+    \[ (\rho\psi)(g) = \rho(g)\psi(g). \]
+    It has character $\chi\psi$. In this case, we look at $\chi\varepsilon$ and see that it must be a character of an irreducible representation.
+    \begin{center}
+        \begin{tabular}{cccccc}
+            \toprule
+                               & $e$ & $(1\;2)$ & $(1\;2)(3\;4)$ & $(1\;2\;3)$ & $(1\;2\;3\;4)$ \\
+            \midrule
+            Class size         & 1   & 6        & 3              & 8           & 6              \\
+            \midrule
+            $\chi$             & $3$ & $1$      & $-1$           & $0$         & $-1$           \\
+            $\chi^\varepsilon$ & $3$ & $-1$     & $-1$           & $0$         & $1$            \\
+            \bottomrule
+        \end{tabular}
+    \end{center}
+    We see that
+    \[ \langle \chi \rangle = \frac1{24}\left(1(3^2) + 6(1^2) + 3(-1)^2 + 8(0^2) + 6(-1)^2\right) = 1 \]
+    and so $\chi$ is indeed irreducible. We note that $\chi \oplus \varepsilon$ differs to $\chi$, and is also irreducible. So we have four of the five representations and have one left to find, $\psi$. We can find it using the theorems we built in the last section. Firstly, using the sum of squares formula we assert than $\psi(e) = 2$. Then, using the orthonormality of the first column we get the following character table.
+    \begin{center}
+        \begin{tabular}{cccccc}
+            \toprule
+                               & $e$ & $(1\;2)$ & $(1\;2)(3\;4)$ & $(1\;2\;3)$ & $(1\;2\;3\;4)$ \\
+            \midrule
+            $\mathbbm 1$       & $1$ & $1$      & $1$            & $1$         & $1$            \\
+            $\varepsilon$      & $1$ & $-1$     & $1$            & $1$         & $-1$           \\
+            $\chi$             & $3$ & $1$      & $-1$           & $0$         & $-1$           \\
+            $\chi^\varepsilon$ & $3$ & $-1$     & $-1$           & $0$         & $1$            \\
+            $\psi$             & $2$ & $0$      & $2$           & $-1$        & $0$            \\
+            \bottomrule
+        \end{tabular}
+    \end{center}
+    We notice that the character of the final representation was computed without constructing the representation itself.
+\end{example}
+
+\subsubsection{Character of lifts}
+
+\begin{definition}[Restriction]
+    Let $G$ be a group, $H$ a subgroup of $G$, and $(\rho, V)$ a representation of $G$. Then we have a representation $(\restr{\rho}H, V)$ called the \emph{restriction} of $\rho$ to $G$.
+\end{definition}
+
+\begin{definition}[Lift]
+    Let $K$ be a normal subgroup of a group $G$ and $(\rho, V)$ be a representation of $G/K$. We define the \emph{lift} (or \emph{inflation}) $\tilde\rho$ or $\rho$ to be the homomorphism $G \to \GL(V)$ defined by $\tilde\rho(g) = \rho(gK)$.
+\end{definition}
+
+We note that $(\tilde\rho, V)$ is also a representation of $G$. We can draw the following diagram.
+
+\begin{center}
+    % https://tikzcd.yichuanshen.de/#N4Igdg9gJgpgziAXAbVABwnAlgFyxMJZABgBoBGAXVJADcBDAGwFcYkQBxAegGkQBfUuky58hFOQrU6TVuwA68iGhgAnejgiqw9ALYxgHADL8AFADUAlAKEgM2PASJli0hizaJOA6TCgBzeCJQADNVCF0kMhBNJEkZDwV5VQALCBtQ8MjEACYaWMRo9zkvAEcQGkZ6ACMYRgAFEUdxEFUsfxScDJAwiKQ8mPTEeOLPEEU8RlhFVPT+Sn4gA
+    \begin{tikzcd}
+        G \arrow[d, "q"'] \arrow[rd, "\tilde\rho"] &                      \\
+        G/K \arrow[r, "\rho"]                      & \operatorname{GL}(V)
+    \end{tikzcd}
+\end{center}
+
+\begin{example}
+    Let $G = S_4$ and
+    \[ K = \{e, (1\;2)(3\;4), (1\;3)(2\;4), (1\;4)(2\;3)\}. \]
+    Then we claim that
+    \[ G/K \cong S_3. \]
+    We construct such an isomorphism, we label the three non-identity elements of $K$ as $a$, $b$, and $c$. Then $G$ acts by conjugation on the set $\{a,b,c\}$ (that is, $g \cdot x = gxg^{-1} \in \{a,b,c\}$ for all $g \in G$ and $x \in \{a,b,c\}$). This action induces a homomorphism $f: G = S_4 \to \{\text{permutations of $\{a,b,c\}$}\} \cong S_3$. We consider $f((1\;2))$, by considering:
+    \begin{align*}
+        (1\;2) a (1\;2)^{-1} & = a, \\
+        (1\;2) b (1\;2)^{-1} & = c, \\
+        (1\;2) c (1\;2)^{-1} & = b.
+    \end{align*}
+    Thus $(1\;2)$ fixes $a$, and switches $b$ and $c$; that is, $f((1\;2)) = (b\;c)$. We can examine other values of $f$ to get that it is indeed surjective and that the kernel is $K$. Hence $f: S_4/K \xrightarrow{\cong} S_3$.
+\end{example}
+
+\begin{lemma}
+    There is a bijection between
+    \begin{enumerate}
+        \item the representations of $G$ whose kernel contains $K$; and
+        \item the representations of $G/K$.
+    \end{enumerate}
+\end{lemma}
+
+\begin{proof}
+    todo
+\end{proof}
+
+\begin{corollary}
+    Let $K$ be a normal subgroup of a group $G$. If $\rho$ is a representation of $G/K$, $\tilde\rho$ is irreducible if and only if $\rho$ is.
+\end{corollary}
+
+\begin{proof}
+    %todo
+\end{proof}
+
+\begin{proposition}
+    Let $\rho$ be a representation of $G$ with character $\chi$ and dimension $d$. Then
+    \[ \ker\rho = \{g \in G: \chi(g) = d\}. \]
+\end{proposition}
+
+\subsection{Inner products and homomorphisms}
+
+Let $(\rho, V)$ and $(\sigma, W)$ be two complex representation of a finite group $G$. Then we can define a representation $\Hom(\rho, \sigma)$ on the vector space
+\[ \Hom(V, W) = \{\text{linear maps $T: V \to W$}\} \]
+with $G$-action by \emph{`conjugation'}:
+\[ (g \cdot T)(v) = \sigma(g) T(\rho(g)^{-1}v). \]
+
+\begin{lemma}
+    \hspace{0em}
+    \begin{enumerate}
+        \item If $\rho$ and $\sigma$ have characters $\chi$ and $\psi$, then $\Hom(\rho, \sigma)$ has character $\overline\chi\sigma$.
+        \item We have
+              \[ \Hom_G(V, W) = \Hom(V,W)^G; \]
+              that is, the $G$-homomorphisms are the $G$-fixed points of $\Hom(V,W)$.
+    \end{enumerate}
+\end{lemma}
+
+\begin{proof}
+    todo
+\end{proof}
+
+\begin{theorem}
+    If $V$ and $W$ are two representations of $G$ with characters $\chi$ and $\psi$ respectively, then
+    \[ \langle \chi, \psi \rangle = \dim\Hom_G(V, W). \]
+\end{theorem}
+
+\begin{corollary}
+    Suppose that $V$ and $W$ are irreducible representations with characters $\chi$ and $\psi$ respectively. Then
+    \[ \langle \chi, \psi \rangle = \begin{cases}
+            1 & \text{if $V \cong W$}, \\
+            0 & \text{otherwise}.
+        \end{cases} \]
+\end{corollary}
+
+\begin{proof}
+
+\end{proof}
+
+\subsection{Universal projections}
+
+Let $G$ be a group and $\alpha: G \to \mathbb C$ be any class function. Then define
+\[ \pi_\alpha = \frac1{\lvert G \rvert} \sum_{g \in G} \overline\alpha(g) [g] \in \mathbb C[G]. \]
+For every representation $(\rho, V)$, $\pi_\alpha$ acts on $G$, and we also call this $\pi_\alpha$:
+\[ \pi_{\alpha}(v) = \frac1{\lvert G \rvert} \sum_{g \in G} \overline\alpha(g) \rho(g) v. \]
+If we take $\alpha$ to be the constant function with value $1$, then $\pi_\alpha$ is simply the projection $\pi: V \to V^G$.
+
+
+\begin{lemma}
+    If $V$ is any representation, then $\pi_\alpha: V \to V$ is a $G$-homomorphism.
+\end{lemma}
+
+Since $\pi_\alpha$ is a $G$-homomorphism $V \to V$ for every $V$, we could call it a \emph{universal} $G$-homomorphism. We now look at its behaviour on irreducible representations.
+
+\begin{proposition}
+    Let $\alpha$ be a class function and let $V$ be an irreducible representation with character $\chi$. Then $\pi_\alpha$ acts as the scalar
+    \[ \frac{1}{\dim V} \langle \alpha, \chi \rangle \]
+    on $V$. In particular, if $\psi$ is the character of an irreducible representation $W$, then $\pi_\psi$ acts as $\frac{1}{\dim W}$ and as $0$ on all other irreducible representations.
+\end{proposition}
+
+Let $\rho$ be an irreducible representation of $G$ and $V$ another representation of $G$. We denote the subrepresentation of $V$ generated by all the subrepresentation of $V$ isomorphic to $\rho$ by $V(\rho)$.
+
+\begin{corollary}
+    Let $\rho$ be an irreducible representation of $G$ with character $\chi$ and dimension $d$. Then the operation $d\pi_\psi$ acts, on any $G$-representation $V$, as the $G$ equivariant projection $V \to V(\rho)$.
+\end{corollary}
+
+\begin{corollary}
+    The irreducible characters are a basis for the space of class functions.
+\end{corollary}
+
+We now have enough to prove the rest of Theorem \ref{the:orthonormal-characters}.
+
+\begin{corollary}
+    Part 2 and 3 of Theorem \ref{the:orthonormal-characters} are true.
+\end{corollary}
+
+\subsection{Linear algebra constructions}
+
+\subsubsection{The dual representation}
+
+We recall that for two $G$-representations $V$ and $W$, we have a $G$-representation on the space $\Hom(V,W)$ with character $\overline\chi_V\chi_W$.
+
+\begin{definition}
+    Let $V$ be a vector space. Then the \emph{dual space} of $V$ is
+    \[ V^* = \Hom(V, \mathbb C). \]
+\end{definition}
+
+We have $\dim V^* = \dim V$. To see this, let $v_1, \ldots, v_n$ be a basis of $V$. Then we have the \emph{dual basis} $v_1^*, \ldots, v_n^*$ of $V^*$, given by
+\[ v_i^*(v_j) = \delta_{ij} = \begin{cases}
+        1 & \text{if $i = j$}, \\
+        0 & \text{otherwise}.
+    \end{cases} \]
+This is a bilinear map $V^* \times V \to \mathbb C$, $(\varphi, v) \mapsto \varphi(v)$. The choice of basis identifies $V$ with $\mathbb C^n$, and then the dual basis realises $V^*$ as $1 \times n$ matrices
+
+If $V$ has a $G$-representation, then we take $\mathbb C$ to have the trivial representation to get an action $\rho^*$ of $G$ on $V^*$ defined by
+\[ \rho^*(g)(\varphi) = \varphi(\rho(g)^{-1}v). \]
+We have already seen a formula for the character of $\Hom(V,W)$, thus $\chi_{V^*} = \overline\chi_V$.
+
+If the matrix of $\rho(g)$ with respect to some basis is $A$, then the matrix of $\rho(g)$ with respect to the dual basis is $(A^T)^{-1}$.
+
+\subsubsection{Tensor products}
+
+Let $V$ and $W$ be two vector spaces. Then the tensor product of $V$ and $W$, denoted $V \otimes W$ is the $\mathbb C$-vector space generated by the symbols $v \otimes w$ for $v \in V$ and $w \in W$ with the \emph{bilinear relations}
+\begin{align*}
+    \lambda(v \otimes w) & = (\lambda v) \otimes w = v \otimes (\lambda w), \\
+    (v + v') \otimes w   & = v \otimes w + v' \otimes w,                    \\
+    v \otimes (w + w')   & = v \otimes w + v \otimes w'.
+\end{align*}
+We can rigorously define this space using quotients, but it is assured that this is understood.
+
+\begin{proposition}
+    Let $e_1, \ldots, e_n$ be a basis of $V$ and $f_1, \ldots, f_m$ be a basis of $W$. Then
+    \[ \left\{e_i \otimes f_i: i \in \{1, \ldots, n\}, j \in \{1, \ldots, m\}\right\} \]
+    is a basis of $V \otimes W$.
+\end{proposition}
+
+In particular, we see that
+\[ \dim(V \otimes W) = \dim V \dim W. \]
+We also note that not every vector of $V \otimes W$ is of the farm $v \otimes w$; for example, let $V = W$ with basis $(e, f)$ then the vector
+\[ e \otimes e = f \otimes f \in V \otimes V \]
+cannot be written in this form.
+
+We claim that a linear map on a tensor product of spaces corresponds to a bilinear map on the cartesian product. This correspondence is defined in the way you would expect, and it is trivial to check the linearity and bilinearity.
+
+If $V$ and $W$ are both representation of $G$, then $V \otimes W$ is a representation by
+\[ g(v \otimes w) = gv \otimes gw. \]
+We may write $\rho_V \otimes \rho_W$ for this representation. Let $e_1, \ldots, e_n$ be a basis for $V$ and $f_1, \ldots, f_m$ be a basis for $W$. If we order the basis of $V \otimes W$ as
+\[ e_1 \otimes f_1, e_1 \otimes f_2, \ldots, e_1 \otimes f_m, e_2 \otimes f_1, \ldots \]
+then the matrix of $g$ on $V \otimes W$ is $A \otimes B$, the block matrix
+\[
+    \begin{pmatrix}
+        a_{11} B & a_{12} B & \ldots \\
+        a_{21} B & a_{22} B & \ldots \\
+        \vdots   & \vdots   & \ddots \\
+    \end{pmatrix}.
+\]
+
+\begin{proposition}
+    If $\rho_V$ and $\rho_W$ have characters $\chi_V$ and $\chi_W$, then
+    \[ \chi_{V \otimes W} = \chi_V \chi_W. \]
+\end{proposition}
+
+The tensor product is a generalisation of the \emph{twisting} construction we saw earlier. If $V$ is any vector space, then $V \otimes \mathbb C \cong V$ via the map $v \otimes \lambda \mapsto \lambda v$. If $(\chi, \mathbb C)$ is a 1-dimensional representation and $(\rho, V)$ is any representation of $G$, then $\rho \otimes \chi$ is a representation acting on $V \otimes \mathbb C$. We have
+\[ (\rho \otimes \chi)(g)(v \otimes \lambda) = (\rho(g)v) \otimes (\chi(g)\lambda) \mapsto \chi(g) \rho(g) \lambda v. \]
+Thus
+\[ \rho \otimes \chi \cong \chi\rho. \]
+We note that if $\rho$ is irreducible, so is $\chi \otimes \rho$. Furthermore, $\chi \otimes \rho$ may or may not be isomorphic to $\rho$. 
+
+\begin{lemma}
+    Let $V$ and $W$ be two finite-dimensional representation of a group. Then
+    \[ V^* \otimes W \cong \Hom(V, W) \]
+    as $G$-modules. 
+\end{lemma}
+
+\subsubsection{Symmetric and alternating powers}
+
+The \emph{symmetric square} $\Sym^2(V)$ of $V$ is the vector space spanned by the symbols $vv'$ with the bilinear relations and $vv' = v'v$ for all $v,v' \in V$. Formally, $\Sym^2(V)$ is the quotient
+\[ (V \otimes V)/{\sim} \]
+where $v \otimes v' \sim v' \otimes v$. 
+
+\begin{proposition}
+    Given a basis $e_1, \ldots, e_n$ of a vector space $V$, then $e_i e_j$ with $i \leq  j$ are a basis of $\Sym^2(V)$.
+\end{proposition}
+
+Thus
+\[ \dim \Sym^2(V) = \frac{n(n+1)}2. \]
+We also define the \emph{alternating square} ${\bigwedge}^2(V)$ of $V$ is spanned by elements of the form $v \wedge v'$ subject to the bilinear relations and $v \wedge v' = -v' \wedge v$ for all $v, v' \in V$. We can similarly define this by a quotient.
+
+If $V$ and $W$ are representations of $G$, then we can define actions of $G$ on these spaces.
+\begin{align*}
+    \Sym^2(V) &\to V \otimes V, \\
+    vv' &\mapsto v \otimes v' + v' \otimes v; \\
+    {\bigwedge}^2(V) &\to V \otimes V, \\
+    vv' &\mapsto v \otimes v' - v' \otimes v.
+\end{align*}
+Any $v \otimes w \in V \otimes W$ can be written in the form
+\[ v \otimes w = \frac12((v \otimes w + w \otimes v) + (v \otimes w - w \otimes v)) \]
+and so
+\[ V \otimes V \cong \Sym^2(V) \otimes {\bigwedge}^2(V). \]
+We note that the space $V \otimes V$ has the involution
+\[\sigma: v \otimes w \mapsto w \otimes v.\]
+As $\sigma^2 = I$, it has eigenvalues $\pm1$. The decomposition above is the eigenspace decomposition for $\sigma$, where $\Sym^2(V)$ is the 1-eigenspace and ${\bigwedge}^2(V)$ is the $(-1)$-eigenspace. 
+
+\begin{proposition}
+    If $(\rho, V)$ has character $\chi$, then
+    \begin{align*}
+        \chi_{\Sym^2(V)}(g) &= \frac12\left(\chi(g)^2 + \chi\left(g^2\right)\right), \\
+        \chi_{{\bigwedge}^2(V)}(g) &= \frac12\left(\chi(g)^2 - \chi\left(g^2\right)\right). \\
+    \end{align*}
+\end{proposition}
+
+\subsubsection{Matrices in dimension two}
+
+Suppose that $(\rho, V)$ is a representation of $G$ and $\dim V = 2$ with basis $e_1, e_2$. Let $g \in G$ and
+\[ 
+    \rho(g) = 
+    \begin{pmatrix}
+        a & b \\ c & d
+    \end{pmatrix}
+\]
+with respect to the space. We will compute the matrices of the symmetric square and alternating square. 
+
+\begin{example}
+    Let $(p, V)$ be a representation of $G$ such that $\dim V = 2$ with basis $e_1, e_2$. For ${\bigwedge}^2(\rho)$, we get the matrix
+    \[ \begin{pmatrix}
+        ad - bc
+    \end{pmatrix} \]
+    and for $\Sym^2(\rho)$ we get the matrix 
+    \[
+        \begin{pmatrix}
+            a^2 & ab & b^2 \\
+            2ac & ad + bc & 2bd \\
+            c^2 & cd & d^2 \\
+        \end{pmatrix}    
+    \]
+    with the assumed bases.
+\end{example}
+
+\subsection{The character table of $S_5$}
+
+\begin{example}
+    Let $G = S_5$. We have the trivial representation $\mathbbm 1$, the sign representation $\varepsilon$, and the permutation representation $V \cong \mathbbm 1 \oplus W$ and its twist, as we have seen. So we start our character table.
+    \begin{center}
+        \small
+        \begin{tabular}{cccccccc}
+            \toprule
+            & $e$ & $(1\,2)$ & $(1\,2)(3\,4)$ & $(1\,2\,3)$ & $(1\,2\,3)(4\,5)$ & $(1\,2\,3\,4)$ & $(1\,2\,3\,4\,5)$ \\
+            \midrule
+            Class size & 1 & 10 & 15 & 20 & 20 & 30 & 24 \\
+            \midrule
+            $\mathbbm 1$ & $1$ & $1$ & $1$ & $1$ & $1$ & $1$ & $1$  \\
+            $\varepsilon$ & $1$ & $-1$ & $1$ & $1$ & $-1$ & $-1$ & $1$ \\
+            $\chi$ & $4$ & $2$ & $0$ & $1$ & $-1$ & $0$ & $-1$ \\
+            $\chi^\varepsilon$ & $4$ & $-2$ & $0$ & $1$ & $1$ & $0$ & $1$ \\
+            \bottomrule
+        \end{tabular}
+    \end{center}
+    We now look at $\Sym^2(W)$ and ${\bigwedge^2}(W)$, which have the following characters.
+    \begin{center}
+        \small
+        \begin{tabular}{cccccccc}
+            \toprule
+            & $e$ & $(1\,2)$ & $(1\,2)(3\,4)$ & $(1\,2\,3)$ & $(1\,2\,3)(4\,5)$ & $(1\,2\,3\,4)$ & $(1\,2\,3\,4\,5)$ \\
+            \midrule
+            Class size & 1 & 10 & 15 & 20 & 20 & 30 & 24 \\
+            \midrule
+            ${\bigwedge}^2\chi$ & $6$ & $0$ & $-2$ & $0$ & $0$ & $0$ & $1$  \\
+            $\Sym^2\chi$ & $10$ & $4$ & $2$ & $1$ & $1$ & $0$ & $0$  \\
+            \bottomrule
+        \end{tabular}
+    \end{center}
+    From this, we see that ${\bigwedge}^2\chi$ is irreducible (but $\Sym^2\chi$ is not) and unfortunately the twist of ${\bigwedge}^2\chi$ is equal to itself. Now 
+    \[\langle \Sym^2\chi, \Sym^2\chi \rangle = 3,\] and as it must be the sum of squares, the only way is $1^2 + 1^2 + 1^2$. So it must decompose as the sum of three irreducible representations: $\psi_0$, $\psi_1$, and $\psi_2$. We note that
+    \[ \langle \Sym^2 \chi, \mathbbm 1 \rangle = 1, \]
+    so we take $\psi_0 = 1$. Again,
+    \[ \langle \Sym^2 \chi, \chi \rangle = 1, \]
+    so we take $\psi_1 = 1$. No other known representation can make up $\psi_2$. We know $\Sym^2 \chi - \mathbb 1 - \chi = \psi_2 = \psi$ must be a irreducible representation, and we can compute this directly to get the following.
+    \begin{center}
+        \small
+        \begin{tabular}{cccccccc}
+            \toprule
+            & $e$ & $(1\,2)$ & $(1\,2)(3\,4)$ & $(1\,2\,3)$ & $(1\,2\,3)(4\,5)$ & $(1\,2\,3\,4)$ & $(1\,2\,3\,4\,5)$ \\
+            \midrule
+            Class size & 1 & 10 & 15 & 20 & 20 & 30 & 24 \\
+            \midrule
+            $\mathbbm 1$ & $1$ & $1$ & $1$ & $1$ & $1$ & $1$ & $1$  \\
+            $\chi$ & $4$ & $2$ & $0$ & $1$ & $-1$ & $0$ & $-1$ \\
+            $\psi$ & $5$ & $1$ & $1$ & $-1$ & $1$ & $-1$ & $0$  \\
+            \midrule
+            $\Sym^2\chi$ & $10$ & $4$ & $2$ & $1$ & $1$ & $0$ & $0$  \\
+            \bottomrule
+        \end{tabular}
+    \end{center}
+    And we finally twist $\psi$ to get the final character table.
+    \begin{center}
+        \small
+        \begin{tabular}{cccccccc}
+            \toprule
+            & $e$ & $(1\,2)$ & $(1\,2)(3\,4)$ & $(1\,2\,3)$ & $(1\,2\,3)(4\,5)$ & $(1\,2\,3\,4)$ & $(1\,2\,3\,4\,5)$ \\
+            \midrule
+            Class size & 1 & 10 & 15 & 20 & 20 & 30 & 24 \\
+            \midrule
+            $\mathbbm 1$ & $1$ & $1$ & $1$ & $1$ & $1$ & $1$ & $1$  \\
+            $\varepsilon$ & $1$ & $-1$ & $1$ & $1$ & $-1$ & $-1$ & $1$ \\
+            $\chi$ & $4$ & $2$ & $0$ & $1$ & $-1$ & $0$ & $-1$ \\
+            $\chi^\varepsilon$ & $4$ & $-2$ & $0$ & $1$ & $1$ & $0$ & $1$ \\
+            ${\bigwedge}^2\chi$ & $6$ & $0$ & $-2$ & $0$ & $0$ & $0$ & $1$  \\
+            $\psi$ & $5$ & $1$ & $1$ & $-1$ & $1$ & $-1$ & $0$  \\
+            $\psi^\varepsilon$ & $5$ & $-1$ & $1$ & $-1$ & $-1$ & $1$ & $0$  \\
+            \bottomrule
+        \end{tabular}
+    \end{center}
+\end{example}

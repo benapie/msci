@@ -1,0 +1,50 @@
+\part[15] Prove that \textsc{$5$-Safety Number} is constant-time solvable for the class of graphs of diameter at most $4$. 
+
+\begin{solution}
+    We denote $\Delta(G)$ as the maximum degree of a graph $G$. We first have some required results.
+    \vspace{0.5em}
+    \begin{lemma}
+        If a graph $G$ contains $K_6$ as an induced subgraph, it is not $5$-colourable.
+    \end{lemma}
+    \begin{proof}
+        Let $G$ be a graph and let $A \subset V[G]$ be such that $G[A] = K_6$ (that is, $G$ contains $K_6$ as an induced subgraph). For a contradiction, suppose we have a $5$-colouring $c: V(G) \to \{1,2,3,4,5\}$ of $G$. We restrict our $5$-colouring to the induced subgraph $G[A]$, but we see that $c$ cannot exist, as $\Delta(G[A]) = 5$. Thus $G$ is not $5$-colourable, as required.
+    \end{proof}
+    \begin{lemma}
+        If a graph $G$ contains $S_{13}$ as an induced graph, it does not admit a safe $5$-colouring.
+    \end{lemma}
+    \begin{proof}
+        Let $G$ be a graph and let $A \subset V[G]$ be such that $G[A] = S_{13}$ (that is, $G$ contains $S_{13}$ as an induced subgraph). For a contradiction, suppose we have a safe $5$-colouring $c: V(G) \to \{1,2,3,4,5\}$ of $G$. Then $c$ is also a safe $5$-colouring of $G[A] = S_{13}$. As the internal node $v \in G[A]$ is a dominating vertex in this induced subgraph, it must have a unique colour; that is, $P = \{v\}$ is a colour set. Thus we have 4 colours left to colour the 13 leaves. By the pigeonhole principle, at least one of the colour sets has size $4$, say $Q \subset A$. As $c$ is a safe $5$-colouring, we have $\Delta(G[Q \cup A]) \leq 3$. But $G[Q \cup A] = S_4$, which has maximum degree $4$ (precisely $\deg(v) = 4$). Thus we have reached contradiction, and $G$ does not have a safe $5$-colouring.
+    \end{proof}
+
+    We also recall the following theorem seen in lectures.
+    \vspace{0.5em}
+    \begin{theorem}[Ramsey's theorem]
+        For every pair of integers $r, s \in \mathbb N$, there exists a constant $R(r,s)$ such that every graph on at least $R(r,s)$ vertices has either a clique of size $r$ or an independent set of size $s$.
+    \end{theorem}
+    \vspace{0.5em}
+    We can now proceed with the proof. Let $G$ be a graph with diameter at most $4$.
+
+    \textbf{Claim.} If $\lvert V(G) \rvert > \beta$ for some constant $\beta \in \mathbb N$ (which we will determine), then $G$ does not admit a safe $5$-colouring.
+
+    Under the assumption that this claim is true, we see that we have a constant number of possible potential safe $5$-colourings we need to check. We can do this in constant time. 
+
+    \begin{proof}[Proof of claim]
+        For every vertex $u \in V(G)$ of degree at least $R(5, 13)$, by Ramsey's theorem, the induced subgraph $G[N(u)]$ \emph{must} contain either
+        \begin{enumerate}
+            \item[(1)] a clique of size $5$; or
+            \item[(2)] an independent set of size $13$. 
+        \end{enumerate}
+        First consider (1). $N(u)$ must contain a clique of size $5$, so let $A \subset N(u)$ be such that $G[A]$ is this clique. By definition, $u$ dominates all of its neighbours, thus $G[A \cup \{u\}]$ is a clique of size $6$, and so $G$ is not $5$-colourable (by our first lemma), and thus does not admit a safe $5$-colouring. 
+        
+        Now we consider (2). $N(u)$ must contain a independent set of size $13$, so let $A \subset N(u)$ be such $G[A]$ is this independent set. By definition, $u$ dominates all of its neighbours, thus $G[A \cup \{u\}] = S_{13}$. Therefore, $G$ does not admit a safe $5$-colouring (by our second lemma).
+
+        Thus, for $G$ to admit a safe $5$-colouring, every neighbourhood must have size less than $R(5, 13)$. We note that $N_i(u) = \varnothing$ for all $i \in \{5,6,7,\ldots\}$, and thus we have that
+        \[ 
+            \lvert V(G) \rvert \leq \beta = 1 + R(5,13) + R(5,13)^2 + R(5,13)^3 + R(5,13)^4
+         \]
+         where
+         \[
+            R(5, 13) \leq \binom{16}{4} = 1820. \qedhere
+         \]
+    \end{proof}
+\end{solution}

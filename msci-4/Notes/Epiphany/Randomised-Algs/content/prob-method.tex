@@ -1,0 +1,33 @@
+\section{Probabilistic method}
+
+The \emph{probabilistic method} is a non-constructive proof for the existence of an object, by showing that some process generates the object with non-zero probability.
+
+\begin{definition}[Tournament]
+    A \emph{tournament} is a digraph obtained by assigning a direction for each edge in an undirected complete graph. 
+\end{definition}
+
+\begin{theorem}
+    For $n \in \N_{\geq 3}$, there exists a tournament with at least $2^{-n}(n-1)!$ directed cycles.
+\end{theorem}
+
+\begin{lemma}[Variant of Chernoff's inequality]
+    Let $(X_i)_{i=1}^n$ independent random variables such that $\Pr[X_i = 1] = \Pr[X_i = -1] = \frac12$
+    for all $i \in \{1, \ldots, n\}$. Let $X = \sum_{i=1}^n X_i$ and $a \in \R_{>0}$. Then
+    \[ \Pr[\lvert X \rvert > a] \leq 2\exp\left(\frac{-2a^2}{n}\right). \]
+\end{lemma}
+
+\begin{lemma}[Lov\'asz local lemma]
+    Let $\mathcal A = (A_i)_{i=1}^m$ be a finite collection of events on some probability space and for each $A \in \mathcal A$ let $\Gamma(A)$ be a set of events such that $A$ is independent of all events not in $\Gamma(A) \cup \{A\}$. If there exists a real number $x_A \in (0,1)$ such that for all $A \in \mathcal A$,
+    \[ \Pr[A] \leq x_A \prod_{B \in \Gamma(A)} (1 - x_B) \]
+    then
+    \[ \Pr\left[\bigcap_{A \in \mathcal A} \overline A\right] \geq \prod_{A \in \mathcal A} (1 - x_A). \]
+\end{lemma}
+
+\begin{remark}
+    We may think of $\Gamma(A)$ as the neighbours of $A$ in the \emph{dependency graph} of $A$. A dependency graph, each vertex represents an event, and there is an edge between two events if they are not independent. 
+\end{remark}
+
+\begin{corollary}
+    Let $\mathcal A$ and $\Gamma$ as before, and further suppose there is $p \in [0,1]$ and $d \in \R_{\geq 0}$ such that for all $A \in \mathcal A$, $\Pr[A] \leq p$ and $\lvert \Gamma(A) \rvert \leq d$. Then if $ep(d+1) < 1$ we have
+    \[ \Pr\left[\bigcap_{A \in \mathcal A} \overline A\right] > 0. \]
+\end{corollary}

@@ -1,0 +1,154 @@
+%! TEX root = master.tex
+
+\section{Cryptography and zero knowledge proofs}
+\lecture{3}{23/10}
+
+\begin{definition}[Symmetric cryptography]
+	In \emph{symmetric-key encryption}, there is only one key used for
+	both encryption of plaintext and decryption of ciphertext.
+\end{definition}
+
+In this generic encryption scheme, messages are encrypted and decrypted
+with the same key, so both sender and recipient need the same key in order
+to communicate.
+
+\begin{definition}[Asymmetric cryptography]
+	In \emph{asymmetric-key encryption}, there are a pair of keys:
+	\textbf{public keys}, which may be disseminated widely and used to
+	encrypt plaintext; and \textbf{private keys} which are only known
+	to the owner and are used to decrypt ciphertext.
+\end{definition}
+
+\begin{example}[RSA]
+	One common algorithm used for public key cryptography is \emph{RSA},
+	in this system the recipient generates two primes $p, q \in \N$
+	and computes $n = pq$ and $\phi = (p-1)(q-1)$.
+	The recipient then randomly choses $e \in \N$ such that
+	$e < \phi$ and $\gcd(e, \phi) = 1$.
+	The public key is $(n,e)$.
+	The recipient then calculates $d$ such that
+	$de \equiv 1 \bmod \phi$.
+	The private key is $(n,d)$.
+	Now, the sender encrypts a message $m$ by calculating $c = m^e \bmod n$
+	and transmits $c$.
+	The recipient decrypts the message by finding $m = c^d \bmod n$.
+\end{example}
+
+Now let us examine how hard it would be to find the private key given the public
+key.
+To do this, we would have to find $p,q$ given $n = pq$.
+That is, we are looking at the following decision problem.
+
+\begin{problem}[Integer factorisation]
+	Instance: $n, m \in \N$ with $m < n$. \\
+	Question: is there $d \in \left\{
+		1, \ldots, m
+	\right\}$ such that $d \mid n$?
+\end{problem}
+
+There is no polynomial algorithm known for integer factorisation;
+it is in $\mathsf{NP}$ and $\mathsf{coNP}$
+but it is \emph{not} in $\mathsf{NP}$-complete
+(unless $\mathsf{coNP} = \mathsf{NP}$).
+
+Now we move onto \emph{authentication scheme}; that is,
+a scheme in which we can verify that a user is who they say they are.
+A generic authentication scheme would involve:
+\begin{enumerate}
+	\item a client sending a request to a server;
+	\item the server sending a request for proof of identity back to the
+		client;
+	\item the client sending the proof of identity;
+	\item the server verifying whether the proof sent is valid; then
+	\item the server either responding to the request or rejecting.
+\end{enumerate}
+
+A glaring weakness in this scheme is that the client has to send the proof
+of identity, so anyone who can get their hands on this data can use it to
+falsely identify as the client.
+We are interested in ways a client can identify themselves without
+transmitting any information, a \emph{zero-knowledge proof} (ZKP).
+
+\begin{definition}[Zero-knowledge proof]
+	A \emph{zero-knowledge proof} is a method by which one party
+	(the \emph{prover}) can prove to another party (the \emph{verifier})
+	that they know a value $x$ without conveying any information apart
+	from the fact that they know $x$.
+	A zero-knowledge proof must satisfy three properties:
+	\begin{enumerate}
+		\item (\emph{completeness}) if the statement is true, the honest 
+			verifier will be convinced of the fact by a honest prover;
+
+		\item (\emph{soundness}) if the statement is false, no cheating
+			prover can convince the honest verifier that it is true
+			(except with some small probability); and
+
+		\item (\emph{zero-knowledge}) if the statement is true, no verifier
+			lerans anythin gother than the fact that the statement is true.
+	\end{enumerate}
+\end{definition}
+
+We will use the following problem to illustrate the essence of a zero-knowledge
+proof.
+
+\begin{problem}[Graph isomorphism]
+	Instance: undirected graphs $G = (V_G, E_G)$ and $H = (V_H, E_H)$. \\
+	Question: does there exist a bijection $f: V_G \to V_H$ such that for every
+	$(u,v) \in E_G$, $(f(u), f(v)) \in E_H$?
+\end{problem}
+
+\begin{algorithm}[ZKP for graph isomorphism]
+	Let $G$ and $H$ as above
+	and suppose that a prover would like to prove to a verifier
+	that they know a bijection $f$ as described above.
+	The prover first calculates a random permutation of $G$, say $A$,
+	and sends it to our verifier.
+	The verifier then chooses between $G$ and $H$ randomly,
+	and sends $0$ if $G$ is chosen and $1$ otherwise.
+	The prover then computers a permutation $\rho$ such that $H$ is
+	obtained from either of the graphs the verifier had chosen.
+	$\rho$ is then sent to the verifier, who then checks that the
+	graph they chose can be obtained from $A$ using $\rho$.
+\end{algorithm}
+
+\begin{proof}
+	The algorithm above is clearly complete.
+	Now, suppose we have a cheating prover.
+	This prover does not know an isomorphism between $G$ and $H$,
+	but does know one between $A$ and one of $G$ or $H$.
+	Thus, the prover must guess which graph the verifier will pick.
+	For $n$ repetitions, this gives us a probability of $\sfrac{1}{2^n}$
+	that the prover guesses correctly.
+	Finally, no knowledge about the isomorphism is revealed from the provers
+	transmission; hence, this describes a zero-knowledge proof.
+\end{proof}
+
+\begin{problem}[3-coloring]
+	Instance: an undirected graph $G$. \\
+	Question: is there a $k$-coloring of $G$?
+\end{problem}
+
+\begin{algorithm}[ZKP for 3-coloring]
+	Both prover and verifier have a graph $G = (V,E)$.
+	The prover has a 3-coloring $c$.
+	First, the prover permutes the colors in $c$ before coloring $G$.
+	Then they cover up the colored vertices.
+	The verifier picks a random edge and the prover reveals the colours of
+	that edge.
+	If the verifier has a distinct colour then they accept, otherwise
+	they reject.
+\end{algorithm}
+
+We can implement the above algorithm using \emph{bit commitment}:
+\begin{enumerate}
+	\item for every $x \in V$, the prover creates a public key $(n_x, e_x)$.
+		and a private key $(n_x, d_x)$;
+
+	\item the prover encoes all colours and sends them to the verifier;
+
+	\item the verifier choses a random edge and sends it to the prover;
+		
+	\item the prover sends the private keys for the vertices of the edge; and
+
+	\item the verifier checks that the keys decode the colours.
+\end{enumerate}

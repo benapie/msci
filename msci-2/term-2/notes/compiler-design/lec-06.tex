@@ -1,0 +1,183 @@
+\lecture{6}{18/2}
+
+\begin{definition}[Ambiguous grammar]
+    Let $G$ be a formal grammar.
+    Then $G$ is \textbf{ambiguous}
+    if there is more than one leftmost derivations
+    for the same string (or more than one parse tree).
+\end{definition}
+
+\begin{example}
+    \hfill
+    \begin{enumerate}
+        \item
+            Consider a grammar with the following production rule:
+            \[
+                \text{string} \to
+                \text{string} + \text{string} 
+                \mid \text{string} - \text{string} 
+                \mid 0 \mid 1 \mid 2 \mid 3 \mid 4 \mid 5 \mid 6 \mid 7 \mid 8 \mid 9.
+            \]
+            Now consider the string $9-5+2$, it has the following two parse trees:
+            \begin{center}
+                \begin{forest}
+                    [string
+                        [string
+                            [string
+                                [9]
+                            ]
+                            [$-$]
+                            [string
+                                [5]
+                            ]
+                        ]
+                        [$+$]
+                        [string
+                            [2]
+                        ]
+                    ]
+                \end{forest}
+                \hspace{1em}
+                \begin{forest}
+                    [string
+                        [string
+                            [9]
+                        ]
+                        [$-$]
+                        [string
+                            [string
+                                [5]
+                            ]
+                            [$+$]
+                            [string
+                                [2]
+                            ]
+                        ]
+                    ]
+                \end{forest}
+            \end{center}
+            Therefore, it is an ambiguous grammar.
+
+        \item 
+            Consider the grammar with the following production rules:
+            \[
+                E \to
+                E + E \mid
+                E * E \mid
+                (E) \mid
+                \bm{\text{id}}.
+            \]
+            Then, for the string $\bm{\text{id}} + \bm{\text{id}} * \bm{\text{id}}$
+            we have the following parse trees.
+            \begin{center}
+                \begin{forest}
+                    [$E$
+                        [$E$
+                            [\textbf{id}]
+                        ]
+                        [$+$]
+                        [$E$
+                            [$E$
+                                [\textbf{id}]
+                            ]
+                            [$*$]
+                            [$E$
+                                [\textbf{id}]
+                            ]
+                        ]
+                    ]
+                \end{forest}
+                \hspace{1em}
+                \begin{forest}
+                    [$E$
+                        [$E$
+                            [$E$
+                                [\textbf{id}]
+                            ]
+                            [$+$]
+                            [$E$
+                                [\textbf{id}]
+                            ]
+                        ]
+                        [$*$]
+                        [$E$
+                            [\textbf{id}]
+                        ]
+                    ]
+                \end{forest}
+            \end{center}
+            Therefore, it is an ambiguous grammar.
+    \end{enumerate}
+\end{example}
+
+There are two solutions to resolve ambiguity:
+\begin{enumerate}
+    \item use \emph{disambiguating rules} that \emph{throw away} undesired
+        parse trees; or
+
+    \item construct an equivalent unambiguous grammar.
+\end{enumerate}
+We have no general algorithm, it is case dependent.
+
+\begin{example}
+    \hfill
+    \begin{enumerate}
+        \item 
+            The simplest example is the following ambiguous grammar for
+            the trivial language:
+            \[
+                A \to A \mid \varepsilon.
+            \]
+            The empty string has a derivation of every length,
+            depending on hwo many times the rule $A \to A$ is used.
+            This language also has the unambiguous grammar, 
+            consiting of a single produciton rule:
+            \[
+                A \to \varepsilon.
+            \]
+
+        \item
+            Consider the unambiguous grammar with production rules
+            \[
+                A \to aA \mid \varepsilon.
+            \]
+            We can construct the ambiguous grammar which describes
+            the same formal language with production rules
+            \[
+                A \to aA \mid Aa \mid \varepsilon.
+            \]
+
+        \item
+            The grammar with production rules
+            \[
+                A \to A - A \mid A + A \mid a
+            \]
+            is clearly ambiguous,
+            an equivalent unambiguous grammar has production rules
+            \[
+                A \to a + A \mid a - A \mid a.
+            \]
+    \end{enumerate}
+\end{example}
+
+\begin{remark}
+    It is important to note that it is not sufficient for a string
+    to have multiple derivations for it to be ambiguous;
+    only \emph{leftmost derivations}.
+    For example, consider the simple grammar
+    \begin{align*}
+        S &\to A + A \\
+        A &\to 0 \mid 1.
+    \end{align*}
+    The string $0 + 0$ has the derivations
+    \[
+        S \implies A + A \implies 0 + A \implies 0 + 0
+    \]
+    and
+    \[
+        S \implies A + A \implies A + 0 \implies 0 + 0
+    \]
+    but only the former derivation is a leftmost one.
+\end{remark}
+
+%todo

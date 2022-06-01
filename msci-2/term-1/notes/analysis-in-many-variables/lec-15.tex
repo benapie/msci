@@ -1,0 +1,84 @@
+\section{Differentiation}
+
+Here we are looking at differential maps $\R^n \to \R$, that is, functions $f: \R^n \to \R$ which are differentiable.
+
+Our basic idea of differentiation is to \emph{approximate} a function of a single variable $f(x)$ near to $x = a$ by a straight line with slope $f'(a)$, as shown in Figure \ref{fig:approximate-function}.
+
+\begin{figure}
+    \centering
+    \begin{tikzpicture}
+        \begin{axis}[axis lines=middle,
+                     xmin=-1, xmax=5, ymin=-1, ymax=3]
+            \addplot[color = scarletred, 
+                     smooth] coordinates {(-1, 0.7) (5,1.)};
+            \addplot[smooth] {0.1*(x)^2 + 1};
+        \end{axis}
+    \end{tikzpicture}
+    \caption{Illustration of a tangent line of a function.}
+    \label{fig:approximate-function}
+\end{figure}
+
+So we define
+\[ R(h) = f(a + h) - f(a) - hf'(a). \]
+Then
+\[ \lim_{h \to 0} \left( \frac{R(h)}{h} \right) = \lim_{h \to 0} \left(\frac{f(a + h) - f(a)}{h}\right) - f'(a) = 0 \]
+by the usual definition of a derivative. That is, $R(h)$ goes to $0$ faster than $h$ does. So for $h$ small enopugh, $R(h)$ can be neglected when compared to $hf'(a)$. This gives us 
+\[ f(a+h) - f(a) = hf'(a) + R(h) \approx hf'(a), \]
+this is linear in $h$, which is very useful.
+
+We are now going to generalise the idea of differentiability to $\R^n$.
+
+\begin{definition}[Differentiability]
+    Let $U$ be an open set in $\R^n$ and $f: U \to \R$ is a scalar field. $f$ is \textbf{differentiable} at $\bm a \in U$ if we can find a vector $\bm v(\bm a)$ such that
+    \[ f(\bm a + \bm h) - f(\bm a) = \bm h \cdot \bm v(\bm a) + R(\bm h) \tag{$\star$} \]
+    with 
+    \[ \lim_{\bm a \to \bm 0} \left(\frac{R(\bm h)}{\norm{\bm h}} \right) = 0. \tag{$\star\star$} \]
+\end{definition}
+
+\begin{remark}
+    \begin{enumerate}
+        \item $(\star)$ defines what $R(h)$ is, $(\star\star)$ is the important bit.
+        \item $\bm h \cdot \bm v(\bm a)$ is linear in $\bm h$.
+    \end{enumerate}
+\end{remark}
+
+\begin{theorem}
+    From the above definition of differentiability, if $\bm v$ exists, it is equal to $\nabla f$.
+\end{theorem}
+
+\begin{proof}
+    Take $\bm h = h \bm e_i$ for some $h \in \R$ and $i = 1, \ldots, n$. Then $\norm{\bm h} = \lvert h \rvert$ and by definition
+    \begin{align*}
+        \left( \nabla f \right)_i = \frac{\partial f}{\partial x_i} &= \lim_{h \to 0} \left(\frac{\bm a + h\bm e_i) - f(\bm a)}{h}\right) \\
+        &= \lim_{h \to 0} \left( \frac{f(\bm a) + h\bm e_i \cdot \bm v(\bm a) + R(\bm h) - f(\bm a)}{h} \right) \\
+        &= \lim_{h \to 0} \left( \bm e_i \cdot \bm v(\bm a) + \frac{R(\bm h)}{h} \right) \\
+        &= \bm e_i \cdot \bm v(\bm a) + \lim_{h \to 0} \left(\frac{R(\bm h)}{\norm{\bm h}} \right) \\
+        &= \bm e_i \cdot \bm v(\bm a) = v_i(\bm a).
+    \end{align*}
+\end{proof}
+
+\begin{remark}
+    The components of $\nabla f$ may be well-defined at $\bm x = \bm a$ but $f$ could be non-differentiable.
+\end{remark}
+
+\begin{example}
+    Let $f:\R^2 \to \R$ defined by
+    \[ 
+        f(x, y) = 
+        \begin{cases}
+            \frac{xy}{x^2 + y^2} & \bm x \neq \bm 0 \\
+            0                    & \bm x = \bm 0. \\
+        \end{cases}
+    \]
+    At the origin, we have that
+    \[ \frac{\partial f}{\partial x} = \lim_{h \to 0} \left( \frac{f(h, 0) - f(0,0)}{h} \right) = 0, \]
+    likewise $\sfrac{\partial f}{\partial y} = 0$ at the origin. So $\nabla f(0,0) = \bm 0$. If $f$ is differentiable, $\bm v$ is equal to this as well. Setting $\bm h = (h_1, h_2)$,
+    \[ f(h_1, h_2) - f(0,0) = \bm h \cdot \bm v(\bm 0) + R(\bm h) = R(h_1, h_2) \]
+    so
+    \[ R(h) = \frac{h_1h_2}{h_1^2 + h_2^2} \]
+    if $f$ is differentiable at the origin. So we can test whether $R(h)$ tends to zero faster than $h$:
+    \[ \frac{R(\bm h)}{\bm h} = \frac{h_1h_2}{h_1^2 + h_2^2} \cdot \norm{h}^{-1} = \frac{h_1h_2}{(h_1^2 + h_2^2)^{\sfrac32}}. \]
+    If we take this limit with $h_1 = 0$ or $h_2 = 0$, we get $0$; however, if $h_1 = h_2 = h$ 
+    \[ \frac{R(\bm h)}{\bm h} = \frac{1}{2\sqrt 2 \cdot h} \not \to 0\]
+    as $\bm h \to 0$; therefore, $f$ is not differentiable.
+\end{example}

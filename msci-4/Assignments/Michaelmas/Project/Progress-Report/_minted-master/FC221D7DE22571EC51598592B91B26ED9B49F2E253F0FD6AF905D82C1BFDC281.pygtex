@@ -1,0 +1,11 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{n}{ranks} \PYG{o}{=} \PYG{p}{[]}
+\PYG{n}{nullities} \PYG{o}{=} \PYG{p}{[]}
+\PYG{n}{homology\PYGZus{}ranks} \PYG{o}{=} \PYG{p}{[]}
+\PYG{k}{for} \PYG{n}{i} \PYG{o+ow}{in} \PYG{n+nb}{range}\PYG{p}{(}\PYG{l+m+mi}{0}\PYG{p}{,} \PYG{n+nb}{len}\PYG{p}{(}\PYG{n}{boundary\PYGZus{}maps}\PYG{p}{)):}
+    \PYG{n}{ranks}\PYG{o}{.}\PYG{n}{append}\PYG{p}{(}\PYG{n}{rank}\PYG{p}{(}\PYG{n}{boundary\PYGZus{}maps}\PYG{p}{[}\PYG{n}{i}\PYG{p}{]))}
+    \PYG{n}{nullities}\PYG{o}{.}\PYG{n}{append}\PYG{p}{(}\PYG{n+nb}{len}\PYG{p}{(}\PYG{n}{chain\PYGZus{}groups}\PYG{p}{[}\PYG{n}{i}\PYG{p}{])} \PYG{o}{\PYGZhy{}} \PYG{n}{ranks}\PYG{p}{[}\PYG{n+nb}{len}\PYG{p}{(}\PYG{n}{ranks}\PYG{p}{)} \PYG{o}{\PYGZhy{}} \PYG{l+m+mi}{1}\PYG{p}{])}
+\PYG{n}{ranks}\PYG{o}{.}\PYG{n}{append}\PYG{p}{(}\PYG{l+m+mi}{0}\PYG{p}{)}
+\PYG{k}{for} \PYG{n}{i} \PYG{o+ow}{in} \PYG{n+nb}{range}\PYG{p}{(}\PYG{l+m+mi}{0}\PYG{p}{,} \PYG{n+nb}{len}\PYG{p}{(}\PYG{n}{boundary\PYGZus{}maps}\PYG{p}{)):}
+    \PYG{n}{homology\PYGZus{}ranks}\PYG{o}{.}\PYG{n}{append}\PYG{p}{(}\PYG{n}{nullities}\PYG{p}{[}\PYG{n}{i}\PYG{p}{]} \PYG{o}{\PYGZhy{}} \PYG{n}{ranks}\PYG{p}{[}\PYG{n}{i} \PYG{o}{+} \PYG{l+m+mi}{1}\PYG{p}{])}
+\end{Verbatim}

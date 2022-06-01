@@ -1,0 +1,61 @@
+\section{Applications}
+
+\subsection{Applications of homology}
+
+As we have seen through our development of homology theory, it allows us to make statements about general topology.
+
+\begin{theorem}
+  $\R^n \cong \R^m$ if and only if $n = m$.
+\end{theorem}
+
+\begin{proof}
+  If $n = m$, then $\R^n \cong \R^m$. For the converse, suppose $n \neq m$. If $n = 0$ or $m = 0$, then it is clear that $\R^n \not\cong \R^m$. So we suppose that $n, m \geq 1$. For a contradiction, suppose $\R^n \cong \R^m$. Then
+  \[ S^{n-1} \simeq \R^n \setminus \{0\} \cong \R^m \setminus \{0\} \simeq S^{m-1} \]
+  and it follows that $H_k(S^{n-1}) \cong H_k(S^{m-1})$ for all $k$; but we have seen this is not true for $n, m \geq 2$. But we also note that $H_0(S^0) \cong \Z^2$, and thus we have reached a contradiction.
+\end{proof}
+
+\begin{theorem}
+  Let $n \in \Z_{\geq 0}$ and $f: D^n \to D^n$ be a continuous map. Then $f$ has a fixed point; that is, there is $x \in D^n$ such that $f(x) = x$.
+\end{theorem}
+
+\begin{proof}
+  If $n = 0$, we are done. Suppose $n > 0$ and suppose for a contradiction that $f$ has no fixed point. For each $x \in D^n$, we consider the unique line through the points $x$ and $f(x)$. This line intersects $S^{n-1}$ at two points, let $r(x)$ be the point closest to $x$. It is clear that $r(x) = x$ if $x \in S^{n-1}$, so $r: D^n \to S^{n-1}$ defines a retraction. Now, we observe that $D^n$ is contractible, so for $n \geq 2$, $H_{n-1}(D^n) \cong 0$ but $H_{n-1}(S^{n-1}) \cong \Z$, thus this cannot be the case. If $n = 1$, then $H_0(S^0) \cong \Z^2$ while $H_0(D^1) \cong \Z$, which also cannot be the case as there is no injective homomorphism $\Z \to \Z^2$.
+\end{proof}
+
+\subsection{Split short exact sequences}
+
+\begin{definition}[Split short exact sequence]
+  A short exact sequence of abelian groups
+  \[0 \to A \xrightarrow f B \xrightarrow g C \to 0\]
+  is \emph{split} if there is a homomorphism $s: C \to B$ with $g \circ s = \id_C$.
+\end{definition}
+
+\begin{proposition}
+  For a short exact sequence $0 \to A \xrightarrow[]{f} B \xrightarrow[]{g} C \to 0$, the following are equivalent.
+  \begin{enumerate}
+    \item There is a homomorphism $p: B \to A$ with $p \circ f = \id_A$.
+    \item There is a homomorphism $s: C \to B$ with $g \circ s = \id_C$.
+    \item There is an isomorphism $\theta: A \oplus C \to B$ such that the diagram
+          \begin{center}
+            % https://tikzcd.yichuanshen.de/#N4Igdg9gJgpgziAXAbVABwnAlgFyxMJZABgBoBGAXVJADcBDAGwFcYkRiQBfU9TXfIRTkK1Ok1bsAgt14gM2PASIAmUsTEMWbRCCkACADqGIaFnH0BhWX0WDVpFZok6QAIRvz+SocgDMojRakrrWPLYCyigALIHi2uycXGIwUADm8ESgAGYAThAAtkhkIDgQSOThIHmFFTRlSGrxISBYAPrknjVFiCKl5YgBza7ZIDSM9ABGMIwACt72urlYaQAWOF35PU0NgzRwq1jZG4glOPRYjOyQYGw0qzD0UEhgzIyMQS7sxjgP55u1RA7AaxYbsNBtFQAnqg3YAViq3SQQ12oOCrjSYxAE2mcwWURAyzWG0RW0a9QGQ3R30MAGMCJj9odjsVxlMZvM7ASietuJQuEA
+            \begin{tikzcd}
+              &                                      & A \oplus C \arrow[dd, "\theta"] \arrow[rd, "p_2"] \arrow[dd, "\cong"'] &             &   \\
+              0 \arrow[r] & A \arrow[ru, "i_1"] \arrow[rd, "f"'] &                                                                        & C \arrow[r] & 0 \\
+              &                                      & B \arrow[ru, "g"']                                                     &             &
+            \end{tikzcd}
+          \end{center}
+          commutes, where $i_1: a \mapsto (a,0)$ and $p_2: (a,c) \mapsto c$.
+  \end{enumerate}
+\end{proposition}
+
+\begin{proof}
+  %todo
+\end{proof}
+
+\begin{lemma}
+  Consider the short exact sequence $0 \to A \to B \to \Z^m \to 0$ for some $m > 0$. Then this short exact sequence splits, so $B \cong A \oplus \Z^m$. 
+\end{lemma}
+
+\begin{proof}
+  For each $e_i \in \Z^m$, choose $b_i \in B$ mapping to $e_i$. Then we simply map $\sum_i n_i e_i \mapsto \sum_i n_i b_i$.
+\end{proof}

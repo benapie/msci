@@ -1,0 +1,83 @@
+\assignment{8}{13/12}
+
+\setcounter{question}{0}
+\question For every $n \in \N$, let 
+\[f_n(x) = \frac1{x_n}\]
+for $x \in [1, \infty)$.
+Show that $\{f_n\}_{n \in \N}$ converges pointiwise on $[1, \infty)$, 
+and determine whether convergence is uniform on $[1, \infty)$.
+For a fixed $R > 1$, determine whether convergence is uniform on $[R, \infty)$.
+\begin{solution}
+    \[ f_n(x) = \frac 1{x^n} = \left(\frac1x\right)^n \to 
+        \begin{cases}
+            1 & z = 1 \\
+            0 & z \in (1, \infty) \\
+        \end{cases} 
+    = f(x) \]
+        pointwise as $x \in [1, \infty) \implies \frac1x \in (0, 1]$.
+        $f_n(x)$ is continuous for all $x \in [1, \infty)$; 
+        however, $f(x)$ is not continuous at $x = 1$. 
+        Therefore, $f_n \not \to f$ uniformly on $[1, \infty)$.
+        Now for $x \in [R, \infty)$ where $R > 1$, we have
+        \[ \abs{f_n(x) - f(x)} = \frac1{x^n} \leq \frac1{R^n} = s_n \to 0 \]
+        for all $n \in \N$ and $x \in [R, \infty)$; hence, 
+        $f_n(x) \to 0$ uniformly on $[R, \infty)$ where $R > 1$.
+\end{solution}
+
+\setcounter{question}{2}
+\question
+\begin{parts}
+    \part Show that for any $\rho > 0$ the sequence
+    \[ \left\{ \frac1{nz} \right\}_{n = 1}^\infty \]
+    converges uniformly on $\{ z \in \C: \abs z \geq \rho \}$.
+    \begin{solution}
+        We have that $\frac1{nz} \to 0$ pointwise. Then
+        \[ \abs{\frac1{nz} - 0} = \frac1n \cdot \frac1{\abs z} \leq \frac1{n\rho} = s_n \to 0; \]
+        hence $\frac1{nz} \to 0$ uniformly on $\{z \in \C: \abs z \geq \rho\}$.
+    \end{solution}
+
+    \part Does the sequence converge uniformly on $\C^\star$?
+    \begin{solution}
+        Let $z_n = \frac1n$. Then
+        \[ \abs{\frac1{nz_n} - 0} = 1 = c > 0; \]
+        so $\frac1{nz} \not \to 0$ uniformly on $\C^\star$; hence it does not converge uniformly.
+    \end{solution}
+\end{parts}
+
+\setcounter{question}{9}
+\question Let $R$ satisfy $0 < R < 1$. 
+Show that the series
+\[ \sum_{n = 1}^\infty \left(\frac{z^n}{1 + z^n}\right) \]
+converges uniformly on $\{ z \in \C : \abs z < R \}$.
+Conclude that the infinite series defines a continuous function on the unit disc $\D$.
+\begin{solution}
+    \[ \abs{\frac{z^n}{1 + z^n}} < \frac{\abs z^n}1 = \abs z^n < R^n = M_n. \]
+    Now,
+    \begin{align*}
+        \int_1^\infty R^x \, dx &= \left( \log{R} \cdot R^x \right)^\infty_1 \\
+        &= \log{R} \left( \lim_{k \to \infty} R^k - R \right) \\
+        &= -R \cdot \log{R}
+    \end{align*}
+    as $0 < R < 1$; hence $\sum_{n = 1}^\infty M_n < \infty$. 
+    As $\abs{\left(\frac{z^n}{1 + z^n}\right)} \leq M_n$, then
+    \[ \sum_{n = 1}^\infty \left(\frac{z^n}{1 + z^n}\right) \]
+    uniformly converges on $B_R(0)$.
+    As every term of the summation is continous on $\D$ and there is locally uniform convergence then
+    \[ \sum_{n = 1}^\infty \left(\frac{z^n}{1 + z^n}\right) \]
+    is continuous on $\D$.
+\end{solution}
+
+\setcounter{question}{11}
+\question Given $0 < r < R < \infty$, show that
+\[ \sum_{n = 1}^\infty \left( \frac{\left(z + \frac1z\right)^n}{n!}\right) \]
+converges uniformly on $r < \abs z < R$.
+Conclude that the infinite series defines a continuous function on $\C^\star$.
+
+\begin{solution}
+    \[ \abs{\frac{(z + \frac1z)^n}{n!}} < \frac{(R + r)^n}{n!} = M_n. \]
+    Now, $\sum_{n = 1}^\infty M_n = \exp{(R + r)} < \infty$, so 
+\[ \sum_{n = 1}^\infty \left( \frac{\left(z + \frac1z\right)^n}{n!}\right) \]
+    converges uniformly on $r < \abs z < R$.
+    As each term of the summation is continuous and as we have locally uniform convergence,
+    then the function it converges too is also continuous. 
+\end{solution}

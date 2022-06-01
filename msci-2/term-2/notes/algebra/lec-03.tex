@@ -1,0 +1,120 @@
+\lecture{3}{21/1}
+
+\begin{lemma}[]
+    In $D_n$, any
+    \[
+        r^{a_1}s^{b_1}r^{a_2}s^{b_2}\ldots r^{a_m}s^{b_m}
+    \]
+    can be written as $r^as^b$ for
+    $0 \leq a \leq n - 1$ and $0 \leq b \leq 1$.
+\end{lemma}
+
+\begin{proof}
+    We use induction on the length $m$.
+    We consider $m = 1$, the base case, then we have
+    \[
+        r^n = 1, \qquad s^2 = 1
+    \]
+    so it is true.
+    Now suppose the lemma is true for some $m \geq 1$.
+    We want to prove it is true $m + 1$.
+    Consider an expression of length $m + 1$
+    \[
+        x = r^{a_1}s^{b_1}\ldots r^{a_m}s^{b_m}r^{a_{m+1}}b^{b_{m+1}}.
+    \]
+    Using $s^2 = 1$, we can reduce to the cases $b_i = 0$ or $b_i = 1$
+    for all $i = 1, 2, \ldots, m+1$.
+    Cases:
+    \begin{enumerate}
+        \item 
+            if $b_{m+1} = 0$, we can write
+            (using $srs = r^{-1} \implies sr^is = r^{-i}$)
+            $x = r^{a_1}s^{b_1}\ldots r^{a_m+a_{m+1}}$
+            if $b_m = 0$ or
+            $x = r^{a_1}s^{b_1}\ldots r^{a_m+a_{m+1}}$
+            if $b_m = 1$; and
+
+        \item
+            if $b_{m + 1} = 1$, we can write
+            $x = r^{a_1}s^{b_1}\ldots r^{a_m+a_{m+1}}s$
+            if $b_m = 0$ and
+            $x = r^{a_1}s^{b_1}\ldots r^{a_m-a_{m+1}}$
+            if $b_m = 1$.
+    \end{enumerate}
+    All of these expressions have length $m$,
+    so by induction $x$ can be written in the required form.
+\end{proof}
+
+\chapter{Generators and cyclic groups}
+
+\begin{definition}[]
+    A set $S$ of elements of a group $G$ is said to be a set of
+    generators if any element in $G$ can be written as a product
+    of elements in $S$ (possibly together with inverses).
+    We then write $G = \langle S \rangle$.
+\end{definition}
+
+\begin{example}
+    \[
+        D_n = \langle r, s \rangle.
+    \]
+\end{example}
+
+\begin{definition}[Cyclic]
+    A group which can be generator by a single element is called \textbf{cyclic}.
+\end{definition}
+
+\begin{example}
+    \hfill
+    \begin{enumerate}
+        \item 
+            $\Z/n = \langle \overline 1 \rangle$.
+
+        \item
+            $\Z = \langle 1 \rangle$.
+    \end{enumerate}
+\end{example}
+
+\section{Orders of groups of elements}
+
+The word \emph{order} can mean different properties depending on whether
+you are referring to a \emph{group} or an \emph{element}.
+
+\begin{definition}[Order]
+    The \textbf{order} of a finite group $G$ is the number of elements,
+    written $\lvert G \rvert$ or $\#G$.
+\end{definition}
+
+\begin{definition}[Order of an element]
+    The \textbf{order} of an element $g$ of a group $G$, 
+    written $\ord(g)$,
+    is the smallest integer $n \geq 1$ such that $g^n = 1$.
+    If no such $n$ exists, $\ord(g) = \infty$.
+\end{definition}
+
+\begin{remark}
+    If $G$ is finite, then any element $g \in G$ has finite order as
+    if $\{1, g, g^2, \ldots\}$ were all distinct then $G$ would be infinite;
+    therefore, $g^i = g^j$ for some $0 \leq i \leq j$, and hence
+    $g^{j - i} = 1$. 
+    Note $\ord(g) = 1 \iff g = 1$.
+\end{remark}
+
+We can look at the order of an element $g \in G$ as the order of the 
+cyclic group that it generates:
+\[
+    \langle g \rangle = \{1, g, g^2, \ldots\}.
+\]
+
+\begin{example}
+    \begin{enumerate}
+        \item 
+            In $\Z/6$, $\overline 1$ and $\overline 5$ both have order $6$.
+
+        \item
+            In $D_n$, $r$ has order $n$ and $s$ has order $2$.
+
+        \item 
+            The order of $D_n$ is $2n$.
+    \end{enumerate}
+\end{example}

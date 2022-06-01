@@ -1,0 +1,372 @@
+\section{$\slthree$}
+
+The aims of this section is similar to the previous: classify irreducible finite-dimensional $\C$-linear representations of $\slthree$ by the highest weights.
+
+\begin{example}[Some representations of $\slthree$]
+    \begin{enumerate}
+        \item The standard representations on $\C^3$, with basis $e_1, e_2, e_3$.
+        \item The dual standard representation on $(\C^3)^*$, with basis $e_1^*, e_2^*, e_3^*$ (we note that we did not use this representation in the previous section as dualling on $\sltwo$ reflects the weights about the origin).
+        \item The adjoint representation $(\ad, \slthree)$.
+        \item The tensor of symmetric powers $\Sym^a(\C^3) \otimes \Sym^b((\C^3)^*)$ (which is sadly not irreducible).
+    \end{enumerate}
+\end{example}
+
+We proceed similar to before, but we need to redefine our notion of \emph{weights}.
+
+\begin{definition}[Standard Cartan subalgebra]
+    The \emph{standard Carton subalgebra} is the abelian subalgebra of $\slthree$
+    \[
+        \mathfrak h = \left\{
+        \begin{pmatrix}
+            h_1 & 0   & 0   \\
+            0   & h_2 & 0   \\
+            0   & 0   & h_3 \\
+        \end{pmatrix}
+        : h_1 + h_2 + h_3 = 0
+        \right\}
+        \subset \slthree.
+    \]
+\end{definition}
+
+This is abelian as diagonal matrices commute.
+
+\begin{definition}
+    If $(\rho, V)$ is a $\C$-linear representation of $\slthree$, a \emph{weight vector} $v \in V$ is a simultaneous eigenvector of $\{\rho(H): H \in \mathfrak h\}$. The \emph{weight} $\alpha$ of $v$ is a linear map $\alpha: \mathfrak h \to \C$ such that $\rho(H)v = \alpha(H)v$. The \emph{weight space} of weight $\alpha$ is
+    \[
+        V_\alpha = \left\{
+        v \in V: \text{$\rho(H) v = \alpha(H)V$ for all $H \in \mathfrak h$}
+        \right\}.
+    \]
+\end{definition}
+
+By simultaneous, we mean that it is an eigenvector regardless of the $H$ chosen.
+
+We denote $E_{ij}$ for the matrix with a $1$ in entry $(i,j)$ and 0 elsewhere. We note that $E_{ij} \in \slthree$ if and only if $i \neq j$. We pick a basis of $\mathfrak h$ as the elements
+\[
+    H_{12} = E_{11} - E_{22} =
+    \begin{pmatrix}
+        1 & 0  & 0 \\
+        0 & -1 & 0 \\
+        0 & 0  & 0 \\
+    \end{pmatrix}, \qquad
+    H_{23} = E_{22} - E_{33} =
+    \begin{pmatrix}
+        0 & 0 & 0  \\
+        0 & 1 & 0  \\
+        0 & 0 & -1 \\
+    \end{pmatrix},
+\]
+and we also define $H_{13} = H_{12} + H_{23}$. It will be enough to study the eigenvectors of $\rho(H_{12})$ and $\rho(H_{23})$.
+
+\begin{example}
+    \begin{enumerate}
+        \item Let $(\rho, \C^3)$ be the standard representation with basis $e_1, e_2, e_3$. Then for $i \in \{1,2,3\}$ and $H \in \mathfrak h$, we have $\rho(H) e_i = L_i(H)e_i$ where $L_i(H) = h_i$ ($H = h_1E_{11} + h_2E_{22} + h_3E_{33}$). Thus we have the weight vectors being the $e_i$'s with respective weights being the $L_i$'s. Here $L_1, L_2, L_3$ span $\mathfrak h^*$, and there is one relation between them: $L_1 + L_2 + L_3 = 0$. Thus any element of $\mathfrak h^*$ can be written as $aL_1 - bL_3$ with $a, b \in \C$.
+        \item Let $(\rho^*, (\C^3)^*)$ be the dual representation. Then $He_1^* = -h_ie_i$ (should be checked). Thus, the weights of the dual representation are $\{-L_1, -L_2, -L_3\}$.
+        \item Consider the adjoint representation $(\ad, \mathfrak g)$ where $\mathfrak g = \slthree$. We see that
+              \[ \ad_H(H') = [H, H'] = 0 \]
+              for all $H, H' \in \mathfrak h$, thus $0$ is a weight of the adjoint representation. Thus,
+              \[ \mathfrak g_0 := \text{$0$-weight space of $\mathfrak g$} = \mathfrak h \]
+              (note we only proved that $\mathfrak h \subset \mathfrak g_0$, but this is indeed true). See that
+              \[ [H, E_{ij}] = (h_i - h_j)E_{ij} \]
+              for $H \in \mathfrak h$ and $i \neq j$. Thus $E_{ij} \in \slthree$ for $i \neq j$ is a weight vector with weight $h_i - h_j = L_i - L_j$.
+    \end{enumerate}
+\end{example}
+
+\begin{definition}
+    A \emph{root} of $\slthree$ is a non-zero weight of the adjoint representation. A \emph{root vector} is a weight vector of a root, and a \emph{root space} is the weight space of a root.
+\end{definition}
+
+We write
+\[ \Phi = \{\pm(L_1 - L_2), \pm(L_2 - L_3), \pm(L_1 - L_3)\} \]
+for the set of roots of $\slthree$. We call
+\[ \Phi^+ = \{L_1 - L_2, L_2 - L_3, L_1 - L_3\} \]
+the \emph{positive roots} and
+\[ \Phi^+ = \{L_2 - L_1, L_3 - L_2, L_3 - L_1\} \]
+the \emph{negative roots}. We write
+\[ \Delta = \{L_1 - L_2, L_2 - L_3\}, \]
+these are called the \emph{simple roots}. We may write $\alpha_{ij}$ for the root $L_i - L_j$.
+
+Finally, we have the \emph{root space}, also called the \emph{Cartan decomposition}
+\[ \mathfrak g = \mathfrak h \oplus \bigoplus_{\alpha \in \Phi} \mathfrak g_\alpha. \]
+
+\subsection{Visualising weights}
+
+\begin{theorem}
+    Let $(\rho, V)$ be a finite-dimensional $\C$-linear representation of $\slthree$, then all its weights are elements of
+    \[
+        \Lambda_W = \left\{
+        aL_1 - bL_3: a,b \in \Z
+        \right\}
+    \]
+    called the \emph{weight lattice}.
+\end{theorem}
+
+\begin{proof}
+    Let $\alpha = aL_1 - bL_3$ for $a,b \in \C$ be a weight of $V$. We have to prove that $a, b \in \Z$. We sketch the proof here. We consider the embedding
+    \begin{align*}
+        \sltwo & \xhookrightarrow{} \slthree \\
+        H &\mapsto \left(
+            \begin{array}{c|c}
+                H & 0 \\ \hline
+                0 & 0 \\
+            \end{array}
+        \right).
+    \end{align*}
+    By our $\sltwo$-theorem, all eigenvalues acting on $V$ are integers, thus $a \in \Z$. For $b \in \Z$, we use the similar embedding:
+    \begin{align*}
+        \sltwo & \xhookrightarrow{} \slthree \\
+        H &\mapsto \left(
+            \begin{array}{c|c}
+                0 & 0 \\ \hline
+                0 & H \\
+            \end{array}
+        \right).
+    \end{align*}
+\end{proof}
+
+To visualise our weights: put $L_1$, $L_2$, and $L_3$ as vertices of an equilateral triangle. Then $\Lambda_W$ is the lattice generated by these. 
+
+\begin{example}
+    Weights for the standard representation on $\C^3$. 
+    \begin{center}
+        \begin{tikzpicture}
+            \node[weight] at (1,0) {};
+            \node[weight] at (2,0) {};
+            \node[weight] at (3,0) {};
+            \node[weight] at (4,0) {};
+            \node[weight] at (5,0) {};
+            \node[weight] at (6,0) {};
+
+            \node[weight] at (1.5,1) {};
+            \node[weight] at (2.5,1) {};
+            \node[weight] at (3.5,1) {};
+            \node[weight] at (4.5,1) {};
+            \node[weight] at (5.5,1) {};
+            \node[weight] at (6.5,1) {};
+
+            \node[weight] at (1,2) {};
+            \node[weight] at (2,2) {};
+            \node[weight] at (3,2) {};
+            \node[weight] at (4,2) {};
+            \node[weight] at (5,2) {};
+            \node[weight] at (6,2) {};
+
+            \node[weight] at (1.5,3) {};
+            \node[weight] at (2.5,3) {};
+            \node[weight] at (3.5,3) {};
+            \node[weight] at (4.5,3) {};
+            \node[weight] at (5.5,3) {};
+            \node[weight] at (6.5,3) {};
+
+            \node[weight] at (1,4) {};
+            \node[weight] at (2,4) {};
+            \node[weight] at (3,4) {};
+            \node[weight] at (4,4) {};
+            \node[weight] at (5,4) {};
+            \node[weight] at (6,4) {};
+
+            \node[mult1] at (5,2) {};
+            \node[mult1] at (3.5,3) {};
+            \node[mult1] at (3.5,1) {};
+
+            \node at (4.35,2) {$0$};
+            \node at (5.35,2) {$L_1$};
+            \node at (3.85,3) {$L_2$};
+            \node at (3.85,1) {$L_3$};
+        \end{tikzpicture}
+    \end{center}
+\end{example}
+
+\begin{example}
+    We now consider the weights of the adjoint representation.
+    \begin{center}
+        \footnotesize
+        \begin{tikzpicture}
+            \node[weight] at (-3,0) {};
+            \node[weight] at (-2,0) {};
+            \node[weight] at (-1,0) {};
+            \node[weight] at (0,0) {};
+            \node[weight] at (1,0) {};
+            \node[weight] at (2,0) {};
+
+            \node[weight] at (-2.5,1) {};
+            \node[weight] at (-1.5,1) {};
+            \node[weight] at (-0.5,1) {};
+            \node[weight] at (0.5,1) {};
+            \node[weight] at (1.5,1) {};
+            \node[weight] at (2.5,1) {};
+
+            \node[weight] at (-3,2) {};
+            \node[weight] at (-2,2) {};
+            \node[weight] at (-1,2) {};
+            \node[weight] at (0, 2) {};
+            \node[weight] at (1, 2) {};
+            \node[weight] at (2, 2) {};
+
+            \node[weight] at (-2.5,-1) {};
+            \node[weight] at (-1.5,-1) {};
+            \node[weight] at (-0.5,-1) {};
+            \node[weight] at (0.5, -1) {};
+            \node[weight] at (1.5, -1) {};
+            \node[weight] at (2.5, -1) {};
+
+            \node[weight] at (-3,-2) {};
+            \node[weight] at (-2,-2) {};
+            \node[weight] at (-1,-2) {};
+            \node[weight] at (0, -2) {};
+            \node[weight] at (1, -2) {};
+            \node[weight] at (2, -2) {};
+
+
+            \node[mult1] at (0,0) {};
+            \node[mult2] at (0,0) {};
+            \node at (0, 0) [xshift=10] {$0$};
+            
+            \node[mult1] at (1.5,1) {};
+            \node at (1.5, 1) [xshift=12] {$\alpha_{13}$};
+
+            \node[mult1] at (0,2) {};
+            \node at (0, 2) [xshift=12] {$\alpha_{23}$};
+
+            \node[mult1] at (-1.5,1) {};
+            \node at (-1.5, 1) [xshift=12] {$\alpha_{21}$};
+
+            \node[mult1] at (-1.5,-1) {};
+            \node at (-1.5, -1) [xshift=12] {$\alpha_{31}$};
+
+            \node[mult1] at (0,-2) {};
+            \node at (0, -2) [xshift=12] {$\alpha_{32}$};
+
+            \node[mult1] at (1.5,-1) {};
+            \node at (1.5, -1) [xshift=12] {$\alpha_{12}$};
+        \end{tikzpicture}
+    \end{center}
+\end{example}
+
+\begin{example}
+    Consider $\Sym^2(\C^3)$ where $\C^3$ is the standard representation. Our weight vectors are of the form $e_ie_j$ for $1 \leq i \leq j \leq 3$. We have
+    \[ H(e_ie_j) = H(e_i)e_j + e_iH(e_j) = (L_i + L_j)(H) e_ie_j. \]
+    Thus the weight of $e_ie_j$ is $L_i + L_j$. Considering every $i$ and $j$, we get
+    \[ \text{weights} = \{2L_1, 2L_2, 2L_3, L_1 + L_2, L_2 + L_3, L_1 + L_3\}. \]
+    Thus we draw our weights as follows. 
+    \begin{center}
+        \begin{tikzpicture}
+            \node[weight] at (-3,0) {};
+            \node[weight] at (-2,0) {};
+            \node[weight] at (-1,0) {};
+            \node[weight] at (0,0) {};
+            \node[weight] at (1,0) {};
+            \node[weight] at (2,0) {};
+
+            \node[weight] at (-2.5,1) {};
+            \node[weight] at (-1.5,1) {};
+            \node[weight] at (-0.5,1) {};
+            \node[weight] at (0.5,1) {};
+            \node[weight] at (1.5,1) {};
+            \node[weight] at (2.5,1) {};
+
+            \node[weight] at (-3,2) {};
+            \node[weight] at (-2,2) {};
+            \node[weight] at (-1,2) {};
+            \node[weight] at (0, 2) {};
+            \node[weight] at (1, 2) {};
+            \node[weight] at (2, 2) {};
+
+            \node[weight] at (-2.5,-1) {};
+            \node[weight] at (-1.5,-1) {};
+            \node[weight] at (-0.5,-1) {};
+            \node[weight] at (0.5, -1) {};
+            \node[weight] at (1.5, -1) {};
+            \node[weight] at (2.5, -1) {};
+
+            \node[weight] at (-3,-2) {};
+            \node[weight] at (-2,-2) {};
+            \node[weight] at (-1,-2) {};
+            \node[weight] at (0, -2) {};
+            \node[weight] at (1, -2) {};
+            \node[weight] at (2, -2) {};
+
+            \node at (0, 0) [xshift=10] {$0$};
+            \node at (1, 0) [xshift=9] {$L_1$};
+            \node at (-0.5, 1) [xshift=9] {$L_2$};
+            \node at (-0.5, -1) [xshift=9] {$L_3$};
+
+            \node[mult1] at (2,0) {};
+            \node[mult1] at (0.5,1) {};
+            \node[mult1] at (-1,2) {};
+            \node[mult1] at (-1,0) {};
+            \node[mult1] at (-1,-2) {};
+            \node[mult1] at (0.5,-1) {};
+        \end{tikzpicture}
+    \end{center}
+\end{example}
+
+We present a fundamental weight calculation, as we did with $\sltwo$. 
+
+\begin{theorem}[Fundamental weight calculation]
+    Let $(\rho, V)$ be a $\C$-linear representation of $\slthree = \mathfrak g$ and let $v \in V_\beta$ be a weight vector with weight $\beta \in \mathfrak h^*$. Let $\alpha \in \mathfrak h^*$ be a root and let $X_\alpha \in \mathfrak g_\alpha$ be a root vector. Then $\rho(X_\alpha)v = 0$. 
+\end{theorem}
+
+\begin{proof}
+    Let $H \in \mathfrak h$. Then
+    \begin{align*}
+        H(X_\alpha(v)) &= ([H, X_\alpha] + X_\alpha H)v \\
+        &= \alpha(H) X_\alpha v + X\alpha \beta(H) \\
+        &= (\alpha + \beta)(H) (X_\alpha v). \qedhere
+    \end{align*}
+\end{proof}
+
+\begin{definition}
+    Let $(\rho, V)$ be a $\C$-linear representation of $\slthree$. Then a weight vector $v \in V$ is a \emph{highest weight vector} $\rho(X)v = 0$ for $X \in \{E_{12}, E_{13}, E_{23}\}$. The \emph{highest weight} of $v$ is the weight of $v$. 
+\end{definition}
+
+As $E_{13} = [E_{12}, E_{23}]$, we only need to check $E_{12}$ and $E_{23}$. 
+
+\begin{proposition}
+    If $(\rho, V)$ is a finite-dimensional representation, then a highest weight exists. 
+\end{proposition}
+
+\begin{proof}
+    Define $l: \mathfrak h^* \to \C$ by $l(aL_1 - bL_3) = a + b$. Use this function on contradiction of having a weight vector of maximal $l$ value. 
+\end{proof}
+
+\subsection{Dominant weights}
+
+Let $(\rho, V)$ be a representation of $\slthree$. If $v \in V$ is a highest weight vector of weight $aL_1 - bL_3$, then it is a highest weight vector for $V$ under the restrictions
+\[
+    \left(
+        \begin{array}{c|c}
+            \sltwo & 0 \\ \hline
+            0 & 0 \\
+        \end{array}
+    \right), \qquad 
+    \left(
+        \begin{array}{c|c}
+            0 & 0 \\ \hline
+            0 & \sltwo \\
+        \end{array}
+    \right).
+\]
+
+Its weight for the top right restriction is $a$ and its weight for the bottom right copy is $b$. 
+
+\begin{definition}[Dominant weight]
+    A \emph{dominant weight} is an element of $\mathfrak h^*$ of the form $aL_1 - bL_3$ with $a, b \in \N_0$. 
+\end{definition}
+
+\begin{theorem}
+    For each dominant weight $aL_1 - bL_3$ there is a unique (up to isomorphism) finite-dimensional $\C$-linear irreducible representation of $\slthree$ with highest weight vector that of the weight. 
+\end{theorem}
+
+We call such a representation $V^{(a,b)}$. 
+
+\begin{example}\hspace{0em}
+    \begin{itemize}
+        \item $V^{(0,0)} = \C$ (trivial)
+        \item $V^{(1,0)} = \C^3$ (standard)
+        \item $V^{(0,1)} = (\C^3)^*$
+        \item $V^{(1,1)} = (\ad, \slthree)$
+        \item $V^{(2,0)} = \Sym^2(\C^3)$
+    \end{itemize}    
+\end{example}
+

@@ -1,0 +1,73 @@
+\section{Comparison of various Ant-Q algorithms}
+
+The experiments on this section were conducted on grid problems, Oliver30 (30-city TSP), ry48p (48 city ATSP), and random data sets. 
+
+\subsection{The action choice rule}
+
+\textcite{gambardella1995ant} presents and compares three different action choice rules; that is, how ants in a given state choose their next action. We let $C: S \to A$ be the action choice function (that is, an ant in state $s$ will choose action $C(s) \in A_s$). In each of the three rules present, $C$ takes the form
+\[
+    a = C(s) =
+    \begin{dcases}
+        \argmax_{a \in A_{s}} \left(
+        \AQ(s, a)
+        \right)^\delta \left(
+        \HE(s, a)
+        \right)^\beta & \text{if $q \leq q_0$,} \\
+        S             & \text{otherwise,}
+    \end{dcases}
+\]
+where $q_0$ is a parameter to be assigned in the variants, $q$ is a random variable which has uniform distribution over $[0,1$], and $S$ is are random variable to be assigned in the variants below.
+
+    \begin{enumerate}
+        \item[(A1)] (Pseudo-random) The random variable $S$ has uniform distribution over $A_s$ and $q_0 \in [0,1]$ is unspecified.
+        \item[(A2)] (Pseudo-random-proportional) The random variable $S$ has the following probability density function
+            \[
+                p(s, a) = \begin{dcases}
+                    \dfrac{\left(
+                        \AQ(s_t, a)
+                        \right)^\delta \left(
+                        \HE(s_t, a)
+                        \right)^\beta}
+                    {\sum_{a' \in A_s} \left(
+                        \AQ(s_t, a')
+                        \right)^\delta \left(
+                        \HE(s_t, a')
+                    \right)^\beta} & \text{if $a \in S_a$,} \\
+                    0              & \text{otherwise}
+                \end{dcases}
+            \]
+            and $q_0 \in [0,1]$ is unspecified.
+        \item[(A3)] (Random-proportional) $S$ is specified as in (A2) but $q_0 = 0$.
+    \end{enumerate}
+
+    It is noted that (A1) closely mimics to pseudo-random action choice rule of Q-learning: agents will choose the best action (based on the Q-values), otherwise it will choose a state at random. (A3) closely mimics the action choice rule as used in the ant system \cite{dorigo1996ant}: agents will choose actions at random, weighting actions with higher AQ values. (A2) can be considered a combination of both approaches. 
+    
+
+    The comparison of the three variants above were tested (using iteration-best delayed reinforcement, discussed below) and can be found in Table 1 of \cite{gambardella1995ant}. The values of most parameters were fixed throughout these runs, with the exception of the discount factor which was varied for each action choice function (the reason for this is not made clear). Statistical tests (Kruskal-Wallis ANOVA and Mann-Witney $t$-tests) were used to reaffirm the confidence of the following discussion.
+
+    
+We see that (A2) significantly ($p < 0.001$) performed the best, from which we can deduce that a combination of the methods in Q-learning and ant systems allow for greater performance. The best routes found by (A1) were close to that of (A2), and the standard deviations of (A1) and (A2) routes is low (albeit a little higher for (A1)). (A3) performed much worse than (A1) and (A2), the best solutions were far from that of (A1) and (A2) and the standard deviation was also much higher. From this, we conclude that pseudo-random-proportional action choice combines the methods from Q-learning and ant system effectively. 
+
+\subsection{Delayed reinforcement}
+
+\textcite{gambardella1995ant} presents two methods for computing the delayed reinforcement.
+
+\begin{enumerate}
+    \item[(DR1)] (Global-best) The delayed reinforcement is calculated by
+        \[
+            \DAQ(s, a) = \begin{dcases}
+                \dfrac{W}{L_{k^*}} & \text{if $k^*$ did $(s, a)$,} \\
+                0                  & \text{otherwise}
+            \end{dcases}
+        \]
+        where $W$ is an unspecified parameter and $k^*$ is the ant who made the globally best tour form the beginning of the trial, and $L_{k^*}$ is the length of its tour.
+    \item[(DR2)] (Iteration-best) The delayed reinforcement is given by the same formula as in (DR1), except $k^*$ is the ant who made the best tour in the current episode (or iteration).
+\end{enumerate}
+
+Both (DR1) and (DR2) were shown to have similar performance, the results can be found in Table 2 of \cite{gambardella1995ant}. Though \textcite{gambardella1995ant} note that iteration-best has some beneficial properties. Namely, (DR2) was slightly faster in finding the same quality solution as those found by (DR1) and (DR2) was less sensitive to changes in the discount factor $\gamma$ then $(DR1)$. We may hyperparameterise discount factor, so having less sensitivity to this parameter allows us to optimise it for other parameters easily using methods such as stochastic gradient descent.
+
+\subsection{Ant system}
+
+There are two major differences between ant system (AS) and Ant-Q. First, all agents in AS contribute towards delayed reinforcement, instead of just the ant with the best tour. Secondly, the AQ update formula is drastically simplified to $\AQ(s,a) \gets (1 - \alpha) \AQ(r,s) \DAQ(r,s)$ and is applied to all edges, not just the one visited by the last agent. 
+
+It was found that Ant-Q significantly outperformed AS: both got the same optimum in TSP problems (but AS took much longer) and Ant-Q was able to find a much better solution than AS in the ATSP problem.

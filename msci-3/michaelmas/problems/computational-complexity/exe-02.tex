@@ -1,0 +1,61 @@
+\documentclass[a4paper, answers]{exam}
+\input{../preamble.tex}
+
+\begin{document}
+
+\begin{center}
+	\textbf{\textsc{Computational Complexity, Exercises 2}}
+\end{center}
+
+\vspace{1em}
+
+\begin{questions}
+	\question Prove that \textsc{Dominating Set} is $\mathsf{NP}$-complete.
+
+	Hint for a reduction from \textsc{Vertex Cover}: given a graph $G = (V,E)$,
+	create a new graph $H$ as follows: for each edge $(u,v)$ in $G$ add a new
+	vertex and join it by an edge to $u$ and $v$.
+
+	\question Prove that \textsc{Dominating Set}, parameterized by $k$, is
+	$\textsf{W}[1]$-hard.
+
+	Hint for a reduction from \textsc{Independent Set}: first prove that there is
+	a parameterized reduction from \textsc{Independent Set} to
+	\textsc{Multicoloured Independent Set} defined as follows: given a graph $G$
+	in which every vertex has one of $k$ possible colours (which is not
+	necessarily a proper $k$-colouring), does $G$ have an independent set
+	containing vertices of all $k$ colours?
+
+	Then use the following construction to provide a parameterized reduction from
+	\textsc{Multicoloured Independent Set} to \textsc{Dominating Set}.
+	Given a graph $G = (V_G, E_G)$ and a partition 
+	$V_G = V_1 \cup \ldots \cup V_k$ (where $V_i$ is the set of vertices coloured
+	$i$), create a new graph $H = (V_H, E_H)$ as follows:
+	\begin{enumerate}
+		\item for every vertex $v \in V_G$, add $v$ to $V_H$;
+		\item for each $1 \leq i \leq k$, make $V_i$ a clique in $H$ by adding
+			all edges;
+		\item for each $1 \leq i \leq k$, introduce two vertices $x_i$ and $y_i$
+			into $H$ and make them adjacent to every vertex in $V_i$; and
+		\item for every edge $e \in E_G$ with endpoints $u \in V_i$ and 
+			$v \in V_j$, introduce a new vertex $w_e$ into $H$ and make it
+			adjacent, in $H$, to every vertex in 
+			$(V_i \cup V_j) \setminus \left\{ u,v \right\}$.
+	\end{enumerate}
+	Relate multicoloured independent sets in $G$ to dominating sets in $H$.
+	
+	Finally, check that a composition of parameterized reductinos is a
+	parameterized reduction.
+
+	\question Prove that \textsc{Dominating Set} restricted to graphs of maximum
+	degree $6$ (which can also be shown to be $\mathsf{NP}$-complete) is 
+	fixed-parameter tractable.
+
+	\question Find a zero knowledge proof protocol based on \textsc{Dominating
+	Set} directly, i.e not via reduction from another problem.
+	Argue (not just claim) that your protocol has the necessary properties.
+
+	\question Pick your favourite $\mathsf{NP}$-complete problem and find a zero
+	knowledge proof based on it (directly).
+\end{questions}
+\end{document}

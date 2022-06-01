@@ -1,0 +1,78 @@
+\chapter{Complex differentiation}
+\section{Complex differentiability}
+\lecture{10}{1/11}
+
+\begin{definition}[Complex differentiable]
+    If $U \subset \C$ is open and $f: U \to \C$ then $f$ is (complex) differentiable at $z_0 \in U$ if
+    \[ \lim_{h \to 0} \left( \frac{f(z_0 + h) - f(z_0)}{h} \right) = f'(z_0) \]
+    exists.
+\end{definition}
+
+\begin{remark}
+    \begin{enumerate}
+        \item We also have the definition of
+            \[ \lim_{z \to z_0} \left(\frac{f(z) - f(z_0)}{z - z_0}\right) \]
+            which is equivalent.
+
+        \item $h$ must be able to approach from any direction and obtain the same limit (this is an important point).
+
+        \item $f$ is complex differentiable at $z_0$ $\implies$ $f$ is continuous at $z_0$.
+    \end{enumerate}
+\end{remark}
+
+\begin{example}
+    \begin{enumerate}
+        \item Let $f(z) = z^2$. Then
+            \begin{align*}
+                \frac{f(z_0 + h) - f(z_0}{h} &= \frac{z_0^2 + 2z_0h + h^2 - z_0^2}{h} \\
+                                             &= 2z_0 + h \to 2z_0
+            \end{align*}
+            as $h \to 0$, hence $f'(z_0) = 2z_0$.
+
+        \item Let $f(z) = \bar z$ and $h \in \R$. Then
+            \[ \frac{f(z_0 + h) - f(z_0)}{h} = \frac{\bar z_0 + h - \bar z_0}{h} = 1. \]
+            Now let $h \in i\R$. Then
+            \[ \frac{f(z_0 + h) - f(z_0)}{h} = \frac{\bar z_0 - h - \bar z_0}{h} = -1; \]
+            as we get two different limits if we approach $0$ from different directions, we conclude that $f$ is not complex differentiable.
+        \item The product, quotient, and chain rule from regular differentiation still apply. The proof for this is very similar to Analysis I and will be omitted.
+    \end{enumerate}
+\end{example}
+
+For a complex function $f(z)$, we can write $f(z) = u(x, y) + iv(x, y)$ where $z = x + iy$. We denote $u_x$ as the partial derivative of $u$ with respect to $x$, and similarly for $v$ and the other parameters. 
+
+\begin{example}
+    Consider $f(z) = z^2 = (x + iy)^2 = (x^2 - y^2) + i(2xy) = u(x, y) + iv(x, y)$ where
+    \[ u(x, y) = x^2 - y^2,\qquad v(x, y) = 2xy. \]
+    Then
+    \begin{align*}
+        u_x &= 2x & u_y &= -2y \\
+        v_x &= 2y & v_y &= 2x.
+    \end{align*}
+    Notice a symmetry here; it is no coincidence.
+\end{example}
+
+\section{Cauchy-Riemann equations}
+
+\begin{proposition}[Cauchy-Riemann equations]
+    If $f = u + iv$ is complex differentiable at $z_0 = x_0 + iy_0$ then
+    \[ u_x(x_0, y_0), \quad u_y(x_0, y_0), \quad v_x(x_0, y_0), \quad v_y(x_0, y_0) \]
+    all exist and
+    \begin{align*}
+        u_x(x_0, y_0) &= v_y(x_0, y_0) \\
+        u_y(x_0, y_0) &= -v_x(x_0, y_0)
+    \end{align*}
+    as well as 
+    \[ f'(z_0) = u_x(x_0, y_0) + iv_x(x_0, y_0). \]
+\end{proposition}
+
+To prove this, we need the following lemma.
+
+\begin{lemma}
+    If $\{ z_n \}_{n \in \N} \subset \C$ then $z_n \to z$ as $n \to \infty$ if and only if 
+    \[ \Re{(z_n)} \to \Re{(z)}, \quad \Im{(z_n)} \to \Im{(z)} \]
+    as $n \to \infty$.
+\end{lemma}
+
+\begin{proof}[Proof of Cauchy-Riemann equations]
+    The proof for this is fairly trivial, write out the definition of the complex derivative and consider the fraction for real $h$ and purely imaginary $h$. This can be used to obtain the final statement of the C-R equations (with another similar one) which then leads to the deducation of the rest of the proposition.
+\end{proof}

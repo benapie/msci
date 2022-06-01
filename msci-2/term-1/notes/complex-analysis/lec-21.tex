@@ -1,0 +1,161 @@
+\section{Differentiation and integration of power series}
+\lecture{21}{13/12}
+
+\begin{proposition}[]
+    Let
+    \[ f(z) = \sum_{n = 0}^\infty a_n (z - c)^n \]
+    be a power series with radius of convergence $0 < R \leq \infty$. 
+    Then the \emph{formal} derivatives and anti-derivatives
+    \[ 
+        f'(z) = \sum_{n = 1}^\infty na_n(z - c)^{n - 1} 
+        \quad \text{and} \quad 
+        F(z) = \sum_{n = 0}^\infty \left(\frac{a_n}{n + 1} (z - c)^{n + 1}\right)
+    \]
+    have the same radius of convergence $R$.
+\end{proposition}
+
+Above are our expected formula for the derivative and and anti-derivative of a power series; 
+however, we must confirm that they genuinely represent this. 
+
+\begin{theorem}[]
+    \label{the:power-series-derivative}
+    Define $f: B_R(c) \to \C$ where
+    \[ f(z) = \sum_{n = 0}^\infty a_n (z - c)^n \]
+    be a power series with radius of convergence $0 < R \leq \infty$.
+    Then $f$ is holomorphic on $B_R(c)$ with
+    \[ f'(z) = \sum_{n = 1}^\infty na_n(z - c)^{n - 1} \]
+    for $z \in B_R(c)$.
+\end{theorem}
+
+\begin{proof}
+    For simplicity, we will assume $c = 0$; 
+    the proof for arbitrary $c$ is essentially the same.
+    So, we want to show that for all $w \in B_R(c)$ that
+    \[ \lim_{x \to c} \left(\frac{f(z) - f(w)}{z - w}\right) \]
+    exists and agrees with expression above.
+    Since the convergence of $f(z)$ is absolute, we can reorder the sums.
+    Hence, we have
+    \[ f(z) - f(w) =
+        \sum_{n = 1}^\infty a_n (z^n - w^n) =
+        \sum_{n = 1}^\infty a_n (z - w) q_n(z) \]
+    where $q_n(z) = \sum_{k = 0}^{n - 1} w^k z^{n - 1 - k}$.
+    So, for $z \neq w$ we have
+    \[ \frac{f(z) - f(w)}{z - w} = \sum_{n = 1}^\infty a_n q_n(z) = h(z). \]
+    This series still makes sense if $z = w$, so we will view $h$ as being defined here too.
+    We claim that the series defining $h(z)$ converges to a continuous function on $B_R(0)$. 
+    We will use the local $M$-test to prove this.
+    Given $z_0 \in B_R(0)$, we choose $r < R$ such that $w, z_0 \in B_r(0)$.
+    We have for $z \in B_r(0)$
+    \begin{align*}
+        \left\lvert a_n q_n(z) \right\rvert 
+        &=    \left\lvert a_n \sum_{k = 0}^{n - 1} w^k z^{n - 1 - k} \right\rvert \\
+        &\leq \lvert a_n \rvert \sum_{n = 0}^{n - 1} \lvert w \rvert^k \lvert z \rvert^{n - 1 - k} \\
+        &<    \lvert a_n \rvert \sum_{n = 0}^{n - 1} r^k r^{n - 1 - k} \\
+        &=    n \lvert a_n \rvert r^{n - 1} = M_n.
+    \end{align*}
+    We have 
+    \[ \sum_{n = 1}^\infty M_n = \sum_{n = 0}^\infty n \lvert a_n \rvert r^{n - 1} \]
+    which we now is convergent as 
+    $\sum_{n = 1}^\infty n a_n z^{n - 1}$ 
+    has radius of convergence $R$ 
+    (and therefore converges absolutely on $B_R(0)$, in particular, at $r$).
+    From the local $M$-test, 
+    we can conclude that the series defining $h$ converges uniformly
+    to a continuous function on $B_R(0)$.
+    Hence,
+    \begin{align*}
+        \lim_{z \to w} \left(\frac{f(z) - f(w)}{z - w}\right) 
+        &= \lim_{z \to w} h(z) 
+         = h(w) \\
+        &= \sum_{n = 1}^\infty a_n q_n(w) \\
+        &= \sum_{n = 1}^\infty \left(a_n \sum_{k = 0}^{n - 1} w^k w^{n - 1 - k}\right) \\
+        &= \sum_{n = 1}^\infty \left(a_n \sum^{n - 1}_{k = 0} w^{n - 1}\right) \\
+        &= \sum_{n = 1} n a_n w^{n - 1}
+    \end{align*}
+    as required.
+\end{proof}
+
+\begin{corollary}
+    A power series $f$ as in Theorem \ref{the:power-series-derivative} with postive radius of convergence $R$ can be differentiated infinitely many times and
+    \[ f^{(k)}(z) = \sum_{n = k}^\infty \left(k! \binom{n}{k} a_n (z - c)^{n - k}\right) \]
+    for $z \in B_R(c)$.
+    This implies $f^{(k)}(c) = k! a_k$.
+\end{corollary}
+
+\begin{corollary}
+    A power series $f$ as in Theorem \ref{the:power-series-derivative} with positive radius of convergence $R$ has a holomorphic anti-derivative $F: B_R(c) \to \C$, 
+    that is, $F'(z) = f(z)$,
+    and $F$ is given by
+    \[ F(z) = \sum_{n = 0}^\infty \left(\frac{a_n}{n + 1} (z - c)^{n + 1}\right) \]
+    for $z \in B_R(c)$.
+\end{corollary}
+
+\begin{example}
+    \begin{enumerate}
+        \item The expected power series for $\sin$, $\cos$, $\sinh$, and 
+            $\cosh$ all converge locally uniformly to continuous functions on $\C$.
+            The derivatives/anti-derivatives match those expected.
+            We will later see that they genuinely do represent the functions in question.
+        
+        \item More generally, 
+            when can a holomorphic function be represented via a power series? 
+            For example, what about $\log(z)$? 
+            It is only defined (and is holomorphic) on 
+            $\C \setminus \R_{\leq 0}$ 
+            so cannot be defined as a power series on, say, $\D$.
+            We can show that
+            \[ \sum_{n = 1}^\infty \left((-1)^{n + 1} \frac{z^n}n\right) \]
+            converges on $\D$,
+            and we expect this to converge to $\log{(1 + z)}$,
+            but what is so special about taking a power series about the point $c = 1$?
+            Well, nothing.
+            It turns out that \emph{holomorphic functions are precisely the functions that can be locally represented by power series at every point in their domain}.
+            Hence, we can see that every holomorphic function is infinitely many times complex differentiable.
+
+        \item Consider the geometric series
+            \[ \sum_{n = 0}^\infty z^n. \]
+            By the ratio test, 
+            this sum converges when $\lvert z \rvert < 1$, 
+            so the radius of convergence is $R = 1$.
+            Also, the series converges to a continuous function on $\D$.
+            \begin{align*}
+                \sum_{n = 0}^\infty z^n
+                &= \lim_{N \to \infty} \left(\sum_{n = 0}^N z^n\right) \\
+                &= \lim_{N \to \infty} \left(\frac{1 - z^{N + 1}}{1 - z}\right) \\
+                &= \frac1{1 - z}
+            \end{align*}
+            for $\lvert z \rvert < 1$.
+            This limit function is defined and continuous for all $z \in \C \setminus \{1\}$.
+            So, in some sense the convergence of the series in the cmoplex plane is limited to the unit disc $\D$
+            because it can't pass the \emph{pole} at $z = 1$.
+
+        \item We can determine the convergence of new power series by substitution.
+            For example,
+            notice that 
+            \[ \lvert z \rvert < 1 \iff \lvert z^2 \rvert < 1 \iff \lvert -z^2 \rvert < 1 \]
+            so by the substitution $z \mapsto z^2$ we have that
+            $\sum_{n = 0}^\infty z^{2n}$
+            converges locally uniformly on $\D$ to
+            $\frac1{1 - z^2}$.
+            Similarly, by the substitution $z \mapsto -z^2$ we have
+            $\sum_{n = 0}^\infty (-1)^n z^{2n}$
+            converges locally uniformly to $\frac1{1 + z^2}$.
+
+        \item The examples above give us some real insight into the reasons for convergence of corresponding \emph{real} power series.
+            Consider the graph of the real function $y = \frac1{1-x^2}$.
+            It is obvious why its real interval of convergence is the unit interval;
+            there are asymptotes at $x = \pm 1$ that we can't \emph{get past} continousuly.
+            On the other hand,
+            $y = \frac1{1+x^2}$ is a nice smooth looking graph everywhere on the real line.
+            So why is the interval of convergence also restricted to the unit interval?
+            We can now see the answer;
+            the interval of convergence of the \emph{real} power series is restricted by the disc of convergence of the corresponding \emph{complex} power series!
+            The issue being the poles in the complex plane at $z = \pm i$ that we couldn't see when considering only the real version of the function.
+            So, hidden inside the real power series of nice continuous real functions is actually some meaningful and significant complex analysis.
+    \end{enumerate}
+\end{example}
+
+\begin{remark}
+    The key remark of the last example above is that complex analysis can give us new information about real functions.
+\end{remark}
+

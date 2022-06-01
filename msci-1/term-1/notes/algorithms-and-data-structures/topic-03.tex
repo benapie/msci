@@ -1,0 +1,105 @@
+\chapter{Recursion}
+
+\begin{definition}
+    The factorial of a positive integer $n$, denoted $n!$, is the product of all integers from $1$ to $n$. More formally, \[ n! = \prod^{n}_{k = 1} k = n \cdot (n - 1) \cdot \ldots \cdot 2 \cdot 1. \]
+\end{definition}
+
+We can implement a function that calculates the factorial of a number either iteratively (Listing \ref{lst:fact_iter}) or recursively (Listing \ref{lst:fact_recu}).
+
+\begin{lstlisting}[float,
+                   language = Python,
+                   caption = {A function which calculates the factorial using an iterative method in Python.},
+                   label = {lst:fact_iter}]
+def factorial(n):
+    total = 1
+    for i in range(1, n):
+        total = total * (i+1)
+    return total
+\end{lstlisting}
+
+\begin{lstlisting}[float,
+                   language = Python,
+                   caption = {A function which calculates the factorial using a recursive method in Python.},
+                   label = {lst:fact_recu}]
+def factorial(n):
+    if n == 0:
+        return 1
+    return n * factorial(n-1)
+\end{lstlisting}
+
+\begin{definition}
+    We can define an algorithm as \textbf{recursive} if it satisfies the following conditions:
+    \begin{enumerate}
+        \item it must have a base case;
+        \item it must change state and move towards the base case; and
+        \item it must call itself.
+    \end{enumerate}
+\end{definition}
+
+\begin{definition}
+    We can use \textbf{backtracking} to solve problems that have many possible solutions, but too many to exhaustively test. In essence, it involves building up a solution one step at a time and backtracking when unable to continue.
+\end{definition}
+
+Listing \ref{alg:backtracking_generic} shows a generic algorithm for using backtracking to find the solution to a problem.
+
+\begin{algorithm}
+    \caption{Generic algorithm for backtracking recursive technique.}
+    \label{alg:backtracking_generic}
+    \begin{algorithmic}
+        \Procedure{ExtendSolution}{current solution}
+            \If{current solution is valid}
+                \If{current solution is complete}
+                    \State \Return current solution
+                \Else
+                    \For{each extension of the current solution}
+                        ExtendSolution(extension)
+                    \EndFor
+                \EndIf
+            \EndIf
+        \EndProcedure
+    \end{algorithmic}
+\end{algorithm}
+
+\begin{example}
+    A \textbf{knight's tour} is a sequence of moves of a knight on a chessboard such that the knight visits every square only once. We can calculate a knights tour on any size chessboard using a recursive backtracking technique shown in \ref{alg:knights_tour}, this follows the generic algorithm specified above.
+\end{example}
+
+\begin{algorithm}
+    \caption{Knight's tour algorithm.}
+    \label{alg:knights_tour}
+    \begin{algorithmic}[H]
+        \Procedure{ExtendSolution}{current solution}
+            \If{new move is to unvisited square on board}
+                \If{every square has been visited}
+                    \State \Return current solution
+                \Else
+                    \For{each possible move}
+                        \State ExtendSolution(with new move)
+                    \EndFor
+                \EndIf
+            \EndIf
+        \EndProcedure
+    \end{algorithmic}
+\end{algorithm}
+
+\begin{example}
+    The \textbf{eight queens puzzle} is the problem of placing $8$ queens on a $8\times 8$ chessboard such that no two queens threaten each other (according to the rules of chess). Again, using the generic template we get the solution shown in Algorithm \ref{alg:queens_tour} to solve this problem.
+\end{example}
+
+\begin{algorithm}
+    \caption{Knight's tour algorithm.}
+    \label{alg:queens_tour}
+    \begin{algorithmic}[H]
+        \Procedure{ExtendSolution}{current solution}
+            \If{new queen is not under attack}
+                \If{8 queens are on the board}
+                    \State \Return current solution
+                \Else
+                    \For{each of eight squares in the next row}
+                        \State ExtendSolution(with extra queen)
+                    \EndFor
+                \EndIf
+            \EndIf
+        \EndProcedure
+    \end{algorithmic}
+\end{algorithm}

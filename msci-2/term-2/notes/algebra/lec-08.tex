@@ -1,0 +1,124 @@
+\lecture{8}{6/2}
+
+Just as for rings, we see that a homomorphism $\varphi$ is injective if and only if
+$\ker{\varphi} = \{1\}$
+(the proof for this is the same again).
+
+\section{Normal subgroups, quotients, and the FIT}
+
+Recall that \emph{ideals} are special kinds of subsets of a ring $R$
+such that the quotient $R/I$ is again a ring.
+Moreover, we have seen that ideals are exactly the kernels of ring homomorphisms.
+
+Analogously, we will define certain subgroups called \emph{normal} such that we can
+form quotient groups.
+Moreover, the normal subgroups will be exactly the kernels of group homomorphisms.
+
+\begin{definition}[Normal]
+    The subgroup $H \subset G$ is said to be \textbf{normal} (in $G$)
+    if for every $g \in G$ and $h \in H$ we have
+    \[
+        g^{-1} h g \in H.
+    \]
+\end{definition}
+
+\begin{example}
+    The following examples are easy to show.
+    \begin{enumerate}
+        \item If $G$ is abelian, any subgroup $H$ is normal.
+
+        \item The subgroup $\langle r \rangle$ of $D_n$ is normal.
+    \end{enumerate}
+\end{example}
+
+\begin{definition}[Quotient group]
+    Let $N$ be a normal subgroup of a group $G$.
+    The \textbf{quotient group} $G/N$ is the group
+    \[
+        G/N = \{gN : g\in G\}
+    \]
+    with the operation $(gN)(g'N) = gg'N$.
+    The identity in $G/N$ is $1\cdot N = N$ and $(gN)^{-1} = g^{-1}N$.
+\end{definition}
+
+Just ling for rings modulo ideals, we have a canonical surjective homomorphism
+\[
+    G \to G/N, \qquad g \mapsto gN
+\]
+whose kernel is exactly $N$.
+Just like ideals are kernels, we thus deduce that normal subgroups are kernels.
+
+\begin{lemma}[]
+    Let $\varphi: G \to H$ be a homomorphism of groups.
+    Then $\ker\varphi$ is normal in $G$.
+    Conversely, if $N$ is a normal subgroup of $G$, 
+    then $N$ is the kernel of a homomorphism.
+\end{lemma}
+
+\begin{proof}
+    For the first statement, let $x \in \ker\varphi$ and $g \in G$.
+    Then
+    \[
+        \varphi(gxg^{-1}) = \varphi(g)\varphi(g)^{-1} = 1
+    \]
+    so $gxg^{-1} \in \ker\varphi$ and so $\varphi$ is normal.
+    The second statement comes directly from what we have noted about 
+    $G \to G/n$.
+\end{proof}
+
+\begin{lemma}[]
+    Let $G$ be a finite group and $N$ be a normal subgroup.
+    Then
+    \[
+        \abs{G/N} = \frac{\abs G}{\abs N}. 
+    \]
+\end{lemma}
+
+\begin{proof}
+    By Lagrane's theorem, we have that $\frac{\abs G}{\abs N}$ is the number of left
+    cosets of $N$.
+    By the definition of $G/N$, its order is the number of cosets of $N$.
+\end{proof}
+
+\begin{theorem}[FIT for groups]
+    Let $\varphi:G \to H$ be a group homomorphism.
+    Then
+    \[
+        G/\ker\varphi \cong \im\varphi.
+    \]
+\end{theorem}
+
+\begin{proof}
+    The proof is very similar to that of rings, so we omit most of it.
+    We note that the isomorphism is given by the map $g\ker\varphi \to \varphi(g)$.
+\end{proof}
+
+\begin{example}
+    Let $\varphi$ be a homomorphism defined by
+    \[
+        \varphi: D_n \to \Z/2, \qquad \varphi(r^is^j) = \overline j \pmod 2.
+    \]
+    This map is clearly surjective and has kernel $\langle r \rangle$.
+    Thus, $\langle r \rangle$ is normal in $D_n$
+    (which we already knew).
+    Moreover, FIT imlpies that
+    \[
+        D_n/\langle r \rangle \cong \Z/2.
+    \]
+\end{example}
+
+\begin{example}
+    Let
+    \[
+        \varphi: \Z/6 \to S_3, \qquad \varphi(\overline a) = (1\;2\;3)^a
+    \]
+    be a homomorphism.
+    We see that
+    \[
+        \im\varphi = \langle(1\;2\;3)\rangle, \qquad \ker\varphi = \{\overline0, \overline3\}
+    \]
+    so
+    \[
+        (\Z/6)/\{\overline 0, \overline 3\} \cong \langle (1\;2\;3) \rangle.
+    \]
+\end{example}

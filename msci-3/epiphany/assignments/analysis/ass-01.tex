@@ -1,0 +1,208 @@
+\documentclass[a4paper, answers]{exam}
+\input{../preamble.tex}
+
+\begin{document}
+
+\begin{center}
+	\textbf{\textsc{Analysis III, Epiphany Term, Assignment 1}}
+	\\
+	\textsc{Ben Napier}
+	\vspace{1em}
+\end{center}
+
+\begin{questions}
+
+% /////////// %
+% /         / %
+\question Let $(X, \lVert \cdot \rVert)$ be a normed linear space.
+\begin{parts}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\part Prove that if $(x_n)_n$ converges in $X$, then $(x_n)_n$
+	  is a Cauchy sequence in $X$.
+\begin{solution}
+	Suppose $(x_n)$ converges to $x$.
+	Let $\varepsilon > 0$, then there is $N \in \mathbb N$ such that
+	for each $n \geq N$ we have 
+	$\lVert x_n - x \rVert < \sfrac\varepsilon2$.
+	Now let $m \geq N$. Then we have
+	\[
+		\lVert x_n - x_m \rVert \leq 
+		\lVert x_n - x \rVert + \lVert x_m - x \rVert <
+		\sfrac\varepsilon2 + \sfrac\varepsilon2 =
+		\varepsilon.
+	\]
+	Thus $(x_n)$ is Cauchy.
+\end{solution}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\part Let $(x_n)_n$ be a Cauchy sequence in $X$.
+      Show that if $(x_n)_n$ has a convergent subsequence in $X$,
+	  then $(x_n)_n$ converges in $X$.
+\begin{solution}
+	Let $(x_n)$ be Cauchy and suppose $(x_{n_k})$ is a convergent
+	subsequence with limit $x$.
+	Let $\varepsilon > 0$, then choose $N \in \mathbb N$ such that
+	for all $k \geq N$ we have 
+	$\lVert x_{n_k} - x \rVert < \sfrac{\varepsilon}2$.
+	Choose $N' \in \mathbb N$ such that for all $n,m \geq N'$ we have
+	$\lVert x_n - x_m \rVert < \sfrac{\varepsilon}2$.
+	We fix $j$ such that $j > \max\{N, N'\}$, 
+	then for $n \geq \max\{N, N'\}$ we have
+	\[
+		\lVert x_n - x \rVert \leq
+		\lVert x_n - x_{n_j} \rVert + \lVert x_{n_j} - x \rVert <
+		\sfrac{\varepsilon}2 + \sfrac{\varepsilon}2 =
+		\varepsilon.
+	\]
+\end{solution}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\part Two norms $\lVert \cdot \rVert_1$ and $\lVert \cdot \rVert_2$
+	  are \emph{equivalent} if there exists a constant $C > 0$ such that
+	  $$\frac1C \lVert x \rVert_1 \leq \lVert x \rVert_2
+	    \leq C \lVert x \rVert_1, \qquad x \in X.$$
+	  If $\lVert \cdot \rVert_1$ and $\lVert \cdot \rVert_2$ are equivalent
+	  norms on $X$, then prove that $(X, \lVert \cdot \rVert_1)$ is complete
+	  if and only if $(X, \lVert \cdot \rVert_2)$.
+\begin{solution}
+	Consider the normed vector spaces $(X, \lVert \cdot \rVert_1)$ and $(X, \lVert \cdot \rVert_2)$ where $\lVert \cdot \rVert_1$ and $\lVert \cdot \rVert_2$ are equivalent. 
+	Choose $C > 0$ such that
+	$$\frac1C \lVert x \rVert_1 \leq \lVert x \rVert_2
+	    \leq C \lVert x \rVert_1, \qquad x \in X.$$
+	First suppose that $(X, \lVert \cdot \rVert_1)$ is complete.
+	Now let $(x_n)$ be a Cauchy sequence in $(X, \lVert \cdot \rVert_2)$
+	such that for all $\varepsilon > 0$ there is $N \in \mathbb N$
+	such that for every $n,m \geq N$ we have $\lVert x_n - x_m \rVert < \varepsilon$.
+	We claim that $(x_n)$ is also Cauchy in $(X, \lVert \cdot \rVert_1)$.
+	Indeed,
+	\[
+		\lVert x_n - x_m \rVert_1 \leq
+		C \lVert x_n - x_m \rVert_2 <
+		C \varepsilon.
+	\]
+	Now, as $(X, \lVert \cdot \rVert_1)$ is complete, $(x_n)$ must converge to some limit in $X$, say $x$. 
+	We claim that $(x_n)$ must also converge to this same limit with $\lVert \cdot \rVert_2$.
+	We see,
+	\[
+		\lVert x_n - x \rVert_2 \leq
+		C \lVert x_n - x \rVert_1 <
+		C \varepsilon
+	\]
+	and thus $(X, \lVert \cdot \rVert_2)$ is complete.
+	Now, the relation on norms defined above is clearly symmetric; thus,
+	we are done.
+\end{solution}
+	
+\end{parts}
+
+% /////////// %
+% /         / %
+\question
+\begin{parts}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\part Let $(X, \lVert \cdot \rVert)$ be a normed linear space.
+      Prove that
+	  $$\lVert x - y \rVert \geq \lVert x \rVert - \lVert y \rVert,
+		\qquad \forall\; x,y \in X.$$
+\begin{solution}
+	\[
+		\lVert x \rVert = 
+		\lVert x - y + y \rVert \leq 
+		\lVert x - y \rVert + \lVert y \rVert
+	\]
+	thus $\lVert x - y \rVert \geq \lVert x \rVert - \lVert y \rVert$.
+\end{solution}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\part Let $f,g \in L^1(E)$. 
+  	  Prove that, if 
+	  $\lVert f + g \rVert_{L^1} = \lVert f \rVert_{L^1}
+		+ \lVert g \rVert_{L^1}$, then
+		$$\lVert af + bg \rVert_{L^1} = a \lVert f \rVert_{L^1}
+			+ b \lVert g \rVert_{L^1}$$
+	  for all $a \geq 0$ and $b \geq 0$.
+	  Is this a special property of the $\lVert \cdot \rVert_{L_1}$
+	  norm, or does it hold for any norm $\lVert \cdot \rVert$? 
+	  Justify your response.
+\begin{solution}
+	For brevity we will write $\lVert \cdot \rVert = \lVert \cdot \rVert_{L^1}$.
+	Let $f, g \in L^1(E)$ and assume $\lVert f + g \rVert = \lVert f \rVert + \lVert g \rVert$.
+	First we assume that $a \geq b$.
+	\begin{align*}
+		\lVert af + bg \rVert
+		&=    \lVert a(f + g) - (a - b) g \rVert \\
+		&\geq \lVert a(f+g) \rVert - \lVert (a-b)g \rVert \\
+		&= \lvert a \rvert \cdot \lVert f + g \rVert - \lvert a - b \rvert \cdot \lVert g \rVert \\
+		&= a \left( \lVert f \rVert + \lVert g \rVert \right) - (a-b) \lVert g \rVert \\
+		&= a \lVert f \rVert + b \lVert g \rVert.
+	\end{align*}
+	Now we consider the case where $b > a$. 
+	\begin{align*}
+		\lVert af + bg \rVert
+		&=    \lVert b(f + g) - (b - a) f \rVert \\
+		&\geq \lVert b(f+g) \rVert - \lVert (b - a)f \rVert \\
+		&= \lvert b \rvert \cdot \lVert f + g \rVert - \lvert b - a \rvert \cdot \lVert f \rVert \\
+		&= b \left( \lVert f \rVert + \lVert g \rVert \right) - (b-a) \lVert f \rVert \\
+		&= a \lVert f \rVert + b \lVert g \rVert.
+	\end{align*}
+	$\lVert \cdot \rVert$ satisfies the triangle inequality, thus we have
+	\[
+		a \lVert f \rVert + b \lVert g \rVert
+		\leq \lVert af + bg \rVert
+		\leq \lVert af \rVert + \lVert bg \rVert 
+		= a \lVert f \rVert + b \lVert g \rVert. 
+	\]
+	thus $a \lVert f \rVert + b \lVert g \rVert = \lVert af + bg \rVert$.
+\end{solution}
+
+\end{parts}
+
+% /////////// %
+% /         / %
+\question Prove the following.
+\begin{parts}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\part If $f,g \in L^\infty(E)$, then $f+g \in L^\infty(E)$ and 
+$\lVert f + g \rVert_{L^\infty} \leq \lVert f \rVert_{L^\infty} + \lVert g \rVert_{L^\infty}$.
+\begin{solution}
+	Let $f, g \in L^\infty(E)$ and $M_f, M_g \geq 0$ essentially bound $f$ and $g$ respectively.
+	Let $E_f, E_g \subset E$ with $m(E_f) = m(E_g) = 0$ such that $f(x) < M_f$ for all $x \in E \setminus E_f$ and $g(x) < M_g$ for all $x \in E \setminus E_g$.
+	We observe that $m(E_f \cup E_g) = 0$ and for all $E \setminus (E_f \cup E_g)$ we have $(f + g)(x) = f(x) + g(x) \leq M_f + M_g$, thus $f + g$ is essentially bounded (by $M_f + M_g$) and thus $f + g \in L^\infty(E)$.
+
+	Now, $\lvert f \rvert \leq \lVert f \rVert_{L^\infty}$ almost everywhere on $E$ as $\lVert f \rVert_{L^\infty}$ is an essential bound for $\lvert f \rvert$.
+	Thus we have
+	\[
+		\lvert f + g \rvert 
+		\leq \lvert f \rvert + \lvert g \rvert
+		\leq \lVert f \rVert_{L^\infty} + \lVert g \rVert_{L^\infty}
+	\]
+	almost everywhere on $E$.
+	Thus $\lVert f \rVert_{L^\infty} + \lVert g \rVert_{L^\infty}$ is an essential bound for $\lvert f + g \rvert$.
+	But $\lVert f + g \rVert_{L^\infty}$ is the least essential bound for $\lvert f + g \rvert$, thus
+	\[
+		\lVert f + g \rVert_{L^\infty} 
+		\leq \lVert f \rVert_{L^\infty} + \lVert g \rVert_{L^\infty}.
+	\]
+\end{solution}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\part If $f \in L^1(E)$ and $g \in L^\infty(E)$, then 
+$\int_E \lvert fg \rvert \leq \lVert f \rVert_{L^1} \lvert g \rvert_{L^\infty}$.
+\begin{solution}
+	Observe $\lvert fg \rvert = \lvert f \rvert \cdot \lvert g \rvert \leq \lvert f \rvert \cdot \lVert g \rVert_{L^\infty}$.
+	By the monotonicity of the Lebesgue integral, we have
+	\begin{align*}
+		\int_E \lvert fg \rvert
+		&\leq \int_E \lvert f \rvert \cdot \lVert g \rVert_{L^\infty} \\
+		&=    \left( \int_E \lvert f \rvert \right) \cdot \lVert g \rVert_{L^\infty} \\
+		&=     \lVert f \rVert_{L^1} \cdot \lVert g \rVert_{L^\infty}.
+	\end{align*}
+
+\end{solution}
+
+\end{parts}
+\end{questions}
+\end{document}

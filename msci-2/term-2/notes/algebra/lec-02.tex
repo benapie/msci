@@ -1,0 +1,46 @@
+\chapter{Dihedral groups}
+\lecture{2}{16/1}
+
+A \textbf{dihedral group} is the group of symmetries of a regular polygon,
+which includes \emph{rotations} and \emph{reflections}.
+
+We have the dihedral group $D_3$, or the symmetry group of the regular triangle,
+defined as
+\[
+    D_3 = \{ 1, r, r^2, s, rs, r^2s \}.
+\]
+To relate this to transformations on a triangle: $r$ is a rotation of
+$\frac{2\pi}3$ and $s$ is a reflection (in any of the lines of symmetry).
+
+\begin{remark}
+    \begin{enumerate}
+        \item 
+            $D_3$ is a non-abelian group.
+
+        \item
+            You may object that not \emph{all} symmetries are in the group;
+            for example, the product $r^2(r^2s)$.
+            However,
+            \[
+                r^2(r^2s) = r^3rs = 1rs = rs \in D_3.
+            \]
+
+        \item To describe $D_3$ completely, we need only $r$ and $s$ and
+            three fundamental relations from which everything else follows:
+            \[
+                D_3 = \langle r, s : r^3 = 1, s^2 = 1, srs = r^2 \rangle.
+            \]
+    \end{enumerate}
+\end{remark}
+
+We can do a similar analysis for a square,
+and the group of symmetries here are called $D_4$.
+Similarly, for a regular $n$-gon ($n \geq 3$)
+we get the dihedral group $D_n$.
+We define this as
+\[
+    D_n = \langle r, s: r^n = 1, s^2 = 1, srs = r^{-1} \rangle.
+\]
+You can see the main difference here is that we have $n$ rotations.
+This algebraic definition of $D_n$ makes sense for $n \in \{1, 2\}$;
+however, $D_n$ clearly is not the symmetry group of an $n$-gon.

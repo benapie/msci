@@ -1,0 +1,14 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{n}{boundary\PYGZus{}maps} \PYG{o}{=} \PYG{p}{[[}\PYG{l+m+mi}{0}\PYG{p}{]} \PYG{o}{*} \PYG{n+nb}{len}\PYG{p}{(}\PYG{n}{chain\PYGZus{}groups}\PYG{p}{[}\PYG{l+m+mi}{1}\PYG{p}{])]}
+\PYG{k}{for} \PYG{n}{i} \PYG{o+ow}{in} \PYG{n+nb}{range}\PYG{p}{(}\PYG{l+m+mi}{1}\PYG{p}{,} \PYG{n+nb}{len}\PYG{p}{(}\PYG{n}{chain\PYGZus{}groups}\PYG{p}{)):}
+    \PYG{n}{chain\PYGZus{}group} \PYG{o}{=} \PYG{n}{chain\PYGZus{}groups}\PYG{p}{[}\PYG{n}{i}\PYG{p}{]}
+    \PYG{n}{boundary\PYGZus{}map} \PYG{o}{=} \PYG{p}{[]}
+    \PYG{k}{for} \PYG{n}{chain} \PYG{o+ow}{in} \PYG{n}{chain\PYGZus{}group}\PYG{p}{:}
+        \PYG{n}{boundary\PYGZus{}map\PYGZus{}col} \PYG{o}{=} \PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{]} \PYG{o}{*} \PYG{n+nb}{len}\PYG{p}{(}\PYG{n}{chain\PYGZus{}groups}\PYG{p}{[}\PYG{n}{i} \PYG{o}{\PYGZhy{}} \PYG{l+m+mi}{1}\PYG{p}{])}
+        \PYG{k}{for} \PYG{n}{j} \PYG{o+ow}{in} \PYG{n+nb}{range}\PYG{p}{(}\PYG{l+m+mi}{0}\PYG{p}{,} \PYG{n+nb}{len}\PYG{p}{(}\PYG{n}{chain}\PYG{p}{)):}
+            \PYG{n}{v} \PYG{o}{=} \PYG{n}{j}
+            \PYG{n}{v\PYGZus{}boundary} \PYG{o}{=} \PYG{n}{chain}\PYG{p}{[:}\PYG{n}{j}\PYG{p}{]} \PYG{o}{+} \PYG{n}{chain}\PYG{p}{[}\PYG{n}{j}\PYG{o}{+}\PYG{l+m+mi}{1}\PYG{p}{:]}
+            \PYG{n}{boundary\PYGZus{}map\PYGZus{}col}\PYG{p}{[}\PYG{n}{chain\PYGZus{}groups}\PYG{p}{[}\PYG{n}{i} \PYG{o}{\PYGZhy{}} \PYG{l+m+mi}{1}\PYG{p}{]}\PYG{o}{.}\PYG{n}{index}\PYG{p}{(}\PYG{n}{v\PYGZus{}boundary}\PYG{p}{)]} \PYG{o}{=} \PYG{p}{(}\PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{1}\PYG{p}{)} \PYG{o}{**} \PYG{n}{j}
+        \PYG{n}{boundary\PYGZus{}map}\PYG{o}{.}\PYG{n}{append}\PYG{p}{(}\PYG{n}{boundary\PYGZus{}map\PYGZus{}col}\PYG{p}{)}
+    \PYG{n}{boundary\PYGZus{}maps}\PYG{o}{.}\PYG{n}{append}\PYG{p}{(}\PYG{n}{boundary\PYGZus{}map}\PYG{p}{)}
+\end{Verbatim}

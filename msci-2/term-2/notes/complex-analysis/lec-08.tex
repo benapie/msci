@@ -1,0 +1,137 @@
+\lecture{8}{3/2}
+
+\begin{theorem}[Morera]
+    Let $U \subset \C$ be open and $f: U \to \C$.
+    If
+    \[
+        \int_\gamma f(z) \,dz = 0
+    \]
+    for all closed contour $\gamma \subset U$, then $f$ is holomorphic.
+\end{theorem}
+
+\begin{proof}
+    By the converse to the FTC, 
+    we see that there exists a holomorphic function
+    $F: U \to \C$
+    such that $F'(z) = f(z)$.
+    As holomorphic functions have infinitely many holomorphic derivatives,
+    hence $f$ is holomorphic.
+\end{proof}
+
+\begin{example}
+    \[
+        \int_{\lvert z \rvert = 1} \frac{\sin{z}}{z^2} \,dz
+        = \int_{\lvert z \rvert = 1} \frac{f(z)}{(z - 0)^2} \,dz
+        = \frac{2\pi i}{1!} f'(0)
+        = 2\pi i.
+    \]
+\end{example}
+
+\begin{example}
+    \begin{align*}
+        I
+        &= \int_{\lvert z \rvert = 3} \frac{\exp(z)}{z^2(z-1)} \,dz \\
+        &= \int_{\lvert z \rvert = 3} \frac{-\exp(z)}{z} \,dz
+            + \int_{\lvert z \rvert = 3} \frac{-\exp(z)}{z^2} \,dz
+            + \int_{\lvert z \rvert = 3} \frac{\exp(z)}{z-1} \,dz \\
+        &= -2\pi i e^0 + 2\pi i e^1 - 2\pi ie^0 \\
+        &= 2\pi i(e - 2).
+    \end{align*}
+\end{example}
+
+\section{Liouville's theorem}
+
+\begin{definition}[Entire]
+    A function $f: \C \to \C$ is \textbf{entire} if
+    $f$ is holomorphic and defined on $\C$.
+\end{definition}
+
+\begin{theorem}[Liouville]
+    Any bounded entire function is constant.
+\end{theorem}
+
+\begin{proof}
+    Let $f$ be entire and bounded.
+    So $\lvert f(z) \rvert \leq M$ for all $z \in \C$, $M \in \R$.
+    Let $w \in \C$.
+    For $\rho > \lvert w \rvert$ we have
+    \begin{align*}
+        \lvert f(w) - f(0) \rvert
+        &=
+        \frac{1}{2\pi} 
+        \left\lvert
+            \int_{\lvert z \rvert = \rho} \frac{f(z)}{z-w} \,dz - \int_{\lvert z \rvert = \rho} \frac{f(z)}{z} \,dz
+        \right\rvert
+        \tag{CIF} \\
+        &= \frac{1}{2\pi}
+        \left\lvert
+            \int_{\lvert z \rvert = \rho} f(z)
+            \left(
+                \frac{1}{z - w} - \frac 1z
+            \right)
+            \,dz
+        \right\rvert
+        \\
+        &= \frac{1}{2\pi} \int_{\lvert z \rvert = \rho} f(z) \frac{w}{(z - w)z} \,dz \\
+        &\leq \frac{1}{2\pi} \lvert w \rvert 2 \pi \rho \sup_{\lvert z \rvert = \rho}
+        \left(
+            \frac{\lvert f(z) \rvert}{\lvert z \rvert \lvert z - w \rvert} 
+        \right) \\
+        &\leq \frac{1}{2\pi} 2 \pi \rho \lvert w \rvert \frac{M}{\rho(\rho - \lvert w \rvert)}  \to 0
+    \end{align*}
+    as $\rho \to \infty$;
+    hence, $f(w) = f(0)$.
+\end{proof}
+
+
+\begin{example}
+    Let $f: \C \to \C$ be a function defined by
+    \[
+        f(z) = \frac{1}{1 + \abs{z}^2}.
+    \]
+    We see that $\abs{f(z)} \leq 1$, 
+    so $f$ is bounded but it is \emph{not} holomorphic by the Cauchy-Riemann equations.
+\end{example}
+
+\begin{theorem}[Fundamental theorem of algebra]
+    Every non-constant polynomial with complex coefficients has a complex root.
+\end{theorem}
+
+\begin{proof}
+    Let $P(z) = a_0 + a_1z + a_2z^2 + \ldots + a_dz^d$.
+    Then
+    \begin{align*}
+        \abs{P(z)}
+        &=    \abs{a_0 + a_1z + a_2z^2 + \ldots + a_dzd} \\
+        &\geq \abs{a_d} \abs{z}^d - \abs{a_{d - 1}} \abs{z}^{d - 1} - \ldots - \abs{a_0} \\
+        &\to  \infty.
+    \end{align*}
+    as $z \to \infty$.
+    Therefore, there exists $R>0$ such that 
+    $\abs{P(z)} > 1$
+    for all 
+    $\abs{z} > R$.
+    We now assume that there does not exist
+    $z_0 \in \C$
+    such that
+    $P(z_0) = 0$.
+    We set
+    \[
+        f(z) = \frac{1}{P(z)}. 
+    \]
+    $f$ is holomorphic for all $z \in \C$ and it is entire.
+    Now let
+    \[
+        L = \max_{\abs z \leq R} \lvert f(z) \rvert < \infty.
+    \]
+    Since $\abs{f(z)}$ is continuous and
+    $\abs z \leq R$
+    since 
+    \[
+        \abs{f(z)} = \frac{1}{\abs{P(z)}} \leq 1 
+    \]
+    for all $z \in \C$.
+    We have $\abs{f(z)} \leq \max\{1,L\}$
+    so by Liouville's theorem $f$ is constant and so $P$ is constant; contraction. 
+\end{proof}
+

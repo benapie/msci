@@ -1,0 +1,209 @@
+%! TEX root = master.tex
+\lecture{19}{8/12}
+
+\begin{corollary}[Additivity of domains of integration]
+	Let $f$ be integrable over $E$.
+	Assume $A$ and $B$ are disjoint measurable subsets of $E$.
+	Then
+	\[\int_{A \cup B} f = \int_A f + \int_B f.\]
+\end{corollary}
+
+\begin{proof}
+	Observe $\abs{f \cdot \chi_A} \leq \abs f$
+	and $\abs{f \cdot \chi_B} \leq \abs f$
+	thus $\int_E \abs{f \cdot \chi_A} \leq \int_E \abs f < \infty$
+	and $\int_E \abs{f \cdot \chi_B} \leq \int_E \abs f < \infty$.
+	Therefore, $f \cdot \chi_A$ and $f \cdot \chi_B$ are integrable.
+	Since $A$ and $B$ are disjoint,
+	$f \cdot \chi_{A \cup B} = f \cdot \chi_A + f \cdot \chi_B$
+	(convince yourself).
+	So
+	\[
+		\int_E f \cdot \chi_{A \cup B}
+		= \int_E \left(f \cdot \chi_A + f \cdot \chi_B\right)
+		= \int_E f \cdot \chi_A + \int_E f \cdot \chi_B.
+	\]
+	Now convince yourself that if $C \subset E$, 
+	then $\int_C f = \int_E f \cdot \chi_C$.
+	But now we are done.
+\end{proof}
+
+\begin{theorem}[Lebesgue dominated convergence theorem]
+	Let $\{f_n\}$ be a sequence of measurable functions over $E$.
+	Suppose there is an integrable function $g$ on $E$
+	which dominates $f_n$ on $E$
+	(that is, $\abs{f_n} \leq g$).
+	If $f_n \to f$ pointwise almost everywhere on $E$, then $f$ is integrable
+	over $E$ and
+	\[\lim_{n \to \infty} \int_E f_n = \int_E f.\]
+\end{theorem}
+
+\begin{proof}
+	$\abs{f_n} \leq g$ for all $n$ and $\abs f \leq g$ almost everywhere on
+	$E$.
+	Thus
+	\[
+		\int_E \abs{f_n} \leq \int_E g < \infty, \qquad
+		\int_E \abs f \leq \int_E g < \infty
+	\]
+	so $f_n$ and $f$ are integrable over $E$.
+	So $f_n$ and $f$ are finite almost everywhere on $E$.
+	By excising the set of measure zero for which $f_n$ and $f$
+	are not finite, we get that they are finite on $E$.
+	So $g - f$ and $g - f_n$ are well-defined,
+	non-negative, and measurable.
+	Now $f_n \to f$, so $g - f_n \to g - f$ (pointwise almost everywhere).
+	By Fatou's Lemma,
+	\[
+		\int_E (g - f) \leq \liminf\int_E (g - f_n);
+	\]
+	but
+	\[
+		\int_E (g - f)
+		= \int_E g - \int_E f
+		\leq \int_E g - \limsup\int_E f_n
+	\]
+	and so $\limsup\int_E f_n \leq \int_E f$.
+	Now consider $g + f_n \to g + f$, then similarly
+	\[
+		\int_E f \leq \liminf\int_E f_n. \qedhere
+	\]
+\end{proof}
+
+\subsection{Convergence in measure}
+
+\begin{definition}{Converge in measure}
+	Let $\left\{ f_n \right\}$ be a sequence of measurable functions
+	on $E$ and $f$ be a measurable function for which $f$ and $f_n$
+	are finite almost everywhere on $E$.
+	The sequence $\left\{ f_n \right\}$ is said to \emph{converge
+	in measure} on $E$ to $f$ if for each $\eta > 0$,
+	\[
+		\lim_{n \to \infty} m\left( 
+			\left\{ x \in E: \abs{f_n(x) - f(x)} > \eta \right\} 
+		 \right) = 0.
+	\]
+\end{definition}
+
+When we write $\left\{ f_n \right\} \to f$ in measure, we assume
+$f_n$ and $f$ are finite almost everywhere. Observe:
+if $f_n \to f$ uniformly then $f_n \to f$ in measure.
+Indeed, if $f_n \to f$ uniformly for each $\eta > 0$ and $n \in \N$
+large enough,
+\[
+	\left\{ x \in E: \abs{f_n(x) - f(x)} > \eta \right\} = \varnothing
+\]
+so $f_n \to f$ in measure.
+
+\begin{proposition}
+	Assume $E$ has finite measure.
+	Let $\{f_n\}$ be a sequence of measurable functions on $E$ such that
+	$f_n \to f$ pointwise almost everywhere on $E$,
+	where $f$ is finite almost everywhere on $E$.
+	Then $f_n \to f$ in measure.
+\end{proposition}
+
+\section{The Riemann Integral}
+
+Let $f$ be a bounded real-valued functions defined on the closed, bounded
+interval $[a,b]$.
+Let $p = \left\{ x_0, x_1, \ldots, x_n \right\}$ be a partition of $[a,b]$
+(that is, $a = x_0 < x_1 < \ldots < x_n = b$).
+The \emph{upper and lower Darboux sums} are defined for $f$ with respect to
+$p$ as
+\begin{align*}
+	L(f,p) &= \sum_{i=1}^n m_i\left( x_i - x_{i-1} \right) \\
+	U(f,p) &= \sum_{i=1}^n M_i\left( x_i - x_{i-1} \right)
+\end{align*}
+where
+\begin{align*}
+	m_i(x_{i-1} - x_i) &= \inf\left\{ f(x): x \in (x_{i-1}, x_i) \right\} \\
+	M_i(x_{i-1} - x_i) &= \sup\left\{ f(x): x \in (x_{i-1}, x_i) \right\}.
+\end{align*}
+We define the \emph{lower and upper Riemann integrals} of $f$ over $[a,b]$
+by 
+\begin{align*}
+	\underline{I}_a^b(f) &= \sup\left\{ L(f, p): 
+		\text{$p$ partition of $[a,b]$} \right\} \\
+	\overline{I}_a^b(f) &= \inf\left\{ U(f,p): 
+		\text{$p$ partition of of $[a,b]$} \right\}
+\end{align*}
+
+Observe that both of these are finite
+$\underline I_a^b(f) \leq \overline I_a^b(f)$.
+We say that $f$ is \emph{Riemann integrable} over $[a,b]$ if
+$\underline I_a^b(f) = \overline I_a^b(f)$
+and we denote the common value as $I_a^b(f)$ or 
+$(R) \int_a^b f$.
+
+\begin{definition}[Step function]
+	A real-valued function $\psi$ is a \emph{step function} if there is a
+	partition $p = \left\{ x_0, x_1, \-\ldots, x_m \right\}$ of $[a,b]$
+	and $c_1, \ldots, c_n \in \R$ such that for 
+	$i \in \left\{ 1, \ldots, n \right\}$ we have
+	\[
+		c_i \in (x_{i-1} x_i) \implies \psi(x) = c_i.
+	\]
+\end{definition}
+
+Let $\psi$ be a step function, observe 
+\[
+	L(\psi, p) = \sum_{i=1}^n c_i(x_i - x_{i-1}) = U(\psi, p).
+\]
+Thus,
+\[
+	\underline I_a^b(\psi)
+	= \overline I_a^b 
+	= I_a^b
+	= \sum_{i=1}^n c_i(x_i - x_{i-1}).
+\]
+So if $\psi$ is a step function, it is Riemann integrable.
+So
+\[
+	\underline I_a^b(f)
+	=\sup\left\{I_a^b(\varphi): \text{$\varphi$ is a step function},
+	\text{$\varphi \leq f$ on $[a,b]$}\right\}
+\]
+and
+\[
+	\overline I_a^b(f) = 
+	\inf\left\{ I_a^b(\varphi):
+	\text{$\varphi$ is a step function},
+	\text{$f \geq \varphi$ on $[a,b]$} \right\}.
+\]
+
+\begin{example}[Dirichlet's function]
+	Define $f: [0,1] \to \R$,
+	\[
+		f(x) = \begin{cases}
+			1 & x \in \Q, \\
+			0 & x \in \R \setminus \Q. \\
+		\end{cases}
+	\]
+	Let $p$ be any partition of $[0,1]$.
+	By the density of $\Q$ and $\R \setminus \Q$,
+	\[
+		L(f,p) = 0, \qquad U(f,p) =1.
+	\]
+	Thus
+	\[
+		\underline I_0^1(f) = 0 < 1 = \overline I_0^1(f).
+	\]
+	Thus $f$ is not Riemann integrable.
+	The set of rational are countable in $[0,1]$.
+	Let $\left\{ q_k \right\}_{k=1}^\infty$ be an enumeration of the
+	rational numbers in $[0,1]$.
+	For $n \in \N$, define
+	\[
+		f_n(x) =
+		\begin{cases}
+			1 & \exists\; k \in \left\{ 1, \ldots, n \right\}: x = q_k, \\
+			0 & \text{otherwise}. \\
+		\end{cases}
+	\]
+	Each $f_n$ is a step function and thus Riemann integrable.
+	Hence $\{f_n\}$ is an increasing sequence of Riemann integrable functions,
+	$\abs{f_n} \leq 1$ on $[0,1]$ for all $n$, and $f_n \to f$ pointwise
+	on $[0,1]$.
+	But $f$ is not Riemann integrable.
+\end{example}

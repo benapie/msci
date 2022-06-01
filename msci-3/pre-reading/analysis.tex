@@ -1,0 +1,235 @@
+%! TEX root = ../master.tex
+\subsection{Analysis}
+
+This content comes from the first section in the second half of a two-course 
+sequence called \emph{Introduction to Analysis} from \emph{MIT}.
+
+\begin{definition}[]
+	Let $\bm x = (x_1, \ldots, x_n) \in \R^n$.
+	The \textbf{Euclidean norm} of $\bm x$ is
+	\[
+		\norm{\bm x} = \sqrt{x_1^2 + \ldots + x_n^2}
+	\]
+	and the \textbf{sup norm} is
+	\[
+		\abs x = \max_{i \in \{1,\ldots,n\}} \abs{x_i}.
+	\]
+\end{definition}
+
+\begin{remark}
+	From the norms defined above, for two points $\bm x, \bm y \in \R^2$ we get
+	the Euclidean distance function $\norm{\bm x - \bm y}$
+	and the sup distance function $\abs{\bm x - \bm y}$.
+\end{remark}
+
+\begin{proposition}[]
+	A subset $U$ of $\R^n$ is open with the Euclidean distance function
+	if and only if it is open with the sup distance function.
+\end{proposition}
+
+\begin{proof}
+	Let $d_E$ be the Euclidean distance function and $d_{\sup}$ be the
+	sup distance function.
+	To prove this we must only show that there exists $a, b \in \R^n$
+	such that for all $\bm x, \bm y \in \R^n$ we have $
+		d_E(x,y) < a \, d_{\sup}(x,y)
+	$ and $
+		d_{\sup}(x,y) < b \, d_E(x,y)
+	$.
+\end{proof}
+
+\begin{definition}[Continuity]
+	Let $(X, d_X)$ and $(Y, d_Y)$ be two metric spaces
+	and $f: X \to Y$ be a map.
+	We say that $f$ is \textbf{continuous at $x_0$}
+	if for all $\varepsilon > 0$ there exists $\delta > 0$ such that
+	\[
+		x \in B_{\delta}(x_0) 
+		\implies f(x) \in B_{\varepsilon} \left(f(x_0)\right)
+	\]
+	(with the appropriate metrics used for the balls).
+\end{definition}
+
+\begin{theorem}[]
+	Let $(X, d_X)$ and $(Y, d_Y)$ be two metric spaces,
+	$f: X \to Y$ be a map,
+	and $U$ be open in $Y$.
+	$f$ is continuous if and only if $f^{-1}(U)$ is open in $X$.
+\end{theorem}
+
+\begin{proof}
+	This is the \emph{definition} of continuous for topological spaces, and we 
+	have already proved equivalence of topological continuity and metric 
+	continuity previously.
+\end{proof}
+
+\begin{definition}[Limit point]
+	Suppose that $X$ is a metric space and $A \subset X$.
+	The point $x \in X$ is a \textbf{limit point} of $A$ if for all
+	$\varepsilon > 0$ the ball $B_{\varepsilon}(x)$ is an infinite set.
+\end{definition}
+
+\begin{proposition}[]
+	Suppose that $(X, d)$ is a metric space, $\varepsilon$ and $\delta$ are
+	positive real numbers, and $x$ and $y$ are point in $X$.
+	Then
+	\[
+		B_{\varepsilon}(x) \subset B_{\delta}(y)
+		\implies \delta > d(x,y).
+	\]
+\end{proposition}
+
+\begin{proof}
+	\[
+		x \in B_{\varepsilon}(x)
+		\implies x \in B_{\delta}(y)
+		\implies d(x,y) < \delta.
+	\]
+\end{proof}
+
+\begin{proposition}[]
+	Suppose $(X,d)$ is a metric space,
+	$x$ is a point of $X$,
+	$A_1 \subset B_{\varepsilon}$,
+	and $A_2 \subset B_{\delta}(x)$.
+	Then
+	\[
+		A_1 \cup A_2 \subset B_{\max\{\varepsilon, \delta\}}(x).
+	\]
+\end{proposition}
+
+\begin{proof}
+	Omitted.
+\end{proof}
+
+\begin{definition}[Bounded]
+	Suppose $X$ is a metric space and $A \subset X$.
+	We say that $A$ is \textbf{bounded} if there exists $\varepsilon > 0$
+	such that for all $x, y \in A$ we have $y \in B_{\varepsilon}(x)$.
+\end{definition}
+
+\begin{definition}[Cover]
+	Suppose $X$ is a metric space and $A \subset X$.
+	The collection of subsets $\left\{ U_\alpha \right\}_{\alpha \in I}$
+	on $X$ (where $I$ is a labelling set) is a \textbf{cover} of $A$ if
+	\[
+		A \subset \bigcup_{\alpha \in I} U_\alpha.
+	\]
+\end{definition}
+
+\begin{definition}[Compact on $\R^n$]
+	Consider the metric space $(\R^n, d)$.
+	For any subset $A \subset \R^n$, $A$ is \textbf{compact} if
+	it is closed and bounded.
+\end{definition}
+
+\begin{theorem}[Heine-Borel]
+	Consider the metric space $(\R^n, d)$.
+	Let $A \subset \R^n$ be compact and
+	$\left\{ U_\alpha \right\}_{\alpha \in I}$ be an open cover of $A$
+	(that is, $U_\alpha$ is open for all $\alpha \in I$).
+	Then a finite number of $U_\alpha$'s cover $A$.
+\end{theorem}
+
+\begin{remark}
+	The property that a finite number of $U_\alpha$'s cover $A$ is called the
+	\textbf{Heine-Borel property} (H-B property).
+	This is the property that allows us to extend the idea of being closed
+	and bounded in Euclidean space to metric spaces and more generally,
+	\emph{any} topological space.
+\end{remark}
+
+\begin{definition}[Compact]
+	Let $X$ be a metric space and $A$ be a subset of $X$.
+	$A$ is \textbf{compact} if each of its open covers has a finite subcover.
+\end{definition}
+
+\begin{theorem}[]
+	Let $X$ and $Y$ be metric spaces and $f$ be a continuous map between them.
+	If $A$ is compact in $X$, then $f(A)$ is compact in $Y$.
+\end{theorem}
+
+\begin{proof}
+	Let $A$ be compact in $X$ 
+	and let $\{U_\alpha\}_{\alpha \in I}$ be an open cover of $f(A)$. 
+	As $f$ is continuous,
+	$\{f^{-1}(U_\alpha)\}_{\alpha \in I}$ is an open cover of $A$
+	and as $A$ is compact there exists a finite open subcover
+	$\{f^{-1}(U_\alpha)\}_{\alpha \in J}$.
+	Therefore $\{U_\alpha\}_{\alpha \in J}$ is a finite open subcover of $f(A)$
+	and hence $f(A)$ is compact in $Y$.
+\end{proof}
+
+\begin{theorem}[]
+	Suppose $X$ is a metric space, 
+	$A$ is compact in $X$, 
+	and $f: X \to \R$ is a continuous map.
+	Then $f$ has a maximum point on $A$.
+\end{theorem}
+
+\begin{proof}
+	$f(A)$ is compact and so it is closed and bounded.
+	Therefore $a = \sup{f(A)}$ exists and is contained within $f(A)$.
+\end{proof}
+
+\begin{definition}[Uniform continuity]
+	Suppose $(X, d)$ is a metric space,
+	$A$ is a subset of $X$,
+	and $f: X \to \R$ is a continuous mapping.
+	We say that $f$ is \textbf{uniformly continuous} on $A$
+	if for every $\varepsilon > 0$ there exists $\delta > 0$
+	such that \[
+		d(x, y) < \delta \implies \abs{f(x), f(y))} < \varepsilon
+	\]
+	for every $x, y \in A$.
+\end{definition}
+
+\begin{theorem}[]
+	Let $X$ be a metric space,
+	$A$ be a compact subset of $X$,
+	and $f: X \to \R$ be a continuous map.
+	Then $f$ is uniformly convergent on $A$.
+\end{theorem}
+
+\begin{definition}[]
+	We say that a metric space is \textbf{connected} if it is impossible
+	to write it as a disjoint union of two non-empty open sets.
+\end{definition}
+
+\begin{theorem}[]
+	Let $X$ and $Y$ be metric spaces and $f$ be a continuous map between
+	them.
+	It follows that
+	\[
+		\text{$X$ is connected} \implies
+		\text{$f(X)$ is connected}.
+	\]
+\end{theorem}
+
+\begin{proof}
+	Assume that $X$ is connected and $f(X)$ is not connected.
+	Then $f(X) = U_1 \cup U_2$ for some disjoint, 
+	non-empty, open sets $U_1$ and $U_2$.
+	Hence $
+		X = f^{-1} \left( U_1 \cup U_2 \right) = f^{-1}(U_1) \cup f^{-1}(U_2)
+	$. This is the union of two disjoint, non-empty, open sets therefore
+	$X$ is not connected; a contradiction.
+\end{proof}
+
+
+\begin{theorem}[Intermediate value theorem]
+	Suppose $X$ is a connected metric space, 
+	$f: X \to \R$ is a continuous map,
+	$a, b \in f(X)$, and $r \in \R$ such that $a < r < b$.
+	Then $r \in f(X)$.
+\end{theorem}
+
+\begin{proof}
+	As $X$ is connected, $f(X)$ is connected.
+	Now assume $r \not\in f(X)$.
+	Then $
+		X 
+		= f^{-1}\left( (-\infty, r) \cup (r, \infty) \right)
+		= f^{-1}((-\infty, r)) \cup f^{-1}((r, \infty))
+	$ thus $X$ is not connected; a contradiction.
+\end{proof}

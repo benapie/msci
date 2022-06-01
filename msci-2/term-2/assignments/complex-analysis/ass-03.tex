@@ -1,0 +1,231 @@
+\assignment{3}{7/2}
+
+\setcounter{question}{0}
+\question Let $\gamma$ denote the unit circle, traversed anti-clockwise.
+Evaluate, using Cauchy's integral formula:
+\begin{parts}
+    \setcounter{partno}{1}
+    \part 
+    \[
+        \int_\gamma \frac{e^z}{z(z + 2)} \,dz.
+    \]
+    \begin{solution}
+        We have
+        \[
+            \frac{e^z}{z(z+2)} 
+            = \frac{e^z}{2z} - \frac{e^z}{2(z + 2)}
+        \]
+        so
+        \begin{align*}
+            \int_\gamma \frac{e^z}{z(z + 2)} \,dz
+            &= \frac12 \int_\gamma \frac{e^z}{z} \,dz
+            - \frac12 \int_\gamma \frac{e^z}{z+2} \,dz \\
+            &= \frac12 (2\pi ie^0) - 0 \\
+            &= \pi i.
+        \end{align*}
+    \end{solution}
+\end{parts}
+
+\question Use Cauchy's integral formula to evaluate the following integrals:
+\begin{parts}
+    \part
+    \[
+        \int_{\lvert z + i \rvert = 3} \frac{\sin{z}}{z + i} \,dz.
+    \]
+    \begin{solution}
+        \begin{align*}
+            \int_{\lvert z + i \rvert = 3} \frac{\sin{z}}{z + i} \,dz
+            &= 2\pi i \sin(-i) \\
+            &= 2\pi \sinh(1) \\
+            &= \pi (e - e^{-1}).
+        \end{align*}
+    \end{solution}
+\end{parts}
+
+\question Evaluate the following contour integrals:
+\begin{parts}
+    \setcounter{partno}{1}
+    \part
+    \[
+        \int_{\lvert z \rvert = 2} \frac{e^{\pi z}}{z^2 + 1} \,dz.
+    \]
+    \begin{solution}
+        We have
+        \[
+            \frac{e^{\pi z}}{z^2 + 1}
+            = \frac{ie^{\pi z}}{2(z + i)} - \frac{ie^{\pi z}}{2(z - i)}
+        \]
+        and so
+        \begin{align*}
+            \int_{\lvert z \rvert = 2} \frac{e^{\pi z}}{z^2 + 1} \,dz
+            &= \frac i2 \int_\gamma \frac{e^{\pi z}}{z + i} \,dz
+                - \frac i2 \int_\gamma \frac{e^{\pi z}}{z - i} \,dz \\
+            &= \frac i2 \left(2\pi i e^{-i\pi}\right)
+                - \frac i2 \left(2\pi i e^{i\pi}\right) \\
+            &= -\pi e^{-i\pi} + \pi e^{i\pi} \\
+            &= 0.
+        \end{align*}
+    \end{solution}
+\end{parts}
+
+\setcounter{question}{6}
+\question Evaluate
+\[
+    \int_{\lvert z \rvert = 1} \frac{dz}{(z - a)(z - b)} 
+\]
+in each of these cases:
+\begin{parts}
+    \part $\lvert a \rvert, \lvert b \rvert < 1$;
+    \begin{solution}
+        First note that
+        \[
+            \frac{1}{(z-a)(z-b)}
+            = \frac{1}{a - b}
+            \left(
+                \frac{1}{z - a}
+                - \frac{1}{z - b}
+            \right)
+        \]
+        if $a \neq b$.
+        In this case, as $a, b \in B_1(0)$ CIF holds and so
+        \[
+            \int_{\lvert z \rvert = 1} \frac{dz}{(z - a)(z - b)} 
+            = \frac{1}{a - b}
+            \left(
+                \int_{\lvert z \rvert = 1} \frac{1}{z-a} \,dz
+                - \int_{\lvert z \rvert = 1} \frac{1}{z-b} \,dz
+            \right) 
+            = 0.
+        \]
+        Now we consider $a = b$. 
+        Let $f(z) = 1$. Then 
+        \[
+            \int_{\lvert z \rvert = 1} \frac{dz}{(z - a)^2} 
+            = \frac{2\pi i}{1!} f'(a) = 0.
+        \] 
+    \end{solution}
+
+    \part $\lvert a \rvert > 1$, $\lvert b \rvert < 1$;
+    \begin{solution}
+        Let $\gamma(\theta) = e^{i\theta}: [0,2\pi] \to \C$.
+        Then $\gamma'(\theta) = ie^{i\theta}$.
+        Now we have
+        \begin{align*}
+            \int_{\lvert z \rvert = 1} \frac{dz}{(z - a)(z - b)} 
+            &= \frac{1}{a - b}
+            \left(
+                \int_{\lvert z \rvert = 1} \frac{1}{z-a} \,dz
+                - \int_{\lvert z \rvert = 1} \frac{1}{z-b} \,dz
+            \right) \\
+            &= \frac1{a-b}
+            \left(
+                \int_{\lvert z \rvert = 1} \frac{1}{z-a} \,dz
+                - 2\pi i
+            \right) \\
+            &= \frac1{a-b}
+            \left(
+                \int_0^{2\pi} \frac{ie^{i\theta}}{e^{i\theta}-a} \,dz
+                - 2\pi i
+            \right) \\
+            &= \frac1{a-b}
+            \left(
+                \left(
+                    \Log\lvert e^{i\theta} - a\rvert
+                \right)^{2\pi}_0
+                - 2\pi i
+            \right) \\
+            &= \frac{-2\pi i}{a - b}.
+        \end{align*}
+    \end{solution}
+
+    \part $\lvert a \rvert < 1$, $\lvert b \rvert > 1$; and
+    \begin{solution}
+        Similarly, for this case we get
+        \begin{align*}
+            \int_{\lvert z \rvert = 1} \frac{dz}{(z - a)(z - b)} 
+            &= \frac{1}{a - b}
+            \left(
+                \int_{\lvert z \rvert = 1} \frac{1}{z-a} \,dz
+                - \int_{\lvert z \rvert = 1} \frac{1}{z-b} \,dz
+            \right) \\
+            &= \frac{1}{a-b}
+            \left(
+                2\pi i
+                - \int_{\lvert z \rvert = 1} \frac{1}{z-b} \,dz
+            \right) \\
+            &= \frac{1}{a-b}
+            \left(
+                2\pi i
+                \left(
+                    \Log\lvert e^{i\theta} - b\rvert
+                \right)^{2\pi}_0
+            \right) \\
+            &= \frac{2\pi i}{a - b}.
+        \end{align*}
+    \end{solution}
+
+    \part $\lvert a \rvert, \lvert b \rvert > 1$.
+    \begin{solution}
+        Now we must consider $a = b$ separately again.
+        To start, we will assume $a \neq b$. Then
+        \begin{align*}
+            \int_{\lvert z \rvert = 1} \frac{dz}{(z - a)(z - b)} 
+            &= \frac{1}{a - b}
+            \left(
+                \int_{\lvert z \rvert = 1} \frac{1}{z-a} \,dz
+                - \int_{\lvert z \rvert = 1} \frac{1}{z-b} \,dz
+            \right) \\ 
+            &= \frac{1}{a - b}
+            \left(
+                \left(
+                    \Log\lvert e^{i\theta} - a\rvert
+                \right)^{2\pi}_0
+                -
+                \left(
+                    \Log\lvert e^{i\theta} - b\rvert
+                \right)^{2\pi}_0
+            \right) \\
+            &= 0.
+        \end{align*}
+        Now consider $a = b$.
+        Let $\rho \in \R$ such that
+        $1 < \rho < a,b$.
+        Now it is clear that 
+        $f(z) = \frac1{(z-a)(z-b)}$
+        is holomorphic on $B_\rho(0)$.
+        We see that 
+        $\gamma(\theta) = e^{i\theta} : [0,2\pi] \to \C$
+        is a closed contour and $B_\rho(0)$ is a starlike domain,
+        so by Cauchy's theorem for starlike domains we have 
+        \[
+            \int_{\lvert z \rvert = 1} f(z) \,dz
+            = \int_\gamma f(z) \,dz 
+            = 0.
+        \]
+    \end{solution}
+\end{parts}
+
+\question Show that the following functions do not have holomorphic anti-derivatives on the domains indicated:
+\begin{parts}
+    \part 
+    \[
+        \frac{z}{1 + z^2}, \qquad (1 < \lvert z \rvert < \infty).
+    \]
+    \begin{solution}
+        Let $\gamma = 2e^{i\theta}: [0, 2\pi] \to \C$.
+        \begin{align*}
+            I = \int_\gamma \frac{z}{1 + z^2} \,dz
+            &= \frac12 \int_\gamma \frac{1}{z + i} \,dz
+            + \frac12 \int_\gamma \frac{1}{z - i} \,dz \\
+            &= \frac12 (2\pi i) + \frac12 (2 \pi i) \\
+            &= 2\pi i \neq 0;
+        \end{align*}
+        if $f(z) = \frac{z}{1 + z^2}$ has an anti-derivative on the domain
+        indicated then $I = 0$; contradiction. Therefore, $f(z)$ does
+        not have an anti-derivative on the domain.
+
+        (I do not feel confident on the use of CIF as the functions are not
+        holomorphic on the domain, but are with the removal of a point.
+        I could not find another way to do this integral.)
+    \end{solution}
+\end{parts}

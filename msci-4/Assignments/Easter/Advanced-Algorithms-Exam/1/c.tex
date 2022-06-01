@@ -1,0 +1,11 @@
+\part[15] Prove that the class $\mathcal G$ of graphs with safety number at most $2$ is hereditary. Determine also the corresponding minimal set $\mathcal F_{\mathcal G}$ of forbidden induced subgraphs for $\mathcal G$. Justify your answer.
+
+\begin{solution}
+    We use the following notation: for a function $f: X \to Y$ and $y \in Y$, $f^{-1}(\{y\}) = \{x \in X: f(x) = y\}$.
+    We denote $\Delta(G)$ as the maximum degree of a graph $G$.
+
+    Let $G$ be a graph with safety number at most $2$ and $c: V(G) \to \{1, 2\}$ be a safe $2$-colouring of $G$. Then $c$ is also a safe $2$-colouring on any induced subgraph $G'$ of $G$, thus the safety number of $G'$ is at most $2$.
+
+    Let $G$ be a graph with safety number at most $2$ with safe $2$-colouring $c: V(G) \to \{1, 2\}$. $\{c^{-1}(\{0\}), c^{-1}(\{1\})\}$ is a partition of $V(G)$, and as $c$ is safe, this means that $\Delta(G) \leq 3$. Also, as $G$ has a safe $2$-colouring, it is $2$-colourable. Thus $\mathcal G$ is precisely the set of bipartite graphs with maximum degree $3$. Thus we get the obstruction set
+    \[ \mathcal F = \{K_{1,4}, C_3, C_5, C_7, \ldots\}. \]
+\end{solution}

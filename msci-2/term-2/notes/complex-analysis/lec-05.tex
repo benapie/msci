@@ -1,0 +1,41 @@
+\lecture{5}{27/1}
+
+\begin{lemma}[]
+    Let $D$ be a starlike domain and $f: D \to \C$
+    be a continuous function.
+    If
+    \[
+        \int_{\partial \triangle} f(z) \,dz = 0
+    \]
+    for all $\triangle \subset D$
+    then there exists a holomorphic function 
+    $F: D \to \C$
+    such that
+    \[
+        F'(z) = f(z)
+    \]
+    for all $z \in D$.
+\end{lemma}
+
+\begin{proof}
+    The proof for this lemma follows the same reasoning
+    as the proof for the converse to the fundamental theorem
+    of calculus.
+\end{proof}
+
+\begin{proof}[Proof of Cauchy's theorem]
+    Let $f$ be continuous on the domain $D$
+    and assume $f$ is holomorphic on $D$,
+    except at a finite set of points.
+    Then we have 
+    \[
+        \int_{\partial \triangle} f(z) \, dz = 0
+    \]
+    for any $\triangle \in D$
+    and so there exists an holomorphic anti-derivative;
+    so by the fundamental theorem of calculus we have
+    \[
+        \int_\gamma f(z) \,dz = \int_\gamma F'(z) \,dz = 0
+    \]
+    for any closed contour.
+\end{proof}

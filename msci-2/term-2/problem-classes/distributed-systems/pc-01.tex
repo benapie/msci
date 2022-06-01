@@ -1,0 +1,51 @@
+\question Duplicate the above server and run this duplicated server 
+using a different socket number.
+Modify the client program such that it will submit the 5 numbers to one 
+of the two servers each time for computation. 
+Now, you will have two identical components forming the distributed system.
+\begin{parts}
+    \part What extra instructions you have to implement at the client, 
+    allowing it to access one of the two distributed system components?
+    \begin{solution}
+        When connecting to the socket, instead of using a fixed port number
+        I randomly pick from a list of port numbers:
+        \begin{center}
+            \ttfamily
+            random.choice([1200,1201]).
+        \end{center}
+    \end{solution}
+
+    \part The distributed system is not replication transparent, 
+    since the client explicitly knows there are two duplicated components 
+    and have to establish separate socket connections to them. 
+    Suggest a possible solution to enable replication transparency.
+    \begin{solution}
+        To ensure that the client cannot see the multiple components,
+        we could create a third server that will take requests from the client
+        and then forward it on to the servers that actually do the work.
+        This would allow us to scale the amount of servers doing the work
+        without the client knowing.
+    \end{solution}
+\end{parts}
+
+\question Change the socket number of one of the server programs. 
+This represents migration (or relocation) of a component in distributed system.
+How do you modify the client program to cope with this change?
+\begin{solution}
+    One solution is to create the third server for routing traffic (as before)
+    and ensuring that this server is kept updated with migrations.
+    Alternatively, the client could keep a collection of \emph{possible}
+    port numbers and should try them at random until a successful connection
+    is made.
+\end{solution}
+
+\question Assume a server can be shutdown randomly. 
+You can manually shutdown any server or both when you do the tests. 
+This represents the component availability issue with a distributed system.
+How do you modify your client program to cope with such a situation?
+\begin{solution}
+    Again, a server routing traffic would solve this problem.
+    Alternatively again, having a client \emph{attempt} to connect to a server
+    then error handling if a successful connection is not made would be
+    sufficient, but would not be very transparent.
+\end{solution}

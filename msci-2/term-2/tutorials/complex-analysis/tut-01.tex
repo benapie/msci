@@ -1,0 +1,147 @@
+\tutorial{1}{30/1}
+
+\question Let $\gamma: [0,4] \to \C$ be the curve given by
+\[
+    \gamma(t) =
+    \begin{cases}
+        t & 0 \leq t \leq 1, \\
+        1 + i(t-1) & 1 \leq t \leq 2, \\
+        3 - t + 1 & 2 \leq t \leq 3, \\
+        i(4-t) & 3 \leq t \leq 4.
+    \end{cases}
+\]
+Draw this curve in the complex plane directly compute $\int_\gamma e^z \,dz$
+(without using the Fundamental Theorem of Calculus).
+\begin{solution}
+    This curve is the square with vertices
+    \[
+        0, \qquad 1, \qquad 1 + i, \qquad i.
+    \]
+    Here we will define
+    \begin{align*}
+        \gamma_1 &= t         & \gamma_1'(t) &= 1  \\
+        \gamma_2 &= 1 + it    & \gamma_2'(t) &= i  \\
+        \gamma_3 &= (1-t) + i & \gamma_3'(t) &= -1 \\
+        \gamma_4 &= i(1-t)    & \gamma_4'(t) &= -i.
+    \end{align*}
+    Then
+    \begin{align*}
+        \int_\gamma e^z \,dz
+        &= \int_0^1 
+        \left( 
+            e^t (1)
+            + e^{1 + it} (i)
+            + e^{1 - t + i} (-1)
+            + e^{i(1-t)} (-i)
+        \right)
+        \,dz \\
+        &= 0,
+    \end{align*}
+    which we knew anyway as $e^z$ has a primitive (itself).
+\end{solution}
+
+\question Calculate $\int_\gamma \abs z \,dz$ when $\gamma$ is the
+straight line from $-i$ to $i$, and when $\gamma$ is the segment of the unit circle
+which joins $-i$ to $i$ in the right hand half-plane.
+\begin{solution}
+    Let $\gamma(t) = it$ for $t \in [-1,1]$.
+    \begin{align*}
+        \int_\gamma \abs{z} \,dz
+        &= \int_{-1}^1 i\abs{it} \,dt \\
+        &= \int_{-1}^0 -it \,dt + \int_0^1 it \,dt \\
+        &= i.
+    \end{align*}
+    Now let $\gamma(\theta) = e^{i\theta}$ for 
+    $\theta \in \left[-\frac{\pi}2, \frac{\pi}2\right]$.
+    \begin{align*}
+        \int_\gamma \abs z \,dz
+        &= \int_{-\frac{\pi}2}^{\frac\pi2} \abs{e^{i\theta}} \, ie^{i\theta} \,d\theta \\
+        &= \int_{-\frac{\pi}2}^{\frac\pi2} ie^{i\theta} \,d\theta \\
+        &= 2i.
+    \end{align*}
+\end{solution}
+
+\question Calculate $\int_\gamma \frac1z \,dz$, where 
+$\gamma(t) = (1+2t)\,e^{4\pi it}$ for $0 \leq t \leq 1$.
+
+\question Let $\gamma_\rho$ be the curve $\gamma(\theta) = \rho e^{i\theta}$
+with $0 \leq \theta \leq \pi$.
+Let $z^{\frac12}$ be the branch of square root corresponding to the branch
+of $\log$ with argument in $\left(-\frac{\pi}2, \frac{3\pi}2\right]$,
+that is, if $z = re^{i\theta}$ with
+$\theta \in \left(-\frac{\pi}2, \frac{3\pi}2\right]$
+then 
+$z^{\frac12} = \sqrt r e^{\frac{i\theta}2}$.
+Show that
+\[
+    \lim_{\rho \to \infty} \int_{\gamma_\rho} \frac{z^{\frac12}}{z^2 + 1} \,dz = 0.
+\]
+\begin{solution}
+    \begin{align*}
+        \gamma'(t) &= e^{4\pi i t} \left(2 + (1+2t)(4\pi i)\right) \\
+        \int_\gamma \frac1z \,dz
+        &= \int_0^1 \left(\frac2{1+2t} + 4\pi i\right) \,dt \\
+        &= \left(\Log(1+2t) + 4\pi i t\right)^1_0 \\
+        &= \left(\Log(3) + 4\pi i\right) - \left(\Log(1)\right) \\
+        &= \Log(3) + 4\pi i.
+    \end{align*}
+\end{solution}
+
+\question Find a parametrisation for the ellipse $x^2 + 4y^2 = 1$.
+\begin{solution}
+    \[
+        \gamma(\theta) = \cos\theta + \frac i2 \sin\theta, \qquad \theta \in [0,2\pi].
+    \]
+\end{solution}
+
+\question Let $\gamma$ be any piecewise $C^1$-curve from $-3$ to $3$ such that, 
+except for the end points, it lies entirely in the upper half plane.
+Calculate the integral
+\[
+    \int_\gamma f(z) \,dz,
+\]
+where $f(z)$ is the branch of $z^{\frac12}$ defined by $\sqrt r e^{\frac{i\theta}2}$
+with $\theta \in (0, 2\pi)$.
+\begin{solution}
+    Here we take the branch of $z^{\frac12}$ defined by $\sqrt r e^{\frac{i\theta}2}$
+    but with $\theta \in \left(-\frac\pi2, \frac{3\pi}2\right)$. As
+    this agrees with the definition in the question for the upper half plane,
+    we can use this.
+    Calculating the integral gets an answer of $2\sqrt 3(1+i)$.
+\end{solution}
+
+\question Prove that the following function has an antiderivative on
+$\Omega = \C\setminus\{0\}$
+\[
+    f(z) = \frac{1}{z^2} + e^{z^2}.
+\]
+\begin{solution}
+    Let $\gamma: [a,b] \to \C$ be a closed contour.
+    Then
+    \begin{align*}
+        \int_\gamma f(z) \,dz
+        &= \int_a^b \left(\frac{1}{\gamma(t)^2} + e^{\gamma(t)^2}\right) \cdot \gamma'(t) \,dt \\
+        &= \int_a^b \left((-1)\left(\frac{-\gamma'(t)}{\gamma(t)^2}\right) + 
+            \left(\frac12\right)\left(2\gamma'(t) e^{\gamma(t)^2}\right) \right) \,dt \\
+        &= \left(\frac{-1}{\gamma(t)} + \frac12 e^{\gamma(t)^2}\right)^b_a \\
+        &= 0
+    \end{align*}
+    as $\gamma(a) = \gamma(b)$.
+    By the converse to fundamental theorem of calculus, we have that $f$ has an antiderivative
+    on the domain $\C^\star$ (and $f$ is continuous on this domain).
+\end{solution}
+
+\question Let $\gamma$ be the boundary of the square with vertices in 
+$1-i$, $-1-i$, $-1+i$, and $1+i$ traced anti-clockwise.
+Determine
+\[
+    \int_\gamma \left(\frac1z + z\right) \,dz.
+\]
+\begin{solution}
+    Let $f(z) = \frac1z + z$. As $f$ is holomorphic on $D = \C^\star$,
+    $D$ is a domain, and $\gamma \subset D$ is a closed contour we have that
+    \[
+        \int_\gamma f(z) \,dz = 0
+    \]
+    by the fundamental theorem of calculus.
+\end{solution}

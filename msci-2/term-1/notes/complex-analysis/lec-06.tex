@@ -1,0 +1,115 @@
+\lecture{6}{21/10}
+
+\begin{lemma}[Open balls are open]
+    Let $(X, d)$ be a metric space. Then for all $x \in X$ and $r > 0$, $B_r(x)$ is open.
+\end{lemma}
+
+\begin{proof}
+    Given
+    $y \in B_r(x),$
+    we need to find
+    $\varepsilon > 0$
+    such that
+    $B_{\varepsilon}(y)$
+    is inside the original ball, that is 
+    $B_{\varepsilon}(y) \subset B_r(x).$
+    Here we pick 
+    $\varepsilon = r - d(x, y).$
+    Given 
+    $z \in B_{\varepsilon}(y)$ 
+    we have
+    \begin{align*}
+        d(x, z) &\leq d(x, y) + d(y, z) \\
+                &< d(x, y) + \varepsilon \\
+                &= d(x, y) + r - d(x, y) \\
+                &= r;
+    \end{align*}
+    hence, $z \in B_r(x)$ and therefore $B_r(x)$ is open.
+\end{proof}
+
+\begin{example}
+    $\mathbb H$, $\mathbb D$, $\C^\star$, and $\C \setminus \R_{\leq 0}$ are all open in $\C$ with the standard metric. 
+\end{example}
+
+\begin{example}
+    Consider $\R$ with the standard metric. $(0, 1]$ is neither open or closed. This is because there does not exist a $\varepsilon > 0$ where $B_{\varepsilon}(1) \subset (0, 1]$. The complement of this interval is also not open by similar logic.
+\end{example}
+
+\begin{example}[Discrete metric]
+    In the discrete metric
+    \[ B_{\frac12}(x) = \{ x \} \]
+    hence $B_{\frac12}(x)$ is open.
+\end{example}
+
+\begin{lemma}[Unions and intersections of open sets]
+    Let $(X, d)$ be a metric space. If
+    $\{ u_i \}_{i \in I}$
+    is any set of open sets then
+    \[ \bigcup_{i \in I} u_i \qquad \text{is open}. \]
+    If
+    $\{ v_i \}_{i \in I}$
+    is a finite set of open sets then
+    \[ \bigcap_{i \in I} v_i \qquad \text{is open}. \]
+\end{lemma}
+
+\begin{proof}
+    \begin{enumerate}
+        \item Given
+            $x \in \bigcup_{i \in I} u_i,$
+            $x \in u_{i_0}$
+            for some 
+            $i_0 \in I.$
+            Since $u_{i_0}$ is open there is $\varepsilon > 0$ such that
+            \[ B_{\varepsilon}(X) \subset u_{i_0} \subset \bigcup_{i \in I} u_i. \]
+
+        \item Given $x \in \bigcap_{i \in I} v_i$. Then for each $i \in I$ there exists $\epsilon_i$ such that
+            \[ B_{\varepsilon_i}(x) \subset v_i. \]
+            Then let $\varepsilon = \min_{i \in I} \{ \varepsilon_i \}$. Then
+            \[ B_{\varepsilon} \subset B_{\varepsilon_i} \subset v_i \]
+            for all $\varepsilon \in I$. So
+            \[ B_{\varepsilon} \subset \bigcap_{i \in I} v_i. \]
+    \end{enumerate}
+\end{proof}
+
+\begin{corollary}
+    Let $(X, d)$ be a metric space. 
+    \begin{enumerate}
+        \item Arbitrary intersections of closed sets are closed.
+        \item Finite unions of closed sets are closed.
+    \end{enumerate}
+\end{corollary}
+
+\begin{proof}
+    The proof for this follows directly from De Morgan's Law and the previous lemma.
+\end{proof}
+
+\begin{definition}[Interior, closure, boundary, and exterior points]
+    Let $A$ be a subset of a $(X, d)$.
+    \begin{enumerate}
+        \item The \textbf{interior} $A^0$ of $A$ is
+            \[ A^0 = \{ x \in A : \;\exists\; \text{open set} \; U \subset A \;\text{with}\; x \in U \}. \]
+        \item The \textbf{closure} $\bar A$ of $A$ is
+            \[ \bar A = \{ x \in X : U \cap A \neq \emptyset \;\forall\; \;\text{open}\; U \;\text{with}\; x \in U \}. \]
+        \item The \textbf{boundary} $\partial A$ of $A$ is
+            \[ \partial A = \bar A \setminus A^0. \]
+        \item The \textbf{exterior} $A^e$ of $A$ is
+            \[ A^e = X \setminus \bar A. \]
+    \end{enumerate}
+\end{definition}
+
+\begin{example}[Discrete metric]
+    Consider the discrete metric space $(X, d)$.
+    \begin{align*}
+        \bar B_1(x) &= X \\
+        B_1^0(x) &= \{ x \} \\
+        \partial B_1(x) &= \bar B_1(x) \setminus B_1^0(x) = X \setminus \{ x \}.
+    \end{align*}
+\end{example}
+
+\section{Convergence}
+
+\begin{definition}[Convergence]
+    Let $\{ x_n \}_{n = 1}^\infty$ be a sequence of points in the metric space $(X, d)$. We say $x_n \to x \in X$ a $n \to \infty$ if
+    \[ \lim_{n \to \infty} \left( d(x_n, x) \right) = 0. \]
+    That is, for all $\varepsilon > 0 $ there exists $N \in \N$ such that $d(x_n, x) < \varepsilon$ for all $n \geq N$. We say $x_n$ converges to $x$.
+\end{definition}

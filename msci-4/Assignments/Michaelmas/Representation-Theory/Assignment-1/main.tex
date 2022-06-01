@@ -1,0 +1,265 @@
+\input{../preamble.tex}
+
+\begin{document}
+
+\begin{center}
+  \textbf{\textsc{Representation Theory IV, Michaelmas Term, Assignment 1}} \\
+  \textsc{Ben Napier}
+  \vspace{1em}
+\end{center}
+
+\begin{questions}
+  \question
+  \begin{parts}
+    \part Find the matrices of all the elements of $S_3$ in the permutation representation, with respect to the basis $e_1, e_2, e_3$.
+    \begin{solution}
+      \begin{align*}
+        \begin{pmatrix}
+          1 & 2
+        \end{pmatrix}
+          & =
+        \begin{pmatrix}
+          0 & 1 & 0 \\
+          1 & 0 & 0 \\
+          0 & 0 & 1 \\
+        \end{pmatrix}
+          &
+        \begin{pmatrix}
+          1 & 2 & 3
+        \end{pmatrix}
+          & =
+        \begin{pmatrix}
+          0 & 0 & 1 \\
+          1 & 0 & 0 \\
+          0 & 1 & 0 \\
+        \end{pmatrix}
+        \\
+        \begin{pmatrix}
+          2 & 3
+        \end{pmatrix}
+          & =
+        \begin{pmatrix}
+          1 & 0 & 0 \\
+          0 & 0 & 1 \\
+          0 & 1 & 0 \\
+        \end{pmatrix}
+          &
+        \begin{pmatrix}
+          1 & 3 & 2
+        \end{pmatrix}
+          & =
+        \begin{pmatrix}
+          0 & 1 & 0 \\
+          0 & 0 & 1 \\
+          1 & 0 & 0 \\
+        \end{pmatrix}
+        \\
+        \begin{pmatrix}
+          1 & 3
+        \end{pmatrix}
+          & =
+        \begin{pmatrix}
+          0 & 0 & 1 \\
+          0 & 1 & 0 \\
+          1 & 0 & 0 \\
+        \end{pmatrix}
+          &
+        e & = I.
+      \end{align*}
+    \end{solution}
+
+    \part Find another basis such that the matrices all take the form
+    \[
+      \begin{pmatrix}
+        1 & 0 & 0 \\
+        0 & ? & ? \\
+        0 & ? & ? \\
+      \end{pmatrix}
+    \]
+    and determine the unknown entries for your basis.
+    \begin{solution}
+      We fix the basis $(e_1 + e_2 + e_3, e_1 - e_2, e_2 - e_3)$.
+      Then we get the following matrices.
+      \begin{align*}
+        \begin{pmatrix}
+          1 & 2
+        \end{pmatrix}
+          & =
+        \begin{pmatrix}
+          1 & 0  & 0 \\
+          0 & -1 & 1 \\
+          0 & 0  & 1 \\
+        \end{pmatrix}
+          &
+        \begin{pmatrix}
+          1 & 2 & 3
+        \end{pmatrix}
+          & =
+        \begin{pmatrix}
+          1 & 0 & 0  \\
+          0 & 0 & -1 \\
+          0 & 1 & -1 \\
+        \end{pmatrix}
+        \\
+        \begin{pmatrix}
+          2 & 3
+        \end{pmatrix}
+          & =
+        \begin{pmatrix}
+          1 & 0 & 0  \\
+          0 & 1 & 0  \\
+          0 & 1 & -1 \\
+        \end{pmatrix}
+          &
+        \begin{pmatrix}
+          1 & 3 & 2
+        \end{pmatrix}
+          & =
+        \begin{pmatrix}
+          1 & 0  & 0 \\
+          0 & -1 & 1 \\
+          0 & -1 & 0 \\
+        \end{pmatrix}
+        \\
+        \begin{pmatrix}
+          1 & 3
+        \end{pmatrix}
+          & =
+        \begin{pmatrix}
+          1 & 0  & 0  \\
+          0 & -1 & 0  \\
+          0 & 0  & -1
+        \end{pmatrix}
+          &
+        e & = I.
+      \end{align*}
+    \end{solution}
+  \end{parts}
+
+  \question Suppose that $V$ is a representation of $G$ and that $W_1$ and $W_2$ are irreducible subrepresentations. Show that either $W_1 = W_2$ or $W_1 \cap W_2 = \{0\}$.
+  \begin{solution}
+    Let $\rho$ be the homomorphism for the representation $V$, and $\rho_{W_1}$ and $\rho_{W_2}$ for $W_1$ and $W_2$ respectively.
+    We observe that as $W_1$ and $W_2$ are subspaces of $V$, then $W_1 \cap W_2$ is a subspace of $V$. Thus we have another subrepresentation $(\rho_{W_1 \cap W_2}, W_1 \cap W_2)$. Note that this is a subrepresentation of $V$, $W_1$, and $W_2$. But, $W_1$ and $W_2$ are irreducible.
+    Thus $W_1 \cap W_2$ must be $W_1 = W_2$ or $\{0\}$.
+  \end{solution}
+
+  \question Consider $G = S_n$ with its permutation representation action on $\C^n$ characterized by
+  \[ \pi(g)e_i = e_{g(i)}, \]
+  and let $V \subset \C^n$ be the subspace
+  \[ \left\{(a_1, \ldots, a_n): \sum_{i = 1}^n a_i = 0\right\}. \]
+  Mimic the last part of Example 1.16 to show that $V$ is irreducible.
+  \begin{solution}
+    Let $U \subset V$ be a non-zero subrepresentation. Let $\bm a = (a_1, \ldots, a_n) \in U$ be non-zero. We see that
+    \begin{align*}
+      \bm b_1 = \bm a -
+      \pi\left(
+      \begin{pmatrix}
+          1 & 2
+        \end{pmatrix}
+      \right) \bm a
+       & = (a_1 - a_2, a_1 - a_2, 0, \ldots, 0)          \\
+      \bm b_2 = \bm a -
+      \pi\left(
+      \begin{pmatrix}
+          2 & 3
+        \end{pmatrix}
+      \right) \bm a
+       & = (0, a_2 - a_3, a_3 - a_2, 0 \ldots, 0)        \\
+       & \vdots                                          \\
+      \bm b_{n-1} = \bm a - \pi\left(
+      \begin{pmatrix}
+          n & n - 1
+        \end{pmatrix}
+      \right) \bm a
+       & = (0, \ldots, 0, a_{n-1} - a_n, a_n - a_{n-1}).
+    \end{align*}
+    Clearly, all of these $\{\bm b_1, \ldots, \bm b_{n-1}\}$ are linearly independent and are in $V$. As
+    \[ \dim V = n -1 = \dim\left(\langle\bm b_1, \ldots, \bm b_{n-1}\rangle\right), \]
+    we must have that $U = V$.
+  \end{solution}
+
+  \setcounter{question}{5}
+  \question Classify the irreducible representations of $D_n$ when $n \geq 4$ is even. Write out the list explicitly when $n = 4$.
+  \begin{solution}
+    Let $(\rho, V)$ be a irreducible complex representation of $D_n$ where $n \mid 4$ and $n \geq 4$. Let $v \in V$ be an eigenvector for $\rho(r)$ with eigenvalue $\lambda$. So $\rho(r) v = \lambda v$. We observe that as $(\rho(r))^n = 1$, $(\rho(r))^nv = \lambda^n v$ so $\lambda$ must be an $n$th root of unity.
+    We now set $w = \rho(s) v$ and we claim that $w$ is also an eigenvector of $\rho(r)$ we eigenvalue $\lambda^{-1}$. Indeed,
+    \begin{align*}
+      \rho(r)w & = \rho(r) \rho(s) v        \\
+               & = \rho(rs) v               \\
+               & = \rho(sr^{-1}) v          \\
+               & = \rho(s) \rho(r^{-1}) v   \\
+               & = \rho(s) (\lambda^{-1} v) \\
+               & = \lambda^{-1} w.
+    \end{align*}
+    As $v$ and $w$ are eigenvectors of $\rho(r)$, we have that $\rho(r)v, \rho(r)w \in \langle v, w \rangle$. We further see that $\rho(s)w = v \in \langle v, w \rangle$ and $\rho(s)(v) = w \in \langle v, w \rangle$ and thus $\langle v,w \rangle$ is a subrepresentation $V$. But $V$ is irreducible, so $V = \langle v, w \rangle$.
+    \begin{enumerate}
+      \item Suppose $\lambda \neq \lambda^{-1}$. Thus $v$ and $w$ are distinct eigenvectors of $\rho(r)$ that are linearly independent. Thus $\dim V = 2$. Fixing the basis $(v,w)$, we have the representation
+            \begin{align*}
+              \rho(r) & =
+              \begin{pmatrix}
+                \lambda & 0        \\
+                0       & -\lambda \\
+              \end{pmatrix},
+              \\
+              \rho(s) & =
+              \begin{pmatrix}
+                0 & 1 \\
+                1 & 0 \\
+              \end{pmatrix}.
+            \end{align*}
+            As stated before, $\lambda$ is a $n$th root of unity.
+            We get a unique representation $\rho_k$ for $\lambda = e^{2\pi i k/n}$, $k \in \{1,2,\ldots,(n-2)/2\}$. For $e^{2\pi i k/n}$ with $k \in \{1,2,\ldots,(n-2)/2\}$ we get the same representations as before (taking basis $(w, v)$).
+      \item We now suppose $\lambda = \lambda^{-1}$, that is $\lambda \in \{1, -1\}$.
+            \begin{enumerate}
+              \item Suppose $\lambda = 1$. We consider $v+w$ and $v-w$, both of which cannot be 0. If $v + w \neq 0$, then we see that
+                    \begin{align*}
+                      \rho(s)(v + w) & = w + v \in \langle v + w \rangle \\
+                      \rho(r)(v + w) & = v + w \in \langle v + w \rangle \\
+                    \end{align*}
+                    Thus $\langle v + w \rangle$ is a subrepresentation of $V$, but as $V$ is irreducible we get $V = \langle v + w \rangle$. We see that in this scenario, we have the trivial representation ($\rho(s) = \rho(r) = \begin{pmatrix} 1 \end{pmatrix}$). Now we suppose that $v - w \neq 0$, then we see that
+                    \begin{align*}
+                      \rho(r)(v - w) & = v - w    \\
+                      \rho(s)(v - w) & = -(v - w) \\
+                    \end{align*}
+                    and thus by a similar argument to before $\langle v - w \rangle = V$. Here, we have the sign representation: $\rho(r) = \begin{pmatrix} 1 \end{pmatrix}$ and $\rho(s) = \begin{pmatrix} -1 \end{pmatrix}$.
+
+              \item Now suppose $\lambda = -1$. We again consider the vectors $v+w$ and $v-w$. If $v + w \neq 0$,
+                    \begin{align*}
+                      \rho(r)(v+w) & = -(v+w) \\
+                      \rho(s)(v+w) & = v+w,
+                    \end{align*}
+                    thus $\langle v+w \rangle$ is a subrepresentation of $V$ and thus $V = \langle v+w \rangle$ since $V$ is irreducible. Here we have the representation $\rho(r) = \begin{pmatrix} -1 \end{pmatrix}$, $\rho(s) = \begin{pmatrix} 1 \end{pmatrix}$.
+                    Finally, for $v - w \neq 0$, we have
+                    \begin{align*}
+                      \rho(r)(v-w) & = -(v-w) \\
+                      \rho(s)(v-w) & = -(v-w) \\
+                    \end{align*}
+                    thus we get the representation $\rho(r) = \rho(s) \begin{pmatrix} -1 \end{pmatrix}$.
+            \end{enumerate}
+    \end{enumerate}
+    \begin{center}
+      \begin{tabular}{cll}
+        \toprule
+        Dimension & $\rho(r)$                          & $\rho(s)$                          \\
+        \midrule
+        2         &
+        $\begin{pmatrix}
+             e^{\pi i/2} & 0            \\
+             0           & e^{-\pi i/2} \\
+           \end{pmatrix}$
+                  &
+        $\begin{pmatrix}
+             0 & 1 \\
+             1 & 0 \\
+           \end{pmatrix}$                                                                     \\
+        1         & $\begin{pmatrix} 1 \end{pmatrix}$  & $\begin{pmatrix} 1 \end{pmatrix}$  \\
+        1         & $\begin{pmatrix} 1 \end{pmatrix}$  & $\begin{pmatrix} -1 \end{pmatrix}$ \\
+        1         & $\begin{pmatrix} -1 \end{pmatrix}$ & $\begin{pmatrix} 1 \end{pmatrix}$  \\
+        1         & $\begin{pmatrix} -1 \end{pmatrix}$ & $\begin{pmatrix} -1 \end{pmatrix}$ \\
+        \bottomrule
+      \end{tabular}
+    \end{center}
+  \end{solution}
+\end{questions}
+
+\end{document}

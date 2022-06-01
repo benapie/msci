@@ -1,0 +1,97 @@
+% this is where I started going back to lectures after being ill
+\lecture{9}{5/11}
+
+\begin{theorem}[Eisenstein's criterion]
+    Let $f(x) = a_0 + a_1 x + \ldots + a_n x^n \in \Z$ with a prime $p$ such that
+    \[ p \nmid a_n, \quad p \mid a_0, \ldots, a_{n - 1}, \quad p^2 \nmid a_0 \]
+    then $f(x)$ is irreducible in $\Q[x]$.
+\end{theorem}
+
+\begin{example}
+    Let $p \in \Z$ be a prime number. The polynomial
+    \[ \Phi_p(x) = x^{p-1} + x^{p-2} + \ldots + x + 1 = \frac{x^p}{x - 1} \]
+    is called the $p$th cyclotomic polynomial and it is irreducible (and we will prove it).
+    Set 
+    \begin{align*}
+        f(x) &= \Phi_p(x + 1) \\
+             &= \frac{(x + 1)^{p - 1}}{(x + 1) - 1} \\
+             &= \frac{x^p + \binom{p}{1}x^{p - 1} + \ldots + \binom{p}{1}x + 1 - 1}{x} \\
+             &= x^{p - 1} + px^{p - 2} + \ldots + \binom{p}{2}x + p.
+    \end{align*}
+    Observe that $1 \leq k \leq p - 1 \implies p \mid \binom pk$. So
+    \[ p \mid a_0, a_1, \ldots, a_{p - 2}, \]
+    $a_{p - 1} = 1$, $a_0 = p$, and $p^2 \nmid a_0$.
+    So by Eisenstein's criterion we have that $f(x)$ is irreducible in $\Q[x]$.
+\end{example}
+
+\section{Prime elements}
+
+\begin{definition}[Prime element]
+    Let $F$ be a commutative ring. Then $a \in R$ is called a \textbf{prime element} if
+    \begin{enumerate}
+        \item $a \neq 0$ and $a$ is not a unit; and
+        \item $a \mid xy \implies a \mid x \;\text{or}\; a \mid y$.
+    \end{enumerate}
+\end{definition}
+
+\begin{proposition}[]
+    Let $R$ be an integral domain. If $a \in R$ is prime then it is irreducible.
+\end{proposition}
+
+\begin{proof}
+    So we have $a \in R$ prime. 
+    So $a \neq 0$, $a$ is not a unit, and $a \mid bc \implies a \mid b \;\text{or}\; a \mid c$.
+    We have
+    \[ a = bc \implies a \mid bc \implies a \mid b \;\text{or}\; a \mid c \]
+    and $a \mid b \implies b = ax$ for some $b \in R$. So
+    \[ a = axc \implies a(1 - xc) = 0 \implies xc = 1; \]
+    hence, $x$ and $c$ are units. This can be similarly shown that $a \mid c \implies b \;\text{is a unit}$.
+\end{proof}
+
+\begin{example}
+    Let $F$ be a field. Then $f(x) \in F[x]$ is irreducible if and only if $f$ is prime.
+\end{example}
+
+\begin{proof}
+    \begin{description}
+        \item[$\impliedby$] Above.
+        \item[$\implies$] We have $f(x) \in F[x]$ where $F$ is a field and $f$ is irreducible. 
+            Hence $f(x) \neq 0$ and not a unit. 
+            Suppose $f \mid hg$. 
+            Suppose $f \nmid g$. Then
+            \[ \gcd{(f, g)} \mid f \implies \gcd{(f, g)} = 1. \]
+            By the Euclidean algorithm there exists $f_1$ and $g_1$ such that
+            \begin{align*}
+                f(x) f_1(x) + g(x) g_1(x)           &= 1    \\
+                f(x) f_1(x) h(x) + g(x) g_1(x) h(x) &= h(x);
+            \end{align*}
+            hence $f(x) \mid \text{LHS}$ and so $f(x) \mid \text{RHS}$.
+    \end{description}
+    %todo this proof is a little sketchy.
+\end{proof}
+
+\begin{example}[Irreducibility $\not\implies$ prime]
+    Consider $R = \Z[\sqrt{-5}] \subset \C$. We claim that $2$ is irreducible but not prime. Consider $N: \R \to \Z$ defined by
+    \[ N(a + b\sqrt{-5}) = (a + b\sqrt{-5})(a - b\sqrt{-5}) = a^2 + 5b^2. \]
+    Let $x_1 = a + b\sqrt{-5}$ and $x_2 = c + d\sqrt{-5}$.
+    Then
+    \[ N(x_1, x_2) = x_1 x_2 \overline{x_1x_2} = x_1 \bar x_1 x_2 \bar x_2 = N(x_1)N(x_2) \]
+    and hence $N$ is multiplicative. Suppose $2 = ab$ where $a, b \in \Z[\sqrt{-5}]$.
+    Then 
+    \[ 4 = N(2) = N(ab) = N(a)N(b). \]
+    Let $a = x + y\sqrt{-5}$ and $b = z + w\sqrt{-5}$. Then 
+    \[ 4 = (x^2 + 5y^2)(z^2 + 5w^2). \]
+    So
+    \[
+        x^2 + 5y^2 =
+        \begin{cases}
+            1 & x= pm 1, y = 0 \\
+            2 & \text{no solutions} \\
+            4 & x = \pm 2, y = 0;
+        \end{cases}
+    \]
+    hence as when $x = \pm 2, y = 0$, it is irreducible. But $2$ is clearly not prime as
+    \[ 2 \mid (1 - \sqrt{-5}(1 + \sqrt{-5}) = 6 \]
+    implies that $2x = 1$, which is not possible for $x \in \Z$. So $2$ is irreducible but not prime in $R$.
+    %todo again rocky proof but I believed it in lectures
+\end{example}

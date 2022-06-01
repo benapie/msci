@@ -1,0 +1,213 @@
+\paper{2014}
+\setcounter{question}{0}
+
+\question
+\begin{parts}
+    \part
+    Compute the gradient, $\nabla f$, of 
+    $f(x,y,z) = xy + y^2 + z^2$.
+    At the point $(-1,2,3)$,
+    in which direction is this function increasing the fastest,
+    and what is the directional derivative of $f$ in this direction?
+
+    \part
+    Compute the divergence and curl of the vector field
+    \[
+        \bm A(x,y,z) = xyz \bm e_1 + xy \bm e_2 + x\bm e_3.
+    \]
+\end{parts}
+
+\question
+\begin{parts}
+    \part
+    Give the definition of the open ball $B_\delta(\bm a)$
+    with centre $\bm a \in \R^n$
+    and radius $\delta > 0$,
+    and define what it means for a subset $S$ of $\R^n$ to be open.
+
+    \part
+    Which of the following subsets of $\R^2$ are open?
+    In each case, 
+    justify your answer in terms of the definition you gave in part (a).
+    \begin{subparts}
+        \subpart
+        $S_1 = \{(x,y): x > 2\}$,
+
+        \subpart
+        $S_2 = \{(x,y): x > 2, y = 2\}$,
+
+        \subpart
+        $S_3 = \{(x,y): x > 2, y > 2\}$.
+    \end{subparts}
+\end{parts}
+
+\question
+\begin{parts}
+    \part
+    Write the scalar product
+    $\bm a \cdot \bm b$
+    of two vectors $\bm a$ and $\bm b$
+    in index notation.
+
+    \part 
+    If $\bm v = v_1 \bm e_1 + v_2 \bm e_2 + v_3 \bm e_3$
+    is a vector field in three dimensions,
+    use $\varepsilon_{ijk}$ to write the
+    $i$th component of the curl of $\bm v$, 
+    $(\nabla \times \bm v)_i$,
+    in index notation.
+
+    \part
+    If $\bm x = x_1 \bm e_1 + x_2 \bm e_2 + x_3 \bm e_3$
+    is the position vector in three dimensions and
+    $\bm v(\bm x) = \bm a \times \bm x$
+    with $\bm a$ a constant vector,
+    compute the curl of $\bm v$ using index notation.
+\end{parts}
+
+\question
+\begin{parts}
+    \part 
+    State Fubini's Theorem.
+
+    \part
+    Show that Fubini's theorem holds for the following integral,
+    by evaluating it in two ways.
+    \[
+        \iint_R dA,
+    \]
+    where the integration, $R$, is contained between
+    the $y$-axis, $y=x+2$, and $y = x^2$ where $x \geq 0$.
+\end{parts}
+
+\question
+\begin{parts}
+    \part 
+    $\bm F = kx \bm e_1 + ky \bm e_2 + kz \bm e_3$
+    is a vector field in $\R^3$, where $k$ is a constant.
+    Use the Divergence Theorem to show that
+    \[
+        V = \oint_S \bm F \cdot d\bm A,
+    \]
+    where $V$ is the volume enclosed by the surface $S$, 
+    for an appropriate value of $k$ which you should find.
+
+    \part
+    Use the equation above and your value for $k$ from part (a)
+    to calculate the volume of a sphere of radius $a$,
+    with the equation $x^2 + y^2 + z^2 = a^2$.
+\end{parts}
+
+\question
+By integrating both sides against an arbitrary test-function,
+find the coefficients $a$, $b$, $c$, $\alpha$, $\beta$, and $\gamma$
+in the following generalised function identities.
+\begin{parts}
+    \part $(x^3 + 2x - 1) \, \delta\left( x-\frac12 \right) = a\delta\left( x-\frac12 \right)$,
+    \part $e^{2x} \, \delta'(x-1) = b \delta(x-1) + c\delta'(x-1)$,
+    \part $\delta(x^2+x-6) = \alpha(\delta(x-\beta) + \delta(x-\gamma))$.
+\end{parts}
+
+\question
+\begin{parts}
+    \part
+    Find the unit normal to the plane in $\R^3$
+    defined by $f(\bm x) = \sfrac xa + \sfrac yb + \sfrac zc = 1$
+    where $a$, $b$, and $c$ are three positive constants.
+
+    \part
+    The plane defined in part (a) intersects the $x$, $y$, and $z$
+    axes at the points $\bm a = (a,0,0)$, $\bm b$, and $\bm c$
+    respectively.
+    What are the coordinates of $\bm b$ and $\bm c$?
+    Find the area of the triangle $\bm a \bm b \bm c$.
+    
+    (Hint: recall that for any two vectors $\bm p$ and $\bm q$,
+    $\bm p \times \bm q$ has magnitude $\norm{\bm p} \norm{\bm q} \abs{\sin\theta}$,
+    where $\theta$ is the angle between $\bm p$ and $\bm q$.)
+
+    \part 
+    Without using Stokes' theorem,
+    compute the line integral $\oint \bm A \cdot d\bm x$,
+    where the closed contour $C$ is the union of the three edges
+    of the triangle $\bm a \bm b \bm c$ from part (b),
+    and $\bm A(x,y,z) = z\bm e_1 + x\bm e_2 + y\bm e_3$.
+
+    \part
+    Using your answers to part (a) and (b) (or otherwise)
+    show that your result from part (c) is consistent with Stokes' theorem.
+\end{parts}
+
+\question
+\begin{parts}
+    \part
+    Explain what it means for a function
+    $f: \R^n \to \R$
+    to be differentiable at a point $\bm a$,
+    in terms of a vector $\bm v(\bm a)$ and a function $R(\bm h)$
+    satisfying
+    \[
+        f(\bm a + \bm h) - f(\bm a) = \bm h \cdot \bm v(\bm a) + R(\bm h),
+    \]
+    stating how $R$ must behave as $\bm h \to \bm 0$.
+    Using the definition of partial derivatives as limits,
+    find a formula for $\bm v(\bm a)$ in terms of the partial derivatives
+    of $f$.
+
+    \part 
+    What does it mean to say that a function is \emph{continuously differentiable}
+    at a point $\bm a$ in $\R^n$?
+    State (but do not prove) a theorem relating continuous differentiability
+    to differentiability.
+    % inverse function theorem
+
+    \part 
+    Determine the points in $\R^2$ where the function 
+    $f(x,y) = \abs{xy + x + y + 1}$ is
+    \begin{subparts}
+        \subpart continuously differentiable; and
+        \subpart differentiable.
+    \end{subparts}
+    (Hint: first factorise $f$.)
+\end{parts}
+
+\question
+\begin{parts}
+    \part 
+    For any closed surface $S$,
+    show that
+    \[
+        \oint_S (\nabla \times \bm F) \cdot d\bm A = 0
+    \]
+    \begin{subparts}
+        \subpart by Divergence Theorem,
+
+        \subpart by Stokes' Theorem.
+    \end{subparts}
+    Show all your working.
+
+    \part
+    Calculate
+    \[
+        \int_S (\nabla \times \bm F) \cdot d\bm A
+    \]
+    for $\bm F = (xz, x^2y^2z, xyz)$,
+    when $S$ is the open surface given by the cylinder (with no ends)
+    of radius $a$,
+    centred on the $x$-axis with equation
+    $y^2 + z^2 = a^2$
+    and
+    $x \in [0,5]$.
+\end{parts}
+
+\question
+$T(x,t)$ satisfies the heat equation
+\[
+    \frac{\partial T}{\partial t} = \frac{\partial^2 T}{\partial x^2}, 
+\]
+with boundary conditions 
+$T(0,t) = T(L,t)$, 
+$\frac{\partial T}{\partial x}(0,t) = \frac{\partial T}{\partial x}(L,t)$,
+and $T(x,0) = e^x$.
+
+Find $T(x,t)$ for $t > 0$ and $x \in (0,L)$.

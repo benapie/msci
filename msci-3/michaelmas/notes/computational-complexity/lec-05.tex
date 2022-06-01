@@ -1,0 +1,255 @@
+%! TEX root = master.tex
+\section{Non-deterministic space}
+\lecture{5}{20/11}
+
+We can also define the space taken by a nondeterministic Turing machine.
+
+\begin{definition}[Space complexity]
+	The \emph{space complexity} of a nondeterministic Turing machine $T$
+	is a function $\operatorname{NSpace}_T$ such that
+	$\operatorname{NSpace}_T(x)$ is the number of cells visited in the shortest
+	accepting path of $T(x)$, if one exists.
+	Otherwise, it is the length of the longest branch.
+	If not all paths of $T(x)$ halt, $\operatorname{NSpace}(x)$ is undefined.
+\end{definition}
+
+\begin{definition}[]
+	For a function $f$,
+	we say that the non-deterministic space complexity of a decidable
+	language $\mathcal L$ is in $O(f)$ if there is a nondeterministic
+	Turing machine $T$ which decides $\mathcal L$ and there is 
+	constants $n_0 \in \N$ and $c > 0$ such that
+	for all inputs $x$ with $\left\lvert x \right\rvert > n_0$,
+	\[
+		\operatorname{NSpace}_T(x) 
+		\leq cf\left(\left\lvert x \right\rvert\right).
+	\]
+\end{definition}
+
+\begin{definition}[$\mathsf{NSPACE}$]
+	The nondeterministic space complexity class
+	$\mathsf{NSPACE}(f)$ is defined to be the class of all languages with 
+	nondeterministic space complexity in $O(f)$.
+\end{definition}
+
+\begin{theorem}[Savitch's theorem]
+	For any $f \in \Omega(\log(n))$,
+	\[
+		\mathsf{NSPACE}\left(f(n)\right) 
+		\subset \mathsf{SPACE}\left((f(n))^2\right).
+	\]
+\end{theorem}
+
+We compare this result with our similar result for time complexity:
+\[
+	\mathsf{NTIME}\left(f\right) 
+	\subset \bigcup_{c \geq 1} \mathsf{TIME}\left(c^f\right).
+\]
+
+\begin{definition}[$\mathsf{NPSPACE}$]
+	$
+		\mathsf{NPSPACE} = \bigcup_{k \in \N} \mathsf{NSPACE}\left(n^k\right)
+	$.
+\end{definition}
+
+\begin{corollary}[]
+	$
+		\mathsf{PSPACE} = \mathsf{NPSPACE}
+	$.
+\end{corollary}
+
+Thus, in polynomial space, having a nondeterministic Turing machine does
+not add any more computational power.
+\begin{proof}[Proof of Savitch's theorem]
+	Let $\mathcal L \in \mathsf{NPSPACE}\left( 
+		f 
+	\right)$.
+	Let $T$ be a nondeterminstic Turing machine that places $\mathcal L$
+	in $\mathsf{NPSPACE}(f)$.
+	Let $x$ be an input for $T$,
+	and $G_{T,x}$ be a configuration graph of $T$ on $x$.
+	Each configuration (vertex) of this graph has a most
+	$
+		f\left( 
+			\left\lvert x \right\rvert 
+		\right)
+	$
+	non-blank cells, thus each can be described in $c f\left( 
+		\left\lvert x \right\rvert 
+	\right)$ bits for some constant $c$.
+	So $G_{T,x}$ must have less than $2^{cf\left( 
+		\left\lvert x \right\rvert 
+	\right)}$ vertices.
+	Let $C$ and $C'$ be configurations of $T$ (that is, vertices of $G_{T,x}$).
+	We define the functon $\psi_i$
+	such that $\psi(C,C') = 1$ (is true) if and only if 
+	the distance between $C$ and $C'$ (in $G_{T,x}$)
+	is at most $2^i$, and $\psi(C,C') = 0$ otherwise.
+	We claim that we can compute
+	$
+		\psi_{cf\left( 
+			\left\lvert x \right\rvert 
+		\right))}(C_\text{start}, C_\text{accept})
+	$
+	in
+	$
+	 O\left( 
+		\left(
+			f\left( 
+				\left\lvert x \right\rvert 
+			\right) 
+		\right)^2
+	 \right)
+	$
+	space, with the following divide-and-conquer algorithm.
+
+	\textbf{Divide-and-conquer algorithm}
+	Our input is a non-negative integer $j$ and two configurations
+	$C$ and $C'$.
+	\begin{enumerate}
+		\item If $j = 0$, return 1 (true) if $C = C'$
+			or $C'$ can be obtained in one step from $C$
+			and return 0 (false) otherwise.
+		\item For each configuration $C''$,
+			if $\psi_{j-1}(C,C'') = 1$ and
+			$\psi_{j-1}(C'',C') = 1$, then set 
+			$\psi_{j}(C,C') = 1$.
+		\item Return 0 (false).
+	\end{enumerate}
+	The depth of recursion is
+	$
+	O\left( 
+		f\left( 
+			\left\lvert x \right\rvert 
+		\right) 
+	\right)
+	$
+	and each recursive call required
+	$
+	O\left( 
+		f\left( 
+			\left\lvert x \right\rvert 
+		\right) 
+	\right)
+	$
+	space for the parameters.
+\end{proof}
+
+$\mathsf{PSPACE}$ is powerful, so we naturally consider more restircted
+space complexity classes.
+Linear space is enough to solve satisfiability, to get sublinear space
+complexity we disregard the input and only consider working space.
+
+\begin{definition}[$\mathsf{L}$ and $\mathsf{NL}$]
+	\[
+		\mathsf L = \mathsf{SPACE}(\log n), \qquad
+		\mathsf{NL} = \mathsf{NSPACE}(\log n).
+	\]
+\end{definition}
+
+Logarithmic space is sufficient to hold a constant number of pointers
+into the input and a logarithmic number of boolean flags (counters).
+
+\begin{examples}
+	\begin{enumerate}
+		\item Let $\mathcal L = \left\{
+			0^n 1^n : n \in \Z_{\geq 0}
+		\right\}$.
+		We claim that $\mathcal L \in \mathsf L$.
+		Indeed, observe the following algorithm.
+		Initialise two counters for the number of $\mathtt 0$'s
+		and the number of $\mathtt 1$'s.
+		Scan through each of the characters, at each character
+		execute the following.
+		\begin{enumerate}
+			\item If the current and next character reads $\mathtt 10$,
+				reject.
+			\item Incrememnt the corresponding counter.
+		\end{enumerate}
+		If the counters match, accept.
+		Otherwise, reject.
+
+		\item 
+		We claim that determining palidromes in a problem that is in
+		$\mathsf L$.
+		Indeed, we will describe an algorithm that uses logarithmic
+		space.
+		Initialise two pointers, one at the start of a string and one at the
+		end.
+		If the value of both pointers match, move the starting pointer
+		up the string and move the ending pointer down the string.
+		Otherwise, reject.
+		If the pointers end up pointing to the same address or switch addresses,
+		accept.
+	\end{enumerate}
+\end{examples}
+
+\begin{problem}[Planar graph isomorphism]
+	Instance: undirected graphs $G = (V_G, E_G)$ and
+		$H = (V_H, E_H)$. \\
+	Question: are $G$ and $H$ isomorphic?
+\end{problem}
+
+\begin{theorem}[]
+	Planar graph isomorphism is in $\mathsf L$.
+\end{theorem}
+
+We will give a nondeterministic logarthmic space algorithm
+for solving reachability.
+
+\begin{algorithm}[$\mathsf{NL}$ algorithm for reachability]
+	We are given a finite directed graph $G = (V,E)$ and
+	vertices $s,t \in V$.
+	Declare a counter for the number of vertices in a graph,
+	and initialise it to $\left\lvert V \right\rvert$.
+	Further initialise a pointer to $s$.
+	While the counter is non-zero, do the following steps.
+	\begin{enumerate}
+		\item
+		If the current node is $t$, then return true.
+
+		\item
+		Nondeterministically choose every node that can be reached from the
+		current node.
+
+		\item 
+		Update pointer and increment the counter.
+	\end{enumerate}
+	Return false.
+\end{algorithm}
+
+When we stated Savitch's theorem, we required $f \in \Omega(\log(n))$, not
+$f \in \Omega(n)$.
+That is, Savitch's theorem also applies in sublinear space.
+
+\begin{corollary}[]
+	$\mathsf{NL} \subset \mathsf L^2$.
+\end{corollary}
+
+Here, we are using the notation
+\[
+	\mathsf L^2 = \mathsf{SPACE}\left( 
+		\left( 
+			\log(n) 
+		\right)^2
+	\right).
+\]
+
+\begin{theorem}[]
+	$\mathsf{NL} \subset \mathsf P$.
+\end{theorem}
+
+The following proof will follow the general outline,
+more of a \emph{proof idea} then a rigorous proof.
+
+\begin{proof}
+	We build a configuration graph for our
+	$\mathsf{NL}$ algorithm.
+	We can then decide whether the accepting configuration
+	can be reached by the starting configuration in linear time
+	in the size of the graph ($2^{O(f)}$ vertices).
+	We then redefine the configuration graph to avoid storing the input.
+	We store only the contents of the working tape and the position of the head.
+	The new configuration has size
+	$2^{O(\log\left\lvert x \right\rvert)} = \left\lvert x \right\rvert^{O(1)}$.
+\end{proof}

@@ -1,0 +1,158 @@
+\chapter{MIPS}
+
+\begin{definition}
+    MIPS is a 32-bit RISC processor with approximately 80 instructions in the set, 32 general purpose registers \$r0-\$r31, The MIPS processor has a super-pipelined architecture, each instruction is broken down into a sequence of micro instructions.
+\end{definition}
+
+Design principles of MIPS:
+\begin{enumerate}
+    \item Simplicity favours regularity, consistent instruction format. There is a constant number if operants (two sources and one destination), this makes it easier to encode and handle in hardware.
+    
+    \item Make the common case fast, MIPS includes only simple, commonly,= used instructions. Hardware to decode and execute instructions can be simple, small, and fast. More complexxx instructions (that are less common) are performed using multiple simple instructions. This is a design principle for RISC proessors.
+\end{enumerate}
+
+Registers
+\begin{table}
+    \centering
+    \begin{tabular}{ccc}
+        \toprule
+        Name & Register Number & Usage \\
+        \midrule
+        \$0 & 0 & the constant value 0 \\
+        \$at & 1 & assembler temporary \\
+        \$v0-\$v1 & 2-3 & function return values \\
+        \$a0-\$a3 & 4-7 & function arguments \\
+        \$t0-\$t7 & 8-15 & temporary variables \\
+        \$s0-\$s7 & 16-23 & saved variables \\
+        \$t8-\$t9 & 24-25 & more temporary variables \\
+        \$k0-\$k1 & 26-27 & OS temporaries \\
+        \$a0-\$a3 & 4-7 & function arguments \\
+        \bottomrule
+    \end{tabular}
+    \caption{Registers used in MIPs.}
+    \label{tab:mips_register}
+\end{table}
+
+There are 3 instruction formats:
+\begin{enumerate}
+    \item R-Type, register operands;
+    \item I-Type, immediate operand; and
+    \item J-Type, for jumping.
+\end{enumerate}
+
+\subsection{R-type instructions}
+\begin{center}
+    \begin{tabular}{cccccc}
+        \toprule
+            \texttt{op} & \texttt{rs} & \texttt{rt} & \texttt{rd} & \texttt{shamt} & \texttt{funct} \\
+        \bottomrule
+        \addlinespace
+        6 bits & 5 bits & 5 bits & 5 bits & 5 bits & 6 bits \\
+    \end{tabular}
+\end{center}
+R-type instruction have 3 register operands:
+\begin{enumerate}
+    \item \texttt{rs}, \texttt{rt}: source registers
+    \item \texttt{rd}: desitination register.
+\end{enumerate}
+Other fields:
+\begin{enumerate}
+    \item \texttt{op}: the opeartion code (opcode);
+    \item \texttt{funct}: the function, with opcode, tells the computer what operation to perform
+    \item \texttt{shamt}: the shift amount for shift instructions, otherwise 0.
+\end{enumerate}
+
+\subsection{I-type instructions}
+
+\begin{center}
+    \begin{tabular}{cccc}
+        \toprule
+        \texttt{op} & \texttt{rs} & \texttt{rt} & \texttt{imm} \\
+        \bottomrule
+        \addlinespace
+        6 bits & 5 bits & 5 bits & 16 bits \\
+    \end{tabular}
+\end{center}
+
+This instruction type has 3 operands:
+\begin{enumerate}
+    \item \texttt{rs},\texttt{rt}: register operands;
+    \item \texttt{imm}: 16-bit two's complement immediate.
+\end{enumerate}
+Other fields:
+\begin{enumerate}
+    \item \texttt{op}, the opcode, operation is completely determined by opcode.
+\end{enumerate}
+
+\begin{example}
+    Following are examples of I-type instructions.
+    \begin{enumerate}
+        \item Add value in register 17 and 5 and put the answer in register 16.
+        \begin{center}
+            \ttfamily 
+            addi \$s0, \$s1, 5
+        \end{center}
+        
+        \item Load immediate value 5 and put in register 16.
+        \begin{center}
+            \ttfamily 
+            li \$s0, 5
+        \end{center}
+    \end{enumerate}
+\end{example}
+
+\subsection{J-type insturctions}
+
+\begin{center}
+    \begin{tabular}{cc}
+        \toprule
+        \texttt{op} & \texttt{addr} \\
+        \bottomrule
+        \addlinespace
+        6 bits & 26 bits
+    \end{tabular}
+\end{center}
+
+This is rarely used in assembler.
+
+\section{Addressing}
+
+We can address our operands in four ways:
+\begin{enumerate}
+    \item register only;
+    \item immediate (16-bit two's complement integer);
+    \item base addressing, address of operand is given by $\text{base address }+\text{ signed immediate}$; and
+    \item PC-relative, jumps so far from current position.
+\end{enumerate}
+
+OS calls
+
+\begin{table}
+    \centering
+    \begin{tabular}{rcp{20em}}
+        \toprule
+        Service & Code (in \$v0) & Arguments / results \\
+        \midrule
+        \texttt{print\_int} & 1 & \texttt{\$a0}, integer to be printed \\
+        \texttt{print\_float} & 2 & \texttt{\$f12}, float to be printed \\
+        \texttt{print\_double} & 3 & \texttt{\$f12}, double to be printed \\
+        \texttt{print\_string} & 4 & \texttt{\$a0}, address of string in memory \\
+        \texttt{read\_int} & 5 & integer return in \$v0 \\
+        \texttt{read\_float} & 6 & float returned in \$v0 \\
+        \texttt{read\_string} & 7 & double return in \$v0 \\
+        \texttt{read\_string} & 8 & \texttt{\$a0}, memory address of string input buffer;\newline\texttt{\$a1}, length of string buffer (n) \\
+        \texttt{sbrk} & 9 & \texttt{\$a0}, amount, address in \$v0 \\
+        \texttt{exit} & 10 \\
+        \bottomrule
+    \end{tabular}
+    \caption{Caption}
+    \label{tab:my_label}
+\end{table}
+
+\begin{definition}
+    An architecture consists of an instruction set and implies an architectural state:
+    \begin{enumerate}
+        \item the state of all architecture defined registers; and
+        \item the value of the program counter.
+    \end{enumerate}
+\end{definition}

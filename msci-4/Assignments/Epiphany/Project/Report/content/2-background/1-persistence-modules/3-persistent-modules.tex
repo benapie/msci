@@ -1,0 +1,178 @@
+\subsection{Persistence modules}
+\label{ssec:pers_modules}
+
+We now describe \emph{persistent modules}. Here we will define notions such as \emph{chain complexes}, \emph{persistence complexes}, and \emph{persistence modules} as non-negative (over $\mathbb N_0$), but similar constructions exist over $\mathbb Z$. 
+
+\begin{definition}[Chain complex]
+    Let $R$ be a commutative ring. A \emph{chain complex} $C = (C_*, \partial_*)$ is a sequence of $R$-modules $\{C_i\}_{i \in \N_0}$ (called \emph{chain groups}) connected by module homomorphism $\{\partial_i\}_{i \in \Z}$ with $\partial_i: C_i \to C_{i-1}$ such that $\partial_i \circ \partial_{i+1} = 0$ for all $i \in \Z$. We may write a complex as follows.
+    \[ \ldots \xleftarrow{\partial_0} C_0 \xleftarrow{\partial_1} C_1 \xleftarrow{\partial_2} C_2 \xleftarrow{\partial_3} \ldots \]
+\end{definition}
+
+We can, in fact, consider a category of chain complexes. To do this, we must define what a morphism of chain complexes is.
+
+\begin{definition}[Chain map]
+    Let $C = (C_*,\partial_*^C)$ and $D = (D_*, \partial_*^D)$ be chain complexes. A \emph{chain map} is a sequence of homomorphisms $f = \{f_i\}_{i \in \N_0}$ such that $f_i: C_i \to D_i$ and the following diagram commutes for all $i \in \N_0$.
+    \begin{center}
+        % https://tikzcd.yichuanshen.de/#N4Igdg9gJgpgziAXAbVABwnAlgFyxMJZABgBpiBdUkANwEMAbAVxiRAGEB9LEAX1PSZc+QigBM5KrUYs2XYFgDUARl58BIDNjwEiZZVPrNWiEABFu6wdpFEJB6kdmmLClWt5SYUAObwioABmAE4QALZIZCA4EEgS0sZsgZbUDHQARjAMAApCOqIgwVg+ABY4ViAh4UjK1DFIAMyOMiaVnG6qFVURiLXRsYhRTq0AOiNodMF4jAB68kqdqRlZuTa6pkWl5fxBoT1N-XHNiaZjE1NYs64LHhS8QA
+        \begin{tikzcd}
+            C_i \arrow[d, "f_i"'] &  & C_{i+1} \arrow[d, "f_{i+1}"] \arrow[ll, "\partial^C_{i+1}"'] \\
+            D_i                   &  & D_{i+1} \arrow[ll, "\partial^D_{i+1}"]
+        \end{tikzcd}
+    \end{center}
+\end{definition}
+
+\begin{lemma}
+    Let $R$ be a commutative ring. Then chain complexes of $R$-modules with chain maps form a category (denoted by $\Ch_R$).
+\end{lemma}
+
+\begin{definition}[Homology]
+    Let $C = (C_*, \partial_*)$ be a chain complex. An element $c \in C_n$ is called an \emph{$n$-chain}. An $n$-chain that is in the kernel of $\partial_n$ is called an \emph{$n$-cycle}, and an $n$-chain that is in the image of $\partial_{n+1}$ is called an \emph{$n$-boundary}. The \emph{$n$th homology group} of $C$, denoted as $H_n(C)$, is the group of $n$-cycles modulo the group of $n$-boundaries; that is,
+    \[ H_n(C) = \frac{\ker{\partial_n}}{\im{\partial_{n+1}}}. \]
+\end{definition}
+
+This is well-defined, as $\im\partial_{i+1} \subset \ker\partial_i$. Homology can be thought of as a measure of how far a chain complex is from being exact; a chain complex is exact (or \emph{acyclic}) if and only if all homology groups are zero.
+
+\begin{example}
+    We take the time to work through an example of computing homology. Consider the chain complex $C$:
+    \[ 0 \xrightarrow{0_1} \mathbb Z \xrightarrow{\partial_2} \mathbb Z \xrightarrow{\partial_1} \mathbb Z^2 \xrightarrow{0_2} 0 \]
+    where $\partial_2(x) = px$ and $\partial_1(x) = (x, -2x)$ for some $p \in \mathbb N$. We note that $C_n = 0$ for all $n \geq 3$, thus $H_n(C) = 0$ for all $n \geq 3$. We first look at the matrix representations of the boundary maps, picking canonical basis:
+    \[
+        M_{\partial_1} = \begin{pmatrix}
+            1 \\ - 2
+        \end{pmatrix}, \qquad
+        M_{\partial_2} = \begin{pmatrix}
+            p
+        \end{pmatrix}.
+    \]
+    From this, we perform suitable (invertible) column and row operations to get the image and kernels:
+    \begin{align*}
+        \im\partial_1  & = \mathbb Z & \im\partial_2  & = p\mathbb Z \\
+        \ker\partial_1 & = \mathbb Z & \ker\partial_2 & = 0.
+    \end{align*}
+    Thus we get the following homology groups:
+    \begin{align*}
+        H_0(C) = \frac{\ker 0_2}{\im\partial_1}       & = \mathbb Z,   \\
+        H_1(C) = \frac{\ker\partial_1}{\im\partial_2} & = \mathbb Z/p, \\
+        H_2(C) = \frac{\ker\partial_2}{\im 0_1}       & = 0.
+    \end{align*}
+\end{example}
+
+We denote the sequence of homology groups by $H_*(C)$.
+
+\begin{lemma} \label{lem:homology-functor}
+    Homology is a functor from the category of chain complexes of $R$-modules with chain maps to the category of $R$-modules with module homomorphisms.
+\end{lemma}
+
+\begin{proof}
+    It is not difficult to see that the homology of a chain complex of $R$-modules also defines an $R$-module. To finish this proof, we need to do define a morphism between homology modules. Let $C = (C_*, \partial_*)$ and $D = (D_*, \partial_*)$ be two chain complexes of $R$ modules and $f: C_* \to D_*$ be a chain map. Then we define $f_*: H_*(C) \to H_*(D)$ by $[c] \mapsto [f(c)]$. This gives us a \emph{contravariant functor}, which can be considered a regular functor by considering the dual category in the domain of the functor.
+\end{proof}
+
+\begin{definition}[Persistence complex] \label{def:persistence-complex}
+    A \emph{persistence complex} is a sequence of chain complexes and chain maps $\mathcal C = \{(C^i, f^i)\}_{i \in \N_0}$ over a commutative ring $R$, where $C^i = (C_*^i, \partial_*^i)$ and $f^i: C_*^i \to C_*^{i+1}$.
+\end{definition}
+
+To illustrate this definition, one may draw a commutative diagram akin to Figure \ref{fig:persistence-complex}. For a persistence complex $\mathcal C = \{(C^i, f^i)\}_{i \in \N_0}$, we define its homology as one may expect, $H_*(\mathcal C) = \{(H_*(C^i), f_*^i)\}_{i \in \N_0}$ where $f_*^i$ is the standard induced map on homology.
+
+\begin{figure}
+    \centering
+    % https://tikzcd.yichuanshen.de/#N4Igdg9gJgpgziAXAbVABwnAlgFyxMJZABgBoAWAXVJADcBDAGwFcYkQBhAfWID1iQAX1LpMufIRRkAzNTpNW7bgEZ+QkSAzY8BImQBMchizaJOXfWuGjtEvaWVGFp89Ksat43VNLEnJ9gAdQMYoCBwEa00xHUkSUgBWf0UzASjPWKJlCmSXbj5ldRsvOOzZGmMU81VC9Ji7FGzDCuclC15aj3rvZGzHFoCzDg6uaSLo2x79B1ylXn1R8YyG5GkZgarh6UW6ybjp5vlB80t9Je64tcPKvPax3ZKiafKjza5VM4fMlDWXm7bVPcunsnjkNrc+J9gY8fmDXhDeEDit9eolZqlziCUNMkuD2GloSi1rj4fjMTDkOQ4f8zMFQuFIoSVlS-q1aSEwhFySiqdc2SA6ZzGcjmetSez6Vyvitsn48RKhdyVtM5eKBRyGUqemtVTT1ZLInIYFAAObwIigABmACcIABbJBUkA4CBIaRRG32t00F1IaZq4JoejWvBMUbuK22h2If2+xDZAOBIMhrBhywEyNe+M+12IMiJ5Ohxj8d7jT3R-NxhIeqNIBNxgDs8pAlveEZbtZjOaQAA5m6302XO2tnbmAJz98MZjtZgBs3fjPZrWeU89HdbHy+jyib65jxC3dd3cf0ykP8YSC-0+nPyhHJ-dGnLdfruf05HPE73ynzetbbk6TNt0rXNlATP9wyhIDewXZR-QgyxAJnbdY1AkcEPmIcs2PUCnQgmosO3J042US81VbD5CL9Mi403J9O30NcSIPeis30HCX0-Bc+wLYMi3DJDn3jEC63g-lAz41NGEgqj41fOt0PEpNJLDNwkWQmC913PUJJTNMOlkuDYLwpTCyk9ooI0+N71AsidOUvTpMsdShI4xA13ssywwI29iNAjzTJU6TKNvGjQO0wLHLbFzOyY-zJwKQy4qPBLMPPET3NStJKEEIA
+    \begin{tikzcd}
+        \ldots \arrow[d]                                   & \ldots \arrow[d]                                   & \ldots \arrow[d]                                   & \ldots \arrow[d]                          &        \\
+        C_3^0 \arrow[d, "\partial_3^0"] \arrow[r, "f_3^0"] & C^1_3 \arrow[r, "f_3^1"] \arrow[d, "\partial_3^1"] & C^2_3 \arrow[r, "f_3^2"] \arrow[d, "\partial_3^2"] & C^3_3 \arrow[r] \arrow[d, "\partial_3^3"] & \ldots \\
+        C_2^0 \arrow[d, "\partial_2^0"] \arrow[r, "f_2^0"] & C_2^1 \arrow[r, "f_2^1"] \arrow[d, "\partial_2^1"] & C_2^2 \arrow[r, "f_2^2"] \arrow[d, "\partial_2^2"] & C_2^3 \arrow[r] \arrow[d, "\partial_2^3"] & \ldots \\
+        C_1^0 \arrow[d, "\partial^0_1"] \arrow[r, "f_1^0"] & C_1^1 \arrow[r, "f_1^1"] \arrow[d, "\partial_1^1"] & C_1^2 \arrow[r, "f_1^2"] \arrow[d, "\partial_1^2"] & C_1^3 \arrow[r] \arrow[d, "\partial_1^3"] & \ldots \\
+        C_0^0 \arrow[d] \arrow[r, "f_0^0"]                 & C_0^1 \arrow[d] \arrow[r, "f_0^1"]                 & C_0^2 \arrow[d] \arrow[r, "f_0^2"]                 & C_0^3 \arrow[d] \arrow[r]                 & \ldots \\
+        0                                                  & 0                                                  & 0                                                  & 0                                         &
+    \end{tikzcd}
+    \caption{A portion of a persistence complex.}
+    \label{fig:persistence-complex}
+\end{figure}
+
+\begin{definition}[Persistence module] \label{def:persistence-module}
+    A \emph{persistence module} is a sequence of $R$-modules and module homomorphisms $\mathcal M = \{(M^i, \varphi^i)\}_{i \in \N_0}$ over a commutative ring $R$, where $\varphi^i: M^i \to M^{i+1}$.
+\end{definition}
+
+It is an immediate consequence of Lemma \ref{lem:homology-functor} that the homology of a persistence complex is a persistence module.
+
+% \begin{proof}
+%     Let $\mathcal C = \{(C^i, f^i)\}_{i \in \N_0}$ be a persistent complex over a commutative ring $R$. Each $C^i = (C_*^i, \partial_*^i)$ is a $R$-module, as each $C_n^i$ is a $R$-module. Thus each $H_*(C^i)$ is a $R$-module. We also have that
+%     \[f_*^i([c] + [d]) = [f^i(c+d)] = [f^i(c) + f^i(d)] = f_*^i([c]) + f_*^i([d])\]
+%     and
+%     \[f_*^i(r[c]) = f_*^i([rc]) = [f^i(rc)] = [rf^i(c)] = r[f^i(c)] = r f_*^i([c])\]
+%     and so $f_*^i: H_*(C^i) \to H_*(C^{i+1})$ is a module homomorphism. Therefore, $H^*(\mathcal C) = \{(H_*(C^i), f_*^i)\}_{i \in \N_0}$ is a persistence module.
+% \end{proof}
+
+
+\begin{definition}[Finite type persistence complex] \label{def:finite-type-persistence-complex}
+    A persistence complex $\mathcal C = \{(C^i, f^i)\}_{i \in \N_0}$ over a commutative ring $R$ is of \emph{finite type} if each $C^i$ is finitely generated and there is some $m \in \N_0$ such that $f^i$ is an isomorphism for all $i \geq m$.
+\end{definition}
+
+We similarly define \emph{persistence modules of finite type}.
+
+We aim to apply the decomposition in Equation \ref{eq:graded-module-over-pid-structure} to our persistence module, to motivate the following construction.
+
+\begin{definition}[Graded construction of a persistence module]
+    Let $\mathcal M = \{(M^i, \varphi^i)\}_{i \in \N_0}$ be a persistence module over a commutative ring $R$. We equip $R[t]$ with the standard degree grading and define a graded module over $R[t]$ by
+    \[ \alpha(\mathcal M) = \bigoplus_{i\in\N_0} M^i \]
+    where the $R$-module structure is the sum of the individual components and the action of $t$ is given by $tm^i = \varphi^i(m^i)$.
+\end{definition}
+
+Multiplication by $t$ can be thought of as an upwards shift in the gradation.
+
+For a commutative ring $R$, $\alpha$ may be considered a functor between the category of persistent modules of finite type over $R$ (the objects and morphisms are clear here) and the category of finitely generated graded modules over $R[t]$ (where our morphisms all correspond to multiplication by $t$), and in fact gives us an \emph{equivalence} of these categories.
+
+\begin{theorem}[ZC-Representation Theorem \cite{zomorodian2005computing}] \label{the:zc-representation-theorem}
+    Let $R$ be a commutative ring. $\alpha$ defines an equivalence of categories between the category of persistence modules of finite type over $R$ and the category of finitely generated graded modules over $R[t]$.
+\end{theorem}
+
+The proof for this can be found the Artin-Rees theory section from \textcite{Eisenbud1995}.
+
+By Corollary \ref{cor:equivalence-functor-give-bijection-on-isomorphisms}, we have established a bijective correspondence between the isomorphism classes of persistence modules of finite type over $R$ and isomorphism classes of finitely generated graded $R[t]$-modules.
+
+This correspondence does not provide particular assistance in decomposing persistence modules when $R$ is not a field; the classification of modules over $\Z[t]$ is complicated. Although, by setting $R = F$ for some field $F$, we get a particularly succinct decomposition. $F[t]$ is a graded principal ideal domain and its only graded ideals are of the form $(t^n)$, for $n \in \N_0$. Thus, applying Theorem \ref{the:graded-module-over-pid-structure} we get
+\begin{equation} \label{eq:graded-polynomial-field-decomposition}
+    M \cong
+    \left(\bigoplus_{i=1}^n \Sigma^{\alpha_i} F[t] \right) \oplus
+    \left(\bigoplus_{i=1}^m \Sigma^{\gamma_i} F[t]/(t^{n_i})\right)
+\end{equation}
+where $\alpha_i, \gamma_i \in \Z$, and $\Sigma^k$ denotes a $k$-shift upward in grading (note that coincides with multiplication by $t^k$ in our case), for some finitely generated graded $F[t]$-module $M$.
+
+We now form a bijection between this decomposition to the positive real intervals. 
+
+\begin{definition}[$\mathcal P$-interval] \label{def:p-interval}
+    A $\mathcal P$-interval is a tuple $(i,j) \in \N_0 \times \N^\infty$ such that $i < j$.
+\end{definition}
+
+For the above definition, we define $\N^\infty = \N \cup \{+\infty\}$.
+
+\begin{proposition}
+    Let $\mathcal S$ be the set of $\mathcal P$-intervals and $\mathcal F$ the set of isomorphism classes of finitely generated graded $F[t]$-modules. Define $Q': \mathcal S \to \mathcal F$ by $(i, j) \mapsto \Sigma^i F[t]/(t^{j-i})$ and $(i, +\infty) \mapsto \Sigma^iF[t]$. Then the map $Q: \mathcal P \to \mathcal F$ defined by
+    \[
+        Q(S) = \bigoplus_{l=1}^n Q'(i_l, j_l),
+    \]
+    where $\mathcal P$ is the set of finite multisets containing elements of $\mathcal S$, is a bijection. 
+\end{proposition}
+
+\begin{proof}
+    Let $M$ be a graded $F[t]$-module. Then by Equation \ref{eq:graded-polynomial-field-decomposition},
+    \[ M \cong
+        \left(\bigoplus_{i=1}^n \Sigma^{\alpha_i} F[t] \right) \oplus
+        \left(\bigoplus_{i=1}^m \Sigma^{\gamma_i} F[t]/(t^{n_i})\right) \]
+    where $\alpha_i, \gamma_i \in \Z$, and $\Sigma^k$ denotes a $k$-shift upward in grading. We then define $Q^{-1}: \mathcal F \to \mathcal P$ by
+    \[ Q^{-1}(M) = \{(\alpha_i, \infty): i=1,\ldots,n\} \cup \{(\gamma_i, n_i + \gamma_i): i = 1, \ldots, m\}. \]
+    It is then straight forward to check that $Q \circ Q^{-1} = \id_{\mathcal F}$ and $Q^{-1} \circ Q = \id_{\mathcal P_{<\infty}(\mathcal S)}$.
+\end{proof}
+
+\begin{corollary}
+    There is a bijection between the isomorphism classes of persistence modules of finite type over a field $F$ and the finite multisets of $\mathcal P$-intervals.
+\end{corollary}
+
+We have now established that every (isomorphism class of a) persistence module has a one-to-one correspondence to a multiset of $\mathcal P$-intervals.
+
+\begin{definition}[Persistent barcodes]
+    Let $\mathcal C$ be a persistence complex with persistence module $H_*(\mathcal C)$. Then the \emph{persistence barcodes} of $H_*(\mathcal C)$, denoted $\Pers(H_*(\mathcal C))$ are precisely the corresponding $\mathcal P$-intervals as defined above. 
+\end{definition}
+
+Barcodes of the form $(i,j)$ are given by the torsional portion of the decomposition of a persistence module, while barcodes of the form $(i, \infty)$ are given by the free portion of a persistence module.
+
+The standard algorithm for persistent homology (which we present in Chapter \ref{cha:problems}) aims to, given a persistence complex (namely a filtered Vietoris-Rips complex), compute the persistent barcodes where we take $F = \mathbb Z/2$. 

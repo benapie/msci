@@ -1,0 +1,40 @@
+\assignment{2}{30/1}
+
+\setcounter{question}{69}
+\question Calculate the double integral
+\[
+    \int\int_A \left(\lvert x \rvert + \lvert y \rvert\right) \,dx\,dy
+\]
+where $\bm A$ is the region defined by $\lvert x \rvert + \lvert y \rvert \leq 1$.
+
+\setcounter{question}{72}
+\question Compute the iterated integral
+\[
+    \int_0^1 \int_0^1 \left( \frac{x^2 - y^2}{(x^2 + y^2)^2} \right) \,dy\,dx.
+\]
+Now reverse the order of integrations and re-evaluate.
+Why doesn't your answer contradict Fubini's theorem?
+(Hints: for the first integral, with respect to $y$,
+it might help to aim at something that can be integrated by parts
+using $\frac{d}{dy}\left(\frac{1}{x^2+y^2}\right)=-\frac{2y}{(x^2+y^2)^2}$;
+and in answering to the last part of the question, the fact that 
+$\int_0^1\left\lvert\frac{x^2-y^2}{(x^2+y^2)^2}\right\rvert\,dy \geq
+    \int_0^x\left(\frac{x^2-y^2}{(x^2+y^2)^2}\right)\,dy$
+could be useful.)
+
+\setcounter{question}{74}
+\question A function $f(x, y)$ is defined by
+\[
+    f(x,y)=
+    \begin{cases}
+        1 & -1 < x-y < 0 \\
+        -1 & 0 < x-y < 1 \\
+        0 & \text{otherwise}.
+    \end{cases}
+\]
+Compute 
+$\int_0^\infty \left(\int_{-\infty}^\infty f(x,y) \,dx\right)\,dy$
+and also
+$\int_{-\infty}^\infty \left(\int_0^\infty f(x, y)\,dy\right)\,dx$
+(for the second case it might help to draw a picture).
+Comment on your two answers - why does Fubini fail?

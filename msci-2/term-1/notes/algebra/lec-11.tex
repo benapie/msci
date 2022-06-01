@@ -1,0 +1,66 @@
+\lecture{11}{12/11}
+
+\begin{lemma}[]
+    Let $R, S$ be rings and $f: R \to S$ be a homomorphism then
+    \begin{enumerate}
+        \item $f(0) = 0$; and
+        \item $f(-a) = -f(a)$.
+    \end{enumerate}
+\end{lemma}
+
+\begin{proof}
+    \begin{enumerate}
+        \item \[ 0 + 0 = 0 \implies f(0 + 0) = f(0) \implies f(0) + f(0) = f(0) \implies f(0) = 0. \]
+        \item \[ a + (-a) = 0 \implies f(a + (-a)) = f(0) \implies f(a) + f(-a) = 0 \implies f(-a) = -f(a). \]
+    \end{enumerate}
+\end{proof}
+
+\begin{definition}[Kernal and image of a homomorphism]
+    Let $f: R \to S$ be a homomorphism. Then we define the \textbf{kernal} of $f$ as
+    \[ \ker{f} = \{ x \in R : f(x) = 0 \} \subset R \]
+    and the \textbf{image} of $f$ as
+    \[ \im{f} = \{ f(x): x \in R \} \subset S. \]
+\end{definition}
+
+\begin{definition}[Isomorphism]
+    A bijective homomorphism is called an \textbf{isomorphism}. If $f: R \to S$ is an isomorphism, then we say that $R$ is isomorphic to $S$ denotes $R \simeq S$.
+\end{definition}
+
+\begin{example}
+    Define a map $f: \Z \to \Z/m$ where $z \mapsto \bar z$. This is surjective but \emph{not} injective; hence, it is not an isomorphism.
+\end{example}
+
+\begin{example}
+    Let $R = \C$. We define $S \subset M_2(\R)$ as
+    \[ S = \left\{ \begin{pmatrix} a & b \\ -b & a \end{pmatrix}: a, b \in \R \right\} \subset M_2(\R). \]
+    This is clearly a subring. Let $f: \C \to S$ defined by
+    \[ f(x + iy) = \begin{pmatrix} x & y \\ -y & x \end{pmatrix}. \]
+    We see that $f$ is a homomorphism and also an isomorphism. Therefore, $\C$ is isomorphic to $S$.
+\end{example}
+
+\begin{remark}
+    An isomorphism between two rings gives us the indication that the rings are effectively the same.
+\end{remark}
+
+\begin{example}
+    \[ \operatorname{End}{V} \simeq M_n(\R). \]
+\end{example}
+
+\begin{example}
+    \begin{enumerate}
+        \item Let $R,S$ be rings and define the function $f: R \to \{0\}$ such that $\gamma \mapsto 0$. This is known as the \emph{zero homomorphism}.
+        \item The \emph{identity homomorphism} $\operatorname{Id}: R \to R$ such that $\gamma \mapsto \gamma$ is an isomorphism.
+    \end{enumerate}
+\end{example}
+
+\begin{example}
+    Let $R$ and $S$ be rings. We can construct the \emph{direct product} of $R$ and $S$ denoted $R \times S$. We define its operations as follows
+    \begin{align*}
+        (r, s) + (r', s') &= (r + r', s + s') \\
+        (r, s)(r',s')     &= (rr', ss').
+    \end{align*}
+    It is clear that $(1, 1) \in R \times S$ is the identity element. The other conditions for being a ring are clear to see. We have two specific surjective homomorphism $p_1: R \times S \to R$ and $p_2: R \times S \to S$ defined by
+    \[ p_1(r, s) = r \qquad p_2(r, s) = s \]
+    for all $(r, s) \in R \times S$. We then see that $\ker{p_1} \simeq S$ and $\ker{p_2} \simeq R$ and so
+    \[ \ker{p_1} \times \ker{p_2} \simeq R \times S. \]
+\end{example}

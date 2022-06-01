@@ -1,0 +1,237 @@
+%! TEX root = master.tex
+\lecture{7}{26/10}
+
+\begin{proposition}[]
+	Let $f: \R \to \R$.
+	Then $f$ is continuous if and only if
+	for every open set $U \subset \R$,
+	then $f^{-1}(U)$ is also open.
+\end{proposition}
+
+\begin{proof}
+	$(\implies)$:
+	let $U \subset \R$ be open and $x \in f^{-1}(U)$.
+	Then $f(x) \in U$.
+	As $U$ is open, there is $\varepsilon > 0$
+	such that 
+	$(f(x) - \varepsilon, f(x) + \varepsilon) \subset U$.
+	By the continuity of $f$, there is $\delta > 0$
+	such that
+	$\left\lvert x - y \right\rvert < \delta \implies
+	\left\lvert f(x) - f(y) \right\rvert < \varepsilon$
+	for all $y \in \R$.
+	Therefore for every $y$ satisfying
+	$\left\lvert x - y \right\rvert < \delta$
+	we have
+	\[
+		f(y) 
+		\in \left( f(x) - \varepsilon, f(x) + \varepsilon \right)
+		\subset U
+	\]
+	Therefore $f(y) \in U$,
+	so $y \in f^{-1}(U)$.
+	So we have shown that
+	$(x - \delta, x + \delta) \subset f^{-1}(U)$.
+	Thus $f^{-1}(U)$ is open.
+
+	$(\impliedby)$:
+	Let $x \in \R$ and fix $\varepsilon > 0$.
+	Consider
+	\[
+		U = \left( f(x) - \varepsilon, f(x) + \varepsilon \right).
+	\]
+	$U$ is open, so $f^{-1}(U)$ is open.
+	Now let $x \in f^{-1}(U)$.
+	Then there is $\delta > 0$ such that
+	$
+		(x - \delta, x + \delta) \subset f^{-1}(U)
+	$
+	and so
+	\[
+		f\left( (x - \delta, d + \delta) \right)
+		\subset U
+		= (f(x) - \varepsilon, f(x) + \varepsilon).
+	\]
+	So if $\left\lvert x - y \right\rvert < \delta$
+	then $\left\lvert f(x) - f(y) \right\rvert < \varepsilon$
+	and thus $f$ is continuous.
+\end{proof}
+
+\begin{theorem}[]
+	Let $F \subset \R$ be closed and bounded and let $f: F \to \R$
+	be continuous.
+	Then $f$ is bounded on $F$ and assumes its maximum and minimum on $F$.
+	That is,
+	there is $a, b \in F$ such that for every $x \in F$, 
+	$f(a) \leq f(x) \leq f(b)$.
+\end{theorem}
+
+\begin{proof}
+	First we prove that $f$ is bounded.
+	Since $f$ is continuous on $F$,
+	for every $x \in F$ there is an open interval $I_x$
+	such that
+	$
+		\left\lvert f(y) - f(x) \right\rvert < 1
+	$
+	for every $y \in I_x \cap F$.
+	Hence, $ \left\{ I_x: x \in F \right\} $
+	is an open cover of $F$, so by the Heine-Borel theorem we can 
+	find a finite subcover
+	$ \left\{ I_{x_1}, \ldots, I_{x_n} \right\} $ 
+	of $F$.
+	Observe that for every $y \in F$,
+	there is $i \in \left\{ 1, \ldots, n \right\}$
+	such that $y \in I_{x_i}$.
+	Then
+	\[
+		\left\lvert f(y) \right\rvert
+		< 1 + \left\lvert f(x_i) \right\rvert
+		< 1 + \max \left\{ f(x_1), \ldots, f(x_i) \right\}
+	\]
+	and so $f$ is bounded.
+	
+	We now prove that $f$ assumes its maximum on $F$.
+	Let $m = \sup_{x \in F} f(x)$.
+	Observe that $\left\lvert m \right\rvert < \infty$
+	as $F$ is finite.
+	Assume that there is no such $x \in F$ such that
+	$f(x) = m$.
+	So, for every $x \in F: f(x) < m$.
+	By the continuity of $f$, there is an open interval
+	$I_x$ such that for every $y \in I_x$
+	\[
+		f(y) < \frac12 \left( f(x) + m \right).
+	\]
+	By the Heine-Borel theorem, the open cover
+	$ \left\{ I_x: x \in F \right\} $
+	has a finite subcover
+	$ \left\{ I_{x_1}, \ldots, I_{x_n} \right\} $.
+	Let
+	$
+		a = \max\left\{
+			\left\lvert f(x_1) \right\rvert,
+			\ldots,
+			\left\lvert f(x_n) \right\rvert
+		\right\}.
+	$
+	Then for every $y \in F$ there is an open interval $I_{x_i}$
+	containing $y$ such that
+	\[
+		f(y) < \frac12\left( f(x_i) + m \right) < \frac12(a + m).
+	\]
+	Thus $\frac12(a+m)$ is a bound for $f$ on $F$,
+	but this is impossible since $\frac12(a+m) < m$;
+	therefore, there is $x \in F$ such that $f(x) = m$.
+
+	A similar property can be shown to hold for the minimum.
+\end{proof}
+
+\subsection{Uniform continuity}
+
+\begin{definition}[Uniform continuity]
+	A function $f: E \subset \R \to \R$
+	is \emph{uniformly continuous}
+	if for every $\varepsilon > 0$
+	there is $\delta > 0$
+	such that for every $x, y \in E$:
+	\[
+		\left\lvert x - y \right\rvert < \delta
+		\implies \left\lvert f(x) - f(y) \right\rvert < \varepsilon.
+	\]
+\end{definition}
+
+\begin{proposition}[]
+	Let $F$ be closed and bounded, and $f: F \to \R$ be continuous.
+	Then $f$ is uniformly continuous.
+\end{proposition}
+
+\begin{proof}
+	Let $\varepsilon > 0$ and $x \in F$.
+	Then there is $\delta = \delta(x)$ such that
+	\[
+		\left\lvert x - y \right\rvert < \frac{\delta}{2}
+		\implies \left\lvert f(x) - f(y) \right\rvert 
+		< \frac{\varepsilon}{2}.
+	\]
+	Now consider
+	\[
+		O_x = \left( 
+			x - \frac{\delta(x)}{2},
+			x + \frac{\delta(x)}{2}
+		\right)
+	\]
+	and the open cover $\left\{
+		O_x: x \in F
+	\right\}$.
+	By the Heine-Borel theorem, there is a finite subcover
+	$\left\{
+		O_{x_1}, \ldots, O_{x_n}
+	\right\}$.
+	Now let $\delta = \frac12 \min\left\{
+		\delta(x_1), \ldots, \delta(x_n)
+	\right\}$.
+	Now take $y, z \in F$ with $\left\lvert y - z \right\rvert < \delta$.
+	Observe that $y \in O_{x_i}$ for some $i \in \left\{
+		1,\ldots,n
+	\right\}$,
+	so $\left\lvert y - x_i \right\rvert < \frac12 \delta(x_i)$.
+	Hence
+	\[
+		\left\lvert z - x_i \right\rvert
+		\leq \left\lvert z - y \right\rvert
+		+ \left\lvert y - x_i \right\rvert
+		\leq \delta + \frac{\delta(x_i)}{2} 
+		< \delta(x_i)
+	\]
+	and as a consequence $
+		\left\lvert f(x_i) - f(y) \right\rvert < \frac{\varepsilon}{2}
+	$, $
+	\left\lvert f(x_i) - f(z) \right\rvert < \frac{\varepsilon}{2}
+	$, and $
+	\left\lvert f(z) - f(y) \right\rvert < \varepsilon
+	$. 
+	Thus $f$ is uniformly convergent.
+\end{proof}
+
+\subsection{Convergence}
+
+\begin{definition}[Pointwise convergence]
+	Let $f_n: E \subset \R \to \R$ be a sequence of functions
+	and $f: E \to \R$.
+	We say that $\left\{
+		f_n
+	\right\}_{n \in \N}$
+	\emph{converges pointwise} to $f$
+	if for every $x \in E$ and $\varepsilon > 0$
+	there is $N \in \N$
+	such that for every $n \geq N$:
+	\[
+		\left\lvert f_n(x) - f(x) \right\rvert < \varepsilon.
+	\]
+\end{definition}
+
+
+\begin{definition}[Uniform convergence]
+	Let $f_n: E \subset \R \to \R$ be a sequence of functions
+	and $f: E \to \R$.
+	We say that $\left\{
+		f_n
+	\right\}_{n \in \N}$
+	\emph{converges uniformly} to $f$
+	if for every $\varepsilon > 0$
+	there is $N \in \N$
+	such that for every $x \in E$ and $n \geq N$:
+	\[
+		\left\lvert f_n(x) - f(x) \right\rvert < \varepsilon.
+	\]
+\end{definition}
+
+\begin{definition}[]
+	A real-valued function $f: E \subset \R \to \R$
+	is said to be \emph{increasing} if
+	$f(x) \leq f(x')$ for every $x, x' \in E$ with $x \leq x'$.
+	We say that $f$ is \emph{decreasing}
+	if $-f$ is increasing.
+\end{definition}
+

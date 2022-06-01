@@ -1,0 +1,153 @@
+\lecture{12}{14/2}
+
+\begin{theorem}[Cauchy's theorem for simple closed contours]
+    Let $\gamma$ be a simple closed positively oriented contour,
+    and $f: D_\gamma^\text{int} \cup \gamma \to \C$.
+    Then we have
+    \[
+        \int_\gamma f(z) \,dz = 0.
+    \]
+\end{theorem}
+
+\begin{theorem}[CIF for simple closed contours]
+    Let $\gamma$ be a simple closed contour.
+    For $w \in D^\text{int}_\gamma$
+    \[
+        \int_\gamma \frac{f(z)}{z - w} \,dz
+        = 2\pi i f(w).
+    \]
+\end{theorem}
+
+\chapter{Holomorphic functions on punctured domains}
+
+Recall with Cauchy's theorem, we were considering domains
+with a finite set of points removed. 
+We will continue this idea this chapter, studying
+the behaviour of functions $f: D \to \C$ on a domain $D$
+that we know are holomorphic on $D$ except for at a finite set
+of points.
+The simplest example of this is when we are given a holomorphic
+function $f$ on a punctured ball
+$B_r^\star(a) = B_r(a) \setminus \{a\}$.
+
+\section{Laurent series}
+
+\begin{definition}[Laurent series]
+    A \textbf{Laurent series} is an infinite series
+    of the form
+    \[
+        \sum_{n=-\infty}^\infty c_n(z-a)^n
+    \]
+    where $c_n$ and $a$ are complex numbers.
+    $a$ is called the \emph{center} of the Laurent series.
+\end{definition}
+
+\begin{definition}[Annulus]
+    We write
+    \[
+        A_{r,R}(a) = \{z \in \C: r < \abs{z - a} < R\}
+    \]
+    and call this an \textbf{annulus} of center $a$,
+    internal radius $r$, and external radius $R$.
+\end{definition}
+
+\begin{remark}
+    Since we allow $r = 0$ or $R = \infty$, our definition
+    of annulus $A_{r,R}(a)$ includes the sets
+    $B_r^\star(a)$, 
+    $\C^\star$, and 
+    $\C \setminus \overline B_r(a)$.
+\end{remark}
+
+\begin{proposition}[]
+    Given a Laurent series 
+    $\sum_{n=-\infty}^\infty c_n(z-a)^n$
+    that is not a power series
+    (that is, $c_n \neq 0$ for some $n < 0$)
+    then either
+    \begin{enumerate}
+        \item the Laurent series never converges; or
+        \item there are $0 \leq r < R \leq \infty$
+            such that
+            \begin{enumerate}
+                \item the series converges absolutely when
+                    $r < \abs{z-a} < R$ and diverges when
+                    either $\abs{z-a} < r$ or
+                    $\abs{z-a} > R$,
+                    in this case the annulus $A_{r,R}(a)$
+                    is called the \textbf{annulus of convergence}
+                    of the Laurent series; and
+                    
+                \item the series converges uniformly on any annulus
+                    $A_{\rho_1,\rho_2}(a)$ with
+                    $r < \rho_1 < \rho_2 < R$;
+                    hence, the Laurent series converges
+                    locally uniformly in their annulus of convergence
+                    and so \emph{Laurent series give holomorphic functions
+                    in their annulus of convergence}.
+            \end{enumerate}
+    \end{enumerate}
+\end{proposition}
+
+\begin{proof}
+    By definition, the Laurent series convergences absolutely
+    if and only if both of
+    \[
+        F_1(z) = \sum^{\infty}_{n=0} c_n(z-a)^n, \qquad
+        F_2(z) = \sum^{-1}_{n=-\infty} c_n(z-a)^n
+    \]
+    converges absolutely.
+    The first expression is a power series that we already understand.
+    If $F_1(z)$ only converges when $z = a$, then the Laurent series
+    never converges since $F_2$ is not defined at $a$.
+    Otherwise, let $0 < R \leq \infty$ be the radius of convergence of
+    $F_1$.
+    For $F_2$, we introduce a new variable $\zeta = (z - a)^{-1}$.
+    Then
+    \[
+        F_2(z) = \sum^{\infty}_{n = 1} c_{-n} \zeta^n
+    \]
+    is a power series in the variable $\gamma$ with center $0$.
+    If this power series converges only at $\gamma = 0$, then
+    $F_2$ never converges. 
+    So suppose that doesn't happen and let 
+    $0 < R' \leq \infty$ be the radius of convergence of this 
+    power series.
+    Let
+    \[
+        r=
+        \begin{cases}
+            R'^{-1} & \text{if}\; 0<R'<\infty \\
+            \infty  & \text{if}\; R'=0.
+        \end{cases}
+    \]
+    Then the series $\sum_{n = -\infty}^{-1} c_n(z-a)^n$ 
+    converges absolutely when $\abs{\zeta} < R'$.
+    That is, $\abs{z-a} > r$.
+    And such, diverges when $\abs{z-a} < r$.
+    This proves either case of (i) or (ii)(a) in the statement
+    of the proposition.
+    We now show that if (ii)(a) is true, so is (ii)(b).
+    As a power series is locally uniformly convergent on any
+    open ball on the center of the power series with radius less
+    than the radius of convergence,
+    $F_1(z)$ converges locally uniformly on $B_{\rho_2}(a)$ and
+    $\tilde F(\zeta) = F_2(z)$ as a power series in $\zeta$
+    with radius of convergence $r$ converges uniformly on 
+    $\abs{\zeta} < \rho_1^{-1}$, since $\rho_1^{-1} < R'$.
+    That is, it converges uniformly when $\abs{z-a} > \rho_1$.
+    Hence both halves of the Laurent series converge uniformly
+    on $A_{\rho_1,\rho_2}(a)$.
+\end{proof}
+
+\begin{definition}[]
+    Given a Laurent series 
+    \[
+        \sum_{n = -\infty}^\infty c_n (z - a)^n,
+    \]
+    the sum 
+    \[
+        \sum_{n = -\infty}^{-1} c_n (z-a)^n
+    \]
+    is called the \textbf{principal part} of the Laurent series.
+\end{definition}

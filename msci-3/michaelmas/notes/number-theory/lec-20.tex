@@ -1,0 +1,166 @@
+%! TEX root = master.tex
+\lecture{20}{9/12}
+
+Our next question: given a prime $p \in \Z$, how does $(p)_R$ factor
+in $R$?
+
+\begin{theorem}
+	Let $p \in \Z$ be an odd prime and let $K = \Q(\sqrt d)$
+	with $d$ a square free integer.
+	We set $R = \mathcal O_K$.
+	\begin{enumerate}
+		\item If $d \equiv 0 \pmod p$, then
+		$(p)_R = \mathfrak p \overline{\mathfrak p}$ where 
+		$\mathfrak p = (p, m - \sqrt d)_R$ (a prime ideal)
+		and $\mathfrak p \neq \overline{\mathfrak p}$,
+		we say that $(p)_\Z$ ramifies in $R$.
+
+		\item If $d \equiv m^2 \not\equiv 0 \pmod p$,
+		then $(p)_R = \mathfrak p \overline{\mathfrak p}$
+		where $\mathfrak p = (p, m - \sqrt d)_R$ (a prime ideal)
+		and $\mathfrak p \neq \overline{\mathfrak p}$,
+		we say that $(p)_\Z$ splits in $R$.
+
+		\item If there is no $m \in \Z$ such that
+		$d \equiv m^2 \pmod p$, then $(p)_R$ is a prime ideal.
+		We say that $(p)_\Z$ is inert in $R$.
+	\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+	$(i)$: if $p \mid d$, then we set $\mathfrak p = (p, \sqrt d)_R$
+	and then
+	\[
+		\mathfrak p^2
+		= (p, \sqrt d)_R (p, \sqrt d)_R
+		= (p^2, p\sqrt d, d)_R
+		= (p)_R \left( p, \sqrt d, \frac dp \right)_R.
+	\]
+	But $\gcd\left( p, \frac dp \right) = 1$ since $d$ is square free.
+	Hence,
+	$xp + y\frac dp = 1$ for some $x, y \in R$.
+	That is, $1 \in \left( p, 2d, \frac dp \right)_R$
+	and so $\left( p, 2d, \frac dp \right)_R = R$.
+
+	$(ii)$: if $d \equiv m^2 \not\equiv 0 \pmod p$,
+	then if we set
+	$\mathfrak p = (p, m - \sqrt d)_R$ we have
+	$\mathfrak p \overline{\mathfrak p} = \left( \norm(\mathfrak p) \right)_R$,
+	but
+	\begin{align*}
+		\norm(\mathfrak p)
+		&= \gcd\left( 
+			\norm{p},
+			\norm(m - \sqrt d),
+			\trace(p(m + \sqrt d))
+		 \right) \\
+		 &= \gcd(p^2, m^2 - d, 2mp) \\
+		 &= p.
+	\end{align*}
+	In this case, we cannot have $\mathfrak p = \overline{\mathfrak p}$
+	as otherwise $2m = (m + \sqrt d) + (m - \sqrt d) \in \mathfrak p$
+	and hence $1 = \gcd(2m, p) \in \mathfrak p$; a contradiction as
+	$\mathfrak p \neq R$.
+
+	$(iii)$: assume $(p)_R$ is not prime and hence not maximal.
+	Then it must be contained within a prime ideal with at most two generators
+	$\alpha$ and $\beta$ not both of which are divisible by $p$.
+	We can assume $p \nmid \alpha = \frac{r + s\sqrt d}2$.
+	As $\norm(\mathfrak p) \mid \norm\left( (p)_R \right)$,
+	we deduce that $\norm(\mathfrak p) = p$ since $\mathfrak p \neq R$ implies
+	$\norm(\mathfrak p) \neq 1$
+	and $\mathfrak p \neq (p)_R$ implies $\norm(\mathfrak p) = p^2$.
+	But since
+	\[
+		\norm{\mathfrak p}
+		= \gcd(\norm(\alpha), \norm(\beta), \trace(\alpha \overline\beta)).
+	\]
+	We have in particular, 
+	$p \mid \alpha \overline\alpha = \frac{r^2 - s^2d}4$.
+	So $r^2 \equiv s^2d \pmod{4p}$.
+	In particular, $r^2 \equiv s^2d \pmod p$.
+	Now $s$ must be invertible modulo $p$, otherwise$p \mid s$ and hence
+	$p \mid r$ and $p \mid \alpha$.
+	Therefore,
+	$d \equiv \left( rs^{-1} \right)^2 \pmod p$, a square;
+	a contradiction.
+\end{proof}
+
+\begin{theorem}
+	We consider the case $p = 2$.
+	\begin{enumerate}
+		\item If $d \equiv 2 \pmod 4$, then $(2)_R = \mathfrak p^2$
+		where $\mathfrak p = (2, \sqrt d)_R$.
+		We say that $(2)_\Z$ ramifies in $R$.
+
+		\item If $d \equiv 3 \pmod 4$, then $(2)_R = \mathfrak p^2$,
+		where $\mathfrak p = (2, 1 + \sqrt d)_R$.
+		Again, we say that $(2)_\Z$ ramifies in $R$.
+
+		\item If $d \equiv 1 \pmod 8$, 
+		then $(2)_R = \mathfrak p \overline{\mathfrak p} \neq \mathfrak p^2$
+		where $\mathfrak p = \left( 2, \frac{1 + \sqrt d}2 \right)_R$.
+		We say that $(2)_\Z$ splits in $R$.
+
+		\item If $d \equiv 5 \pmod 8$, then $(2)_R$ is prime.
+		We say that $(2)_\Z$ is inert in $R$.
+	\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+	The proof is similar to above, so we roughly sketch the proof here.
+	$(i)$: $\norm(\mathfrak p) = \gcd(4, 2 \sqrt d, d) = 2$,
+	hence $\mathfrak p \overline{\mathfrak p} = (2)_R$ but clearly
+	$\mathfrak p = \overline{\mathfrak p}$.
+	
+	$(ii)$: $\norm(\mathfrak p) 
+	= \gcd(4, 2(1 + \sqrt d), (1 + d) + 2\sqrt d) = 2$, hence
+	$\mathfrak p \overline{\mathfrak p} = (2)_R$ and 
+	$\overline{\mathfrak p} = (2, 1 - \sqrt d)_R = (2, -1 - \sqrt d)
+	= \mathfrak p$.
+
+	$(iii)$: $\norm(\mathfrak p) = \gcd\left( 4, \frac{1 - d}4, 2 \right) = 2$
+	hence $\mathfrak p \overline{\mathfrak p} = (2)_R$ and
+	$\overline{\mathfrak p} \neq \mathfrak p$,
+	otherwise
+	$1 = \frac{1 + \sqrt d}2 + \frac{1 - \sqrt d}2 \in \mathfrak p$.
+
+	$(iv)$: If $(2)_R$ is not prime, then $ \mathfrak p \supset (2)_R$ 
+	some prime $\mathfrak p$ with two generators:
+	$\mathfrak p = (\alpha, \beta)_R$, not both of which are divisible
+	by $2$.
+	We assume $2 \nmid \alpha = \frac{r + s\sqrt d}2$, say $r,s \in \Z$ and 
+	$r \equiv s \pmod 2$.
+	Arguing as in the previous theorem, we have that
+	$2 \mid \norm(\mathfrak p)$ and by the Hurtwitz
+	\[
+		2 \mid \gcd(
+			\alpha\overline\alpha,
+			\alpha\overline\beta,
+			\overline\alpha\beta,
+			\beta\overline\beta
+		).
+	\]
+	Hence, in particular
+	\[
+		2 \mid \alpha\overline\alpha = \frac{r^2 - ds^2}{4}.
+	\]
+	That is, $r^2 \equiv ds^2 \pmod 8$.
+	If $r$ is odd, then
+	$r^2 \equiv dr^2 = 5r^2 \pmod 8$ which contradicts
+	$r^2 \equiv 1 \pmod 8$.
+	If $r$ is even, then $s$ is also even.
+	Thus the congruence reads
+	\[(2r')^2 \equiv d(2s')^2 \pmod 8\]
+	where $r' = \sfrac r2$ and $s' = \sfrac s2$.
+	Since $d \equiv 1 \pmod 2$, we obtian that
+	$(r')^2 \equiv (s')^2 \pmod 2$ and so
+	$r' \equiv s' \pmod 2$.
+	But then
+	\[
+		2 \mid 2 \cdot \frac{r' + s' \sqrt d}2
+		= r' + s' \sqrt d
+		= \alpha;
+	\]
+	a contradiction.
+\end{proof}

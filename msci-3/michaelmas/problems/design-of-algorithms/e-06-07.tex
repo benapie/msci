@@ -1,0 +1,47 @@
+\documentclass[a4paper, answers]{exam}
+\input{../preamble.tex}
+
+\begin{document}
+
+\begin{center}
+	\textbf{\textsc{Design of Algorithms and Data Structures III, 
+	Weeks 6 \& 7}} \\
+	\textsc{Ben Napier}
+	\vspace{1em}
+\end{center}
+
+\begin{questions}
+	\question 
+	Consider the binomial coefficient $\binom nk$ for $n,k \in \N$,
+	$n \geq 2$, and $1 \leq k < n$.
+	Describe an $O(n)$-processor PRAM algorithm to evaluate $\binom nk$
+	in time $O(\log n)$.
+	(Assume there is neither a built-in function for evaluating the binomial
+	coefficient nor for factorials.)
+	Briefly argue the correctness of your approach and explain why the claimed
+	bounds on number of processors and running time hold.
+	Which PRAM model is needed?
+
+	\question 
+	Describe a parallel algorithm for an $n$-processor
+	CREW-PRAM algorithm that computes all prime numbers among $1, \ldots, n$
+	in $O(\log n)$ steps.
+	Reminder: a number $p$ is prime if and only if $p$ divides
+	$(p-1)! + 1$.
+	You do not need to write pseudo-code.
+
+	\question
+	Let $T = (V,E)$,
+	$\left\lvert V \right\rvert = n$, be a directed, rooted, binary tree
+	where all edges are directed towards the root.
+	Show how every vertex can identify the root on a $O(n)$-processor
+	CREW PRAM in time $O(1)$.
+	Explain how the tree should initially be stored in the PRAM's memory.
+	Show how to solve the problem on an EREW PRAM; how long would it take there?
+
+	\question
+	Formally prove that the last step of the tree routing algorithm does indeed
+	produce a correct orientation of each edge toward the root.
+\end{questions}
+
+\end{document}

@@ -1,0 +1,194 @@
+\chapter{Fourier series}
+
+Consider a function $f(x)$ that is periodic with period $2L$, or in other words, $f(x+2L)=f(x)$, with f(x) given explicitly for $x\in(-L,L)$.
+
+The aim of Fourier series is to $f(x)$ as \[f(x)=\frac{a_0}2+\sum^\infty_{n=1}\left(a_n\cos{\left(\frac{n\pi x}{L}\right)}+b_n\sin{\left(\frac{n\pi x}{L}\right)}\right).\] The constants $a_n,b_n$ for $n=0,1,2,\ldots$ are called the \textbf{Fourier coefficients}.
+
+In order to calculate the Fourier coefficients for various functions, we will use the following Lemma which we will prove.
+
+\begin{lemma}
+    Following are some identities we will need in calculating the Fourier coefficients for various functions.
+    \begin{enumerate}
+        \item \[\int_{-L}^L\cos{\left(\dfrac{n\pi x}{L}\right)}\,dx=0\]
+        
+        \item \[\int_{-L}^L\sin{\left(\dfrac{n\pi x}{L}\right)}\,dx=0\]
+        
+        \item \[\int_{-L}^L\sin{\left(\dfrac{m\pi x}{L}\right)}\cos{\left(\dfrac{n\pi x}{L}\right)}\,dx=0\]
+        
+        \item \[
+            \frac{1}{L} \int_{-L}^L \cos{\left(\dfrac{m\pi x}{L}\right)} \cos{\left(\dfrac{n \pi x}{L}\right)} \, dx =
+            \begin{cases}
+                1 & m = n\\
+                0 & m \neq n\\
+            \end{cases}
+            = \delta_{mn}
+         \]
+         
+        \item \[
+            \frac{1}{L} \int_{-L}^L \sin{\left(\dfrac{m\pi x}{L}\right)} \sin{\left(\dfrac{n \pi x}{L}\right)} \, dx = \delta_{mn}
+         \]
+    \end{enumerate}
+\end{lemma}
+
+\begin{proof}
+    \begin{enumerate}
+        \item 
+        \begin{align*}
+            \int_{-L}^L\cos{\left(\dfrac{n\pi x}{L}\right)}\,dx&=\left[\frac L{n\pi}\sin{\left(\frac{n\pi x}L\right)}\right]^L_{-L}\\
+            &=\frac L{n\pi}\left(\sin{(n\pi)-\sin{(-n\pi)}}\right)=0
+        \end{align*}
+        
+        \item This is true as we are integrating an odd function over a symmetrical interval.
+        
+        \item An even function times an odd function produces an odd function, therefore same reasoning as (ii).
+        
+        \item This proof, however, requires more substantial work. Note that
+        \begin{align*}
+            \cos{\left((m+n)\frac{\pi x}L\right)}&=\cos{\left(\frac{m\pi x}L\right)}\cos{\left(\frac{n\pi x}L\right)}-\sin{\left(\frac{m\pi x}L\right)}\sin{\left(\frac{n\pi x}L\right)},\\
+            \cos{\left((m-n)\frac{\pi x}L\right)}&=\cos{\left(\frac{m\pi x}L\right)}\cos{\left(\frac{n\pi x}L\right)}+\sin{\left(\frac{m\pi x}L\right)}\sin{\left(\frac{n\pi x}L\right)}.
+        \end{align*}
+        Firstly we take the case where $m\neq n$, then
+        \begin{align*}
+            &\frac1L\int_{-L}^L\cos{\left(\dfrac{m\pi x}{L}\right)}\cos{\left(\dfrac{n\pi x}{L}\right)}\,dx\\
+            =&\frac1{2L}\int_{-L}^L\cos{\left((m+n)\dfrac{\pi x}{L}\right)}+\cos{\left((m-n)\dfrac{\pi x}{L}\right)}\,dx\\
+            =&\frac1{2L}\left[\frac L{\pi(m+n)}\sin{\left((m+n)\frac{\pi x}L\right)}+\frac L{\pi(m-n)}\sin{\left((m-n)\frac{\pi x}L\right)}\right]^L_{-L}\\
+            &=0
+        \end{align*}
+        as $\sin{((m+n)\pi)}=0$ and $\sin{((m-n)\pi)}=0$. Now for the case where $m=n$, then 
+        \begin{align*}
+            \frac1L\int_{-L}^L\cos{\left(\dfrac{m\pi x}{L}\right)}\cos{\left(\dfrac{n\pi x}{L}\right)}\,dx&=\frac2L\int_0^L\cos^2{\left(\dfrac{n\pi x}{L}\right)}\,dx\\
+            &=\frac2L\int_0^L\frac12+\frac12\cos{\left(\dfrac{2n\pi x}{L}\right)}\,dx\\
+            &=\frac2L\left[\frac x2+\frac12\frac L{2n\pi}\sin{\left(\frac{n\pi x}L\right)}\right]^L_0\\
+            &=\frac2L\left(\frac L2+\frac L{4n\pi}\sin{\left(n\pi\right)}\right)=1.\\
+        \end{align*}
+        Therefore, \[\frac1L\int_{-L}^L\cos{\left(\dfrac{m\pi x}{L}\right)}\cos{\left(\dfrac{n\pi x}{L}\right)}\,dx=\delta_{mn}.\]
+        
+        \item The proof for this identity follows the same reasoning as the proof above.
+    \end{enumerate}
+\end{proof}
+
+\begin{remark}
+    The Lemma above makes use of the notation \[
+        \delta_{mn}=
+        \begin{cases}
+            1&m=n\\
+            0&m\neq n\\
+        \end{cases}
+    \]
+    which is a function known as \textbf{Kronecker delta}.
+\end{remark}
+
+As mentioned at the start of this section, we want to write a given function $f(x)$ as \[f(x)=\frac{a_0}2+\sum^\infty_{n=1}\left(a_n\cos{\left(\frac{n\pi x}{L}\right)}+b_n\sin{\left(\frac{n\pi x}{L}\right)}\right).\tag{FS}\] To calculate $a_0$, we take (FS) and integrate:
+\begin{align*}
+    \frac{1}{L} \int^{L}_{-L} f(x) \, dx &= \frac{1}{L} \int^{L}_{-L} \left(\frac{a_0}{2} + \sum^\infty_{n=1} \left(a_n \cos{\left(\frac{n\pi x}{L}\right)} + b_n \sin{\left(\frac{n\pi x}{L}\right)}\right)\right) \, dx \\
+    &= \left[\frac{a_0}{2} x\right]^{L}_{-L} \\
+    &= a_0;
+\end{align*}
+therefore, \[a_0 = \frac{1}{L} \int^{L}_{-L} f(x) \, dx. \]
+
+To calculate an expression for $a_n$ where $n > 0$, we take (FS) and multiply by $\cos{\left(\frac{m \pi x}{L}\right)}$:
+\begin{dmath*}
+    \frac{1}{L} \int^{L}_{-L} \left(\frac{a_0}{2}\cos{\left(\frac{m \pi x}{L}\right)} + \sum^\infty_{n=1} \left(a_n \cos{\left(\frac{n\pi x}{L}\right)}\cos{\left(\frac{m \pi x}{L}\right)} + b_n \sin{\left(\frac{n\pi x}{L}\right)}\cos{\left(\frac{m \pi x}{L}\right)}\right)\right) \, dx = \sum_{n=1}^{\infty} a_n \delta_{mn} = a_m;
+\end{dmath*}
+therefore, \[a_n = \frac{1}{L} \int^{L}_{-L} f(x) \cos{\left(\frac{n \pi x}{L}\right)} \, dx.\]
+
+Similarly, to calculate an expression for $b_n$ where $n > 0$, we take (FS) and multiply by $\sin{\left(\frac{m \pi x}{L}\right)}$:
+\begin{dmath*}
+    \frac{1}{L} \int^{L}_{-L} \left(\frac{a_0}{2}\sin{\left(\frac{m \pi x}{L}\right)} + \sum^\infty_{n=1} \left(a_n \cos{\left(\frac{n\pi x}{L}\right)}\sin{\left(\frac{m \pi x}{L}\right)} + b_n \sin{\left(\frac{n\pi x}{L}\right)}\sin{\left(\frac{m \pi x}{L}\right)}\right)\right) \, dx = \sum_{n=1}^{\infty} b_n \delta_{mn} = b_m;
+\end{dmath*}
+therefore, \[ b_n = \frac{1}{L} \int^{L}_{-L} f(x) \sin{\left(\frac{n \pi x}{L}\right)} \, dx. \]
+
+\begin{example}
+    Let \(f(x)\) have period $2$ and is given by $f(x) = |x|$ for $-1 < x < 1$. Find the Fourier series for $f(x)$.
+    
+    First we calculate $a_0$: \[ a_0 = \int^{1}_{-1} |x| \, dx = 2 \int^{1}_{0} x \, dx \left[x^2\right]^{1}_{0} = 1, \] and now for $a_n$ for $n > 0$:
+    \begin{align*}
+        a_n &= \int^{1}_{-1} \abs{x} \cos{(n \pi x)} \, dx \\
+        &= 2 \int^{1}_{0} x \cos{(n \pi x)} \, dx \\
+        &= 2 \left[\frac{x}{n \pi} \sin{(n \pi x)}\right]^{1}_{0} - 2 \int^{1}_{0} \frac{1}{n \pi} \sin{(n \pi x)} \, dx \\
+        &= 2 \left[ \frac{1}{(n \pi)^2} \cos{(n \pi x)} \right]^{1}_{0} \\
+        &= \frac{2}{(n \pi)^2} (\cos{(n \pi)} - 1) \\
+        &= \frac{2}{(n \pi)^2} \left((-1)^n - 1\right).
+    \end{align*}
+    Now we calculate \(b_n\) for \(n > 0\); however, as \(\abs{x}\sin{(n \pi x)}\) is an odd function \[b_n = \int^{1}_{-1} \abs{x} \sin{(n \pi x)} \, dx = 0.\]
+    Hence 
+    \begin{align*}
+        f(x) &= \frac{1}{2} + \sum_{n = 1}^{\infty} \frac{2}{(n \pi)^2} \left((-1)^n - 1\right) \cos{(n \pi x)} \\
+        &= \frac{1}{2} - \frac{4}{\pi^2} \left(\cos{(\pi x)} + \frac{1}{9} \cos{(3 \pi x)} + \frac{1}{25} \cos{(5 \pi x)} + \ldots\right) \\
+        &= \frac{1}{2} - \frac{4}{\pi^2} \sum_{n = 1}^{\infty} \frac{1}{(2n - 1)^2}\cos{((2n - 1)\pi x)}.
+    \end{align*}
+\end{example}
+
+\begin{theorem}[Dirichlet's theorem]
+    If $f(x)$ has period $2L$ and is on the interval $(-L, L)$ and
+    \begin{enumerate}
+        \item $f(x)$ has a finite number of extrema;
+        \item $f(x)$ has a finite number of discontinuities (no infinite discontinuities); and
+        \item $\abs{f(x)}$ is integrable on $(-L, L)$,
+    \end{enumerate}
+    then the Fourier is convergent for all values of $x$. At all points where $f(x)$ is continuous, the Fourier series converges to the value of the function. At points $xx = a$ where $f(x)$ is not continuous, the Fourier series converges to \[\frac{1}{2}\left(\lim_{x \to a^{-}}{f(x)} + \lim_{x \to a^{+}}{f(x)}\right).\]
+\end{theorem}
+
+\begin{example}
+    Calculate \[\sum_{m = 1}^{\infty} \frac{1}{(2m - 1)^2}\] using the Fourier series for $f(x) = \abs{x}$ for $-1 < x < 1$ with period $2$.
+    
+    The Fourier series for $f(x)$ is \[f(x) = \frac{1}{2} - \frac{4}{\pi^2} \sum_{m = 1}^{\infty} \frac{1}{(2m - 1)^2}\cos{((2m - 1)\pi x)},\] evaluating this at $x = 0$ we get \[\frac{1}{2} - \frac{4}{\pi^2} \sum_{m = 1}^{\infty} \frac{1}{(2m - 1)^2} = f(0) = 0;\]
+    therefore,
+    \[\sum_{m = 1}^{\infty} \frac{1}{(2m - 1)^2} = \frac{\pi^2}{8}.\]
+\end{example}
+
+\begin{theorem}[Parsavel's theorem]
+    Given $f(x)$ with period $2L$, with Fourier coefficients $a_n$ and $b_n$, then \[ \frac{1}{2L}\int^{L}_{-L}\left(f(x)\right)^2 \, dx = \frac{a_0^2}{4} + \frac{1}{2} \sum_{n=1}^{\infty}{(a_n^2 + b_n^2)}. \]
+\end{theorem}
+
+\begin{proof}
+    Note that
+    \begin{dmath*}
+        f(x)^2 = \frac{a_{0}^2}{4} + a_0 \sum_{n = 1}^{\infty} \left(a_n \cos{\left(\frac{n \pi x}{L}\right)} + b_n \sin{\left(\frac{n \pi x}{L}\right)}\right) + \left(\sum_{n = 1}^{\infty} \left(a_n \cos{\left(\frac{n \pi x}{L}\right)} + b_n \sin{\left(\frac{n \pi x}{L}\right)}\right)\right) \left(\sum_{n = 1}^{\infty} \left(a_n \cos{\left(\frac{n \pi x}{L}\right)} + b_n \sin{\left(\frac{n \pi x}{L}\right)}\right)\right) = \frac{a_{0}^2}{4} + a_0 \sum_{n = 1}^{\infty} \left(a_n \cos{\left(\frac{n \pi x}{L}\right)} + b_n \sin{\left(\frac{n \pi x}{L}\right)}\right) + \sum_{n = 1}^{\infty} \sum_{m = 1}^{\infty} \left( a_m a_n \cos{\left(\frac{m \pi x}{L} \right)} \cos{\left(\frac{n \pi x}{L} \right)} + a_m b_n \cos{\left(\frac{m \pi x}{L} \right)} \sin{\left(\frac{n \pi x}{L} \right)} + b_m a_n \sin{\left(\frac{m \pi x}{L} \right)} \cos{\left(\frac{n \pi x}{L} \right)} + b_m b_n \sin{\left(\frac{m \pi x}{L} \right)} \sin{\left(\frac{n \pi x}{L} \right)} \right),
+    \end{dmath*}
+    and so
+    \begin{align*}
+        \frac{1}{2L} \int^{L}_{-L} \left( f(x) \right)^2 \, dx &= \frac{a_0^2}{4} + \frac{1}{2} \sum_{n = 1}^{\infty} \sum_{m = 1}^{\infty} \left( a_m a_n \delta_{mn} + b_m b_n \delta_{mn} \right) \\
+        &= \frac{a_0^2}{4} + \frac{1}{2} \sum_{n = 1}^{\infty} (a_n^2 + b_n^2)
+    \end{align*}
+    as required.
+\end{proof}
+
+\begin{example}
+    Using the Fourier series of $f(x) = x$ for $-\pi < x < \pi$ with period $2\pi$ and Parsavel's theorem, calculate \[ \sum_{n = 1}^\infty \frac{1}{n^2}. \]
+    
+    For the Fourier series of $f(x)$, $a_n = 0$ and $b_n = \frac{2 (-1)^{n+1}}{n}$, therefore \[ \frac{1}{2 \pi} \int^{\pi}_{-\pi} x^2 \, dx = \frac{1}{2 \pi} \left[ \frac{x^3}{3} \right]^{\pi}_{-\pi} = \frac{\pi^2}{3} = \frac{1}{2} \sum_{n = 1}^{\infty} \frac{4}{n^2}; \] therefore, \[ \sum_{n = 1}^\infty \frac{1}{n^2} = \frac{\pi^2}{6}. \]
+\end{example}
+
+\section{Half-range Fourier series}
+
+We have looked at Fourier series over the interval $(-L, L)$; now, consider a function on the interval $(0, L)$. Given $f(x)$ for $0 < x < L$, define its odd extension
+\[
+    f_{o}(x) = 
+    \begin{cases}
+        f(x) & 0 < x < L \\
+        -f(-x) & -L < x < 0 \\
+    \end{cases}
+    .
+\]
+$f_o(x)$ is defined on $(-L, L)$ so we can calculate its Fourier series: \[ f(x) = \frac{2}{L} \sum_{n = 1}^{\infty} \left( \sin{\left(\frac{n \pi x}{L}\right)} \int_{0}^{L} f(x) \sin{\left(\frac{n \pi x}{L}\right)} \, dx \right). \]
+
+Similarly, we can define the even extension 
+\[
+    f_{e}(x) = 
+    \begin{cases}
+        f(x) & 0 < x < L \\
+        f(-x) & -L < x < 0 \\
+    \end{cases}
+    .
+\] 
+Similar calculations gives the following cosine series \[ \frac{a_0}{2} + \sum_{n = 1}^{\infty} \left( \frac{2}{L} \cos{\left(\frac{n \pi x}{L}\right)} \int_{0}^{L} f(x) \cos{\left(\frac{n \pi x}{L}\right)} \, dx \right). \]
+
+\section{Complex Fourier series}
+
+We can use complex number notation to write a usual Fourier series, remember the following identities
+\begin{align*}
+    \cos{\left(\frac{n \pi x}{L}\right)} &= \frac{1}{2} \left( e^{\frac{i n \pi x}{L}}+e^{\frac{-i n \pi x}{L}} \right) \\
+    \sin{\left(\frac{n \pi x}{L}\right)} &= \frac{1}{2i} \left( e^{\frac{i n \pi x}{L}}-e^{\frac{-i n \pi x}{L}} \right).
+\end{align*}
+Using these, the Fourier series becomes \[ \sum_{n = -\infty}^{\infty} c_n e^{\frac{i n \pi x}{L}} \] where \[ c_n = \frac{1}{2L} \int_{-L}^{L} f(x) e^{\frac{i n \pi x}{L}} \, dx. \]

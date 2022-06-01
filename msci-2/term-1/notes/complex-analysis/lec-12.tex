@@ -1,0 +1,79 @@
+\lecture{12}{6/11}
+
+\begin{definition}[Domain]
+    A \textbf{domain} (or \textbf{region}) is a path-connected and open subset of $\C$.
+\end{definition}
+
+\begin{example}
+    \begin{enumerate}
+        \item $\C$ and $B_r(z_0)$ ($r > 0$, $z_0 \in \C$) are both domains.
+        \item $\C \setminus \R_{\geq 0}$ is a domain.
+        \item $U = \{ z \in \C : \lvert z \rvert \neq 1 \}$ is not connected, and thus is not a domain.
+        \item Figure $\ref{fig:unconnected-set-ex-1}$ shows an example of an unconnected set, we can see this as there is no path that connects the points $z_1$ and $z_2$.
+    \end{enumerate}
+\end{example}
+
+\begin{figure}
+    \centering
+    \incfig{unconnected-set-ex-1}{0.8\textwidth}
+    \caption{Example of an unconnected set.}
+    \label{fig:unconnected-set-ex-1}
+\end{figure}
+
+\begin{remark}
+    Figure \ref{fig:unconnected-set-ex-1} gives a good insight on how to think about connected complex sets. Looking at the other examples above, it is clear that we connect any two points in $\C \setminus \R_{\geq 0}$. For example, if we had $z_1 = -2 + i$ and $z_2 = -2 - i$, we can join these two points by drawing a curve around the origin. Connectedness does have a intuitiveness about it.
+\end{remark}
+
+\begin{lemma}[Chain rule]
+    \label{lem:chain_rule}
+    Let $U \subset \C$ be an open set, $f: U \to \C$ be holomorphic, and $\gamma: [0, 1] \to U$ be a smooth path. Then for $t_0 \in [0, 1]$ we have 
+    \[ (f \circ \gamma)'(t_0) = (f' \circ \gamma)(t_0) \cdot \gamma'(t_0). \]
+\end{lemma}
+
+\begin{theorem}[]
+    Let $f: D \to \C$ be holomorphic on domain $D \subset \C$. If $f'(z) = 0$ for all $z \in D$ then $f$ is constant on $D$.
+\end{theorem}
+
+This is the theorem that solves the problem we encountered earlier with functions with zero derivative being non-constant.
+
+\begin{proof}
+    Here we will pick $a \in D$ and prove that $f(a) = f(b)$ for all $b \in D$. Given $b \in D$, let $\gamma$ be a smooth path from $a$ to $b$ in $D$. We write $f = u + iv$. By Lemma \ref{lem:chain_rule} we have 
+    \[ (f \circ \gamma)'(t) = (f' \circ \gamma)(t) \cdot \gamma'(t) = 0 \cdot \gamma'(t) = 0. \]
+    So
+    \[ ((u + iv) \circ \gamma)'(t) = (u \circ \gamma)'(t) + i(v \circ \gamma)'(t) = 0; \]
+    hence, $(u \circ \gamma)'(t) = (v \circ \gamma)'(t) = 0$ and so $u$ and $v$ are constant along $\phi$ (we can say this as they are real-valued functions). Hence, $f$ is constant along $\phi$ and so $f(a) = f(b)$.
+\end{proof}
+
+\section{Angle preserving property of holomorphic functions}
+
+Given a smooth path $\gamma: [0, 1] \to \C$ and $t_0 \in (0, 1)$, the tangent vector to $\gamma$ at $z_0 = \gamma(t_0)$ is given by $\gamma'(t_0)$. Let $f$ be a function, we can look at the action of $f$ on tangent vectors at $z_0$, $\gamma'(t_0) \mapsto (f \circ \gamma)'(t_0)$. In fact, if $f$ is holomorphic we have
+\[ \gamma'(t_0) \mapsto f'(\gamma(t_0))\gamma'(t_0) = f'(z_0)\gamma'(t_0). \]
+That is to say, $f$ describes complex multiplication by $f'(z_0)$ when acting on $\phi'(t_0)$. If $f'(z_0) \neq 0$, it describes a dilation of $\lvert f(z_0) \rvert$ and an anticlockwise rotation of $\Arg{(f(z_0))}$. Both of these operations preserves angles between vectors and orientation. Figure \ref{fig:holomorphic-function} illustrates this.
+
+\begin{figure}
+    \centering
+    \incfig{holomorphic-function}{0.8\textwidth}
+    \caption{The angle preserving property of holomorphic functions on two tangent vectors.}
+    \label{fig:holomorphic-function}
+\end{figure}
+
+\begin{remark}
+    When we say orientation, we really mean that it preserves $\sin{\theta}$.
+\end{remark}
+
+\begin{definition}[Conformal]
+    A real differentiable function on an open set $U \subset \C$ is called \textbf{conformal} at $z_0 \in U$ if it preserves angles and orientation of tangent vectors at $z_0$. It is called \textbf{conformal on $U$} if it is conformal at all points in $U$.
+\end{definition}
+
+\begin{lemma}[]
+    A function $f$ that is holomorphic at $z_0$ with $f'(z_0) \neq 0$ is conformal at $z_0$.
+\end{lemma}
+
+\begin{example}
+    Let $f(z) = z^2$. $f$ is holomorphic on $\C$ and $f'(z) = 2z$. So $f(z) \neq 0 \iff z \neq 0$. So $f$ is conformal on $\C^\star$. But what happens at $z = 0$? The action of $f$ on tangent vectors send everything to $0$.
+\end{example}
+
+\begin{proposition}[Conformal maps are holomorphic]
+    Given a real differential function $f: U \to \C$ ($U$ is open), if $f$ is conformal at $z_0 \in U$ then $f$ is complex differentiable at $z_0$ and $f'(z_0) \neq 0$; therefore
+    \[ f \;\text{is conformal on $U$}\; \iff f \;\text{is holomorphic on $U$ and}\; f'(z_0) \neq 0 \;\forall\; z_0 \in U. \]
+\end{proposition}

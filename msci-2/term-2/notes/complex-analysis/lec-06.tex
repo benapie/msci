@@ -1,0 +1,163 @@
+\section{Cauchy's integral formula}
+\lecture{6}{29/1}
+
+\begin{proposition}
+    If $\gamma: [a,b] \to \C$ is a contour and 
+    $\{f_n\}_{n = 1}^\infty$
+    is a sequence of continuous functions 
+    $f_n: \gamma([a,b]) \to \C$
+    converging uniformly on $\gamma([a,b])$
+    to a continuous function 
+    $f: \gamma([a,b]) \to \C$
+    then
+    \[
+        \lim_{n \to \infty} \int_\gamma f_n(z) \,dz
+        = \int_\gamma f(z) \,dz.
+    \]
+\end{proposition}
+
+\begin{proof}
+    The proof to this comes from the analogous fact
+    from Analysis I.
+\end{proof}
+
+\begin{theorem}[Cauchy's integral formula]
+    Let $r > 0$, $a \in \C$, $f: B_r(a) \to \C$ be holomorphic.
+    Let $\rho \in (0, r)$, then for all $w$ such that
+    $\lvert w - a \rvert < \rho$ (that is, $w \in B_\rho(a)$) then
+    \[ 
+        f(w) = \frac1{2\pi i} 
+        \int_{\lvert z - a \rvert = \rho} \frac{f(z)}{z - w} \,dz.
+    \]
+\end{theorem}
+
+This is quite peculiar; it tells us that holomorphic functions are
+\emph{defined} by a boundary.
+
+\begin{proof}
+    We define
+    \[
+        g(z) =
+        \begin{cases}
+            \frac{f(z) - f(w)}{z - w} & z \neq w \\
+            f'(w) & z = w.
+        \end{cases}
+    \]
+    $g$ is holomorphic away from $w$ and
+    \[
+        \lim_{z \to w} \frac{f(z) - f(w)}{z - w} = f'(w)
+    \]
+    and so $g$ is continuous at $w$ and thus $g$ is continuous.
+    Note that $B_r(a)$ is starlike.
+    Hence, we have met the requirements fore Cauchy's theorem for
+    starlike domains and thus
+    \begin{align*}
+        \int_{\lvert z - a \rvert = \rho} g(z) \,dz &= 0 \\
+        \int_{\lvert z - a \rvert = \rho}
+            \frac{f(z) - f(w)}{z - w} \,dz &= 0 \\
+        \int_{\lvert z - a \rvert = \rho} \frac{f(z)}{z - w} \,dz
+        &= \int_{\lvert z - a \rvert = \rho} \frac{f(w)}{z - w} \,dz.
+    \end{align*}
+    For $\lvert z - a \rvert = \rho$
+    \begin{align*}
+        \frac1{z - w} 
+        &= \frac1{(z-a)\left(1 - \frac{w-a}{z-a}\right)} \\
+        &= \frac1{z-a} \sum_{n=0}^\infty 
+        \left(
+            \frac{w-a}{z-a}
+        \right)^n \\
+        &= \sum_{n = 0}^\infty \frac{(w - a)^n}{(z - a)^{n + 1}}
+    \end{align*}
+    which is valid as 
+    $\left\lvert \frac{w-a}{z-a} \right\rvert 
+    = \frac{\lvert w - a \rvert}{\rho} < \frac{\rho}{\rho} = 1$.
+    So
+    \begin{align*}
+        \int_{\lvert z - a \rvert = \rho} \frac{f(z)}{z - w} \,dz
+        &= \int_{\lvert z - a \rvert = \rho} \frac{f(w)}{z - w} \,dz \\
+        &= \int_{\lvert z - a \rvert = \rho} f(w) 
+        \left(
+            \sum_{n = 0}^\infty \frac{(w - a)^n}{(z - a)^{n + 1}}
+        \right)
+        \,dz.
+    \end{align*}
+    $\sum_{n = 0}^\infty \frac{(w - a)^n}{(z - a)^{n + 1}}$ converges
+    uniformly on $\lvert z - a \rvert = \rho$ by the $M$-test.
+    Hence, by the previous proposition
+    \begin{align*}
+        \int_{\lvert z - a \rvert = \rho} \frac{f(z)}{z - w} \,dz
+        &= f(w) \sum_{n = 0}^\infty 
+            \int_{\lvert z - a \rvert = \rho} 
+            \frac{(w - a)^n}{(z - a)^{n + 1}}
+            \,dz \\
+        &= f(w) \sum_{n = 0}^\infty (w - a)^n 
+            \int_{\lvert z - a \rvert = \rho}
+            \frac1{(z-a)^{n+1}} \,dz.
+    \end{align*}
+    We have seen before that
+    \[
+        \int_{\lvert z \rvert = 1} \frac{1}{z^{n+1}} \,dz =
+        \begin{cases}
+            2\pi i & n = 0 \\
+            0 & n \neq 0.
+        \end{cases}
+    \]
+    The same result holds for any other ball.
+    Hence
+    \[
+        \int_{\lvert z - a \rvert = \rho} \frac{f(z)}{z - w} \,dz = f(w) \cdot 2\pi i.
+    \]
+\end{proof}
+
+\chapter{Features of holomorphic functions}
+\section{The Cauchy-Taylor theorem and integral formula for derivatives}
+
+Recall that power series can be differentiated in their radius of convergence;
+that is, they give holomorphic functions there.
+In fact, all holomorphic functions are given locally by a power series.
+
+\begin{theorem}[Cauchy-Taylor theorem]
+    Let $r > 0$, $a \in \C$, and $f: B_r(a) \to \C$ be holomorphic.
+    Then $f$ has a convergent power series expansion; that is,
+    \[
+        f(z) = \sum^{\infty}_{n = 0} c_n (z - a)^n \tag{$\dagger$}
+    \]
+    for all $z \in B_r(z)$ where
+    \[
+        c_n = \frac{1}{2\pi i}    
+        \int_{\lvert z - a \rvert = \rho}
+        \frac{f(z)}{(z - a)^{n + 1}} \,dz
+    \]
+    for any $\rho \in (0,r)$.
+\end{theorem}
+
+We call $(\dagger)$ the taylor series of $f$ at $a$.
+
+\begin{proof}
+    For any $0 < \rho < r$ we have
+    \[
+        f(w) = \frac{1}{2\pi i} \int_{\lvert z - a \rvert = \rho}
+        \frac{f(z)}{z - w} \,dz
+    \]
+    for all $w \in B_{\rho}(a)$
+    by Cauchy's integral formula.
+    By the geometric series formula we get
+    \[
+        f(w) = \frac{1}{2\pi i} \int_{\lvert z - a \rvert = \rho}
+        f(w) \sum^{\infty}_{n = 0} \frac{(w - a)^n}{(z - a)^{n + 1}} \,dz 
+    \]
+    so the previous proof (for uniform convergence) and the previous
+    proposition tells us
+    \[
+        f(w) = \frac{1}{2\pi i} \sum^{\infty}_{n = 0} (w - a)^n
+        \int_{\lvert z - a \rvert = \rho} \frac{f(z)}{(z - a)^{n + 1}} \,dz
+        = \sum^{\infty}_{n = 0} c_n (w-a)^n.
+    \]
+    Therefore, $f$ has a power series expansion of $B_{\rho}(a)$ so
+    \[
+        c_n = f^{(n)}(a) \cdot \frac1{n!}
+    \]
+    which does not depend on $\rho$.
+    Now, as for all $w \in B_r(a): w \in B_{\rho}(a)$ for some $\rho < r$
+    and hence holds for $B_r(a)$.
+\end{proof}

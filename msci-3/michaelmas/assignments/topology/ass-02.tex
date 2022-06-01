@@ -1,0 +1,142 @@
+\documentclass[a4paper, answers]{exam}
+\input{../preamble.tex}
+
+\begin{document}
+\begin{center}
+	\textbf{\textsc{Topology III, Assignment 2}}
+	\\
+	\textsc{Ben Napier}
+	\vspace{1em}
+\end{center}
+\begin{questions}
+	\question
+		Decide which of the following subsets of $\mathcal P(X)$,
+		where $X = \left\{ 1,2,4 \right\}$, defines a topology.
+		\begin{enumerate}
+			\item $
+				\tau_1 = \{
+					\varnothing,
+					\left\{ 1 \right\},
+					\left\{ 1, 2 \right\},
+					\left\{ 1, 2, 4 \right\}
+				\}
+			$;
+
+			\item $
+				\tau_2 = \{
+					\varnothing,
+					\left\{ 1 \right\},
+					\left\{ 2 \right\},
+					\left\{ 1, 2 \right\},
+					\left\{ 1, 2, 4 \right\}
+				\}
+			$;
+
+			\item $
+				\tau_3 = \{
+					\varnothing,
+					\left\{ 1 \right\},
+					\left\{ 4 \right\},
+					\left\{ 1, 2, 4 \right\}
+				\}
+			$;
+
+			\item $
+				\tau_4 = \{
+					\varnothing,
+					\left\{ 2 \right\},
+					\left\{ 4 \right\},
+					\left\{ 2, 4 \right\},
+					\left\{ 1, 2, 4 \right\}
+				\}
+			$;
+
+			\item $
+				\tau_5 = \{
+					\varnothing,
+					\left\{ 2, 4 \right\},
+					\left\{ 1, 2, 4 \right\}
+				\}
+			$;
+
+			\item $
+				\tau_6 = \{
+					\varnothing,
+					\left\{ 2 \right\},
+					\left\{ 1, 2, 4 \right\}
+				\}
+			$; and
+
+			\item $
+				\tau_7 = \{
+					\varnothing,
+					\left\{ 1 \right\},
+					\left\{ 2 \right\},
+					\left\{ 2, 4 \right\},
+					\left\{ 1, 2, 4 \right\}
+				\}
+			$.
+		\end{enumerate}
+	\begin{solution}
+		All collections satisfy $X, \varnothing \in \tau$.
+		As $\left\{ 1 \right\}, \left\{ 4 \right\} \in \tau_3$
+		but $\left\{ 1,4 \right\} \not\in \tau_3$, $\tau_3$ is not a
+		topology.
+		Similarly, as $\left\{ 1 \right\}, \left\{ 2 \right\} \in \tau_7$
+		but $\left\{ 1, 2 \right\} \not\in \tau_7$, $\tau_7$ is also
+		not a topology.
+		All other collections are closed under union and intersection,
+		hence they define topologies.
+	\end{solution}
+		
+	\question
+		Let $X$ be a finite set, and $\tau$ a topology on $X$.
+		Assume that $(X, \tau)$ is a Hausdorff space.
+		Show that $\tau$ is the discrete topology
+		(in other words,
+		show that every subset of $X$ is open).
+	\begin{solution}
+		We claim that all singleton sets of $X$ are open.
+		Let $x, y_1, \ldots, y_n \in X$ be all the points in $X$.
+		Then as $X$ is Hausdorff there exists the open sets
+		$U_1, \ldots, U_n, V_1, \ldots, V_n$ such that for all
+		$i \in \left\{ 1, \ldots, n \right\}$ we have
+		\begin{enumerate}
+			\item $x \in U_i$;
+			\item $y_i \in V_i$; and
+			\item $U_i \cap V_i = \varnothing$.
+		\end{enumerate}
+		Now let $U = \bigcup_{i \in {1,\ldots,n}} U_i$.
+		Clearly $y_i \not\in U$ for all $i \in {1, \ldots, n}$.
+		Therefore $U = \left\{ x \right\}$ and $U$ is open
+		as an arbitrary union of open sets is open.
+		As $x$ was chosen arbitrarily, all singleton sets are open.
+		Therefore, the union of any combination of singleton sets are open.
+		Hence $\tau = \mathcal P(X)$.
+	\end{solution}
+	
+
+	\question
+		Let $X$ be a topological space, 
+		and let $Y \subset X$ be a subspace of $X$
+		(so $Y$ is given the subspace topology).
+		Let $A \subset Y$.
+		If $A$ is closed in $Y$, and if $Y$ is closed in $X$,
+		show that $A$ is closed in $X$.
+
+	\begin{solution}
+		$A$ is closed in $Y$,
+		so $Y \setminus  A$ is open with $\tau_A$
+		and as $\tau_A \subset \tau$, $Y \setminus A$ is
+		also open with $\tau$.
+		Similarly as $Y$ is closed in $X$, 
+		$X \setminus Y$ is open with $\tau$.
+		Note that \[
+			X \setminus A = (X \setminus Y) \cup (Y \setminus A)
+		\]
+		so $X \setminus A$ is a union of two open sets (with $\tau$);
+		therefore, $X \setminus A$ is open with $\tau$.
+		We conclude that $A$ is closed $X$.
+	\end{solution}
+\end{questions}
+\end{document}

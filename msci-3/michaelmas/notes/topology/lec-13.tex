@@ -1,0 +1,131 @@
+%! TEX root = master.tex
+\lecture{13}{5/11}
+
+\begin{theorem}[]
+	Let $X$ be a set and $\mathcal B \subset \mathcal P(X)$
+	such that
+	\begin{enumerate}
+		\item for all $x \in X$
+			there is $B \in \mathcal B$
+			such that $x \in B$; and
+
+		\item if $x \in B_1 \cap B_2$ for some
+			$B_1, B_2 \in \mathcal B$ then
+			there is $B_3 \in \mathcal B$
+			such that $x \in B_3 \subset B_1 \cap B_2$.
+	\end{enumerate}
+	Then there is a unique topology $\tau_{\mathcal B}$
+	on $X$ of which $\mathcal B$ is a basis.
+\end{theorem}
+
+\begin{proof}
+	Uniqueness:
+	suppose $\mathcal B$ is a basis for $\tau_{\mathcal B}$.
+	Then if $B_i \in \mathcal B$ with $i \in I$, we have
+	\[
+		\bigcup_{i\in I} B_i \in \tau_{\mathcal B}.
+	\]
+	Now consider
+	\[
+		\tau = \left\{
+			\bigcup_{i \in I} B_i:
+			B_i \in \mathcal B, \text{$I$ indexing set}
+		\right\}.
+	\]
+	Note that $\tau \subset \tau_{\mathcal B}$.
+	Also observe that if $U \in \tau_{\mathcal B}$ and $p \in U$ then
+	there is $B_p \in \mathcal B$ such that
+	$p \in B_p \subset U$.
+	So
+	\[
+		U = \bigcup_{p \in U} \left\{ p \right\}
+		\subset \bigcup_{p \in U} B_p \subset U.
+	\]
+	So $U \in \tau$ and so $\tau_{\mathcal B} \subset \tau$
+	and so we have equality.
+
+	Existence: define
+	\[
+		\tau_{\mathcal B} =
+		\left\{
+			\bigcup_{i \in I} B_i :
+			B_i \in \mathcal B, I
+		\right\}.
+	\]
+	Note that $\emptyset \in \tau_{\mathcal B}$.
+	For each $p \in X$ there is $B_p \in \mathcal B$ such that
+	$p \in B_p$.
+	Hence
+	\[
+		x = \bigcup_{p \in X} B_p \in \tau_{\mathcal B}.
+	\]
+	Suppose $U_1, U_2 \in \tau$.
+	Then there is labelling sets $I$ and $J$ such that
+	\[
+		U_1 = \bigcup_{i \in I} B_i, \qquad
+		U_2 = \bigcup_{j \in J} B_j.
+	\]
+	Now
+	\[
+		U_1 \cap U_2 =
+		\bigcup_{(i,j) \in I \times J} \left( B_i \cap B_j \right).
+	\]
+	For every $p_{ij} \in B_i \cap B_j$ there is $B_{p_{ij}} \in \mathcal B$
+	such that $p_{ij} \in B_{p_{ij}} \subset B_i \cap B_j$.
+	Therefore
+	\[
+		B_i \cap B_j = \bigcup_{p_{ij} \in B_i \cap B_j} B_{p_{ij}}.
+	\]
+	Hence
+	\[
+		U_1 \cap U_2 =
+		\bigcup_{(i,j) \in I \times J}
+		\left( 
+			\bigcup_{p_{ij} \in B_i \cap B_j} B_{p_{ij}}
+		\right)
+		\in \tau_{\mathcal B}.\qedhere
+	\]
+\end{proof}
+
+\begin{definition}[Cartesian product]
+	Let $X$ and $Y$ be spaces.
+	We define the \emph{cartesian product} of $X$ and $Y$
+	to be
+	\[
+		X \times Y = \left\{
+			(x,y) : x \in X, y \in Y
+		\right\}
+	\]
+	and it is given the \emph{product topology}
+	obtained through the previous theorem as
+	\[
+		\mathcal B_{X \times Y} = \left\{
+			U \times V:
+			\text{open $U \subset X$},
+			\text{open $V \subset Y$}
+		\right\}.
+	\]
+\end{definition}
+
+\begin{examples}
+	\begin{enumerate}
+		\item 
+		Let $X = Y = \R$ both equipped with standard topologies.
+		Then $X \times Y = \R^2$ amd the product topology agrees
+		with the standard topology.
+		
+		\item
+		Consider $T^2 = S^1 \times S^1$,
+		we call this space a \emph{torus}.
+	\end{enumerate}
+\end{examples}
+
+\begin{definition}[]
+	Let $X$ be a set and $\tau$ and $\tau'$ be topologies on $X$.
+	If $\tau \subset \tau'$ we say that $\tau$ is \emph{smaller} than
+	$\tau'$ or that $\tau'$ is \emph{bigger} than $\tau$.
+\end{definition}
+
+Terminology for the above definitions can often be confusing,
+a lot of text may use the terms \emph{coarser} and
+\emph{finer}.

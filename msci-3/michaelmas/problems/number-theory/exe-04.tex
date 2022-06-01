@@ -1,0 +1,104 @@
+\documentclass[a4paper, answers]{exam}
+\input{../preamble.tex}
+
+\begin{document}
+
+\begin{center}
+	\textbf{\textsc{Number Theory III, Week 4}} \\
+	\textsc{Ben Napier}
+	\vspace{1em}
+\end{center}
+
+\begin{questions}
+	\question 
+	Find all pairs of positive integers $a,b$ such that
+	$a^2 + 2b^2 = 19 \times 43$.
+
+	\question
+	Find how many solutions $a,b \in \Z$ exist to the following equation
+	\[
+		a^2 + 2b^2 = 3^{14} \times 43^{10}.
+	\]
+
+	\question
+	Find how many solutions $(a,b)$ there are with 
+	(i) $a,b \in \Z$ and
+	(ii) $a,b \in \N$
+	to the following equations
+	\[
+		a^2 + b^2 = 27 \times 41 \times 43.
+	\]
+
+	\question
+	Find all solutions $x, y \in \Z$ that satisfy $x^2 + 8 = y^3$.
+	(Hint: Consider the element $\alpha = x + 2\sqrt{-2} \in \Z[\sqrt{-2}]$,
+	and hsow that there is a $\beta \in \Z[\sqrt{-2}]$ such that
+	$\beta^3 = \alpha$).
+
+	\question
+	Let $R$ be a commutative ring which is an integral domain.
+	Define the set $F_R$ by
+	\[
+		F_r = \left\{
+			\frac rs :
+			r \in R,
+			s \in R \setminus \left\{
+				0
+			\right\}
+		\right\} / {\sim}
+	\]
+	where ${\sim}$ indicates the equivalence relation:
+	$\frac{r_1}{s_1} \sim \frac{r_2}{s_2}$
+	if $r_1s_2 = s_1r_2$.
+	\begin{parts}
+		\part
+		Define the operations
+		$
+			\frac{r_1}{s_1}  + \frac{r_2}{s_2} 
+			= \frac{r_1s_2 + s_1r_2}{s_1s_2} 
+		$
+		and
+		$
+			\frac{r_1}{s_1}  \cdot \frac{r_2}{s_2}
+			= \frac{r_1r_2}{s_1s_2}
+		$.
+		Show that $F_R$ is a field with respect to these two operations
+		and the map
+		$r \mapsto \frac r1$
+		defines an injection of $R$ in $F_R$ as a ring.
+		We call $F_R$ the field of fractions of $R$.
+
+		\part
+		We say that $R$ is integrally closed in $F_R$ if for every
+		$\alpha \in F_R$, which is a root of a monic polynomial with
+		coefficients in $R$, is actually in $R$, i.e. $\alpha \in R$.
+		Is $\Z[\sqrt{-3}]$ integrally closed in its field of fractions?
+
+		\part
+		Assume that $R = \mathcal O_K$, for some number field $K$.
+		Show that $F_R = K$.
+		Show further that $\mathcal O_K$ is integrally closed in $K$.
+	\end{parts}
+
+	\question
+	Let $K = \Q(\sqrt d)$, with $d$ square free and assume that $\mathcal O_K$
+	is a UFD.
+	For an \emph{odd} prime integer $p$ show that:
+	\begin{parts}
+		\part 
+		if there is no $x \in \Z$ such that $x^2 \equiv d \pmod p$,
+		then $p$ is also prime in $\mathcal O_K$,
+
+		\part 
+		if there is an $x \in \Z$ such that $x^2 \equiv d \pmod p$, and $p$
+		does not divide $d$ then $p = \pm \pi \overline \pi$, for some
+		prime $\pi \in \mathcal O_K$ and
+		$\pi/\overline\pi \not\in\mathcal O_K$,
+
+		\part
+		if $p$ divides $d$, then $p = u\pi^2$ for some prime
+		$\pi \in \mathcal O_K$ and $u \in \mathcal O_K^\times$.
+	\end{parts}
+\end{questions}
+
+\end{document}

@@ -1,0 +1,45 @@
+\lecture{17}{19/11}
+
+Suppose the level curve $f(x, y) = c$ can be written in the form $y = g(x)$. Then 
+\[f(x, g(x)) = c. \tag{$\star$} \] 
+Differentiating both sides and applying the chain rule we get
+\[ \frac{d}{dx} f(x, g(x)) = \frac{\partial f}{\partial x} + \frac{dg}{dx} \frac{\partial f}{\partial y} = 0 \]
+and so we get
+\[ \frac{dg}{dx} = -\frac{\frac{\partial}{\partial x}f(x, g(x))}{\frac{\partial}{\partial y}f(x, g(x))} \tag{$\star\star$} \]
+which is defined for 
+\[ \frac{\partial}{\partial y} f(x, g(x)) \neq 0. \]
+
+\begin{theorem}[Implicit function theorem]
+    Let $U \subset \R^2$ be open. If $f(x, y): U \to \R$ is differentiable and if $(x_0, y_0)$ is a point in $U$ on the level curve $f(x, y) = c$ at which $\frac{\partial f}{\partial y} \neq 0$ then a differentiable function $g(x)$ exists in a neighbourhood of $x_0$ satisfying $(\star)$ and $(\star\star)$.
+\end{theorem}
+
+Examples for whether the implicit function theorem holds are pretty trivial and won't be repeated here.
+
+\begin{definition}[Critical value]
+    If there in a point on a level curve where $\nabla f = \bm 0$, then we call it a \textbf{critical point} and its value is called a \textbf{critical value}.
+\end{definition}
+
+\begin{example}
+    \begin{enumerate}
+        \item Let $f(x, y) = x^2 + y^2$. 
+            Then $\nabla f = \bm e_1 (2x) + \bm e_2  (2y) = 0 \implies (x, y) = (0,0)$.
+            So $\bm 0$ is a criticial point with value $f(\bm 0) = 0$.
+        \item Let $f(x, y) = x^3 - y^2$. 
+            Then $\nabla f = \bm e_1(3x^2) - \bm e_2(2y)= 0 \implies (x, y) = 0$.
+            So $\bm 0$ is a critical point with value $f(\bm 0) = 0$.
+    \end{enumerate}
+\end{example}
+
+When generalising this to $\R^3$, we see that level sets are (typically) \emph{surfaces}.
+
+\begin{theorem}[Implicit function theorem for $\R^3$]
+    Let $U \subset \R^3$ be open and $f(x, y, z): U \to \R$ be differentiable. Let $(x_0, y_0, z_0) \in U$ such that it is on the level set $f = c$, for some constant $c$. Then if $\frac{\partial f}{\partial z} \neq 0$, then the implicit equation of $f = c$ defines a \emph{surface} which can (near to $(x_0, y_0, z_0)$) be writteen as $z = g(x, y)$ with $z_0 = g(x_0, y_0)$ and
+    \begin{align*}
+        \frac{\partial}{\partial x} g(x_0, y_0) &= -\frac{\frac{\partial}{\partial x}f(x_0, y_0, z_0)}{\frac{\partial}{\partial z}f(x_0, y_0, z_0)} \\
+        \frac{\partial}{\partial y} g(x_0, y_0) &= -\frac{\frac{\partial}{\partial y} f(x_0, y_0, z_0)}{\frac{\partial}{\partial z} f(x_0, y_0, z_0)}.
+    \end{align*}
+\end{theorem}
+
+\begin{proof}
+    %todo (chain rule)
+\end{proof}

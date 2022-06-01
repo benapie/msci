@@ -1,0 +1,96 @@
+%! TEX root = master.tex
+\section{Topological groups}
+\lecture{21}{6/12}
+
+\begin{definition}[]
+	A \emph{topological group} $G$ is a Hausdorff space which is also a 
+	group, such that multiplication $\cdot: G \times G \to G$ and
+	inversion $i: G \to G$ are continuous.
+\end{definition}
+
+\begin{examples}
+	\begin{enumerate}
+		\item $\R^n$ with addition is a topological group.
+			$\R^n \times \R^n \xrightarrow{\cdot} \R$,
+			$(\bm x, \bm y) \mapsto \bm x + \bm y$ 
+			and
+			$\R^n \xrightarrow{i} \R^n$, $\bm x \mapsto -\bm x$
+			are both continuous.
+
+		\item
+			$\C \setminus \left\{0\right\}$ is a topological group
+			under multiplication.
+			Both $\cdot: (w,z) \mapsto wz$ and
+			$i: z \mapsto z^{-1}$ are both continuous.
+			\[
+				S^1 =
+				\left\{
+					z \in \C: \left\lvert z \right\rvert = 1
+				\right\}
+				\subset \C \setminus \left\{0\right\}
+			\]
+			is a subgroup.
+
+		\item $\operatorname{GL}_n(\R)$ is a topological group under
+			matrix multiplication.
+			Both
+			$\cdot: (A,B) \mapsto AB$ and $i: A \mapsto A^{-1}$
+			are continuous and we have the subgroups
+			$\operatorname{O}(n)$ and
+			$\operatorname{SL}(n)$.
+
+		\item Any subgroup of a topological group is also a topological
+			group.
+			Let $H \subset G$ be a subgroup of a topological group $G$ witb
+			operations $\cdot$ and $i$.
+			Then
+			$H \times H \xhookrightarrow{} G \times G \xrightarrow{\cdot} G$
+			and
+			$H \xhookrightarrow{} G \xrightarrow{i} G$
+			are both continuous.
+
+		\item Quaternions:
+			$\mathbb H \cong \R^4 = \langle 1,i,j,k \rangle$,
+			where $a + bi + cj + dk \in \mathbb H$, $a,b,c,d \in \R$,
+			$ij = k$, $jk = i$, $ki = j$, and $i^2 = j^2 = k^2 = -1$.
+			$\mathbb H \setminus \left\{0\right\}$ is a non-abelian
+			multiplicative group.
+			$S^3 \subset \mathbb H \setminus \left\{0\right\}$
+			is a subgroup and hence a topological groups.
+			So $S_1$ and $S_3$ are topological groups.
+
+		\item If $G$ is a group, giving $G$ the discrete topology 
+			makes it a topological group.
+	\end{enumerate}
+\end{examples}
+
+Let $G$ be a topological group.
+For $x \in G$, define $L_x: G \to G$ by $L_x(g) = xg$, called the
+\emph{left translation by $x$}.
+This is continuous and has an inverse,
+namely $L_{x^{-1}}$.
+In particular, $L_x$ is a homeomorphism.
+Similarly, \emph{right translation} is a homeomorphism $R_x$.
+
+\begin{proposition}[]
+	Let $G$ be a topological group and $K$ the connected component of $G$ that
+	contains the identity element.
+	Then $K$ is a closed normal subgroup of $G$.
+\end{proposition}
+
+\begin{proof}
+	$K$ is closed as it is a connected component.
+	$L_x$ is a homeomorphism, hence it permutates the connected components
+	of $G$.
+	Suppose $x \in K$, then 
+	$L_{x^{-1}}(K) \ni x^{-1} x = 1$. Hence $L_{x^{-1}}(K) = K$.
+	Hence $K = L_{x^{-1}}(K) \ni x^{-1} \cdot 1 = x^{-1}$.
+	Suppose $x, y \in K$.
+	Then $x = L_x(1) \in L_x(K)$ so $L_x(K) = K$.
+	Hence
+	$xy = L_x(y) \in L_x(K) = K$.
+	Finally,
+	note that if $g \in G$, then $g \in L_g(K) = gK$, $g \in R_g(K) = Kg$.
+	Hence $gK$ and $Kg$ are the same connected component; hence, $gK = Kg$.
+\end{proof}
+

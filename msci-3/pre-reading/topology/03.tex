@@ -1,0 +1,521 @@
+%! TEX root = ../master.tex
+
+\subsection{Convergence and continuity}
+
+The prime reason for the invention of topological spaces was to provide a
+setting for studying convergence and continuity in a more general sense 
+than in the context of metric spaces.
+
+\begin{definition}[Convergence]
+	Let $X$ be a topological space, $ 
+		\{ x_i \}_{i=1}^{\infty} \subset X 
+	$ be a sequence of points, and $x \in X$.
+	We say that $x_i$ \textbf{converges} to $x$ if for every neighbourhood $U$
+	of $x$ there exists $N \in \N$ such that for all $i \geq N$: $x_i \in U$.
+	We denote this as $x_i \to x$ or $\lim_{i \to \infty} x_i = x$.
+\end{definition}
+
+\begin{problem}
+	Show that in a metric space, the totopological definition of convergence is
+	equivalent to the metric space definition.
+\end{problem}
+
+\begin{solution}
+	Let $(X,d)$ be a metric space and let $(X,\mathcal T)$ be a topological space
+	such that $d$ generates $\mathcal T$.
+	Let $
+		\left\{ x_i \right\}_{i=1}^\infty \subset X
+	$ be a sequence of points and $x \in X$.
+	First we assume $x_i \to x$ in the topological sense.
+	Let $\varepsilon > 0$.
+	$B_\varepsilon(x)$ is a neighbourhood of $x$;
+	therefore, there exists $N \in \N$ such that for all $i \geq N$
+	$x_i \in B_\varepsilon(x)$.
+	That is,
+	$d(x_i, x) < \varepsilon$.
+	Hence topological convergence $\implies$ metric convergnce.
+	Now we assume $x_i \to x$ in the metric sense.
+	Let $U$ be a neighbourhood of $x$.
+	As $U$ is open, it is the union of open balls.
+	It is clearly true that topological convergence
+	implies metric convergence.
+\end{solution}
+
+\begin{problem}
+	Let $X$ be a discrete toplogical space.
+	Show that the only convergent sequences are ones which are eventually
+	constant.
+\end{problem}
+
+\begin{proof}
+	Let $
+		\left\{ x_i \right\}_{i=1}^\infty
+	$ be a convergence sequence with limit $x$.
+	Let $\varepsilon \in (0,1)$.
+	As $x_i \to x$, there exists $N \in \N$ such that for all $i \geq N$
+	we have $d(x,x_i) < \varepsilon$. So $d(x,x_i)=0 \implies x = x_i$ and hence
+	the sequence is eventually constant.
+\end{proof}
+
+\begin{problem}
+	Suppose $X$ is a topological space, $A \subset X$, and $\{x_i\}_{i=1}^\infty$
+	is a sequence of points in $A$ that converges to $x \in X$.
+	Show that $x \in \overline A$.
+\end{problem}
+
+\begin{solution}
+	If $x \in A$ then clearly $x \in \overline A$. Now assume $x \not\in A$.
+	Consider $x \in \ext A$. Let $U \subset \ext A$ be a neighbourhood of
+	$x$. As $x_i \to x$, there exists some $N \in \N$ such that for all 
+	$i \geq N$ we have $x_i \in U$. Except $x_i \in A$ for all $i \in \N$.
+	Therefore $x \not\in \ext A$ and so $x \in \overline A$.
+\end{solution}
+
+\begin{definition}[Continuity]
+	Let $X$ and $Y$ be topological spaces.
+	A map $f: X \to Y$ is said to be \textbf{continuous} if for all $U$ open in 
+	$Y$, $f^{-1}(U)$ is open in $X$.
+\end{definition}
+
+\begin{remark}
+	A map is continous if its inverse preserves \emph{openness}.
+\end{remark}
+
+\begin{proposition}[]
+	A map between topological spaces is continuous if and only if the preimage
+	of every closed subset is closed.
+\end{proposition}
+
+\begin{proof}
+	Let $X$ and $Y$ be topological spaces.
+	\begin{description}
+		\item[$\implies$] 
+			Let $C \subset Y$ be closed.
+			Then $O = Y \setminus C$ is open.
+			So \[
+				f^{-1}(C) 
+				= f^{-1}(Y \setminus O) 
+				= f^{-1}(Y) \setminus f^{-1}(O)
+				= X \setminus f^{-1}(O)
+			\]
+			which is closed as $f^{-1}(O)$ is open due to the continuity of $f$.
+
+		\item[$\impliedby$]
+			Let $O \subset Y$ be open.
+			Then $C = Y \setminus O$ is closed.
+			So \[
+				f^{-1}(O)
+				= f^{-1}(Y \setminus C)
+				= f^{-1}(Y) \setminus f^{-1}(C)
+				= X \setminus f^{-1}(C)
+			\]
+			which is open as $f^{-1}(C)$ is closed.
+	\end{description}
+\end{proof}
+
+\begin{proposition}[]
+	\label{prop:function-continuous}
+	Let $X$, $Y$, and $Z$ be topological spaces.
+	\begin{enumerate}
+		\item Every constant map is continuous.
+		\item The identity map is continuous.
+		\item If a map $f: X \to Y$ is continuous
+			then for all open sets $O$ we have $\restr{f}{O}: O \to Y$ is
+			continuous.
+		\item If maps $f: X \to Y$ and $g: Y \to Z$ are continuous then
+			their composition $g \circ f: X \to Z$ is continuous.
+	\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+	\begin{enumerate}
+		\item 
+			Let $f: X \to Y$, $f(x) = a$.
+			Let $U$ be open in $Y$.
+			Then $f^{-1}(U) \in \{\varnothing, X\}$.
+			Both possibilities are open in $X$.
+
+		\item 
+			Let $f: X \to X$, $f(x) = x$.
+			Let $U$ be open in $X$.
+			Then $f^{-1}(U) = U$ which is open.
+
+		\item 
+			Let $U$ be open in $X$ and $V$ be open in $Y$.
+			Then \[
+				\left(\restr{f}{U}\right)^{-1}(V) = f^{-1}(V) \cap U
+			\]
+			which is the intersection of two open sets, thus is open.
+		
+		\item
+			Let $U \subset Z$ be open. $
+				(g \circ f)^{-1}(U) = f^{-1}(g^{-1}(U))
+			$ which is open as $f$ and $g$ are continuous.
+	\end{enumerate}
+\end{proof}
+
+\begin{proposition}[]
+	A map $f: X \to Y$ between two topological spaces is continuous if and only 
+	if each point of $X$ has a neighbourhood on which the restriction of $f$ is
+	continuous.
+\end{proposition}
+
+\begin{proof}
+	\begin{description}
+		\item[$\implies$] Immediate consequence.
+
+		\item[$\impliedby$]
+			Let $x \in X$, $U_x$ be the neighbourhood on which $\restr{f}{U_x}$ 
+			is continuous, and $V$ be open in $Y$.
+			Then
+			\[
+				\left( \restr f{U_x} \right)^{-1}(V)
+				= \{ x \in U_x: f(x) \in V \}
+				= f^{-1}(V) \cap U_x.
+			\]
+			and so $\left( \restr f{U_x} \right)^{-1}(V)$ is a neighbourhood of
+			$x$ contained within $f^{-1}(V)$.
+			Therefore $f^{-1}(V)$ is open.
+	\end{description}
+\end{proof}
+
+\begin{definition}[Homeomorphism]
+	Let $X$ and $Y$ be topological spaces.
+	A \textbf{homeomorphism} from $X$ to $Y$ is a bijective map
+	$\varphi: X \to Y$ such that both $\varphi$ and $\varphi^{-1}$
+	are continuous.
+	If such a bijection exists, we say $X$ and $Y$ are \textbf{homeomorphic} or
+	\textbf{topologically equivalent} ($X \approx Y$).
+\end{definition}
+
+\begin{problem}
+	Show that \emph{homeomorphic} is an equivalence relation on the class of all
+	topological spaces.
+\end{problem}
+
+\begin{solution}
+	Let $X$, $Y$, and $Z$ be topological spaces.
+	By defining $\varphi: X \to X$, $\varphi(x) = x$ we see that all topological
+	spaces are homeomorphic to theirself.
+	Now assume that $X \approx Y$ with bijection $\varphi: X \to Y$.
+	Now we let $\psi: Y \to X$, $\psi(y) = \varphi^{-1}(y)$.
+	So $X \approx Y \implies Y \approx X$.
+	Now assume that $X \approx Y$ with bijection $\varphi: X \to Y$
+	and $Y \approx Z$ with bijection $\psi: Y \to Z$.
+	Now we define $\theta: X \to Z$ as $\theta(x) = \psi(\varphi(x))$.
+	Clearly $\theta$ is a bijection and itself and its inverse are continuous.
+	Hence $X \approx Y, Y \approx Z \implies X \approx Z$.
+\end{solution}
+
+\begin{problem}
+	\label{prob:homeo-preserves-openness}
+	Let $(X, \mathcal T)$ and $(Y, \mathcal J)$ be topological spaces
+	and let $f: X \to Y$ be a bijective map.
+	Show that $f$ is a homeomorphism if and only if
+	$f(\mathcal T) = \mathcal J$ (in the sense that $U$ is open in $X$ if
+	and only if $f(U)$ is open in $Y$).
+\end{problem}
+
+\begin{solution}
+	\hfill
+	\begin{description}
+		\item[$\implies$] 
+			Let $U$ be open in $X$.
+			Then $
+				\left( f^{-1} \right)^{-1}(U) = f(U)
+			$ is open in $Y$ as $f^{-1}$ is continuous.
+			Now let $V \subset X$ such that $f(V)$ is open.
+			Then $
+			f^{-1}(f(V)) = V
+			$ is open in $X$ as $f$ is continuous.
+
+		\item[$\impliedby$]
+			Let $U$ be open in $X$. Then $f(U)$ is open in $Y$.
+			As $
+				f(U) = \left( f^{-1} \right)^{-1}(U)
+			$ and $U$ is open then $f^{-1}$ must be continuous.
+			Simiarly $
+				U = f^{-1}(f(U))
+			$ and $f(U)$ is open so $f$ must be continuous.
+	\end{description}
+\end{solution}
+
+\begin{problem}
+	Suppose $f: X \to Y$ is a homeomorphism and $U$ is open in $X$.
+	Show that $f(U)$ is open in $Y$ 
+	and the restriction $\restr fU$ is a homeomorphism from $U$ to $f(U)$.
+\end{problem}
+
+\begin{solution}
+	From Problem \ref{prob:homeo-preserves-openness} we know that $f(U)$ is open.
+	As $f: X \to Y$ is a bijection so is $\restr fU: U \to f(U)$.
+	We know from $(iii)$ of Proposition \ref{prop:function-continuous} that
+	continuous function restricted to open sets are continuous.
+	Therefore $\restr fU$ is continuous and so is $\left(\restr fU\right)^{-1}$.
+\end{solution}
+
+\begin{definition}[Fineness and coarseness]
+	Let $\mathcal T$ and $\mathcal J$ be topologies on a set $X$. 
+	\begin{enumerate}
+		\item $\mathcal T$ is \textbf{finer} than $\mathcal J$ 
+			if $\mathcal J \subset \mathcal T$.
+
+		\item $\mathcal T$ is said to be \textbf{coarser} than $\mathcal J$
+			if $\mathcal T \subset \mathcal J$.
+	\end{enumerate}
+\end{definition}
+
+\begin{problem}
+	Let $\mathcal T$ and $\mathcal J$ be topologies on some set $X$.
+	Show that identity map of $X$ is 
+	\begin{enumerate}
+		\item continuous as a map from $(X, \mathcal T)$ to $(X, \mathcal J)$ if 
+			and only if $\mathcal T$ is finer than $\mathcal J$; and
+		\item a homeomorphism if and only if $\mathcal T = \mathcal J$.
+	\end{enumerate}
+\end{problem}
+
+\begin{solution}
+	Let $f$ be the identity map from $(X, \mathcal T)$ to $(X, \mathcal J)$.
+	\begin{enumerate}
+		\item
+			Let $U \in \mathcal J$. 
+			Then $f^{-1}(U) = U \in \mathcal T$ if and only if 
+			$\mathcal J \subset \mathcal T$.
+			
+		\item 
+			As $f$ is continuous, $U \in \mathcal J$ implies
+			$f^{-1}(U) = U \in \mathcal T$.	
+			As $f^{-1}$ is continuous, $U \in \mathcal T$ implies
+			$\left(f^{-1}\right)^{-1}(U) = f(U) = U \in \mathcal J$.
+			Hence $f$ being a homeomorphism implies that 
+			$\mathcal T = \mathcal J$.
+			Now if we assume $\mathcal T = \mathcal J$, we see from Problem
+			\ref{prop:function-continuous} that $f$ must be continuous.
+			Hence $f$ is a homeomorphism since $f$ is clearly a bijection and
+			$f = f^{-1}$.
+	\end{enumerate}
+\end{solution}
+
+\begin{example}[]
+	\hfill
+	\begin{enumerate}
+		\item 
+			Let $\bm x, \bm y \in \R^n$ and $\varepsilon, \delta > 0$. 
+			Then \[
+				B_{\varepsilon}(\bm x) \approx B_{\delta}(\bm y).
+			\]
+			The homeomorphism can easily be constructed via translations and
+			dilations.
+			This shows that \emph{size} is not a topological property
+			(that is, a property that is unchanged by a homeomorphism).
+
+		\item 
+			Let $\B^n \subset \R^n$ be the unit ball and define a map
+			$F: \B^n \to \R^n$ by
+			\[
+				F(\bm x) = \frac{\bm x}{1 - \abs{\bm x}}.
+			\]
+			It can be shown that the map
+			\[
+				G(\bm x) = \frac{\bm x}{1 + \abs{\bm x}} 
+			\]
+			is an inverse for $F$.
+			$F$ is clearly bijective and as since $F$ and $F^{-1}$
+			are both continuous, $F$ is a homeomorphism.
+			Thus \emph{boundedness} is not a topological property.
+
+		\item 
+			Let $S^2$ be the unit sphere and $C$ be the cube of side length 2
+			centered at the origin.
+			The map $\varphi: C \to S^2$,
+			\[
+				\varphi(x,y,z) = \frac{(x,y,z)}{\sqrt{x^2+y^2+z^2}} 
+			\]
+			is a homeomorphism, with inverse
+			\[
+				\varphi^{-1}(x,y,z) = 
+				\frac{(x,y,z)}{\max\{\abs x, \abs y, \abs z\}}.
+			\]
+			Thus \emph{having corners} is not a topological property.
+	\end{enumerate}
+\end{example}
+
+\begin{problem}
+	\label{prob:local-homeo-ex}
+	Let $X$ be the half open interval $[0,1) \subset \R$ and 
+	let $S^1$ be the unit circle in $\C$ 
+	(both with Euclidean metric topologies).
+	Define a map $a: X \to S^1$ by
+	\[
+		a(s) = e^{2\pi is} = \cos(2\pi s) + i \sin(2\pi s).
+	\]
+	Show that $a$ is continuous and bijective but it is not a homeomorphism.
+\end{problem}
+
+\begin{solution}
+	$a$ is clearly continuous on $X$ since $\sin$ and $\cos$ are both continuous
+	on $\R$.
+	Now for $a^{-1}$, we will use the branch of $\log$ with a jump discontinuity
+	at $R_{\frac{\pi}2}$.
+	Then
+	\[
+		a^{-1}(x + iy) 
+		= \frac1{2\pi i} \log(x+iy)
+		= \frac1{2\pi}\arg(x+iy)
+	\]
+	but $\arg$ is not continuous on $S^1$;
+	it has a jump discontinuity. 
+	Hence $a^{-1}$ is not continuous and
+	$a$ is not a homeomorphism.
+	As we have an expression for $a^{-1}$, $a$ is bijective.
+\end{solution}
+
+\begin{definition}[Open and closed maps]
+	Let $X$ and $Y$ be topological spaces, $U$ be open in $X$,
+	and $V$ be closed in $X$.
+	A map $f: X \to Y$ is an \textbf{open map} if $f(U)$ is open in $Y$.
+	$f$ is a \textbf{closed map} if $f(V)$ is closed in $Y$.
+\end{definition}
+
+\begin{problem}
+	Let $X$ and $Y$ be topological spaces.
+	Let $f: X \to Y$ be a bijective continuous map.
+	Show that the following statements are equivalent.
+	\begin{enumerate}
+		\item $f$ is a homomorphism.
+		\item $f$ is open.
+		\item $f$ is closed.
+	\end{enumerate}
+\end{problem}
+
+\begin{proof}
+	Let $U$ be open in $X$.
+	\begin{description}
+		\item[$(i) \implies (ii)$] 
+			$f^{-1}$ is continuous, 
+			so $\left(f^{-1}\right)^{-1}(U) = f(U)$ is open.
+			Hence $f$ is open.
+
+		\item[$(ii) \implies (iii)$]
+			$X \setminus U$ is closed.
+			$
+				f(X \setminus U) 
+				= f(X) \setminus f(U)
+				= Y \setminus f(U)
+			$ which is closed as $f(U)$ is open.
+
+		\item[$(iii) \implies (i)$]
+			$X \setminus U$ is closed in $X$.
+			$
+				f(X \setminus U)
+				= f(X) \setminus f(U)
+				= Y \setminus f(U)
+			$ is closed;
+			therefore $Y \setminus (Y \setminus f(U)) = f(U)$ is open.
+			Then $\left(f^{-1}\right)^{-1}(U) = f(U)$ is open, and so
+			$f^{-1}$ is continuous. 
+	\end{description}
+\end{proof}
+
+\begin{proposition}[]
+	Suppose $X$ and $Y$ are topological spaces
+	and $f: X \to Y$ is any map.
+	\begin{enumerate}
+		\item
+			$f$ is continuous if and only if
+			$f(\overline A) \subset \overline{f(A)}$
+			for all $A \subset X$.
+		
+		\item 
+			$f$ is closed if and only if
+			$f(\overline A) \supset \overline{f(A)}$
+			for all $A \subset X$.
+
+		\item
+			$f$ is continuous if and only if
+			$f^{-1}(\inte B) \subset \inte f^{-1}(B)$
+			for all $B \subset Y$.
+ 
+		\item
+			$f$ is open if and only if
+			$f^{-1}(\inte B) \supset \inte f^{-1}(B)$
+			for all $B \subset Y$.
+	\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+	\begin{enumerate}
+		\item 
+			\begin{description}
+				\item[$\implies$]
+					We have $
+						A \subset f^{-1} \left( \overline{f(A)} \right)
+					$. Then $
+					\overline A \subset f^{-1} \left( \overline{f(A)} \right)
+					$ as $\overline{f(A)}$ is closed. So $
+						f(\overline A) \subset \overline{f(A)}
+					$ as required.
+
+				\item[$\impliedby$]
+					Let $C$ be closed in $Y$.
+					Then $
+						f \left( \overline{f^{-1}(C)} \right)
+						\subset \overline{f\left(f^{-1}(C)\right)}
+						= \overline C
+						= C
+					$ hence $
+						\overline{f^{-1}(C)} \subset f^{-1}(C)
+					$ and so $f^{-1}(C)$ is closed.
+
+			\end{description}
+		\item
+			\begin{description}
+				\item[$\implies$]
+					We have $
+						A \subset f^{-1}(f(\overline A))
+					$ and so $
+						f(A) \subset f(\overline A)
+					$ and as $f(\overline A)$ is closed $
+						\overline{f(A)} \subset f(\overline A)
+					$.
+
+				\item[$\impliedby$]
+					Let $C$ be closed in $X$.
+					Then $
+						f(C) = f(\overline C) \supset \overline{f(C)}
+					$. Hence $f(C)$ is closed, and so $f$ is closed.
+			\end{description}
+	\end{enumerate}
+	$(iii)$ follows a similar reasoning to $(i)$ and $(iv)$ follows a similar
+	reasoning to $(ii)$ so it will be omitted.
+\end{proof}
+
+\begin{definition}[Local homeomorphism]
+	Suppose $X$ and $Y$ are topological spaces
+	and $f: X \to Y$ is a map.
+	We say that $f$ is a \textbf{local homeomorphism} if
+	for every point $x \in X$ there exists a neighbourhood
+	$U \subset X$ such that $f(U)$ is open in $Y$
+	and $\restr fU: U \to Y$ is a homeomorphism.
+\end{definition}
+
+\begin{example}[]
+	Recall the map defined in Problem \ref{prob:local-homeo-ex}.
+	This is an example of a map that is a local homeomorphism but not a
+	homeomorphism.
+\end{example}
+
+\begin{proposition}[]
+	\hfill
+	\begin{enumerate}
+		\item Every homeomorphism is a local homeomorphism.
+		\item Every local homeomorphism is continuous and open.
+		\item Every bijective local homeomorphism is a homeomorphism.
+	\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+	%todo
+\end{proof}
+

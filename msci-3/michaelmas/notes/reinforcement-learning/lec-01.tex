@@ -1,0 +1,136 @@
+%! TEX root = master.tex
+\lecture{1}{5/10}
+
+\section{Foundations}
+
+\begin{definition}[Reinforcement learning]
+	\emph{Reinforcement learning} is a computational approach to
+	understanding and automating goal-directed learning and decision making.
+	There is an emphasis on learning by an agent from direct interaction with
+	the environment, without supervision or models of the environment.
+\end{definition}
+
+With typical machine learning, there is immediate feedback from a supervisory
+signal.
+Even with unsupervised learning, we have some metric that we want to minimise.
+We use \emph{independent and identically distributed data} for trainning.
+
+Conversely, in reinforcement learning our feedback is sparse and delayed.
+It is typically accumulated over time.
+There is no independent and identically distributed data for training.
+Rather, data is \emph{sequential}: actions change the subsequence
+environment. 
+It is always evolving and changing.
+Our goal is to maximise total rewards, so we may sacrifice in the short term
+to get long-term reward.
+
+\subsection{A brief history}
+
+The law of effect is a psychology principle advanced by Edward Thorndlike in
+1898 which states that
+\emph{``responses that produce a satisfying effect in a particular situation
+become more likely to occur again that situation, and responses that produce
+a discomforting effect become less likely to occur again in that situation''}.
+There are strong links between this concept and \emph{Hebbian theory} from
+deep learning.
+
+Next we saw the emergence or \emph{optimal control theory} that involves
+finding an optimal control for a dynamical system over time.
+In 1953, we get dynamic programming: breadth-first search through state spaces.
+The Bellman equation allows us to look at global problem as a collection of
+smaller subproblems.
+
+\begin{example}[Cart-Pole balanacing]
+	Assume we have a cart that can move horizontally with a pole attached to it.
+	The goal is to keep the pole upright by moving the cart, this is an example
+	of a problem where we may apply optimal control theory.
+\end{example}
+
+Reinforcement learning has a reputation of being slow due to large branching
+factors leading to large state spaces.
+By using stochastic methods, such as Monte-Carlo tree search, we can make
+reinforcement learning much faster.
+
+In 1992, a multi-layer neural network implented temporal difference to
+competively play computer games with experts.
+Temporal difference is inspired by how dopamine works, with the expectance
+of reward playing a factor with the actual award.
+How we define reward is a key challenge in reinforcement learning.
+
+\begin{definition}[Reward]
+	We define \emph{reward} $R_t \in \R$ is a scalar feedback signal.
+\end{definition}
+
+Reward represents how well an agent is doing at a given timestep $t$.
+
+\begin{definition}[Reward hypothesis]
+	All goals and purposes can be thought of as the maximisation of the
+	expected value of the cumulative sum of a received scalar reward signal.
+\end{definition}
+
+The goal of reinforcement learning is to design an algoorithm that, given an 
+observation $O_i$, chooses the action $A_t$ that maximises (future) reward.
+The collection of possible actions that can be taken at any given timestep
+can either be finite (discrete) or infinite (continuous).
+
+So, at step $t$ an agent will execute an action $A_t$, observes the
+environment $O_t$ and receives a reward $R_t$.
+The environment has a state $S^e_t$ but is typically not used and
+is not completely visible to the agent.
+The agent has a state $S^a_t$ which summarises relevant observations; that is,
+its a function of the agent's history $S^a_t = f(H_t)$.
+
+\begin{definition}[Observability]
+	For the system above, we say there is \emph{full observability} if
+	\[
+		O_t = S^a_t = S^e_t.
+	\]
+	If $S^a_t \neq S^e_t$, we say there is \emph{partial observability}.
+\end{definition}
+
+\begin{definition}[Markov property]
+	A state is \emph{Markov} if
+	\[
+		P(s_{t+1} \given s_t) = P(s_{t+1} \given s_1, \ldots, s_t).
+	\]
+\end{definition}
+
+\begin{example}[Chess]
+	The state of a chess game possesses the Markov property;
+	we do not need to know the history of the game played to a given point
+	to make the optimal move.
+\end{example}
+
+\begin{definition}[Policy]
+	A policy $\pi$ is an agent's strategy.
+	It can either be \emph{deterministic}, where
+	\[
+		\pi: S \to A, \quad a = \pi(s)
+	\]
+	or \emph{stochastic}, where
+	\[
+		a \sim \pi(a \given s).
+	\]
+\end{definition}
+
+\begin{definition}[Value function]
+	The \emph{value function} is the prediction of expected total future reward:
+	\[
+		v_\pi(s) = E_\pi \left(
+			R_t + \gamma R_{t+1} + \gamma^2 R_{t+2} + \ldots
+			\given S_t = s
+		\right).
+	\]
+\end{definition}
+
+\begin{definition}[Model]
+	A \emph{model} predicts what the environment will do next.
+	It models the joint distribution of the new state and reward:
+	\[
+		P(s', r \given s, a)
+		= P(S_t = s', R_t = r \given S_{t-1} = s, A_{t-1} = a).
+	\]
+\end{definition}
+
+The model is optional in reinforcement learning
+(model-based versus model-free learning).

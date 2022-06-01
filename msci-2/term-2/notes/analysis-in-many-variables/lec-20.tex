@@ -1,0 +1,174 @@
+\section{Formal definitions}
+\lecture{20}{17/3}
+
+We will now be a bit more careful.
+Suppose we have 2 ordinary continuous functions $g(x)$ and $h(x)$ and
+that we want to check whether they are equal as functions.
+We have two methods:
+\begin{enumerate}
+    \item (E1) check that for all $x \in \R$ that $g(x) = h(x)$; and
+    \item (E2) check that for all functions $f(x)$, 
+        in some suitable class of functions $K$,
+        that 
+        \[
+            \int_{-\infty}^{\infty} f(x) g(x) \,dx 
+            = \int_{-\infty}^{\infty} f(x) h(x) \,dx.
+        \]
+\end{enumerate}
+
+For $K$ we will take \emph{all} functions $f$ which satisfy:
+\begin{enumerate}
+    \item (K1) $f$ has finite derivatives of all orders; and
+    \item (K2) $f$ vanishes outside some bounded region
+        (that is, for every $f \in K$ there exists some $M$ 
+        such that $f(x) = 0$ for all $\abs x > M$).
+\end{enumerate}
+
+In fact, (E1) and (E2) are equivalent!
+\begin{enumerate}
+    \item Clearly, $\text{(E1)} \implies \text{(E2)}$.
+    \item For $\text{(E2)} \implies \text{(E1)}$,
+        suppose that there is an $x_0$ such that
+        \[
+            g(x_0) \neq h(x_0).
+        \]
+        Lets say $g(x_0) > h(x_0)$.
+        Then 
+        \[
+            g(x_0) - h(x_0) > 0
+        \]
+        and by continuity there exists an interval $(a,b)$ with $x_0 \in (a,b)$
+        \emph{and}
+        \[
+            g(x) - h(x) > 0 \qquad \;\forall\; x \in (a,b).
+        \]
+        Now we pick $f(x)$ such that $f(x) > 0$ for all $x \in (a,b)$
+        and $f(x) = 0$ for $x \not\in (a,b)$.
+        Then
+        \[
+            \int_{-\infty}^{\infty} f(x) (g(x) - h(x)) \,dx
+            = \int_{a}^{b} f(x) (g(x) - h(x)) \,dx > 0.
+        \]
+        So
+        \[
+            \int_{-\infty}^{\infty} f(x) g(x) \,dx
+            \neq \int_{-\infty}^{\infty} f(x) h(x) \,dx.
+        \]
+\end{enumerate}
+
+Now, for generalised functions such as $\delta(x)$,
+the \emph{limit} of the delta sequence $h_N(x)$ is the value
+of the function at a particular point is \emph{not} well defined.
+Instead they are defined by the values that they give when they are
+multiplied by another function and integrated over $\R$.
+
+Thus, (E1) does not work.
+But (E2) still makes sense so we use it to \emph{define} what it means
+for two generalised functions to be equal.
+
+Thus $\delta(x)$ is defined by the formula 
+\[
+    \int_{-\infty}^{\infty} f(x) \delta(x) \,dx
+    = f(0)
+    \qquad \forall\; f \in K.
+\]
+This allows us to forget the delta convergent sequence $h_N(x)$
+and instead work with the generalised function directly
+using the further property that the operations of substitution
+and integration by parts work as for integrals of ordinary functions.
+
+\section{Proving generalised function identities}
+
+\begin{example}
+    Show that $x \delta(x) = 0$ as a distribution.
+\end{example}
+
+\begin{solution}
+    For all $f \in K$ we have
+    \begin{align*}
+        \int_{-\infty}^{\infty} f(x) x \delta(x) \,dx
+        &= \int_{-\infty}^{\infty} (f(x) x) \delta(x) \,dx \\
+        &= \left(f(x) x\right) \rvert_{x = 0} \\
+        &= 0.
+    \end{align*}
+    While
+    \begin{align*}
+        \int_{-\infty}^{\infty} f(x) 0 \,dx &= 0 \\
+        \int_{-\infty}^{\infty} f(x) x \delta(x) \,dx 
+        &= \int_{-\infty}^{\infty} f(x) 0 \,dx \\
+        x \delta(x) &= 0
+    \end{align*}
+    as distributions.
+\end{solution}
+
+\begin{example}
+    Show that $x \delta'(x) = -\delta(x)$.
+\end{example}
+
+\begin{solution}
+    For all $f \in K$
+    \begin{align*}
+        \int_{-\infty}^{\infty} f(x) x \delta'(x) \,dx
+        &= \int_{-\infty}^{\infty} \delta'(x) \left(xf(x)\right) \,dx \\
+        &= -\int_{-\infty}^{\infty} \delta'(x) \left(xf(x)\right)' \,dx \tag{by parts} \\
+        &= -(xf(x))' \rvert_{x = 0} \\
+        &= -(xf'(x) + f(x))' \rvert_{x = 0} \\
+        &= -f(0).
+    \end{align*}
+    While
+    \begin{align*}
+        \int_{-\infty}^{\infty} f(x) (-\delta'(x)) \,dx 
+        &= -\int_{-\infty}^{\infty} f(x) \delta'(x) \,dx \\
+        \int_{-\infty}^{\infty} f(x) x \delta'(x) \,dx 
+        &= \int_{-\infty}^{\infty} f(x) (-\delta(x)) \,dx \\
+        x\delta'(x) &= -\delta(x)
+    \end{align*}
+    as distributions.
+\end{solution}
+
+\begin{example}
+    Evaluate
+    \[
+        \int_{-\infty}^{\infty} \delta(x-y) f(y) \,dy.
+    \]
+\end{example}
+
+\begin{solution}
+    The technique here is to substitute $z = x - y$ with $dz = -dy$.
+    \begin{align*}
+        \int_{-\infty}^{\infty} \delta(x-y) f(y) \,dy
+        &= -\int_{\infty}^{-\infty} \delta(z) f(x-z) \,dz \\
+        &= \int_{-\infty}^{\infty} \delta(z) f(x-z) \,dz \\
+        &= f(x-z)\rvert_{z = 0} \\
+        &= f(x).
+    \end{align*}
+\end{solution}
+
+\begin{remark}
+    Sometimes we \emph{define} $\delta(x)$ as above.
+\end{remark}
+
+\begin{example}
+    Evaluate
+    \[
+        \int_{-\infty}^{\infty} \delta(2x) f(x) \,dx.
+    \]
+\end{example}
+
+\begin{solution}
+    As before, we substitute. This time our substitution is
+    $z = 2x \implies dz=2dx$.
+    \begin{align*} 
+        \int_{-\infty}^{\infty} \delta(2x) f(x) \,dx
+        &= \int_{-\infty}^{\infty} \frac12 \delta(z) f\left(\frac z2\right) \,dz \\
+        &= \frac12 f\left(\frac02\right) \\
+        &= \frac12 f(0).
+    \end{align*}
+\end{solution}
+
+\begin{remark}
+    In the solution above, we have also shown that 
+    \[
+        \delta(2x) = \frac12 \delta(x).
+    \]
+\end{remark}

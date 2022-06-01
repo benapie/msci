@@ -1,0 +1,205 @@
+\documentclass[a4paper, answers]{exam}
+\input{../preamble.tex}
+
+\begin{document}
+
+\begin{center}
+	\textbf{\textsc{Topology III, Assignment 8}}
+	\\
+	\textsc{Ben Napier}
+	\vspace{1em}
+\end{center}
+
+\begin{questions}
+	\question Suppose $X$ is a space and let $\sim$ be any equivalence
+	relation on $X$.
+	\begin{parts}
+		\part Show that if $X$ is compact then $X/{\sim}$ is compact.
+		\begin{solution}
+			Let
+			$
+				\left\{
+					U_i
+				\right\}_{i=1}^\infty
+			$
+			be an open cover of $X/{\sim}$.
+			Then
+			$
+				\left\{
+					\pi^{-1}(U_i)
+				\right\}_{i=1}^\infty
+			$
+			is an open cover of $X$.
+			Thus there is $N \in \N$
+			such that
+			$
+				\left\{
+					\pi^{-1}(U_i)
+				\right\}_{i=1}^N
+			$
+			is an open cover of $X$.
+			Thus
+			$
+				\left\{
+					U_i
+				\right\}_{i=1}^N
+			$
+			is a finite cover of $X/{\sim}$.
+			Thus $X/{\sim}$ is compact.
+		\end{solution}
+
+		\part Show that if $X$ is connected then $X/{\sim}$ is connected.
+		\begin{solution}
+			Let $U \subset X/{\sim}$ be clopen and
+			$
+				U \not\in
+				\left\{
+					\varnothing, X/{\sim}
+				\right\}
+			$.
+			Then $\pi^{-1}(U) \subset X$ is also clopen.
+			But as $X$ is conencted,
+			$\pi^{-1}(U) \in \{\varnothing, X\}$.
+			If $\pi^{-1}(U) = \varnothing$,
+			$U = \varnothing$ as $U$ is non-empty.
+			If $\pi^{-1}(U) = X$, then $U = X/{\sim}$;
+			a contradiction.
+			Thus $X/{\sim}$ is connected.
+		\end{solution}
+	\end{parts}
+
+	\question This question uses the result of question $1$ from Problem Set 7.
+	Let $X$ be a compact metric space, and let $f: X \to X$ be continuous.
+	We are going to show that there is a non-empty subset $A \subset X$ such
+	that $f(A) = A$.
+	\begin{parts}
+		\part Show that $A = \bigcap_{n=1}^\infty f^n(X) \neq \varnothing$,
+		where we write $f^n$ for the composition of $f$ with itself $n$ times.
+		(You may need to recall the fact that metric spaces are Hausdorff).
+		\begin{solution}
+			$X$ is compact, so $f(X)$ is also compact.
+			In fact, as $X$ is also Hausdorff, $f(X)$ is closed.
+			Let $n \in \N$.
+			For every $x \in f^{n+1}(X)$, there must exist
+			$x' \in f^n(X) \subset X$ such that $f^n(f(x')) = x$.
+			Thus $x \in f^n(X)$ and so
+			$f^{n+1}(X) \subset f^n(X)$ for all $n \in \N$.
+			Clearly $f^n(X)$ is non-empty for every $n \in \N$,
+			otherwise we would have a non-empty domain and an
+			empty codomain.
+			Hence $\left\{
+				f^n(X)
+			\right\}_{n \in \N}$
+			is a collection of closed, nested, non-empty subsets of a
+			compact space $X$; hence,
+			\[
+				\bigcap_{n=1}^\infty f^n(X) \neq \varnothing.
+			\]
+		\end{solution}
+
+		\part Show that $f(A) \subset A$.
+		\begin{solution}
+			Let $a \in f(A)$.
+			So there is $a' \in A$ such that $a = f(a')$.
+			Then for each $n \in \N$, $a' \in f^n(X)$,
+			so $a = f(a') \in f^{n+1}(X)$.
+			So $a \in f^n(X)$ for each $n \in\{2, 3, \ldots\}$.
+			For $n=1$, we observe that $a = f(a')$ and
+			$a' \in A \subset X$, so $a \in f(X)$.
+			Hence $a \in A$.
+			Thus $f(A) \subset A$.
+		\end{solution}
+
+		\part Suppose $a \in A$.
+		Show that there exists a sequence of points
+		$b_n \in f^n(X)$
+		such that $f(b_n) = a$.
+		\begin{solution}
+			Fix $n \in \N$.
+			Then, as $a \in A$,
+			$a \in f^{n+1}(X)$.
+			So there is some $b_n \in f^n(X)$ such that
+			$f(b_n) = a$.
+			So
+			$
+				\left\{
+					b_n
+				\right\}
+			$
+			is our sequence.
+		\end{solution}
+
+		\part Recalling that infinite subsets of compact spaces always have
+		limit points, show that there is a subsequence of $b_n$, say $b_{n_i}$,
+		so that $b_{n_i} \to b$ for some $b \in X$.
+
+		Observe that therefore we have $f(b) = a$.
+		\begin{solution}
+			If one point in $b_n$ occurs an infinite number of times,
+			then clearly this constant sequence converges.
+			Now suppose that every point in the sequence occurs finitely many
+			times.
+			Then this is an infinite subset of $X$, so there must be a limit
+			point.
+			That is, there is a convergent subsequence
+			$
+				\left\{
+					b_{n_i}
+				\right\}
+			$
+			that converges to some limit $b \in X$.
+		\end{solution}
+
+		\part Show that $b \in A$.
+		\begin{solution}
+			Let $\{b_n\}$ be some sequence as defined
+			in (c) and let
+			$
+				\left\{
+					b_{n_k}
+				\right\}
+			$
+			be a convergent subsequence with limit $b \in X$.
+			We then define
+			\[
+				j = \min\left\{
+					i \in \N: n_i \geq n
+				\right\}.
+			\]
+			Then
+			$(b_{n_j}, b_{n_{j+1}}, \ldots)$
+			is a convergent sequence contained within
+			$f^n(X)$ with limit $b$.
+			So $b$ is a limit point of $f^n(X)$.
+			As $f^n(X)$ is closed, it contains all of its limit points.
+			So $b \in f^n(X)$.
+			As $n \in \N$ was chosen arbitrarily,
+			$b \in f^n(X)$ for each $n \in \N$.
+			That is, $b \in A$.
+		\end{solution}
+
+		\part Hence conclude that $f(A) = A$.
+		\begin{solution}
+			Let $a \in A$.
+			Then there is a sequence
+			$
+				\left\{
+					b_n
+				\right\}
+			$
+			with convergent subsequence
+			$
+				\left\{
+					b_{n_k}
+				\right\}
+			$
+			that converges to some $b \in A$ with
+			$a = f(b) \in f(A)$.
+			Hence $A \subset f(A)$.
+			By (b), $f(A) \subset A$.
+			Therefore, $f(A) = A$.
+		\end{solution}
+	\end{parts}
+\end{questions}
+
+\end{document}

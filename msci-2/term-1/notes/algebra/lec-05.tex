@@ -1,0 +1,88 @@
+\lecture{5}{22/10}
+
+\begin{proposition}
+    \[ \Z/n \;\text{is a field}\; \quad\iff\quad \Z/n \;\text{is an integral domain}\; \quad\iff\quad n \;\text{is prime}. \]
+\end{proposition}
+
+\begin{proof}
+    All fields are integral domains, so $\Z/n$ is a field $\implies$ $\Z/n$ is an integral domain. 
+
+    Suppose $n = n_1n_2$ where $1 < n_1, n_2 < n$. Then
+    \[ \bar n = \bar n_1 \bar n_2 = 0 \implies \Z/n \;\text{is not an integral domain}. \]
+    Hence, $\Z/n$ is an integral domain $\implies$ $n$ is prime.
+
+    Let $n$ be prime. $\Z/n = \{ \bar 0, \bar 1, \ldots, \overline{n-1} \}$. So
+    \[ \gcd(n, 1) = \gcd(n,2) = \ldots = \gcd(n, n - 1), \]
+    and hence by an earlier proposition, $1, 2, \ldots, n - 1$ are units. With $\Z/n$ being a commutative ring too, it is also a field. 
+\end{proof}
+
+\chapter{Polynomials over a field}
+
+\begin{definition}[Polynomial ring]
+    The \textbf{polynomial ring} $F[x]$ in $x$ over the field $F$ is define to be
+    \[ F[x] = \{ a_0 + a_1 x + \ldots + a_n x^n : a_i \in F, n \in \Z_{\geq 0} \}. \]
+\end{definition}
+
+\begin{definition}[Degree of a polynomial]
+    For any $f = a_0 + a_1 x + \ldots + a_n x^n \in F[x]$, we define the \textbf{degree} of $f$ to be 
+    \[
+        \deg f =
+        \begin{cases}
+            \max\{i : a_i \neq 0\} & f(x) \neq 0 \\
+            -\infty & f(x) = 0.
+        \end{cases}
+    \]
+\end{definition}
+
+\begin{proposition}[Properties of the degree of a polynomial]
+    Let $f, g \in F[x]$. Then
+    \begin{enumerate}
+        \item $\deg(fg) = \deg{f} + \deg{g}$; and
+        \item $\deg(f + g) \leq \max\{ \deg f, \deg g\}$ and $\deg(f + g) = \max\{ \deg f, \deg g \}$ if $\deg f \neq \deg g$.
+    \end{enumerate}
+\end{proposition}
+
+\begin{example}[Division algorithm in $\Z$]
+    We can find the \textbf{quotient} and \textbf{remainder} of $200$ divided by $22$ in $\Z$. Long division gives
+    \[ 200 = 22 \cdot 9 + 2, \]
+    here $9$ is the quotient and $2$ is the remainder.
+\end{example}
+
+We have a similar algorithm that we can apply to polynomials too.
+
+\begin{example}[Division algorithm in {$F[x]$}]
+    Let $f(x) = x^3 + x^2 - 3x - 3$ and $g(x) = x^2 + 3x + 2$. We do the following long division of polynomials.
+    \begin{center}
+        \begin{tabular}{ll}
+            \toprule
+            Terms to eliminate & \\
+            \midrule
+            $x^3$   & $f_1 = f(x) - xg(x) = -2x^2 - 5x - 3$ \\
+            $-2x^2$ & $f_2 = f_1 + 2g(x) = x - 1$           \\
+            \bottomrule
+        \end{tabular}
+    \end{center}
+    We stop here as $\deg f_2 < \deg g$. We have
+    \begin{align*}
+        f(x) &= xg(x) - 2g(x) + x - 1 \\
+             &= (x - 2)g(x) + (x - 1)
+    \end{align*}
+    so our quotient is $x-2$ and our remainder is $x - 1$.
+\end{example}
+
+\begin{proposition}
+    Given $f, g \in F[x]$ where $F$ is a field and $g(x) \neq 0$, then there are unique polynomials $q(x), r(x) \in F[x]$ such that
+    \[ f(x) = q(x) g(x) + r(x) \]
+    where $\deg r < \deg g$.
+\end{proposition}
+
+\begin{proof}[Proof for uniqueness]
+    Let $f(x) = q_1(x)g(x) + r_1(x) = q_2(x) g(x) + r_2(x)$. Then
+    \begin{align*}
+        (q_1(x) - q_2(x))g(x) + (r_1(x) - r_2(x)) &= 0                         \\
+        \deg(q_1 - q_2) + \deg(g)                 &= \deg(r_2 - r_1) < \deg(g) \\
+        q_1 - q_2                                 &= 0                         \\  
+        r_2 - r_1                                 &= 0;
+    \end{align*}
+    hence, $q_1 = q_2$ and $r_1 = r_2$.
+\end{proof}

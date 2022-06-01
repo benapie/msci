@@ -1,0 +1,715 @@
+\chapter{Determinants}
+
+\section{Definition of the determinant}
+
+The determinant is a value that can be calculated from the elements of a square matrix, first we will look at the definition of the determinants for small square matrices.
+
+\begin{enumerate}
+    \item $1\times 1$ matrices of the form
+    \[
+        \begin{pmatrix}
+            a
+        \end{pmatrix}
+    \]
+    has a unique solution when $a\neq 0$, so we set
+    \[
+        \det{
+            \begin{pmatrix}
+                a
+            \end{pmatrix}
+        }
+        =a.
+    \]
+    
+    \item $2\times 2$ matrices of the form
+    \[
+        \begin{pmatrix}
+            a&b\\c&d\\
+        \end{pmatrix}
+    \]
+    has a unique solution when it is invertible, so we set
+    \[
+        \det{
+            \begin{pmatrix}
+                a&b\\c&d\\
+            \end{pmatrix}
+        }
+        =ad-bc.
+    \]
+    
+    \item $3\times 3$ matrices of the form
+    \[
+        \begin{pmatrix}
+            a_1&a_2&a_3\\
+            b_1&b_2&b_3\\
+            c_1&c_2&c_3\\
+        \end{pmatrix}
+        .
+    \]
+    Consider the linear system
+    \begin{alignat*}{4}
+        a_1x_1&{}+{}a_2x_2&{}+{}a_3x_3&{}={}d_1\\
+        b_1x_1&{}+{}b_2x_2&{}+{}b_3x_3&{}={}d_2\\
+        c_1x_1&{}+{}c_2x_2&{}+{}c_3x_3&{}={}d_3,\\
+    \end{alignat*}
+    we have seen that the there is a unique solution if and only if \[\bm a\cdot(\bm b\times\bm c)\neq 0\] so we set
+    \begin{align*}
+        \det{
+            \begin{pmatrix}
+                \bm a^{\rm T}\\
+                \bm b^{\rm T}\\
+                \bm c^{\rm T}\\
+            \end{pmatrix}
+        }
+        &=\bm a\cdot(\bm b\times\bm c)\\
+        &=a_1(b_2c_3-b_3c_2)+a_2(b_3c_1-b_1c_3)+a_3(b_1c_2-b_2c_1)\\
+        &=a_1\det{
+            \begin{pmatrix}
+                b_2&b_3\\
+                c_2&c_3\\
+            \end{pmatrix}
+        }
+        -a_2\det{
+            \begin{pmatrix}
+                b_2&b_3\\
+                c_1&c_3\\
+            \end{pmatrix}
+        }
+        +a_3\det{
+            \begin{pmatrix}
+                b_1&b_2\\
+                c_1&c_2\\
+            \end{pmatrix}
+        }
+        \\
+    \end{align*}
+\end{enumerate}
+
+We define the determinant of a $n\times n$ matrix as follows.
+
+Let $A=(a_{ij})_{n\times n}$, then for $n\geq2$
+\[
+    \det{A}=\sum_{k=1}^n{(-1)^{k+1}a_{1k}\det{A_{1k}}}.
+\]
+This definition of the determinant of a $n\times n$ matrix splits it into a calculation involving smaller determinants of $(n-1)\times(n-1)$ matrices. 
+
+\begin{remark}
+    The notation
+    \[
+        \det{A}=
+        \begin{vmatrix}
+            A
+        \end{vmatrix}
+        =
+        \begin{vmatrix}
+            a_{11}&a_{12}&\ldots&a_{1n}\\
+            a_{21}&a_{22}&\ldots&a_{2n}\\
+            \vdots&\vdots&\ddots&\vdots\\
+            a_{n1}&a_{n2}&\ldots&a_{nn}\\
+            
+        \end{vmatrix}
+    \]
+    exists.
+\end{remark}
+
+\section{Properties of the determinant}
+
+Following are the properties of determinants:
+
+\begin{enumerate}
+    \item the determinant of the identity matrix is $1$, \[\det{I_n}=1;\]
+    
+    \item factors can be pulled out of rows,
+    \[
+        \det{
+            \begin{pmatrix}
+                \bm a_1\\
+                \bm a_2\\
+                \vdots\\
+                \bm a_{r-1}\\
+                \lambda\bm a_r\\
+                \bm a_{r+1}\\
+                \vdots\\
+                \bm a_{n-1}\\
+                \bm a_n\\
+            \end{pmatrix}
+        }
+        =\det{(M_r(\lambda)A)}=\lambda\det{A};
+    \]
+    
+    \item linearity in each row,
+    \[
+        \det{
+            \begin{pmatrix}
+                \bm a_1\\
+                \bm a_2\\
+                \vdots\\
+                \bm a_{r-1}\\
+                \bm a_r+\bm b_r\\
+                \bm a_{r+1}\\
+                \vdots\\
+                \bm a_{n-1}\\
+                \bm a_n\\
+            \end{pmatrix}
+        }
+        =\det{(M_r(\lambda)A)}=
+        \det{
+            \begin{pmatrix}
+                \bm a_1\\
+                \bm a_2\\
+                \vdots\\
+                \bm a_{r-1}\\
+                \bm a_r\\
+                \bm a_{r+1}\\
+                \vdots\\
+                \bm a_{n-1}\\
+                \bm a_n\\
+            \end{pmatrix}
+        }
+        +
+        \det{
+            \begin{pmatrix}
+                \bm a_1\\
+                \bm a_2\\
+                \vdots\\
+                \bm a_{r-1}\\
+                \bm b_r\\
+                \bm a_{r+1}\\
+                \vdots\\
+                \bm a_{n-1}\\
+                \bm a_n\\
+            \end{pmatrix}
+        }
+    \]
+    
+    \item anti-symmetry in rows, that is the determinant switches sign if one swaps a pair of rows (ERO $P_{rs}$),
+    \[
+        det{
+            \begin{pmatrix}
+                \bm a_1\\
+                \bm a_2\\
+                \vdots\\
+                \bm a_{r-1}\\
+                \bm a_r\\
+                \bm a_{r+1}\\
+                \vdots\\
+                \bm a_{s-1}\\
+                \bm a_s\\
+                \bm a_{s+1}\\
+                \vdots\\
+                \bm a_{n-1}\\
+                \bm a_n\\
+            \end{pmatrix}
+        }
+        =-
+        \det{
+            \begin{pmatrix}
+                \bm a_1\\
+                \bm a_2\\
+                \vdots\\
+                \bm a_{r-1}\\
+                \bm a_s\\
+                \bm a_{r+1}\\
+                \vdots\\
+                \bm a_{s-1}\\
+                \bm a_r\\
+                \bm a_{s+1}\\
+                \vdots\\
+                \bm a_{n-1}\\
+                \bm a_n\\
+            \end{pmatrix}
+        }
+        ;
+    \]
+    
+    \item $\det{A}=0$ if two rows are equal or colinear;
+     
+    \item $\det{A}=0$ if $A$ has a row of zeros;
+     
+    \item the determinant does not change under the ERO $A_{rs}(\lambda)$,
+    \[
+        \det{
+            \begin{pmatrix}
+                \bm a_1\\
+                \bm a_2\\
+                \vdots\\
+                \bm a_{r-1}\\
+                \bm a_r\\
+                \bm a_{r+1}\\
+                \vdots\\
+                \bm a_{s-1}\\
+                \bm a_s\\
+                \bm a_{s+1}\\
+                \vdots\\
+                \bm a_{n-1}\\
+                \bm a_n\\
+            \end{pmatrix}
+        }
+        =
+        \det{
+            \begin{pmatrix}
+                \bm a_1\\
+                \bm a_2\\
+                \vdots\\
+                \bm a_{r-1}\\
+                \bm a_r\\
+                \bm a_{r+1}\\
+                \vdots\\
+                \bm a_{s-1}\\
+                \bm a_s+\lambda \bm a_r\\
+                \bm a_{s+1}\\
+                \vdots\\
+                \bm a_{n-1}\\
+                \bm a_n\\
+            \end{pmatrix}
+        }
+    \]
+\end{enumerate}
+
+% todo prove these properties without looking at notes
+
+\section{Uniqueness of the determinant}
+
+\begin{theorem}
+    Let $f:M_n(\mathbb R)\mapsto\mathbb R$ be a function on the $n\times n$ matrices which satisfies properties (i) to (iv) (and hence (v) to (vii)) from the previous section. Then \[f(A)=\det{A}.\] In other words, the determinant is the only function with the properties (i) to (vii).
+\end{theorem}
+
+% todo prove this theorem without looking at notes
+
+\begin{theorem}
+    We have \[\det{A^{\rm T}}=\det{A}.\]
+\end{theorem}
+
+\begin{proof}
+    The expansion of the determinant by the first row of $A^{\rm T}$ is the same as the expansion by the first column for $A$.
+\end{proof}
+
+\section{Computing the determinant}
+
+Following are techniques we can use to compute the determinant.
+
+\begin{enumerate}
+    \item You can use expansion along any row of a matrix to calculate the determinant.
+    \item You can sue expansion along any column of a matrix to calculate the determinant.
+    \item You can use EROs to simply the matrix, knowing how EROs effect the determinant) to calculate the determinant.
+    \item For a triangular matrix (either all entries boave the diagnoal are 0 or all entries below are) $A\in M_n(\mathbb{R})$ we have $\det{A}=\sum_{k=1}^n{a_{ii}}$.
+\end{enumerate}
+
+\begin{example}
+    Following are examples of computing determinants.
+    
+    \begin{enumerate}
+        \item Compute
+        \[
+            \begin{vmatrix}
+                4&3&5\\
+                2&3&3\\
+                1&1&1\\
+            \end{vmatrix}
+            .
+        \]
+        
+        \[
+            \begin{pmatrix}
+                4&3&5\\
+                2&3&3\\
+                1&1&1\\
+            \end{pmatrix}
+            \eroarrow{A_{32}(-3)}{}
+            \begin{pmatrix}
+                4&3&5\\
+                -1&0&0\\
+                1&1&1\\
+            \end{pmatrix}
+        \]
+        Hence
+        \begin{align*}
+            \begin{vmatrix}
+                4&3&5\\
+                2&3&3\\
+                1&1&1\\
+            \end{vmatrix}
+            &=
+            \begin{vmatrix}
+                4&3&5\\
+                -1&0&0\\
+                1&1&1\\
+            \end{vmatrix}\\
+            &=(-1)^{3}(-1)
+            \begin{vmatrix}
+                3&5\\1&1\\
+            \end{vmatrix}\\
+            &=3-5=-2.
+        \end{align*}
+        
+        \item Find the determinant of $A$ where
+        \[
+            A=
+            \begin{pmatrix}
+                1&2&3&4\\
+                1&6&7&8\\
+                1&2&4&5\\
+                1&1&0&0\
+            \end{pmatrix}
+            .
+        \]
+        
+        Let $CA_{rs}(\lambda)$ represen the elementary \textbf{column} operation equivalent to $A_{rs}$ but on the $r$th and $s$th column instead.
+        \[
+            \begin{pmatrix}
+                1&2&3&4\\
+                1&6&7&8\\
+                1&2&4&5\\
+                1&1&0&0\\
+            \end{pmatrix}
+            \eroarrow{CA_{12}(-1)}{}
+            \begin{pmatrix}
+                1&1&3&4\\
+                1&5&7&8\\
+                1&1&4&5\\
+                1&0&0&0\\
+            \end{pmatrix}
+        \]
+        \begin{align*}
+            \begin{vmatrix}
+                1&2&3&4\\
+                1&6&7&8\\
+                1&2&4&5\\
+                1&1&0&0\\
+            \end{vmatrix}
+            &=
+            \begin{vmatrix}
+                1&1&3&4\\
+                1&5&7&8\\
+                1&1&4&5\\
+                1&0&0&0\\
+            \end{vmatrix}\\
+            &=(-1)^{5}(1)
+            \begin{vmatrix}
+                1&3&4\\
+                5&7&8\\
+                1&4&5\\
+            \end{vmatrix}\\
+            &\eroequals{A_{13}(-1)}-
+            \begin{vmatrix}
+                1&3&4\\
+                5&7&8\\
+                0&1&1\\
+            \end{vmatrix}\\
+            &\eroequals{CA_{23}(-1)}-
+            \begin{vmatrix}
+                1&3&1\\
+                5&7&1\\
+                0&1&0\\
+            \end{vmatrix}\\
+        \end{align*}
+        
+        \item Evaluate $\det{A}$ where
+        \[
+            A=
+            \begin{pmatrix}
+                a&b&c\\
+                a^2&b^2&c^2\\
+                a^4&b^4&c^4\\
+            \end{pmatrix}
+            .
+        \]
+        \begin{align*}
+            \begin{vmatrix}
+                a&b&c\\
+                a^2&b^2&c^2\\
+                a^4&b^4&c^4\\
+            \end{vmatrix}
+            &=(abc)
+            \begin{vmatrix}
+                1&1&1\\
+                a&b&c\\
+                a^3&b^3&c^3\\
+            \end{vmatrix}\\
+            &=(abc)
+            \begin{vmatrix}
+                1&1&1\\
+                a&b-a&c-a\\
+                a^3&b^3-a^3&c^3-a\\
+            \end{vmatrix}\\
+            &=(abc)
+            \begin{vmatrix}
+                b-a&c-a\\
+                b^3-a^3&c^3-a\\
+            \end{vmatrix}\\
+            &=(abc)(b-a)(c-a)
+            \begin{vmatrix}
+                b-a&c-a\\
+                a^2+ab+b^2&a^2+ac+c^2\\
+            \end{vmatrix}\\\
+            &=(abc)(b-a)(c-a)(c^2-b^2+ac-ab)\\
+            &=(abc)(b-a)(c-a)(c-b)(a+b+c).
+        \end{align*}
+    \end{enumerate}
+\end{example}
+
+\section{The multiplication theorem and the detection of singular matrices}
+
+\begin{theorem}
+    If $A\in M_n(\mathbb R)$ and $A$ is invertible then $\det{A}\neq 0$.
+\end{theorem}
+
+\begin{proof}
+    Run the Gauss-Jordan elimination on $A$ and get the elementary matrices $E_1,\ldots,E_R$. Let the RREF of $A$ be $\tilde A$ such that $\tilde A=E_R\ldots E_1A$. $\tilde A$ is either $I_n$ or has zero row. If $\tilde A=I_n$ then $A$ is invertible. If $\tilde A$ has a zero row then $A$ is not invertible hence
+    \begin{align*}
+        \det{\tilde A}&=\det{E_R}\ldots\det{E_1}\det{A}=0\\
+        \iff \det{A}&=0.
+    \end{align*}
+\end{proof}
+
+\begin{theorem}
+    If $A,B\in M_n(\mathbb R)$ then \[\det{(AB)}=\det{A}\det{B}.\]
+\end{theorem}
+
+\begin{proof}
+    Run the Gauss-Jordan elimination on $A$ and get the elementary matrices $E_1,\ldots,E_R$. Let the RREF of $A$ be $\tilde A$ such that $\tilde A=E_R\ldots E_1A$. When $A$ is invertible \[1=\det{\tilde A}=\det{E_R}\ldots\det{E_1}\det{A}\] so \[\det{A}=\dfrac1{\det{E_R}\ldots\det{E_1}}.\] There are two cases:
+    \begin{enumerate}
+        \item $A$ is invertible, so
+        \begin{align*}
+            \det{B}&=\det{(\tilde AB)}\\
+            &=\det{E_R\ldots E_1AB}\\
+            &=\det{E_R}\ldots\det{E_1}\det{AB}\\
+            &=\dfrac{\det{AB}}{\det{A}}\\
+            \iff\det{AB}&=\det{A}\det{B}
+        \end{align*}
+        
+        \item $A$ is not invertible, in this case $\tilde A$ has a zero row so 
+        \begin{align*}
+            \det{E_R}\ldots\det{E_1}\det{(AB)}&=\det{E_R\ldots E_1AB}\\
+            &=\det{(\tilde AB)}=0
+        \end{align*}
+        so \[\det{(AB)}=0=\det{A}\det{B}.\]
+    \end{enumerate}
+\end{proof}
+
+\begin{corollary}
+    If $A\in M_n(\mathbb R)$ and $A$ is invertible then \[\det{(A^{-1})}=\dfrac1{\det{A}}.\]
+\end{corollary}
+
+\begin{proof}
+    \[1=\det{I_n}=\det{(AA^{-1})}=\det{A}\det{(A^{-1})}\iff\det{A}=\dfrac1{A^{-1}}\]
+\end{proof}
+
+\section{Cramer's rule}
+
+\begin{definition}
+    If $A\in M_n(\mathbb R)$ we define the adjoint $C\in M_n(\mathbb R)$ of $A$. The $(r,s)$th entry of $C$ is given by \[(-1)^{r+s}.\] In other words, $C$ is the transpose of the matrix of signed cofactors of $A$.
+\end{definition}
+
+\begin{proposition}
+    If $C$ is the adjoint of $A$ then \[AC=CA=\det{(A)}I_n.\]
+\end{proposition}
+
+\begin{proof}
+    The $(r,s)$th entry of $AC$ is 
+    \begin{align*}
+        \sum_{k=1}^{n}a_{rk}c_{ks}&=\sum_{k=1}^{n}a_{rk}(-1)^{k+s}\det{(A_{sk})}\\
+        &=\sum_{k=1}^{n}(-1)^{k+s}a_{rk}\det{(A_{sk})}
+    \end{align*}
+    when $r=s$,this  is just the formula for $\det{A}$ by expansion along the $s$th row. When $r\neq s$, this is the expansion of $\det{B}$ along the $s$th row where \[B=A_{rs}(1)M_s(0)A\] and $\det{B}=0$ since $B$ has two equal rows, so \[AC=CA=\det{(A)}I_n.\]
+\end{proof}
+
+\begin{remark}
+    If $\det{(A)}$ and $C$ is the adjoint of $A$ then \[A^{-1}=\dfrac{1}{\det{A}}C.\]
+\end{remark}
+
+% add cramer's rule?
+
+\section{Determinants, area, and volume}
+
+\subsection{Area of a parallelogram}
+
+Consider the following pairs of vectors
+\[
+    \bm v=
+    \begin{pmatrix}
+        a\\c
+    \end{pmatrix},\quad
+    \bm w=
+    \begin{pmatrix}
+        b\\d
+    \end{pmatrix}
+\]
+and form the parallelogram $P$ with vertices $\bm v$, $\bm v+\bm w$, $\bm w$, and $\bm 0$. We can see \[\operatorname{area}(P)=|\bm v||\bm w|\sin{\theta},\] where $\theta\in[0\,\pi]$ is the angle between $\bm v$ and $\bm w$. Recall that for $x,y\in\mathbb R^3$ we have \[|\bm x\times\bm y|=|\bm x||\bm y|\sin{\theta}.\] We can now define the following auxiliary vectors 
+\[
+    \bm{\tilde v}=
+    \begin{pmatrix}
+        a\\b\\0
+    \end{pmatrix}
+    ,\quad\bm{\tilde w}=
+    \begin{pmatrix}
+        c\\d\\0
+    \end{pmatrix}
+\]
+and then we have 
+\[
+    \bm{\tilde v}\times\bm{\tilde w}=
+    \begin{pmatrix}
+        0\\0\\ad-bc
+    \end{pmatrix}
+    .
+\]
+We then have the following theorem.
+
+\begin{theorem}
+    For $\bm v,\bm w\in\mathbb R^2$ two vectors in the plane, form the parallelogram $P$ with vertices $0$, $\bm v$, $\bm v+\bm w$, $\bm w$. Then \[\operatorname{area}(P)=\det{(\bm v,\bm w)}.\]
+\end{theorem}
+
+\begin{example}
+    Find the area of the parallelogram with vertices
+    \[
+        \bm a=
+        \begin{pmatrix}
+            1\\3
+        \end{pmatrix}
+        ,\quad\bm b=
+        \begin{pmatrix}
+            4\\4
+        \end{pmatrix}
+        ,\quad\bm c=
+        \begin{pmatrix}
+            5\\6
+        \end{pmatrix}
+        ,\quad\bm d=
+        \begin{pmatrix}
+            2\\6
+        \end{pmatrix}
+        .
+    \]
+    
+    As 
+    \[
+        \bm b-\bm a=
+        \begin{pmatrix}
+            3\\1
+        \end{pmatrix}
+        ,\quad\bm d-\bm a=
+        \begin{pmatrix}
+            -3\\0
+        \end{pmatrix}
+    \]
+    then the area of the parallelogram is
+    \[
+        \begin{vmatrix}
+            3&-3\\1&0
+        \end{vmatrix}
+        =5.
+    \]
+\end{example}
+
+\begin{example}
+    Find the area of the triangle with vertices 
+    \[
+        \bm a=
+        \begin{pmatrix}
+            2\\1
+        \end{pmatrix}
+        ,\quad\bm b=
+        \begin{pmatrix}
+            3\\4
+        \end{pmatrix}
+        ,\quad\bm c=
+        \begin{pmatrix}
+            5\\0
+        \end{pmatrix}
+        .
+    \]
+    
+    As 
+    \[
+        \bm b-\bm a=
+        \begin{pmatrix}
+            1\\3
+        \end{pmatrix}
+        ,\quad\bm c-\bm a=
+        \begin{pmatrix}
+            3\\-1
+        \end{pmatrix}
+    \]
+    so the area of the triangle is
+    \[
+        \dfrac12\left|\det{
+            \begin{pmatrix}
+                3&1\\-1&3
+            \end{pmatrix}
+        }\right|=5.
+    \]
+\end{example}
+
+\subsection{Volume of a parallelepiped}
+
+\begin{definition}
+    The \textbf{volume of a parallelepiped} $P$ defined by $\bm u,\bm v,\bm w$ is
+    \begin{align*}
+        \text{volume}(P)&=\text{base}\cdot\text{height}\\
+        &=|\bm v\times\bm w||\bm u|\sin{\theta}\\
+        &=|\bm v\times\bm w||\bm u|\sin{\theta}\\
+        &=|\bm v\times\bm w||\bm u|\cos{\phi}\\
+        &=|(\bm v\times\bm w)\cdot\bm u|\\
+        &=|\det{(\bm v,\bm w,\bm u)}|.\\
+    \end{align*}
+\end{definition}
+
+\begin{example}
+    Find the volume of the parallelepiped $P$ with adjacent edges
+    \[
+        \bm u=
+        \begin{pmatrix}
+            1\\2\\5
+        \end{pmatrix}
+        ,\quad\bm v=
+        \begin{pmatrix}
+            3\\-2\\0
+        \end{pmatrix}
+        ,\quad\bm w=
+        \begin{pmatrix}
+            5\\0\\1
+        \end{pmatrix}
+        .
+    \]
+    
+    \begin{align*}
+        \text{volume}&=\det{(\bm u,\bm v,\bm w)}\\
+        &=
+        \begin{vmatrix}
+            1&3&5\\
+            2&-2&0\\
+            5&0&1\\
+        \end{vmatrix}
+        \\
+        &=
+        \begin{vmatrix}
+            1&3&5\\
+            0&-8&-10\\
+            0&-15&-24\\
+        \end{vmatrix}
+        \\
+        &=
+        \begin{vmatrix}
+            -8&-10\\
+            -15&-24\\
+        \end{vmatrix}
+        \\
+        &=(8)(24)-(10)(15)=42.
+    \end{align*}
+\end{example}
+
+\section{Trace}
+
+\begin{definition}
+    Let $A\in M_n{\mathbb R}$. We define the \textbf{trace} of $A$ to be 
+    \begin{align*}
+        \trace{A}&=a_{11}+a_{22}+\ldots+a_{nn}\\
+        &=\sum_{i=1}^{n}{a_{ii}}.
+    \end{align*}
+\end{definition}
+
+\begin{lemma}
+    Let $A,B\in M_n(\mathbb R)$, then \[\trace{(AB)}=\trace{(BA)}.\]
+\end{lemma}
+

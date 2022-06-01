@@ -1,0 +1,345 @@
+\section{Lie groups}
+
+In this section, when we refer the \emph{Lie groups} we actually mean \emph{linear Lie groups}.
+
+\subsection{Definition}
+
+\begin{definition}[Lie group]
+    A \emph{Lie group} is a closed subgroup of $\GL_n(\C)$ for some $n$.
+\end{definition}
+
+We mean \emph{closed} in the topological sense, a more correct definition would include details on \emph{smooth manifolds}, which we do not focus on here.
+
+We denote $\gl[n, \mathbb K]$ as the set of $n \times n$ matrices with entries in $\mathbb K$.
+
+We now generalise the exponential map $\exp$ to matrices, using the familiar power series.
+
+\begin{definition}[Exponential map]
+    Let $X \in \gl[n, \mathbb K]$. Then define $\exp: \gl[n, \mathbb K] \to \gl[n, \mathbb K]$ by
+    \[ \exp(X) = \sum_{i=0}^\infty \frac{X^i}{i!}. \]
+\end{definition}
+
+We will omit details on the convergence of $\exp$, but it is convergent for all matrices and can be proved using the Cauchy-Schwartz. In particular, by considering the entry-wise norm.
+
+We have some properties of the exponential map, and comment that it behaves similarly to the normal $\exp$. For all $X, Y, g \in \gl[n, \mathbb K]$ where $g$ is invertible, and $s, t \in \mathbb K$, we have the following.
+
+\begin{itemize}
+    \item $\exp(0) = I$
+    \item $\exp(X + Y) = \exp(X) \exp(Y)$
+    \item $(\exp(X))^{-1} = \exp(-X)$
+    \item $\exp(sX)\exp(tX) = \exp((s+t)X)$
+    \item $g\exp X g^{-1} = \exp(gXg^{-1})$
+\end{itemize}
+
+\begin{proposition}
+    $\exp: \gl[n, \C] \to \gl[n, \C]$ is differentiable at zero (the zero matrix), and its derivative at the origin is $I$.
+\end{proposition}
+
+\begin{corollary}
+    $\exp: \gl[n, \C] \to \gl[n, \C]$ is a local diffeomorphism at zero.
+\end{corollary}
+
+By this, we mean that $\exp$ has an inverse near zero.
+
+We note that $\exp: \gl[n, \C] \to \gl[n, \C]$ is \emph{not} injective. In particular, it coincides with our regular exponential map at $n = 1$, so $\exp(2\pi i k) = 1$ for all $k \in \Z$.
+
+\begin{lemma}
+    $\exp: \gl[n, \C] \to \GL_n(\C)$ is surjective.
+\end{lemma}
+
+We not that $\exp: \gl[n, \R] \to \GL_n(\R)$ is \emph{not} surjective. Again, for $n = 1$ we see that $\exp$ is strictly positive.
+
+\begin{proposition}
+    $\det\exp = \exp\tr$.
+\end{proposition}
+
+\begin{proof}
+    Let $X \in \gl[n, \K]$. We can conjugate $X$ so that it is upper triangular. The result is then immediate.
+\end{proof}
+
+\subsection{One-parameter subgroups}
+
+We have seen that $\exp((s+t)X) = \exp(sX)\exp(tX)$, thus for all $X \in \gl[n, \C]$ we can define a group homomorphism $f: \R \to \GL_n(\C)$ such that $t \mapsto \exp(tX)$ (here $\R$ is given standard addition $+$).
+
+Similarly, if we consider $G = \SO(2)$ then we can define a group homomorphism $\R \to \SO(2)$ by  $t \mapsto \text{rotation by $t$}$. We note that
+\[
+    \begin{pmatrix}
+        \cos t  & \sin t \\
+        -\sin t & \cos t
+    \end{pmatrix}
+    = \exp
+    \begin{pmatrix}
+        0 & -t \\
+        t & 0
+    \end{pmatrix}.
+\]
+
+\begin{definition}[One-parameter subgroup]
+    Let $G$ be a Lie group. A \emph{one-parameter subgroup} is a differentiable group homomorphism $\gamma: (\R, +) \to G$. The matrix $\gamma'(0)$ is the \emph{infinitesimal generator}.
+\end{definition}
+
+\begin{theorem}
+    Let $f: \R \to \GL_n(\C)$ be a one-parameter subgroup with infinitesimal generator $X$. Then
+    \[ f(t) = \exp(tX). \]
+\end{theorem}
+
+\subsection{Lie algebras}
+
+\begin{definition}[Lie algebra of a Lie group]
+    Let $G$ be a Lie group. Its \emph{Lie algebra} is
+    \[ \mathfrak g = \left\{
+        X \in \gl[n, \C]: \exp(\R X) \subset G
+        \right\}. \]
+\end{definition}
+
+We can alternatively define $\mathfrak g$ as the set of infinitesimal generators of all one-parameter subgroups.
+
+\begin{proposition}
+    Let $G$ be a Lie group and $\mathfrak g$ its Lie algebra. Then
+    \[ \mathfrak g = \left\{
+        X \in \gl[n, \C]: \text{$X = \gamma'(0)$ for some map $\gamma:[-a, a] \to G$ where $a > 0$}
+        \right\}. \]
+\end{proposition}
+
+We may denote the Lie algebra of a Lie group $G$ by $\Lie(G)$.
+
+\begin{example}[Some Lie algebras]\hspace{0em}
+    \begin{itemize}
+        \item $\Lie(\GL_n(\K)) = \gl[n, \K]$
+        \item $\Lie(\SL_n(\K)) = \sl[n, \K] = \{X \in \gl[n, \K]: \tr(X) = 0\}$
+        \item $\Lie(\O(n)) = \mathfrak o_n = \Lie(\SO(n)) = \mathfrak{so}_n = \{X \in \gl[n, \R]: X + X^\intercal = 0\}$
+        \item $\Lie(\U(n)) = \mathfrak{u}_n = \{X \in \gl[n, \C]: X + X^\dagger = 0\}$
+        \item $\Lie(\SU(n)) = \mathfrak{su}_n = \{X \in \mathfrak u_n: \tr(X) = 0\}$
+    \end{itemize}
+\end{example}
+
+\begin{proposition}
+    Let $\mathfrak g$ be the Lie algebra of a Lie group $G$. Then
+    \begin{enumerate}
+        \item $\mathfrak g \subset \gl[n, \C]$ is a real vector space;
+        \item if $X \in \mathfrak g$ and $g \in G$, then $g X g^{-1} \in \mathfrak g$; and
+        \item if $X, Y \in \mathfrak g$, then
+              \[ [X,Y] := XY - YX \in \mathfrak g. \]
+    \end{enumerate}
+\end{proposition}
+
+We now define a Lie algebra separate from a Lie group.
+
+\begin{definition}[Lie algebra]
+    A \emph{Lie algebra} $\mathfrak g$ is an $\R$-vector space with a bilinear map (called the \emph{Lie bracket}) $[-,-]: \mathfrak g^2 \to \mathfrak g$ such that
+    \begin{enumerate}
+        \item for all $X, Y \in \mathfrak g$, $[X,Y] = -[Y,X]$; and
+        \item the \emph{Jacobi identity} holds: for all $X, Y, Z \in \mathfrak g$
+              \[ [X, [Y,Z]] + [Y, [Z, X]] + [Z, [X,Y]] = 0. \]
+    \end{enumerate}
+\end{definition}
+
+A \emph{Lie subalgebra} $\mathfrak h \subset \mathfrak g$ of a Lie algebra $\mathfrak g$ is a subspace which is closed under the Lie bracket.
+
+\begin{example}
+    Consider $\mathfrak g = \R^3$ with $[\bm v, \bm w] = \bm v \times \bm w$. Then $\mathfrak g$ is a Lie algebra, and in fact $\mathfrak g \cong \mathfrak{so}_3$.
+\end{example}
+
+The center of a Lie group is an abelian subgroup of $\mathfrak g$.
+
+\begin{definition}
+    A Lie algebra $\mathfrak g$ is \emph{abelian} if $[X,Y] = 0$ for all $X, Y \in \mathfrak g$. The \emph{center} of $\mathfrak g$ is
+    \[ Z(\mathfrak g) = \{Z \in \mathfrak g: \text{$[Z,X] = 0$ for all $X \in \mathfrak g$}\}. \]
+\end{definition}
+
+\begin{definition}[Complex Lie group]
+    A complex Lie group is a closed subgroup of $\GL_n(\C)$ whose Lie algebra is a complex subspace of $\gl[n, \C]$.
+\end{definition}
+
+\subsection{Morphisms}
+
+\begin{definition}
+    A \emph{Lie group homomorphism} $\phi: G \to G'$ between two Lie groups is a continuous group homomorphism.
+\end{definition}
+
+As usual, a Lie group isomorphism is a homomorphism which is bijective with continuous inverse.
+
+\begin{definition}
+    A \emph{Lie algebra homomorphism} $\varphi: \mathfrak g \to \mathfrak h$ is an $\R$-linear map such that for all $X, Y \in \mathfrak g$,
+    \[ \varphi([X,Y]) = [\varphi(X), \varphi(Y)]. \]
+\end{definition}
+
+A Lie algebra isomorphism is an invertible homomorphism.
+
+\begin{definition}[Derivative]
+    Let $\phi: G \to H$ be a Lie group homomorphism. Define the \emph{derivative} of $\phi$ as
+    \begin{align*}
+        D\phi: \mathfrak g & \to \mathfrak h,                           \\
+        D\phi(X)           & = \frac{d}{dt} \phi(\exp(tX))\bigg|_{t=0}.
+    \end{align*}
+\end{definition}
+
+\begin{theorem}
+    Let $\phi: G \to H$ be a Lie group homomorphism. Then
+    \begin{enumerate}
+        \item the diagram
+              \begin{center}
+                  % https://tikzcd.yichuanshen.de/#N4Igdg9gJgpgziAXAbVABwnAlgFyxMJZABgBpiBdUkANwEMAbAVxiRAB12BbOnACwBmAJzoBrAAQBzEAF9S6TLnyEUARnJVajFm049+wseL6z5IDNjwEiZVZvrNWiEAHFTCy8qLq71BzucACVlNGChJeCJQYQguJDIQHAgkdS1HNgARTjQ+LHcQGLjEACZqJKQAZj9tJw52HLy5aKFY+LLkkur0504YAA80fMKU9squgLr+wZkKGSA
+                  \begin{tikzcd}
+                      \mathfrak g \arrow[r, "D\phi"] \arrow[d, "\exp"] & \mathfrak h \arrow[d, "\exp"] \\
+                      G \arrow[r, "\phi"]                              & H
+                  \end{tikzcd}
+              \end{center}
+              commutes;
+        \item for $g \in G$ and $X \in \mathfrak g$, we have
+              \[ D\phi(gXg^{-1}) = \phi(g)D\phi(X)\phi(g)^{-1}; \]
+        \item $D\phi$ is a Lie group homomorphism.
+    \end{enumerate}
+\end{theorem}
+
+\begin{definition}
+    Let $\phi: G \to H$ be a Lie group homomorphism. Then $\phi$ is \emph{holomorphic} if $D\phi$ is $\C$-linear.
+\end{definition}
+
+\begin{example}
+    For an non-example, $\det: \GL_2(\C) \to \GL_1(\C)$ is \emph{not} holomorphic. 
+\end{example}
+
+\subsection{Representations of Lie groups}
+
+We omit the definition of a representation of a Lie group $(\rho, V)$. The only difference to our normal definition is that $\rho$ is a Lie group homomorphism. Similarly, a representation of a Lie algebra $(\sigma, W)$ is the same but $\sigma$ is a Lie algebra homomorphism. 
+
+We highlight a key difference to our traditional representations: a representation $(\rho, V)$ of a Lie algebra $\mathfrak g$ need not satisfy $\rho(XY) = \rho(X)\rho(Y)$. In fact, it is not even certain that $XY \in \mathfrak g$. Our definition required only that $\rho$ is $\R$-linear and $\rho$ commutes with the Lie bracket $[-,-]$. 
+
+Our notions of $G$-homomorphisms, isomorphisms, subrepresentations, and irreducibility still hold as normal for representations of Lie groups and Lie algebras. 
+
+If $G$ is a complex Lie group, then a holomorphic representation of $G$ is a complex representation whose derivate is $\C$-linear.
+
+\begin{theorem}
+    Let $A$ be a Lie group or a Lie algebra.
+    \begin{enumerate}
+        \item If $V_1$ and $V_2$ are irreducible finite-dimensional representations of $A$, then
+        \[
+            \dim_A(V_1, V_2) =
+            \begin{cases}
+                1 & V_1 \cong V_2, \\
+                0 & \text{else}.
+            \end{cases}
+        \]
+        \item Any irreducible finite-dimensional representation of an abelian $A$ is $1$-dimensional.
+        \item Let $(\rho, V)$. Then $\rho$ has a central character, defined on the center of $A$.
+    \end{enumerate}
+\end{theorem}
+
+\begin{proposition}
+    Let $(\rho, V)$ be a finite-dimensional representation of a Lie group $G$. 
+    \begin{enumerate}
+        \item If $W \subset V$ is invariant under $\rho(G)$, then it is invariant under $D\rho(\mathfrak g)$.
+        \item If $D\rho$ is irreducible, then $\rho$ is irreducible.
+        \item If $\rho$ is unitary, then $D\rho$ is skew-Hermitian.
+        \item Let $(\rho', V')$ be another finite-dimensional representation of $G$. Then if $\rho \cong \rho'$, then $D\rho \cong D\rho'$.
+    \end{enumerate}
+    If $G$ is connected, the converse hold. 
+\end{proposition}
+
+Thus for connected Lie groups, we can test for irreducibility and isomorphisms at the level of Lie algebras.
+
+\subsection{Standard constructions for representations of Lie groups}
+
+Here we will present some standard constructions for representations of Lie groups. Derivatives are given and not proved, but this is not a difficult task (usually).
+
+Let $G \subset \GL_n(\C)$ be a Lie group.
+\begin{itemize}
+    \item  We have the obvious action of $g \in G$ on $\mathbb C^n$:
+    \[ \rho(g) = g, \qquad D\rho(X) = X. \]
+    \item Let $(\rho, V)$ and $(\sigma, W)$ be two representations of $G$. The direct sum $\rho \oplus \sigma$ has derivative
+    \[ D(\rho \oplus \sigma) = D\rho \oplus D\sigma. \]
+    \item We have the determinant representation $\det: G \to \C$, with $D\det = \tr$. 
+    \item For a representation $(\rho, V)$ of $G$, the dual representation $(\rho^*, V^*)$ is defined by
+    \[ (\rho^(g)(\lambda))(v) = \lambda(\rho(g^{-1})(v)) \]
+    for $\lambda \in V^*$. We have
+    \[ D\rho^*(X)(\lambda)(v) = -\lambda(D\rho(X)v). \]
+    \item For two representations $(\rho, V)$ and $(\sigma, W)$ of $G$, then the tensor product representation $(\rho \otimes \sigma, V \otimes W)$ is a representation where
+    \[ (\rho \otimes \sigma)(g) = \rho(g) \otimes \sigma(g) \]
+    and
+    \[ D(\rho \otimes \sigma)(g) = D\rho(g) \otimes \id_W + \id_V \otimes D\sigma(g). \]
+    \item We also have the symmetric powers and alternating powers, which we consider as quotients as the tensor product representation and thus we will omit here. 
+\end{itemize}
+
+\subsection{The adjoint representation}
+
+Let $G$ be a Lie group and $\mathfrak g$ its Lie algebra. We have seen that $\mathfrak g$ is closed under conjugation by $G$; that is, for all $X \in \mathfrak g$ and $g \in G$, we have $gXg^{-1} \in \mathfrak g$. Thus we have an action on $\mathfrak g$ by conjugation, called the \emph{adjoint representation}.
+
+\begin{definition}[Adjoint representation]
+    Let $G$ be a Lie group and $\mathfrak g$ its Lie algebra. The \emph{adjoint representation} $(\Ad, \mathfrak g)$ of $G$ is defined by
+    \begin{align*}
+        \Ad: G &\to \GL(\mathfrak g), \\
+        \Ad(X)g &= gXg^{-1}.
+    \end{align*}
+    We similarly have the \emph{adjoint representation} $(\ad, \mathfrak g)$ of $\mathfrak g$ where
+    \begin{align*}
+        \ad: \mathfrak g &\to \gl(\mathfrak g), \\
+        \ad &= D\Ad.
+    \end{align*}
+\end{definition}
+
+We may write $\Ad_g(X)$ instead of $\Ad(g)(X)$, a similarly $\ad_X(Y)$ instead of $\ad(X)(Y)$. 
+
+We have seen that for Lie group homomorphisms, the following diagram commutes.
+\begin{center}
+    % https://tikzcd.yichuanshen.de/#N4Igdg9gJgpgziAXAbVABwnAlgFyxMJZABgBpiBdUkANwEMAbAVxiRAB12BbOnACwBmAJzoBrAAQBzEAF9S6TLnyEUARnJVajFm049+wseL6z5IDNjwEiZVZvrNWiEAHFTCy8qLq71BzucACVlNGChJeCJQYQguJDIQHAgkdS1HNgARTjQ+LHcQGLjEACZqJKQAZj9tJw52HLy5aKFY+LLkkur0504YAA80fMKU9squgLr+wZkKGSA
+    \begin{tikzcd}
+        \mathfrak g \arrow[r, "D\phi"] \arrow[d, "\exp"] & \mathfrak h \arrow[d, "\exp"] \\
+        G \arrow[r, "\phi"]                              & H
+    \end{tikzcd}
+\end{center}
+Thus 
+\[ \Ad_{\exp{tX}} = \exp_{t\ad X}. \]
+
+\begin{theorem}
+    Let $G$ be a Lie group with Lie algebra $\mathfrak g$ and $X, Y \in \mathfrak g$.
+    \begin{enumerate}
+        \item $\ad_X(Y) = [X,Y] = XY - YX$
+        \item $\ad$ is a Lie algebra homomorphism, so
+        \[ \ad_{[X,Y]} = [\ad_X, \ad_Y] \]
+        and the Jacobi identity holds. 
+    \end{enumerate}
+\end{theorem}
+
+\begin{proposition}
+    Let $G$ be a Lie group and $\mathfrak g$ its Lie algebra. If $G$ is abelian, so is $\mathfrak g$. If $G$ is connected, the converse holds. 
+\end{proposition}
+
+\subsection{Maschke's theorem}
+
+The main corollary of Maschke's theorem was that we can decompose a representation into the directed sum of irreducible representations. But this does \emph{not} hold for infinite groups. 
+
+For example, we consider $G = (\R, +)$ and a representation $(\rho, \C^2)$ given by
+\[
+    \rho(x) =
+    \begin{pmatrix}
+        1 & x \\
+        0 & 1
+    \end{pmatrix}.
+\]
+This is reducible, in particular, $\langle e_1 \rangle$ is invariant under $\rho(g)$ for all $g \in G$. But we claim this is not decomposable. Indeed, it can be shown that $e_1$ is the only eigenvector of $\rho(g)$ up to scalar.
+
+\begin{theorem}
+    Every finite-dimensional representation of a compact Lie group is decomposable.
+\end{theorem}
+
+Some compact Lie groups:
+\begin{itemize}
+    \item $U(n)$;
+    \item $\SU(n)$; and
+    \item $\SO(n)$.
+\end{itemize}
+
+Some non-compact Lie groups:
+\begin{itemize}
+    \item $\SL$; and 
+    \item $\GL$.
+\end{itemize}
+
+\begin{theorem}
+    Let $(p, V)$ be an irreducible finite-dimensional representation of $U(1)$ over $\C$. Then
+    \begin{enumerate}
+        \item $\dim V = 1$; and
+        \item $\rho: U(1) \to \C^\times$ has form $p(z) = z^n$ for some $n \in \Z$. 
+    \end{enumerate}
+\end{theorem}

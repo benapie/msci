@@ -1,0 +1,74 @@
+\chapter{M\"obius transformation}
+\section{Definition}
+\lecture{14}{13/11}
+
+Recall the following definition.
+
+\begin{definition}[General linear matrices]
+    We define the set of general linear $2 \times 2$ matrices as
+    \[ \GL_2(\C) = \left\{ \begin{pmatrix} a & b \\ c & d \end{pmatrix} : a,b,c,d \in \C, ad-bc\neq 0\right\}. \]
+\end{definition}
+
+\begin{definition}[M\"obius transformations]
+    Given any matrix $T = \begin{pmatrix} a & b \\ c & d \end{pmatrix} \in \GL_2(\C)$ we can define a function $M_T: \C \to \hat \C$ by the formula
+    \[ M_T(z) = \frac{az + b}{cz + d} \]
+    if $cz + d \neq 0$. If $cz + d = 0$, then we define $M_T(z) = \infty$.
+\end{definition}
+
+\begin{remark}
+    The reason for excluding matrices for which $\det{T} = 0$ is because if $\det{T} = 0$ and at least one of $c$ and $d$ is non-zero then $T$ has rank $1$. This implies that $(a, b) = \lambda(c, d)$ for some $\lambda \in \C$. 
+\end{remark}
+
+It is inconvenient that the domain and the codomain of $M_T$ are not the same; however, we can extend our definition (rather intuitively)
+\[ 
+    M_T(\infty) =
+    \begin{cases}
+        \frac ac & c \neq 0 \\
+        \infty   & c = 0.   \\
+    \end{cases}
+    .
+\]
+
+So now we have $M_T: \hat \C \to \hat \C$ with the following property
+\[ \lim_{z \to \infty} M_T(z) = M_T(\infty) \]
+with the chordal metric. In fact, we can think of $M_T$ as a function from the Riemann sphere onto the Riemann sphere.
+
+\begin{example}
+    \begin{enumerate}
+        \item $f(z) = z^{-1}$ is a M\"obius transformation corresponding to the matrix
+            $\begin{pmatrix} 0 & 1 \\ 1 & 0 \end{pmatrix}$.
+            Note that if $\lvert z \rvert < 1$ and $z \neq 0$ then $\lvert f(z) \rvert > 1$, so $f$ maps the punctured unit ball $B_1(0)\setminus\{0\}$ onto the outside closed unit ball. We have $f(0) = \infty$ and $f(\infty) = 0$, so $f$ interchanges these two points.A
+        \item The \emph{Caley map} $f(z) = \frac{z-i}{z+i}$ corresponds to the matrix
+            $\begin{pmatrix} 1 & -i \\ 1 & i \end{pmatrix}$.
+            $f$ maps the upper half plane to the open unit ball centered at $0$. Moreover, $f(\infty) = 1$ and $f(-i) = \infty$.
+    \end{enumerate}
+\end{example}
+
+\begin{lemma}
+    The set of M\"obius transformations form a group under composition. Furthermore,
+    \begin{enumerate}
+        \item $M_{T_1} \circ M_{T_2} = M_{T_1T_2}$;
+        \item $(M_T)^{-1} = M_{T^{-1}}$; and
+        \item $M_T = \operatorname{Id} \iff T = t \begin{pmatrix} 1 & 0 \\ 0 & 1 \end{pmatrix}$
+            where $t \in \C^\star$.
+    \end{enumerate}
+\end{lemma}
+
+%todo proof
+
+\begin{remark}
+    Recall that $\GL_2{(\C)}$ forms a group under matrix multiplication. The above Lemma says more than that M\"obius transformations form a group. It also says that the mapping $T \mapsto M_T$ is a \emph{group homomorphism} between $\GL_2(\C)$ and M\"obius transformations. 
+\end{remark}
+
+\begin{lemma}[]
+    Let $T = \begin{pmatrix} a & b \\ c & d \end{pmatrix} \in \GL_2(\C)$. If $c = 0$, the M\"obius transformation $M_T$ gives a biholomorphic map $M_T$ 
+    \[ M_T: \C \simeq \C. \]
+    If $c \neq 0$, then $M_T$ gives a biholomorphic map
+    \[ M_T: \C \setminus \left\{ \frac{-d}{c} \right\} \simeq \C \setminus \left\{ \frac ac \right\}. \]
+\end{lemma}
+
+\begin{proof}[Proof for $c = 0$]
+    If $c = 0$ then $a, d \neq 0$ since $\det{T} \neq 0$. Hence
+    \[ M_T(z) = \frac{az + b}{d} = \frac ad z + \frac bd \]
+    is just an affine linear map which is of course holomorphic. It is also clearly a bijection with inverse $M^{-1}_T(z) = \frac da z - \frac ba$ which is also clearly holomorphic; hence $M_T: \C \xrightarrow{\sim} \C$.
+\end{proof}

@@ -1,0 +1,23 @@
+\usepackage{parskip}
+
+\usepackage{adjustbox}
+
+\usepackage{amsmath}
+\usepackage{amsthm}
+
+\usepackage{complexity}
+\newcommand{\mathsc}[1]{\ensuremath\text{\normalfont \textsc{#1}}}
+
+\usepackage{quiver}
+
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}
+
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+
+\newtheoremstyle{break}{\topsep}{\topsep}{}{}{\bfseries}{}
+{\newline}{\thmname{#1}\thmnumber{ #2}\thmnote{ ({\normalfont\textsc{#3}})}.}
+\theoremstyle{break}
+\newtheorem{problem}[theorem]{Problem}

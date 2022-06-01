@@ -1,0 +1,60 @@
+\chapter{Introduction}
+\lecture{1}{11/10}
+
+\begin{definition}[Image]
+    An \textbf{image} contains visual information.
+\end{definition}
+
+The specific definition is a bit vague, you may say that an image is a captured graphical representation of a scene.
+
+\textbf{Image processing} is about processing visual information.
+
+Images encodes edges, lines, regions, orientations, scale, lighting, etc. using a 2D signal.
+
+The focus of this form is \textbf{assistive imaging}, which is the enhancement, representation, restoration, and transformation of visual information in order to aid visualisation or interpretation. It may even act as a pre-processing step for \textbf{computer vision}, which is not covered in this course.
+
+Let's try again on our image definition..
+
+\begin{definition}[Image v2]
+    An \textbf{image} is a multidimensional signal commonly containing visual information.
+\end{definition}
+
+Our most common idea of an image is as a 2D grid of values, indexed as $(x, y)$, of \textbf{pixels} (picture elements). An image has a \textbf{spacial resolution} $X \times Y$ which is the number of pixels horizontally ($X$) and vertically ($Y$). The \textbf{colour resolution} of an image is the number of bits needed to represent the colour of a given pixel, also known as \textbf{quantisation}.
+
+For video, the \textbf{temporal resolution} refers to the number of images captured in a given time period. A common measure for this is \textbf{frames per second} (fps).
+
+\begin{example}
+    \begin{enumerate}
+        \item A typical UK television will operate at \SI{25}{fps}.
+        \item Between \SI{25}{fps} and \SI{30}{fps} is suitable for most visual surveillance applications.
+        \item Higher frame rate cameras are available for specialist scientific applications (see SloMoGuys).
+    \end{enumerate}
+\end{example}
+
+When an image is captured by a camera, the scene must be \textbf{sampled} to convert the analogue signal (light intensity) to a digital form. The sampling must be high enough to preserve useful information in the image.
+
+\begin{definition}[Aliasing]
+   \textbf{Aliasing} is an effect that causes different signals to become indistinguishable when sampled. 
+\end{definition}
+
+There will always be some amount of aliasing in image processing, being able to preserve as much important information as possible is an important part of image processing. 
+
+Coming back to the idea of quantisation, the colour (or intensity) at each pixel corresponds to the voltage accross an image sensor that reelates to the amount and wavelength of the light received. It is discretised into a number of \emph{bins} representing this level of intensity.
+
+\begin{example}
+    A $8$-bit grayscale sensor has $2^8 = 256$ possible pixel values. This intensity ranges from $0$ (black) to $255$ (white).
+\end{example}
+
+\begin{example}
+    In colour images, we can think of each pixel as having a value for the red content, green content, and the blue content (RGB). So we can write a function that takes the index of an image and returns the colour. That is, \[ f: \{ 1, \ldots, X \} \times \{ 1, \ldots , Y \} \to \{ 0, 1, \ldots, 255 \}^3 \] where $X \times Y$ is the resolution of the image.
+\end{example}
+
+Images may also have different values at each point other than colour.
+
+\begin{example}
+    Pixel values could encode the distance a 3D object is away at each point, so \[ f: \{1, \ldots, X\} \times \{1, \ldots, Y\} \to \mathbb R.\]
+\end{example}
+
+\begin{remark}
+    Relating back to our rather vague definition, an image only has to record \emph{some} visual data, it is not restricted to being a simple 2D matrix of colour values.
+\end{remark}

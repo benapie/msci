@@ -1,0 +1,148 @@
+%todo!!
+\chapter{Operating system security and access control}
+\lecture{3}{21/7}
+
+First, some definitions.
+
+\begin{definition}[Subjects]
+    The entities that can perform actions on a system are called \textbf{subjects}.
+\end{definition}
+
+\begin{definition}[Objects]
+    The entities which can have actions performed on them are called \textbf{objects}.
+\end{definition}
+
+\begin{definition}[Access control]
+    \textbf{Access control} is the restiction of access subjects have on objects.
+\end{definition}
+
+There are multiple implementation of access control, as we will see.
+
+\begin{definition}[Access control matrix]
+    An \textbf{access control matrix} is a security model for a system. A system has a set of objects $O$ and a set of subjects $S$. There is also a set of rights $R$ and a function $r(o, s) \subset R$ to generate rights for a given object and subject.
+\end{definition}
+
+\begin{example}[Visualising an access control matrix]
+    Let $O = \{ o_1, o_2 \}$ and $S = \{ s_1, s_2, s_3 \}$. Also let $R = \{ \text{read}, \text{write} \}$ and
+    \begin{align*}
+        r(o_1, s_1) &= \{ \text{read}, \text{write} \} \\
+        r(o_1, s_2) &= \{ \text{read} \} \\
+        r(o_1, s_3) &= \{ \text{write} \} \\
+        r(o_2, s_1) &= \emptyset \\
+        r(o_2, s_2) &= \{ \text{read} \} \\
+        r(o_2, s_3) &= \{ \text{read} \}.
+    \end{align*}
+    We can visualise this as the following matrix.
+    \begin{center}
+        \begin{tabular}{ccc}
+            \toprule
+            & $o_1$ & $o_2$ \\
+            \midrule
+            $s_1$ & read, write & - \\
+            $s_2$ & read & read \\
+            $s_3$ & write & read \\
+            \bottomrule
+        \end{tabular}
+    \end{center}
+\end{example}
+
+\begin{example}[*NIX permissions]
+    Permissions in *NIX have the following structure.
+    \begin{center}
+        \begin{tabular}{cccc}
+            \toprule
+            Resource type & User permissions & Group permissions & Other permissions \\
+            \midrule
+            \texttt{-} & \texttt{rwx} & \texttt{rwx} & \texttt{rwx} \\
+            \bottomrule
+        \end{tabular}
+    \end{center}
+    So next to a file, associated user, and associated group you will have a string looking like:
+    \begin{center}
+        \texttt{-rwxrwxrwx}.
+    \end{center}
+    Now, the permissions for user, group, and other refer to the permissions a specific user has on a file, the permissions a specific group has on the file, and the permissions all other users have on the file. Individual permissions are of the format \texttt{rwx} where \texttt{r}: read; \texttt{w}: write; and \texttt{x}: execute. If the user/group does not have access to that action, then it is replaced with a \texttt{-}. For example, the permission
+    \begin{center}
+        \texttt{-}\texttt{-w-}\texttt{-}\texttt{-x}\texttt{r--}
+    \end{center}
+    means that the user has write permissions assigned to themselves, execution permissions from the group they are in, and there is a global read permission for it. The resource type can be:
+    \begin{enumerate}
+        \item \texttt{-} file;
+        \item \texttt{d} directory;
+        \item \texttt{b} block device;
+        \item \texttt{c} character device;
+        \item \texttt{s} socket;
+        \item \texttt{l} symbolic link; and
+        \item \texttt{p} pipe.
+    \end{enumerate}
+\end{example}
+
+\begin{example}[\texttt{setuid} bit and \texttt{setgid} in *NIX]
+    \texttt{setuid} stands for set user ID and allows users to run an executable with the permissions of the owner. Similarly \texttt{setgid} allows users to set change their group ID to run executables.
+\end{example}
+
+\begin{example}[Sticky bit in *NIX]
+    Sticky bits are flags that can be assigned to directories and files such that only the file's owner, directory's owner, or the root user can rename or delete files. Without the sticky bit, anyone with write and execute permissions can rename and delete files.
+\end{example}
+
+Transforming an access control matrix to *NIX permissions and vice versa is a trivial task.
+
+\begin{definition}[Link vulnerability]
+    When creating symbolic links via the $\texttt{ln}$ command in *NIX, a \textbf{link vulnerability} can be created if a trusted file / program does not exactly recognise the full path of the file (since a symbolic link is being used).
+\end{definition}
+
+\begin{definition}[Principle of least priviledge]
+    The \textbf{principle of least priviledge} is an important concept (in computer security) that states that subjects on a system must be given exactly the permissions they need to perform their appropriate actions and not anymore.
+\end{definition}
+
+\begin{definition}[Device file vulnerabilities]
+    In *NIX, devices are represented as files which are created by root, so they have root permissions. By manipulating virtual and physical memory, we can bypass access control. You can also access user input and see passwords and keys.
+\end{definition}
+
+Similar to an access control matrix, we can also represent permissions in a \textbf{access control list}. When storing permissions in this form, there is a bit of a discussion to be had on whether object-focused permissions or capability-focused permissions are appropriate to store. In object-focused permissions, we store who and what permissions each object has. In capability-focused permissions, we store a list of capabilities (object and action) for each subject in the system.
+
+\begin{example}[Windows]
+    Windows registary is the core part of the system control for Windows. There also exists a Windows domain for sharing credentials between devices. A core part of Windows security policy is unpredictability. There are many different configurations Windows can boot from to make it harder for agents to break in.
+\end{example}
+
+\begin{example}[DLL preloading]
+    DLL files are loaded by programs and used in the execution. Agents can inject malicious code into DLLs and have the program run their code with their of permissions.
+\end{example}
+
+\begin{example}[FAT32 and NTFS]
+    FAT32 is an older file system that allows permissinos to be assigned for files. NTFS is a more modern system that supports logging on top of that.
+\end{example}
+
+\begin{definition}[Bell-LaPadula model]
+    The \textbf{Bell-LaPadula} model for enforcing access control. It follows a principle that every subject has
+    \begin{enumerate}
+        \item write access to data at a higher integrity level;
+        \item read and write access to data at the same integrity level; and
+        \item read access to data at a lower integrity level.
+    \end{enumerate}
+\end{definition}
+
+\begin{definition}[Biba integrity model]
+    The \textbf{Biba integrity} model implements a principle of \emph{read up, write down}. That is, every subject has
+    \begin{enumerate}
+        \item write access to a data at a lower integrity level;
+        \item read and write access to data at the same integrity level; and
+        \item read access to data at a higher integrity level.
+    \end{enumerate}
+\end{definition}
+
+\begin{definition}[Clark-Wilson integrity model]
+    The \textbf{Clark-WIlson} integrity model adds another constraint such that objects can only be accessed by subjects through authorised programs. This allows restriction on how an objects state can change. This can avoid error and malicious intent from corrupting files.
+\end{definition}
+
+\begin{remark}
+    Security evaluation is a profitable sector; however, the effectiveness of security evaluation is questionable.
+\end{remark}
+
+\begin{definition}[Protection rings]
+    \textbf{Protection rings} are mechanisms to protect data from faults. Computer systems will provide different \emph{levels} of access to resources. If a subject or object has access to a specific level, it can access the same resources that all levels higher than it can as well as defined resources within that level. So clearly at the bottom level (ring 0) we have the kernal as that must have the most access to resources.
+\end{definition}
+
+\begin{remark}
+    A common exploit to circumvent permissions on a system is to boot into BIOS and access a root terminal from the start. 
+\end{remark}

@@ -1,0 +1,76 @@
+\lecture{4}{16/10}
+
+Let's look at some geometric intuition for $\Log$. Remember 
+\[ \Log{z} = \log{\lvert z \rvert} + i \Arg{z}. \]
+This maps to an infinite horizontal strip on an Argand diagram, bounded between $-\pi$ and $\pi$. A ray will map to a straight line.
+
+\section{The Riemanin Sphere and extended complex plane}
+
+At the moment $\C$ is just a set of complex numbers, but we want to add infinity to it (for reasons that will become more apparent later):
+\[ \hat \C = \C \cup \{ \infty \}. \]
+This is called the \textbf{extended complex plane}. 
+
+\subsection*{The Riemann Sphere}
+
+Lets take a complex plane $(x, y)$ and add another variable $s$ and consider the unit sphere
+\[ S^2 = \{ (x, y, s) \in \R^3 : x^2 + y^2 + s^2 \] 
+where 
+\[ \C = \R^2. \] 
+On this sphere, we consider the north pole $N = (0, 0, 1)$. Now consider the function $P_N$ that returns the point at which a line bisecting $N$ and the input point on the sphere intersects the $x, y$ plane. $P_N$ is called the \textbf{stereographic projection} from $N$ and we have 
+\[ P_N : S^2 \setminus N \to \C. \] 
+Let $L_{N, v}$ be the line between $N$ and the point $v$ given by the equation
+\[ \gamma(t) = \begin{pmatrix} 0 \\ 0 \\ 1 \end{pmatrix} + \begin{pmatrix} x \\ y \\ s - t \end{pmatrix} t. \]
+$\gamma(t)$ intersections the $x, y$ plane when
+\[  1 + (s - 1) t = 0 \implies t = \frac{1}{1 - s} \]
+so
+\[ P_N(v) = \begin{pmatrix} \frac{x}{1 - s} \\ \frac{y}{1 - s} \\ 0 \end{pmatrix} \cong \frac{x}{1 - s} + i \frac{y}{1 - s}. \] We can invert this too, so given $z \in \C$ we can find the point intersecting the unit sphere that bisects $N$ and $z$. This is given by
+\[ P^{-1}_N(z) = \frac{1}{\lvert z \rvert^2 + 1} (2\Re{(z)} + 2\Im{(z)}, \lvert z \rvert^2 - 1) \] (this result is not hard to show).
+\begin{remark}
+    There is nothing special about the north pole, this can be repeated with any point or the south pole $S = (0, 0, -1)$. 
+\end{remark}
+
+\begin{definition}[Riemann sphere]
+    The \textbf{Riemann sphere} is $S^2$ with pans $P_N$ and $P_S$ as described above.
+\end{definition}
+
+We can compare the Riemann sphere with $\C$ as follows.
+
+\begin{center}
+    \begin{tabular}{ccc}
+        \toprule
+        Riemann sphere & $\iff$ & Extended complex plane \\
+        \midrule
+        $S^2 \setminus N$ && \C \\
+        $N$ && $\infty$ \\
+        $S^2$ && $\hat \C$ \\
+        $S$ && $0$ \\
+        Equator && Unit circle \\
+        Bottom hemisphere && Unit disc \\
+        Top hemisphere && $\{ \Im{(z)} > 0 \}$ \\
+        \bottomrule
+    \end{tabular}
+\end{center}
+
+\chapter{Metric spaces}
+\section{Definition}
+
+\begin{definition}[Metric space]
+    A \textbf{metric space} is a set $X$ together with a distance function 
+    \[ d: X \times X \to \R_{\geq 0} \]
+    which must satisfy
+    \begin{description}
+        \item[D1] (positivity) for all $x, y \in X$, $d(x, y) \geq 0$ and $d(x, y) \iff x = y$;
+        \item[D2] (symmetry) for all $x, y \in X$, $d(x, y) = d(y, x)$; and
+        \item[D3] (triangle inequality) for all $x, y, z \in X$, $d(x, z) \leq d(x, y) + d(y, z)$.
+    \end{description}
+    $d$ is a \textbf{metric} and the metric space is denoted as $(X, d)$.
+\end{definition}
+
+\begin{example}
+    \begin{enumerate}
+        \item When $X = \R$ or $X = \C$, the modulus gives us the metric $d(x, y) = \lvert x - y \rvert$.
+        \item If $X = \R^n$ or $X = \C^n$, then we have \textbf{Euclidean metric} 
+            \[ d(\bm x, \bm y) = \sqrt{\sum_{j = 1}^n \lvert x_j - y_j \rvert^2}. \]
+        \item (Metrics for inner products) Let $V$ be a real or complex vector space with positive definite inner product, $< \cdot, \cdot>$. Then $\sqrt{<v - w, v - w}$ is a metric on $V$. \textbf{D1} comes from the inner product being positive definite, \textbf{D2} is obvious, and \textbf{D3} comes from the Cauchy-Schwartz theorem.
+    \end{enumerate}
+\end{example}

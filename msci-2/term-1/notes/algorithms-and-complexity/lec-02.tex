@@ -1,0 +1,82 @@
+\chapter{Knapsack problem and greedy algorithms}
+\section{Knapsack problem}
+\lecture{2}{17/10}
+
+\begin{problem}[0-1 knapsack problem]
+    Given a set of $n$ items numbered $1$ to $n$, 
+    each with a weight $w_i$ and a value $v_i$ along with a maximum weight capacity $W$ we want to
+    \begin{align*}
+        \text{maximise}\;       & \sum_{i = 1}^n v_i x_i \\
+        \text{subject to}\;     & \sum_{i = 1}^n w_i x_i \leq W, \quad x_i \in \{0, 1\}.
+    \end{align*}
+\end{problem}
+
+\begin{problem}[Fractional knapsack problem]
+    The same as above; however, $x_i \in [0, 1]$.
+\end{problem}
+
+\begin{example}[Greedy solution to fractional knapsack]
+    We can solve the fractional knapsack problem pretty easily using the following greedy strategy:
+    \begin{enumerate}
+        \item Computer the value per kilo $r_i = \sfrac{v_i}{w_i}$ for each item.
+        \item Sort the items by value per kilo in decreasing order.
+        \item Take as much as possible of the item with the greatest value per kilo, 
+            then take as much as possible of the item with the next greatest kilo until the total weight equals the knapsack capacity $W$.
+    \end{enumerate}
+    It is clear that (i) can be done in $\Theta(n)$, 
+    (ii) can be done in $\Theta(n\log{n})$ (merge sort), 
+    and (iii) can be done in $\Theta(n)$;
+    hence, the worst-case running time is $\Theta{(n\log{n})}$.
+\end{example}
+
+\begin{remark}
+    This algorithm is not correct for the 0-1 knapsack problem! 
+    It only works for the fractional knapsack problem.
+\end{remark}
+
+\begin{proof}[Proof of correctness to greedy solution]
+    It is pretty clear to see that the greedy solution is correct. 
+    Consider a correct solution 
+    $x^\star = (x^\star_1, \ldots, x^\star_n)$ 
+    and the greedy solution 
+    $x = (x_1, \ldots, x_n)$ 
+    where $x^\star$ and $x$ are both sorted in decreasing order and they satisfy 
+    $x \neq x^\star$. 
+    We know that for some $i$ we have 
+    $x^\star_i < x_i$ 
+    and for some $j$ we have 
+    $x^\star_j > x_j$. 
+    By the way our greedy algorithm is constructed we know that $j > i$. 
+    As the tuples are in descending order, 
+    we know that $r_i > r_j$. 
+    So then it is clear that $x$ is a more optimal solution for $x^\star$; 
+    contradiction. Hence $x = x^\star$.
+\end{proof}
+
+\section{Greedy algorithm}
+
+The knapsack problem is an example of an \emph{optimisation problem}. 
+Optimisation problems can have multiple solutions and each solution has a value. 
+An \emph{optimal solution} is a solution with optimal (minimum or maximum) value. 
+We want to find an optimal solution. 
+
+Algorithms for optimisation problems go through sequence of steps (as with any algorithm). 
+At each step there is a set of choices. 
+A \textbf{greedy algorithm} makes in each step the choice that looks best at that time, 
+the \emph{locally optimal choice}.
+
+\begin{definition}[Greedy algorithm]
+    A \textbf{greedy algorithm} is any algorithm that follows the problem solving heuristic of making the locally optimal choice at each stage with the intent of finding a global optimum.
+\end{definition}
+
+Greedy algorithms do not always lead to optimal solutions, 
+take for example the 0-1 knapsack problem. 
+There is no greedy solution known that is correct. 
+There are several problems that have a greedy solution that is correct,
+for example:
+\begin{enumerate}
+    \item fractional knapsack;
+    \item minimum spanning tree;
+    \item Dijkstra's; and
+    \item Huffman coding.
+\end{enumerate}

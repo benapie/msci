@@ -1,0 +1,80 @@
+\lecture{19}{9/12}
+
+\begin{theorem}[Weierstrass $M$-test]
+    Let $\{f_n\}_{n = 1}^\infty$ be a sequence of functions $f_n: X \to \C$. 
+    If there exists a sequence of constants $M_n \in \R_{\geq 0}$ such that 
+    \[\abs{f_n(x)} \leq M_n\]
+    for all $x \in X$ and
+    \[\sum_{n = 1}^\infty M_n < \infty\]
+    then the series $\sum_{n = 1}^\infty f_n$ converges uniformly to some limit function $f: X \to \C$.
+\end{theorem}
+
+\begin{proof}
+    Let $F_k = \sum_{n = 1}^k f_n$. 
+    We need to show that $F_k \to F$ uniformly as $k \to \infty$. 
+    So we fix $x \in X$. 
+    We know
+    \[0 \leq \abs{f_n(x)} \leq M_n\]
+    and $\sum_{n = 1}^\infty M_n < \infty$ (that is, it converges).
+    By comparison of non-negative sequence, it is clear that $\abs{f_n(x)}$ also converges.
+    That is, $\sum_{n = 1}^\infty f_n(x)$ is \emph{absolutely convergent}, and from Analysis I we know that this implies that $\sum_{n = 1}^\infty f_n(x)$ is convergent.
+    So now we set $F = \lim_{k \to \infty} F_k$, which we have shown to be pointwise convergent. 
+    Now we must show that it is uniform convergent.
+    For all $l > k$ and $x \in X$ we have
+    \[\abs{F_l(x) - F_k(x)} = \abs{\sum_{n = k + 1}^l f_n(x)} \leq \sum_{n = k + 1}^l \abs{f_n} \leq \sum_{n = k+1}^l M_n.\]
+    Now we look at this as $l \to \infty$:
+    \[ \abs{F(x) - F_k(x)} \leq \sum_{n = k + 1}^\infty M_n.\]
+    We have that $\lim_{k \to \infty} \sum_{n = k + 1}^\infty M_n = 0$ as it is convergent.
+    Therefore, $F_k \to F$ uniformly. 
+\end{proof}
+
+\begin{example}
+    Show that
+    \[\sum_{n = 1}^\infty \left(\frac{(2z)^{3n}}{3^{2n}\cdot n^2}\right)\]
+    is uniformly convergent on $\overline \D = \overline B_1(0)$.
+\end{example}
+
+\begin{solution}
+    Let $z \in \overline \D$. Then 
+    \[ \abs{\frac{(2z)^{3n}}{3^{2n}\cdot n^2}} = \frac{2^{3n}\cdot \abs z^{3n}}{3^{2n}\cdot n^2} \leq \frac{2^{3n}}{3^{2n}\cdot n^2} = \left(\frac{2^3}{3^2}\right)^n \cdot \frac 1{n^2} = \left(\frac 89\right)^n \cdot \frac1{n^2} \leq \frac1{n^2} = M_n. \]
+    We know that $\sum_{n = 1}^\infty M_n$ converges hence the sum above uniformly converges on $\overline \D$.
+\end{solution}
+
+\begin{remark}
+    Consider $f_n(z) = z^n$. $f_n \to 0$ pointwise on $\D$. 
+    Let $z_n = \left(\frac12\right)^{\frac1n} \in \D$. Then
+    \[ \abs{f_n(z_n) - 0} = \abs{\left(\left(\frac12\right)^{\frac1n}\right)^n - 0} = \frac12 = c > 0 \]
+    but $0$ is continuous. 
+    So the notion of uniform convergence is too strict for preserving continuity.
+    We will be introducing a notion of \emph{local uniform convergence}.
+\end{remark}
+
+\begin{definition}[Local uniform convergence]
+    Let $\{f_n\}_{n = 1}^\infty$ be a sequence of functions $f_n: X \to Y$ ($X$ and $Y$ metric spaces). We say that $f_n \to f$ locally uniformly if for all $x \in X$ there exists an open set $U \subset X$ with $x \in U$ such that $f_n \to f$ uniformly on $U$.
+\end{definition}
+
+\begin{theorem}[]
+    Let $f_n: X \to Y$ which converges locally uniformly to $f: X \to Y$. Then, if $f_n$ is continuous for all $n \in \N$ then $f$ is continuous.
+\end{theorem}
+
+More informally, this theorem states that locally uniform limits preserve continuity of sequences of functions.
+
+\begin{proof}
+    We have that $f_n$ is a sequence of continuous functions that are locally uniformly convergent to $f: X \to Y$. 
+    So, given $x \in X$ there exists open $U \subset X$ with $x \in U$ such that $f_n \to f$ uniformly on $U$. 
+    We know that uniform limits of continuous function are continuous, so $f_n$ being continuous on $U$ implies that $f$ is continuous on $U$.
+    That is, $f$ is continuous for $x \in U$.
+    As $x \in X$ is arbritrary, $f$ is continuous.
+\end{proof}
+
+\begin{example}
+    Let $f_n(z) = z^n$. 
+    We know that $f_n \to 0$ pointwise on $\D$ and that $f_n \not \to 0$ uniformly on $\D$. 
+    Given $w \in \D$, we have $\abs{w} < 1$.
+    Then we can pick $r \in \R$ such that $\abs{w} < r < 1$. 
+    Now we consider $U = B_r(0)$. 
+    Given $z \in U$ we have
+    \[\abs{f_n(z) - 0} = \abs{z^n} = \abs{z}^n < r^n  \to 0\]
+    as $n \to \infty$ as $\abs{r} < 1$. 
+    Therefore, $f_n$ is locally uniformly convergent to $f$ and as $f_n$ is continuous for all $n \in \N$, $f$ is continuous.
+\end{example}

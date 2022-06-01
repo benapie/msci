@@ -1,0 +1,44 @@
+\lecture{3}{10/10}
+
+Here we introduce some termionlogy to make which will be more heavily utilised later in this course. When taking derivates of a multivariate function, say $f(x, y)$, we may right the variable(s) that we are holding as subscript in the bottom right. So if we differentiate $f$ with respect to $x$ (so we are holding $y$ constant) we write \[ \left(frac{\partial f}{\partial x}\right)_y. \] 
+
+So we can now rewrite the chain rule for multivariate functions with this notation.
+
+\[ \left((\frac{\partial f}{\partial x}\right)_y = \left(\frac{\partial u}{\partial x}\right)_y \left(\frac{\partial F}{\partial u}\right)_v + \left(\frac{\partial v}{\partial x}\right)_y\left(\frac{\partial F}{\partial v}\right)_u \] and \[ \left(\frac{\partial f}{\partial y}\right)_x = \left(\frac{\partial u}{\partial y}\right)_x \left(\frac{\partial F}{\partial u}\right)_v + \left(\frac{\partial v}{\partial y}\right)_x \left(\frac{\partial F}{\partial v}\right)_u. \]
+
+\begin{example}
+    Suppose $(r, \theta)$ are polar coordinates $(x, y)$ are cartesian coordinates, and \[ F(r, \theta) = r\cos\theta = x = f(x, y). \] Remember previously that
+    \begin{align*}
+        \frac{\partial r}{\partial x} &= \frac{x}{\sqrt{x^2 + y^2}} & \frac{\partial r}{\partial y} &= \frac{y}{\sqrt{x^2 + y^2}} \\
+        \frac{\partial \theta}{\partial x} &= \frac{-y}{x^2 + y^2} & \frac{\partial \theta}{\partial y} &= \frac{x}{x^2 + y^2}. 
+    \end{align*}
+    And we have
+    \begin{align*}
+        \frac{\partial f}{\partial x} &= \frac{\partial}{\partial x} (x) = 1 \\
+        \frac{\partial f}{\partial y} &= \frac{\partial}{\partial y} (x) = 0.
+    \end{align*}
+    We can use this result to confirm the chain rule.
+    \begin{align*}
+        \frac{\partial f}{\partial x} &= \frac{\partial r}{\partial x} \frac{\partial F}{\partial r} + \frac{\partial \theta}{\partial x} \frac{\partial F}{\partial \theta} \\
+        &= \frac{x}{\sqrt{x^2 + y^2}} \frac{\partial}{\partial r} (r\cos{\theta}) - \frac{y}{x^2 + y^2} \frac{\partial}{\partial \theta} (r\cos{\theta}) \\
+        &= \frac{x}{\sqrt{x^2 + y^2}} \cos{\theta} + \frac{y}{x^2 + y^2} r\sin{\theta} \\
+        &= \frac{r\cos^2{\theta}}{r} + \frac{r^2 \sin^2{\theta}}{r^2} \\
+        &= \cos^2{\theta} + \sin^2{\theta} = 1.
+    \end{align*}
+    This agrees with above. This can be done again for the other equation.
+\end{example}
+
+Sometimes we will write an application of the chain rule using just operators, so taking the polar coordinates example above we may write \[ \frac{\partial}{\partial x} = \frac{x}{\sqrt{x^2 + y^2}} \frac{\partial}{\partial r} - \frac{y}{x^2 + y^2} \frac{\partial}{\partial \theta}. \] This will be applied to two suitable functions $F$ and $f$.
+
+\chapter{Vector calculus}
+
+Lets start with some notation.
+
+\begin{enumerate}
+    \item $\R$, the set of all real numbers (think of this as a number line).
+    \item $\R^n$, set of ordered $n$-tuples $(x_1, x_2, \ldots, x_n)$ where $x_i \in \R$ with $1 \leq i \leq n$. We can think of this as the coordinates of a point in $n$-dimesional cartesian space. The position vector of a point in $\R^n$ can be written in terms of the standard basis $\{ \bm{e_1}, \bm{e_2}, \ldots, \bm{e_n}\}$ as \[ \bm x = x_1 \bm{e_1} + x_2 \bm{e_2} + \ldots + x_n \bm{e_n} \] or more simply \[ \bm x = \sum_{i = 1}^n x_i \bm{e_i}. \]
+\end{enumerate}
+
+\begin{remark}[Einstein summation convention]
+    According to this convention, if an index variable appear twice in a single term and is not otherwise defined, it implies summation over all values of the index. For example \[ y = \sum_{i = 1}^{3} c_ix^i = c_1x + c_2x^2 + c_3x^3 \iff y = c_ix^i. \]
+\end{remark}

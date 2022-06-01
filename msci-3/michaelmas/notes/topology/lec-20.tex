@@ -1,0 +1,171 @@
+%! TEX root = master.tex
+\section{Quotient spaces}
+\lecture{20}{27/11}
+
+\begin{definition}[Equivalence relation]
+	A binary relation ${\sim}$ on $X$ is said to be an
+	\emph{equivalence relation} if for every $a,b,c \in X$
+	it satisfies
+	\begin{enumerate}
+		\item (reflexivity) $a \sim a$;
+		\item (symmetry) $a \sim b \iff b \sim a$; and
+		\item (transitivity) 
+			$(a \sim b \;\text{and}\; b \sim c) \implies a \sim c$.
+	\end{enumerate}
+\end{definition}
+
+\begin{definition}[Quotient space]
+	Let $X$ be a set and $\sim$ be an equivalence relation on$X$.
+	We define $X/{\sim}$ to be the set of equivalence classes for $X$
+	on $\sim$.
+	For $x \in X$,
+	\[
+		[x] = \left\{
+			y \in X: y \sim x
+		\right\}, \qquad
+		X/{\sim} = \left\{
+			[x] \subset X: x \in X
+		\right\}.
+	\]
+\end{definition}
+
+Note that there is a surjective map $\pi: X \to X/{\sim}: x \mapsto [x]$
+which takes elements of $X$ to their equivalence class.
+
+\begin{definition}[]
+	Let $X$ be a topological space and $\sim$ be an equivalence relation on
+	$X$.
+	Define $\pi(x) = [x]$.
+	We give $X/{\sim}$ the topolopy: $U \subset X/{\sim}$ is open
+	if and only if $\pi^{-1}(U)$ is open.
+\end{definition}
+
+\begin{proposition}[]
+	The above defines a topology.
+\end{proposition}
+
+\begin{proof}
+	Let $U$ and $V$ be open in $X/{\sim}$.
+	Then $\pi^{-1}(U \cap V) = \pi^{-1}(Y) \cap \pi^{-1}(V)$ is open.
+	Let
+	$
+		\left\{
+			U_n
+		\right\}_{n=1}^\infty
+		= \bigcup_{n=1}^\infty \pi^{-1}(U_n)
+	$
+	is open.
+	Finally, $\pi(\varnothing) = \varnothing$
+	and $\pi(X) = X$.
+\end{proof}
+
+\begin{proposition}[]
+	The topology on $X/{\sim}$ is the largest topology such that
+	$\pi$ is continuous.
+\end{proposition}
+
+\begin{proof}
+	$\pi$ is continuous if and only if $U \subset X/{\sim}$ is open 
+	implies that $\pi^{-1}(U)$ is open.
+\end{proof}
+
+\begin{lemma}[]
+	Let $X$ and $Y$ be topological spaces, $A \subset Y$, and
+	$\iota: A \xhookrightarrow{} Y$.
+	Then $f: X \to A$ is continuous if and only if
+	$\iota \circ f: X \to Y$ is continuous.
+\end{lemma}
+
+\begin{proof}
+	$f$ is continuous $\iff$
+	for each $U \subset A$ open, $f^{-1}(U)$ open $\iff$
+	for every $V \subset Y$ open, $f^{-1}(V \cap A)$ open $\iff$
+	for every $V \subset Y$ open, $f^{-1}(\iota^{-1}(V))$ open $\iff$
+	$\iota \circ f$ is continuous.
+\end{proof}
+
+\begin{proposition}[]
+	Let $X$ and $Y$ be topological spaces, $\sim$ be an equivalence relation
+	on $X$, and $\pi(x) = [x]$.
+	Then $f: X/{\sim} \to Y$ is continuous if and only if
+	$f \circ \pi: X \to Y$ is continuous.
+\end{proposition}
+
+\begin{proof}
+	$(\implies)$: clear.
+	$(\impliedby)$:
+	suppose $f \circ \pi$ is continunous.
+	Let $U \subset Y$ be open.
+	Then
+	$
+	(f \circ \pi)^{-1}(U) = \pi^{-1}(f^{-1}(U))$ is open.
+	So $f^{-1}(U)$ is open in $X/{\sim}$.
+\end{proof}
+
+\begin{example}[]
+	Consider $\R$ with the equivalence relation $x \sim y \iff x - y \in \Z$.
+	We will show that $R/{\sim}$ is homeomorphic to $S^1$.
+	We define $\exp: \R \to S^1$, $\exp(t) = e^{2\pi it}$.
+	Suppose $s \in \R$ such that $t \sim s$.
+	Then 
+	\[
+		\exp(t) 
+		= e^{2\pi i t} 
+		= e^{2\pi it} e^{2\pi i(s - t}
+		= e^{2\pi is}
+		= \exp(s).
+	\]
+	Hence we can define a map $\overline{\exp}: \R/{\sim} \to S^1$
+	where $\exp = \overline\exp \circ \pi$,
+	with $\pi(x) = [x]$.
+	\begin{center}
+		\begin{tikzcd}
+			\mathbb R \arrow[d, "\pi"'] \arrow[r, "\exp"]   & S^1 \\
+			\mathbb R/{\sim} \arrow[ru, "\overline{\exp}"'] &    
+		\end{tikzcd}
+	\end{center}
+	Since $\exp$ and $\pi$ are continuous,
+	so is $\overline\exp$.
+	Further note that $\overline\exp$ is bijective, continuous, and
+	$S^1$ is Hausdorff.
+	Hence $\R/{\sim}$ is compact since
+	$\R/{\sim} = \pi([-10,10])$.
+	Hence $\overline\exp$ is a homeomoprhism.
+\end{example}
+
+\begin{example}[]
+	Observe $S^{n-1} \subset D^n \subset \R^n$.
+	We claim that $D^n/S^{n-1}$ is homeomorphic to $S^n$,
+	which we will now prove.
+	Take coordinates $(\varphi, t)$ in $D^n$ where $t \in [0,1]$,
+	$\varphi S^{n-1}$, $t\varphi \in D^n$.
+	Define
+	$
+		f: D^n \to S^n \subset \R^{n+1}
+	$
+	by
+	\[
+		f(t\varphi) = \left( 
+			\cos(t\pi), \varphi \sin(t\pi) 
+		\right) \in \R^{n+1}.
+	\]
+	$f$ is continuous, and observe that
+	\[
+		f(S^{n-1}) = \left\{
+			(-1, \bm 0)
+		\right\} \subset \R^{n+1}
+	\]
+	where $\bm 0 \in \R^n$.
+	Then there is $\overline f: D^n/S^{n-1} \to S^n$, from the following
+	diagram.
+	\begin{center}
+		\begin{tikzcd}
+			D^n \arrow[r, "f"] \arrow[d] \arrow[d, "\pi"'] & S^n \\
+			D^n/S^{n-1} \arrow[ru, "f"']                   &    
+		\end{tikzcd}
+	\end{center}
+	Observe that $\overline f$ is a bijection, $\overline f$ is continuous,
+	$S^n$ is Hausdorff, and $D^n/S^{n+1} = \pi(D^n)$ is compact.
+	Hence $\overline f$ is a homeomorphism.
+\end{example}
+

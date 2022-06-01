@@ -1,0 +1,76 @@
+\pc{3}{18/2}
+
+\question What linear regression training algorithm can you use if you have a training
+set with millions of features?
+\begin{solution}
+    With a training set of millions of features, it is best to use Scikit-Learn's
+    \textsc{LinearRegression} class as it has a computational complexity of $O(n^2)$,
+    compared to the normal equation which requires computing the inverse of a
+    $(n + 1) \times (n + 1)$ matrix
+    (which has computational complexity between $O(n^4)$ and $O(n^3)$ depending
+    on the implementation you chose).
+\end{solution}
+
+\question Suppose the features in your training set have very different scales.
+What algorithms might suffer from this, and how?
+What can you do about it?
+\begin{solution}
+    We will assume that the cost function we are using for linear regression is a
+    \emph{convex function}, or any function where the global minimum is also the
+    sole local minimum.
+    When features have a varied scale, the distance \emph{gradient descent} must
+    travel becomes much longer and so will take much longer to converge.
+    A solution to this is to ensure that all features have a similar scale,
+    for example, using Scikit-Learn's \textsc{StandardScaler}.
+\end{solution}
+
+\question Can gradient descent algorithms get stuck in a local minimum when training a
+logistic regression model?
+\begin{solution}
+    In logistic regression, our cost function is \emph{convex}.
+    Hence there are no local minima (other than the global minimum)
+    for our gradient descent algorithms to get stuck in. So, no.
+\end{solution}
+
+\question Do all gradient descent algorithms lead to the same model provided you let
+them run long enough?
+\begin{solution}
+    This depends completely on the nature of the cost function and the variant of the
+    gradient descent algorithm.
+    If the cost function has multiple local minima, then any non-stochastic gradient descent
+    algorithm can get stuck in one of the non-global local minima.
+    Stochastic gradient descent variants will never converge and will
+    not always be the same.
+    However, if the cost function is convex and the gradient descent variation is
+    non-stochastic, then all algorithms will converge to the same answer given that
+    the learning rate is appropriate selected.
+\end{solution}
+
+\question Suppose you use batch gradient descent and you plot the validation error
+at every epoch.
+If you notice that the validation error consistently goes up,
+what is likely going on?
+How can you fix this?
+\begin{solution}
+    This suggests that the learning rate is too high. To fix it we lower the learning rate.
+\end{solution}
+
+\question Is it a good idea to stop mini-batch gradient descent immediately when the
+valdiation error goes up?
+\begin{solution}
+    Mini-batch gradient descent is a stochastic algorithm, and so it is expected that the
+    cost function will constantly fluctuate as it executes.
+    Terminating it as soon as the validation error goes up is not advised.
+\end{solution}
+
+\question Which gradient descent algorithm will reach the vicinity of the optimal solution
+the fastest? Which will actually converge? How can you make the others converge as well?
+\begin{solution}
+    Stochastic gradient descent variations typically get to the vicinity of the optimal solution
+    much fast that batch gradient descent. 
+    Only non-stochastic methods will converge,
+    but we can propose a \emph{hybrid} algorithm that performs mini-batch or stochastic gradient
+    descent until the cost function is not changing too much
+    (suggesting we have hit a minimum)
+    and then performing batch gradient descent to converge on the answer.
+\end{solution}

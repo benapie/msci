@@ -1,0 +1,43 @@
+\pc{1}{21/10}
+
+\setcounter{question}{2}
+\question
+\begin{parts}
+    \setcounter{partno}{2}
+    \part Discuss what the problem is with all these passwords. What rules would guarantee better passwords? How would you implement these rules?
+    \begin{solution}
+        For context, the problem class just demonstrated a simple brute force password attack where all combinations from a list of usernames and passwords where tried on a server until authenticated. This generated a list of usernames and passwords.
+
+        The issue with the passwords themselves is that they are not secure. This is because
+        \begin{enumerate}
+            \item they have short length;
+            \item they rely on commonly use patterns (\texttt{12345}, \texttt{qwerty}, etc.); and
+            \item use a limited alphabet.
+        \end{enumerate}
+        Implementing better rules is a bit of a gamble; making hard to meet requirements for users leads them to storing them in insecure places (such as a note at their desk) which is a greater vulnerability than a brute force attack as we have other methods for dealing with brute force. Implementing rules, however, would be as simple as rejecting and passwords that don't meet a set of requirements and prompting the user with details on how to get the password into an acceptable form.
+    \end{solution}
+\end{parts}
+
+\question
+\begin{parts}
+    \setcounter{partno}{6}
+    \part Discuss your approach.
+    \begin{subparts}
+        \subpart Can you think of any problems with it?
+        \begin{solution}
+            For context, the problem class had us implement a heat variable associated to client addresses when logging on. The heat value is incremented every login attempt and is decremented over time. If the heat value is over a threshold, login attempts will be refused. 
+
+            The only potential vulnerability I see is that someone could attempt to login from multiple addresses, rendering the unique heat per address useless. Additionally, if the agent understood the algorithm used to calculate the heat function they could calculate whether or not an attempt will be rejected and time the attempts such that it is always accepted.
+        \end{solution}
+
+        \subpart How efficient will it be with thousands of users?
+        \begin{solution}
+            For my implementation, each user must have a heat and a last login time associated with them. For thousands of users, this is not particularly inefficient on storage. When autherising, the server must calculate the difference between the current time and the last login time as well as making some linear computations on the heat value. Hence, this is not particularly resource heavy, definitely $O(n)$. 
+        \end{solution}
+
+        \subpart Would one hacket be able to exploit your defense to prevent lots of users from logging in? How would you mitigate this?
+        \begin{solution}
+            Yes as I did not bother to store separate heats for addresses... but even if I did store different heats for different addresses this problem would be mitigated.
+        \end{solution}
+    \end{subparts}
+\end{parts}

@@ -1,0 +1,390 @@
+\clearpage
+\question
+\begin{parts}
+    \part[10] Is it possible to output $n+1$ copies of an unknown qubit $\ket{\varphi}$ given $n$ copies of $\ket{\varphi}$ together with $\ket{0}$ for some $n$? That is, is it possible to quantumly implement the map
+    \[ \ket{\varphi}^{\otimes n} \otimes \ket{0} \mapsto \ket{\varphi}^{\otimes(n+1)} \]
+    for some $n$, or is it impossible for all $n$? 
+\begin{solution}
+    Suppose a unitary map $U$ exists such that
+    \[
+        U: \ket{\varphi}^{\otimes n} \otimes \ket{0} \mapsto \ket{\varphi}^{\otimes(n+1)}.
+    \]
+    Note that as $U$ is unitary, $UU^\dag = U^\dag U = I$.
+    Let
+    $
+        \ket\varphi =
+        \begin{pmatrix}
+            \alpha_\varphi \\ \beta_\varphi
+        \end{pmatrix}
+    $
+    and
+    $
+        \ket\psi =
+        \begin{pmatrix}
+            \alpha_\psi \\ \beta_\psi
+        \end{pmatrix}
+    $
+    be arbitrary two qubits. Then
+    \begin{align*}
+        \braket{\varphi|\psi}^n
+         & =
+        \left(
+        \begin{pmatrix}
+                \overline\alpha_\varphi & \overline\beta_\varphi
+            \end{pmatrix}
+        \begin{pmatrix}
+                \alpha_\psi \\ \beta_\psi
+            \end{pmatrix}
+        \right)^n
+        \\
+         & =
+        \begin{pmatrix}
+            \overline\alpha_\varphi & \overline\beta_\varphi
+        \end{pmatrix}^{\otimes n}
+        \begin{pmatrix}
+            \alpha_\psi \\ \beta_\psi
+        \end{pmatrix}^{\otimes n}
+        \\
+         & =
+        \left(
+        \begin{pmatrix}
+            \overline\alpha_\varphi & \overline\beta_\varphi
+        \end{pmatrix}^{\otimes n}
+        \begin{pmatrix}
+            \alpha_\psi \\ \beta_\psi
+        \end{pmatrix}^{\otimes n}
+        \right)
+        \braket{0|0}
+        \\
+         & =
+        \left(
+        \begin{pmatrix}
+            \overline\alpha_\varphi & \overline\beta_\varphi
+        \end{pmatrix}^{\otimes n}
+        \begin{pmatrix}
+            \alpha_\psi \\ \beta_\psi
+        \end{pmatrix}^{\otimes n}
+        \right)
+        \left(
+        \begin{pmatrix}
+                1 & 0
+            \end{pmatrix}
+        \begin{pmatrix}
+                1 \\ 0
+            \end{pmatrix}
+        \right)
+        \\
+         & =
+        \left(
+        \begin{pmatrix}
+            \overline\alpha_\varphi & \overline\beta_\varphi
+        \end{pmatrix}^{\otimes n}
+        \otimes
+        \begin{pmatrix}
+            1 & 0
+        \end{pmatrix}
+        \right)
+        \left(
+        \begin{pmatrix}
+            \alpha_\psi \\ \beta_\psi
+        \end{pmatrix}^{\otimes n}
+        \otimes
+        \begin{pmatrix}
+            1 \\ 0
+        \end{pmatrix}
+        \right)
+        \\
+         & =
+        \left(
+        \begin{pmatrix}
+            \overline\alpha_\varphi & \overline\beta_\varphi
+        \end{pmatrix}^{\otimes n}
+        \otimes
+        \begin{pmatrix}
+            1 & 0
+        \end{pmatrix}
+        \right)
+        U^\dag U
+        \left(
+        \begin{pmatrix}
+            \alpha_\psi \\ \beta_\psi
+        \end{pmatrix}^{\otimes n}
+        \otimes
+        \begin{pmatrix}
+            1 \\ 0
+        \end{pmatrix}
+        \right)
+        \\
+         & =
+        \left(
+        U
+        \left(
+            \begin{pmatrix}
+                \alpha_\psi \\ \beta_\psi
+            \end{pmatrix}^{\otimes n}
+            \otimes
+            \begin{pmatrix}
+                1 \\ 0
+            \end{pmatrix}
+            \right)
+        \right)^\dag
+        U
+        \left(
+        \begin{pmatrix}
+            \alpha_\psi \\ \beta_\psi
+        \end{pmatrix}^{\otimes n}
+        \otimes
+        \begin{pmatrix}
+            1 \\ 0
+        \end{pmatrix}
+        \right)
+        \\
+         & =
+        \left(
+        \begin{pmatrix}
+            \overline\alpha_\varphi & \overline\beta_\varphi
+        \end{pmatrix}^{\otimes n}
+        \otimes
+        \begin{pmatrix}
+            \overline\alpha_\varphi & \overline\beta_\varphi
+        \end{pmatrix}
+        \right)
+        \left(
+        \begin{pmatrix}
+            \alpha_\psi \\ \beta_\psi
+        \end{pmatrix}^{\otimes n}
+        \otimes
+        \begin{pmatrix}
+            \alpha_\psi \\ \beta_\psi
+        \end{pmatrix}
+        \right)
+        \\
+         & =
+        \begin{pmatrix}
+            \overline\alpha_\varphi & \overline\beta_\varphi
+        \end{pmatrix}^{\otimes(n+1)}
+        \begin{pmatrix}
+            \alpha_\psi \\ \beta_\psi
+        \end{pmatrix}^{\otimes(n+1)}
+        \\
+         & =
+        \left(
+        \begin{pmatrix}
+            \overline\alpha_\varphi & \overline\beta_\varphi
+        \end{pmatrix}
+        \begin{pmatrix}
+            \alpha_\psi \\ \beta_\psi
+        \end{pmatrix}
+        \right)^{n+1}
+        \\
+         & =
+        \braket{\varphi|\psi}^{n+1}.
+    \end{align*}
+    That is, $\braket{\varphi|\psi}^n(\braket{\varphi|\psi} - 1) = 0$. Thus $\braket{\varphi|\psi} \in \{0,1\}$, which does not necessarily hold for arbitrary qubits. \qed
+\end{solution}
+    \part[10] Can you generalize/strengthen your result?
+    \begin{solution}
+        We strengthen this assertion to the following. 
+    
+        There is does not exist a unitary map
+        \[
+            U:
+            \ket{\varphi}^{\otimes n} \otimes \ket{\rho}^{\otimes m}
+            \mapsto \ket{\varphi}^{\otimes n + m}
+        \]
+        for every qubit $\ket{\varphi}$, where $\ket\rho = \alpha_\rho\ket0 + \beta_\rho\ket 1$ is some fixed qubit and $n, m \in \mathbb N$.
+    
+        The proof follows a similar lines to the proof of the original assertion. Let
+        $
+            \ket\varphi =
+            \begin{pmatrix}
+                \alpha_\varphi \\ \beta_\varphi
+            \end{pmatrix}
+        $
+        and
+        $
+            \ket\psi =
+            \begin{pmatrix}
+                \alpha_\psi \\ \beta_\psi
+            \end{pmatrix}
+        $
+        be arbitrary two qubits. Then
+        \begin{align*}
+            \braket{\varphi|\psi}^n
+             & =
+            \left(
+            \begin{pmatrix}
+                    \overline\alpha_\varphi & \overline\beta_\varphi
+                \end{pmatrix}
+            \begin{pmatrix}
+                    \alpha_\psi \\ \beta_\psi
+                \end{pmatrix}
+            \right)^n
+            \\
+             & =
+            \begin{pmatrix}
+                \overline\alpha_\varphi & \overline\beta_\varphi
+            \end{pmatrix}^{\otimes n}
+            \begin{pmatrix}
+                \alpha_\psi \\ \beta_\psi
+            \end{pmatrix}^{\otimes n}
+            \\
+             & =
+            \left(
+            \begin{pmatrix}
+                \overline\alpha_\varphi & \overline\beta_\varphi
+            \end{pmatrix}^{\otimes n}
+            \begin{pmatrix}
+                \alpha_\psi \\ \beta_\psi
+            \end{pmatrix}^{\otimes n}
+            \right)
+            \braket{\rho|\rho}^m
+            \\
+             & =
+            \left(
+            \begin{pmatrix}
+                \overline\alpha_\varphi & \overline\beta_\varphi
+            \end{pmatrix}^{\otimes n}
+            \begin{pmatrix}
+                \alpha_\psi \\ \beta_\psi
+            \end{pmatrix}^{\otimes n}
+            \right)
+            \left(
+            \begin{pmatrix}
+                    \overline\alpha_\rho & \overline\beta_\rho
+                \end{pmatrix}
+            \begin{pmatrix}
+                    \alpha_\rho \\ \beta_\rho
+                \end{pmatrix}
+            \right)^m
+            \\
+             & =
+            \left(
+            \begin{pmatrix}
+                \overline\alpha_\varphi & \overline\beta_\varphi
+            \end{pmatrix}^{\otimes n}
+            \otimes
+            \begin{pmatrix}
+                \overline\alpha_\rho & \overline\beta_\rho
+            \end{pmatrix}^{\otimes m}
+            \right)
+            \left(
+            \begin{pmatrix}
+                \alpha_\psi \\ \beta_\psi
+            \end{pmatrix}^{\otimes n}
+            \otimes
+            \begin{pmatrix}
+                \alpha_\rho \\ \beta_\rho
+            \end{pmatrix}^{\otimes m}
+            \right)
+            \\
+             & =
+            \left(
+            \begin{pmatrix}
+                \overline\alpha_\varphi & \overline\beta_\varphi
+            \end{pmatrix}^{\otimes n}
+            \otimes
+            \begin{pmatrix}
+                \overline\alpha_\rho & \overline\beta_\rho
+            \end{pmatrix}^{\otimes m}
+            \right)
+            U^\dag U
+            \left(
+            \begin{pmatrix}
+                \alpha_\psi \\ \beta_\psi
+            \end{pmatrix}^{\otimes n}
+            \otimes
+            \begin{pmatrix}
+                \alpha_\rho \\ \beta_\rho
+            \end{pmatrix}^{\otimes m}
+            \right)
+            \\
+             & =
+            \left(
+            U
+            \left(
+                \begin{pmatrix}
+                    \alpha_\psi \\ \beta_\psi
+                \end{pmatrix}^{\otimes n}
+                \otimes
+                \begin{pmatrix}
+                    \alpha_\rho \\ \beta_\rho
+                \end{pmatrix}^{\otimes m}
+                \right)
+            \right)^\dag
+            U
+            \left(
+            \begin{pmatrix}
+                \alpha_\psi \\ \beta_\psi
+            \end{pmatrix}^{\otimes n}
+            \otimes
+            \begin{pmatrix}
+                \alpha_\rho \\ \beta_\rho
+            \end{pmatrix}^{\otimes m}
+            \right)
+            \\
+             & =
+            \left(
+            \begin{pmatrix}
+                \overline\alpha_\varphi & \overline\beta_\varphi
+            \end{pmatrix}^{\otimes n}
+            \otimes
+            \begin{pmatrix}
+                \overline\alpha_\varphi & \overline\beta_\varphi
+            \end{pmatrix}^{\otimes m}
+            \right)
+            \left(
+            \begin{pmatrix}
+                \alpha_\psi \\ \beta_\psi
+            \end{pmatrix}^{\otimes n}
+            \otimes
+            \begin{pmatrix}
+                \alpha_\rho \\ \beta_\rho
+            \end{pmatrix}^{\otimes m}
+            \right)
+            \\
+             & =
+            \begin{pmatrix}
+                \overline\alpha_\varphi & \overline\beta_\varphi
+            \end{pmatrix}^{\otimes(n+m)}
+            \begin{pmatrix}
+                \alpha_\psi \\ \beta_\psi
+            \end{pmatrix}^{\otimes(n+m)}
+            \\
+             & =
+            \left(
+            \begin{pmatrix}
+                \overline\alpha_\varphi & \overline\beta_\varphi
+            \end{pmatrix}
+            \begin{pmatrix}
+                \alpha_\psi \\ \beta_\psi
+            \end{pmatrix}
+            \right)^{n+m}
+            \\
+             & =
+            \braket{\varphi|\psi}^{n+m}.
+        \end{align*}
+        Thus $\braket{\varphi|\psi}^n(\braket{\varphi|\psi}^m - 1) = 0$. Thus $\braket{\varphi|\psi}$ is either $0$ or an $m$th root of unity, neither of which is necessarily true for arbitrary qubits. \qed
+    \end{solution}
+\end{parts}
+
+% \begin{solution}
+%     Pick the basis $\ket 0, \ket 1$ and let $\ket\varphi = \alpha\ket 0 + \beta\ket 1$ where $\alpha, \beta \in \mathbb C$ and $\lvert \alpha \rvert^2 + \lvert \beta \rvert^2 = 1$. We are looking to construct a map
+%     \[
+%         U: \ket\varphi^{\otimes n} \otimes \ket0 \mapsto \ket\varphi^{\otimes(n+1)}.
+%     \]
+%     It is a simple exercise to show that
+%     \begin{equation}
+%         \label{eq:n-tensor-product}
+%         \ket\varphi^{\otimes n} = \sum_{i \in \{0,\ldots, n\}} \sum_{b \in B_i^n} \alpha^{n-i} \beta^i b.
+%     \end{equation}
+%     where $B_i^n = \{\ket{x_1x_2\ldots x_n}: \text{$x_j \in \{0,1\}$ and only $i$ of the $x_j$'s are 1}\}$. 
+%     Note that, under $U$, we have
+%     \begin{align*}
+%         \ket{00\ldots00} &\mapsto \ket{00\ldots00}, \\
+%         \ket{11\ldots10} &\mapsto \ket{11\ldots11}.
+%     \end{align*}
+%     Using Equation \ref{eq:n-tensor-product}, the coefficient of $\ket{00\ldots00}$ in $\ket{\varphi}^{\otimes n} \otimes \ket0$ is $\alpha^n$, and the coefficient of $\ket{11\ldots10}$ is $\beta^n$.
+
+%     Conversely, the coefficient of $\ket{00\ldots00}$ in $\ket{\varphi}^{\otimes (n+1)}$ is $\alpha^{n+1}$ and the coefficient of $\ket{11\ldots11}$ is 
+% \end{solution}

@@ -1,0 +1,64 @@
+\lecture{22}{10/12}
+
+\begin{theorem}[Extreme value theorem]
+    For any closed and bounded region $X \subset \R^n$,
+    any continuous function $f: X \to \R$ 
+    always attains its maximum and minimum values in $X$.
+\end{theorem}
+
+\begin{proof}
+    The proof from this is seen in Complex Analysis:
+    \[ \text{``closed and bounded''} 
+    \qquad \iff \qquad
+    \text{``compact''}.\]
+\end{proof}
+
+We now have a recipe for finding global extrema of $f$
+in a closed and bounded (compact) region of $X$:
+
+\begin{enumerate}
+    \item find all critical points in $\int X$;
+    \item compute the value at each critical point;
+    \item restrict $f$ to the boundary and find extreme values there; then
+    \item compare the value of $f$ at all critical points in $\int X$ and the boundary,
+        the smallest is the global minimum and the largest is the 
+        global maximum.
+\end{enumerate}
+
+(iii) can be difficult and must be argued on a case by case basis.
+Note that if $X$ is \emph{not} compact, we can try express $X$ as
+\[ X = Y \cup Z \]
+where $Y$ is compact and $f(y) \geq f(z)$ or $f(y) \leq f(z)$ for all
+$y \in Y$ and $z \in Z$.
+
+\begin{example}
+    Find the global extrema of
+    \[ f(x, y) = x^4 + y^4 - 4x - 4y \]
+    in $X = [0,2] \times [0,2] \subset \R^2$.
+\end{example}
+
+\begin{solution}
+    We have $\int X = (0,2) \times (0,2)$.
+    We found earlier that $f$ has one critical point at $(1, 1)$,
+    with $f(1, 1) = -6$.
+    Now we look at the boundary.
+    At $x = 0$:
+    \[ f(0, y) = y^4 - 4y \]
+    which has a minimum of $-3$ at $y - 1$ and a maximum of $8$ at $y = 2$.
+    At $x = 2$:
+    \[ f(2, y) = 8 + y^4 - 4y \]
+    which similarly has a minimum of $5$ at $y = 1$ and $16$ at $y = 2$.
+    By symmetry, we have the same minimum and maximums for 
+    $y = 0$ and $y = 2$ on $x$;
+    therefore, the global minimum is $-6$ at $(1, 1)$ and 
+    the global maximum is $16$ at $(2, 2)$.
+\end{solution}
+
+\section{Lagrange multipliers}
+
+Suppose the boundary of a region $X \subset \R^2$ is a level set,
+then (iii) (from our recipe for finding global extrema from last section) becomes
+\begin{align*}
+    \text{maximise}\quad   & f(x, y) \\
+    \text{subject to}\quad & g(x, y) = 0.
+\end{align*}

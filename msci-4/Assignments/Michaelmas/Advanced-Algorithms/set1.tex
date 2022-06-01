@@ -1,0 +1,81 @@
+\question Let $G$ and $H$ be two undirected graphs. A mapping $f: V(G) \to V(H)$ is a \emph{graph homomorphism} if for all $u, v \in V(G)$ the following holds: if $uv$ is an edge in $G$, then $f(u)f(v)$ is an edge in $H$. For a fixed graph $H$ (that is, $H$ is not part of the input), the problem \textsc{$H$-Colouring} takes as input a graph $G$ and is to decide if there exists a homomorphism from $G$ to $H$.
+\begin{parts}
+    \part The \textsc{$H$-Colouring} problem generalizes the \textsc{$k$-Colouring} problem. Explain why this is the case.
+    \begin{solution}
+        Let $H = K_k$ (the complete graph with $k$ vertices). Then, if there is an homomorphism between $G$ and $H$, it is necessary that $G$ is $k$-colourable. Why? Suppose that $f: V(G) \to V(H)$ is a graph homomorphism and assign distinct colours to each vertex of $H$, which clearly defines a $k$-colouring. We now colour $G$: colour vertex $v \in V(G)$ with the colour of $f(v) \in V(H)$. This is a valid $k$-colouring. We check this: suppose $xy \in E(G)$. Then $f(x)f(y) \in E(H)$. Thus $x$ and $y$ must have distinct colours.
+    \end{solution}
+
+    \part Let $H$ be a graph that has a vertex $u$ with a self-loop (so $uu \in E(H)$). Give a constant-time algorithm for \textsc{$H$-Colouring}.
+    \begin{solution}
+        Let $G$ be the input graph and define $f: V(G) \to V(H)$ by $x \mapsto u$. We claim that $f$ is a graph homomorphism. Indeed, let $x, y \in V(G)$. Then $f(x)f(y) = uu \in E(H)$. Thus the output of our algorithm is \emph{yes}.
+    \end{solution}
+
+    \part Let $H$ be a bipartite graph (so $H$ has no self-loops). Give a polynomial-time algorithm for \textsc{$H$-Colouring}.
+    \begin{solution}
+        We first claim that no graph homomorphism exists between a non-bipartite graph and a bipartite graph. Indeed, let $f: A \to B$ be such a homomorphism. A graph is bipartite if and only if it is $2$-colourable. Let $g: B \to K_2$ be a graph homomorphism (which exists as $B$ is 2-colourable, mapping the vertices to its colour). But then $g \circ f: A \to K_2$ is also a graph homomorphism (a composition of graph homomorphisms is a graph homomorphism). Thus $A$ is bipartite; a contradiction.
+
+        Thus, if $G$ is non-bipartite (which we can greedily check in $O(n^2)$ time), then we output \emph{no}.
+
+        Now we consider $G$ bipartite. Let $G_1, G_2 \subset V(G)$ be the partitions of $G$. If $H$ contains no edges, then there is a graph homomorphism if and only if $G$ contains no edges. Now let $uv \in E(H)$. We can now construct the homomorphism $f: V(G) \to V(H)$ such that $f(G_1) = u$ and $f(G_2) = v$. Thus if $H$ has edges, the answer is \emph{yes}.
+    \end{solution}
+
+    \part Let $H$ be the diamond, which is the graph obtained from the complete graph on four vertices after removing an edge. What is the computation complexity of \textsc{$H$-Colouring}?
+    \begin{solution}
+        We draw the diamond graph below.
+        \begin{center}
+            \begin{tikzpicture}
+                \node[main] (1) {$a$};
+                \node[main] (2) [above of=1] {$b$};
+                \node[main] (3) [right of=2] {$c$};
+                \node[main] (4) [right of=1] {$d$};
+                \draw (1) -- (2) -- (3) -- (4) -- (1) -- (3);
+            \end{tikzpicture}
+        \end{center}
+        The diamond graph is $3$-colourable. Indeed, define $f: V(H) \to V(K_3) = \{1,2,3\}$ by $f(b)=f(d)=1$, $f(a)=2$, and $f(c)=3$. Thus if $G$ is $H$-colourable, it is $3$-colourable. That is, \textsc{$3$-Colouring} \emph{reduces} to \textsc{$H$-Colouring}. But $\textsc{$3$-Colouring} \in \NPC$, so $\textsc{$H$-Colouring} \in \NPC$. We have taken for granted that \textsc{$H$-Colouring} is polynomial-time verifiable, but we can just greedily check that a homomorphism is valid. 
+    \end{solution}
+\end{parts}
+
+\question 
+\begin{parts}
+    \part Let $\mathcal G$ be the class of trees. Is $\mathcal G$ hereditary? If so, determine $\mathcal F_{\mathcal G}$. 
+    \begin{solution}
+        $\mathcal G$ is not hereditary. Consider $P_3$. Deleting the middle vertex (with degree 2) leaves $2P_1$, which is a tree. 
+    \end{solution}
+
+    \part Let $\mathcal G$ be the class of forests. Is $\mathcal G$ hereditary? If so, determine $\mathcal F_{\mathcal G}$. 
+    \begin{solution}
+        $\mathcal G$ is indeed hereditary. We have $\mathcal F_{\mathcal G} = \{C_3, C_5, C_7, \ldots\}$.
+    \end{solution}
+
+    \part Let $\mathcal G$ be the class of paths. Is $\mathcal G$ hereditary? If so, determine $\mathcal F_{\mathcal G}$. 
+    \begin{solution}
+        No, see the example in (a). 
+    \end{solution}
+
+    \part Let $\mathcal G$ be the class of linear forests. Is $\mathcal G$ hereditary? If so, determine $\mathcal F_{\mathcal G}$. 
+    \begin{solution}
+        $\mathcal G$ is indeed hereditary, and $\mathcal G_{\mathcal F} = \{C_3, C_5, C_7, \ldots\} \cup \{K_{1,3}\}$.
+    \end{solution}
+
+    \part Let $\mathcal G$ be the class of complete graphs. Is $\mathcal G$ hereditary? If so, determine $\mathcal F_{\mathcal G}$. 
+    \begin{solution}
+        $\mathcal G$ is hereditary, and $\mathcal F_{\mathcal G} = \{2P_1\}$.
+    \end{solution}
+
+    \part Let $\mathcal G$ be the class of graphs that are disjoint union of complete graphs. Is $\mathcal G$ hereditary? If so, determine $\mathcal F_{\mathcal G}$.
+    \begin{solution}
+        $\mathcal G$ is hereditary with $\mathcal F_{\mathcal G} = \{P_3\}$. 
+    \end{solution}
+
+    \part A graph is \emph{chordal} if every subgraph $C$ of $G$ that is a cycle on at least four vertices has a \emph{chord}, that is, an edge between two non-adjacent vertices of $C$. Is $\mathcal G$ hereditary? If so, determine $\mathcal F_{\mathcal G}$.
+    \begin{solution}
+        $\mathcal G$ is hereditary with $\mathcal F_{\mathcal G} = \{C_4, C_5, C_6, \ldots\}$.
+    \end{solution}
+\end{parts}
+
+\question Let $\mathcal G$ be a hereditary graph class for which $\mathcal F_{\mathcal G}$ is finite. Describe a polynomial-time algorithm for deciding if a given graph belongs to $\mathcal G$.
+\begin{solution}
+    A greedy algorithm works here: for each $H \in \mathcal F_{\mathcal G}$ check each $G[A]$ such that $A \subset V(G)$ and $\lvert A \rvert = \lvert H \rvert$. An upper bound on the running time is
+    \[ \sum_{H \in \mathcal F_{\mathcal G}} \binom{\lvert G \rvert}{\lvert H \rvert} = O(n^k) \]
+    where $k = \max\{\lvert H \rvert: H \in \mathcal F_{\mathcal G}\}$. 
+\end{solution}

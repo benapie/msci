@@ -1,0 +1,27 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{k}{class} \PYG{n+nc}{ExpansionBruteForce}\PYG{p}{(}\PYG{n}{VRBase}\PYG{p}{,} \PYG{n}{ABC}\PYG{p}{):}
+    \PYG{k}{def} \PYG{n+nf+fm}{\PYGZus{}\PYGZus{}init\PYGZus{}\PYGZus{}}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{p}{,} \PYG{n}{points}\PYG{p}{:} \PYG{n}{List}\PYG{p}{[}\PYG{n}{ndarray}\PYG{p}{],} \PYG{n}{epsilon}\PYG{p}{:} \PYG{n+nb}{float}\PYG{p}{,}
+                 \PYG{n}{metric}\PYG{p}{:} \PYG{n}{Callable}\PYG{p}{[[}\PYG{n}{ndarray}\PYG{p}{[}\PYG{n+nb}{float}\PYG{p}{,} \PYG{o}{...}\PYG{p}{],} \PYG{n}{ndarray}\PYG{p}{[}\PYG{n+nb}{float}\PYG{p}{,} \PYG{o}{...}\PYG{p}{]],} \PYG{n+nb}{float}\PYG{p}{]):}
+        \PYG{n+nb}{super}\PYG{p}{()}\PYG{o}{.}\PYG{n+nf+fm}{\PYGZus{}\PYGZus{}init\PYGZus{}\PYGZus{}}\PYG{p}{(}\PYG{n}{points}\PYG{p}{,} \PYG{n}{epsilon}\PYG{p}{,} \PYG{n}{metric}\PYG{p}{)}
+
+    \PYG{k}{def} \PYG{n+nf}{compute\PYGZus{}expansion}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{p}{,} \PYG{n}{dim}\PYG{p}{:} \PYG{n+nb}{int}\PYG{p}{):}
+        \PYG{k}{if} \PYG{o+ow}{not} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{\PYGZus{}is\PYGZus{}skeleton\PYGZus{}constructed}\PYG{p}{:}
+            \PYG{k}{raise} \PYG{n+ne}{ReferenceError}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}Skeleton not constructed.\PYGZdq{}}\PYG{p}{)}
+        \PYG{k}{for} \PYG{n}{simplex\PYGZus{}dim} \PYG{o+ow}{in} \PYG{n+nb}{range}\PYG{p}{(}\PYG{l+m+mi}{2}\PYG{p}{,} \PYG{n}{dim} \PYG{o}{+} \PYG{l+m+mi}{1}\PYG{p}{):}
+            \PYG{k}{for} \PYG{n}{elem} \PYG{o+ow}{in} \PYG{n}{combinations}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{\PYGZus{}complex}\PYG{o}{.}\PYG{n}{p\PYGZus{}simplices}\PYG{p}{(}\PYG{n}{simplex\PYGZus{}dim} \PYG{o}{\PYGZhy{}} \PYG{l+m+mi}{1}\PYG{p}{),}
+                \PYG{n}{simplex\PYGZus{}dim} \PYG{o}{+} \PYG{l+m+mi}{1}\PYG{p}{):}
+                \PYG{n}{flag} \PYG{o}{=} \PYG{k+kc}{True}
+                \PYG{n}{max\PYGZus{}dist} \PYG{o}{=} \PYG{l+m+mi}{0}
+                \PYG{k}{for} \PYG{p}{(}\PYG{n}{x}\PYG{p}{,} \PYG{n}{y}\PYG{p}{)} \PYG{o+ow}{in} \PYG{n}{combinations}\PYG{p}{(}\PYG{n}{elem}\PYG{p}{,} \PYG{l+m+mi}{2}\PYG{p}{):}
+                    \PYG{k}{if} \PYG{n}{x}\PYG{o}{.}\PYG{n}{intersect}\PYG{p}{(}\PYG{n}{y}\PYG{p}{)}\PYG{o}{.}\PYG{n}{dim} \PYG{o}{==} \PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{1}\PYG{p}{:}
+                        \PYG{n}{flag} \PYG{o}{=} \PYG{k+kc}{False}
+                        \PYG{k}{break}
+                    \PYG{n}{max\PYGZus{}dist} \PYG{o}{=} \PYG{n+nb}{max}\PYG{p}{([}\PYG{n}{max\PYGZus{}dist}\PYG{p}{,} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{\PYGZus{}complex}\PYG{o}{.}\PYG{n}{get\PYGZus{}weight}\PYG{p}{(}\PYG{n}{x}\PYG{p}{),}
+                        \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{\PYGZus{}complex}\PYG{o}{.}\PYG{n}{get\PYGZus{}weight}\PYG{p}{(}\PYG{n}{y}\PYG{p}{)])}
+                \PYG{k}{if} \PYG{n}{flag}\PYG{p}{:}
+                    \PYG{n}{union} \PYG{o}{=} \PYG{n}{elem}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{]}\PYG{o}{.}\PYG{n}{union}\PYG{p}{(}\PYG{o}{*}\PYG{n}{elem}\PYG{p}{[}\PYG{l+m+mi}{1}\PYG{p}{:])}
+                    \PYG{k}{if} \PYG{n}{union}\PYG{o}{.}\PYG{n}{dim} \PYG{o}{==} \PYG{n}{simplex\PYGZus{}dim}\PYG{p}{:}
+                        \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{\PYGZus{}complex}\PYG{o}{.}\PYG{n}{add\PYGZus{}simplex}\PYG{p}{(}\PYG{n}{union}\PYG{p}{,} \PYG{n}{max\PYGZus{}dist}\PYG{p}{)}
+            \PYG{k}{if} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{\PYGZus{}complex}\PYG{o}{.}\PYG{n}{p\PYGZus{}simplex\PYGZus{}count}\PYG{p}{(}\PYG{n}{simplex\PYGZus{}dim}\PYG{p}{)} \PYG{o}{\PYGZlt{}} \PYG{n}{simplex\PYGZus{}dim} \PYG{o}{+} \PYG{l+m+mi}{1}\PYG{p}{:}
+                \PYG{k}{break}
+\end{Verbatim}

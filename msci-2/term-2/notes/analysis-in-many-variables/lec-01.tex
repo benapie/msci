@@ -1,0 +1,158 @@
+\chapter{Differentiability of vector fields}
+\section{Basic ideas}
+\lecture{1}{13/1}
+
+Recall that for a scalar field 
+$f(\bm x): U \to \R$ 
+for $U$ open in $\R^n$,
+$f$ is differentiable at $\bm a \in U$ if
+\[ f(\bm a + \bm h) - f(\bm a) = \bm h \cdot \nabla f(\bm a) + R(\bm h) \tag{a} \]
+with
+\[ \lim_{\bm h \to \bm 0} \left(\frac{R(\bm h)}{\norm{\bm h}}\right) = 0. \tag{b} \]
+The key point here is to show that the RHS of (a) is linear in $\bm h$.
+
+We can extend this idea to vector fields.
+
+Let $U \subset \R^n$ be open and $\bm F(\bm x): U \to \R^n$ be a vector field.
+$\bm F$ is \textbf{differentiable} at $\bm a \in U$ if there exists a linear function
+$L: \R^n \to \R^n$ such that
+\[
+    \bm F(\bm a + \bm h) - \bm F(\bm a) = \bm L(\bm h) + \bm R(\bm h)
+\]
+with
+\[
+    \lim_{\bm h \to \bm 0} \left( \frac{\bm R(\bm h)}{\norm{\bm h}} \right) = \bm 0.
+\]
+
+Linear functions $\R^n \to \R^n$ are essentially matrices.
+To see the form of this matrix, we use the standard basis:
+\begin{align*}
+    \bm F(\bm x) &= F_1(\bm x)\bm e_1 + \ldots + F_n(\bm x) \bm e_n \\
+    \bm L(\bm h) &= L_1(\bm h)\bm e_1 + \ldots + L_n(\bm h) \bm e_n \\
+    \bm R(\bm h) &= R_1(\bm h)\bm e_1 + \ldots + R_n(\bm h) \bm e_n.
+\end{align*}
+So the $j$th components of (A) and (B) are
+\begin{align*}
+    F_j(\bm a + \bm h) - F_j(\bm a) &= L_j(\bm h) + R_j(\bm h) \\
+    \lim_{\bm h \to 0} \left(\frac{R_j(\bm h)}{\norm{\bm h}}\right) &= 0.
+\end{align*}
+Hence, $\bm F$ is differentiable if all of its components are differentiable.
+
+\begin{definition}[Differentiability of a vector field]
+    Let $U \subset \R^n$ be open.
+    A vector field $\bm F(\bm x): U \to \R^n$ is called \textbf{differentiable}
+    if all of its components are differentiable.
+\end{definition}
+
+Using results from earlier, we have
+\begin{align*}
+    L_j(\bm h) &= \bm h \cdot \nabla F_j(\bm a) \\
+    \bm L(\bm h) &=
+        \begin{pmatrix}
+            L_1 \\ L_2 \\ \vdots \\ L_n
+        \end{pmatrix} =
+        \begin{pmatrix}
+            \frac{\partial F_1}{\partial x_1} &
+            \frac{\partial F_1}{\partial x_2} &
+            \ldots &
+            \frac{\partial F_1}{\partial x_n} \\
+            \frac{\partial F_2}{\partial x_1} &
+            \frac{\partial F_2}{\partial x_2} &
+            \ldots &
+            \frac{\partial F_2}{\partial x_n} \\
+            \vdots & \vdots & \ddots & \vdots \\
+            \frac{\partial F_n}{\partial x_1} &
+            \frac{\partial F_n}{\partial x_2} &
+            \ldots &
+            \frac{\partial F_n}{\partial x_n} \\
+        \end{pmatrix}
+        \begin{pmatrix}
+            h_1 \\ h_2 \\ \vdots \\ h_n
+        \end{pmatrix}.
+        \tag{$\star$}
+\end{align*}
+
+The first term of the RHS of $(\star)$ is an $n \times n$ matrix
+called the \textbf{Jacobian matrix} or the \textbf{differential}
+of $\bm F(\bm x)$ at $\bm x = \bm a$.
+
+\begin{definition}[Jacobian matrix]
+    Let $U \subset \R^n$ be open
+    and $\bm F(\bm x): U \to \R^n$ be a vector field 
+    such that all first-order partial derivatives exist on $\R^n$.
+    Then the \textbf{Jacobian matrix} of $\bm F$ is defined as
+    \[
+        \bm J_{\bm F} =
+        \begin{pmatrix}
+            \frac{\partial \bm F}{\partial x_1} & \ldots & \frac{\partial \bm F}{\partial x_n} 
+        \end{pmatrix}
+        =
+        \begin{pmatrix}
+            \frac{\partial F_1}{\partial x_1} & \ldots & \frac{\partial F_1}{\partial_n} \\
+            \vdots & \ddots & \vdots \\
+            \frac{\partial F_n}{\partial x_1} & \ldots & \frac{\partial F_n}{\partial_n} \\
+        \end{pmatrix}
+        .
+    \]
+\end{definition}
+
+\begin{remark}
+    The Jacobian matrix may also be denotes as
+    $D\bm F(\bm a)$, $d\bm F(\bm a)$, $D\bm F_{\bm a}$, $d\bm F_{\bm a}$, or $J_{ij}$.
+\end{remark}
+
+\begin{definition}[Jacobian]
+    Let $U \subset \R^n$ be open and
+    $\bm F: U \to \R^n$ be a vector field 
+    such that all first-order partial derivatives exist on $\R^n$.
+    The determinant of the Jacobian matrix of $\bm F$ 
+    is called the \textbf{Jacobian} of $\bm F$.
+\end{definition}
+
+\begin{example}
+    Let
+    \[ \bm v(\bm x) =
+        \begin{pmatrix}
+            x^2 - y^2 \\ 2xy
+        \end{pmatrix} =
+        \begin{pmatrix}
+            v_1 \\ v_2
+        \end{pmatrix}. \]
+    Then
+    \[
+        J_{\bm v}(\bm x) =
+        \begin{pmatrix}
+            \frac{\partial v_1}{\partial x} & \frac{\partial v_1}{\partial y} \\
+            \frac{\partial v_2}{\partial x} & \frac{\partial v_2}{\partial y} \\
+        \end{pmatrix} =
+        \begin{pmatrix}
+            2x & -2y \\
+            2y & 2x
+        \end{pmatrix}.
+    \]
+    Furthermore, 
+    \[
+        \det(J_{\bm v}(\bm x)) = (2x)^2 + (2y)^2 = 4 \norm{\bm x}^2.
+    \]
+\end{example}
+
+\begin{example}
+    If $\bm x \in \R^n$ and $\bm v(\bm x) = \bm x$ then
+    \[ J_{\bm v}(\bm x) = I_n, \qquad \det(J_{\bm v}(\bm v)) = 1. \]
+\end{example}
+
+\section{Diffeomorphisms and the inverse function theorem}
+
+A vector field $\bm v: \R^n \to \R^n$ is a mapping from $\R^n$ to $\R^n$.
+We can equivalently think of vector fields as \emph{coordinate transformations}.
+
+We can think of the components of $\bm h$ as the coordinates of a point
+$\bm x = \bm a + \bm h$ relative to newly defined origin at $\bm a$. 
+Then the components of 
+$\bm v(\bm a + \bm h) - \bm v(\bm a)$ 
+are the transformmed coordinates relative to the transformed origin 
+$\bm v(\bm a)$.
+So for differentiable $\bm v$ and small $\bm h$
+\[ \bm v(\bm a + \bm h) - \bm v(\bm a) \simeq J_{\bm v}(\bm a) \cdot \bm h \]
+which is a \emph{linear} transformation, invertible if
+$\det(J_{\bm v}) \neq 0$.

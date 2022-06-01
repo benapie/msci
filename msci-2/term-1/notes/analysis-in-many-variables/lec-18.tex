@@ -1,0 +1,58 @@
+% Choose more favourable characters
+\section{Maxima and minima}
+\lecture{18}{21/11}
+
+Let $f: X \to \R$ where $X \subset \R^n$. $X$ may not be open, but we can define an important open subset of $X$ called the \emph{interior}.
+
+\begin{definition}[Interior]
+    A point $\bm x \in X$ is in the interior of $X$ (denoted $\bm x \in \inte{X}$) if there exists $\delta > 0$ such that 
+    \[ B_\delta(\bm x) \subset X. \]
+\end{definition}
+
+Unless otherwise staated, we suppose $f$ is continuously differentiable on the interior of a set $X$.
+
+\begin{definition}[Maximum and minimum points]
+    Let $X \subset \R^n$ and $f: X \to \R$, then
+    \begin{enumerate}
+        \item $\bm a \in X$ is a \textbf{global maximum} (or \textbf{absolute maximum}) for $f$ if
+            \[ f(\bm a) \geq f(\bm x) \]
+            for all $\bm x \in X$;
+        \item $\bm a \in X$ is a \textbf{global minimum} (or \textbf{absolute minimum}) for $f$ if
+            \[ f(\bm a) \leq f(\bm x) \]
+            for all $\bm x \in X$;
+        \item $\bm a \in X$ is a \textbf{strict global maximum} if
+            \[ f(\bm a) > f(\bm x) \]
+            for all $\bm x \in X$ and the same for strict global minimum; and
+        \item $\bm a \in X$ is a \textbf{local maximum} if $\bm a \in \inte{f}$ and there exists a neighbour $N$ such that $\bm a \in N$ and 
+            \[ f(\bm a) \geq f(\bm x) \]
+            for all $\bm x \in N$, and equivalent definition exists for a local minimum.
+    \end{enumerate}
+\end{definition}
+
+% figure?
+
+\begin{definition}[External]
+    An \textbf{external point} is a (maybe local) minimum or maximum point.
+\end{definition}
+
+\begin{proposition}[]
+    If $f$ is differentiable at $\bm a$ and $\nabla f(\bm a) \neq 0$ then $\bm a$ is \emph{not} an external point.
+\end{proposition}
+
+\begin{proof}
+    Let $\bm x(t)$ be some curve going through $\bm a$ such that $\bm x(\bm a) = \bm 0$. 
+    We define the tangent such that
+    \[ \frac{d\bm x}{dt} \cdot \nabla f \neq 0 \]
+    at $\bm a$.
+    We set $F(t) = f(\bm x(t))$ then
+    \[ \frac{dF}{dt} \Bigr|_{t = 0} = \frac{d\bm x}{dt} \cdot \nabla f \neq 0 \]
+    and so this is not an external point. %might need more work todo
+\end{proof}
+
+\begin{proposition}[]
+    Local extrema of differentiable functions occur at critical points.
+\end{proposition}
+
+\begin{remark}
+    \emph{Warning}, it is not true to say that all critical points are local extreme.
+\end{remark}

@@ -1,0 +1,674 @@
+\chapter{Eigenvalues and diagonalisation}
+
+\begin{definition}[Diagonal matrix]
+    A \textbf{diagonal} matrix is a square matrix where all elements not on the leading diagonal are $0$. That is, for a $n \times n$ diagonal matrix $D$:
+    \[
+        D =
+        \begin{pmatrix}
+            d_1 & 0 & \ldots & 0 \\
+            0 & d_2 & \ldots & 0 \\
+            \vdots & \vdots & \ddots & \vdots \\
+            0 & 0 & \ldots & d_n \\
+        \end{pmatrix}
+        \qquad a_i \in \mathbb{R}.
+    \]
+\end{definition}
+
+Diagonal matrices are the \textbf{easiest} form for a matrix representing a transformation. The following example shows why diagonalisation is important.
+
+\begin{example}[Predator-prey models]
+    Let $x_n$ be the number of owls at the end of year $n$ and $y_n$ be the number of mice at the end of year $n$. We want to describe the population evolution from $n \to n + 1$. This can be modelled using linear equations: 
+    \[
+        \bm{v}_n =
+        \begin{pmatrix}
+            x_n \\ y_n
+        \end{pmatrix}
+        \qquad
+        v_{n + 1} = M \bm{v}_n
+    \]
+    for some $M$. In this example, we will take 
+    \[
+        \begin{pmatrix}
+            0.6 & 0.4 \\
+            -0.1 & 1.2 \\
+        \end{pmatrix}
+        .
+    \]
+    We can write this as
+    \begin{align*}
+        x_{n + 1} &= 0.6 x_n + 0.4 y_n \\
+        y_{n + 1} &= -0.1 x_n + 1.2 y_n.
+    \end{align*}
+    So, given $\bm{v}_0$, what is the population after $10$ years? Calculating $M^{10}$ is not obvious and very time consuming; however, note that for a diagonal matrix $D$ 
+    \begin{align*}
+        D &= 
+        \begin{pmatrix}
+            d_1 & 0 & \ldots & 0 \\
+            0 & d_2 & \ldots & 0 \\
+            \vdots & \vdots & \ddots & \vdots \\
+            0 & 0 & \ldots & d_n \\
+        \end{pmatrix}
+        \\
+        D^2 &= 
+        \begin{pmatrix}
+            (d_1)^2 & 0 & \ldots & 0 \\
+            0 & (d_2)^2 & \ldots & 0 \\
+            \vdots & \vdots & \ddots & \vdots \\
+            0 & 0 & \ldots & (d_n)^2 \\
+        \end{pmatrix}
+        \\
+        D^k &=
+        \begin{pmatrix}
+            (d_1)^k & 0 & \ldots & 0 \\
+            0 & (d_2)^k & \ldots & 0 \\
+            \vdots & \vdots & \ddots & \vdots \\
+            0 & 0 & \ldots & (d_n)^k \\
+        \end{pmatrix}
+        .
+    \end{align*}
+\end{example}
+
+\begin{example}[System of ordinary differential equations]
+    Let
+    \begin{align*}
+        x'(t) &= -x(t) + 4y(t) \\
+        y'(t) &= -2x(t) + 5y(t).
+    \end{align*}
+    We can rewrite this as 
+    \[
+        \begin{pmatrix}
+            x' \\ y'
+        \end{pmatrix}
+        =
+        A
+        \begin{pmatrix}
+            x \\ y
+        \end{pmatrix}
+        =
+        \begin{pmatrix}
+            -1 & 4 \\
+            -2 & 5 \\
+        \end{pmatrix}
+        \begin{pmatrix}
+            x \\ y
+        \end{pmatrix}
+        .
+    \]
+    If $A$ is diagonal, this becomes trivial. For example, if
+    \[
+        \begin{pmatrix}
+            x' \\ y'
+        \end{pmatrix}
+        =
+        \begin{pmatrix}
+            -2 & 0 \\
+            0 & 3 \\
+        \end{pmatrix}
+        \begin{pmatrix}
+            x \\ y
+        \end{pmatrix}
+    \]
+    then $x' = -2x \implies x = x_0 e^{-2t}$ and $y' = 3y \implies y = y_0 e^{3t}$.
+\end{example}
+
+\begin{remark}
+    Let
+    \[
+        \begin{pmatrix}
+            a_1 & 0 & \ldots & 0 \\
+            0 & a_2 & \ldots & 0 \\
+            \vdots & \vdots & \ddots & \vdots \\
+            0 & 0 & \ldots & a_n \\
+        \end{pmatrix}
+        ,
+    \]
+    note that 
+    \[
+        A \cdot
+        \begin{pmatrix}
+            1 \\ 0 \\ \vdots \\ 0
+        \end{pmatrix}
+        = a_1
+        \begin{pmatrix}
+            1 \\ 0 \\ \vdots \\ 0
+        \end{pmatrix}
+        , \quad A \cdot
+        \begin{pmatrix}
+            0 \\ 1 \\ \vdots \\ 0
+        \end{pmatrix}
+        = a_2
+        \begin{pmatrix}
+            0 \\ 1 \\ \vdots \\ 0
+        \end{pmatrix}
+        , \quad \ldots, \quad A \cdot
+        \begin{pmatrix}
+            0 \\ 0 \\ \vdots \\ 1
+        \end{pmatrix}
+        = a_n
+        \begin{pmatrix}
+            0 \\ 0 \\ \vdots \\ 1
+        \end{pmatrix}
+        .
+    \]
+\end{remark}
+
+\begin{definition}[Eigenvector]
+    A non-zero vector $\bm{v}$ is an \textbf{eigenvector} of $A$ with eigenvalue $\lambda \in \mathbb{C}$ if \[ A \bm{v} = \lambda \bm{v}. \]
+\end{definition}
+
+For $\bm{v}$ to be an eigenvector of $A$ with eigenvalue $\lambda$ we must have \[ (A - \lambda I) \bm{v} = 0 \] where $\bm{v} \neq \bm{0}$; hence, $A - \lambda I$ must not be invertible.
+
+\begin{definition}[Characteristic equation]
+    The \textbf{characteristic equation} for a $n \times n$ is \[ P_A(t) = \det{(A - tI)}. \]
+\end{definition}
+
+If $\lambda$ is an eigenvalue of $A$ then $\det{(A - \lambda I)} = 0$. This means that $\lambda$ must be a root of $P_A(t)$: $P_A(\lambda) = 0$. 
+
+\section{Multiplicity of an eigenvalue}
+
+Any $N$ degree polynomial $p(t)$ can be written as \[ p(t) = a \cdot (t - \lambda_1)^{k_1} \cdot (t - \lambda_2)^{k_2} \cdot \ldots \cdot (t - \lambda_p)^{k_p} \] where $a \neq 0$, the roots $\lambda_1, \lambda_2, \ldots, \lambda_p \in \mathbb{C} : \lambda_i \neq \lambda_j \; \forall \; i \neq j$, the multiplicities $k_1, k_2, \ldots k_p \in \mathbb{N}$, $1 \leq k_i \leq N$, and \[ \sum_{i = 1}^p k_i = N. \] Consider $p_A(t) = (t - \lambda_1)^{k_1} \cdot Q(t)$ where $Q(\lambda_1) \neq 0$ as each root is distinct. In this form, there are at most $k_1$ linearly independent eigenvectors corresponding to the eigenvalue $\lambda_1$. Call $p$ the number of linearly independent eigenvectors, then $1 \leq p \leq k$.
+
+\begin{example}
+    Consider
+    \[
+        A =
+        \begin{pmatrix}
+            10 & 0 & 0 \\
+            0 & 2 & 0 \\
+            0 & 0 & 3 \\
+        \end{pmatrix}
+        .
+    \]
+    Then \[ p_A(t) = (10 - t)^1 \cdot (2 - t)^1 \cdot (3 - t)^1. \] For diagonal matrices, the eigenvalues are simply the entries of the diagonal, so we have the eigenvalues $\lambda_1 = 10$, $\lambda_2 = 2$, and $\lambda_3 = 3$ with all the same multiplicity of $1$.
+\end{example}
+
+\begin{example}
+    Consider 
+    \[
+        A =
+        \begin{pmatrix}
+            10 & -2 & 5 \\
+            0 & 2 & 4 \\
+            0 & 0 & 3 \\
+        \end{pmatrix}
+        .
+    \]
+    Then
+    \begin{align*}
+        p_A(t) &= \det{(A - tI)} \\
+        &= \det
+        \begin{pmatrix}
+            10 - t & -2 & 5 \\
+            0 & 2 - t & 4 \\
+            0 & 0 & 3 - t \\
+        \end{pmatrix}
+        \\
+        &= (10 - t)^1 \cdot (2 - t)^1 \cdot (3 - t)^1.
+    \end{align*}
+    The eigenvalues are the same as the previous example.
+\end{example}
+
+\begin{remark}
+    The eigenvalues for a upper or lower triangular matrix are the leading diagonal entries.
+\end{remark}
+
+\section{Eigenvectors}
+
+\begin{definition}
+    The \textbf{eigenspace} $V_\lambda$ is a $p$-dimensional vector subspace of $V = \mathbb{R}^n$ spanned by the eigenvectors of $A$ relative to the eigenvalue $\lambda$.
+\end{definition}
+
+\begin{remark}
+    If $\bm{v} \in V_\lambda$ then $A \bm{v} = \lambda \bm{v} \implies (A - \lambda I) \bm{v} = \bm{0}$. So \[ V_k = \ker{(A - \lambda I)} \] and \[ \nullity{V_k} = \dim{(\ker{(A - \lambda I)})} = \dim{V_k} = p. \]
+\end{remark}
+
+\begin{example}
+    The $2 \times 2$ identity matrix 
+    \[
+        A =
+        \begin{pmatrix}
+            1 & 0 \\
+            0 & 1 \\
+        \end{pmatrix}
+    \]
+    has the eigenvalue $\lambda = 1$ (twice) and two independent eigenvectors: the eigenspace is $2$-dimensional.
+\end{example}
+
+\begin{example}
+    Suppose 
+    \[
+        A =
+        \begin{pmatrix}
+            1 & 1 \\
+            0 & 1 \\
+        \end{pmatrix}
+        .
+    \]
+    $A$ also has eigenvalue $\lambda = 1$ (twice) but $\bm{v} = (1, 0)$ is the only eigenvector: the eigenspace is $1$-dimensional, namely $\langle v \rangle$.
+\end{example}
+
+\begin{theorem}[Cayley-Hamilton theorem]
+    Let $A$ be a square matrix with characteristic polynomial $p(t)$. Then $p(A) = 0$, as a matrix equation.
+\end{theorem}
+
+\begin{proof}
+    We will only prove the Cayley-Hamilton theorem for $2 \times 2$ matrices, but the theorem holds for all square matrices.
+    
+    Let
+    \[
+        A =
+        \begin{pmatrix}
+            a & b \\
+            c & d \\
+        \end{pmatrix}
+        .
+    \]
+    Then $p_A(t) = (a-t)(d-t) - bc = t^2 - (a + d) t + (ad - bc)$; therefore,
+    \begin{align*}
+        p(A) &= 
+        \begin{pmatrix}
+            a & b \\
+            c & d \\
+        \end{pmatrix}
+        ^2 - (a + d)
+        \begin{pmatrix}
+            a & b \\
+            c & d \\
+        \end{pmatrix}
+        + (ad - bc)
+        \begin{pmatrix}
+            1 & 0 \\
+            0 & 1 \\
+        \end{pmatrix}
+        \\
+        &=
+        \begin{pmatrix}
+            a^2 + bc & ab + bd \\
+            ac + cd & bc + d^2 \\
+        \end{pmatrix}
+        -
+        \begin{pmatrix}
+            a^2 + ad & ab + bd \\
+            ac + cd & ad + d^2 \\
+        \end{pmatrix}
+        +
+        \begin{pmatrix}
+            ad - bc & 0 \\
+            0 & ad - bc \\
+        \end{pmatrix} \\
+        &=
+        \begin{pmatrix}
+            0 & 0 \\
+            0 & 0 \\
+        \end{pmatrix}
+        .
+    \end{align*}
+\end{proof}
+
+\section{Matrix similarity}
+
+\begin{definition}[Equivalence relation]
+    An \textbf{equivalence relation}, $\sim$, on a set $X$ is a binary relation with the following properties:
+    \begin{enumerate}
+        \item $a \sim a$, reflexivity;
+        \item $a \sim b \implies b \sim a$, symmetry;
+        \item if $a \sim b$ and $b \sim c$ then $a \sim c$, transitivity.
+    \end{enumerate}
+\end{definition}
+
+\begin{definition}[Matrix similarity]
+    Two $n \times n$ matrices $A, B$ are \textbf{similar} if there exists an invertible $n \times n$ matrix $P$ such that \[ B = P^{-1} A P, \] written $A \sim B$.
+\end{definition}
+
+\begin{proposition}
+    Matrix similarity is an equivalence relation.
+\end{proposition}
+
+\begin{proof}
+    Let $A, B, C \in M_n(\mathbb{R})$.
+    \begin{enumerate}
+        \item Reflexivity, clearly this property holds as \[ A = I^{-1} A I. \]
+        \item Symmetry, this property holds as if $A \sim B$ then \[ A = P^{-1} B P \implies B = Q^{-1} A Q \] where $Q = P^{-1}$.
+        \item Transitivity, if $A \sim B$ then for some $P$ \[ A = P^{-1} B P \] and if $B \sim C$ then for some $Q$ \[ B = Q^{-1} C Q \] so \[ A = R^{-1} C R \] where $R = QP$.
+    \end{enumerate}
+\end{proof}
+
+\begin{proposition}
+    Similar matrices have the same eigenvalues.
+\end{proposition}
+
+\begin{proof}
+    Suppose $A = M^{-1} B M$. The characteristic polynomial of $A$ is \[ p_A(t) = \det(A - tI) = \det(M^{-1} (B-tI) M)=\det(M^{-1}) \det(B-tI) \det(M) = p_B(t) \]
+    so $A$ and $B$ have the same eigenvalues.
+\end{proof}
+
+\begin{definition}[Diagonalisable matrix]
+    Let $A \in M_n(\mathbb{R})$ and $D \in M_n(\mathbb{R})$ be a diagonal matrix. $A$ is said to be \textbf{diagonalisable} if $A \sim D$. That is, \[ A = P^{-1} D P. \]
+\end{definition}
+
+\begin{remark}
+    \begin{enumerate}
+        \item If $A$ and $B$ have the same eigenvalues and the same multiplicities, this does not imply that $A \sim B$. In general, $A \not \sim B$.
+        
+        \item For $A$ and $B$ to be similar a necessary condition is for them to have $p_A(t) = p_B(t)$. 
+        
+        \item If $A$ and $B$ have the same eigenvalues, the same multiplicities, and are diagonalisable then $A \sim B$.
+    \end{enumerate}
+\end{remark}
+
+\begin{proof}[Proof of (iii)]
+    Let $A = M^{-1} D_1 M$ and $B = N^{-1} D_2 N$ where $A, D_1, D_2, M, N \in M_n{\mathbb{R}}$, $D$ is a diagonal matrix, and $M, N$ are invertible. Since $A$ and $B$ have the same eigenvalues and multiplicities \[ D_1 = \operatorname{diag}(a_1, a_2, \ldots, a_n) = D_2 \sim D. \] So $A \sim D_1$, $B \sim D_2$, $D_1 \sim D_2$, and $A \sim B$.
+\end{proof}
+
+\begin{remark}
+    \begin{enumerate}
+        \item If $A$ is diagonalisable $A = M^{-1} D M$ and $D$ is not diagonalisable then $A \not \sim B$.
+        
+        \item Not all square matrices are diagonalisable.
+        
+        \item If the eigenvalues of $A$ are all distinct, all the multiplicities are $1$ $\implies$ $A$ is diagonalisable.
+        
+        \item If $A$ is a symmetric matrix such that $A = A^{\mathrm{T}}$ then it is diagonalisable.
+    \end{enumerate}
+\end{remark}
+
+\section{Diagonalisation by change of basis}
+
+\begin{proposition}
+    Let $A \in M_n(\mathbb{R})$. Then $A$ is diagonalisable if and only if $A$ has $N$ linearly independent eigenvectors such that the eigenvectors form a basis for $V = \mathbb{R}^n$.
+\end{proposition}
+
+\begin{proof}
+    Assume that we have $n$ linearly independent eigenvectors \[ \{ \bm{v}_1, \bm{v}_2, \ldots, \bm{v}_n \} \] with eigenvalues \[ \{ \lambda_1, \lambda_2, \ldots, \lambda_n \} \] (these eigenvalues do not necessarily have to be distinct). Let 
+    \[
+        M =
+        \begin{pmatrix}
+            \bm{v}_1 & \bm{v}_2 & \ldots & \bm{v}_n
+        \end{pmatrix}
+    \]
+    such that the columns of $M$ are the eigenvectors of our matrix $A$. Also define
+    \[
+        D =
+        \begin{pmatrix}
+            \lambda_1 & 0 & \ldots & 0 \\
+            0 & \lambda_2 & \ldots & 0 \\
+            \vdots & \vdots & \ddots & \vdots \\
+            0 & 0 & \ldots & \lambda_n \\
+        \end{pmatrix}.
+    \]
+    Then we see
+    \begin{align*}
+        AM &= A
+        \begin{pmatrix}
+            \bm{v}_1 & \bm{v}_2 & \ldots & \bm{v}_n
+        \end{pmatrix}
+        \\
+        &= 
+        \begin{pmatrix}
+            A\bm{v}_1 & A\bm{v}_2 & \ldots & A\bm{v}_n 
+        \end{pmatrix}
+        \\
+        &=
+        \begin{pmatrix}
+            \lambda_1 \bm{v}_1 & \lambda_2 \bm{v}_2 & \ldots & \lambda_n \bm{v}_n
+        \end{pmatrix}
+        \\
+        &=
+        \begin{pmatrix}
+            \bm{v}_1 & \bm{v}_2 & \ldots & \bm{v}_n
+        \end{pmatrix}
+        \begin{pmatrix}
+            \lambda_1 & 0 & \ldots & 0 \\
+            0 & \lambda_2 & \ldots & 0 \\
+            \vdots & \vdots & \ddots & \vdots \\
+            0 & 0 & \ldots & \lambda_n \\
+        \end{pmatrix}
+    \end{align*}
+    so $AM = MD$ and $M^{-1} A M = M^{-1} M D = D$ so $D \sim A$ and thus $A$ is diagonalisable. Note that we know that $M$ is invertible as all the columns are linearly independent.
+
+    Now we will prove that $A$ being diagonalisable implies that it has $n$ linearly independent eigenvectors. Assume that there exists $M$ such that
+    \begin{align*}
+        M^{-1} A M &= D \\
+        M M^{-1} A M &= M D \\
+        AM &= MD.
+    \end{align*}
+    Equating columns by columns on each side we see that
+    \begin{align*}
+        A
+        \begin{pmatrix}
+            \bm{v}_1 & \bm{v}_2 & \ldots & \bm{v}_n
+        \end{pmatrix}
+        &=
+        \begin{pmatrix}
+            \bm{v}_1 & \bm{v}_2 & \ldots & \bm{v}_n
+        \end{pmatrix}
+        \begin{pmatrix}
+            \lambda_1 & 0 & \ldots & 0 \\
+            0 & \lambda_2 & \ldots & 0 \\
+            \vdots & 0 & \ddots & 0 \\
+            0 & 0 & \ldots & \lambda_n \\
+        \end{pmatrix}
+        \\
+        \begin{pmatrix}
+            A \bm{v}_1 & A \bm{v}_2 & \ldots & A \bm{v}_n \\
+        \end{pmatrix}
+        &=
+        \begin{pmatrix}
+            \lambda_1 \bm{v}_1 & \lambda_2 \bm{v}_2 & \ldots & \lambda_n \bm{v}_n 
+        \end{pmatrix}
+        ;
+    \end{align*}
+    therefore:
+    \begin{enumerate}
+        \item each column of $M$ is an eigenvector of $A$;
+        \item $D$ contains the eigenvalues; and
+        \item since there exists $M^{-1}$ such that the columns are linearly independent, then the eigenvectors are linearly independent.
+    \end{enumerate}
+\end{proof}
+
+\begin{example}
+    Is the matrix
+    \[
+        A =
+        \begin{pmatrix}
+            -1 & 4 \\
+            -2 & 5 \\
+        \end{pmatrix}
+    \]
+    diagonalisable?
+    
+    \[ p_A(t) = (-1 - t) (5 - t) + 8 = (t - 3) (t - 1) \] so $\lambda_1 = 3$, $\lambda_2 = 1$. For $\lambda_1 = 3$:
+    \[
+        \begin{pmatrix}
+            -4 & 4 \\
+            -2 & 2 
+        \end{pmatrix}
+        \begin{pmatrix}
+            a \\ b
+        \end{pmatrix}
+        =
+        \begin{pmatrix}
+            0 \\ 0
+        \end{pmatrix}
+    \]
+    thus $a = b$; therefore,
+    \[ 
+        \bm{v}_1 =
+        \begin{pmatrix}
+            1 \\ 1
+        \end{pmatrix}
+        .
+    \]
+    For $\lambda_2 = 1$:
+    \[
+        \begin{pmatrix}
+            -2 & 4 \\
+            -2 & 4 \\
+        \end{pmatrix}
+        \begin{pmatrix}
+            a \\ b
+        \end{pmatrix}
+        =
+        \begin{pmatrix}
+            0 \\ 0
+        \end{pmatrix}
+    \]
+    so $a = 2b$; therefore,
+    \[
+        \bm{v}_2 =
+        \begin{pmatrix}
+            2 \\ 1
+        \end{pmatrix}
+        .
+    \]
+    Therefore, $A$ is diagonalisable with \[ A = M^{-1} D M \] where
+    \[
+        M =
+        \begin{pmatrix}
+           2 & 1 \\
+           1 & 1 \\
+        \end{pmatrix}
+        , \quad D =
+        \begin{pmatrix}
+            1 & 0 \\
+            0 & 3 \\
+        \end{pmatrix}
+    \]
+\end{example}
+
+\begin{example}
+    Is
+    \[
+        A =
+        \begin{pmatrix}
+            2 & 4 \\
+            0 & 2 \\
+        \end{pmatrix}
+    \]
+    diagonalisable?
+    
+    \[ p_A(t) = (2 - t)^2 \]
+    so $\lambda = 2$ and the multiplicity is $2$. Now we fix $\lambda = 2$:
+    \begin{align*}
+        \begin{pmatrix}
+            2 - \lambda & 4 \\
+            0 & 2 - \lambda \\
+        \end{pmatrix}
+        \begin{pmatrix}
+            a \\ b
+        \end{pmatrix}
+        &=
+        \begin{pmatrix}
+            0 \\ 0
+        \end{pmatrix}
+        \\
+        \begin{pmatrix}
+            0 & 4 \\
+            0 & 0 \\
+        \end{pmatrix}
+        \begin{pmatrix}
+            a \\ b
+        \end{pmatrix}
+        &=
+        \begin{pmatrix}
+            0 \\ 0
+        \end{pmatrix}
+        \\
+        &=
+        \begin{pmatrix}
+            0 \\ 0
+        \end{pmatrix}
+        \\
+        & \implies b = 0, \quad a \neq 0
+    \end{align*}
+    so 
+    \[
+        \bm{v}_\lambda =
+        \begin{pmatrix}
+            a \\ 0
+        \end{pmatrix}
+    \]
+    where $a \neq 0$. 
+    \[ 
+        V_\lambda = \left\langle
+        \begin{pmatrix}
+            a \\ 0
+        \end{pmatrix}
+        \right\rangle
+    \]
+    so $\dim{V_\lambda} = 1$. Since $A$ is a $2 \times 2$ matrix and $\bm{v}$ is the only eigenvector, $A$ is not diagonalisable.
+\end{example}
+
+\begin{example}
+    Solve the system of ODEs.
+    \begin{align*}
+        x'(t) &= x(t) + 4y(t) \\
+        y'(t) &= -2x(t) + 5y(t).
+    \end{align*}
+    
+    Here we want to write this in the form 
+    \[
+        \begin{pmatrix}
+            x' \\ y'
+        \end{pmatrix}
+        = A
+        \begin{pmatrix}
+            x \\ y
+        \end{pmatrix}
+        =
+        \begin{pmatrix}
+            -1 & 4 \\ -2 & 5
+        \end{pmatrix}
+        \begin{pmatrix}
+            x \\ y
+        \end{pmatrix}
+        .
+    \]
+    From an earlier example, we know that $A$ is diagonalisable with 
+    \[
+        M =
+        \begin{pmatrix}
+           2 & 1 \\
+           1 & 1 \\
+        \end{pmatrix}
+        .
+    \]
+    We can now solve this with a substitution of
+    \[
+        \begin{pmatrix}
+            x \\ y
+        \end{pmatrix}
+        =
+        M
+        \begin{pmatrix}
+            \omega_1 \\ \omega_2
+        \end{pmatrix}
+        .
+    \]
+\end{example}
+
+\begin{proposition}
+    Eigenvectors corresponding to different eigenvalues are linearly independent.
+\end{proposition}
+
+\begin{proof}[Proof for two vectors]
+    Let $A \in M_n(\mathbb{R})$ and let $\bm{v}_1$ and $\bm{v}_2$ be eigenvectors of $A$ with different corresponding eigenvalues. Suppose $\bm{v}_1, \bm{v}_2$ are linearly dependent such that there exists $\alpha \neq 0$ \[ A \bm{v}_2 = \lambda_2 \bm{v}_2 = \lambda_2 \alpha \bm{v}_1 = A(\alpha \bm{v}_1) = \alpha A \bm{v}_1 = \alpha \lambda_1 \bm{v}_1, \] so \[ (\lambda_2 - \lambda_1) \alpha \bm{v}_1 = \bm{0}; \] however, here we have a contradiction as $\lambda_1 \neq 0$, $\lambda_2 \neq 0$, $\alpha \neq 0$, $\bm{v}_1 \neq \bm{0}$. Thus, $\bm{v}_1, \bm{v}_2$ are linearly independent.
+\end{proof}
+
+\begin{remark}
+    Remember that a given eigenvalue may have multiple linearly independent eigenvectors associated with it. From the proof above, given that $\bm{v}_1, \bm{v}_2$ are linearly independent if $\lambda_1 \neq \lambda_2$ we see that $V_{\lambda_1}$ and $V_{\lambda_2}$ are linearly independent. We also see that $A$ has $n$ linearly independent eigenvectors if, and only if, \[ \dim{V_{\lambda_1}} = m_1, \quad \dim{V_{\lambda_2}} = m_2, \quad \ldots, \quad \dim{V_{\lambda_p}} = m_p \] where $m_i$ is the multiplicity corresponding with $\lambda_i$. This is because $m_1 + m_2 + \ldots + m_p = n$.
+\end{remark}
+
+\begin{corollary}
+    In particular, if all the multiplicities are $1$ then all the eigenvalues are distinct and thus $A$ is diagonalisable.
+\end{corollary}
+
+\begin{remark}
+    Given $A \in M_n(\mathbb{R})$, it may be possible to diagonalise $A$ using $\mathbb{C}$. We are allowed to use complex numbers for eigenvectors and eigenvalues in the course.
+\end{remark}
+
+\begin{remark}
+    Whenever $m_{\lambda} > 1$, \[ 1 \leq \dim{V_\lambda} \leq m_\lambda. \] We need $\dim V_\lambda = m_\lambda$ for $A$ to be diagonalisable (as discussed in an earlier remark). To compute $V_\lambda$ we need to find all solutions to $(A - \lambda I) \bm{v} = \bm{0}$.
+\end{remark}
+
+

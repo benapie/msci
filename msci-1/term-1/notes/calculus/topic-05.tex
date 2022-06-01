@@ -1,0 +1,320 @@
+\chapter{Differential equations}
+
+\begin{definition}
+    A \textbf{differential equation} is an equation for a function that involves derivatives of the function.
+\end{definition}
+
+\begin{definition}
+    The \textbf{order} of a differential equation is the highest order derivative that appears in the equation.
+\end{definition}
+
+\begin{definition}
+    A differential equation for a function of only $1$ variable is known as an \textbf{ordinary differential equation} (ODE), otherwise, it is a \textbf{partial differential equation} (PDE).
+\end{definition}
+    
+The most general first order ODE can be written as \[\dfrac{dy}{dx}=f(x,y)\tag{$\star$}.\] Given $f(x,y)$, the general solution will generally have one arbitrary constant of integration. A particular solution is the general solution with a fixed value for the constant of integration. The data to fix this constant is given as $y(x_0)=y_0$ for given $x_0,y_0$, this is then an initial value problem (IVP).
+
+\section{First order separable ordinary differential equations}
+
+\begin{definition}
+    We say that a differential equation of the form $(\star)$ is \textbf{separable} if it can be written in the form \[\dfrac{dy}{dx}=XY\] where $X(x)$, $Y(y)$.
+\end{definition}
+
+If $(\star)$ is separable then we can solve by separation: \[\int X\,dx=\int\dfrac1Y\,dy.\]
+
+\begin{example}
+    Solve \[\dfrac{dy}{dx}=xe^{y-x},\qquad y(0)=0.\]
+    
+    \begin{align*}
+        \dfrac{dy}{dx}&=xe^{-x}e^y\\
+        \int\dfrac1{e^y}\,dy&=\int xe^{-x}\,dx\\
+        -e^{-y}&=(-e^{-x})(x)-\int -e^{-x}\,dx\\
+        e^{-y}&=e^{-x}(x+1)+c\\
+        y&=-\log{(e^{-x}(x+1)+c)}
+    \end{align*}
+\end{example}
+
+\section{First order homogeneous}
+
+\begin{definition}
+    A \textbf{first order homogeneous differential equation} is of the form of $(\star)$ where $f(x,y)=f(tx,ty)\;\forall\;t$.
+\end{definition}
+
+In this case to solve we put $y=xv$ where $v(x)$, to give a separable ODE for $v(x)$.
+
+\begin{example}
+    Solve \[y'=\dfrac{y^2-x^2}{xy}.\]
+    
+    First we confirm that it is homogeneous (which can be guessed from inspection): \[f(tx,ty)=\dfrac{t^2x^2-t^2y^2}{t^2xy}=\dfrac{y^2-x^2}{xy}=f(x,y),\] therefore, this is homogeneous. Now set $y=xv$ and so 
+    \begin{align*}
+        \dfrac{dy}{dx}&=v+xv'\\
+        &=\dfrac{x^2v^2-x^2}{x^2v}\\
+        &=\dfrac{v^2-1}{v}\\
+        &=v-\dfrac1v\\
+        v'&=\dfrac{-1}{xv}.
+    \end{align*}
+    This is separable, which can solve as follows:
+    \begin{align*}
+        \int v\,dv&=\int -\dfrac1x\,dx\\
+        \frac12v^2&=-\log{|x|}+\log{A}=\log\left|\dfrac{A}{x}\right|\\
+        v&=\pm\sqrt{2\log\left|\frac{A}{x}\right|}
+    \end{align*}
+    and hence \[y=\pm x\sqrt{2\log\left|\frac{A}{x}\right|}.\]
+\end{example}
+
+\section{First order linear}
+
+\begin{definition}
+    A \textbf{first order linear} differential equation is of the form of $(\star)$ where $f(x,y)=-py+q$ where $p(x)$, $q(x)$. That is, \[y'+py=q.\]
+\end{definition}
+
+To solve this form of differential equation, we must use an \textbf{integrating factor}.
+
+\begin{definition}[Integrating factor]
+    An \textbf{integrating factor} is a function that is chosen to facilitate the solving of a given equation involving differentials.
+    \label{def:integrating_factor}
+\end{definition}
+
+In the case of first order linear differential equations, we use the integrating factor \[I=e^{\int p\,dx},\] and the solution is \[y=\dfrac1I\int Iq\,dx.\]
+
+\begin{proof}
+    \[y'+py=q\quad\iff\quad y'I+Ipy=Iq\]
+    Note that \[I'=pe^{\int p\,dx}=Ip,\] hence \[y'I+I'y=Iq=(yI)'.\] Integrating this gives us \[yI=\int Iq\,dx\] and hence \[y=\dfrac1I\int Iq\,dx.\]
+\end{proof}
+
+\begin{example}
+    Solve the IVP \[y'-\dfrac2xy=3x^3,\quad y(-1)=2.\]
+    
+    First we calculate the integrating factor
+    \begin{align*}
+        I&=e^{\int -\frac2x\,dx}\\
+        &=e^{-2\log{x}}\\
+        &=x^{-2}.
+    \end{align*}
+    Now we can find an expression for $y$,
+    \begin{align*}
+        y&=\dfrac1{x^{-2}}\int (x^{-2})(3x^3)\,dx\\
+        &=x^2(\frac32x^2+c)\\
+        y(-1)&=(1)\left(\frac32(1)+c\right)=2\iff c=\frac12,
+    \end{align*}
+    hence,
+    \[y=\frac12x^2(3x^2+1)\]
+\end{example}
+
+\section{First order exact}
+
+An alternative form in which to write a first order ODE is \[M(x,y)\,dx+N(x,y)\,dy=0.\tag{$\star\star$}\] Rearranging this form gives \[f(x,y)=\dfrac{M(x,y)}{N(x,y)}\] which agrees with the form of $(\star)$. Note that this decomposition is not unique.
+
+\begin{definition}
+    For any function $g(x,y)$, the \textbf{total differential} $dg$ is defined to be \[dg=\dfrac{\partial g}{\partial x}dx+\dfrac{\partial g}{\partial y}dy.\]
+\end{definition}
+
+\begin{definition}
+    ODEs of the form $(\star\star)$ is \textbf{exact} if there exists a function $g(x,y)$ such that the left hand side of $(\star\star)$ is equal to the total derivative $dg$, that is \[M=\dfrac{\partial g}{\partial x}\quad\text{and}\quad N=\dfrac{\partial g}{\partial y}.\]
+\end{definition}
+
+In the case the ODE says that $dg=0$, $g=c$ where $c$ is a constant. This yields the solution of the ODE. The equality of the mixed partial derivatives (Remark \ref{remark:equality_mixed_partials}) requires that an exact equation satisfies \[\dfrac{\partial M}{\partial y}=\dfrac{\partial N}{\partial x}.\] This results in the following \textbf{test for exactness}.
+
+The ODE \[M(x,y)\,dx+N(x,y)\,dy=0\] is exact if, and only if, \[\dfrac{\partial M}{\partial y}=\dfrac{\partial N}{\partial x}.\]
+
+\begin{example}
+    Solve \[(3e^{3x}y+e^x)\,dx+(e^{3x}+1)\,dy=0.\]
+    
+    First we test for exactness:
+    \begin{align*}
+        \dfrac{\partial M}{\partial y}&=3e^{3x}\\
+        \dfrac{\partial N}{\partial x}&=3e^{3x},
+    \end{align*}
+    therefore the ODE is exact.
+    \begin{align*}
+        \dfrac{\partial g}{\partial x}&=M=3e^{3x}y+e^x\\
+        g&=\int 3e^{3x}y+e^x\,\partial x\\
+        &=ye^{3x}+e^x+\phi(y).\\
+    \end{align*}
+    Partially differentiating this in respect to $y$ gives us
+    \begin{align*}
+        \dfrac{\partial g}{\partial y}&=e^{3x}+\phi'(y)\\
+        &=N=e^{3x}+1\\
+        \text{hence}\qquad\phi(y)&=y.
+    \end{align*}
+    So \[g=e^{3x}y+e^x+y=c\] where $c$ is a constant and hence \[y=\dfrac{c-e^x}{(e^{3x}+1)}.\]
+\end{example}
+
+Suppose \[M\,dx+N\,dy=0\] is not exact, that is \[\dfrac{\partial M}{\partial y}\neq\dfrac{\partial N}{\partial x}.\] In this case, there may be a function $I$ such that \[(IM)\,dx+(IN)\,dy=0\] is exact. Here we call $I$ an integrating factor (see Definition \ref{def:integrating_factor}).
+
+\begin{remark}
+    For this course, we will not be expected to find integrating factors.
+\end{remark}
+
+\begin{example}
+    Show that $x$ is an integrating factor for \[(3xy-y^2)\,dx+(x^2-xy)\,dy=0\] and solve the differential equation.
+    
+    First we check for exactness,
+    \begin{align*}
+        \dfrac{\partial}{\partial y}(3xy-y^2)&=3x-2y\\
+        &\neq2x-y=\dfrac{\partial}{\partial x}(x^2-xy)
+    \end{align*}
+    therefore this differential equation is not exact in its current form. Multiplying by $x$ gives us \[(3x^2y-xy^2)\,dx+(x^3-x^2y)\,dy=0,\]
+    and we check for exactness,
+    \begin{align*}
+        \dfrac{\partial}{\partial y}(3x^2y-xy^2)&=3x^2-2xy\\
+        &=3x^2-2xy=\dfrac{\partial}{\partial x}(x^3-x^2y),
+    \end{align*}
+    therefore, this differential equation is exact and $x$ is an integrating factor for the origin differential equation. Now we solve, let $g(x,y)$
+    \begin{align*}
+        \dfrac{\partial g}{\partial x}&=3x^2y-xy^2\\
+        g&=x^3y-\frac12x^2y^2+\phi(y)\\
+        \dfrac{\partial g}{\partial y}&=x^3-x^2y+\phi'(y)\\
+        &=x^3-x^2y\\
+        \phi'(y)&=0\iff\phi(y)=0
+    \end{align*}
+    Hence \[x^3y-\frac12x^2y^2=c\] where $c$ is a constant.
+\end{example}
+
+\section{Bernoulli equations}
+
+\begin{definition}
+    A \textbf{Bernoulli equation} has the form \[y'+py=qy^n\] where $p(x),q(x)$ for $n\neq 0,1$.
+\end{definition}
+
+To solve Bernoulli equations, use the substitution $v=y^{1-n}$ to get a linear ODE for $v(x)$.
+
+\begin{example}
+    Solve \[y'-\dfrac{2y}{x}=-x^2y^2.\]
+    Use the substitution $v=y^{-1}$ with
+    \begin{align*}
+        y&=\frac1v, and\\
+        y'&=\frac{-1}{v^2}v'
+    \end{align*}
+    we get
+    \begin{align*}
+        \dfrac{-v'}{v^2}-\dfrac{2}{xv}&=\dfrac{-x^2}{v^2}\\
+        v^2+\dfrac{2v}{x}&=x^2.
+    \end{align*}
+    Now we calculate the integrating factor \[I=e^{\int\frac2x\,dx}=x^2\]
+    and then
+    \[v=\dfrac1{x^2}\int x^4\,dx=\dfrac1{x^2}\left(\frac15x^5+c\right)\]
+    and substituting $y$ back in we get \[y=\dfrac{5x^2}{x^5+5c}\] where $c$ is a constant.
+\end{example}
+
+\section{Second order linear constant ordinary differential equations}
+
+The general form for this form of differential equation is \[\alpha_2y''+\alpha_1y'+\alpha_0y=\phi(x)\] where $\alpha_2\neq0,\alpha_1,\alpha0$ are constants. 
+
+\subsection{Homogeneous}
+
+In the \textbf{homogeneous case}, that is \[\alpha_2y''+\alpha_1y'+\alpha_0y=0\] we can solve this by forming a \textbf{complementary function}. To find a particular example of the form \[y=e^{\lambda x},\] substituting this into our general form yields us the characteristic equation: \[\alpha_2\lambda^2+\alpha_1\lambda+\alpha_0=0.\] There are three cases to consider depending on the type of roots (denoted as $\lambda_1,\lambda_2$ or just $\lambda$ for repeated roots) of the characteristic equation, as follows.
+
+\begin{enumerate}
+    \item Distinct real roots, in this case \[y_1=e^{\lambda_1x}\quad\text{and}\quad y_2=e^{\lambda_2x}\] are the two required particular solutions, and thus the general solution is \[y=Ae^{\lambda_1x}+Be^{\lambda_2x}.\]
+    
+    \item Repeated real roots, in this case \[y_1=Ae^{\lambda x}\quad\text{and}\quad y_2=Bxe^{\lambda x}\] and thus the general solution is \[y=(A+Bx)e^{\lambda x}.\]
+    
+    \item Complex roots, if the characteristic equation has roots $\lambda_1=\alpha+i\beta$ and $\lambda_2=\alpha-\beta i$ then we have solutions \[y_1=e^{\lambda_1x}=e^{\alpha}e^{i\beta}\quad\text{and}\quad y_2=e^{\lambda_2 x}=e^{\alpha}e^{-i\beta}.\] We are looking at real solutions to the differential equations, we can we generate with the following combinations \[Y_1=\frac12(y_1+y_2)=e^{\alpha x}\cos{(\beta x)}\quad\text{and}\quad Y_2=\frac1{2i}(y_1-y_2)=e^{\alpha x}\sin{(\beta x)}\] and the general solution is \[y=e^{\alpha x}(A\cos{(\beta x)}+B\sin{(\beta x)}).\]
+\end{enumerate}
+
+\begin{example}
+    Solve the following equations.
+    \begin{enumerate}
+        \item \[y''-6y'+5y=0\]
+        
+        First we solve the characteristic equation, \[\lambda^2-6\lambda+5=0\iff\lambda=1,5.\] Therefore, the general solution is \[y=Ae^x+Be^{5x}\] with constants $A$ and $B$.
+        
+        \item \[y''-6y'+10y=0\]
+        
+        First we solve the characteristic equation, \[\lambda^2-6\lambda+10=0\iff\lambda=3\pm i.\] Therefore, the general solution is \[y=e^{3x}(A\cos{x}+B\sin{x})\] with constants $A$ and $B$.
+        
+        \item \[y''+8y'+16=0\]
+        
+        First we solve the characteristic equation \[\lambda^2+8\lambda+16\iff\lambda=4,\] therefore, the general solution is \[(A+Bx)e^{4x}\] with constants $A$ and $B$.
+    \end{enumerate}
+\end{example}
+
+\subsection{Inhomogeneous}
+
+Now lets look at the \textbf{inhomogeneous} form, \[\alpha_2y''+\alpha_1y'+\alpha_0y=\phi(x).\] The solution to this is obtained as a sum of two parts: \[y=y_{CF}+y_{PI}\] where $y_{CF}$ is the complimentary function, which is the solution to the homogeneous of the ODE, and $y_{PI}$ is the particular integral and is any particular solution to the equation.
+
+To find $y_{PI}$, we use the method of undetermined coefficients. Table \ref{tab:undetermined_coefficients} shows some forms of $y_{PI}$ to use for varying terms in $\phi(x)$, however, the choice of the form of $y_{PI}$ to use becomes more intuitive with more practise.
+
+\begin{table}
+    \centering
+    \begin{tabular}{cc}
+        \toprule
+        Term in $\phi(x)$ & Form to try for $y_{PI}$ \\
+        \midrule
+        $x^n$ & $a_0+a_1x+\ldots+1_n x^n$ \\
+        $e^{\gamma x}$ & $a_1e^{\gamma x}$ \\
+        $\cos{(\gamma x)}$ & $a_1\cos{(\gamma x)}+a_2\sin{(\gamma x)}$ \\
+        $\sin{(\gamma x)}$ & $a_1\cos{(\gamma x)}+a_2\sin{(\gamma x)}$ \\
+        \bottomrule
+    \end{tabular}
+    \caption{Forms of $y_{PI}$ to trying for varying terms in $\phi(x)$.}
+    \label{tab:undetermined_coefficients}
+\end{table}
+
+\begin{example}\label{exa:dodgy_PI}
+    Solve \[y''-y'-2y=6e^{-x}.\]
+    
+    Firstly we solve the characteristic equation, \[\lambda^2-\lambda-2\iff\lambda=2,-1,\] therefore, \[y_{CF}=Ae^{2x}+Be^{-x}\] for constants $A,B$. Now to try the particular integral, using Table \ref{tab:undetermined_coefficients} we are tempted to use $y_{PI}=Ce^{-x}$, however, this will not work due to that term already being in the complementary function. In this case, we use $y_{PI}=Cxe^{-x}$ as our form to try. So now we need to calculate $y_{PI}'$ and $y_{PI}''$:
+    \begin{align*}
+        y_{PI}'&=Ce^{-x}-Cxe^{-x}\\
+        y_{PI}''&=Cxe^{-x}-2Ce^{-x},
+    \end{align*}
+    and combining this with our original equation we get
+    \begin{align*}
+        Cxe^{-x}-2Ce^{-x}-Ce^{-x}+Cxe^{-x}-2(Cxe^{-x})&=6e^{-x}\\
+        e^{-x}(-3C)+xe^{-x}(0)&=6e^{-x}\iff C=-2.
+    \end{align*}
+    Therefore our general solution is \[y=Ae^{2x}+(B-2x)e^{-x}\]
+\end{example}
+
+\begin{remark}
+    In Example \ref{exa:dodgy_PI} we see that the particular integral cannot be what we would expect. In general, if the suggested form for the particular integral is a special case of the complementary function then multiply the suggested form by $x$, this may have to be repeated multiple times.
+\end{remark}
+
+\section{Initial and boundary value problems}
+
+\begin{definition}
+    The general solution of a second order linear coefficient ordinary differential equation has two arbitrary constants. These can be fixed by giving two pieces of data in two ways:
+    \begin{enumerate}
+        \item \textbf{initial value problem}, give $y(x_0)=y_0$ and $y'(x_0)=\delta$ for given $x_0,y_0,\delta$; and
+        \item \textbf{boundary value problem}, given $y(x_0)=y_0$ and $y(x_1)=y_1$ for given $x_0,y_0,x_1,y_1$.
+    \end{enumerate}
+\end{definition}
+
+\begin{example}
+    Solve the initial value problem \[y''-y'-2y=7-2x^2,\quad y(0)=5,\quad y'(0)=1.\]
+    
+    First we solve the characteristic equation, \[\lambda^2-\lambda-2=0\iff\lambda=2,-1,\] and so the complementary function is \[y_{CF}=Ae^{2x}+Be^{-x}\] with constants $A,B$. Now we try the particular integral $y_{PI}=a_2x^2+a_1x+a_0$, so we need to calculate $y_{PI}'$ and $y_{PI}''$:
+    \begin{align*}
+        y_{PI}'&=2a_2x+a_1,\\
+        y_{PI}''&=2a_2.
+    \end{align*}
+    Now we substitute our particular integral and its derivatives back into the original equation: \[(2a_2)-(2a_2x+a_1)-2(a_2x^2+a_1x+a_0)=7-2x^2\] and equating coefficients \[x^2(-2a_2)+x(-2a_2-2a_1)+(2a_2-a_1-2a_0)=x^2(-2)+x(0)+(7)\] we get $a_2=1$, $a_1=-1$, and $a_0=-2$. This gives us the general solution \[y(x,y)=Ae^{2x}+Be^{-x}+x^2-x-2,\] however, this still has constants in so we must solve using the data provided:
+    \begin{align*}
+        y(0,5)&=A+B-2=5\iff A+B=7,\\
+        y'&=2Ae^{2x}-Be^{-x}+2x-1,\\
+        y'(0,1)&=2A-B-1=1\iff 2A-B=2.
+    \end{align*}
+    Therefore, $A=3$ and $B=4$ and the solution to the equation is \[y=3e^{2x}+4e^{-x}+x^2-x-2.\]
+\end{example}
+
+\section{Systems of first order ordinary differential equations}
+
+A system of $n$ first order ordinary differential equations is equivalent to one ODE of $n$th order. 
+
+\begin{example}
+    Solve y(x), z(x) that satisfy \[y'=-y+z\qquad\text{and}\qquad z'=-8y+5z\] with $y(0)=1$, $z(0)=-2$.
+    
+    First we get a second order ODE for $y$ by eliminating for $z$, \[y''-4y'+3y=0.\] Now we solve the characteristic equation for this second order ODE, \[\lambda^2-4\lambda+3=(\lambda-3)(\lambda-1)=0\iff\lambda=3,1.\] Therefore,
+    \begin{align*}
+        y&=Ae^{3x}+Be^x,\;\text{and}\\
+        z&=y'+y=4Ae^{3x}+2Be^x.
+    \end{align*}
+    Now we use the data given to calculate $A$ and $B$,
+    \begin{align*}
+        y(0)&=A+B=1\\
+        z(0)=4A+2B=-2,
+    \end{align*}
+    therefore, $A=-2$ and $B=3$. So, finally, \[y=3e^x-2e^{3x}\qquad\text{and}\qquad z=6e^x-8e^{3x}.\]
+\end{example}

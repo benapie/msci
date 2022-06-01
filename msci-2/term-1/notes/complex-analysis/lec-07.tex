@@ -1,0 +1,109 @@
+\lecture{7}{24/10} \begin{example}[Chordal metric]
+    As mentioned before, the chordal metric on 
+    $\hat \C$ is $d(z, w) = \norm{f(z) - f(w)}_2$
+    where $f$ is the inverse stereographic projection given by
+    \[ f(z) = \left( \frac{2\Re{(z)}}{\lvert z \rvert^2 + 1}, \frac{2\Im{(z)}}{\lvert z \rvert^2 + 1}, \frac{\lvert z \rvert^2 - 1}{\lvert z \rvert^2 + 1}\right). \]
+    Consider the sequence 
+    $\{ ki \}_{k \in \N}$. 
+    We claim that this sequence converges to $\infty$ with the chordal metric. We show this as follows
+
+    \begin{align*}
+        d(ki, \infty) &= \norm{f(ki) - f(\infty)}_2 \\
+                      &= \norm{\left(0, \frac{2k}{k^2 + 1}, \frac{k^2 - 1}{k^2 + 1}\right) - (0, 0, 1)}_2 \\
+                      &= \norm{\left(0, \frac{2k}{k^2 + 1}, \frac{-2}{k^2 + 1}\right)}_2 \\
+                      &= \sqrt{\left(\frac{2k}{k^2 + 1}\right)^2 + \left(\frac{2}{k^2+1}\right)^2} \\
+                      &\to 0 \;\text{as}\; k \to \infty.
+    \end{align*}
+    Thus the sequence converges to $\infty$.
+\end{example}
+
+\begin{remark}
+    This is an odd notion that a sequence \emph{converges} to infinity, as normally this means that it is divergent. The key point here is that convergence depends heavily on the metric being used.
+\end{remark}
+
+\begin{example}[Convergence in $\C$ with the standard mertric]
+    We can look at the definition of convergence in $\C$ using the standard metric on the complex plane, $d(z, w) = \lvert z - w \rvert$. This states that $\lim_{n \to \infty} z_n = z$ if and only if
+    \[ \;\forall\; \varepsilon > 0 \;\exists\; N \in \N : \lvert z_n - z \rvert < \varepsilon \;\forall\; n \geq N. \]
+    This closely matches our definition from Analysis I; however, replacing the absolute value on the real line with the modulus function. It is important to note that if $z_n = x_n + iy_n$ converges to $z = x+iy$ then $x_n \to x$ and $y_n \to y$ as $n \to \infty$.
+\end{example}
+
+\begin{lemma}[Limits and open sets]
+    Let $(X, d)$ be a metric space. Then
+    \begin{enumerate}
+        \item a sequence can have at most one limit; 
+        \item 
+            \[ \lim_{n \to \infty} x_n = x \iff \;\forall\; \text{open}\; U \;\text{with}\; x \in U \;\exists\; N \in \N : x_n \in U \;\forall\; n \geq N. \]
+    \end{enumerate}
+\end{lemma}
+
+\begin{proof}
+    \begin{enumerate}
+        \item Assume $\lim_{n \to \infty} x_n = x$ and $\lim_{n \to \infty} x_n = y$. By the triangle inequality, for all $n$
+            \[ d(x, y) \leq d(x, x_n) + d(x_n, y). \]
+            Hence
+            \[ d(x, y) \leq \lim_{n\to\infty} d(x, x_n) + \lim_{n\to\infty} d(x_n, y) = 0; \]
+            hence $d(x, y) = 0$ therefore $x = y$.
+
+        \item
+            \begin{description}
+                \item[$\implies$] Assume $\lim_{n \to \infty} x_n = x$ and that $U$ is open with $x \in U$. Then, by definition, there exists some $r > 0$ such that $B_r(x) \subset U$. Additionally, there exists $N \in \N$ such that $d(x_n, x) < r$. Hence $x_n \in U$ for all $n \geq N$.
+                \item[$\impliedby$] Let $\varepsilon > 0$. This can be easily shown by considering the ball $B_\varepsilon(x)$. It is open and contains $x$; hence, there exists $N \in \N$ such that $x_n \in B_\varepsilon(x)$ for all $n \geq N$, as required.
+            \end{description}
+    \end{enumerate}
+\end{proof}
+
+\begin{remark}
+    You have probably heard this advice before, but the best technique for proving a statement is to write down all the definitions that you have and precisely what you want to prove.
+\end{remark}
+
+\begin{definition}[Continuity]
+    A map $f: (X_1, d) \to (X_2, d)$ between two metric spaces is called \textbf{continuous} at $x_0 \in X$ if $\forall\; \varepsilon > 0 \;\exists\; \delta > 0$ such that 
+    \[ \forall\; x \in X_1 \;\text{we have}\; d_1(x, x_0) < \delta \implies d_2(f(x), f(x_0)) < \varepsilon. \] 
+\end{definition}
+
+We say that a function $f$ is \textbf{continuous} on $X$ if it is continuous at every point $x \in X$. An alternate definition of continuity is as follows.
+
+\begin{definition}[Continuity with balls]
+    A function $f : (X_1, d_1) \to (X_2, d_2)$ is contionuous at point $x_0$ if and only if
+    \[ \;\forall\; \varepsilon > 0 \;\exists\; \delta > 0: f(B_\delta(x_0)) \subset B_\varepsilon(f(x_0)) \]
+    where the first ball is in $X_1$ and the second ball is in $X_2$.
+\end{definition}
+
+\begin{lemma}[Properties of continuous functions]
+   \begin{enumerate}
+       \item Products and quotients of real or complex valued continuous functions on a metric space $X$ are continuous; and
+       \item compositions of real or complex valued continuous functions are continuous.
+   \end{enumerate} 
+\end{lemma}
+
+\begin{proof}
+    The proof for this follows almost exactly the proof in Analysis I.
+\end{proof}
+
+\begin{example}[Continuous functions on $\C$]
+    \begin{enumerate}
+        \item $f(z) = z$;
+        \item $f(z) = w$ where $w \in \C$;
+        \item $\Re(z)$ and $\Im(z)$;
+        \item complex conjugation;
+        \item modulus function;
+        \item $\exp$, $\sin$, $\cos$, $\sinh$, and $\cosh$;
+        \item all polynomials;
+        \item $\arg$ chosen on $(\theta_1, \theta_2]$ is continuous on $\C \setminus \R_{\theta_1}$; and
+        \item $\log$ on $\C \setminus \R_{\theta_1}$.
+    \end{enumerate}
+\end{example}
+
+\begin{theorem}[Continuity via the open set]
+    Let $X_1$ and $X_2$ be metric spaces. Then
+    \begin{align*}
+        f: X_1 \to X_2 \;\text{is continuous} &\iff \;\forall\; \text{open}\; U \subset X_2: f^{-1}(U) \;\text{is open in}\; X_1 \\ 
+                                              &\iff \;\forall\; \text{closed}\; U \subset X_2: f^{-1}(U) \;\text{is closed in}\; X_1.
+    \end{align*}
+\end{theorem}
+
+\begin{proof}[Proof for open sets]
+    \begin{description}
+        \item[$\implies$] Let $U$ be open in $X_2$. Then there exists $\varepsilon > 0$ such that $B_\varepsilon(f(x)) \subset U$. As $f$ is continuous, there exists $\delta > 0$ such that if $y \in B_\delta(x)$ we have $f(y) \in B_\varepsilon(x)$; hence $f(y) \in U$ and so $y \in f^{-1}(U)$. This is true for every $y \in f^{-1}$, so we have shown that $B_\delta(x) \subset f^{-1}(U)$ and so $f^{-1}(U)$ is open.
+    \end{description}
+\end{proof}

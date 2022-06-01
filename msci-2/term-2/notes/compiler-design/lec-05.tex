@@ -1,0 +1,150 @@
+\chapter{Syntax analysis}
+\section{Notation}
+\lecture{5}{11/2}
+
+We express the syntax of a language as a context-free grammar.
+The alphabet is a set of \emph{tokens}.
+
+Let $A \to \gamma$ be a production rule. 
+Let $\alpha, \beta$ be strings.
+Then
+\begin{enumerate}
+    \item $\alpha A \beta \implies \alpha \gamma \beta$
+        means \emph{derives in one step};
+    \item $\gamma_1 \overset\star\implies \gamma_2$
+        means \emph{derives in zero or more steps}; and
+    \item $\gamma_1 \overset{+}\implies \gamma_2$
+        means \emph{derives in one or more steps}.
+\end{enumerate}
+
+\begin{example}
+    Consider the following production rules for a context-free grammar.
+    \begin{align*}
+        E &\to E + T & T &\to T \times F & F &\to (E) \\
+        E &\to T     & T &\to F          & F &\to x   \\
+          &          &   &               & F &\to y.
+    \end{align*}
+    Consider the string $(x + y) \times x$.
+    We derive this string by
+    \begin{align*}
+        E
+        &\implies            T                \\
+        &\implies            T \times F       \\
+        &\implies            F \times F       \\
+        &\implies            (E) \times F     \\
+        &\implies            (E + T) \times F \\
+        &\implies            (T + T) \times F \\
+        &\overset{+}\implies (F + F) \times F \\
+        &\overset{+}\implies (x + y) \times x.
+    \end{align*}
+\end{example}
+
+The purpose of a parser is to identify whether a string of tokens
+is in a language.
+If it is, it must produce the derivation for the string.
+Otherwise, it will report \emph{syntax errors}.
+
+\begin{center}
+    \begin{tikzpicture}
+        \tikzstyle{rect} = [
+            rectangle, 
+            minimum width=2cm, 
+            minimum height=1cm,
+            text centered, 
+            draw=black, 
+        ]
+        \node[rect] (lex) {Lexical analysis};
+        \node[rect] (par) [right=4em of lex] {Parser};
+        \node[rect] (res) [right=4em of par] {Rest of compilation};
+        \node[rect] (sym) [below=2em of par] {Symbol table};
+        \draw[<->] (lex) -- (sym);
+        \draw[<->] (par) -- (sym);
+        \draw[<->] (res) -- (sym);
+        \draw[->]  (lex) -- (par);
+        \draw[->]  (par) -- (res);
+    \end{tikzpicture}
+\end{center}
+
+\section{Parse trees and abstract syntax trees}
+
+A \textbf{parse tree} is a visual representation of a derivation.
+In a parse tree, internal nodes are non-terminals 
+and leaves are terminals.
+
+\begin{example}
+    Recall our derivation of $(x+y)\times x$.
+    We have the following parse tree.
+    \begin{center}
+        \begin{forest}
+            [$E$
+                [$T$
+                    [$T$
+                        [$F$
+                            [$($]
+                            [$E$
+                                [$E$
+                                    [$E$[$T$[$F$[$x$]]]]
+                                ]
+                                [$+$]
+                                [$T$[$F$[$y$]]]
+                            ]
+                            [$)$]
+                        ]
+                    ]
+                    [$x$]
+                    [$F$
+                        [$x$]
+                    ]
+                ]
+            ]
+        \end{forest}
+    \end{center}
+\end{example}
+
+Parse trees represent a derivation of a string
+and are often very complex.
+We may use \textbf{abstract syntax trees} (AST) as they 
+are much simpler.
+Every internal node represents an operation and leaves
+represent operands.
+
+\begin{example}
+    Recall the string $(x+y)\times x$.
+    We get the following abstract syntax tree.
+    \begin{center}
+        \begin{forest}
+            [$\times$
+                [$+$
+                    [$x$]
+                    [$y$]
+                ]
+                [$x$]
+            ]
+        \end{forest}
+    \end{center}
+\end{example}
+
+\begin{example}
+    Consider the string $b \times b - 4 \times a \times c$.
+    The parse tree for this is \emph{chaos} but the AST is as
+    follows.
+    \begin{center}
+        \begin{forest}
+            [$-$
+                [$\times$
+                    [$b$]
+                    [$b$]
+                ]
+                [$\times$
+                    [$\times$
+                        [$4$]
+                        [$a$]
+                    ]
+                    [$c$]
+                ]
+            ]
+        \end{forest}
+    \end{center}
+    An annotated AST has a type and location in memory annotated
+    on each node.
+\end{example}

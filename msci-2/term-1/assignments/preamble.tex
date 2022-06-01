@@ -1,0 +1,70 @@
+% Basic packages
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[UKenglish]{babel}
+\usepackage{enumitem}
+\usepackage{booktabs}
+\usepackage{graphicx}
+
+% No paragraph indentations
+\usepackage{parskip}
+
+% Make enunerate look better
+\setlist[enumerate,1]{label={(\roman*)}} % changing default numbering scheme
+
+% Math packages
+\usepackage{amsmath, amsfonts, mathtools, amsthm, amssymb}
+\usepackage{xfrac}
+
+% Bold math
+\usepackage{bm}
+
+% Algebra
+\DeclareMathOperator{\Ker}{Ker}
+\DeclareMathOperator{\im}{im}
+
+% Analysis in many variables
+\DeclareMathOperator{\grad}{grad}
+\let\div\relax
+\DeclareMathOperator{\div}{div}
+\DeclareMathOperator{\curl}{curl}
+\DeclareMathOperator{\inte}{int} % interior
+
+% Complex analysis
+\DeclareMathOperator{\Arg}{Arg}
+\DeclareMathOperator{\Log}{Log}
+\DeclareMathOperator{\GL}{GL}
+\DeclareMathOperator{\SL}{SL}
+\DeclareMathOperator{\SU}{SU}
+\DeclareMathOperator{\Aut}{Aut}
+\newcommand\norm[1]{\left\lVert#1\right\rVert}
+\newcommand\D{\ensuremath{\mathbb{D}}}
+\newcommand\abs[1]{\left\lvert#1\right\rvert}
+\let\H\relax
+\newcommand\H{\ensuremath{\mathbb{H}}}
+\DeclareMathOperator{\Mob}{Mob}
+
+% Some shortcuts for sets
+\newcommand\N{\ensuremath{\mathbb{N}}}
+\newcommand\R{\ensuremath{\mathbb{R}}}
+\newcommand\Z{\ensuremath{\mathbb{Z}}}
+\newcommand\Q{\ensuremath{\mathbb{Q}}}
+\newcommand\C{\ensuremath{\mathbb{C}}}
+
+% Tikz & pgfplots
+\usepackage{tikz, pgfplots}
+\usetikzlibrary{decorations.markings, arrows.meta, angles, quotes}
+
+% Choose more favourable characters
+\let\implies\Rightarrow
+\let\impliedby\Leftarrow
+\let\iff\Leftrightarrow
+\let\epsilon\varepsilon
+
+\newcommand{\assignment}[2]{\marginpar{Assignment #1 \\ Due #2}}
+
+% Some environments
+\newtheorem{theorem}   {Theorem}
+\newtheorem{definition}{Definition}[theorem]
+
+\date{2019 Michaelmas Term}

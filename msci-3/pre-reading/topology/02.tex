@@ -1,0 +1,192 @@
+%! TEX root = ../master.tex
+
+\subsection{Closed subsets}
+
+\begin{definition}[Closed subset]
+	If $X$ is a topological space, $C \subset X$ is said to be \textbf{closed} if
+	$X \setminus C$ is open.
+\end{definition}
+
+\begin{remark}
+	From our definition of a topological space we see:
+	$X$ and $\empty$ are closed subsets and
+	the set of closed subsets has closure under finite union 
+	and arbitrary intersection.
+\end{remark}
+
+\begin{example}[]
+	The following are examples of closed subsets.
+	\begin{enumerate}
+		\item For any $a,b \in \R$, $[a,b]$ is a closed subset of $\R$.
+			As is $[a, \infty]$ and $(-\infty, a]$.
+
+		\item Every closed ball in a metric space is closed.
+
+		\item Every subset of a discrete space is closed.
+	\end{enumerate}
+\end{example}
+
+\begin{definition}
+	\label{def:clos-int-ext-boun}
+	Let $X$ be a topological space and $A \subset X$. 
+	We define several subsets of $X$ as follows:
+	\begin{enumerate}
+	\item (\textbf{closure} of $A$)
+			\[
+				\overline A = \bigcap \left\{ 
+					B \subset X : B \supset A, \;\text{$B$ is closed in $X$}
+				\right\};
+			\]
+
+		\item (\textbf{interior} of $A$)
+			\[
+				\inte{A} = \bigcup \left\{ 
+					C \subset X: C \subset A, \;\text{$C$ is open in $X$}
+				\right\};
+			\]
+
+		\item (\textbf{exterior} of $A$)
+			\[
+				\ext{A} = X \setminus \overline A; \;\text{and}
+			\]
+
+		\item (\textbf{boundary} of $A$)
+			\[
+				\partial A = X \setminus \left( \inte{A} \cup \ext{A} \right).
+			\]
+	\end{enumerate}
+\end{definition}
+
+\begin{proposition}[]
+	\label{prop:clos-int-ext-boun}
+	Let $X$ be a topological space and let $A \subset X$ be any subset.
+	\begin{enumerate}
+		\item $x \in \inte A$ if and only if it has some neighbourhood contained 
+			in $A$.
+
+		\item $x \in \ext A$ if and only if it has some neighbourhood contained
+			in $X \setminus A$.
+
+		\item $x \in \partial A$ if and only if every neighbourhood of it
+			contains a point in $A$ and $X \setminus A$.
+
+		\item $x \in \overline A$ if and only if every neighbourhood of it
+			contains a point in $A$.
+
+		\item $\overline A = A \cup \partial A = \inte A \cup \partial A$.
+
+		\item $\inte A$ and $\ext A$ are open in $X$,
+			$\overline A$ and $\partial A$ are closed in $X$.
+	\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+	Proving these statements is fairly trivial 
+	and are often taken as definitions.
+\end{proof}
+
+\begin{proposition}[]
+	If $X$ is a topological space and $A \subset X$ then the following are
+	equivalent.
+	\begin{enumerate}
+		\item $A$ is open in $X$.
+		\item $A = \inte A$.
+		\item $A \cap \partial A = \varnothing$.
+		\item Every point of $A$ has a neighbourhood contained in $A$.
+	\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+	From the definition of an open set and a neighbourhood, clearly
+	$(i) \iff (iv)$.
+	By $(i)$ of Proposition \ref{prop:clos-int-ext-boun} clearly 
+	$(iv) \iff (ii)$.
+	Now assume $A \cap \partial A \neq \varnothing$. 
+	Then clearly this would contradict $(iv)$ as by 
+	$(iii)$ of Proposition \ref{prop:clos-int-ext-boun} 
+	all neighbourhoods of a point in $\partial A$ must contain a point in $A$
+	and $X \setminus A$. Therefore $(iv) \implies (iii)$.
+	Similarly by assuming $(iv)$ is not true, then this contradicts $(iii)$.
+	Therefore $(iv) \iff (iii)$.
+\end{proof}
+
+\begin{proposition}[]
+	If $X$ is a topological space and $A \subset X$ then the following 
+	are equivalent.
+	\begin{enumerate}
+		\item $A$ is closed in $X$.
+		\item $A = \overline{A}$. 
+		\item $A \cap \partial A = \partial A$.
+		\item Every point in $X \setminus A$ has a neighbourhood contained
+			inside $X \setminus A$.
+	\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+	The proof for this proposition follows a similar reasoning to the proof for
+	the previous proposition.
+\end{proof}
+
+\begin{definition}[]
+	Given a topological space $X$ and a set $A \subset X$, we say that a point
+	$p \in X$ is a \textbf{limit point} of $A$ if every neighbourhood of $p$
+	contains a point of $A$ other than $p$. 
+	A point $p \in A$ is called an \textbf{isolated point} of $A$ if $p$ has a
+	neighbourhood $U \subset X$ such that $U \cap A = \{p\}$.
+\end{definition}
+
+\begin{remark}
+	\hfill
+	\begin{enumerate}
+		\item All points of a set must either be a limit point of the set or an
+			isolated point.
+	
+		\item A limit point of a set does not necessarily have to be contained 
+			within that set (e.g. punctured balls).
+
+		\item Limit poitns are also called \textbf{accumulation points} or
+			\textbf{cluster points}.
+	\end{enumerate}
+\end{remark}
+
+\begin{example}[]
+	Consider $X = \R$ and $A = (0,1)$. 
+	Then every point in $[0,1]$ is a limit point of $A$.
+	If we let $B = \left\{ \frac1n \right\}_{n=1}^\infty$
+	then the only limit point of $B$ is $0$, the rest of them are
+	isolated points.
+\end{example}
+
+\begin{problem}
+	Show that a subset of a topological space is closed if and only if
+	it contains all of its limit points.
+\end{problem}
+
+\begin{solution}
+	Let $X$ be a topological space and $A \subset X$ be closed.
+	Then $X \setminus A$ is open so
+	\begin{align*}
+		\;\forall\; x \in X \setminus A \;\exists\; \varepsilon > 0
+		&: B_\varepsilon(x) \subset X \setminus A \\
+		\;\forall\; x \in X \setminus A \;\exists\; \varepsilon > 0 
+		\;\forall\; y \in A
+		&: y \not\in B_\varepsilon(x)
+	\end{align*}
+	and so there are no limit points in $X \setminus A$; hence,
+	all limit points must exists within $A$.
+\end{solution}
+
+\begin{definition}[Dense]
+	A subset $A$ of a topological space $X$ is said to be \textbf{dense}
+	in $X$ if $\overline{A} = X$.
+\end{definition}
+
+\begin{problem}
+	Show that a subset $A \subset X$ is dense if and only if
+	every non-empty open subset of $X$ contains a point of $A$.
+\end{problem}
+
+\begin{solution}
+	This is a direct result of $(iv)$ of 
+	Proposition \ref{prop:clos-int-ext-boun}.
+\end{solution}

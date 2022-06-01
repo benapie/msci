@@ -1,0 +1,67 @@
+\chapter{Turing machines}
+\lecture{1}{7/10}
+
+A \textbf{turing machine} is the first rigorous definition of computation. A turing machine has an infinite tape (acting as memory). There is a finite-state program that controls a tape head. The head can read, write, and move around (in both directions) on the tape.
+
+\begin{example}
+    A typical program instruction: if the finite control is in state $p$ and the head reads $b$, then write $a$, move the head to the left and go to state $q$. 
+\end{example}
+
+\begin{definition}[Turing machine]
+    A turing machine is a $7$-tuple \[(Q, \Sigma, \Pi, \delta, q_0, q_{\text{accept}}, q_{\text{reject}}).\]
+    \begin{enumerate}
+        \item $Q$ is the set of states.
+        \item $\Sigma$ is the input alphabet (not including the blank symbol).
+        \item $\Gamma$ is the tape alphabet satisfying $\Sigma \subset \Gamma$ and $\sqcup \in \Gamma$.
+        \item $\delta: Q \times \Gamma \to Q \times \Gamma \times \{ L, R \}$ is the transition function.
+        \item $q_0 \in Q$ is the initial state.
+        \item $q_{\text{accept}}$ is the accept state, and
+        \item $q_{\text{reject}}$ is the reject state, note that $q_{\text{reject}} \neq q_{\text{accept}}$.
+    \end{enumerate}
+\end{definition}
+
+Turing machines solve decision problems, it will take an input and reply with yes (when in the accept state) or no (when in the reject state).
+
+The tape content is unbounded but always finite. The first blank character marks the end of the tape content.
+
+\begin{remark}
+    The distinction between the input and tape alphabet is that the input alphabet is the set of all symbols that can be found on the initial tape contents, where the tape alphabet is all the possible symbols that can be on the tape contents. So $\Gamma \setminus \Sigma$ is the set of symbols that can only be introduced to a tape by writing.
+\end{remark}
+
+\begin{definition}[Configuration]
+    A configuration consists of three items: the \textbf{current state}, the \textbf{tape content}, and the \textbf{head location}. 
+\end{definition}
+
+We say that a configuration $C_1$ \textbf{yields} a configuration $C_2$ is you can go from $C_1$ to $C_2$ is a single step.
+
+The \textbf{start configuration} on an input $w \in \Sigma^{\star}$ consists of the start state $q_0$, the tape content $w$, and the head location being the first position of the tape.
+
+An \textbf{accepting configuration} is a configuration whose state is $q_{\text{accept}}$ and a similar definition exists for a \textbf{rejecting configuration}. Accepting and rejecting configurations are \textbf{halting configurations}.
+
+We have a special way of denoting configurations. For a state $q$ with strings $u, v$, we write $uqv$ to denote the configuration with tape contents $uv$ in state $q$ where the head location is at the first symbol in $v$.
+
+\begin{definition}[Accepting input]
+    We say that a turing machine $M$ \textbf{accepts} an input $w$ if there exists a sqeuence of configuration $(C_1, C_2, \ldots, C_k$ where $k \in \N$ such that
+    \begin{enumerate}
+        \item $C_1$ is the start configuration of $M$ on input $w$,
+        \item $C_i$ yields $C_{i+1}$ for all $0 \leq i < k$; and
+        \item $C_k$ is an accepting configuration.
+    \end{enumerate}
+\end{definition}
+
+This is just a formal way of saying that an input is eventually accepted by a Turing machine.
+
+\begin{definition}[Language of a turing machine]
+    The set of strings accepted by a turing machine $M$ is called the \textbf{language of $M$} and is denoted by $L(M)$.
+\end{definition}
+
+\begin{example}
+    Here we describe a turing machine $M$ that describes $A = \{ 0^{2^n} : n \geq 0 \}$. That is, an input which is purely $0$s that has a length of a non-negative integer power of 2.
+    \begin{enumerate}
+        \item Sweep left to right accross the tape, crossing off every other $0$.
+        \item If in stage (i) the tape contained a single $0$, aceept.
+        \item If in stage $1$ the tape contained more than a single $0$ and the number of $0$s was odd, reject.
+        \item Return the head to the left-hand end of the tape.
+        \item Go to stage $1$.
+    \end{enumerate}
+\end{example}

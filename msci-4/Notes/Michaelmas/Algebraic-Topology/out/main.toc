@@ -1,0 +1,29 @@
+\babel@toc {UKenglish}{}\relax 
+\contentsline {section}{\numberline {1}Simplicial homology}{2}{section.1}%
+\contentsline {subsection}{\numberline {1.1}Introduction and prerequisite algebra}{2}{subsection.1.1}%
+\contentsline {subsection}{\numberline {1.2}Graph homology}{2}{subsection.1.2}%
+\contentsline {subsection}{\numberline {1.3}Simplicial homology}{4}{subsection.1.3}%
+\contentsline {section}{\numberline {2}Singular homology}{8}{section.2}%
+\contentsline {subsection}{\numberline {2.1}Definition}{8}{subsection.2.1}%
+\contentsline {subsection}{\numberline {2.2}Chain maps}{11}{subsection.2.2}%
+\contentsline {subsection}{\numberline {2.3}Exact sequences}{13}{subsection.2.3}%
+\contentsline {subsection}{\numberline {2.4}Homotopy equivalence}{17}{subsection.2.4}%
+\contentsline {subsubsection}{\numberline {2.4.1}Mapping cylinders and mapping cones}{18}{subsubsection.2.4.1}%
+\contentsline {subsubsection}{\numberline {2.4.2}Retracts}{18}{subsubsection.2.4.2}%
+\contentsline {subsection}{\numberline {2.5}Chain homotopy}{19}{subsection.2.5}%
+\contentsline {subsection}{\numberline {2.6}Mayer-Vietoris sequence}{20}{subsection.2.6}%
+\contentsline {subsection}{\numberline {2.7}Examples}{21}{subsection.2.7}%
+\contentsline {section}{\numberline {3}Applications}{22}{section.3}%
+\contentsline {subsection}{\numberline {3.1}Applications of homology}{22}{subsection.3.1}%
+\contentsline {subsection}{\numberline {3.2}Split short exact sequences}{23}{subsection.3.2}%
+\contentsline {section}{\numberline {4}Variations of homology}{23}{section.4}%
+\contentsline {subsection}{\numberline {4.1}Reduced homology}{23}{subsection.4.1}%
+\contentsline {subsection}{\numberline {4.2}Tensor products}{24}{subsection.4.2}%
+\contentsline {subsection}{\numberline {4.3}Homology with coefficients}{25}{subsection.4.3}%
+\contentsline {subsection}{\numberline {4.4}Relative homology}{26}{subsection.4.4}%
+\contentsline {subsection}{\numberline {4.5}Excision}{27}{subsection.4.5}%
+\contentsline {section}{\numberline {5}Cellular homology}{28}{section.5}%
+\contentsline {subsection}{\numberline {5.1}Good pairs}{28}{subsection.5.1}%
+\contentsline {subsection}{\numberline {5.2}CW complex}{29}{subsection.5.2}%
+\contentsline {subsection}{\numberline {5.3}Degree of maps}{32}{subsection.5.3}%
+\contentsline {subsection}{\numberline {5.4}Local degree}{34}{subsection.5.4}%

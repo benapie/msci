@@ -1,0 +1,156 @@
+\chapter{Numbers and inequalities}
+
+\begin{definition}
+    There are special sets that hold significant mathematical importance. Some special sets are:
+    \begin{enumerate}
+        \item $\mathbb N=\{1,2,3,4,\ldots\}$ the set of natural numbers, it is closed under addition and multiplication;
+        \item $\mathbb Z=\{\ldots,-2,-1,0,1,2,\ldots\}$ the set of integers, it is closed under addition, subtraction, and multiplication;
+        \item $\mathbb Q=\{\frac pq\mid p\in\mathbb Z,q\in\mathbb N\}$ the set of rational numbers, it is closed under addition, subtraction, multiplication, and division but it is not complete; 
+        \item $\mathbb R$ is the set of real numbers (we will not define them), it is complete (the concept of completeness will be touched on later); and
+        \item $\mathbb C=\{a+bi\mid a,b\in\mathbb R,i^2=-1\}$ is the set of complex numbers.
+    \end{enumerate}
+    It is important to note:
+    \[\mathbb N\subset\mathbb Z\subset\mathbb Q\subset\mathbb R\subset\mathbb C\]
+\end{definition}
+
+$\mathbb R$ is an \textbf{ordered field}, and the axioms are as follows.
+
+\begin{proposition}
+    \textbf{Axioms of ordering for $\mathbb R$}:
+    oet $a,b,c\in\mathbb R$, then:
+    \begin{enumerate}
+        \item trichotomy, either $a<b$, $a=b$, or $a>b$;
+        \item addition law, $a<b\iff a+c<b+c$;
+        \item multiplication law, if $c>0$ then  $a<b\iff ac<bc$; and
+        \item transitivity, if $a<b$ and $b<c$ then $a<c$.
+    \end{enumerate}
+\end{proposition}
+
+\begin{remark}
+    The complex numbers $\mathbb C$ are not ordered. It does make sense to write $z_1<z_2$ for $z_1,z_2\in\mathbb C$.
+\end{remark}
+
+\begin{example}
+    Following are examples of solving inequalities.
+    \begin{enumerate}
+        \item Find all $x\in\mathbb R$ satisfying \[5<3x+10\leq16.\]
+        This means
+        \[5<3x+10\qquad\text{and}\qquad 3x+10\leq16\]
+        \begin{alignat*}{3}
+            \iff-5&<3x&\leq6\\
+            \iff-\frac53&<x&\leq2,
+        \end{alignat*}
+        therefore
+        \[x\in\left(-\frac53,2\right].\]
+        
+        \item Solve \[\dfrac{2x+1}{x+3}>3.\]
+        \begin{enumerate}
+            \item Case 1, $x+3>0$:
+            \begin{align*}
+                \dfrac{2x+1}{x+3}&>3,\\
+                2x+1&>3x+9,\\
+                x&<-8.
+            \end{align*}
+            \item Case 2, $x+3<0$:
+            \begin{align*}
+                \dfrac{2x+1}{x+3}&>3,\\
+                2x+1&>3x+9,\\
+                x&>-8.\\
+            \end{align*}
+        \end{enumerate}
+        Therefore, $x\in(-8,-3)$.
+        
+        \item Solve \[2x^2>x+6.\]
+        \begin{align*}
+            2x^2-x-6&>0,\\
+            (2x+3)(x-2)&>0.
+        \end{align*}
+        Therefore
+        \[x\in\mathbb R\setminus\left[-\frac32,2\right].\]
+        
+        \item Find all $x\in R$ so that \[-3(4-x)\leq12\]
+        \begin{align*}
+            -3(4-x)&\leq12,\\
+            4-x&\geq-4,\\
+            8&\geq x.
+        \end{align*}
+        
+        \item Solve \[\dfrac{x+2}{3}<\dfrac{5-2x}{4}.\]
+        \begin{align*}
+            \dfrac{x+2}{3}<\dfrac{5-2x}{4}\\
+            4x+8<15-6x\\
+            10x<7\\
+            x<\dfrac7{10}
+        \end{align*}
+        
+        \item Solve $x^2-4x+3>0$.
+        \begin{align*}
+            (x-3)(x-1)>0\\
+            (x>3\tand x>1)\tor(x<3\tand x<1)\\
+            x>3\tor x<1
+        \end{align*}
+        
+        \item Solve\[\dfrac{3}{x-2}\leq x.\]
+        \begin{align*}
+            \dfrac{3}{x-2}-x&\leq0,\\
+            \dfrac{-x(x-2)+3}{x-2}&\leq0,\\
+            \dfrac{x^2-2x-3}{x-2}&\geq0,\\
+            \dfrac{(x-3)(x+1)}{(x-2)}&\geq0,\\
+            (x\geq3)\tor(-1&\leq x<2).
+        \end{align*}
+    \end{enumerate}
+\end{example}
+
+\begin{definition}
+    The absolute value of a complex number $z=x+iy$ is defined to be \[|z|=|x+iy|=\sqrt{x^2+y^2}.\] In particular, if $x$ is real then
+    \[
+        |x|=
+        \begin{cases}
+            x & x\geq0\\
+            -x & x<0
+        \end{cases}
+        .
+    \]
+\end{definition}
+
+Following are techniques that can be used when solving inequalities involving absolute value.
+
+\begin{enumerate}
+    \item Triangle inequality, if $z_1,z_2\in\mathbb C$ then \[|z_1+z_2|\leq|z_1|+|z_2|.\]
+    \item A variant on (i) \[||z_1|-|z_2||\leq|z_1+z_2|.\]
+    \item For all $z\in\mathbb C$, \[|-z|=|z|.\]
+    \item The statement $|x|\leq c$ for $x\in\mathbb R$, with some fixed position $c$,
+    \begin{align*}
+        \iff&-c\leq x\leq c\\
+        \iff&(x\leq c)\tand(x\geq c).
+    \end{align*}
+    Similar equivalences exist for $|x|\geq c$.
+\end{enumerate}
+
+\begin{example}
+    Following are examples of solving inequalities with absolute values.
+    \begin{enumerate}
+        \item Solve \[|3x-4|\leq2.\]
+        \begin{alignat*}{3}
+            -2&\leq3x-4&\leq2\\
+            2&\leq3x&\leq6\\
+            \frac23&\leq x&\leq2
+        \end{alignat*}
+        
+        \item Solve \[|2x+3|>5\]
+        \begin{align*}
+            (2x+3>5)&\tor(2x+3<-5)\\
+            \iff (x>1)&\tor(x<-4)
+        \end{align*}
+        
+        \item Solve \[|x+2|\leq|2x-1|.\]
+        \begin{align*}
+            \iff |x+2|^2&\leq|2x-1|^2\\
+            \iff (x+2)^2&\leq(2x-1)^2\\
+            \iff x^2+4x+4&\leq4x^2-4x+1\\
+            \iff 3x^2-8x-3&\geq0\\
+            \iff (3x+1)(x-3)&\geq0\\
+            \implies(x\leq-\frac13)\tor(x\geq3)
+        \end{align*}
+    \end{enumerate}
+\end{example}

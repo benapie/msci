@@ -1,0 +1,211 @@
+\chapter{Functions, limits, and continuity}
+
+\section{Preimage of a function}
+
+Let $X,Y$ be sets. A function $f$ from $X$ to $Y$, written $f:X\mapsto Y$ is a recipe that assigns a unique element $y\in Y$to each element $x\in X$. We write $y=f(x)$.
+
+Suppose $X_0$ is a subset of $X$. Then \[f(X_0)=\{y=f(x):x\in X_0\}\] is the image of $X_0$ under $f$.
+
+\begin{definition}
+    Let $Y_0$ be a subset of $Y$. The \textbf{preimage} of $Y_0$ under $f$ is the set of all elements of $X$ that get sent by $f$ to an element of $Y_0$. We write the preimage as \[f^{-1}(Y_0)=\{x\in X:f(x)\in Y_0\}.\]
+\end{definition}
+
+\begin{remark}
+    Do not get confused between $f^{-1}(Y_0)$ and the inverse function to $f$, if it exists. In fact, if $f:X\mapsto Y$ is bijective then we can define an inverse function. In this case, $f^{-1}(Y_0)$ is the image of $Y_0$ under the inverse function.
+\end{remark}
+
+\begin{example}
+    Let $f:\mathbb R\mapsto\mathbb R$ given by $f(x)=x^2$. This is not bijective as $f(-1)=1=f(1)$. Following are some example preimages under this function.
+    \begin{enumerate}
+        \item \[f^{-1}(\{3\})=\{\sqrt3,-\sqrt3\}\]
+        \item \[f^{-1}(\{-2\})=\varnothing\]
+        \item \[f^{-1}((1,10])=[-\sqrt{10},1)\cup(1,\sqrt{10}]\]
+        \item \[f^{-1}((-1,4))=(-2,2)\]
+    \end{enumerate}
+\end{example}
+
+\begin{example}
+    Let $g:[0,2\pi]\mapsto\mathbb R$ be given by $g(x)=\sin{x}$. The following are some preimages under this function.
+    \begin{enumerate}
+        \item \[g^{-1}(\{0\})=\{0,\pi,2\pi\}\]
+        \item \[g^{-1}([-1,1])=[0,2\pi]\]
+        \item \[g^{-1}([0,1])=\left[0,\frac\pi2\right]\cup\left[\frac\pi2,\pi\right]\cup\{2\pi\}\]
+    \end{enumerate}
+\end{example}
+
+\begin{example}
+    Find the preimage of $(-\infty,2]$ under the function $h:\mathbb R\mapsto\mathbb R$ defined by $h(x)=x^2-4x+2$.
+    
+    \begin{align*}
+        h^{-1}((-\infty,2])&=\{x\in\mathbb R:h(x)\leq2\}\\
+        &=\{x^2-4x+2\leq2\}\\
+        &=[0,4]
+    \end{align*}
+\end{example}
+
+\begin{proposition}
+    Let $f:X\mapsto Y$ be a function, $Y_0,Y_1\subset Y$. Then,
+    \begin{enumerate}
+        \item $f^{-1}(Y)=X$;
+        \item $f^{-1}(Y_0\cup Y_1)=f^{-1}(Y_0)\cup f^{-1}(Y_1)$;
+        \item $f^{-1}(Y_0\cap Y_1)=f^{-1}(Y_0)\cap f^{-1}(Y_1)$; and
+        \item $f^{-1}(Y_0\setminus Y_1)=f^{-1}(Y_0)\setminus f^{-1}(Y_1)$.
+    \end{enumerate}
+\end{proposition}
+
+\begin{proof}
+    \begin{enumerate}
+        \item If $x\in f^{-1}(Y)$ then $f(x)\in Y$. As every element of $X$ maps onto an element of $Y$ (by definition of this function), this means that $x\in X$.
+        
+        \item If $x\in f^{-1}(Y_0\cup Y_1)$ then $f(x)\in Y_0\cup Y_1$. Therefore, $(f(x)\in Y_0)\;\text{or}\;(f(x)\in Y_1)$. Then, $(x\in f^{-1}(Y_0))\;\text{or}\;(x\in f^{-1}(Y_1))$ and thus $x\in f^{-1}(Y_0)\cup f^{-1}(Y_1)$ as required.
+        
+        \item If $x\in f^{-1}(Y_0\cap Y_1)$ then $f(x)\in Y_0\cap Y_1$. Therefore, $(f(x)\in Y_0)\;\text{and}\;(f(x)\in Y_1)$. Then, $(x\in f^{-1}(Y_0))\;\text{and}\;(x\in f^{-1}(Y_1))$ and thus $x\in f^{-1}(Y_0)\cap f^{-1}(Y_1)$ as required.
+        
+        \item If $x\in f^{-1}(Y_0\setminus Y_1)$ then $f(x)\in Y_0\setminus Y_1$. Therefore, $(f(x)\in Y_0)\;\text{and}\;(f(x)\not\in Y_1)$. Then, $(x\in f^{-1}(Y_0))\;\text{and}\;(x\not\in f^{-1}(Y_1))$ and thus $x\in f^{-1}(Y_0)\setminus f^{-1}(Y_1)$ as required.
+    \end{enumerate}
+\end{proof}
+
+\section{Limits of functions}
+ 
+\begin{definition}
+    Let $X\subset\mathbb R$ and $f:X\mapsto\mathbb R$. Let $c\in\mathbb R$. Then $f(x)$ tends to $A$ as $x$ tends to $c$, or \[\lim_{x\to c}f(x)=A,\] if the following hold
+    \begin{enumerate}
+        \item for every $\delta>0$, the intersection \[((c-\delta,c)\cup(c,c+\delta))\cap X\] is non-empty; and
+        
+        \item for every $\epsilon>0$, there exists $\delta>0$ so that for all \[x\in((c-\delta,c)\cup(c,c+\delta))\cap X\] we have \[|f(x)-A|<\epsilon.\]
+    \end{enumerate}
+\end{definition}
+
+\begin{definition}
+    Following the definition below, $f(x)$ tends to $A$ as $x$ tends to infinity, or \[\lim_{x\to\infty}f(x)=A,\] if the following hold:
+    \begin{enumerate}
+        \item $X$ is not bounded above; and
+        \item for every $\epsilon>0$ there exists $k>0$ so that for $x>k$ we have \[|f(x)-A|<\epsilon.\]
+    \end{enumerate}
+\end{definition}
+
+When we are dealing with limits of functions we can use results that are similar to results we used for limits of sequences:
+\begin{enumerate}
+    \item calculus of limits theorem;
+    \item powers beat logarithms;
+    \item exponentials beat powers; and
+    \item squeeze theorem.
+\end{enumerate}
+
+\begin{theorem}[Calculus of limits theorem (COLT)]
+    Let $A=\lim_{x\to c}f(x)$ and $B=\lim_{x\to c}g(x)$ where $c\in\mathbb R$ or $c=-\infty,\infty$. Let $a,b\in\mathbb R$ be constants. Then,
+    \begin{enumerate}
+        \item $af(x)+bg(x)\to aA+bB$ as $x\to c$;
+        \item $f(x)g(x)\to AB$ as $x\to c$; and
+        \item $\dfrac{f(x)}{g(x)}\to\dfrac AB$ as $x\to c$, where $B\neq 0$ and $g\neq 0$ close to $c$.
+    \end{enumerate}
+\end{theorem}
+
+\begin{proof}
+    The proof for this can be obtained by mimicking the proof for sequences. %todo
+\end{proof}
+
+\begin{proposition}
+    Let $X\subset\mathbb R$, $f:X\mapsto\mathbb R$, and $\lim_{x\to c}f(x)=A$. Let $(x_n)$ be a sequence with $x_n\in X$ for all $n\in\mathbb N$. Suppose $\lim_{n\to\infty}x_n=c$ and $x_n\neq c$ for any $n\in\mathbb N$. Then \[\lim_{n\to\infty}f(x_n)=A.\]
+\end{proposition}
+
+\begin{proof}
+    Let $f,(x_n)$ as defined in the statement. We must show that \[\lim_{n\to\infty}f(x_n)=A.\] Choose $\epsilon>0$. There exists $\delta>0$ so that \[|f(x)-A|<\epsilon\] for all $x\in X$ with $0<|x-c|<\delta$. Also, there exists $N\in\mathbb N$ so that for all $n\geq N$ \[|x_n-c|<\delta\] and $x_n-c\neq 0$, so $0<|x_n-c|<\delta$. Therefore, for all $n\geq N$ we see that $|f(x_n)-A|<\epsilon$.
+\end{proof}
+
+\begin{example}
+    Compute \[\lim_{x\to\infty}\left(\dfrac{log(x^3+e^{23})}{x+3}\right).\]
+    
+    \begin{align*}
+        \dfrac{\log(x^3+e^{2x})}{x+3}&=\dfrac{\log(e^{2x}(e^{-2x}x^3+1))}{x+3}\\
+        &=\dfrac{\log(e^{2x})+\log(1+e^{-2x}x^3)}{x+3}\\
+        &=\dfrac{2x}{x+3}+\dfrac{\log(1+e^{-2x}x^3)}{x+3}\\
+        &=\dfrac2{1+\frac3x}+\dfrac{x^{-1}\log(1+e^{-2x}x^3)}{1+\frac3x}\\
+        &\to\dfrac2{1+0}+\dfrac0{1+0}=2
+    \end{align*}
+    as $x\to\infty$ by COLT and the powers beat logarithms rule.
+\end{example}
+
+\begin{example} 
+    Compute \[\lim_{x\to1}\left(\dfrac{x^2+x-2}{x-1}\right).\]
+    
+    Note $\lim_{x\to1}(x^2+x-2)=\lim_{x\to1}(x-1)=0$, therefore, we cannot use COLT directly, however, this tells us that $x-1$ divides $x^2+x-2$, so: \[\lim_{x\to1}\left(\dfrac{x^2+x-2}{x-1}\right)=\lim_{x\to1}(x+2)=3.\] This is true even though our function is not defined at $x=1$.
+\end{example}
+
+\begin{example}
+    Check whether \[f(x)=\dfrac{x^2\cos{x}}{2x^3+3}\] has a limit as $x\to-\infty$.
+    
+    \[|\cos{x}|\leq1\quad\text{so}\quad\left|\dfrac{x^2\cos{x}}{2x^3+3}\right|\leq \dfrac{x^2}{2x^3+3}\] and \[\dfrac{x^2}{2x^3+3}=\dfrac{\frac1x}{2+\frac2{x^3}}\to0\] as $x\to-\infty$ by COLT, so by the squeezing theorem $f(x)\to0$ as $x\to-\infty$.
+\end{example}
+
+\begin{example}
+    Check whether \[f(x)=\dfrac{x^2}{2x^3\sin{x}+1}\] has a limit as $x\to\infty$.
+    
+    Choose a sequence $x_n=n\pi$, then \[f(x_n)=f(n\pi)=n^2\pi^2\] which is unbounded, so the limit does not exist.
+\end{example}
+
+\begin{example}
+    Check whether 
+    \[
+        f(x)=
+        \begin{cases}
+            1&\text{if}\;x\in\mathbb Q\\
+            0&\text{if}\;x\in\mathbb R\setminus\mathbb Q\\
+        \end{cases}
+    \]
+    has a limit as $x\to0$.
+    
+    Consider $(x_n),(y_n)$ with $x_n=\frac1n$ and $y_n=\frac{\sqrt2}n$. Then $f(x_n)=1$ for all $n$ and $f(y_n)=0$ for all n. So the limit does not exist since it should be unique.
+\end{example}
+
+\section{Supremum and infimum of a function}
+
+\begin{definition}
+    Let $X$ be a set and $f:X\mapsto\mathbb R$ be a real valued function. The image of $f$, denoted $f(X)$ is the set \[f(X)=\{f(x):x\in X\}.\] We say that $f$ is \textbf{bounded above} if $f(X)\subset\mathbb R$ is bounded above. Similarly, we say that $f$ is \textbf{bounded below} if $f(X)\subset\mathbb R$ is bounded below. If $f$ is both bounded above and bounded below, then we say that it is \textbf{bounded}.
+    
+    For $\sup{(f(X))}$ we also use the notation $\sup{(f)}$ and $\sup_{x\in X}(f(x))$.
+\end{definition}
+
+\begin{proposition}
+    Let $f,g:X\mapsto\mathbb R$. Then we have \[\sup(f)+\inf(g)\leq\sup(f+g)\leq\sup(f)+\sup(g).\]
+\end{proposition}
+
+\begin{proof}
+    $f(x)\leq\sup(f)$ for all $x\in X$ since $\sup(f)$ is an upper bound, this implies that \[f(x)+g(x)\leq\sup(f+g).\] Since $\sup(f+g)$ is the least upper bound, \[\sup(f+g)\leq\sup(f)+\sup(g).\] For the other inequality we start with \[f(x)+g(x)\leq\sup(f+g)\] which implies \[f(x)\leq\sup(f+g)-g(x)\leq\sup(f+g)-\inf(g).\] As $\sup(f)$ is the least upper bound \[\sup(f)\leq\sup(f+g)-\inf(g)\] and so \[\sup(f)+\inf(g)\leq\sup(f+g)\] as required.
+\end{proof}
+
+\section{Continuity}
+
+\begin{definition}
+    Let $X\in\mathbb R$ and $f:X\mapsto\mathbb R$ be a function. Then $f$ is \textbf{continuous} at $c\in X$ if we have \[f(c)=\lim_{x\to c}f(x).\] In other words, $f$ is continuous at $c\in X$ if we have \[\;\forall\;\epsilon>0\;\exists\;\delta>0:|f(x)-f(c)|<\epsilon\quad\;\forall\;x\in X\;\text{with}\;|x-c|<\delta.\] We say that $f:X\mapsto\mathbb R$ is continuous if $f$ is continuous at all points in $X$.
+\end{definition}
+
+\begin{corollary}
+    Let $X\subset\mathbb R$ and $f:X\mapsto\mathbb R$ be continuous at $c\in X$. Then we have for every sequence $(x_n)$ with $x_n\in X$ for all $n\in\mathbb N$ and $\lim_{n\to\infty}x_n=c$: \[\lim_{n\to\infty}f(x_n)=f(c).\]
+\end{corollary}
+
+\begin{theorem}
+    Let $f,g$ be continuous at $x=c$ and $a,c$ be constant. Then we have
+    \begin{enumerate}
+        \item $af+bg$ is continuous at $x=c$;
+        \item $fg$ is continuous at $x=c$;
+        \item $\frac fg$ is continuous at $x=c$, provided $g\neq 0$ near $c$; and
+        \item $h\circ f$ is continuous at $x=c$, provided $h$ is continuous at $y_0=f(c)$.
+    \end{enumerate}
+\end{theorem}
+
+\begin{proof}
+    (i)-(iii) are a direct application of the Calculus of Limits Theorem, it remains to prove (iv). Let $\epsilon>0$ be given. Continuity of $h$ at $y_0=f(c)$ implies that there exists $\eta>0$ such that \[|h(y)-h(y_0)|<\epsilon\quad\;\forall\;|y-y_0|<\eta.\] Continuity of $f$ at $c$ implies that there exists $\delta>0$ such that \[|f(x)-f(c)|<\eta\quad\;\forall\;|x-c|<\delta.\] Combining the two statements above, we conclude that \[|h\circ f(x)-h\circ f(c)|<\epsilon\quad\;\forall\;|x-c|<\delta\] as required.
+\end{proof}
+
+\begin{definition}
+    Let $a < b$ be two real numbers. A real interval of the form $[a, b] \subset \mathbb{R}$ is called \textbf{closed} and \textbf{bounded}. Closed and bounded intervals are called \textbf{compact}.
+\end{definition}
+
+\begin{theorem}[Intermediate value theorem]
+    If $f : [a, b] \mapsto \mathbb{R}$ is continuous and $d$ is a real number with $f(a) \leq d \leq f(b)$, then there exists $c \in [a, b]$ such that $f(c) = d$.
+\end{theorem}
+
+\begin{proof}
+    We construct two sequences $x_n, y_n \in [a, b]$. Let $x_n$ be monotone increasing and $f(x_n) \leq d$ and let $y_n$ be monotone decreasing and $f(y_n) \geq d$. Further suppose $x_n < y_n$ and $\lim_{n \to \infty} x_n = \lim_{n \to \infty} y_n$. We see that \[c = \lim_{n \to \infty} x_n = \lim_{n \to \infty} y_n.\] The construction is called the \textbf{bisection procedure}.
+\end{proof}

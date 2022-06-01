@@ -1,0 +1,15 @@
+\chapter{Rings, fields, and subrings}
+\lecture{1}{8/10}
+
+Let's start with a rough definition of a ring.
+
+A \textbf{ring} is a set of mathematical objects $R$ with the ability to add, multiply, and subtract any numbers $r_1, r_2 \in R$ and still be in the set $R$. This is not a rigorous definition, but serves as intuition. If we can also divide within a set too, we call it a \textbf{field}. Let's look at some examples.
+
+\begin{enumerate}
+    \item $\N$ is not a ring as $1 - 2 \not \in \N$ (and thus not a field).
+    \item $\Z$ is a ring but not a field as $\frac12 \in \Z$.
+    \item $\Q, \R, \C, \Q[x]$ are all fields.
+    \item $M_n(\R)$ is a ring but not a field, as is $C(\R)$.
+\end{enumerate}
+
+We now explain more precisely what we mean when we talk about a ring $R$ having the `ability to add, multiple, and subtract'. We can define addition as \[ +: R \times R \to R. \] However, instead of writing $+(1,4)=5$ we use the short hand $1+4=5$. Such functions are called \textbf{binary operations} as they only take two elements. 

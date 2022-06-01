@@ -1,0 +1,82 @@
+\chapter{Matrices, Strassen's algorithm}
+\lecture{4}{28/10}
+
+Recall the divide and conquer approach. At each stage of solving a problem we
+\begin{enumerate}
+    \item divide our problem into subproblems;
+    \item \emph{conquer} these subproblems (recursively or trivially); then
+    \item combine solutions to subproblems into a solution to the original problem.
+\end{enumerate}
+
+\begin{example}
+    Examples of divide and conquer algorithms are
+    \begin{enumerate}
+        \item merge sort;
+        \item quick sort; and
+        \item graph colouring.
+    \end{enumerate}
+\end{example}
+
+Again, recall the master theorem.
+
+\begin{theorem}
+    Let $f: \N \to \R$ and $T(n)$ be defined by
+    \[ T(n) = aT\left(\frac nb\right) + f(n) \]
+    for $a \geq 1, b > 1$. Then
+    \begin{enumerate}
+        \item if $f(n) = O\left(n^{\log_b{a} - \varepsilon}\right)$ for some $\varepsilon > 0$ then
+            \[ T(n) = \Theta\left(n^{\log_b{a}}\right); \]
+
+        \item if $f(n) = \Theta\left(n^{\log_b{a}}\right)$ then
+            \[ T(n) = \Theta\left(n^{\log_b{a}}\log{n}\right);\;\text{and} \]
+
+        \item if $f(n) = \Omega\left(n^{\log_ba + \varepsilon}\right)$ for some $\varepsilon > 0$ and if there exists $c > 1$ and $n_0 \in \N$ such that
+            \[ af\left(\frac nb\right) \leq cf(n) \]
+            for all $n \geq n_0$ then
+            \[ T(n) = \Theta(f(n)). \]
+    \end{enumerate}
+\end{theorem}
+
+You will not have to remember this.. don't worry.
+
+\begin{example}[Merge sort]
+    Consider merge sort satisfying $T(n) = 2T\left(\frac n2\right) + \Theta(n)$. Hence
+    \[ T(n) = \Theta(n\log{n}). \]
+\end{example}
+
+\begin{example}[Naive matrix multiplication]
+    Consider an algorithm that has input $A, B \in M_n(\R)$ and outputs $A \cdot B = C \in M_n(\R)$. We can use the definition of
+    \[ c_{ij} = \sum_{k = 1}^n a_{ik}b_{ki} \]
+    to get a time complexity of $T(n) = \Theta(n^3)$. As you can imagine, this is not very good and we can do better.
+\end{example}
+
+\begin{example}[Matrix multiplication via multiplication]
+    We can split our matrices $A, B, C \in M_{2^n}(\R)$ into four smaller submatrices (if they are not of size $2^n$ we can just add $0$s until they are), so for $A$:
+    \[
+        \begin{pmatrix}
+            A_{11} & A_{12} \\
+            A_{21} & A_{22}
+        \end{pmatrix}
+    \]
+    where $A_{ij} \in M_{2^{n-1}}(\R)$. This is familiar ground to that covered in Linear Algebra I. For $C = A \cdot B$, we have
+    \[ C_{11} = A_{11} B_{11} + A_{12} B_{21}, \]
+    so we are splitting one matrix multiplication into 8 smaller ones. So we get the recurrence 
+    \[ T(n) = 8T\left(\frac n2\right) + \Theta(n^2) \]
+    and by the master theorem we get the same time complexity of 
+    \[ T(n) = \Theta(n^3). \]
+\end{example}
+
+Lets look at an algorithm for matrix multiplication that has a time complexity better than $\Theta(n^3)$.
+
+\begin{example}[Strassen algorithm]
+    \begin{enumerate}
+        \item Divide $A, B, C$ into 4 parts. ($\Theta(1)$)
+        \item Create $S_1, \ldots, S_{10} \in M_n(\R)$ formed of linear combinations of the divisions of $A$ and $B$. ($\Theta(n^2)$)
+        \item Copmute $7$ product matrices $P_1, \ldots, P_7 \in M_{\frac n2}(\R)$. ($7T\left(\frac n2\right)$)
+        \item Computer $C_{11}, \ldots, C_{22}$ through linear combinations of $P_1, \ldots, P_7$.
+    \end{enumerate}
+    Understanding the specific steps is not important, 
+    but the general outline (and why it is better than the naive approach). 
+    By the master theorem we get a running time of 
+    \[ T(n) = \Theta\left(n^{\log_27}\right).\] 
+\end{example}

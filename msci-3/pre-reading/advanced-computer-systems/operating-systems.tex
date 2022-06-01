@@ -1,0 +1,226 @@
+\subsection{Operating systems}
+
+\begin{definition}[Operating system]
+	An \emph{operating system} is a program that acts as an intermediary
+	between a user and the hardware.
+\end{definition}
+
+More specifically, an operating system is
+\begin{enumerate}
+	\item a resource allocator, responsible for the management of the 
+	computer system's resources;
+	\item a control program, which controls the execution of user programs
+	and the operation of input and output devices; and
+	\item a kernel, the one program that is running all the time.
+\end{enumerate}
+
+\begin{definition}[Process]
+	A \emph{process} is a unit of execution.
+	It consists of:
+	\begin{enumerate}
+		\item machine code;
+		\item current activity (register contents);
+		\item data stack (local variables);
+		\item data section (RAM); and
+		\item heap (memory allocated during runtime).	
+	\end{enumerate}
+\end{definition}
+
+Operating systems are responsible for process managment:
+process creation and deletion, process holding and resuming, and
+mechanisms for process synchronisation.
+In order to do this, we have a data structure called a
+\emph{process control block} to store information needed to manage
+the scheduling of a process. The data we store in the process control
+block may include:
+\begin{enumerate}
+	\item an identifier;
+	\item state of the process;
+	\item CPU utilisation;
+	\item CPU scheduling data (such as priority);
+	\item memory usage; and
+	\item miscellaneous data.
+\end{enumerate}
+
+Each process has a \emph{state}; the status of the execution.
+The state of a process may be
+\begin{enumerate}
+	\item \emph{new}, the process is being created and is under the process
+	of getting ready for being executed;
+	\item \emph{ready}, the process is ready for evecution and is waiting in
+	the scheduler;
+	\item \emph{waiting}, the scheduler has allocated the process resources
+	and is waiting to be executed;
+	\item \emph{running}, the process is being executed; and
+	\item \emph{terminated}, where the execution of the process has either 
+	finished or has terminated early.
+\end{enumerate}
+Processes (\emph{parent processes}) may create \emph{child processes}
+which, in turn, create more processes to form a \emph{process tree}.
+There are three possibilities with resources for a given process tree:
+\begin{enumerate}
+	\item the parent and child processes share all resources;
+	\item the parent and child processes share some resources; and
+	\item the parent and child processes share nothing.
+\end{enumerate}
+Parent and child processes may also be executed concurrently or sequentially.
+
+\begin{definition}[Kernel]
+	The \emph{kernel} consists of
+	\begin{enumerate}
+		\item an interrupt handler (first level interrupt handler)
+		\item a dispatcher, which handles the changing of processes; and
+		\item intra-system communication system (via buses).
+	\end{enumerate}
+\end{definition}
+
+An \emph{interrupt} is a signal from hardware or software that will cause a
+change in execution. \emph{Interrupt routines} are routines that are executed
+when a interrupt is received.
+
+The function of the first level interrupt handler is to determine the source
+of an interrupt and to initiate the serving of the interrupt.
+
+Some instructions may only be accessed by the operating systems,
+these instructions form a \emph{privileged instruction set}.
+To distinguish between operating system code and user code, there are two 
+modes: kernel mode and user mode. We call this \emph{dual mode operation}.
+User processes may call on the kernel mode when it requires privileged
+instructions.
+
+The amount of time a process needs to executed is called the \emph{burst time}.
+A large proportion of processes typically have a short burst time.
+
+We categorise processes into two groups:
+\begin{enumerate}
+	\item \emph{independent processes}: where the execution of the process cannot
+	be affected by the execution of other processes; and
+	\item \emph{co-operating processes}, where the execution of processes can be
+	affected by other processes.
+\end{enumerate}
+
+Co-operative processing can be useful, benefits include:
+\begin{enumerate}
+	\item utilisation of multicore CPUs;
+	\item convenience;
+	\item information sharing; and
+	\item modularity (for object orientated programming).
+\end{enumerate}
+
+We use a method called \emph{multiprogramming} to implement
+co-operative processing; it is where we have multiple processes running on one
+processor at the same time. The goal here is to maximise CPU utilisation.
+Multiple processes are kept in memory concurrently.
+When one process is waiting, another one may be executing.
+Processes take turns with the CPU resources.
+The process of choosing which process gets the use the resources is called
+CPU scheduling, and we have three different types:
+\begin{enumerate}
+	\item long-term scheduler (job scheduler), this decides which
+	processes move into the ready queue;
+	\item medium-term scheduler, this swaps processes in and out of the ready
+	queue to manage the size of the ready queue; and
+	\item short-term scheduler, this selects the processes that are going
+	to be executed next.
+\end{enumerate}
+
+When a CPU switches a process, it must save the context of the old 
+process and load the new process.
+Context switching takes time ad is a overhead which must be taken
+into account when scheduling.
+
+A good scheduling specification may be evaluated by the following
+criteria:
+\begin{enumerate}
+	\item CPU utilisation;
+	\item process completion throughput;
+	\item turnaround time (time to execute a given process);
+	\item waiting time for a given process; and
+	\item response time.
+\end{enumerate}
+
+We will see that the most reasonable criterion to judge an algorithm is
+waiting time.
+
+Recall the following scheduling algorithms:
+\begin{enumerate}
+	\item first come first serve;
+	\item shotrtest job first;
+	\item shortest remaining time first;
+	\item priority (with or without pre-emptying/aging);
+	\item round-robin; and
+	\item multilevel queue / feedback queue.
+\end{enumerate}
+
+We evaluate these algorithms through deterministic modelling, simulation, and
+live testing.
+
+\begin{definition}[Thread]
+	A \emph{thread} of execution is the smallest sequence of instructions that 
+	can be managed independently by a scheduler; it is a basic unit of CPU
+	utilisation.
+\end{definition}
+
+Benefits of using multiple threads in a process include:
+\begin{enumerate}
+	\item responsiveness, a thread may be created to perform long operations
+	so the program may still respond to inputs;
+	\item resource sharing; and
+	\item multiprocessor utilisation.
+\end{enumerate}
+
+As with processes, we can have user threads and kernel threads.
+User threads can be managed by kernel threads in various ways:
+one-to-one, many-to-one, and many-to-many.
+
+Multiprogramming requires us to keep several processes in memory
+at the same time.
+To fully utilise the CPU, we must also fully utilise memory.
+Recall the different types of memory:
+\begin{enumerate}
+	\item cache (L1, L2, etc.);
+	\item primary memory (RAM);
+	\item secondary memory (SSD, HDD, etc.); and
+	\item virtual memory.
+\end{enumerate}
+
+Memory is made up of memory cells, which each store a 0 or a 1.
+For each chunk of data stored with memory cells, we store 
+a logical address, which is assigned by the CPU, and a physical address,
+which is their actual location in the memory.
+There is a memory management unit that converts between logical and physical
+addresses and allows users to avoid dealing with physical addresses.
+We split our memory into separate sections for kernel processes and user
+processes.
+A partition is a single contiguous part of memory.
+
+Within our memory, there are lots of \emph{holes} where there is no logical
+address pointing to it.
+When a process requests memory from the CPU, it must assign it to a hole large
+enough to contain it.
+The OS stores information about each partition and the free and allocated holes
+within it.
+Our strategy for assigning memory to a process may be: first-fit (that is,
+fill the process in the first hole big enough to hold the process),
+best-fit, or worst-fit. 
+
+\begin{definition}[Fragmentation]
+	When there exists enough memory space to fit a request, but the space
+	is not contiguous, we call this \emph{external fragmentation}.
+	\emph{Internal fragmentation} occurs when a process is allocated too much
+	memory to store data (due to high quanta) and thus some bits are left free.
+\end{definition}
+
+To solve fragmentation, we can employ \emph{compaction}: the shuffling of data
+such that data can fit into the memory.
+
+Recall paging: where memory is divided into fixed sized blocks called 
+\emph{frames}. We use page tables to map logical addresses to physical
+addresses.
+Each logical address has a page number and a page offset.
+
+We can avoid loading a page into memory until it is needed for execution;
+this is called \emph{demand pagaing}. Although this saves memory,
+it increases response times.
+When a reference to a page that is not loaded into memory occurs, we get a
+\emph{page fault}.

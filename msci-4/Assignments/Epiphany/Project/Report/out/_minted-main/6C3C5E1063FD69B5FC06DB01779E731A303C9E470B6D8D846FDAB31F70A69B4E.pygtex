@@ -1,0 +1,124 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{k}{class} \PYG{n+nc}{FilteredSimplicialComplex}\PYG{p}{:}
+    \PYG{n}{\PYGZus{}\PYGZus{}simplices}\PYG{p}{:} \PYG{n}{Dict}\PYG{p}{[}\PYG{n+nb}{int}\PYG{p}{,} \PYG{n}{Set}\PYG{p}{[}\PYG{n}{Simplex}\PYG{p}{]]}
+    \PYG{n}{\PYGZus{}\PYGZus{}weights}\PYG{p}{:} \PYG{n}{Dict}\PYG{p}{[}\PYG{n}{Simplex}\PYG{p}{,} \PYG{n+nb}{float}\PYG{p}{]}
+    \PYG{n}{\PYGZus{}\PYGZus{}check\PYGZus{}valid}\PYG{p}{:} \PYG{n+nb}{bool}
+
+    \PYG{k}{def} \PYG{n+nf+fm}{\PYGZus{}\PYGZus{}init\PYGZus{}\PYGZus{}}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{p}{,} \PYG{n}{check\PYGZus{}valid}\PYG{o}{=}\PYG{k+kc}{False}\PYG{p}{):}
+        \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{\PYGZus{}\PYGZus{}simplices} \PYG{o}{=} \PYG{n+nb}{dict}\PYG{p}{()}
+        \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{\PYGZus{}\PYGZus{}weights} \PYG{o}{=} \PYG{n+nb}{dict}\PYG{p}{()}
+        \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{\PYGZus{}\PYGZus{}check\PYGZus{}valid} \PYG{o}{=} \PYG{n}{check\PYGZus{}valid}
+        \PYG{k}{pass}
+
+    \PYG{k}{def} \PYG{n+nf+fm}{\PYGZus{}\PYGZus{}repr\PYGZus{}\PYGZus{}}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{p}{)} \PYG{o}{\PYGZhy{}\PYGZgt{}} \PYG{n+nb}{str}\PYG{p}{:}
+        \PYG{n}{output} \PYG{o}{=} \PYG{p}{[]}
+        \PYG{k}{for} \PYG{n}{p} \PYG{o+ow}{in} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{\PYGZus{}\PYGZus{}simplices}\PYG{p}{:}
+            \PYG{k}{for} \PYG{n}{p\PYGZus{}simplex} \PYG{o+ow}{in} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{\PYGZus{}\PYGZus{}simplices}\PYG{p}{[}\PYG{n}{p}\PYG{p}{]:}
+                \PYG{n}{output}\PYG{o}{.}\PYG{n}{append}\PYG{p}{(}\PYG{l+s+sa}{f}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+si}{\PYGZob{}}\PYG{n+nb}{str}\PYG{p}{(}\PYG{n}{p\PYGZus{}simplex}\PYG{p}{)}\PYG{l+s+si}{\PYGZcb{}}\PYG{l+s+s2}{ }\PYG{l+s+se}{\PYGZbs{}}
+\PYG{l+s+s2}{                    w: }\PYG{l+s+si}{\PYGZob{}}\PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{\PYGZus{}\PYGZus{}weights}\PYG{p}{[}\PYG{n}{p\PYGZus{}simplex}\PYG{p}{]}\PYG{l+s+si}{\PYGZcb{}}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{)}
+        \PYG{k}{return} \PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+se}{\PYGZbs{}n}\PYG{l+s+s2}{\PYGZdq{}}\PYG{o}{.}\PYG{n}{join}\PYG{p}{(}\PYG{n}{output}\PYG{p}{)}
+
+    \PYG{k}{def} \PYG{n+nf+fm}{\PYGZus{}\PYGZus{}contains\PYGZus{}\PYGZus{}}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{p}{,} \PYG{n}{item}\PYG{p}{:} \PYG{n}{Simplex}\PYG{p}{)} \PYG{o}{\PYGZhy{}\PYGZgt{}} \PYG{n+nb}{bool}\PYG{p}{:}
+        \PYG{k}{if} \PYG{o+ow}{not} \PYG{n+nb}{isinstance}\PYG{p}{(}\PYG{n}{item}\PYG{p}{,} \PYG{n}{Simplex}\PYG{p}{):}
+            \PYG{k}{raise} \PYG{n+ne}{ValueError}\PYG{p}{(}
+                \PYG{l+s+s2}{\PYGZdq{}Simplicial complex only contains simplex, \PYGZdq{}} \PYG{o}{+}
+                    \PYG{l+s+s2}{\PYGZdq{}contains operation of non\PYGZhy{}simplex type prohibited.\PYGZdq{}}\PYG{p}{)}
+        \PYG{k}{if} \PYG{n}{item}\PYG{o}{.}\PYG{n}{dim} \PYG{o+ow}{not} \PYG{o+ow}{in} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{\PYGZus{}\PYGZus{}simplices}\PYG{p}{:}
+            \PYG{k}{return} \PYG{k+kc}{False}
+        \PYG{k}{return} \PYG{n}{item} \PYG{o+ow}{in} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{\PYGZus{}\PYGZus{}simplices}\PYG{p}{[}\PYG{n}{item}\PYG{o}{.}\PYG{n}{dim}\PYG{p}{]}
+
+    \PYG{k}{def} \PYG{n+nf+fm}{\PYGZus{}\PYGZus{}eq\PYGZus{}\PYGZus{}}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{p}{,} \PYG{n}{other}\PYG{p}{:} \PYG{n}{FilteredSimplicialComplex}\PYG{p}{):}
+        \PYG{k}{if} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{\PYGZus{}\PYGZus{}simplices} \PYG{o}{!=} \PYG{n}{other}\PYG{o}{.}\PYG{n}{\PYGZus{}\PYGZus{}simplices}\PYG{p}{:}
+            \PYG{k}{return} \PYG{k+kc}{False}
+        \PYG{k}{if} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{\PYGZus{}\PYGZus{}weights} \PYG{o}{!=} \PYG{n}{other}\PYG{o}{.}\PYG{n}{\PYGZus{}\PYGZus{}weights}\PYG{p}{:}
+            \PYG{k}{return} \PYG{k+kc}{False}
+        \PYG{k}{return} \PYG{k+kc}{True}
+
+    \PYG{n+nd}{@property}
+    \PYG{k}{def} \PYG{n+nf}{dim}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{p}{):}
+        \PYG{k}{return} \PYG{n+nb}{max}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{\PYGZus{}\PYGZus{}simplices}\PYG{o}{.}\PYG{n}{keys}\PYG{p}{())}
+
+    \PYG{n+nd}{@property}
+    \PYG{k}{def} \PYG{n+nf}{size}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{p}{):}
+        \PYG{n}{size} \PYG{o}{=} \PYG{l+m+mi}{0}
+        \PYG{k}{for} \PYG{n}{simplices} \PYG{o+ow}{in} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{\PYGZus{}\PYGZus{}simplices}\PYG{o}{.}\PYG{n}{values}\PYG{p}{():}
+            \PYG{n}{size} \PYG{o}{+=} \PYG{n+nb}{len}\PYG{p}{(}\PYG{n}{simplices}\PYG{p}{)}
+        \PYG{k}{return} \PYG{n}{size}
+
+    \PYG{k}{def} \PYG{n+nf}{p\PYGZus{}simplices}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{p}{,} \PYG{n}{p}\PYG{p}{:} \PYG{n+nb}{int}\PYG{p}{)} \PYG{o}{\PYGZhy{}\PYGZgt{}} \PYG{n}{Generator}\PYG{p}{[}\PYG{n}{Simplex}\PYG{p}{,} \PYG{k+kc}{None}\PYG{p}{,} \PYG{k+kc}{None}\PYG{p}{]:}
+        \PYG{k}{if} \PYG{n}{p} \PYG{o+ow}{not} \PYG{o+ow}{in} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{\PYGZus{}\PYGZus{}simplices}\PYG{p}{:}
+            \PYG{k}{return}
+        \PYG{k}{for} \PYG{n}{p\PYGZus{}simplex} \PYG{o+ow}{in} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{\PYGZus{}\PYGZus{}simplices}\PYG{p}{[}\PYG{n}{p}\PYG{p}{]:}
+            \PYG{k}{yield} \PYG{n}{p\PYGZus{}simplex}
+
+    \PYG{k}{def} \PYG{n+nf}{\PYGZus{}\PYGZus{}add\PYGZus{}simplex}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{p}{,} \PYG{n}{simplex}\PYG{p}{:} \PYG{n}{Simplex}\PYG{p}{,} \PYG{n}{weight}\PYG{p}{:} \PYG{n+nb}{float}\PYG{p}{):}
+        \PYG{k}{if} \PYG{n}{simplex}\PYG{o}{.}\PYG{n}{dim} \PYG{o+ow}{not} \PYG{o+ow}{in} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{\PYGZus{}\PYGZus{}simplices}\PYG{p}{:}
+            \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{\PYGZus{}\PYGZus{}simplices}\PYG{p}{[}\PYG{n}{simplex}\PYG{o}{.}\PYG{n}{dim}\PYG{p}{]} \PYG{o}{=} \PYG{n+nb}{set}\PYG{p}{()}
+        \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{\PYGZus{}\PYGZus{}simplices}\PYG{p}{[}\PYG{n}{simplex}\PYG{o}{.}\PYG{n}{dim}\PYG{p}{]}\PYG{o}{.}\PYG{n}{add}\PYG{p}{(}\PYG{n}{simplex}\PYG{p}{)}
+        \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{\PYGZus{}\PYGZus{}weights}\PYG{p}{[}\PYG{n}{simplex}\PYG{p}{]} \PYG{o}{=} \PYG{n}{weight}
+
+    \PYG{k}{def} \PYG{n+nf}{add\PYGZus{}simplex}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{p}{,} \PYG{n}{simplex}\PYG{p}{:} \PYG{n}{Simplex}\PYG{p}{,} \PYG{n}{weight}\PYG{p}{:} \PYG{n+nb}{float}\PYG{p}{):}
+        \PYG{k}{if} \PYG{n}{simplex}\PYG{o}{.}\PYG{n}{dim} \PYG{o}{==} \PYG{l+m+mi}{0}\PYG{p}{:}
+            \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{\PYGZus{}\PYGZus{}add\PYGZus{}simplex}\PYG{p}{(}\PYG{n}{simplex}\PYG{p}{,} \PYG{n}{weight}\PYG{p}{)}
+            \PYG{k}{return}
+        \PYG{k}{if} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{\PYGZus{}\PYGZus{}check\PYGZus{}valid}\PYG{p}{:}
+            \PYG{k}{for} \PYG{n}{facet} \PYG{o+ow}{in} \PYG{n}{simplex}\PYG{o}{.}\PYG{n}{facets}\PYG{p}{:}
+                \PYG{k}{if} \PYG{n}{simplex}\PYG{o}{.}\PYG{n}{dim} \PYG{o}{\PYGZhy{}} \PYG{l+m+mi}{1} \PYG{o+ow}{not} \PYG{o+ow}{in} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{\PYGZus{}\PYGZus{}simplices}\PYG{p}{:}
+                    \PYG{k}{raise} \PYG{n+ne}{ValueError}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}Not all facets are in the complex, \PYGZdq{}}
+                        \PYG{o}{+} \PYG{l+s+s2}{\PYGZdq{}cannot add simplex.\PYGZdq{}}\PYG{p}{)}
+                \PYG{k}{if} \PYG{n}{facet} \PYG{o+ow}{not} \PYG{o+ow}{in} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{\PYGZus{}\PYGZus{}simplices}\PYG{p}{[}\PYG{n}{simplex}\PYG{o}{.}\PYG{n}{dim} \PYG{o}{\PYGZhy{}} \PYG{l+m+mi}{1}\PYG{p}{]:}
+                    \PYG{k}{raise} \PYG{n+ne}{ValueError}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}Not all facets are in the complex, \PYGZdq{}}
+                        \PYG{o}{+} \PYG{l+s+s2}{\PYGZdq{}cannot add simplex.\PYGZdq{}}\PYG{p}{)}
+                \PYG{n}{facet\PYGZus{}weight} \PYG{o}{=} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{\PYGZus{}\PYGZus{}weights}\PYG{p}{[}\PYG{n}{facet}\PYG{p}{]}
+                \PYG{k}{if} \PYG{n}{facet\PYGZus{}weight} \PYG{o}{\PYGZgt{}} \PYG{n}{weight}\PYG{p}{:}
+                    \PYG{k}{raise} \PYG{n+ne}{ValueError}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}Not all facets have a lower weight.\PYGZdq{}}\PYG{p}{)}
+        \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{\PYGZus{}\PYGZus{}add\PYGZus{}simplex}\PYG{p}{(}\PYG{n}{simplex}\PYG{p}{,} \PYG{n}{weight}\PYG{p}{)}
+
+    \PYG{k}{def} \PYG{n+nf}{get\PYGZus{}weight}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{p}{,} \PYG{n}{simplex}\PYG{p}{:} \PYG{n}{Simplex}\PYG{p}{)} \PYG{o}{\PYGZhy{}\PYGZgt{}} \PYG{n+nb}{float}\PYG{p}{:}
+        \PYG{k}{if} \PYG{n}{simplex}\PYG{o}{.}\PYG{n}{dim} \PYG{o+ow}{not} \PYG{o+ow}{in} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{\PYGZus{}\PYGZus{}simplices}\PYG{p}{:}
+            \PYG{k}{raise} \PYG{n+ne}{ValueError}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}Simplex not in complex.\PYGZdq{}}\PYG{p}{)}
+        \PYG{k}{if} \PYG{n}{simplex} \PYG{o+ow}{not} \PYG{o+ow}{in} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{\PYGZus{}\PYGZus{}simplices}\PYG{p}{[}\PYG{n}{simplex}\PYG{o}{.}\PYG{n}{dim}\PYG{p}{]:}
+            \PYG{k}{raise} \PYG{n+ne}{ValueError}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}Simplex not in complex.\PYGZdq{}}\PYG{p}{)}
+        \PYG{k}{return} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{\PYGZus{}\PYGZus{}weights}\PYG{p}{[}\PYG{n}{simplex}\PYG{p}{]}
+
+    \PYG{k}{def} \PYG{n+nf}{p\PYGZus{}simplex\PYGZus{}count}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{p}{,} \PYG{n}{p}\PYG{p}{:} \PYG{n+nb}{int}\PYG{p}{)} \PYG{o}{\PYGZhy{}\PYGZgt{}} \PYG{n+nb}{int}\PYG{p}{:}
+        \PYG{k}{if} \PYG{n}{p} \PYG{o+ow}{not} \PYG{o+ow}{in} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{\PYGZus{}\PYGZus{}simplices}\PYG{p}{:}
+            \PYG{k}{return} \PYG{l+m+mi}{0}
+        \PYG{k}{return} \PYG{n+nb}{len}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{\PYGZus{}\PYGZus{}simplices}\PYG{p}{[}\PYG{n}{p}\PYG{p}{])}
+
+    \PYG{k}{def} \PYG{n+nf}{get\PYGZus{}edge\PYGZus{}neighbours}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{p}{,} \PYG{n}{vertex}\PYG{p}{:} \PYG{n+nb}{int}\PYG{p}{)} \PYG{o}{\PYGZhy{}\PYGZgt{}} \PYG{n}{Set}\PYG{p}{[}\PYG{n+nb}{int}\PYG{p}{]:}
+        \PYG{k}{if} \PYG{l+m+mi}{1} \PYG{o+ow}{not} \PYG{o+ow}{in} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{\PYGZus{}\PYGZus{}simplices}\PYG{p}{:}
+            \PYG{k}{return} \PYG{n+nb}{set}\PYG{p}{()}
+        \PYG{n}{edge\PYGZus{}set} \PYG{o}{=} \PYG{n+nb}{set}\PYG{p}{()}
+        \PYG{k}{for} \PYG{n}{edge} \PYG{o+ow}{in} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{\PYGZus{}\PYGZus{}simplices}\PYG{p}{[}\PYG{l+m+mi}{1}\PYG{p}{]:}
+            \PYG{k}{if} \PYG{n}{vertex} \PYG{o+ow}{in} \PYG{n}{edge}\PYG{p}{:}
+                \PYG{n}{edge\PYGZus{}set} \PYG{o}{=} \PYG{n}{edge\PYGZus{}set}\PYG{o}{.}\PYG{n}{union}\PYG{p}{(}\PYG{n}{edge}\PYG{o}{.}\PYG{n}{get\PYGZus{}vertices}\PYG{p}{())}
+        \PYG{n}{edge\PYGZus{}set}\PYG{o}{.}\PYG{n}{discard}\PYG{p}{(}\PYG{n}{vertex}\PYG{p}{)}
+        \PYG{k}{return} \PYG{n}{edge\PYGZus{}set}
+
+    \PYG{k}{def} \PYG{n+nf}{reweight}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{p}{,} \PYG{n}{simplex}\PYG{p}{:} \PYG{n}{Simplex}\PYG{p}{,} \PYG{n}{weight}\PYG{p}{:} \PYG{n+nb}{float}\PYG{p}{)} \PYG{o}{\PYGZhy{}\PYGZgt{}} \PYG{k+kc}{None}\PYG{p}{:}
+        \PYG{k}{if} \PYG{n}{simplex}\PYG{o}{.}\PYG{n}{dim} \PYG{o+ow}{not} \PYG{o+ow}{in} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{\PYGZus{}\PYGZus{}simplices}\PYG{p}{:}
+            \PYG{k}{raise} \PYG{n+ne}{ValueError}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}Simplex not in complex.\PYGZdq{}}\PYG{p}{)}
+        \PYG{k}{if} \PYG{n}{simplex} \PYG{o+ow}{not} \PYG{o+ow}{in} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{\PYGZus{}\PYGZus{}simplices}\PYG{p}{[}\PYG{n}{simplex}\PYG{o}{.}\PYG{n}{dim}\PYG{p}{]:}
+            \PYG{k}{raise} \PYG{n+ne}{ValueError}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}Simplex not in complex.\PYGZdq{}}\PYG{p}{)}
+        \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{\PYGZus{}\PYGZus{}weights}\PYG{p}{[}\PYG{n}{simplex}\PYG{p}{]} \PYG{o}{=} \PYG{n}{weight}
+
+    \PYG{k}{def} \PYG{n+nf}{get\PYGZus{}simplex\PYGZus{}ordering}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{p}{)} \PYG{o}{\PYGZhy{}\PYGZgt{}} \PYG{n}{List}\PYG{p}{[}\PYG{n}{Simplex}\PYG{p}{]:}
+        \PYG{n}{simplex\PYGZus{}list} \PYG{o}{=} \PYG{n+nb}{list}\PYG{p}{()}
+        \PYG{k}{for} \PYG{n}{simplices} \PYG{o+ow}{in} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{\PYGZus{}\PYGZus{}simplices}\PYG{o}{.}\PYG{n}{values}\PYG{p}{():}
+            \PYG{n}{simplex\PYGZus{}list} \PYG{o}{+=} \PYG{n}{simplices}
+        \PYG{n}{simplex\PYGZus{}list} \PYG{o}{=} \PYG{n+nb}{sorted}\PYG{p}{(}\PYG{n}{simplex\PYGZus{}list}\PYG{p}{,}
+            \PYG{n}{key}\PYG{o}{=}\PYG{k}{lambda} \PYG{n}{k}\PYG{p}{:} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{\PYGZus{}\PYGZus{}weights}\PYG{p}{[}\PYG{n}{k}\PYG{p}{])}
+        \PYG{k}{return} \PYG{n}{simplex\PYGZus{}list}
+
+    \PYG{k}{def} \PYG{n+nf}{get\PYGZus{}weight\PYGZus{}ordering}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{p}{)} \PYG{o}{\PYGZhy{}\PYGZgt{}} \PYG{n}{List}\PYG{p}{[}\PYG{n+nb}{float}\PYG{p}{]:}
+        \PYG{k}{return} \PYG{n+nb}{sorted}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{\PYGZus{}\PYGZus{}weights}\PYG{o}{.}\PYG{n}{values}\PYG{p}{())}
+
+    \PYG{k}{def} \PYG{n+nf}{cap}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{p}{,} \PYG{n}{weight\PYGZus{}limit}\PYG{p}{:} \PYG{n+nb}{float}\PYG{p}{)} \PYG{o}{\PYGZhy{}\PYGZgt{}} \PYG{n}{FilteredSimplicialComplex}\PYG{p}{:}
+        \PYG{n}{fc} \PYG{o}{=} \PYG{n}{FilteredSimplicialComplex}\PYG{p}{()}
+        \PYG{k}{for} \PYG{n}{simplex} \PYG{o+ow}{in} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{get\PYGZus{}simplex\PYGZus{}ordering}\PYG{p}{():}
+            \PYG{k}{if} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{\PYGZus{}\PYGZus{}weights}\PYG{p}{[}\PYG{n}{simplex}\PYG{p}{]} \PYG{o}{\PYGZgt{}} \PYG{n}{weight\PYGZus{}limit}\PYG{p}{:}
+                \PYG{k}{break}
+            \PYG{n}{fc}\PYG{o}{.}\PYG{n}{add\PYGZus{}simplex}\PYG{p}{(}\PYG{n}{simplex}\PYG{p}{,} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{\PYGZus{}\PYGZus{}weights}\PYG{p}{[}\PYG{n}{simplex}\PYG{p}{])}
+        \PYG{k}{return} \PYG{n}{fc}
+\end{Verbatim}

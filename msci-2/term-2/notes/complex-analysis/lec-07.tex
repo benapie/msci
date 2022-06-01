@@ -1,0 +1,76 @@
+\lecture{7}{31/1}
+
+\begin{theorem}[Cauchy's integral formula for derivatives]
+    Let $r > 0$, $a \in \C$, and $f: B_r(a) \to \C$ be holomorphic.
+    Then for any $0 < \rho < r$ we have
+    \[
+        \int_{\abs{z-a}=\rho} \frac{f(z)}{(z-a)^{n+1}} \,dz
+        = \frac{2\pi i}{n!} \, f^{(n)}(a).
+    \]
+\end{theorem}
+
+\begin{proof}
+    We know that $f$ has a convergent power series in $B_r(a)$ given by
+    \[
+        f(z) = \sum^{\infty}_{n=0} c_n(z-a)^n
+    \]
+    where
+    \[
+        c_n = \frac{1}{2\pi i} \int_{\abs{z-a}=\rho} \frac{f(z)}{(z-a)^{n+1} \;dz} 
+    \]
+    but on the other hand, we also have that $c_n = \frac{f^{(n)}(a)}{n!}$,
+    since we know about this power series from a previous corollary.
+    Equating these two expressions gives us the statement of the theorem.
+\end{proof}
+
+\begin{example}
+    Consider the function $f(z) = e^z$.
+    We know by the Cauchy-Riemann equations that $f$ is holomorphic in $\C$.
+    Therefore, its Taylor series is convergent in all of $\C$.
+    We know that $f^{(n)}(z) = e^z$ for all $n \geq 0$,
+    so $f^{(n)}(0) = e^0 = 1$ for all $n \in \N$ and
+    \[
+        f(z) = \sum^{\infty}_{n=0} \frac{f^{(n)}(0)}{n!} z^n = \sum^{\infty}_{n=0} \frac{z^n}{n};
+    \]
+    we have shown that the two definitions of the exponential function
+    are \emph{equivalent}.
+\end{example}
+
+\begin{remark}
+    The Cauchy-Taylor theorem told us roughly that a function with a compelx derivative at
+    every point of a ball has a Taylor series on the ball.
+    This is \emph{not} the case in real analysis.
+\end{remark}
+
+\begin{corollary}[Holomorphic functions have infinitely many derivatives]
+    If $U \subset \C$ is an open set and $f: U \to \C$ is holomorphic,
+    then $f$ has derivatives of all orders on $U$ and they are all holomorphic.
+\end{corollary}
+
+\begin{proof}
+    Let $a \in U$ and $r > 0$ such that $B_r(a) \subset U$.
+    Then by the teorem above we have
+    \[
+        f(z) = \sum^{\infty}_{n=0} (z-a)^n
+    \]
+    for all $z \in B_r(a)$.
+    But then
+    \[
+        f'(z) = \sum^{\infty}_{n=1} n c_n (z-a)^{n-1}
+    \]
+    for $z \in B_r(z)$.
+    That is to say, around any point $a$ of $U$ we have a Taylor series representation;
+    that is, $f'$ is holomorphic.
+    We can repeat this replacing $f'$ with $f$ to see that $f$ must have infinite derivatives,
+    each being holomorphic.
+\end{proof}
+
+\begin{remark}
+    This illuminates \emph{another} difference between real and complex analysis.
+    Consider the real function $f(x) = \abs{x} \, x^n$ for $x \in \R$.
+    $f$ is \emph{exactly} $n$-times differentiable at $x = 0$, but the derivative
+    $f^{(n+1)}$ is \emph{not} defined at $x = 0$.
+\end{remark}
+
+The above corollary allows us to prove a nice theorem called \emph{Morera's theorem},
+which can be viewed as a converse to Cauchy's theorem.

@@ -1,0 +1,177 @@
+\documentclass[a4paper, answers]{exam}
+\input{../preamble.tex}
+
+\begin{document}
+\begin{center}
+	\textbf{\textsc{Number Theory III, Assignment 3}}
+	\\
+	\textsc{Ben Napier}
+	\vspace{1em}
+\end{center}
+\begin{questions}
+	\question 
+	Let $p$ be an odd prime and set $K = \Q(\zeta)$
+	with $\zeta = e^{\frac{2\pi i}p}$.
+	Show that
+	\[
+		\frac{1 - \zeta^i}{1 - \zeta^j}
+		\in \mathcal O^\times_K,
+	\]
+	for all $0 \neq i, j \in \Z$
+	with $\gcd(i,p) = \gcd(j,p) = 1$.
+	\begin{solution}
+		Observe that
+		\[
+			\frac{1 - \zeta^i}{1 - \zeta} 
+			= 1 + \zeta + \ldots + \zeta^{i-1}
+			\in \Z[\zeta]
+		\]
+		and thus 
+		$\frac{1 - \zeta^i}{1 - \zeta} \in \mathcal O_K$.
+		Now let $i'$ be the modular inverse of $i$ (modulo $p$),
+		which exists as $i$ and $p$ are coprime.
+		Let $\varphi = \zeta^i$. 
+		Then
+		\begin{align*}
+			\frac{1 - \zeta}{1 - \zeta^i}
+			&= \frac{1 - \left( 
+				\zeta^i
+			\right)^{i'}}{1 - \left( 
+				\zeta^i
+			\right)} \\
+			&= \frac{1 - \varphi^{i'}}{1 - \varphi} \\
+			&= 1 + \varphi + \ldots + \varphi^{i' - 1} \\
+			&\in \Z[\varphi] \subset \Z[\zeta].
+		\end{align*}
+		Thus $\left( 
+			\frac{1 - \zeta^i}{1 - \zeta} 
+		\right)^{-1} = \frac{1 - \zeta}{1 - \zeta^i}
+		\in \mathcal O_K$.
+		Therefore,
+		$\frac{1 - \zeta^i}{1 - \zeta} \in \mathcal O_K^\times$.
+		Similarly,
+		$\frac{1 - \zeta^j}{1 - \zeta} \in \mathcal O_K^\times$.
+		As $\mathcal O_K$ is a ring, $\mathcal O_K^\times$ is closed
+		under multiplication.
+		Hence,
+		$
+			\frac{1 - \zeta^i}{1 - \zeta^j} \in \mathcal O_K^\times
+		$.
+	\end{solution}
+
+	\question
+	Let $R = \Z[\sqrt{-13}]$,
+	and set $\alpha = 1 + \sqrt{-13} \in R$.
+	\begin{parts}
+		\part Is $\alpha$ irreducible in $R$?
+		\begin{solution}
+			Assume that $\alpha$ is reducible.
+			Then
+			\[
+				1 + \sqrt{-13} = (a + b\sqrt{-13})(c + d\sqrt{-13})
+			\]
+			for $a + b\sqrt{-13}, c + d\sqrt{-13} \in R \setminus R^\times$.
+			Now recall that $N(p + q\sqrt{-13}) = p^2 + 13q^2$.
+			Taking norms of both sides:
+			\[
+				(a^2 + 13b^2)(c^2 + 13d^2) = 14.
+			\]
+			The only possibilities are: $a = b = c = 1$ and $d = 0$;
+			or $a = c = d = 1$ and $b = 0$.
+			But in both situations either $a + b\sqrt{-13} \in R^\times$
+			or $c + d\sqrt{-13} \in R^\times$; a contradiction.
+			Hence $\alpha$ is irreducible.
+		\end{solution}
+
+		\part Is $\alpha$ a prime element of $R$?
+		\begin{solution}
+			Assume $1 + \sqrt{-13}$ is prime.
+			Observe that
+			\[
+				(1 + \sqrt{-13})(1 - \sqrt{-13}) = 14 \mid 14 = 7 \cdot 2.
+			\]
+			Then either $1 + \sqrt{-13} \mid 7$
+			or $1 + \sqrt{-13} \mid 2$.
+			If $1 + \sqrt{-13} \mid 7$, then there is
+			$a, b \in \Z$ such that
+			$(1 + \sqrt{-13})(a + b\sqrt{13}) = 7$.
+			Taking norms of both sides:
+			$14(a^2 + 13b^2) = 49$, and so
+			$2(a^2 + 13b^2) = 7$, which is impossible.
+			Therefore $1 + \sqrt{-13} \nmid 7$.
+			Thus we must have $1 + \sqrt{-13} \mid 2$.
+			So there is $c, d \in \Z$ such that
+			$(1 + \sqrt{-13})(c + d\sqrt{-13}) = 2$.
+			Again, taking norms we get
+			$7(a^2 + 13b^2) = 2$, which again is impossible.
+			So $1 + \sqrt{-13} \nmid 2$.
+			Hence $1 + \sqrt{-13}$ is not prime.
+		\end{solution}
+
+		\part Is $R$ a U.F.D.?
+		\begin{solution}
+			In unique factorisation domains, our notions of 
+			irreducibility and primality coincide.
+			As $\alpha$ is an element of $R$ which is irreducible but not prime,
+			$R$ must not be a unique factorisation domain.
+		\end{solution}
+	\end{parts}
+
+	\question
+	Let $R = \Z[\sqrt{-5}]$ and $I = (1+\sqrt{-5}, 2)_R$.
+	\begin{parts}
+		\part
+		Show that $I^2$ is a principal ideal.
+		\begin{solution}
+			Observe
+			\begin{align*}
+				I^2
+				&= (1 + \sqrt{-5}, 2)_R^2 \\
+				&= (1 + \sqrt{-5}, 2)_R \cdot (1 + \sqrt{-5}, 2)_R \\
+				&= ((1 + \sqrt{-5})^2, 2(1 + \sqrt{-5}), 4)_R \\
+				&= (-4 + 2\sqrt{-5}, 2 + 2\sqrt{-5}, 4)_R.
+			\end{align*}
+			Further note that
+			\begin{align*}
+				-4 + 2\sqrt{-5}
+				&= 2(-2 + \sqrt{-5}) \in (2)_R, \\
+				2 + 2\sqrt{-5}
+				&= 2(1 + \sqrt{-5}) \in (2)_R, \\
+				4
+				&= 2(2) \in (2)_R.
+			\end{align*}
+			Thus $I^2 = (2)_R$ and so $I^2$ is principal.
+		\end{solution}
+
+		\part
+		Show that $I$ is a maximal ideal.
+		\begin{solution}
+			First we observe that
+			\[
+				R/(2)_R = \left\{
+					(2)_R,
+					1 + (2)_R,
+					\sqrt{-5} + (2)_R,
+					1 + \sqrt{-5} + (2)_R
+				\right\}
+			\]
+			and so $\left\lvert R/(2)_R \right\rvert = 4$.
+			$R/I$ is an additive subgroup of $R/(2)_R$,
+			so $\left\lvert R/I \right\rvert \mid 4$.
+			Thus $\left\lvert R/I \right\rvert \in \left\{
+				1,2,4
+			\right\}$.
+			If $\left\lvert R/I \right\rvert = 1$, then $I = R$.
+			But then $I^2 = R^2 = R$, but we showed that
+			$I^2 = (2)_R \neq R$ so this cannot be the case.
+			If $\left\lvert R/I \right\rvert = 4$ then
+			$I = (2)_R$ which is impossible since
+			$1 + \sqrt{-5} \in I$ and $1 + \sqrt{-5} \not\in (2)_R$.
+			Thus we must have $\left\lvert R/I \right\rvert = 2$.
+			But there is only one ring (up to isomorphisms) with
+			2 elements, and it is a field.
+			So $R/I$ is a field, and so $I$ must be maximal.
+		\end{solution}
+	\end{parts}
+\end{questions}
+\end{document}

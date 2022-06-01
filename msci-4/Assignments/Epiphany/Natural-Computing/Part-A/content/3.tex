@@ -1,0 +1,40 @@
+\section{The Ant-Q algorithm, plain English}
+
+As discussed we will introduce the Ant-Q algorithm with its application to ATSP. Let $(N,E)$ be the weighted directed graph as discussed with $\lvert N \rvert = n$. 
+
+We start with a set of agents (ants) $P$. Our set of states $S$ is just $N$ (at any given point, an ant is at a city). The set of all actions $A$ is also $N$; however, we will later restrict this set to allow only valid tours.  
+
+At the start of our algorithm, $t = 1$, each ant $k \in P$ is given an initial state $s_1^k \in S$. Ant $k$ will then choose an action $a_1^k \in A$, perform the action, then move into state $s_2^k = a_1^k \in S$. More generally, at time $t \in \mathbb N$, ant $k$ will be in state $s_t^k$. If $t = n$, the simulation is over. Otherwise, ant $k$ will choose an action $a_t^k \in A$ and move into state $s_{t+1}^k = a_t^k \in S$.
+
+We have some restriction to impart before moving forward. In ATSP, we must find a \emph{Hamiltonian cycle}; that is, we can only visit each vertex once and must return to the original vertex. To deal with this, we restrict the choice of actions of the ants. At time $t \in \mathbb N$, we denote $A^k_t$ as the set of possible actions an ant $k \in P$ can take. For $t < n$, this is defined by $A^k_t = N \setminus \{ s^k_i \}_{i \in \{1, \ldots, t\}}$ and $A^k_n = \{s_1^k\}$.
+
+In the above description, we are missing how ant $k$ chooses which action to take. For this, we introduce two constructions.
+
+We define the function $\AQ: S \times A \to \mathbb R_{\geq 0}$ such that for a state $s \in S$ and action $a \in A_s$, $\AQ(s, a)$ indicates how \emph{useful} action $a$ is when an ant in state $s$. This is analogous to Q-values in Q-learning, and mirrors similarities to Q-learning in how this value is maintained. When an ant in state $s \in S$ takes the action $a \in A_s$ and moves to state $s' \in S$, we update the $\AQ$ value by
+\begin{equation}
+    \label{eq:aq-update}
+    \AQ(s, a) \gets \AQ(s, a) + \alpha\left(
+    \DAQ(s,a) +
+    \gamma \max_{a' \in A_{s}} \AQ(s, a') -
+    \AQ(s, a)
+    \right)
+\end{equation}
+where $\DAQ: S \times A \to \mathbb R$ is a value called \emph{delayed reinforcement}, and is maintained throughout the execution of the algorithm. It is is analogous to \emph{reward} in Q-learning. It is an unspecified parameter for the model, but we will discuss some choices evaluated by \textcite{gambardella1995ant} later.
+
+Let $\HE: S \times A \to \mathbb R_{\geq 0}$ be a heuristic function, which is not updated during the runtime of our algorithm. This also indicates the quality of an action given that an ant is in a particular state. For example, we may pick the inverse or negative of the distances between points.
+
+We now describe how an ant $k \in P$ at time $t$ may choose an action $a_t^k$ given that it is in state $s_t^k$. We do this by the \emph{action choice rule}, given by
+\begin{equation}
+    \label{eq:action-choice-rule}
+    a_t^k =
+    \begin{dcases}
+        \argmax_{a \in A_{s_t^k}} \left(
+        \AQ(s_t^k, a)
+        \right)^\delta \left(
+        \HE(s_t^k, a)
+        \right)^\beta & \text{if $q \leq q_0$,} \\
+        S             & \text{otherwise,}
+    \end{dcases}
+\end{equation}
+where $\delta, \beta \in \mathbb R$ are parameters which weight the importance of $\AQ$ and $\HE$, $q \in [0,1]$ is a value that is chosen uniformly at random, $q_0 \in [0,1]$ is a parameter which dictates how often to take a random action, and $S$ is a random variable selected according to a probability density function given by the $\AQ$ and $\HE$ values of each possible action. Some choices of these parameters will be later discussed. 
+

@@ -1,0 +1,36 @@
+% Basic packages
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[UKenglish]{babel}
+\usepackage{enumitem}
+\usepackage{graphicx}
+\setlist[enumerate,1]{label={(\roman*)}} % changing default numbering scheme
+
+% Math packages
+\usepackage{amsmath, amsfonts, mathtools, amsthm, amssymb}
+\usepackage{xfrac}
+\usepackage{bm}
+\newcommand\restr[2]{{ % Gives us function restrictions (f|A(x)...)
+	\left.\kern-\nulldelimiterspace
+	#1
+	\vphantom{\big|}
+	\right|_{#2}
+}}
+
+% Some shortcuts for sets
+\newcommand\N{\ensuremath{\mathbb{N}}}
+\newcommand\R{\ensuremath{\mathbb{R}}}
+\newcommand\Z{\ensuremath{\mathbb{Z}}}
+\newcommand\Q{\ensuremath{\mathbb{Q}}}
+\newcommand\C{\ensuremath{\mathbb{C}}}
+
+% Tikz
+\usepackage{tikz, pgfplots, pgf}
+
+% Pretty tables
+\usepackage{booktabs}
+\usepackage{caption}
+\captionsetup[table]{skip=10pt}
+
+% Author / date
+\date{2020 Michaelmas Term}

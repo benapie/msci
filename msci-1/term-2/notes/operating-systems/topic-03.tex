@@ -1,0 +1,65 @@
+\chapter{Memory management}
+
+Multiprogramming requires us to keep several processes in memory at once. So to fully utilise the CPU we must also fully utilise memory. There are different types of memory which have different read and write speeds depending on their requirements:
+\begin{enumerate}
+    \item cache memory, very fast read and write speeds; they are found in processors and come in differente levels (L1, L2, etc.);
+    \item main memory, RAM (volatile), etc.;
+    \item storage memory, SSDs (non-volatile), etc; and
+    \item virtual memory.
+\end{enumerate}
+
+Cache and main memory are known as \textbf{primary memory}. Cache memory is typically used solely by the CPU but has the same memory management techniques as main memory, which is our focus. Memory is made up of \textbf{memory cells} which each store a 0 or a 1. For a piece of data in memory we store two addresses:
+
+\begin{enumerate}
+    \item \textbf{logical address}, this is assigned to data by the CPU; and
+    \item \textbf{physical address}, this is the actual location of the data in memory.
+\end{enumerate}
+
+The memory management unit (MMU) converts between the logical and physical addresses. A user will only ever deal with logical addresses. We split main memory into \textbf{kernel processes} and \textbf{user processes}. Each \textbf{partition} is kept in a single contiguous part of memory. 
+
+\begin{definition}[Memory hole]
+    A \textbf{memory hole} is an area of physical memory which does not map to main memory (that is, does not have a logical address).
+\end{definition}
+
+Memory holes are scattered throughout memory. When a process requests memory from the CPU, it must assign a hole large enough to contain it. The OS stores information about each partition and the free or allocated holes in it. There are a number of strategies an operating system can adopt when allocating memory holes to a process:
+\begin{enumerate}
+    \item first-fit, allocate the first memory hole found that is big enough for the process;
+    \item best-fit, allocate the smallest memory hole possible that is big enough for the process; our
+    \item worst-fit, allocate the biggest memory hole possible that is big enough for the process.
+\end{enumerate}
+
+It is clear that the first-fit strategy is best for saving on processing time on allocation (at least in a short term sense) and it is clear that the best-fit is best for perserving storage. Worst-fit is just silly.
+
+\begin{definition}[External fragmentation and compaction]
+    This is where memory space that can fit a request but is not contiguous; we can fix this with \textbf{compaction}: the shuffling of data such that it fits memory.
+\end{definition}
+
+\begin{definition}[Internal fragmentation]
+    Many times in memory allocation, a process can be allocated more memory than is needed. For example, if an operating system hands out memory holes in 32-bit quanta and a process needs 29 bits of memory, there will be 3 unused bits.
+\end{definition}
+
+\section{Paging and virtual memory}
+
+\begin{definition}[Paging]
+    Physical memory is divided into fixed sized blocks called \textbf{frames}. Logical memory is divided into fixed size blocks called \textbf{pages}. To run a program of $n$ pages, we need to find $n$ frames and load the program. This is called \textbf{paging}.
+\end{definition}
+
+A \textbf{page table} is established to map logical addresses to physical addresses. Each logical address is divided into:
+\begin{enumerate}
+    \item page number, the page that the memory is on; and
+    \item page offset, how far into the page the data is.
+\end{enumerate}
+
+We can offer security to memory frames such that unauthorised processes cannot access them by using a \textbf{valid-invalid bit}. More on this below.
+
+\begin{definition}[Virtual memory]
+    \textbf{Virtual memory} is the capability of the operating system that allows it to allocate more memory than there is available on the main memory. 
+\end{definition}
+
+In this case, the logical address space is larger than the physical address space. Pages are swapped in and out of memory. So other physical address space is shared by processes; however, all the processes see is a continguous block of memory. 
+
+\begin{definition}[Demand paging]
+    In \textbf{demand paging}, we only bring a page into memory when needed for execution. This reduces the number of pages transferred and reduces the number of frames needed. It increases response time and the number of processes executed.
+\end{definition}
+
+When a reference is made to a page's address we abortt if the address is invalid or we load it on otherwise. If we try access a page not in memory that is valid (that is, the valid/invalid bit is 0) then we get a \textbf{page fault}. In demand paging, there are a number of ways to decided which memory block to move out (if memory is full) for a new page to be moved in. First in first out algorithm and least recently used algorithm are both techniques, which both have the same number of average page faults, provably so.

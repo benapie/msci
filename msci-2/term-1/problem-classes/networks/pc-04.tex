@@ -1,0 +1,41 @@
+\pc{4}{25/11}
+
+\question Table \ref{tab:link-state-packets} contains all of the Link State Packets broadcast on a network with $6$ routers $A$ through $F$.
+Use these to establish the best (i.e. lowest distance) route for
+\begin{parts}
+    \part router $F$ to send a packet to router $A$; and
+    \part router $E$ to send to router $D$.
+\end{parts}
+\begin{table}
+    \centering
+    \caption{Link state packets.}
+    \label{tab:link-state-packets}
+    \begin{tabular}{cc c cc c cc c cc c cc c cc}
+        \toprule
+        \multicolumn{2}{c}{A} && \multicolumn{2}{c}{B} && \multicolumn{2}{c}{C} && \multicolumn{2}{c}{D} && \multicolumn{2}{c}{E} && \multicolumn{2}{c}{F} \\
+        \cmidrule{1-2} \cmidrule{4-5} \cmidrule{7-8} \cmidrule{10-11} \cmidrule{13-14} \cmidrule{16-17}
+        \multicolumn{2}{c}{Seq.} && \multicolumn{2}{c}{Seq.} && \multicolumn{2}{c}{Seq.} && \multicolumn{2}{c}{Seq.} && \multicolumn{2}{c}{Seq.} && \multicolumn{2}{c}{Seq.} \\ 
+        \multicolumn{2}{c}{Age} && \multicolumn{2}{c}{Age} && \multicolumn{2}{c}{Age} && \multicolumn{2}{c}{Age} && \multicolumn{2}{c}{Age} && \multicolumn{2}{c}{Age} \\
+        \cmidrule{1-2} \cmidrule{4-5} \cmidrule{7-8} \cmidrule{10-11} \cmidrule{13-14} \cmidrule{16-17}
+        B & 4 && A & 4 && B & 2 && C & 3 && A & 5 && B & 6 \\
+        E & 5 && C & 2 && D & 3 && F & 7 && C & 1 && D & 7 \\
+        &&&      F & 6 && E & 1 && &&&      F & 8 && E & 8 \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+\question Consider the simple network in Figure \ref{fig:graph} with nine routers.
+Apply Dijkstra's shortest path algorithm to find an optimum, path from router $G$ to router $C$. 
+Give working details such as the tentative and permanent labels at each iteration.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.4\textwidth]{images/graph.png}
+    \caption{A graph.}
+    \label{fig:graph}
+\end{figure}
+
+\question In the binary countdown protocol, explain how a lower-numbered station may be starved from sending a packet.
+
+\question Consider the delay of pure ALOHA versus slotted ALOHA at low load.
+Which one is less? Explain your answer.

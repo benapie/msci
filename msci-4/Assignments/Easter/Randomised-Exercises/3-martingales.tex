@@ -1,0 +1,65 @@
+\question Let $X_1, X_2, \ldots$ be random variables such that $Z_1, Z_2, \ldots$ with $Z_n = \sum_{i=1}^n X_i$ are a martingale. Show that $\E[X_i \cdot X_j] = 0$ whenever $i \neq j$.
+
+\begin{solution}
+    Without loss of generality, we assume $j < i$. As $X_i = Z_i - Z_{i-1}$, we have
+    \[ \E[X_iX_j] = \E[(Z_i - Z_{i-1})X_j]. \]
+    By the law of iterated expectation, we have
+    \begin{align*}
+        \E[(Z_i - Z_{i-1})X_j] & = \E[\E[(Z_i - Z_{i-1})X_j \mid Z_1, \ldots, Z_n]] \\
+                               & = \E[X_j\E[Z_i - Z_{i-1} \mid Z_1, \ldots, Z_n]]   \\
+                               & = \E[X_j(0)] = 0.
+    \end{align*}
+\end{solution}
+
+\question Let $X_0, X_1, X_2, \ldots$ be a sequence of random variables with finite expectations, satisfying
+\[ \E[X_{n+1} \mid X_0, X_1, \ldots, X_n] = aX_n + bX_{n-1} \]
+for $n \geq 1$, where $0 < a,b < 1$ and $a + b = 1$. Find a value of $\beta$ for which $Z_n = \beta X_n + X_{n-1}$ ($n \geq 1$) defines a martingale with respect to $X_0, X_1, X_2, \ldots$.
+
+\begin{solution}
+    Each $X_i$ has finite expectation, so each $Z_i$ does too. Assume that such a $\beta \in \R$ exists. Then
+    \begin{align*}
+        \E[Z_{n+1} \mid X_0, \ldots, X_n] & = \E[\beta X_{n+1} + X_{n} \mid X_0, \ldots, X_n] \\
+                                          & = \E[\beta X_{n+1} \mid X_0, \ldots, X_n] + X_n   \\
+                                          & = \beta(aX_n + bX_{n-1}) + X_n                    \\
+                                          & = (a\beta+1)X_n + b\beta X_{n-1}                  \\
+                                          & = \beta X_n + X_{n-1}.
+    \end{align*}
+    Giving us $\beta = \frac{1}{\beta}$. This can be checked to satisfy the requirements of a martingale (note that clearly $Z_n$ is a function of $\{X_i\}_{i=0}^n$).
+\end{solution}
+
+\question Consider a bag that at time $n = 0$ contains one red marble and one blue marble. At each time step $n \geq 1$ you inspect the colour a randomly chosen marble and add an extra marble of that colour to the bag. Let $M_n$ denote the fraction of red marbles after time step $n$. Is $(M_n)_{n \geq 0}$ a martingale? Prove your answer.
+
+\begin{solution}
+    We let $S_n$ be the number of red marbles in the bag after step $n$. We see that $M_n = \frac{S_n}{n+2}$, thus we can swap the conditioning on one with the conditioning with the other.
+    \begin{align*}
+        \E[M_{n+1} \mid M_1, \ldots M_n] & = \E\left[\frac{S_{n+1}}{n+3} \;\middle|\; M_1, \ldots M_n\right] \\
+                                         & = \frac{1}{n+3}\E\left[S_{n+1}\mid M_1, \ldots M_n\right]         \\
+                                         & = \frac{1}{n+3}\E\left[S_{n+1}\mid S_1, \ldots S_n\right].
+    \end{align*}
+    We note that
+    \begin{align*}
+        \E\left[S_{n+1}\mid S_n\right] & = \Pr[S_{n+1} = S_n + 1](S_n + 1) + \Pr[S_{n+1} = S_n](S_n)          \\
+                                       & = \frac{S_n}{n + 2}(S_n + 1) + \left(1 - \frac{S_n}{n + 2}\right)S_n \\
+                                       & = \frac{S_n}{n+2} \left(S_n + 1 + n + 2 - S_n \right)                \\
+                                       & = \frac{S_n(n+3)}{n+2}.
+    \end{align*}
+    Thus
+    \[ \E[M_{n+1} \mid M_1, \ldots M_n] = \frac{1}{n+3} \cdot \frac{S_n(n+3)}{n+2} = M_n, \]
+    as required. We have expressed $M_n$ as a function of $S_n$, and $M_n$ is bounded for all $n$. Thus $(M_n)_{n \in \N}$ is a martingale.
+\end{solution}
+
+\question The game ``Next Is Black'' can be played by a single player with a shuffled but otherwise ordinary pack of 52 cards. At times $n = 1, 2, \ldots, 52$ the player turns over a new card and notes its colour. Just once in the game they must say, just before turning over a card, ``Next Is Black''. They win the game if that card is indeed black. Let $B_n$ be the number of black cards remaining face down after the $n$-th card has been exposed. Show that $X_n = B_n/(52-n)$, $0 \leq n \leq 52$, defines a martingale. Show that there is no strategy for the player which would result in a winning probability different from $1/2$.
+
+\begin{solution}
+    First, we observe that $\E[B_{n+1} \mid B_n] = B_n - \frac{B_n}{(52 - n)}$. Then
+    \begin{align*}
+        \E[X_{n+1} \mid B_0, \ldots, B_n] & = \E\left[\frac{B_{n+1}}{52-(n+1)} \;\middle|\; B_0, \ldots, B_n\right] \\
+                                          & = \frac{1}{52-(n+1)} \E\left[B_{n+1} \;\middle|\; B_0, \ldots, B_n\right] \\
+                                          & = \frac{1}{52-(n+1)} \left(B_n - \frac{B_n}{(52 - n)}\right) \\
+                                          & = \frac{1}{52-(n+1)} \left(\frac{(52 - (n+1))B_n}{(52 - n)}\right) \\
+                                          &= X_n.
+    \end{align*}
+    For all $n \in \N_0$, $X_n$ is clearly bounded (finite game), and we have expressed it as a function of $(B_i)_{i=0}^n$. Thus $X_n$ is a martingale. A strategy in this game corresponds to a stopping time, so let $T$ be a stopping time. As this is a finite game, $T$ must be bounded. Thus by the optional stopping theorem
+    \[ \E[X_T] = \E[X_0] = \frac12. \]
+    We note that the probability of winning is given by $\E[X_T]$, and thus any strategy has probability of winning $1/2$.
+\end{solution}

@@ -1,0 +1,197 @@
+\subpart \hspace{0em}
+\begin{solution}
+    We start with the following seed graph.
+    \begin{center}
+        \newcommand{\myangle}{10}
+        \vspace{0.5em}
+        \begin{tikzpicture}[node distance=20mm]
+            \node[main] (1) {$a$};
+            \node[main] (2) [right of=1] {$b$};
+            \node[main] (3) [below of=2] {$c$};
+            \node[main] (4) [left of=3] {$d$};
+            \draw[->] (1) to [out=0+\myangle, in=180-\myangle] (2);
+            \draw[->] (2) to [out=-180+\myangle, in=-\myangle] (1);
+
+            \draw[->] (2) to [out=270+\myangle, in=90-\myangle] (3);
+            \draw[->] (3) to [out=-270+\myangle, in=-90-\myangle] (2);
+
+            \draw[->] (4) to [out=0+\myangle, in=180-\myangle] (3);
+            \draw[->] (3) to [out=-180+\myangle, in=-\myangle] (4);
+
+            \draw[->] (1) to [out=270+\myangle, in=90-\myangle] (4);
+            \draw[->] (4) to [out=-270+\myangle, in=-90-\myangle] (1);
+
+            \draw[->] (4) to [out=45+\myangle, in=-135-\myangle] (2);
+            \draw[->] (2) to [out=-135+\myangle, in=45-\myangle] (4);
+
+            \draw[->] (1) to [out=-45+\myangle, in=135-\myangle] (3);
+            \draw[->] (3) to [out=135+\myangle, in=-45-\myangle] (1);
+        \end{tikzpicture}
+        \vspace{0.5em}
+    \end{center}
+    For the first step, we let $v = e$ be the new vertex and we (randomly) pick $u = b$. We sample $(w_1, w_2) = (d, c)$ from the neighbourhood of $u$, and thus we get the following graph (the selected vertex is coloured red, and the new vertex and edges are coloured blue).
+    \begin{center}
+        \newcommand{\myangle}{10}
+        \vspace{0.5em}
+        \begin{tikzpicture}[node distance=20mm]
+            \node[main] (1) {$a$};
+            \node[main, fill=red!25] (2) [right of=1] {$b$};
+            \node[main] (3) [below of=2] {$c$};
+            \node[main] (4) [left of=3] {$d$};
+            \node[main, fill=blue!25] (5) [below right of=3] {$e$};
+
+            \draw[->] (1) to [out=0+\myangle, in=180-\myangle] (2);
+            \draw[->] (2) to [out=-180+\myangle, in=-\myangle] (1);
+
+            \draw[->] (2) to [out=270+\myangle, in=90-\myangle] (3);
+            \draw[->] (3) to [out=-270+\myangle, in=-90-\myangle] (2);
+
+            \draw[->] (4) to [out=0+\myangle, in=180-\myangle] (3);
+            \draw[->] (3) to [out=-180+\myangle, in=-\myangle] (4);
+
+            \draw[->] (1) to [out=270+\myangle, in=90-\myangle] (4);
+            \draw[->] (4) to [out=-270+\myangle, in=-90-\myangle] (1);
+
+            \draw[->] (4) to [out=45+\myangle, in=-135-\myangle] (2);
+            \draw[->] (2) to [out=-135+\myangle, in=45-\myangle] (4);
+
+            \draw[->] (1) to [out=-45+\myangle, in=135-\myangle] (3);
+            \draw[->] (3) to [out=135+\myangle, in=-45-\myangle] (1);
+
+            \draw[->, emph] (5) to [out=90, in=0] (2);
+            \draw[->, emph] (5) to [out=135, in=-45] (3);
+            \draw[->, emph] (5) to [out=180, in=-90] (4);
+        \end{tikzpicture}
+        \vspace{0.5em}
+    \end{center}
+    For the second step, we let $v = f$ be the new vertex and we (randomly) pick $u = d$, and sample neighbours $(w_1, w_2) = (a,c)$. Thus we get the following graph.
+    \begin{center}
+        \newcommand{\myangle}{10}
+        \vspace{0.5em}
+        \begin{tikzpicture}[node distance=20mm]
+            \node[main] (1) {$a$};
+            \node[main] (2) [right of=1] {$b$};
+            \node[main] (3) [below of=2] {$c$};
+            \node[main, fill=red!25] (4) [left of=3] {$d$};
+            \node[main] (5) [below right of=3] {$e$};
+            \node[main, fill=blue!25] (6) [below left of=4] {$f$};
+
+            \draw[->] (1) to [out=0+\myangle, in=180-\myangle] (2);
+            \draw[->] (2) to [out=-180+\myangle, in=-\myangle] (1);
+
+            \draw[->] (2) to [out=270+\myangle, in=90-\myangle] (3);
+            \draw[->] (3) to [out=-270+\myangle, in=-90-\myangle] (2);
+
+            \draw[->] (4) to [out=0+\myangle, in=180-\myangle] (3);
+            \draw[->] (3) to [out=-180+\myangle, in=-\myangle] (4);
+
+            \draw[->] (1) to [out=270+\myangle, in=90-\myangle] (4);
+            \draw[->] (4) to [out=-270+\myangle, in=-90-\myangle] (1);
+
+            \draw[->] (4) to [out=45+\myangle, in=-135-\myangle] (2);
+            \draw[->] (2) to [out=-135+\myangle, in=45-\myangle] (4);
+
+            \draw[->] (1) to [out=-45+\myangle, in=135-\myangle] (3);
+            \draw[->] (3) to [out=135+\myangle, in=-45-\myangle] (1);
+
+            \draw[->] (5) to [out=90, in=0] (2);
+            \draw[->] (5) to [out=135, in=-45] (3);
+            \draw[->] (5) to [out=180, in=-90] (4);
+            
+            \draw[->, emph] (6) to [out=90, in=180] (1);
+            \draw[->, emph] (6) to [out=0, in=-90] (3);
+            \draw[->, emph] (6) to [out=45, in=-135] (4);
+        \end{tikzpicture}
+        \vspace{0.5em}
+    \end{center}
+    For the final step, we let $v = g$ be the new vertex and randomly pick $u = e$, with neighbourhood sample $(w_1, w_2) = (b,c)$. Thus we get the following graph.
+    \begin{center}
+        \newcommand{\myangle}{10}
+        \vspace{0.5em}
+        \begin{tikzpicture}[node distance=20mm]
+            \node[main] (1) {$a$};
+            \node[main] (2) [right of=1] {$b$};
+            \node[main] (3) [below of=2] {$c$};
+            \node[main] (4) [left of=3] {$d$};
+            \node[main, fill=red!25] (5) [below right of=3] {$e$};
+            \node[main] (6) [below left of=4] {$f$};
+            \node[main, fill=blue!25] (7) [above right of=5] {$g$};
+
+            \draw[->] (1) to [out=0+\myangle, in=180-\myangle] (2);
+            \draw[->] (2) to [out=-180+\myangle, in=-\myangle] (1);
+
+            \draw[->] (2) to [out=270+\myangle, in=90-\myangle] (3);
+            \draw[->] (3) to [out=-270+\myangle, in=-90-\myangle] (2);
+
+            \draw[->] (4) to [out=0+\myangle, in=180-\myangle] (3);
+            \draw[->] (3) to [out=-180+\myangle, in=-\myangle] (4);
+
+            \draw[->] (1) to [out=270+\myangle, in=90-\myangle] (4);
+            \draw[->] (4) to [out=-270+\myangle, in=-90-\myangle] (1);
+
+            \draw[->] (4) to [out=45+\myangle, in=-135-\myangle] (2);
+            \draw[->] (2) to [out=-135+\myangle, in=45-\myangle] (4);
+
+            \draw[->] (1) to [out=-45+\myangle, in=135-\myangle] (3);
+            \draw[->] (3) to [out=135+\myangle, in=-45-\myangle] (1);
+
+            \draw[->] (5) to [out=90, in=0] (2);
+            \draw[->] (5) to [out=135, in=-45] (3);
+            \draw[->] (5) to [out=180, in=-90] (4);
+            
+            \draw[->] (6) to [out=90, in=180] (1);
+            \draw[->] (6) to [out=0, in=-90] (3);
+            \draw[->] (6) to [out=45, in=-135] (4);
+
+            \draw[->, emph] (7) to (3);
+            \draw[->, emph] (7) to [out=90, in=45] (2);
+            \draw[->, emph] (7) to [out=-90, in=45] (5);
+        \end{tikzpicture}
+        \vspace{0.5em}
+    \end{center}
+    Giving us the following final graph.
+    \begin{center}
+        \newcommand{\myangle}{10}
+        \vspace{0.5em}
+        \begin{tikzpicture}[node distance=20mm]
+            \node[main] (1) {$a$};
+            \node[main] (2) [right of=1] {$b$};
+            \node[main] (3) [below of=2] {$c$};
+            \node[main] (4) [left of=3] {$d$};
+            \node[main] (5) [below right of=3] {$e$};
+            \node[main] (6) [below left of=4] {$f$};
+            \node[main] (7) [above right of=5] {$g$};
+
+            \draw[->] (1) to [out=0+\myangle, in=180-\myangle] (2);
+            \draw[->] (2) to [out=-180+\myangle, in=-\myangle] (1);
+
+            \draw[->] (2) to [out=270+\myangle, in=90-\myangle] (3);
+            \draw[->] (3) to [out=-270+\myangle, in=-90-\myangle] (2);
+
+            \draw[->] (4) to [out=0+\myangle, in=180-\myangle] (3);
+            \draw[->] (3) to [out=-180+\myangle, in=-\myangle] (4);
+
+            \draw[->] (1) to [out=270+\myangle, in=90-\myangle] (4);
+            \draw[->] (4) to [out=-270+\myangle, in=-90-\myangle] (1);
+
+            \draw[->] (4) to [out=45+\myangle, in=-135-\myangle] (2);
+            \draw[->] (2) to [out=-135+\myangle, in=45-\myangle] (4);
+
+            \draw[->] (1) to [out=-45+\myangle, in=135-\myangle] (3);
+            \draw[->] (3) to [out=135+\myangle, in=-45-\myangle] (1);
+
+            \draw[->] (5) to [out=90, in=0] (2);
+            \draw[->] (5) to [out=135, in=-45] (3);
+            \draw[->] (5) to [out=180, in=-90] (4);
+            
+            \draw[->] (6) to [out=90, in=180] (1);
+            \draw[->] (6) to [out=0, in=-90] (3);
+            \draw[->] (6) to [out=45, in=-135] (4);
+
+            \draw[->] (7) to (3);
+            \draw[->] (7) to [out=90, in=45] (2);
+            \draw[->] (7) to [out=-90, in=45] (5);
+        \end{tikzpicture}
+        \vspace{0.5em}
+    \end{center}
+\end{solution}

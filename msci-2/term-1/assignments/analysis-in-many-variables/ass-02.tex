@@ -1,0 +1,69 @@
+\assignment{2}{31/10}
+
+\setcounter{question}{6}
+\question If 
+$\bm a = \sin{2t} \bm e_1 + e^t \bm e_2 - (t^3 - 5t) \bm e_3$, 
+at $t = 0$ find
+\begin{parts}
+    \part $\dfrac{d\bm a}{dt}$;
+    \begin{solution}
+        \begin{align*}
+            \frac{d\bm a}{dt}    &= 2\cos{2t} \bm e_1 + e^t \bm e_2 - (3t^2 - 5)\bm e_3 \\
+            \frac{d\bm a}{dt}(0) &= 2\bm e_1 + \bm e_2 + 5\bm e_3.
+        \end{align*}
+    \end{solution}
+
+    \part $\norm{\dfrac{d\bm a}{dt}}$;
+    \begin{solution}
+        \[ \norm{\frac{d\bm a}{dt}(0)} = \sqrt{2^2 + 1^2 + 5^2} = \sqrt{30}. \]
+    \end{solution}
+
+    \part $\dfrac{d^2\bm a}{dt^2}$; and
+    \begin{solution}
+        \begin{align*}
+            \frac{d^2\bm a}{dt^2}    &= -4\sin{2t}\bm e_1 + e^2\bm e_2 - 6t\bm e_3 \\
+            \frac{d^2\bm a}{dt^2}(0) &= \bm e_2.
+        \end{align*}
+    \end{solution}
+
+    \part $\norm{\dfrac{d^2\bm a}{dt^2}}$.
+    \begin{solution}
+        \[ \norm{\frac{d^2\bm a}{dt^2}(0)} = \sqrt{1^2} = 1. \]
+    \end{solution}
+\end{parts}
+
+\setcounter{question}{7}
+\question Find a unit vector tangent to the space curve $x = t^3$, $y = t$, and $z = t^2$ at $t = 2$.
+\begin{solution}
+    \begin{align*}
+        \bm x                        &= t^3 \bm e_1 + t \bm e_2 + t^2 \bm e_3 \\
+        \frac{d \bm x}{dt}           &= 3t^2 \bm e_1 + \bm e_2 + 2t \bm e_3   \\
+        \frac{d \bm x}{dt}(2)        &= 12 \bm e_1 + \bm e_2 + 4 \bm e_3      \\
+        \norm{\frac{d \bm x}{dt}(2)} &= \sqrt{12^2 + 1^2 + 4^2} = \sqrt{161} \\
+        \hat{\bm t}                  &= \frac{1}{\sqrt{161}} (12 \bm e_1 + \bm e_2 + 4 \bm e_3).
+    \end{align*}
+\end{solution}
+
+\setcounter{question}{10}
+\question Compute the gradient, $\nabla f$, for the following functions:
+\begin{parts}
+    \part $f(x, y, z) = \sqrt{x^2 + y^2 + z^2}$;
+    \begin{solution}
+        \begin{align*}
+            \nabla \cdot f &= 
+            \left(\bm e_1 \frac{\partial}{\partial x} + \bm e_2 \frac{\partial}{\partial y} + \bm e_3 \frac{\partial}{\partial z}\right) f \\
+                           &= \frac{x\bm e_1 + y\bm e_2 + z\bm e_3}{\sqrt{x^2 + y^2 + z^2}} \\
+                           &= \frac{\bm e_i x_i}{f}.
+        \end{align*}
+    \end{solution}
+
+    \part $f(x, y, z) = xy + yz + xz$; and
+    \begin{solution}
+        \[ \nabla f = \bm e_1 (y + z) + \bm e_2 (x + z) + \bm e_3 (y + x). \]
+    \end{solution}
+
+    \part $f(x, y, z) = \dfrac{1}{x^2 + y^2 + z^2}$.
+    \begin{solution}
+        \[ \nabla f = \frac{-2(x\bm e_1 + y\bm e_2 + z\bm e_3)}{(x^2 + y^2 + z^2)^2}. \]
+    \end{solution}
+\end{parts}

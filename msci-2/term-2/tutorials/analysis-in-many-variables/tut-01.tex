@@ -1,0 +1,171 @@
+\question Compute the differentiable, or Jacobian matrix, and the
+Jacobian of the function $\bm V: \R^2 \to \R^2$
+defined by $\bm V(x, y) = (x\cos y, x\sin y)$.
+\begin{solution}
+    \begin{align*}
+        \frac{\partial V_1}{\partial x} &= \cos y
+        & \frac{\partial V_1}{\partial y} &= -x\sin y \\
+        \frac{\partial V_2}{\partial x} &= \sin y
+        & \frac{\partial V_2}{\partial y} &= x\cos y.
+    \end{align*}
+    Then
+    \begin{align*}
+        J(\bm V)
+        &=
+        \begin{vmatrix}
+            \cos y & -x\sin y \\
+            \sin y & x\cos y \\
+        \end{vmatrix}
+        \\
+        &= x\cos^2y + x\sin^2y \\
+        &= x.
+    \end{align*}
+\end{solution}
+
+\question Repeat the previous question for 
+$\bm V(x, y) = (e^x \cos y, e^x \sin y)$.
+\begin{solution}
+    \begin{align*}
+        \frac{\partial V_1}{\partial x} &= e^x \cos y
+        & \frac{\partial V_1}{\partial y} &= -e^x \sin y \\
+        \frac{\partial V_2}{\partial x} &= e^x \sin y
+        & \frac{\partial V_2}{\partial y} &= e^x \cos y.
+    \end{align*}
+    Then
+    \begin{align*}
+        J(\bm v)
+        &=
+        \begin{vmatrix}
+            e^x \cos y & -e^x \sin y \\
+            e^x \sin y & e^x \cos y \\
+        \end{vmatrix}
+        \\
+        &= e^{2x} \cos^2y + e^{2x} \sin^2y \\
+        &= e^{2x}.
+    \end{align*}
+\end{solution}
+
+\question In the following integrals sketch the integration regions
+and then evaluate the integrals.
+Next interchange the order of integrations and re-evaluate.
+\begin{parts}
+    \part
+    \[
+        \int_0^1 \left( \int_x^1 xy \, dy \right) \,dx,
+    \]
+    \begin{solution}
+        This region is bounded by the line $y = x$, the $y$-axis,
+        and the line $x = 1$ where $x,y \in [0,1]$.
+        \begin{align*}
+            \int_0^1 \int_x^1 xy \,dy\,dx
+            &= \int_0^1
+            \left(
+                \frac12x - \frac12x^3
+            \right)^{y = 1}_{y = x}
+            \,dx \\
+            &= \int_0^1 \frac12x - \frac12x^3 \,dx \\
+            &= \left(\frac14 x^2 - \frac18x^4\right)_0^1 \\
+            &= \frac18 \\
+            \int_0^1 \int_0^y xy \,dx\,dy
+            &= \int_0^1 \left( \frac12 x^2y \right)_0^y \,dy \\
+            &= \int_0^1 \frac12y^3 \,dy \\
+            &= \left(\frac18 y^4\right)^1_0 \\
+            &= \frac18.
+        \end{align*}
+    \end{solution}
+
+    \part
+    \[
+        \int_0^{\frac{\pi}2}
+        \left(
+            \int_0^{\cos\theta} \cos\theta \,dr
+        \right) \,d\theta,
+    \]
+    \begin{solution}
+        The region is the top half of the circle with radius $\frac12$
+        centered at the point $(\sfrac12,0)$.
+        \begin{align*}
+            \int_0^{\frac{\pi}2}
+            \left(
+                \int_0^{\cos\theta} \cos\theta \,dr
+            \right) \,d\theta
+            &=
+            \int_0^{\frac{\pi}2}
+            \left(
+                r\cos\theta
+            \right)^{r = \cos\theta}_{r = 0}
+            \,d\theta \\
+            &= 
+            \int_0^{\frac{\pi}2}
+            \cos^2{\theta} \,d\theta \\
+            &= \frac12\int_0^{\frac{\pi}2}
+            \left(
+                \cos(2\theta) + 1
+            \right) \,d\theta \\
+            &= \frac{\pi}4 \\
+            \int_0^1 \int_0^{\arccos{r}}
+            \cos\theta \,d\theta \,dr
+            &= 
+            \int_0^1
+            \left(\sin\theta\right)^{\arccos{r}}_0 \,dr \\
+            &=
+            \int_0^1
+            \left(\sqrt{1 - \cos^2\theta}\right)^{\arccos{r}}_0 \,dr \\
+            &=
+            \int_0^1 \sqrt{1 - r^2} \, dr \\
+            &= \int_0^{\frac{\pi}2} \cos^2{\phi} \,d\phi \\
+            &= \frac{\pi}2.
+        \end{align*}
+    \end{solution}
+
+    \part
+    \[
+        \int_0^1
+        \left(
+            \int_1^{2-y} (x+y)^2 \,dx
+        \right) \,dy.
+    \]
+    \begin{solution}
+        This region is the triange with vertices 
+        $(1,0)$, $(2,0)$, and $(1,1)$.
+        This is a relative simple integral, does not need explaining.
+    \end{solution}
+\end{parts}
+
+\question Change the order of integration in the double integral
+\[
+    \int_0^2 \int_x^{2x} f(x,y) \,dy\,dx.
+\]
+\begin{solution}
+    \[    
+        \int_0^2 \int_x^{2x} f(x,y) \,dy\,dx
+        = \int_0^4
+        \left(
+            \int^{y}_{\frac y2} f(x,y) \,dx
+            + \int^2_{\frac y2} f(x,y) \,dx
+        \right)
+        \,dy
+    \]
+\end{solution}
+
+\question A function $f(x,y)$ is defined by
+\[
+    f(x,y)=
+    \begin{cases}
+        1 & -1 < x-y < 0 \\
+        -1 & 0 < x-y < 1 \\
+        0 & \text{otherwise}.
+    \end{cases}
+\]
+Compute
+\[
+    \int_0^{\infty}
+    \left( \int_{-\infty}^\infty f(x,y) \,dx \right) \,dy
+    \qquad \text{and} \qquad
+    \int_{-\infty}^{\infty}
+    \left( \int_{0}^\infty f(x,y) \,dy \right) \,dx.
+\]
+\begin{solution}
+    The first integration evaluates as $0$
+    and the second evaluates as $1$.
+\end{solution}

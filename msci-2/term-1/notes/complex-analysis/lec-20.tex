@@ -1,0 +1,83 @@
+\lecture{20}{11/12}
+
+\begin{theorem}[Local $M$-test]
+    Let $X$ be a metric space and let $f_n: X \to \C$ be a sequence of continuous functions such that for any $y \in X$, there is an open $U \subset X$ containing $y$ and constants $M_n > 0$ with
+    \[ \sum_{n = 1}^\infty M_n < \infty, \qquad \abs{f_n(x)} \leq M_n \]
+    for all $x \in U$. Then $\sum_{n = 1}^\infty f_n$ converges locally uniformly to a continuous function on $X$.
+\end{theorem}
+
+\begin{proof}
+    We apply the $M$-test to show that $f_n$ is uniform convergent on $U$; 
+    hence, $f_n$ is locally uniform convergent to some limit function $f$. 
+    As locally uniform convergence preserves continuity, $f$ is continous on $U$.
+    Therefore, $f_n \to f$ locally uniformly where $f$ is continuous. 
+\end{proof}
+
+\section{Complex power series}
+
+\begin{definition}[Complex power series]
+    A (complex) power series is of the form
+    \[ \sum_{n = 0}^\infty a_n (z - c)^n \]
+    where $a_n, c \in \C$.
+\end{definition}
+
+\begin{theorem}[Convergence of complex power series]
+    Let 
+    \[ f(z) = \sum_{n = 0}^\infty a_n (z - c)^n. \] 
+    Then either
+    \begin{enumerate}
+        \item $f(z)$ converges only $z = c$; 
+        \item there exists $R > 0$ such that $f(z)$ converges absolutely for all $\lvert z - c \rvert < R$ (we call $B_R(c)$ the \emph{disc of convergence}) and diverges for all $\lvert z - c \rvert > R$ (anything can happen where $\lvert z - c \rvert = R$); or
+        \item $f(z)$ converges for all $z \in \C$ ($R = \infty$).
+    \end{enumerate}
+\end{theorem}
+
+\begin{remark}
+    We typically use the root and ratio test to determine the radius of convergence.
+\end{remark}
+
+\begin{theorem}[]
+    A power series $f(z) = \sum_{n = 0}^\infty a_n (z - c)^n$ with radius of convergence $0 < R < \infty$ converges uniformly on any ball $B_r(c)$ with $0 < r < R$.
+    This implies the power series is locally uniformly convergent on its disc of convergence
+\end{theorem}
+
+\begin{proof}
+    The second statement is clearly true as for all $w \in B_R(c)$ there exists an $r$ with $0 < r < R$ such that $w \in B_r(c)$. 
+    Now we fix $r$ such that $0 < r < R$.
+    Then we let $z_0 = c + r$.
+    We have that 
+    \[ \lvert z_0 - c \rvert = r < R. \]
+    Hence, we have $z_0 \in B_R(c)$ and so 
+    \[ f(z_0) = \sum_{n = 0}^\infty a_nr^n \] 
+    converges absolutely.
+    Therefore
+    \[ \sum_{n = 0}^\infty \lvert a_n \rvert r^n < \infty. \]
+    With $M_n = \lvert a_n \rvert r^n$, we have that
+    \[ \lvert a_n (z - c)^n \rvert \leq M_n \]
+    for all $z \in B_r(c)$ and $\sum_{n = 0}^\infty M_n < \infty$;
+    therefore, by the $M$-test $f(z)$ converges uniformly on $B_r(c)$.
+\end{proof}
+
+\begin{remark}
+    Power series \emph{do not} converge uniformly on their entire disc of convergence, but this is fine as we only need locally uniform convergence.
+\end{remark}
+
+\begin{example}
+    Consider the series
+    \[ f(z) = \sum_{n = 0}^\infty \frac{z^n}{n!}.\]
+    Applying the ratio test
+    \[ 
+        L = \lim_{n \to \infty}
+        \left( 
+            \frac{\left(\frac{\lvert z^{n + 1} \rvert}{(n + 1)!}\right)}
+                 {\left(\frac{\lvert z^n \rvert}{n!}\right)} 
+        \right) = 
+        \lim_{n \to \infty} 
+        \left(
+            \frac{\lvert z \rvert}{n + 1}
+        \right) = 0 < 1;
+    \]
+    for all $z \in \C$; hence, $R = \infty$.
+    Infact, $f(z)$ is locally uniformly convergent on the entire complex plane to a continuous limit function. 
+    This series actually agrees with $e^z$, which we will prove later.
+\end{example}

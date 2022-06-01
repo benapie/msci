@@ -1,0 +1,50 @@
+\lecture{13}{7/11}
+
+Recall the property of $\curl$ introduced earlier:
+\[ \nabla \times (f\bm v) = (\nabla f) \times \bm v + f(\nabla \times \bm v) \]
+for a scalar field $f$ and vector field $\bm v$. We will now prove this.
+
+\begin{proof}
+    \begin{align*}
+        (\nabla \times (f\bm v))_i &= \varepsilon_{ijk} \frac{\partial}{\partial x_j}(fv_k) \\
+        &= \varepsilon_{ijk} \frac{\partial f}{\partial x_j} v_k + \varepsilon_{ijk}f\frac{\partial v_k}{\partial x_j} \\
+        &= (\nabla f \times \bm v)_i + f\cdot(\nabla \times \bm v)_i.
+    \end{align*}
+\end{proof}
+
+\chapter{Differentiability of a single variable}
+
+Recall that a function of a single variable $f(x)$ is differentiable at $a$ if its derivative
+\[ \frac{df}{dx} = \lim_{h \to 0} \left(\frac{f(x + h) - f(x)}{h}\right) \]
+exists at $x = a$. We will now generalise this to $\R^n$.
+
+\section{Continuity and open sets}
+
+There will be a lot of repeated content from Complex Analysis II here, just a warning.
+
+\begin{definition}[Limit]
+    Let $f: \R^n \to \R$, $l \in \R$, and $\bm x, \bm a \in \R^n$. We say that $f$ tends to $l$ if
+    \[ \;\forall\; \varepsilon > 0 \;\exists\; \delta > 0 : \quad 0 < \norm{\bm x - \bm a} < \delta \implies \lvert f(\bm x) - l \rvert < \varepsilon. \]
+    We denote this as
+    \[ \lim_{\bm x \to \bm a} f(\bm x) = l. \]
+\end{definition}
+
+\begin{definition}[Continuous]
+    Let $f: \R^n \to \R$ and $\bm x, \bm a \in \R^n$. $f$ is \textbf{continuous} at $\bm a$ if
+    $\lim_{\bm x \to \bm a} f(\bm x)$
+    exists and is equal to $f(\bm a)$.
+\end{definition}
+
+\begin{example}
+    Let $f(\bm x) = x^2 + y^2$. Show that $\lim_{\bm x \to \bm 0} = 0$.
+\end{example}
+
+\begin{solution}
+    Let $\varepsilon > 0$, pick $\delta = \sqrt{\varepsilon}$. Then we let $0 < \norm{\bm x} < \sqrt{\varepsilon}$. Then
+    \[ x^2 + y^2 < \varepsilon \implies \lvert x^2 + y^2 \rvert < \varepsilon \implies \lvert f(\bm x) - 0 \rvert < \varepsilon \]
+    and hence $\lim_{\bm x \to \bm 0} = 0$.
+\end{solution}
+
+\begin{example}
+    Show that $f(\bm x) = \frac{xy}{x^2 + y^2}$ has no limit as $\bm x \to \bm 0$ even though $\lim_{x \to 0}f(x,0)$ and $\lim_{y\to 0}f(0, y)$ both exist.
+\end{example}

@@ -1,0 +1,87 @@
+\assignment{5}{28/2}
+
+\setcounter{question}{0}
+\question Determine all zeros and poles with their orders of the following functions:
+\begin{parts}
+    \part $\frac{z^3 - z^2}{z+1}$.
+    \begin{solution}
+        \[
+            f(z) = \frac{z^3 - z^2}{z + 1} = \frac{z^2(z-1)}{z+1}.
+        \]
+        $f$ has a pole of order $1$ at $-1$,
+        $f$ has a zero of order $2$ at $0$, and
+        $f$ has a zero of order $1$ at $1$.
+    \end{solution}
+\end{parts}
+
+\setcounter{question}{2}
+\question Assume that $f$ has a pole of order $m$ at $a$ and $g$ has a pole of order $n$ at $a$.
+What kind of singularity at $a$ is it possible for $f + g$ to have?
+Give examples to show that all the possibilities that you list can occur.
+\begin{solution}
+    Let
+    \begin{align*}
+        f(z) &= (z-a)^{-m}f_1(z) \\
+        g(z) &= (z-a)^{-n}g_1(z).
+    \end{align*}
+    Let us consider some different cases.
+    \begin{enumerate}
+        \item 
+            If $m > n$, then we have
+            \[
+                (f+g)(z) = (z-a)^{-m} \left(f_1(z) + (z-a)^{m-n} g_1(z)\right)
+            \]
+            and so $f+g$ has a pole of order $m$ at $a$.
+
+        \item 
+            If $m < n$, similarly we see that $f + g$ has a pole of order $n$ at $a$.
+
+        \item 
+            If $m = n$, this becomes a bit more specific.
+            We have
+            \[
+                (f+g)(z) = (z-a)^{-m} (f_1(z)+g_1(z)).
+            \]
+            The singularities of $(f+g)(z)$ at $a$ is determined
+            by the behaviour of $(f_1 + g_1)(z)$.
+            \begin{enumerate}
+                \item If $(f_1+g_1)(z)$ does not have a zero at $a$,
+                    then $(f+g)(z)$ has a pole of order $m$ at $a$.
+
+                \item If $(f_1+g_1)(z)$ has a zero of order $k < m$ at $a$,
+                    then $(f+g)(z)$ has a pole of order $m - k$ at $a$.
+
+                \item If $(f_1+g_1)(z)$ has a zero of order $k \geq m$ at $a$,
+                    then $(f+g)(z)$ has a removable singularity at $a$.
+            \end{enumerate}
+    \end{enumerate}
+\end{solution}
+
+\question What are the annuli of convergence of the following Laurent series?
+\begin{parts}
+    \setcounter{partno}{1}
+    \part $ \displaystyle\sum^{\infty}_{n = -\infty} \frac{z^n}{\abs n!} $.
+    \begin{solution}
+        \begin{align*}
+            \sum^{\infty}_{n=-\infty} \frac{z^n}{\abs n!} 
+            &= \sum^{\infty}_{n=1} \frac{z^{-n}}{n!} + \sum^{\infty}_{n=0} \frac{z^n}{n!} \\
+            &= -1 + \sum^{\infty}_{n=0} \frac{z^{-n}}{n!} + \sum^{\infty}_{n=0} \frac{z^n}{n!} \\
+            &= -1 + \exp\left(\frac1z\right) + \exp(z)
+        \end{align*}
+        and so the annulus of convergence is $\C^\star$ (with an essential singularity at $z = 0$.
+    \end{solution}
+\end{parts}
+
+\question Determine the Laurent series expansion of $\displaystyle f(z) = \frac{z}{1+z^2}$
+\begin{parts}
+    \part on the annulus $0 < \abs z < 1$.
+    \begin{solution}
+        \begin{align*}
+            f(z) 
+            &= z\left(\frac{1}{1 - \left(-z^2\right)}\right) \\
+            &= z (1 + (-z^2) + (-z^2)^2 + \ldots) \\
+            &= z - z^3 + z^5 - \ldots \\
+            &= \sum^{\infty}_{n=0} z^{2n+1}.
+        \end{align*}
+    \end{solution}
+\end{parts}

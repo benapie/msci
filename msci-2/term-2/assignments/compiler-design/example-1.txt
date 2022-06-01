@@ -1,0 +1,7 @@
+formula: \forall x \forall y ( ( P(x,y) \implies Q(x,y) ) \iff ( \neg Q(x,y) \implies \neg P(x,y) ) )
+variables: x y
+constants:
+predicates: P[2] Q[2]
+equality: =
+connectives: \land \lor \implies \iff \neg
+quantifiers: \exists \forall

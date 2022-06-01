@@ -1,0 +1,191 @@
+\chapter{More on limits of sequences}
+
+\section{The Bolzano-Weierstrass theorem}
+
+\begin{definition}
+    Let $(x_n)_{n\in\mathbb N}$ be a real sequence. $(x_n)$ is said to be \textbf{monotone increasing} if $x_{n+1}\geq x_n$ for all $n$. $(x_n)$ is said to be \textbf{monotone decreasing} if $x_{n+1}\leq x_n$ for all $n$.
+\end{definition}
+
+\begin{example}
+    Following are examples of monotone increasing and monotone decreasing sequences.
+    \begin{enumerate}
+        \item $(\frac1n)_{n\in\mathbb N}$ is monotone decreasing.
+        \item $(1-\frac1n)_{n\in\mathbb N}$ is monotone increasing.
+        \item $(e^{-n})_{n\in\mathbb N}$ is monotone decreasing.
+    \end{enumerate}
+\end{example}
+
+\begin{remark}
+    There is an easy observation to be made here that if  $(x_n)_{n\in\mathbb N}$ is a monotone increasing real sequence, then $\inf{X}=x_1$ where we define $X=\{x_n:n\in\mathbb N\}\subset\mathbb R$. Similarly, if $(x_n)$ is a monotone decreasing real sequence then $\sup{X}=x_1$.
+\end{remark}
+
+\begin{theorem}\label{thm:bounded_monotone}
+    Let $(x_n)_{n\in\mathbb N}$ be a real sequence and $X=\{x_n:n\in\mathbb N\}\subset\mathbb R$. Then
+    \begin{enumerate}
+        \item if $(x_n)$ is monotone increasing and bounded above then \[\lim_{n\to\infty}x_n=\sup{X};\;\text{and}\]
+        \item if $(x_n)$ is monotone decreasing and bounded below then \[\lim_{n\to\infty}x_n=\inf{X}.\]
+    \end{enumerate}
+\end{theorem}
+
+\begin{remark}
+    This whole concept relies on the notion of inequality of real the real numbers ($\leq$ and $\geq$) so this does not apply to complex numbers.
+\end{remark}
+
+\begin{remark}
+    Do not confuse $(x_n)_{n\in\mathbb N}$ and $X=\{x_n:n\in\mathbb N\}$.
+\end{remark}
+
+\begin{proof}[Proof for Theorem \ref{thm:bounded_monotone}]
+    Here we will prove (i) as a similar proof can applied to prove (ii).
+    
+    Since $X$ is bounded above, it has a supremum (using the completeness axiom for $\mathbb R$). Note that $x_n\leq\sup{X}$ for all $n\in\mathbb N$ by definition, since $\sup{X}$ is an upper bound. Therefore, for any $\epsilon>0$ there exists $x_m\in X$ such that \[|x_m-\sup{X}|<\epsilon,\] that is, \[\sup{X}-\epsilon<x_m\leq\sup{X}.\] Since $(x_n)$ is monotone increasing, if $n\geq m$ then we have \[\sup{X}-\epsilon<x_m\leq x_n\leq\sup{X}\] or in other words, \[|x_n-\sup{X}|<\epsilon.\] Therefore, $x_n\to\sup{X}$ as $n\to\infty$.
+\end{proof}
+
+% I understand the above proof but I might need to go over it a few more times
+
+\begin{definition}
+    Let $(x_n)_{n\in\mathbb N}$ be a sequence. A \textbf{subsequence} of $(x_n)$ is a sequence $(x_{n_j})_{j\in\mathbb N}$ where $n_1<n_2<n_3<\ldots$. In other words, $n_j<n_k\iff j<k$.
+\end{definition}
+
+\begin{example}
+    For the sequence $(x_n)_{n\in\mathbb N}$ where $x_n=(-1)^n$, the subsequence $(x_{2_j})_j\in\mathbb N=(-1)^2=1$.
+\end{example}
+
+\begin{proposition}
+    Let $(x_n)_{n\in\mathbb N}$ be a convergent sequence with limit $x^*$. Let $(x_{n_j})_{j\in\mathbb N}$ be any subsequence. Then $(x_{n_j})$ converges and \[\lim_{j\to\infty}(x_{n_j})=x^*.\]
+\end{proposition}
+
+\begin{proof}
+    Since $(x_n)$ converges, given $\epsilon>0$ there exists $N\in\mathbb N$ so that for all $n\geq N$ we have \[|x_n-x^*|<\epsilon.\] Now choose $J\in\mathbb N$ so that $n_J\geq N$. Then for $j\geq J$, we have \[n_j\geq n_J\geq N,\] and so \[|x_{n_j}-x^*|<\epsilon.\]
+\end{proof}
+
+\begin{remark}
+    In Proposition \ref{pro:indexed_convergent_sequence}, we discussed creating a new sequence by leaving out the first $k$ terms. This is an easy example of a subsequence.
+\end{remark}
+
+\begin{lemma}\label{lem:sequence_has_monotone}
+    Every real sequence either has a monotone increasing subsequence or a monotone decreasing subsequence.
+\end{lemma}
+
+\begin{proof}
+    Given a sequence $(x_n)_{n\in\mathbb N}$ we say that $n_0\in\mathbb N$ is a peak index if $x_{n_0}\geq x_n$ for all $n\geq n_0$. We say $x_{n_0}$ is a peak element. Then either
+    \begin{enumerate}
+    	\item $x_n$ has infinitely many peak indices; or
+		\item $x_n$ has finitely many peak indices.
+    \end{enumerate}
+    
+    Suppose (i) is true, then $(x_n)$ has peak indices $n_1<n_2<n_3<\ldots$ then $x_{n_1}\geq x_{n_2}\geq x_{n_3}\geq\ldots$. Hence $(x_{n_j})_{j\in\mathbb N}$ is a monotone decreasing subsequence. This proves the result in case (i). 
+    
+    Suppose (ii) is true. Suppose $n_1$ is bigger than any peak index. There must be $n_2>n_1$ so that $x_{n_2}\geq x_{n_1}$. $n_2$ cannot be a peak index, since it is bigger than $n_1$ which in turn is bigger than all peak indices. So there exists $n_3>n_2$ so that $x_{n_3}\geq x_{n_2}$. Repeat this to get a sequence of indices $n_1<n_2<n_3<\ldots$ with $x_{n_1}\leq x_{n_2}\leq x_{n_3}\leq\ldots$. So $(x_{n_j})_{j\in\mathbb N}$ is monotone increasing. This proves the result in case (ii).
+\end{proof}
+
+\begin{theorem}[Bolzano-Weierstrass theorem]
+	Every bounded real sequence has a convergent subsequence.
+\end{theorem}
+
+\begin{proof}
+	Let $(x_n)$ be a bounded real sequence. Lemma \ref{lem:sequence_has_monotone} tells us it has a monotone subsequence. This monotone subsequence is also bounded. By Theorem \ref{thm:bounded_monotone} this subsequence is convergent.
+\end{proof}
+
+\begin{remark}
+    The Bolzano-Weierstrass theorem is an important ingredient in the completeness axiom of the real numbers. This theorem also holds for complex numbers, but our proof will not work there since the theorem depends on the existence of inequality of $\mathbb R$.
+\end{remark}
+
+\section{$\limsup$ and $\liminf$}
+
+It may be that a bounded sequence does not converge. In these situation, we want a weaker notion than limit that describes the behaviour of the sequence as the index goes to infinity. These notions are $\limsup$ and $\liminf$.
+
+\begin{definition}
+    Let $(x_n)_{n\in\mathbb N}$ be a sequence. We define the \textbf{limes superior} of $(x_n)$ to be \[\limsup_{n\to\infty}x_n=\lim_{n\to\infty}\left(\sup_{m\geq n}x_m\right)=\inf_{n\geq0}\left(\sup_{m\geq n}x_m\right).\] Similarly, the \textbf{limes inferior} of $(x_n)$ is \[\liminf_{n\to\infty}x_n=\lim_{n\to\infty}\left(\inf_{m\geq n}x_m\right)=\sup_{n\geq0}\left(\inf_{m\geq n}x_m\right).\] That is, $\limsup{x_n}$ is the limit of the peak indices (as in the proof for Lemma \ref{lem:sequence_has_monotone}).
+\end{definition}
+
+\begin{example}
+    Let \[x_n=(-1)^n\left(1+\frac1n\right).\] If $n=2m$ is even then \[x_{2m}=1+\frac1{2m}\to1\] as $n\to\infty$ and if $n=2m+1$ is odd then \[x_{2m+1}=-1-\frac1{2m+1}\to-1\] as $n\to\infty$. Therefore, this sequence does not converge.
+    \begin{align*}
+        \sup_{k\geq n}&=
+        \begin{cases}
+            1+\frac1n&n\;\text{is even}\\
+            1+\frac1{n+1}&n\;\text{is odd}\\
+        \end{cases}
+        \\
+        \lim_{k\geq n}&=
+        \begin{cases}
+            -1-\frac1n&n\;\text{is even}\\
+            -1-\frac1{n+1}&n\;\text{is odd}\\
+        \end{cases}
+    \end{align*}
+    The index of the supremum element cannot be odd as all terms with odd indexes are negative. Terms with even index (for supremum) are monotone decreasing, so
+    \begin{align*}
+        \limsup_{n\to\infty}x_n&=\lim_{n\to\infty}\left(\sup_{k\geq n}x_k\right)\\
+        &=\lim_{n\to\infty}
+        \begin{cases}
+            1+\frac1n&n\;\text{is even}\\
+            1+\frac1{n+1}&n\;\text{is odd}\\
+        \end{cases}\\
+        &=1.
+    \end{align*}
+    Similarly, 
+    \begin{align*}
+        \liminf_{n\to\infty}x_n&=\lim_{n\to\infty}\left(\inf_{k\geq n}x_k\right)\\
+        &=\lim_{n\to\infty}
+        \begin{cases}
+            -1-\frac1n&n\;\text{is even}\\
+            -1-\frac1{n+1}&n\;\text{is odd}\\
+        \end{cases}\\
+        &=-1.
+    \end{align*}
+\end{example}
+
+\section{Cauchy sequences}
+
+Quite often we want to show a sequence converges, but we don't know the limit. In this situation we sue Cauchy sequences.
+
+\begin{definition}
+    Let $(x_n)_{n\in\mathbb N}$ be a sequence. Then $(x_n)$ is a \textbf{Cauchy sequence} if, and only if, for any $\epsilon>0$, there exists $N\in\mathbb N$ so that for all $n,m\geq N$ we have \[|x_n-x_m|<\epsilon.\]
+\end{definition}
+
+\begin{example}
+    Let $(x_n)_{n\in\mathbb N}$ be a sequence where $x_n=6$ for all $n\in\mathbb N$. Then \[|x_n-x_m|=0\] for all $n\in\mathbb N$, so given $\epsilon>0$ we have \[|x_n-x_m|<\epsilon\] for all $n,m\in\mathbb N$, therefore, $(x_n)$ is a Cauchy sequence. 
+\end{example}
+
+\begin{example}
+    Let $(x_n)_{n\in\mathbb N}$ be a sequence where $x_n=\frac1n$ for all $n\in\mathbb N$. If $n,m\geq N$ then 
+    \begin{align*}
+        |x_n-x_m|&=\left|\frac1n-\frac1m\right|\\
+        &\leq\frac1n+\frac1m\leq\frac2N.
+    \end{align*}
+    So given $\epsilon>0$ we choose $N\geq\frac2\epsilon$ then \[|x_n-x_m|\leq\frac2N<\epsilon\] as required so $(x_n)$ is Cauchy.
+\end{example}
+
+\begin{theorem}
+    Let $(x_n)$ be a Cauchy sequence, then $(x_n)$ is bounded.
+\end{theorem}
+
+\begin{theorem}
+    Let $(x_n)$ be a convergent sequence, then $x_n$ is Cauchy.
+\end{theorem}
+
+The most important result from this section is the following.
+
+\begin{theorem}
+    Let $(x_n)$ be a real Cauchy sequence, then $(x_n)$ is convergent.
+\end{theorem}
+
+\begin{proof}
+    Let $(x_n)_{n\in\mathbb N}$ be a Cauchy sequence, therefore, $x_n$ is bounded. So, it has a convergent subsequence $(x_{n_j})_{j\in\mathbb N}$. Suppose the limit of the subsequence is \[\lim_{j\to\infty}x_{n_j}=x^*.\] Given $\epsilon>0$, there exists $J\in\mathbb N$ such that for all $j\geq J$ \[|x_{n_j}-x^*|<\frac\epsilon2.\] Since $x_n$ is Cauchy, there exists $N\in\mathbb N$ with \[|x_n-x_m|<\frac\epsilon2\] for all $n,m\geq N$. Choose $j^*>J$ such that $n_{j^*}>N$. Then for all $n\geq N$
+    \begin{align*}
+        |x_n-x^*|&=|(x_n-x_{n_{j^*}})+(x_{n_{j^*}}-x^*)|\\
+        &\leq |x_n-x_{n_{j^*}}|+|x_{n_{j^*}}-x^*|\\
+        &<\frac\epsilon2+\frac\epsilon2\\
+        &=\epsilon.
+    \end{align*}
+    Therefore, $x_n$ is convergent with $x_n\to x^*$ as $n\to\infty$.
+\end{proof}
+
+\begin{example}
+    Let $a,c>0$ and define $(u_n)_{n\in\mathbb N}$ recursively by \[u_1=c,\qquad u_{n+1}=\frac12\left(u_n+\frac a{u_n}\right)\] for all $n\in\mathbb N$. Our goal is to prove $u_n$ is convergent. We will show that for all $n,m\geq N\geq 2$.
+\end{example}
+
+% TODO this example is hard to prove...
+
+

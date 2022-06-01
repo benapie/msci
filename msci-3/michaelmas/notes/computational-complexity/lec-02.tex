@@ -1,0 +1,239 @@
+%! TEX root = master.tex
+
+\section{Motivation}
+\lecture{2}{16/10}
+
+Recall the following problems.
+
+\begin{problem}[Vertex cover]
+	Let $G = (V,E)$ be a graph and $k \in \N$.
+	Is there a set $W \subset V$ with $\left\lvert W \right\rvert \leq k$
+	such that for every $(i,j) \in E$ we have
+	\[
+		\left\{ i,j \right\} \cap W \neq \emptyset?
+	\]
+\end{problem}
+
+\begin{problem}[Independent set]
+	Let $G = (V,E)$ be a graph and $k \in \N$.
+	Is there a set $W \subset V$ with
+	$\left\lvert W \right\rvert \geq k$
+	such that for every $(i,j) \not\in E$.
+\end{problem}
+
+Let $G = (V,E)$ be a graph and $W \subset V$.
+Then $W$ is a vertex cover if and only if $V \setminus W$
+is an independent set.
+
+Now both of the these problems are $\mathsf{NP}$-complete,
+so from a complexity perspective they are equally hard.
+
+Both of these problems can be solved via complete enumeration
+in $O(n^k)$ time, and we can even solve
+vertex cover in $O(2^k n)$ time.
+Hence, for large graphs we can quickly check for small vertex covers.
+However, there is no known algorithm for independet set that
+runs in $n^{o(k)}$ time, which makes it infeasible
+even with $k = 10$ and $n = 100$.
+So, it looks like independent set is (probably) harder than vertex cover,
+in some sense.
+
+\begin{algorithm}[$O(2^kn)$ algorithm for vertex cover]
+	We build a binary search tree of depth $k$ as follows.
+	\begin{enumerate}
+		\item Pick any edge $(x,y)$ and branch.
+
+		\item Left branch puts $x$ in the vertex cover and removes
+			it (and all edges) from $G$.
+
+		\item Right branch puts $y$ in the vertex cover and removes
+			it (and all edges) from $G$.
+
+		\item Recurse by choosing any edge on each branch.
+
+		\item Recurse by choosing any edge on
+			each branch.
+	\end{enumerate}
+\end{algorithm}
+
+\begin{remark}
+	If $G$ has a vertex cover with at most
+	$k$ elements, the algorithm must find it in one of the branches
+	of the search tree.
+	Moreover, the tree has $O(2^k)$ nodes,
+	and $O(n)$ work is done at each node.
+	Hence $O(2^k n)$ in total.
+\end{remark}
+
+\begin{definition}[Parametrized problem]
+	Let $\Sigma$ be a finite alphabet.
+	A \emph{parametrized problem} 
+	is a language $L \subset \Sigma^\star \times \N$.
+	The second component is called the \emph{parameter} of the problem.
+\end{definition}
+
+The idea with parametrized complexity is to measure the complexity of a problem
+as a \emph{function} of the parameter(s) as well as the input size.
+
+\begin{definition}[Fixed-parameter tractable]
+	Suppose $L$ is a parametrised problem.
+	We say that $L$ is \emph{fixed-parameter tractable} (FPT)
+	if the question $(x,k) \in L?$ can be decided in running time
+	$f(k) \cdot \left\lvert x \right\rvert^{O(1)}$
+	where $f: \N \to \R$ is an arbitrary function.
+	The corresponding complexity class if called $\mathsf{FPT}$.
+\end{definition}
+
+$\mathsf{FPT}$ is a robust complexity class,
+further note that $f$ can be arbitrarily bad.
+
+We can choose many different parameters for a problem;
+for example, the size of subsets for vertex covers
+and clique.
+For $\mathsf{SAT}$, we can parametrise by
+the number of variables or by the number of clauses.
+We can also parametrise graph colouring by the number of colours
+needed, and we can see that this problem cannot be in $\mathsf{FPT}$
+as it is in $\mathsf{NP}$-complete for $k = 3$.
+
+\begin{examples}[Problems in $\mathsf{NP}$-hard and $\mathsf{FPT}$]
+	\begin{enumerate}
+		\item Finding a vertex cover of size $k$;
+		\item finding a path of length $k$;
+		\item finding $k$ disjoint triangles;
+		\item drawing a graph on a plane with $k$ edge crossings; and
+		\item finding disjoint paths that connect $k$ pairs of vertices.
+	\end{enumerate}
+\end{examples}
+
+We have many techniques we use to show that problems are $\mathsf{FPT}$.
+We previously saw \emph{bounded search tree} which we used for our
+$O(2^kn)$ algorithm for vertex cover.
+We will now introduce \emph{kernelisation}.
+As this is a developing field in Computer Science, there is no
+clear consensus on how kernelisation should be formally defined.
+
+\begin{definition}[Kernelisation]
+	Let $\Sigma$ be a finite alphabet.
+	A \emph{kernelisation} for a parametrised problem
+	is an algorithm that takes an instance $(x,k) \in \Sigma^\star \times \N$
+	and maps it in time polynomial in $\left\lvert x \right\rvert$ and $k$
+	to an instance $(x', k') \in \Sigma^\star \times \N$
+	such that
+	\begin{enumerate}
+		\item $(x, k) \in L \iff (x', k') \in L$;
+		\item $k' < k$; and
+		\item $\left\lvert x' \right\rvert \leq f(k)$ for some
+			computable function $f: \N \to \R$.
+	\end{enumerate}
+	We call $(x', k')$ a \emph{kernel}.
+\end{definition}
+
+\begin{proposition}[]
+	\label{prop:kernel-implies-fpt}
+	Let $L$ be a parametrised decidable problem.
+	If there exists a kernelisation for $L$, then $L$ is $\mathsf{FPT}$.
+\end{proposition}
+
+\begin{proof}
+	Let $(x, k), (x', k') \in L$ where
+	$(x', k')$ is the kernel of $(x,k)$
+	calculate from some kernelisation.
+	Note that
+	\[
+		\left\lvert (x', k') \right\rvert
+		= \left\lvert x' \right\rvert + \left\lvert k' \right\rvert
+		\leq \left\lvert f(k) \right\rvert + \left\lvert k' \right\rvert;
+	\]
+	hence, it does not depend on $n$ (only on $k$).
+	$(x', k')$ can be solved by the algorithm that proves
+	that the problem is deciable.
+	$(x', k')$ was calculated in $\left\lvert x \right\rvert^{O(1)}$,
+	and then solved in 
+	$g(k) = \left\lvert f(k) + \left\lvert k' \right\rvert \right\rvert$
+	and so $L \in \mathsf{FPT}$.
+\end{proof}
+
+\begin{algorithm}[Kernelisation for vertex cover]
+	Let $G = (V,E)$ be a graph and $k \in \N$.
+	We exhaustively apply the following rules.
+	\begin{enumerate}
+		\item If $v \in V$ is an isolated vertex, then 
+			$(G, k) \to (G \setminus v, k)$.
+
+		\item If $\deg(v) > k$, $(G,k) \to (G \setminus v, k - 1)$.
+	\end{enumerate}
+	If neither of the rules can be applied:
+	\begin{enumerate}
+		\item if $\left\lvert V \right\rvert > k(k+1)$
+			then there is no vertex cover of size $k$;
+		\item if $\left\lvert V \right\rvert \leq k(k+1)$,
+			then we have a kernel.
+	\end{enumerate}
+\end{algorithm}
+
+\begin{theorem}[]
+	A parametrised problem is $\mathsf{FPT}$
+	if and only if it admits kernelisation.
+\end{theorem}
+
+\begin{proof}
+	Proposition \ref{prop:kernel-implies-fpt} shows us $\impliedby$,
+	now we prove $\implies$.
+	Assume the problem has an $f(k) \left\lvert x \right\rvert^c$ algorithm
+	for some constant $c$.
+	To kernelize the input, we
+	run our algorithm for
+	$\left\lvert x \right\rvert^{c+1}$
+	steps.
+	If the algorithm terminates, we return our yes or no instance.
+	If it exceeds this bound, then our input is itself a kernel.
+\end{proof}
+
+\begin{remark}
+	The size of our kernel is critical for running times;
+	there is active research in improving kernel sizes of problems.
+\end{remark}
+
+\begin{definition}[Parametrized reduction]
+	Suppose $X$ and $Y$ are parametrized problems
+	and $(I, k) \in X$.
+	We define a \emph{parametrized reduction} as a function
+	$\phi: X \to Y$
+	if it satisfies the following:
+	\begin{enumerate}
+		\item $(I,k) \in X \iff \phi(I,k) \in Y$;
+		\item $\phi(I,k)$ can be computed in time
+			$f(k) \left\lvert I \right\rvert^{O(1)}$
+			for some $f: \N \to \R$; and
+	\item $k' \leq g(k)$ for some $g: \N \to \R$
+		and $(I', k') = \phi(I, k)$.
+	\end{enumerate}
+\end{definition}
+
+\begin{remark}
+	If we have a parametrized reduction between two parametrized problems
+	$X$ and $Y$, then $Y \in \mathsf{FPT} \implies X \in \mathsf{FPT}$.
+\end{remark}
+
+\begin{example}[]
+	There exists a parametrized redduction from the independent set problem
+	to the clique problem; however, there does not exist a parametrized 
+	reduction from the independent set problem to the vertex cover problem
+	(with any choice of parameter).
+\end{example}
+
+\begin{problem}[Short acceptance]
+	Suppose $M$ is a non-deterministic Turing machine,
+	$x$ is an input string, and $k \in \N$.
+	Is there a computation of $M$ that accepts $x$ after at most $k$ steps?
+\end{problem}
+
+\begin{definition}[$\mathsf{W[1]}$]
+	We define the complexity class $\mathsf{W[1]}$
+	to be the set of all parametrized problems
+	such that there exists a parametrized reduction to 
+	short acceptance.
+\end{definition}
+
+

@@ -1,0 +1,248 @@
+\documentclass[a4paper, answers]{exam}
+\input{../preamble.tex}
+
+\begin{document}
+\begin{center}
+	\textbf{\textsc{Topology III, Assignment 1}}
+	\\
+	\textsc{Ben Napier}
+	\vspace{1em}
+\end{center}
+\begin{questions}
+	\question
+		Let $\R^2$ be given the metrics
+		\begin{align*}
+			d_1(x,y) &= \left\lvert x_1 - y_1 \right\rvert 
+						+ \left\lvert x_2 - y_2 \right\rvert \\
+			d_2(x,y) &= \sqrt{(x_1 - y_1)^2 + (x_2 - y_2)^2}
+		\end{align*}
+		and let $B_i(x;r)$ be the open ball around $x \in \R^2$ of radius
+		$r > 0$ with respect to the metric $d_i$, $i = 1, 2$.
+
+		Find functions $R_1, R_2: (0, \infty) \to (0, \infty)$ such that
+		\begin{align*}
+			B_1(x;R_1(r)) &\subset B_2(x;r), \\
+			B_2(x;R_2(r)) &\subset B_1(x;r)
+		\end{align*}
+		for all $x \in \R^2$.
+		
+		Use this to show that the identity on $\R^2$ is continuous both as
+		\[
+			\operatorname{id}: (\R^2, d_1) \to (\R^2, d_2)
+			\quad\text{and}\quad
+			\operatorname{id}: (\R^2, d_2) \to (\R^2, d_1).
+		\]
+
+		\begin{solution}
+			$\left\lvert x_1 - y_1 \right\rvert \leq d_2(x,y)$
+			and $\left\lvert x_2 - y_2 \right\rvert \leq d_2(x,y)$,
+			so $d_1(x,y) \leq 2d_2(x,y)$ for all $x,y \in \R^2$.
+			We also have $d_2(x,y) \leq d_1(x,y)$ for all $x,y \in \R^2$.
+			Now let $z \in B_1(x; r)$. So $r > d_1(x;r) \geq d_2(x;r)$
+			so $R_1(r) = r$.
+			Now let $z \in B_2\left( x; \frac12r \right)$.
+			Then $\frac12r > d_2(x,z) \geq \frac12 d_1(x,z)$,
+			therefore $d_1(x,z) < r$.
+			So $R_2(r) = \frac12r$.
+
+			Let $U$ be open in $\R^2$ with $d_2$.
+			Let $z \in U = \operatorname{id}^{-1}(U)$
+			and $\varepsilon > 0$ such that $B_2(z; \varepsilon) \subset U$.
+			Now $B_1(z; \varepsilon) \subset B_2(z; \varepsilon) \subset U$,
+			so $U = \operatorname{id}^{-1}(U)$ is open with $d_1$. 
+			Therefore 
+			$\operatorname{id}: (\R^2, d_1) \to (\R^2, d_2)$ is continuous.
+
+			Similarly let $U$ be open with $d_1$.
+			Let $z \in U$ and $\varepsilon > 0$ such that 
+			$B_1(z; \varepsilon) \subset U$.
+			Then $
+				B_2\left(z; \frac12\varepsilon\right) 
+				\subset B_1(z; \varepsilon)
+				\subset U
+			$. 
+			Therefore
+			$\operatorname{id}: (\R^2, d_2) \to (\R^2, d_1)$ is continuous.
+		\end{solution}
+	
+	\question
+		Define $d: \R^2 \times \R^2 \to [0, \infty)$ by \[
+			d(x,y) = \sqrt{\left\lvert x_1 - y_1 \right\rvert 
+					 + \left\lvert x_2 - y_2 \right\rvert}.
+		\]
+		\begin{parts}
+			\part
+				Show that $d$ is a metric on $\R^2$.
+				\begin{solution}
+					\begin{align*}
+						d(x,y) &= \sqrt{
+							\left\lvert x_1 - y_1 \right\rvert
+							+ \left\lvert x_2 - y_2 \right\rvert
+						} \\
+							   &= \sqrt{
+							\left\lvert y_1 - x_1 \right\rvert
+							+ \left\lvert y_2 - x_2 \right\rvert
+						} \\
+							   &= d(y,x).
+					\end{align*}
+
+					Let $x, y \in \R^2$ such that $d(x,y) = 0$.
+					\begin{align*}
+						&
+						0 = \sqrt{
+							\left\lvert x_1 - y_1 \right\rvert
+							+ \left\lvert x_2 - y_2 \right\rvert
+						} \\
+						\iff &
+						0 = \left\lvert x_1 - y_1 \right\rvert
+							+ \left\lvert x_2 - y_2 \right\rvert \\
+						\iff &
+							(x_1 - y_1 = 0) \;\text{and}\; (x_2 - y_2 = 0) \\
+						\iff &
+							(x_1 = y_1) \;\text{and}\; (x_2 = y_2) \\
+						\iff &
+							x = y.
+					\end{align*}
+					
+					Now let $x, y, z \in \R^2$.
+					\begin{align*}
+						\left( d(x,y) \right)^2
+						&=    \left\lvert x_1 - y_1 \right\rvert
+							  + \left\lvert x_2 - y_2 \right\rvert \\
+						&\leq \left\lvert x_1 - z_1 \right\rvert
+							  + \left\lvert z_1 - y_1 \right\rvert
+							  + \left\lvert x_2 - z_2 \right\rvert
+							  + \left\lvert z_2 - y_2 \right\rvert \\
+						&=    \left( d(x,z) \right)^2
+							  + \left( d(z,y) \right)^2.
+					\end{align*}
+					As $\sqrt{a + b} \leq \sqrt a + \sqrt b$
+					for all $a, b \geq 0$,
+					we have \[
+						d(x,y) \leq (x,z) + d(z,y).
+					\]
+					Hence, $d$ is a metric.
+				\end{solution}
+
+			\part
+				Show that $d(x,y) = d(x,z) + d(z,y)$ if and only if
+				$z = x$ or $z = y$.
+			\begin{solution}
+				Assume $z = x$.
+				\begin{align*}
+					d(x,y)
+					&\geq \left\lvert d(x,z) - d(z,y) \right\rvert \\
+					&=    d(z,y) \\
+					&=    d(x,z) + d(y,z), \\
+					d(x,y)
+					&\leq d(x,z) + d(z,y).
+				\end{align*}
+				Hence $d(x,y) = d(x,z) + d(z,y)$.
+				Simiarly, assume $z = y$.
+				\begin{align*}
+					d(x,y)
+					&\geq \left\lvert d(x,z) - d(z,y) \right\rvert \\
+					&=    d(x,z) \\
+					&=    d(x,z) + d(y,z), \\
+					d(x,y)
+					&\leq d(x,z) + d(z,y).
+				\end{align*}
+				Hence $d(x,y) = d(x,z) + d(z,y)$.
+
+				Now we assume $d(x,y) = d(x,z) + d(z,y)$.
+				Then
+				\begin{align*}
+					\left( d(x,y) \right)^2
+						&\leq \left( d(x,z) \right)^2
+						+ \left( d(z,y) \right)^2 \\
+					\left( d(x,z) + d(z,y) \right)^2
+						&\leq \left( d(x,z) \right)^2
+						+ \left( d(z,y) \right)^2 \\
+					\left( d(x,z) \right)^2
+						+ \left( d(z,y) \right)^2
+						+ 2 d(x,z) d(z,y)
+						&\leq \left( d(x,z) \right)^2
+						+ \left( d(z,y) \right)^2 \\
+					2 d(x,z) d(z,y)
+						&\leq 0
+				\end{align*}
+				therefore $z = x$ or $z = y$.
+			\end{solution}
+		\end{parts}
+
+	\question
+		Let $M = \left( -\frac\pi2, \frac\pi2 \right)$
+		and define $d_M: M \times M \to [0, \infty)$ by \[
+			d_M(x,y) = \left\lvert \tan x - \tan y \right\rvert.
+		\]
+		\begin{parts}
+			\part
+				Show that $d_M$ is a metric on $M$.
+				\begin{solution}
+					Let $x,y,z \in M$. Firstly,
+					\begin{align*}
+						d_M(x,y)
+							&= \left\lvert \tan x - \tan y \right\rvert \\
+							&= \left\lvert \tan y - \tan x \right\rvert \\
+							&= d_M(y,x) \\
+					\end{align*}
+					Now
+					\begin{align*}
+							& d_M(x,y) = 0 \\
+						\iff& \left\lvert \tan x - \tan y \right\rvert = 0 \\
+						\iff& \tan x = \tan y
+					\end{align*}
+					and so $x = y$ since $\tan$ is injective in $M$.
+					Lastly,
+					\begin{align*}
+						d_M(x,y)
+							&=    \left\lvert \tan x - \tan y \right\rvert \\
+							&\leq \left\lvert \tan x - \tan z \right\rvert
+								+ \left\lvert \tan z - \tan y \right\rvert \\
+							&=    d_M(x,z) + d_M(z,y).
+					\end{align*}
+				\end{solution}
+
+			\part
+				Let $(a_n)_{n \in \N}$ be a sequence in $M$ and $a \in M$
+				such that $a_n \to a$ with the metric $d_2$ given by
+				$d_2(x,y) = \left\lvert x - y \right\rvert$.
+				Show that $a_n \to a$ with the metric $d_M$.
+				You may use that $\tan: M \to \R$ is continuous if $d_2$ is 
+				used on $M$ and $\R$.
+				\begin{solution}
+					Let $\varepsilon > 0$.
+					As $\tan$ is continuous and $a_n \to a$,
+					$\tan(a_n) \to \tan(a)$ in $\R$ with $d_2$.
+					So there is $N \in \N$ such that for all $n \geq N$
+					we have $
+						\left\lvert 
+							\tan(a_n) - \tan(a) 
+						\right\rvert < \varepsilon
+					$. That is, $d_M(a_n, a) < \varepsilon$.
+					So $a_n \to a$ in $M$ with $d_M$.
+				\end{solution}
+
+			\part 
+				Is the sequence $a_n = \frac\pi2 - \frac1n$ convergent
+				in $M$ with the $d_M$ metric.
+				\begin{solution}
+					Assume $a_n \to a$ for some $a \in M$.
+					Let $\varepsilon > 0$.
+					Then there is $N \in \N$ such that
+					$d_M(a_n, a) < \varepsilon$.
+					Now \[
+						d_M(a_n, a) 
+						= \left\lvert 
+							\tan\left( 
+								\frac\pi2 - \frac1n
+							\right)
+							- \tan(a)
+						\right\rvert \to \infty
+					\]
+					as $n \to \infty$; a contradiction.
+					Therefore $a_n \not\to a$ in $M$ with $d_M$.
+				\end{solution}
+		\end{parts}
+\end{questions}
+\end{document}

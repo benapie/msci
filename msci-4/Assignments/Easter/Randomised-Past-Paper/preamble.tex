@@ -1,0 +1,37 @@
+\newlength{\alphabet}
+\settowidth{\alphabet}{\normalfont abcdefghijklmnopqrstuvwxyz}
+\usepackage{geometry}
+\geometry{textwidth=3\alphabet}
+\usepackage{mathtools, amssymb}
+\marksnotpoints
+\mathtoolsset{centercolon}
+
+\usepackage{todonotes}
+
+
+%======================%
+%    Theorems          %
+%======================%
+\usepackage{amsthm}
+\theoremstyle{plain}
+\newtheorem*{lemma}{Lemma}
+\newtheorem*{corollary}{Corollary}
+\newtheorem*{theorem}{Theorem}
+\newtheorem*{proposition}{Proposition}
+
+
+\theoremstyle{definition}
+\newtheorem*{definition}{Definition}
+\newtheorem*{problem}{Problem}
+
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+
+\newcommand{\E}{\ensuremath{\mathbb E}}
+\newcommand{\R}{\ensuremath{\mathbb R}}
+\newcommand{\Z}{\ensuremath{\mathbb Z}}
+\newcommand{\N}{\ensuremath{\mathbb N}}
+\newcommand{\TV}{\ensuremath{\text{TV}}}
+\DeclareMathOperator{\Var}{Var}
+\DeclareMathOperator{\Cov}{Cov}
+\DeclareMathOperator{\per}{per}

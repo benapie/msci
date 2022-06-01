@@ -1,0 +1,619 @@
+\chapter{Inner-product spaces}
+
+\section{Bilinear forms and inner products}
+
+\textbf{Inner products} are a generalisation of \textbf{dot products} in $\mathbb{R}^3$. It gives us a way to find lengths and angles between vectors. In $\mathbb{R}^3$, we define the dot product between vectors $\bm{v}, \bm{w} \in \mathbb{R}^3$ as \[ \bm{v} \cdot \bm{w} = v_1 w_1 + v_2 w_2 + v_3 w_3 \] where 
+\[
+    \bm{v} =
+    \begin{pmatrix}
+        v_1 \\ v_2 \\ v_3
+    \end{pmatrix}
+    , \quad \bm{w} =
+    \begin{pmatrix}
+        w_1 \\ w_2 \\ w_3
+    \end{pmatrix}
+    .
+\]
+We also know the following properties of the dot product in $\mathbb{R}^3$, where $\bm{v}, \bm{w}, \bm{z} \in \mathbb{R}^3$:
+\begin{enumerate}
+    \item $(\lambda \bm{v}) \cdot \bm{w} = \lambda (\bm{v} \cdot \bm{w})$;
+    \item $(\bm{v} + \bm{w})\cdot \bm{z} = \bm{v} \cdot \bm{z} + \bm{w} \cdot \bm{z}$; and
+    \item $\bm{v} \cdot \bm{w} = \bm{w} \cdot \bm{v}$.
+\end{enumerate}
+
+\begin{definition}
+    A \textbf{bilinear form} $B$ on a real vector space $V = \mathbb{R}^n$ is defined by \[ B : V \times V \to \mathbb{R}; \] that is, $\; \forall \; \bm{u}, \bm{v}, \bm{w} \in V, B(\bm{u}, \bm{v}) \in \mathbb{R}$ such that
+    \begin{enumerate}
+        \item $B(\bm{u} + \bm{v}, \bm{w}) = B(\bm{u}, \bm{w}) + B(\bm{v}, \bm{w})$;
+        \item $B(\bm{w}, \bm{u} + \bm{v}) = B(\bm{w}, \bm{u}) + B(\bm{w}, \bm{v})$; and
+        \item $B(\lambda \bm{u}, \bm{v} = \lambda B(\bm{u}, \bm{v}) = B(\bm{u}, \lambda \bm{v})$.
+    \end{enumerate}
+    We call the first two properties \textbf{linearity in both arguments} and the third \textbf{homogeneity}.
+\end{definition}
+
+\begin{example}
+    \begin{enumerate}
+        \item The product in $\mathbb{R}^3$ is bilinear.
+        \item Suppose $V = \mathbb{R}^n$. Define \[ B(\bm{x}, \bm{y}) = x_1 y_1 \] where
+        \[
+            \bm{x} =
+            \begin{pmatrix}
+                x_1 \\ x_2 \\ \vdots \\ x_n
+            \end{pmatrix}
+            , \quad \bm{y} =
+            \begin{pmatrix}
+                y_1 \\ y_2 \\ \vdots \\ y_n
+            \end{pmatrix}
+            .
+        \]
+        This is a bilinear form.
+    \end{enumerate}
+\end{example}
+
+\begin{remark}
+    Suppose we have a basis for $V = \mathbb{R}^n$ \[ \{ \bm{b}_1, \bm{b}_2, \ldots, \bm{b}_n \}. \] Let $\bm{u}, \bm{v} \in V$ where \[ \bm{u} = a_1 \bm{p}_1 + a_2 \bm{p}_2 + \ldots + a_n \bm{p}_n \] and \[ \bm{v} = b_1 \bm{p}_1 + b_2 \bm{p}_2 + \ldots + b_n \bm{p}_n. \] Then as $V$ is bilinear:
+    \begin{align*}
+        B(\bm{u}, \bm{v}) &= B(a_1 \bm{p}_1 + a_2 \bm{p}_2 + \ldots + a_n \bm{p}_n, \bm{v}) \\
+        &= B(a_1 \bm{p}_1, \bm{v}) + B(a_2 \bm{p}_2, \bm{v}) + \ldots + B(a_n \bm{p}_n, \bm{v}) \\
+        &= a_1 B(\bm{p}_1, \bm{v}) + a_2 B(\bm{p}_2, \bm{v}) + \ldots + a_n B(\bm{p}_n, \bm{v}) 
+    \end{align*}
+    and
+    \begin{align*}
+        B(\bm{u}, \bm{v}) &= \sum_{i, j = 1}^{n} y_i B(\bm{p}_j, \bm{p}_i) x_i \\
+        &= \bm{b}^{\mathrm{T}} A \bm{a}
+    \end{align*}
+    where $A_{ij} = B(\bm{p}_j, \bm{p}_i)$.
+\end{remark}
+
+\begin{definition}[Inner product]
+    An \textbf{inner product} on a real vector space $V = \mathbb{R}^n$ \[ ( \cdot , \cdot ) : V \times V \to \mathbb{R} \] where $(\bm{u}, \bm{v}) \in \mathbb{R} \; \forall \; \bm{u}, \bm{v} \in \mathbb{R}^n$ such that
+    \begin{enumerate}
+        \item $(\bm{u}, \bm{v}) = (\bm{v}, \bm{u})$;
+        \item $(\bm{u} + \bm{v}, \bm{w}) = (\bm{u}, \bm{w}) + (\bm{v} + \bm{w})$;
+        \item $(\lambda \bm{u}, \bm{v}) = \lambda (\bm{u}, \bm{v})$; and
+        \item $(\bm{v}, \bm{v}) \geq 0$ with $(\bm{v}, \bm{v}) = 0 \iff \bm{v} = \bm{0}$.
+    \end{enumerate}
+\end{definition}
+
+\begin{remark}
+    A bilinear form $B$, which is also \textbf{positive} and \textbf{symmetrical} defines an inner product.
+\end{remark}
+
+\begin{definition}
+    A \textbf{real inner product space} is a real vector space $V$ equipped with an inner product $(V, (\cdot, \cdot))$.
+\end{definition}
+
+\begin{example}
+    \begin{enumerate}
+        \item The dot product on $\mathbb{R}^3$ is an inner product.
+        
+        \item $V = \mathbb{R}^n$ with standard Euclidean product \[ (\bm{u}, \bm{v}) = u_1 v_1 + u_2 v_2 + \ldots + u_n v_n \] is a real inner product space.
+        
+        \item $V = \mathbb{R}^4$ with \[ (\bm{u}, \bm{v}) = u_1 v_1 + u_2 v_2 + u_3 v_3 - u_4 v_4 \] is not an inner product space as the property (iv) does not hold. Consider $\bm{x} = (a, 0, 0, a)$ for any $a \in \mathbb{R}$ where $a \neq 0$. Then \[ (\bm{x}, \bm{x}) = a \cdot a + 0 + 0 - a \cdot a = 0. \]
+        
+        \item Let \[ V = C[a, b] = \{ f : [a, b] \to \mathbb{R}, \; \text{continuous} \}. \] Then the operation \[ (f, g) = \int_a^b f(t) g(t) \, dt \] is an inner product.
+    \end{enumerate}
+\end{example}
+
+\begin{definition}
+    A very clear definition, but here for thoroughness. Let $A \in M_n{\mathbb{C}}$. We say that $A$ is \textbf{symmetric} if \[ A^{\mathrm{T}} = A \] and we say that $A$ is \textbf{anti-symmetric} or \textbf{skew-symmetric} if \[ A^{\mathrm{T}} = -A \]
+\end{definition}
+
+\begin{definition}[Positive-definite]
+    Let $A \in M_n(\mathbb{R})$. We say that $A$ is \textbf{positive-definite} if all its eigenvalues are positive. 
+\end{definition}
+
+\begin{definition}[Sylvester's criterion]
+    This is an alternative definition for a positive-definite matrix. Let $A \in M_{n}(\mathbb{R})$. $A$ is said to be \textbf{positive-definite} if the following submatrices of $A$ have a positive determinant:
+    \begin{enumerate}
+        \item the upper left $1 \times 1$ corner of $A$;
+        \item the upper left $2 \times 2$ corner of $A$;
+        \item $\ldots$;
+        \item the upper left $(n - 1) \times (n - 1)$ corner of $A$; and
+        \item $A$ itself.
+    \end{enumerate}
+\end{definition}
+
+\begin{proposition}
+    The matrix $A$ representing an inner product is \textbf{symmetric} and \textbf{positive-definite}.
+\end{proposition}
+
+\begin{definition}[Complex inner product]
+    A \textbf{complex} or \textbf{hermitian} on a complex vector space $V = \mathbb{C}^n$ assigns \[ \langle \cdot, \cdot \rangle : V \times V \to \mathbb{C} \] where if $\bm{u}, \bm{v} \in V$, then $\langle \bm{u}, \bm{v} \rangle \in \mathbb{C}$ such that 
+    \begin{enumerate}
+        \item $\langle \bm{u}, \bm{v} \rangle = \overline{\langle \bm{v}, \bm{u} \rangle}$;
+        \item $\langle \bm{u} + \bm{v}, \bm{w} \rangle = \langle \bm{u}, \bm{w} \rangle + \langle \bm{v}, \bm{w} \rangle$; 
+        \item $\langle \lambda \bm{u}, \bm{v} \rangle = \lambda \langle \bm{u}, \bm{v} \rangle$; and
+        \item $\langle \bm{v}, \bm{v} \rangle = 0$ and $\langle \bm{v}, \bm{v} \rangle = 0 \iff \bm{v} = \bm{0}$
+    \end{enumerate}
+    for all $\bm{u}, \bm{v}, \bm{w} \in V$ and $\lambda \in \mathbb{C}$.
+\end{definition}
+
+\begin{remark}
+    \begin{enumerate}
+        \item Properties (ii)-(iii) represent a linear transformation on the first argument.
+        \item The inner product is not quite linaer in the second factor, since from (i) and (iii) we see that $\langle \bm{u}, \lambda \bm{v} \rangle = \overline{\lambda} \langle \bm{u}, \bm{v} \rangle$. This property is called \textbf{sesquilinearity}.
+    \end{enumerate}
+\end{remark}
+
+\begin{example}
+    \begin{enumerate}
+        \item The standard inner product on $\mathbb{C}$ is $\langle z, w \rangle = z \overline{w}$.
+        \item The \textbf{standard hermitian inner product} on $\mathbb{C}^n$ is given by \[ \langle \bm{z}, \bm{w} \rangle = z_1 \overline{w}_1 + z_2 \overline{w}_2 + \ldots + z_n \overline{w}_n. \] Note that $\langle z, z \rangle = |z_1|^2 + |z_2|^2 + \ldots + |z_n|^2$.
+        \item Vector space $V = \mathbb{C}^2$ with inner product \[ \langle \bm{z}, \bm{w} \rangle = z_1 \overline{w}_1 + i z_1 \overline{w}_2 - i z_2 \overline{w}_1 + z_2 \overline{w}_2 \] satifies the properties (i) - (iii) of a complex inner product space but not (iv) since $\langle \bm{z}, \bm{z} \rangle = | z_1 - i z_2 |^2$ which is zero for $\bm{z} = (1, -i)$.
+    \end{enumerate}
+\end{example}
+
+We will now define the matrix form of the inner product.
+
+\begin{definition}[Hermitian matrix]
+    We say that a matrix $B \in M_n(\mathbb C)$ is \textbf{hermitian} if \[ B^\star = B \] where $B^\star$ denotes the \textbf{complex conjugate transpose} of $B$ (take the complex conjugate of all the entries then transpose the matrix) \[ (B^\star){ij} = \overline{B}_{ji}. \]
+\end{definition}
+
+\begin{definition}[Antihermitian matrix] 
+    We say that a matrix $C \in M_n(\mathbb C)-$ is \textbf{antihermitian} (or \textbf{skew-hermitian}) if \[ B^\star = -B. \]
+\end{definition}
+
+\begin{proposition}
+    Every matrix $A \in M_n(\mathbb{C})$ can be written as the sum of a hermitian matrix and a non-hermitian matrix such that \[ A = \frac{A + A^\star}{2} + \frac{A - A^\star}{2}. \]
+\end{proposition}
+
+\begin{example}
+    \begin{enumerate}
+        \item The matrix
+        \[
+            \begin{pmatrix}
+                -i & 2 + i \\
+                -2 + i & 0 \\
+            \end{pmatrix}
+        \]
+        is antihermitian.
+
+        \item The matrix 
+        \[
+            \begin{pmatrix}
+                2 & 2 - i \\
+                2 + i & 3 \\
+            \end{pmatrix}
+        \]
+        is hermitian.
+    \end{enumerate}
+\end{example}
+
+\begin{proposition}
+    If $V = \mathbb{C}^n$, then an inner product on $V$ corresponds to an hermitian positive-definite $n \times n$ matrix $B$ such that \[ \langle \bm z, \bm w \rangle = \bm w^\star B \bm z. \] This is known as \textbf{hermitian form}.
+\end{proposition}
+
+\begin{example}
+    The standard hermitian inner product on $\mathbb{C}^n$ (described above) can also be defined as \[ \langle \bm{z}, \bm{w} \rangle = \bm{w}^\star I_n \bm{z}. \]
+\end{example}
+
+\section{The Cauchy-Schwarz inequality}
+
+\begin{definition}[Norm]
+    Given a vector space $V$ over $\mathbb{C}$, a \textbf{norm} on $V$ is a function denoted by $|| \cdot || : V \to \mathbb{C}$ with the following properties:
+    \begin{enumerate}
+        \item absolute homogeneity, $\norm{a \bm{v}} = \abs{a} \norm{\bm{v}}$;
+        \item triangle inequality or subadditivity, $\norm{\bm{u} + \bm{v}} \leq \norm{\bm{v}} + \norm{\bm{u}}$;
+        \item separation of points, $\norm{\bm{v}} = 0 \iff \bm{v} = \bm{0}$.
+    \end{enumerate}
+    This is for all $a \in \mathbb{C}$ and all $\bm{v}, \bm{u} \in V$. 
+\end{definition}
+
+\begin{remark}
+    From property (i) of a norm, we have $\norm{\bm{0}} = \bm{0}$ and $\norm{\bm{v}} = \norm{- \bm{v}}$, so from the triangle inequality it follows that \[ \norm{\bm{v}} \geq 0 \qquad \; \forall \; \bm v \in V; \] known as the non-negativity property.
+\end{remark}
+
+\begin{definition}[Norm in a real inner product space]
+    If $(V, (\cdot, \cdot))$ is a real inner product space, then we define the \textbf{norm} $\norm{\bm{v}}$ of a vector $\bm{v} \in V$ by \[ \norm{\bm{v}} = \sqrt{(\bm{v}, \bm{v})}. \] A vector $\bm{v} \in V$ is a \textbf{unit vector} if $\norm{\bm{v}} = 1$. Two vectors $\bm{u}, \bm{v} \in V$ are said to be \textbf{orthogonal} if $(\bm{u}, \bm{v}) = 0$.
+\end{definition}
+
+\begin{theorem}[Pythagoras]
+     If $\bm{u}$ and $\bm{v}$ are orthogonal, then $\norm{\bm{u} + \bm{v}}^2 = \norm{\bm{u}}^2 + \norm{\bm{v}}^2$.
+\end{theorem}
+
+\begin{example}
+    The only unit vectors in $\mathbb{R}$ with the standard inner product are $\pm 1$; but in $\mathbb{C}$ with the standard inner product, $e^{i \theta} = \cos{\theta} + i \sin{\theta}$ is a unit vector for any $\theta \in [0, 2\pi)$.
+\end{example}
+
+\begin{example}
+    In $\mathbb{C}^2$ with the standard hermitian inner product, find all the unit vectors $\bm{v}$ which are orthogonal to $\bm{u} = (i, 1)$.
+
+    \[ \langle \bm{v}, \bm{u} \rangle = -i v_1 + v_2 = 1 \] so \[ \bm{v} = (c, ic) \] for some $c \in \mathbb{C}$. Then
+    \begin{align*}
+        \norm{\bm{v}}^2 &= \langle \bm{v}, \bm{v} \rangle \\
+        &= 2|c|^2 = 1
+    \end{align*}
+    so $|c| = \frac{1}{\sqrt{2}}$; thus, 
+    \[ 
+        \bm{v} = \frac{e^{i \theta}}{\sqrt{2}} 
+        \begin{pmatrix}
+            1 \\ i
+        \end{pmatrix}.
+    \]
+\end{example}
+
+The following theorem is an inequality that guarantees that the angle between two vectors is well defined.
+
+\begin{theorem}[The real Cauchy-Schwarz inequality] 
+    Let $\bm{u}, \bm{v} \in \mathbb{R}^n$. Then \[ (\bm{u}, \bm{v})^2 \leq (\bm{u}, \bm{u}) \cdot (\bm{v}, \bm{v}), \] with equality if and only if $\bm{u}$ and $\bm{v}$ are linearly independent. Equivalently, \[ |(\bm{u}, \bm{v})| \; \leq \norm{u} \cdot \norm{v}. \]
+\end{theorem}
+
+\begin{proof}
+    This is trivial if $\bm{u} = \bm{0}$, so suppose $\bm{u} \neq 0$. Then for all real numbers $x$ we have \[ \norm{x \bm{u} - \bm{v}}^2 = x^2 \norm{\bm{u}}^2 - 2x (\bm{u}, \bm{v}) + \norm{\bm{v}}^2 \geq 0 \] with equality if and only if $x \bm{u} - \bm{v} = 0$. Looking at this as a quadratic equation in $x$, we deduce that 
+    \begin{align*}
+        (-2(\bm{u}, \bm{v}))^2 - 4 \norm{\bm{u}}^2 \norm{\bm{v}}^2 &\leq 0 \\
+        (\bm{u}, \bm{v})^2 - \norm{\bm{u}}^2\norm{\bm{v}}^2 \leq 0 \\
+    \end{align*}
+    with equality if and only if $x \bm{u} - \bm{v} = 0$.
+\end{proof}
+
+\begin{corollary}[The triangle inequality]
+    For all $\bm{u}, \bm{v} \in V$, we have $\norm{\bm u + \bm v} \leq \norm{\bm u} + \norm{\bm v}$.
+\end{corollary}
+
+\begin{proof}
+    \begin{align*}
+        (\norm{\bm u} + \norm{\bm v})^2 - \norm{\bm u + \bm v}^2 &= \norm{\bm u}^2 + \norm{\bm v}^2 + 2 \norm{\bm u} \norm{\bm v} - \norm{\bm u}^2 - \norm{\bm v}^2 - 2 (\bm u, \bm v) \\
+        &= 2 \norm{\bm u} \norm{\bm v} - 2(\bm u, \bm v) \\
+        &\geq 0
+    \end{align*}
+    using the Cauchy-Schwarz inequality.
+\end{proof}
+
+\begin{corollary}
+    For a real inner-product space, the \textbf{angle} $\theta \in [0, \pi]$ between $\bm u$ and $\bm v$, given by \[ (\bm u, \bm v) = \norm{\bm u} \cdot \norm{\bm v} \cos{\theta}, \] is well-defined since from the Cauchy-Schwarz inequality we know that \[ - \norm{\bm u} \cdot \norm{\bm v} \leq (\bm u, \bm v) \leq \norm{\bm u} \cdot \norm{\bm v}. \] 
+\end{corollary}
+
+\begin{definition}
+    An \textbf{orthonormal basis} of $V$ is a basis consisting of mutually orthogonal unit vectors.
+\end{definition}
+
+\begin{example}
+    \begin{enumerate}
+        \item Consider the inner product space with $V = \mathbb{R}^2$ and the standard inner product. Take $\bm u = (1, 0)$ and $\bm v = (\cos{\theta}, \sin{\theta})$ where $\theta \in [0, 2\pi)$. Both are unit vectors and $(\bm u, \bm v) = \cos{\theta}$.
+        \item Consider the inner product space with $V = \mathbb{R}^2$ and inner product \[ (\bm u, \bm v) = 4 u_1 v_1 + u_1 v_2 + u_2 v_1 + u_2 v_2. \] Let $\bm u = (1, 0)$ and $\bm v = (0, 1)$. Then $\norm{\bm u} = \sqrt{4} = 2$, $\norm{\bm v} = \sqrt{1} = 1$, $\cos{\theta} = \frac{1}{2}$ and $\theta = \frac{\pi}{3}$.
+        \item Consider the inner product space with $V = C[-1, 1]$ and with the inner product \[ (f, g) = \int_{-1}^1 f(t) g(t) \, dt. \] Then \[ \norm{1} = \sqrt{(1, 1)} = \sqrt{\int_{-1}^1 \, dt} = \sqrt{ \left[ t \right]^1_{-1}} = \sqrt{1 - (-1)} = \sqrt{2}; \] \[ \norm{t} = \sqrt{(t, t)} = \int_{-1}^1 t^2 \, dt = \sqrt{ \left[ \frac{1}{3} t^3 \right]^1_{-1}} = \sqrt{\frac{2}{3}}. \] As \[ (1, t) = \int_{-1}^{1} t \, dt = 0, \] $1$ and $t$ are orthogonal.
+        \item Consider the inner product space with $V = C[0, 1]$ with the inner product \[ (f, g) = \int_0^1 f(t) g(t) \, dt. \] Then $\norm{1} = 1$ and $\norm{t} = \sqrt{\frac{1}{3}}$. If $\theta$ is the angle between $1$ and $t$, then $\cos{\theta} = \frac{\sqrt{3}}{2}$, and so $\theta = \frac{\pi}{6}$.
+    \end{enumerate}
+\end{example}
+
+\begin{definition}[Complex norm]
+    Let $V, \langle \cdot, \cdot \rangle$ be a complex inner product space. The norm induced by this inner product is \[ \norm{v} = \sqrt{\langle \bm v, \bm v \rangle}. \]
+\end{definition}
+
+\begin{proposition}
+    The definition of a complex norm meets the requirements for a norm.
+\end{proposition}
+
+\begin{proof}
+    The proof of this is pretty self explanatory.
+\end{proof}
+
+\begin{theorem}[The complex Cauchy-Schwartz inequality]
+    Let $V, \langle \cdot, \cdot \rangle$ be a complex inner product space, then \[ \; \forall \; \bm u, \bm v \in V, \quad \abs{\langle \bm u, \bm v \rangle}^2 \leq \norm{\bm u}^2 \norm{\bm v}^2 \] with equality only if $\bm u, \bm v$ are linearly independent.
+\end{theorem}
+
+\begin{corollary}[The complex triangle inequality]
+    For all $\bm u, \bm v \in V$, we have \[ \norm{\bm u + \bm v} \leq \norm{u} + \norm{v}. \]
+\end{corollary}
+
+\begin{proof}
+    \begin{align*}
+        (\norm{\bm u} + \norm{\bm v})^2 - \norm{\bm u + \bm v}^2 &= \norm{\bm u}^2 + 2 \norm{\bm u} \cdot \norm{\bm v} + \norm{\bm v}^2 - \norm{\bm u}^2 - \langle \bm u, \bm v \rangle - \langle \bm v, \bm u \rangle - \norm{\bm v}^2 \\
+        &= 2 (\norm{\bm u} \cdot \norm{\bm v} - \Re \langle \bm u, \bm v \rangle ) \\
+        &\geq 2(\norm{\bm u} \cdot \norm{\bm v} - \abs{\langle \bm u, \bm v \rangle})
+    \end{align*}
+    where we used the fact that \[ \langle \bm u, \bm v \rangle + \langle \bm v, \bm u \rangle = 2 \Re \langle \bm u, \bm v \rangle \] and that \[ \Re \langle \bm u, \bm v \rangle \leq \abs{\langle \bm u, \bm v \rangle}. \]
+\end{proof}
+
+\section{Gram-Schmidt procedure}
+
+It might be worth refreshing on the following definitions.
+
+\begin{definition}[Unit vector]
+    In a inner product space $V, \langle \cdot, \cdot \rangle$, $v \in V$ is a \textbf{unit vector} if and only if \[ \norm{v} = \sqrt{\langle \bm v, \bm v \rangle} = 1. \]
+\end{definition}
+
+\begin{definition}
+    In a inner product space $V, \langle \cdot, \cdot \rangle$, $u, v \in V$ are \textbf{orthogonal} (denoted $u \perp v$) if and only if \[ \langle \bm u, \bm v \rangle = 0. \]
+\end{definition}
+
+\begin{definition}[Orthonormal basis]
+    In a inner product space $V, \langle \cdot, \cdot \rangle$, then \[ \{ \bm v_1, \bm v_2, \ldots, \bm v_n \} \] is an \textbf{orthonormal basis} of $V$ if
+    \begin{enumerate}
+        \item $\langle \bm v_i, \bm v_j \rangle = 0 \; \forall \; i \neq j, 1 \leq i, j \leq n$;
+        \item $\langle \bm v_i, \bm v_i \rangle = 1 \; \forall \; 1 \leq i \leq n$; and
+        \item $\{ \bm v_1, \bm v_2, \ldots, \bm v_n \}$ form a basis for $V$.
+    \end{enumerate}
+\end{definition}
+
+Now, onto the Gram-Schmidt procedure. Suppose that we have \[ \{ \bm v_1, \bm v_2, \ldots, \bm v_n \} \] linearly independent vectors in an inner product space $V, \langle \cdot, \cdot \rangle$. Consider $U = \mspan{\{ \bm v_1, \bm v_2, \ldots, \bm v_n \}}$. Can we find an orthonormal basis for $U$? This is the purpose of the Gram-Schmidt procedure.
+
+\begin{definition}[Gram-Schmidt procedure]
+    Let $\{ \bm u_1, \bm u_2, \ldots, \bm u_k \}$ be an orthonormal basis for the vector space \[ U = \mspan \{ \bm v_1, \bm v_2, \ldots, \bm v_n \}. \] The Gram-Schmidt will produce $\{ \bm u_1, \bm u_2, \ldots, \bm u_k \}$ as follows.
+    \begin{enumerate}
+        \item Define \[ \bm u_1 = \frac{\bm v_1}{\norm{v_1}}. \]
+        \item Define \[ \tilde{\bm v}_2 = \bm v_2 - \langle \bm v_2, \bm u_1 \rangle \bm u_1. \]
+        \item Define \[ \bm u_2 = \frac{\bm v_2}{\norm{v_2}}. \]
+        \item Here we repeat steps (ii) and (iii) as follows \[ \tilde{\bm v}_{r + 1} = \bm v_{r + 1} - \langle \bm v_{r + 1}, \bm u_1 \rangle \bm u_1 - \ldots - \langle \bm v_{r + 1}, \bm u_r \rangle \bm u_r \] then \[ \bm u_{r + 1} = \frac{\tilde{\bm v}_{r + 1}}{\norm{\tilde{\bm v}_{r + 1}}}. \]
+    \end{enumerate}
+\end{definition}
+
+The procedure above will work for any inner product defined along a vector space. To see why this works, we see that at step (ii) that $\langle \bm u_1, \tilde{\bm v}_2 \rangle = 0$ with $\tilde{\bm v}_2 \neq 0$. Also, as $\bm u_2$ is just a linear combination of $\bm v_2, \bm u_2$, our span stays the same.
+
+\begin{example}
+    Let $V = \mathbb R^3$ be equipped with the standard inner product. Apply the Gram-Schmidt procedure to
+    \[
+        \bm v_1 =
+        \begin{pmatrix}
+            1 \\ 1 \\ 0
+        \end{pmatrix}
+        , \quad \bm v_2 =
+        \begin{pmatrix}
+            1 \\ 0 \\ 1
+        \end{pmatrix}
+        , \quad \bm v_3 =
+        \begin{pmatrix}
+            0 \\ 1 \\ 1
+        \end{pmatrix}
+        .
+    \]
+
+    \begin{align*}
+        \bm u_1 &= \frac{\bm v_1}{\norm{\bm v_1}} = \frac{\sqrt{2}}{2}
+        \begin{pmatrix}
+            1 \\ 1 \\ 0
+        \end{pmatrix}
+        \\
+        \tilde{\bm v}_2 &= \bm v_2 - \langle \bm v_2, \bm u_1 \rangle \bm u_1 = 
+        \begin{pmatrix}
+            1 \\ 0 \\ 1
+        \end{pmatrix}
+        - \left( \frac{\sqrt{2}}{2} \right) \left( \frac{\sqrt 2}{2} \right)
+        \begin{pmatrix}
+            1 \\ 1 \\ 0
+        \end{pmatrix} 
+        = \frac 1 2
+        \begin{pmatrix}
+            1 \\ -1 \\ 2
+        \end{pmatrix} 
+        \\
+        \bm u_2 &= \frac{\tilde{\bm v}_2}{\norm{\tilde{\bm v}_2}} = \frac{\sqrt{6}}{6}
+        \begin{pmatrix}
+            1 \\ -1 \\ 2
+        \end{pmatrix} 
+        \\
+        \tilde{\bm v}_3 &= \bm v_3 - \langle \bm v_3, \bm u_1 \rangle \bm u_1 - \langle \bm v_3, \bm u_2 \rangle \bm u_2 \\
+        &= 
+        \begin{pmatrix}
+            0 \\ 1 \\ 1
+        \end{pmatrix}
+        - \left( \frac{\sqrt 2}{2} \right) \left( \frac{\sqrt 2} 2 \right)
+        \begin{pmatrix}
+            1 \\ 1 \\ 0
+        \end{pmatrix}
+        - \left( \frac{\sqrt 6} 6 \right) \left( \frac{\sqrt 6}{6} \right)
+        \begin{pmatrix}
+            1 \\ -1 \\ 2
+        \end{pmatrix} 
+        \\
+        &= 
+        \begin{pmatrix}
+            0 \\ 1 \\ 1
+        \end{pmatrix}
+        - \frac 1 2
+        \begin{pmatrix}
+            1 \\ 1 \\ 0
+        \end{pmatrix}
+        - \frac 1 6
+        \begin{pmatrix}
+            1 \\ -1 \\ 2
+        \end{pmatrix}
+        =
+        \frac 2 3
+        \begin{pmatrix}
+            -1 \\ 1 \\ 1
+        \end{pmatrix}
+        \\
+        \bm u_3 &= \frac{\sqrt 3}{3}
+        \begin{pmatrix}
+            -1 \\ 1 \\ 1
+        \end{pmatrix}
+    \end{align*}
+\end{example}
+
+\section{Orthogonal projection}
+
+\begin{definition}[Orthogonal complement]
+    Let $U$ be a subspace in an inner product space $V$. Then the \textbf{orthogonal complement} of $U$ is \[ U^{\perp} = \{ \bm v \in V : (\bm v, \bm u) = 0 \; \forall \; \bm u \in U \}. \]
+\end{definition}
+
+\begin{definition}[Orthogonal projection]
+    Let $U$ be a subspace in an inner product space $V$. Then we define the function \[ P_U : V \to V \] as the \textbf{orthogonal projection} onto $U$ such that \[ P_U(\bm v) = (\bm v, \bm u_1) \bm u_1 + (\bm v, \bm u_2) \bm u_2 + \ldots + (\bm v, \bm u_k) \bm u_k \] where $\bm v \in V$ and $\bm u_i \in U$ is an orthonormal basis for $U$.
+\end{definition}
+
+The idea here is that $P_U(\bm v)$ is the \textbf{closest} you can get to to the vector $\bm v$ in the subspace $U$.
+
+\begin{proposition}
+    Let $U$ be a finite dimensional subspace of the inner product space $V$. For any $\bm v \in V$, there exists $\bm u \in U$ and $\tilde{\bm u} \in U^{\perp}$ such that \[ \bm v = \bm u + \tilde{\bm u}. \]
+\end{proposition}
+
+\begin{example}
+    Let $V = \mathbb R^4$ be equipped with the standard inner product and 
+    \[ 
+        U = \mspan{
+            \left\{ 
+            \begin{pmatrix}
+                1 \\ 1 \\ 0 \\ 0
+            \end{pmatrix}
+            ,
+            \begin{pmatrix}
+                0 \\ 1 \\ 1 \\ 0
+            \end{pmatrix}
+        \right\}} 
+        \subset V.
+    \]
+    Find the point in $U$ nearest to
+    \[
+        \bm v =
+        \begin{pmatrix}
+            1 \\ 1 \\ 1 \\ 1
+        \end{pmatrix}
+        .
+    \]
+\end{example}
+
+\begin{solution}
+    First we apply the Gram-Schmidt procedure to the span vectors of $U$.
+    \begin{align*}
+        \bm u_1 &= \frac{\bm v_1}{\norm{\bm v_1}} = \frac{1}{\sqrt{2}}
+        \begin{pmatrix}
+            1 \\ 1 \\ 0 \\ 0
+        \end{pmatrix}
+        \\
+        \tilde{\bm u}_2 &= \bm v_2 - (\bm v_2, \bm u_1) \bm u_1 \\
+        &=
+        \begin{pmatrix}
+            0 \\ 1 \\ 1 \\ 0
+        \end{pmatrix}
+        - \frac{1}{2} 
+        \begin{pmatrix}
+            1 \\ 1 \\ 0 \\ 0
+        \end{pmatrix}
+        = \frac 1 2
+        \begin{pmatrix}
+            -1 \\ 1 \\ 2 \\ 0
+        \end{pmatrix}
+        \\
+        \bm u_2 &= \frac{\tilde{\bm u}_2}{\norm{\tilde{\bm u}_2}} = \frac{\sqrt 6}{6}
+        \begin{pmatrix}
+            -1 \\ 1 \\ 2 \\ 0
+        \end{pmatrix}
+        \\
+        P_U(\bm v) &=
+        \left(
+            \begin{pmatrix}
+                1 \\ 1 \\ 1 \\ 1
+            \end{pmatrix}
+            , \frac 1 {\sqrt 2}
+            \begin{pmatrix}
+                1 \\ 1 \\ 0 \\ 0
+            \end{pmatrix}
+        \right)
+        \frac 1 {\sqrt 2}
+        \begin{pmatrix}
+            1 \\ 1 \\ 0 \\ 0
+        \end{pmatrix}
+        +
+        \left(
+            \begin{pmatrix}
+                1 \\ 1 \\ 1 \\ 1
+            \end{pmatrix}
+            , \frac {\sqrt 6} 6
+            \begin{pmatrix}
+                -1 \\ 1 \\ 2 \\ 0
+            \end{pmatrix}
+        \right)
+        \frac{\sqrt 6}{6}
+        \begin{pmatrix}
+            -1 \\ 1 \\ 2 \\ 0
+        \end{pmatrix}
+        \\
+        &= \frac 1 3
+        \begin{pmatrix}
+            2 \\ 4 \\ 2 \\ 0
+        \end{pmatrix}
+        .
+    \end{align*}
+\end{solution}
+
+\begin{proposition}[Bessel's inequality]
+    Let $V$ be an inner product space and $U$ be a finite dimensional subspace of $V$. If $\bm v \in V$ and $\bm u = P_U(\bm v)$ then \[ \norm{\bm u} \leq \norm{\bm v}. \]
+\end{proposition}
+
+\begin{proof}
+    The proof is quite simple if you apply the decomposition of $\bm v \in V$. That is, for all $\bm v \in V$, \[ \bm v = \bm u + \tilde{\bm u} \] for some $\bm u \in U$ and $\tilde{\bm u} \in U^{\perp}$.
+\end{proof}
+
+\section{Orthogonal and unitary diagonalisation}
+
+\begin{definition}[Orthogonal matrix]
+    $M \in M_n(\mathbb R)$ is said to be \textbf{orthogonal} if \[ M^{\mathrm T} M = M M^{\mathrm T} = I. \] That is, $M^{\mathrm T} = M^{-1}$.
+\end{definition}
+
+\begin{definition}[Orthogonal group]
+    We define $O(n)$ as the set of $n \times n$ matrices that are orthogonal, that is \[ O(n) = \{ M \in M_{n}(\mathbb R) : M^{\mathrm T} M = M M^{\mathrm T} = I \}. \]
+\end{definition}
+
+\begin{definition}[Special orthogonal group]
+    THe special orthogonal group is simply defined as a subspace of the orthogonal group where all elements have a determinant of $1$, that is \[ SO(n) = \{ M \in O(n) : \Det{M} = 1 \}. \]
+\end{definition}
+
+What does it mean for a matrix to be orthogonal? It means that the \textbf{columns of the matrix are orthonormal} with the standard inner product. Now we consider the complex case.
+
+\begin{definition}[Unitary matrix]
+    $U \in M_n(\mathbb C)$ is \textbf{unitary} if \[ B^{\star} B = B B^{\star} = I. \] That is, $B^{\star} = B^{-1}$.
+\end{definition}
+
+Similar definitions follow for the unitary and special unitary groups.
+
+\begin{definition}[Unitary groups]
+    We let the unitary group be defined as \[ U(n) = \{ U \in M_n(\mathbb C) : U^{\star} U = U U^{\star} = I \} \] and the special unitary group to be defined as \[ SU(n) = \{ U \in U(n) : \Det(U) = 1 \}. \]
+\end{definition}
+
+Again, if a matrix is unitary this means that the columns are orthonormal with the standard complex inner product.
+
+\begin{proposition}
+    Let $A \in M_n(\mathbb R)$ where $A^{\mathrm T} = A$, then there exists $P \in O(n)$ such that \[ P^{\mathrm T} A P = D_1 \] where $D_1$ is a diagonal matrix. Similarly, if $B$ is hermitian, then there exists $U \in U(n)$ such that \[ U^{\star} B U = D_2 \] where $D_2$ is diagonal matrix.
+\end{proposition}
+
+\begin{proposition}
+    If $A \in M_n(\mathbb R)$ is orthogonally diagonalisable, then $A$ is symmetric.
+\end{proposition}
+
+\begin{proposition}
+    If $B$ is unitary diagonalisable and all its eigenvalues are real, then it is hermitian. That is, $B^{\star} = B$.
+\end{proposition}
+
+\begin{proposition}
+    If $A$ is real symmetric (or complex hermitian) then
+    \begin{enumerate}
+        \item eigenvalues of $A$ are real;
+        \item eigenvectors of $A$ are mutually orthogonal under the standard inner product; and
+        \item if $A$ is real, eigenvectors are real.
+    \end{enumerate}
+\end{proposition}
+
+\begin{example}
+    Let 
+    \[
+        \begin{pmatrix}
+            2 & -2 & 0 \\
+            -2 & 1 & -2 \\
+            0 & -2 & 0 \\
+        \end{pmatrix}
+        .
+    \]
+    Find the orthogonal matrix $P$ and diagonal matrix $D$ such that \[ P^{\mathrm T} A P = D. \]
+\end{example}
+
+\begin{solution}
+    \[ \det{(A - \lambda I)} = 0 \implies \lambda = 4, 1, -2. \]
+    So, for $\lambda = 4$ we get \[ \tilde{\bm v} = \frac13 \begin{pmatrix} 2 \\ -2 \\ 1 \end{pmatrix}; \] for $\lambda = 1$ we get \[ \tilde{\bm v} = \frac13 \begin{pmatrix} 2 \\ 1 \\ -2 \end{pmatrix}; \] and for $\lambda = -1$ we get \[ \tilde{\bm v} = \frac13 \begin{pmatrix} 1 \\ 2 \\ 2 \end{pmatrix}; \] hence 
+    \[
+        P = \frac13
+        \begin{pmatrix}
+            2 & 2 & 1 \\
+            -2 & 1 & 2 \\
+            1 & -2 & 2 \\
+        \end{pmatrix}
+        , \qquad D =
+        \begin{pmatrix}
+            4 & 0 & 0 \\
+            0 & 1 & 0 \\
+            0 & 0 & -2 \\
+        \end{pmatrix}
+        .
+    \]
+\end{solution}

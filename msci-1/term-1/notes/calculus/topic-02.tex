@@ -1,0 +1,310 @@
+\chapter{Limits and continuity}
+
+\section{Definitions}
+
+\begin{definition}
+    The function $f(x)$ has limit $L$ as $x$ tends to $a$ is written as
+    \[\forall\epsilon>0\;\exists\;\delta>0:|f(x)-L|<\epsilon\;\forall\;0<|x-a|<\delta\].
+    
+    If no such $L$ exists, then we say that the limit does not exist.
+\end{definition}
+
+\begin{example}
+    \begin{enumerate}
+        \item 
+        \begin{align*}
+            f(x)&=2x,\\
+            \lim_{x\to3}{2x}&=6.
+        \end{align*}
+        
+        \item \[\lim_{x\to0}{\dfrac1x},\] this limit does not exist.
+        
+        \item 
+        \[
+            f(x)=
+            \begin{cases}
+                -x^2 & x<0\\
+                1 & x\geq0\\
+            \end{cases}
+        \]
+        % todo draw this
+        The limit \[\lim_{x\to0}{f(x)}\] does not exist.
+        
+        \item
+        \[
+            f(x)=
+            \begin{cases}
+                x^2 & x<0\\
+                1 & x=0\\
+                x^2 & x>0
+            \end{cases}
+        \]
+        \[\lim_{x\to0}{f(x)}=0\]
+    \end{enumerate}
+\end{example}
+
+\begin{definition}
+    A function $f(x)$ is \textbf{continuous at $x=a$} if the following three properties all hold:
+    \begin{enumerate}
+        \item $f(a)$ exists;
+        \item $\lim_{x\to a}{f(x)}=L$ exists; and
+        \item $f(a)=L$.
+    \end{enumerate}
+\end{definition}
+
+\begin{definition}
+    $f(x)$ is \textbf{continuous} in a set $S$ if it is continuous at every point in $S$. 
+\end{definition}
+
+\begin{definition}
+    $f(x)$ is \textbf{continuous} if it is continuous at every point in its domain.
+\end{definition}
+
+\begin{example}
+    \begin{enumerate}
+        \item All polynomials are continuous.
+        \item $\sin{x}$ is continuous.
+        \item $\tan{x}$ is continuous as $\dfrac\pi2$ is not in the domain.
+        \item $\tan{x}$ in $[0,\pi]$ is not continuous.
+    \end{enumerate}
+\end{example}
+
+\section{Results about limits and continuity}
+
+The following are points of interest for limits.
+
+\begin{enumerate}
+    \item If the limit exists, it is unique.
+    \item If $f(x)=g(x)$ for all $x$ (excluding $x=a$) in a small open interval around $x=a$ and \[\lim_{x\to a}f(x)=L\] then \[\lim_{x\to a}g(x)=L.\]
+    \item If $f(x)=k$ for all $x$ in either $(a,b)$ or $(c,a)$ then if \[\lim_{x\to a}f(x)=L\] exists then $L\geq k$.
+\end{enumerate}
+
+\begin{theorem}[Calculus of limits theorem, COLT]
+    Following are the properties for limits.
+    \begin{enumerate}
+        \item \[\lim_{x\to a}(f(x)+g(x))=\lim_{x\to a}f(x)+\lim_{x\to a}g(x)\]
+        \item \[\lim_{x\to a}(f(x)g(x))=\lim_{x\to a}f(x)\lim_{x\to a}g(x)\]
+        \item \[\lim_{x\to a}\left(\dfrac{f(x)}{g(x)}\right)=\dfrac{\lim_{x\to a}f(x)}{\lim_{x\to a}g(x)}\]
+    \end{enumerate}
+    Note that this theorem is only called COLT in Durham.
+\end{theorem}
+
+\begin{theorem}[Squeeze theorem]
+    If \[g(x)\leq f(x)\leq h(x)\] for all $x\neq a$ in a small open interval containing the point $a$ and \[\lim_{x\to a}g(x)=\lim_{x\to a}h(x)=L\] then \[\lim_{x\to a}f(x)=L.\] More formally, if \[g(x)\leq f(x)\leq h(x)\;\forall\, x\in(a-\epsilon,a)\cup(a,a+\epsilon)\] for some $\epsilon>0$ and \[\lim_{x\to a}{g(x)}=\lim_{x\to a}{h(x)}=L\] then \[\lim_{x\to a}{f(x)}=L\]
+\end{theorem}
+
+Some facts about continuity:
+
+\begin{enumerate}
+    \item If $f(x),g(x)$ are continuous then so are:
+    \begin{enumerate}
+        \item $f(x)+g(x)$;
+        \item $f(x)g(x)$;
+        \item $\dfrac{f(x)}{g(x)}$; and
+        \item $|f(x)|$.
+    \end{enumerate}
+    \item All polynomials, rational functions, trigonometric functions, $\ldots$, are continuous.
+\end{enumerate}
+
+\begin{example}
+    Following are some examples of solving limits using the material just covered.
+    \begin{enumerate}
+        \item 
+        \begin{align*}
+            \lim_{x\to 3}\dfrac{2x^2-18}{x-3}&=\lim_{x\to 3}\dfrac{2(x+3)(x-3)}{x-3}\\
+            &=\lim_{x\to 3}{2(x+3)}\\
+            &=12
+        \end{align*}
+        
+        \item
+        \begin{align*}
+            \lim_{x\to 25}\left(\dfrac{\sqrt x-5}{x-25}\right)&=\lim_{x\to 25}\left(\dfrac{(\sqrt x-5)(\sqrt x+5)}{(x-25)(\sqrt x+5)}\right)\\
+            &=\lim_{x\to 25}\left(\dfrac{x-25}{(x-25)(\sqrt x+5)}\right)\\
+            &=\lim_{x\to 25}\left(\dfrac1{\sqrt x+5}\right)\\
+            &=\dfrac1{10}
+        \end{align*}
+        
+        \item \[\lim_{x\to0}x^2\sin{\dfrac1x}\]
+        We know \[-1\leq\sin{\dfrac1x}\leq1\] and therefore \[-x^2\leq x^2\sin{\dfrac1x}\leq x^2.\] As \[\lim_{x\to0}{-x^2}=0,\quad\lim_{x\to0}{x^2}=0\] then \[\lim_{x\to0}{x^2\sin{\dfrac1x}}=0\] by the squeeze theorem.
+    \end{enumerate}
+\end{example}
+
+Following are two important limit results with trigonometric functions with their proof.
+\begin{figure}
+    \centering
+    \begin{tikzpicture}
+        \begin{axis}[axis lines=middle, scale=1, samples=100, xmin=-0.25, xmax=1.25, ymin=-0.25, ymax=1.25, xtick distance=0.5]
+            \coordinate (o) at (0,0);
+            \coordinate (b) at (1,0);
+            \coordinate (a) at (1,1);
+            \addplot[smooth, domain=0:1] {sqrt(1-x*x)};
+            \draw (0,0) -- (1,1);
+            \draw[dashed] (1,1) -- node[right, yshift=20pt]{$\tan{x}$} (1,0) ;
+            \draw[dashed] (0.707,0.707) -- node[left]{$\sin{x}$}(0.707,0);
+            \draw (0.707,0.707) -- (1,0);
+            \pic [draw, angle eccentricity=2, angle radius=1.3cm] {angle=b--o--a};
+            \node at (0.2,0.09) {$x$};
+            \node [above] at (1,1) {$C$};
+            \node [above right] at (1,0) {$A$};
+            \node [above, yshift=3pt] at (0.707,0.707) {$B$};
+        \end{axis}
+    \end{tikzpicture}
+    \label{fig:proof_of_trig1}
+    \caption{Graph to illustrate the proof of $\lim_{x\to0}\left(\dfrac{\sin{x}}{x}\right) =1$.}
+\end{figure}
+        
+\begin{enumerate}
+    \item \[\lim_{x\to0}\left(\dfrac{\sin{x}}{x}\right)=1\]
+    \begin{proof}
+        Consider the graph shown in Figure \ref{fig:proof_of_trig1}. The area of $\triangle OAB$ is $\frac12\sin{x}$, the area of the sector is $\frac12x$, and the area of $\triangle OAC$ is $\frac12\tan{x}$. By inclusion, \[\frac12\sin{x}\leq\frac12x\leq\frac12\tan{x}\] and dividing by $\frac12\sin{x}$ and taking the reciprocal we get \[1\leq\dfrac{\sin{x}}x\leq\cos{x}.\] As \[\lim_{x\to0}\cos{x}=\lim_{x\to0}1=1\] then \[\lim_{x\to0}\left(\dfrac{\sin{x}}x=1\right)\] by the squeeze theorem.
+    \end{proof}
+    
+    \item \[\lim_{x\to 0}\left(\dfrac{1-\cos{x}}{x}\right)\]
+    \begin{proof}
+        \begin{align*}
+            \lim_{x\to 0}\left(\dfrac{1-\cos{x}}{x}\right)&=\lim_{x\to 0}\left(\dfrac{(1-\cos{x})(1+\cos{x})}{x(1+\cos{x})}\right)\\
+            &=\lim_{x\to 0}\left(\dfrac{\sin^2{x}}{x(1+\cos{x})}\right)\\
+            &=\lim_{x\to 0}\left(\dfrac{\sin{x}}{x}\right)\lim_{x\to 0}\left(\dfrac{\sin{x}}{1+\cos{x}}\right)\qquad\text{using COLT}\\
+            &=1\left(\frac0{1+1}\right)\\
+            &=0\\
+        \end{align*}
+    \end{proof}
+\end{enumerate}
+
+\begin{example}
+    Following are examples of calculating limits.
+    \begin{enumerate}
+        \item 
+        \begin{align*}
+            \lim_{x\to0}\left(\dfrac{\sin{2x}}x\right)&=\lim_{x\to0}\left(\dfrac{2\sin{x}\cos{x}}{x}\right)\\
+            &=\lim_{x\to0}\left(\dfrac{\sin{x}}{x}\right)\lim_{x\to0}2\cos{x}\\
+            &=(1)(2)\\
+            &=2
+        \end{align*}
+        
+        \item (alternative to (i))
+        \begin{align*}
+            \lim_{x\to0}\left(\dfrac{\sin{2x}}{x}\right)&=\lim_{x\to0}\left(\dfrac{2\sin{2x}}{2x}\right)\\
+            &=2\lim_{x\to0}\left(\dfrac{\sin{2x}}{2x}\right)\\
+            &=2(1)\\
+            &=2
+        \end{align*}
+        
+        \item
+        \begin{align*}
+            \lim_{x\to0}\left(\dfrac{\sin{3x}}{\sin{x}}\right)&=\lim_{x\to0}\left(\dfrac{\sin{3x}}{x}\right)\lim_{x\to0}\left(\dfrac{x}{\sin{x}}\right)\\
+            &=3\lim_{x\to0}\left(\dfrac{\sin{3x}}{3x}\right)\left(\lim_{x\to0}\left(\dfrac{x}{\sin{x}}\right)\right)^{-1}\\
+            &=3(1)(1)\\
+            &=3
+        \end{align*}
+        
+        \item 
+        \begin{align*}
+            \lim_{x\to0}\left(\dfrac{1-\cos{x}}{x^2}\right)&=\lim_{x\to0}\left(\dfrac{\sin^2{x}}{x^2(1+\cos{x})}\right)\\
+            &=\lim_{x\to0}\left(\dfrac{\sin{x}}{x}\right)\lim_{x\to0}\left(\dfrac{\sin{x}}{x(1+\cos{x})}\right)\\
+            &=\left(\lim_{x\to0}\left(\dfrac{\sin{x}}{x}\right)\right)^2\lim_{x\to0}\left(\dfrac{1}{1+\cos{x}}\right)\\
+            &=(1)^2\left(\frac12\right)\\
+            &=\frac12
+        \end{align*}
+    \end{enumerate}
+\end{example}
+
+\section{Classification of discontinuities}
+
+\begin{definition}
+    A function $f(x)$ has \textbf{right-sided limit} \[\lim_{x\to a^+}f(x)=L^+\] at $x=a$ from above if \[\forall\;\epsilon>0\;\exists\;\delta>0:|f(x)-L^+|<\epsilon\;\forall\;0<x-a<\delta,\] and a the function $f(x)$ has \textbf{left-sided limit} \[\lim_{x\to a^-}f(x)=L^-\] at $x=a$ from below if \[\forall\;\epsilon>0\;\exists\;\delta>0:|f(x)-L^-|<\epsilon\;\forall\;0<a-x<\delta.\]
+\end{definition}
+
+\begin{remark}
+    \[\lim_{x\to a}f(x)=L\] exists if and only if \[\lim_{x\to a^+}=L^+\] and \[\lim_{x\to a^-}=L^-\] exists with \[L=L^+=L^-.\]
+\end{remark}
+
+\begin{definition}
+    There are 3 types of \textbf{discontinuity}.
+    \begin{enumerate}
+        \item Removable discontinuity, here \[\lim_{x\to a}f(x)=L\] but $f(a)\neq L$ gives a removable discontinuity at $x=a$.
+        \item Jump discontinuity, in this case \[\lim_{x\to a^+}=L^+\] and \[\lim_{x\to a^-}=L^-\] but \[L^-\neq L^+.\]
+        \item Infinite discontinuity, in this case at least one of \[\lim_{x\to a^+}=L^+\] and \[\lim_{x\to a^-}=L^-\] does not exist.
+        
+    \end{enumerate}
+\end{definition}
+
+\begin{example}
+    Following are examples of discountinuities.
+    \begin{enumerate}
+        \item The function
+        \[
+            f(x)=
+            \begin{cases}
+                x^2&x\neq0\\
+                1&x=0
+            \end{cases}
+        \]
+        has a removable discontinuity at $x=0$ as \[\lim_{x\to0}f(x)=0\neq1=f(1).\]
+        
+        \item The function
+        \[
+            f(x)=
+            \begin{cases}
+                0&x\leq0\\
+                1&x>0
+            \end{cases}
+        \]
+        has a jump discontinuity at $x=0$ as \[\lim_{x\to0^+}f(x)=1\neq0=\lim_{x\to0^-}f(x).\]
+        
+        \item The function \[f(x)=\dfrac1x\] has an infinite discontinuity at $x=0$ as \[\lim_{x\to0^+}f(x),\quad\lim_{x\to0^-}f(x)\] both do not exist.
+    \end{enumerate}
+\end{example}
+
+\section{Limits as $x$ tends to infinity}
+
+\begin{definition}
+    The function $f(x)$ has limit $L$ as $x$ tends to infinity written \[\lim_{x\to\infty}f(x)=L\] if \[\forall\;\epsilon>0\;\exists\;\delta>0:|f(x)-L|<\epsilon\;\forall\;x>\delta.\]
+\end{definition}
+
+\begin{example}
+    Following are examples of calculating limits tending to infinity.
+    \begin{enumerate}
+        \item \[\lim_{x\to\infty}\left(\dfrac1x\right)=0\]
+        
+        \item 
+        \begin{align*}
+            \lim_{x\to\infty}\left(\dfrac{3x+5+7x^2}{4x^2+3x+2}\right)&=\lim_{x\to\infty}\left(\dfrac{\sfrac3x+\sfrac5{x^2}+7}{4+\sfrac3x+\sfrac2{x^2}}\right)\\
+            &=\dfrac{0+0+7}{4+0+0}\\
+            &=\dfrac74
+        \end{align*}
+    \end{enumerate}
+\end{example}
+
+\begin{remark}
+    $f(x)$ has a horizontal asymptote $y=L$ as $x$ tends to infinity simply means \[\lim_{x\to\infty}f(x)=L\] and a similar definition exists for \[\lim_{x\to-\infty}f(x)=L.\]
+\end{remark}
+
+\begin{remark}
+    The change of variable $u=\sfrac1x$ allows the limit $\lim_{x\to0}f(x)$ to be calculated (if it exists) as \[\lim_{x\to\infty}f(x)=\lim_{u\to0^+}f\left(\dfrac1u\right).\]
+\end{remark}
+
+\begin{example}
+    \begin{align*}
+        \lim_{x\to\infty}\left(\dfrac{x\cos{\sfrac1x}+2}{x}\right)&=\lim_{u^+\to0}\left(\dfrac{\sfrac1u\cos{u}+2}{\sfrac1u}\right)\qquad x=\sfrac1u\\
+        &=\lim_{u\to0^+}\left(\cos u+2u\right)\\
+        &=1+0\\
+        &=1
+    \end{align*}
+\end{example}
+
+\section{The intermediate value theorem}
+
+\begin{theorem}
+    Let $f(x)$ be continuous on the interval $[a,b]$. If $u$ is any value between $f(a)$ and $f(b)$, that is, either $f(a)<u<f(b)$ or $f(b)<u<f(a)$ then \[\exists\;c\in(a,b):f(c)=u.\]
+\end{theorem}
+
+An application of the intermediate value theorem is locating the zeros of a function. If the function $f(x)$ is continuous on $[a,b]$ and we know that either $f(a)<0<f(b)$ or $f(b)<0<f(a)$ then by the intermediate value theorem the equation $f(x)=0$ has at least one root between $a$ and $b$.
+
+\begin{example}\label{exa:intermediate_value_theorem}
+    The function $f(x)=x^2-2$ is continuous on $[1,2]$ with $f(1)=-1<0$ and $f(2)=2>0$, so there is at least one root of the equation $x^2-2=0$ in $(1,2)$.
+\end{example}
+
+\begin{remark}
+    A repeated iterated application of the approach in Example \ref{exa:intermediate_value_theorem} gives the \textbf{bisection method} which can be used to locate the roots of a wide variety of equations to any desired accuracy.
+\end{remark}

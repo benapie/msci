@@ -1,0 +1,216 @@
+%! TEX root = master.tex
+\lecture{20}{22/12}
+
+Step functions take a finite number of values, and all intervals are
+measurable thus all step functions are simple.
+We can infer that the Riemann integral over a closed, bounded interval
+of a step function agrees with the Lebesgue integral.
+
+\begin{theorem}
+	Let $f$ be a bounded function defined on $[a,b]$.
+	If $f$ is Riemann integrable over $[a,b]$, then
+	it is Lebesgue integrable over $[a,b]$ and the two integrals are equal.
+\end{theorem}
+
+\begin{proof}
+	$f$ is Riemann integrable, so
+	\[
+		\sup\left\{ 
+			I_a^b(\varphi): \text{$\varphi$ step}, 
+			\varphi \leq f 
+		\right\}
+		= \inf\left\{ I_a^b(\varphi): 
+		\text{$\varphi$ step}, 
+		f \leq \varphi \right
+		\}.
+	\]
+	To prove that $f$ is Lebesgue integral, we must show that 
+	\[
+		\sup\left\{ 
+			\int_I \varphi:
+			\text{$\varphi$ simple},
+			\varphi \leq f
+		 \right\}
+		 = \inf\left\{ 
+			 \int_I \varphi:
+			 \text{$\varphi$ simple},
+			 f \leq \varphi
+		\right\}.
+	\]
+	We have already shown that $\text{step} \implies \text{simple}$
+	and the integrals are equal.
+	Thus, we have shown 
+	$\text{Riemann integral} \implies \text{Lebesgue integral}$ and the
+	integrals are equal.
+\end{proof}
+
+\begin{example}
+	Let $E = \Q \cap [0,1]$.
+	Observe $m(E) = 0$.
+	Recall the Dirchilet function $f$ is the restriction of $\chi_E$
+	to $[0,1]$.
+	Thus, $f$ is integrable and
+	\[
+		\int_{[0,1]} f = \int_{[0,1]} 1 \cdot \chi_E
+		= 1 \cdot m(E) = 0.
+	\]
+	We have alreqady shown that $f$ is not Riemann integrable.
+\end{example}
+
+\begin{lemma}
+	Let $\left\{ \varphi_n \right\}$ and $\left\{ \psi_n \right\}$
+	be sequences of integrable functions over $E$ such that
+	$\left\{ \varphi_n \right\}$ is increasing and
+	$\left\{ \psi_n \right\}$ is decreasing.
+	Let $f$ be a function on $E$ such that
+	\[
+		\varphi_n \leq f \leq \psi_n \;\text{on}\; E
+	\]
+	for all $n$.
+	Then if $\lim_{n \to \infty} \int_E \left( \psi_n  - \varphi_n \right) = 0$,
+	then $\left\{ \varphi_n \right\} \to f$ pointwise almost everywhere on $E$,
+	$\left\{ \psi_n \right\} \to f$ pointwise almost everywhere on $E$,
+	$f$ is integrable over $E$,
+	$\lim_{n \to \infty} \int_E \varphi_n = \int_E f$, and
+	$\lim_{n \to \infty} \int_E \psi_n = \int_E f$.
+\end{lemma}
+
+\begin{proof}
+	For $x \in E$, define $\varphi^\star(x) = \lim_{n \to \infty} \varphi_n(x)$
+	and $\psi^\star(x) = \lim_{n \to \infty} \psi_n(x)$.
+	Both are well-defined since 
+	$\left\{ \varphi_n \right\}$ and $\left\{ \psi_n \right\}$
+	are monoton and thus converge to an extended real number.
+	They are both measurable as each is the pointwise limit of a sequence
+	of measurable functions.
+	Thus, we have the inequalities:
+	\[
+		\varphi_n \leq \varphi^\star \leq f \leq \psi^\star \leq
+		\psi_n \tag{$\star$}
+	\]
+	on $E$ for all $n$.
+	By monotonicity and linearity of the integral of nonnegative measurable
+	functions:
+	\[
+		0 \leq \int_E (\psi^\star - \varphi^\star)
+		\leq \int_E (\psi_n - \varphi_n)
+	\]
+	for all $n$ so
+	\[
+		0 \leq \int_E (\psi^\star - \varphi^\star)
+		\leq \lim_{n \to \infty} \int_E (\psi_n - \varphi_n) = 0.
+	\]
+	By a previous proposition, $\psi^\star = \varphi^\star$ almost everywhere
+	on $E$.
+	But $\varphi^\star \leq f \leq \psi^\star$.
+	Thus, $\left\{ \varphi_n \right\} \to f$,
+	$\left\{ \psi_n \right\} \to f$ pointwise almost everywhere on $E$.
+	So $f$ is measurable and as $0 \leq f - \varphi_1 \leq \psi_1 - \varphi_1$
+	on $E$ and $\varphi_1$ and $\psi_1$ are integrable over $E$.
+	We infer, from $(\star)$, that
+	\[
+		0 \leq \int_E \psi_n - \int_E f
+		= \int_E (\psi_n - f)
+		\leq \int_E (\psi_n - \varphi_n)
+	\]
+	and
+	\[
+		0 \leq \int_E f - \int_E \varphi_n
+		= \int_E (f - \varphi_n)
+		\leq \int_E (\psi_n - \varphi_n)
+	\]
+	and thus
+	\[
+		\lim_{n \to \infty} \int_E \varphi_n
+		= \int_E f
+		= \lim_{n \to \infty} \int_E \psi_n. \qedhere
+	\]
+\end{proof}
+
+\begin{theorem}[Lebesgue]
+	Let $f$ be a bounded function on $[a,b]$.
+	Then $f$ is Riemann integrable over $[a,b]$ if and only if
+	\[
+		m\left( \left\{ 
+			x \in [a,b]: \text{$f$ is not continuous at $x$} 
+		\right\} \right) = 0.
+	\]
+\end{theorem}
+
+\begin{proof}
+	Suppose $f$ is Riemann integrable.
+	By the equality of the upper and lower Riemann integrals over $[a,b]$
+	that there are sequences of partitions $\left\{ p_n \right\}$
+	and $\left\{ p_n' \right\}$ of $[a,b]$ for which
+	\[\lim_{n \to \infty} \left( U(f, p_n) - L(f, p_n') \right) = 0\]
+	where $U(f,p_n)$ and $L(f,p_n')$ are the upper and lower Darboux sums.
+	Since, under refinement, lower Darboux sums increase and upper Darboux sums
+	decrease. By replacing each $p_n$ with a common refinement of
+	$p_1, \ldots, p_n, \allowbreak p_1', \ldots p_n'$, we may assume
+	$p_{n+1}$ is a refinement of $p_n$ and $p_n = p_n'$.
+	For each $n$, define $\varphi_n$
+	to be the lower step function associated to $f$ with respect to $p_n$.
+	That is, $\varphi_n$ agrees with $f$ at each partition point
+	of $p_n$ and which on each open interval deteremined by $p_n$ has
+	constant value equal to the infimum off on that inteveral.
+	We define the upper step function $\psi_n$ in a similar manner.
+	By the definition of the Darboux sums,
+	\[
+		L\left( f, p_n \right)
+		= \int_a^b \varphi_n, \qquad
+		U\left( f, p_n \right)
+		= \int_a^b \psi_n
+	\]
+	for all $n$.
+	Then $\left\{ \varphi_n \right\}$ and $\left\{ \psi_n \right\}$ are
+	sequences of integrable functions such that for each index $n$,
+	$\varphi_n \leq f \leq \psi_n$ on $E$.
+	Moreoever, the sequences $\left\{ \varphi_n \right\}$ is increasing
+	and $\left\{ \psi_n \right\}$ is decreasing since each $p_{n+1}$ is a
+	refinement of $p_n$.
+	Finally,
+	\[
+		\lim_{n \to \infty}
+		\int_a^b \left( \psi_n - \varphi_n \right)
+		= \lim_{n \to \infty}
+		\left( U(f,p_n) - L(f,p_n) \right)
+		= 0
+	\]
+	TODO
+\end{proof}
+
+\subsection{Improper Riemann integral}
+
+\begin{definition}[Improper Riemann integral]
+	Let $f: (a,b) \to \R$, $-\infty \leq a < b < \infty$ and assume $f$
+	is bounded and Riemann integrable on closed bounded sub-intervals.
+	Assume $\lim_{t \to a, t > a} I_t^b(f)$ exists in $\R$.
+	Then this limit is defined to be the improper Riemann integral
+	$I_a^b(f)$.
+	We have a similar definition for $-\infty < a < b \leq \infty$.
+\end{definition}
+
+The improper Riemann integral of a function may exists without the function
+being integrable (in the sense of Lebesgue).
+For examples, $f(x) = \frac{\sin x}x$ on $[0, \infty]$.
+
+\begin{proposition}
+	If $f$ is integrable, then the improper Riemann integral is equal to the
+	Lebesgue integral whenever the former exists.
+\end{proposition}
+
+\begin{proof}
+	Suppose $f$ is Lebesgue integral and the Riemann integral
+	$I_a^b(f)$ exists with improper lower limit $a$.
+	If $a$ is finite, let $f_n = \chi_{\left[ a + \frac1n, b \right]}$.
+	Then $f_n \to f$ on $[a,b]$ and $\abs{f_n} \leq \abs f$.
+	So $I_a^b(f) = \lim_{n \to \infty} I_{a + \frac 1n}^b(f)
+	= \lim_{n \to \infty} \int f_n = \int f$.
+	Now let $a = -\infty$, $g_n = f \chi_{\left[ -n, b \right]}$.
+	Then $g_n \to f$ on $[a,b]$ and $\abs{g_n} \leq \abs f$ so
+	\[
+		I_a^b(f) = \lim_{n \to \infty} I_{-n}^b (f)
+		= \lim_{n \to \infty} \int g_n = \int f.
+	\]
+	The cases for improper upper limits are similar.
+\end{proof}

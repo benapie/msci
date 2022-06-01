@@ -1,0 +1,173 @@
+\section{The argument principle and Rouch\'e's theorem}
+\lecture{18}{18/3}
+
+\begin{lemma}[]
+    Let $f$ be meromorphic on a domain $D$ 
+    with a zero or pole of order $k > 0$ at $a \in D$.
+    Then the function $\frac{f'(z)}{f(z)}$ has a simple pole at $a$ and
+    \[
+        \Res_{z=a} \left(\frac{f'(z)}{f(z)}\right) =
+        \begin{cases}
+            k  & \text{if $f$ has a zero at $a$}, \\
+            -k & \text{if $f$ has a pole at $a$}.
+        \end{cases}
+    \]
+\end{lemma}
+
+\begin{proof}
+    Assume that $f$ has a zero of order $k > 0$ at $a$.
+    Then we may write
+    \[
+        f(z) = (z-a)^k g(z), \qquad g(a) \neq 0
+    \]
+    for all $z \in B_R^\star(a)$, $R>0$, and $g$ is holomorphic on $B_R(a)$.
+    But then
+    \[
+        \frac{f'(z)}{f(z)} = \frac{k}{z - a} + \frac{g'(z)}{g(z)} 
+    \]
+    for all $z \in B_R^\star(a)$.
+    Since $g(z)$ is holomorphic on $B_R(a)$ and $g(a) \neq 0$,
+    $\frac{g'(z)}{g(z)}$ has a removable singularity at $a$ and so we have that
+    \[
+        \Res_{z=a} \left(\frac{f'(z)}{f(z)}\right)
+        = \Res_{z=a} \left(\frac{k}{z-a} + \frac{g'(z)}{g(z)}\right) 
+        = k.
+    \]
+    Similarly one shows the case of $f$ having a pole of order $k > 0$ at $z = a$
+    where we write
+    \[
+        f(z) = (z-a)^{-k} g(z)
+    \]
+    with $g$ holomorphic around $a$ and $g(a) \neq 0$.
+\end{proof}
+
+\begin{theorem}[Argument princple]
+    Let $\gamma$ be a simple closed postively oriented contour
+    and $f$ be meromorphic on $D_\gamma^{\text{int}} \cup \gamma$.
+    Assume $f$ has no zeros or poles on $\gamma$ 
+    and let
+    \begin{enumerate}
+        \item $Z_f$ denote the number of zeros of $f$ in $D_\gamma^{\text{int}}$; and
+        \item $P_f$ denote the number of poles of $f$ in $D_\gamma^{\text{int}}$
+    \end{enumerate}
+    both counted with multiplicities.
+    Then
+    \[
+        \frac{1}{2\pi i} \int_\gamma \frac{f'(z)}{f(z)} \,dz = Z_f - P_f.
+    \]
+\end{theorem}
+
+\begin{remark}
+    When we say \emph{`counted with multiplicities'} 
+    we mean that when we have a zero of order $k$ we count $k$ towards $Z_f$
+    (and similarly for poles).
+\end{remark}
+
+\begin{example}
+    Let
+    \[
+        f(z) = \frac{(z-3)^3(z-1)^7z^3}{(z-i)^4(z+4)^5(z-3i)^7}
+    \]
+    and $\gamma(\theta) = \frac72 e^{i\theta}$, $\theta \in [0, 2\pi]$.
+    Evaluate the integral
+    \[
+        \int_{\gamma} \frac{f'(z)}{f(z)} \,dz.
+    \]
+\end{example}
+
+\begin{solution}
+    $f$ has $13$ zeros and $11$ poles, hence
+    \[
+        \int_\gamma \frac{f'(z)}{f(z)} \,dz = 2\pi i (13 - 11) = 4\pi i.
+    \]
+\end{solution}
+
+\begin{theorem}[Rouch\'e's]
+    Let $\gamma$ be a simple closed contour
+    and $f$ and $g$ be holomorphic functions on $D_\gamma^\text{int} \cup \gamma$.
+    Suppose that
+    \[
+        \abs{f(z) - g(z)} < \abs{g(z)}
+    \]
+    for all $z \in \gamma$.
+    Then $f(z)$ and $g(z)$ have the same number of zeros
+    (counted with multiplicities) inside $\gamma$.
+\end{theorem}
+
+\begin{example}
+    We can use Rouch\'e's theorem to give us more information of the location
+    of zeros of functions.
+    For example, consider
+    \[
+        P(z) = z^4 + 6z + 3.
+    \]
+    We know that $P$ has 4 zeros, but we can find out more than that.
+    Consider $\gamma: \lvert z \rvert = 2$ and set $g(z) = z^4$.
+    Then for all $z \in \gamma$,
+    \[
+        \abs{g(z)} 
+        = \abs z^4 
+        = 16 > 15 
+        = 6 \abs z + 3 \geq \abs{6z + 3} 
+        = \abs{P(z) - g(z)};
+    \]
+    therefore, $P(z)$ and $g(z)$ have the same number of zeros.
+    Clearly $g$ has a zero when $z = 0$ with order $4$ within $\gamma$
+    hence we conclude that the number of zeros of $P$ inside $\gamma$ 
+    (counted with multiplicity)
+    is $4$.
+    Now we consider the curve $\gamma: \abs = 1$ and set $g(z) = 6z$. 
+    Then for any $z \in \gamma$ we have
+    \[
+        \abs{g(z)}
+        = 6\abs z
+        = 6 > 4
+        = 1 + 3
+        \geq \abs z^4 + 3
+        \geq \abs{z^4 + 3}
+        = \abs{P(z) - g(z)}.
+    \]
+    By Rouch\'e's theorem we have that $g(z)$ and $P(z)$ have the same
+    number of zeroes inside $\gamma$,
+    but clearly $6z$ has one zero at $z = 0$.
+    Therefore $P(z)$ has one zero of modulus less than $1$ and has three zeros
+    of modulus between $1$ and $2$.
+\end{example}
+
+\begin{example}
+    Consider the function
+    \[
+        f(z) = \cos(\pi z) - \alpha z^m
+    \]
+    where $\alpha > e^\pi$ and $m \in \N$.
+    We will show that this function has $m$ zeros in $B_1(0)$.
+    We set $g(z) = -\alpha z^m$ and consider the curve $\gamma: \abs z = 1$.
+    Then for all $z \in \gamma$ we have
+    \[
+        \abs{g(z)} = \alpha > e^\pi.
+    \]
+    On the other hand, for all $z \in \gamma$ we have
+    \[
+        \abs{f(z) - g(z)} 
+        = \abs{\cos(\pi z)} 
+        = \left\lvert \frac{e^{i\pi z} + e^{-i\pi z}}{2} \right\rvert
+        \leq \frac{\abs{e^{i\pi z}} + \abs{e^{-i\pi z}}}{2}.
+    \]
+    Since $z \in \gamma$, if we write $z = x + iy$ we have $x,y \in [-1,1]$.
+    In particular, we have that for all $z \in \gamma$
+    \[
+        \abs{e^{i\pi z}} = \abs{e^{i\pi(x + iy)}} = e^{-\pi y} \leq e^\pi
+    \]
+    and similarly
+    \[
+        \abs{e^{-i\pi z}} = \abs{e^{-i\pi(x + iy)}} = e^{-\pi y} \leq e^\pi.
+    \]
+    Hence we have that for all $z \in \gamma$
+    \[
+        \abs{f(z) - g(z)} \leq e^\pi < \alpha = \abs{g(z)}.
+    \]
+    By Rouch\'e's theorem we have that the functions $f(z)$ and $g(z)$ have the same number of zeros,
+    counted with multiplicities, inside the unit disc.
+    Clearly $g(z) = \alpha z^m$ only has $z = 0$ as a zero with multiplicity $m$.
+    Therefore, $f$ has the same $m$-many zeros inside the unit disc.
+\end{example}

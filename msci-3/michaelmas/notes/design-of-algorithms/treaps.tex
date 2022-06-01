@@ -1,0 +1,109 @@
+\documentclass[a4paper]{article}
+\input{../preamble-standalone.tex}
+\begin{document}
+
+\title{Treaps}
+\maketitle
+
+A \emph{treap} is a form of a binary search tree;
+it is a hybrid of a \emph{binary search tree} and a \emph{heap}.
+
+Recall the \emph{min-heap property} for a graph:
+for any node $N$, if $P$ is a parent node of $N$, then the key of
+$P$ is less than or equal to the key of $N$.
+Now, at each node of a treap we store a \emph{key} and a \emph{priority}.
+A treap is a binary search tree for the search keys
+and a min-heap for the priorities.
+
+Following is a treap, each node has a tuple $(k, p)$ where $k \in \Sigma$ for
+$\Sigma = \{A,B,\ldots, Y,Z\}$ with alphabetical sorting and
+$p \in \R$ where, for $q_1, q_2 \in \R$, $q_1$ is a higher priority than
+$q_2$ if $q_1 < q_2$.
+
+\begin{center}
+	\begin{forest}
+		[{$(M,1)$}
+			[{$(H,2)$}
+				[{$(G,7)$}
+					[{$(A,9)$}]
+				]
+				[{$(I,4)$}
+					[{$(L,8)$}]
+				]
+			]
+			[{$(T,3)$}
+				[{$(R,5)$}
+					[{$(O,6)$}]
+				]
+			]
+		]
+	\end{forest}
+\end{center}
+
+Now we will move onto some analysis, and to make this easier will make
+the assumption that all the key and priorities are distinct.
+
+We claim: the structure of a treap is completely determined by the search
+keys and the priorities. 
+We can prove this by induction by examining both the heap property
+and the binary search tree's properties.
+
+We can construct a treap as follows (an alternative definition):
+insert the nodes sequentially into an initially empty binary search tree,
+in order of increasing priority
+(using the usual binary search tree insertion algorithm).
+The proof of this is also easy to prove (by induction).
+
+Treap operations are as follows.
+\begin{enumerate}
+	\item Search: exactly as in a standard binary search tree.
+	For a key $k$ of a node $v$ with depth $d$, 
+	a \emph{successful search} takes
+	$O(d)$ time. Let $v^+$ and $v^-$ be the respectively inorder successor 
+	and predecessor of $v$ with respective depths $d^+$ and $d^-$.
+	A \emph{unsuccessful search} takes either $O(d^+)$ or $O(d^-)$ time.
+	\item Insert: first use the standard binary search tree algorithm,
+	then we fix the heap property by performing rotations.
+	Using the notation above, an insertion takes
+	either $O(d^+)$ or $O(d^-)$ time.
+	\item Delete: we rotate the node with the child of higher priority
+	until it is a leaf.
+	Once it is a leaf, we chop it off.
+	As deletion is insertion in reverse, it takes the same time.
+	\item Split: that is, split a treap $T$ into two treaps $T_<$ and
+	$T_<$ along some pivot key $\pi$
+	where all the nodes in $T_<$ have keys smaller than $\pi$
+	and similarly $T_>$ have keys bigger than $\pi$.
+	One way to do this: insert a node $v$ with $k_v = \pi$ and
+	$p_v = -\infty$.
+	Now $v$ is the root of the treap, and the left subtree and
+	right subtree and the treaps we need.
+	Again, splitting takes either $O(d^+)$ or $O(d^-)$ time.
+	\item Merge: splitting in reverse, create a dummy root
+	with the left subtree being $T_<$ and the right subtree
+	being $T_>$. We then delete the dummy root as described above.
+	As merging is splitting in reverse it takes the same time.
+\end{enumerate}
+
+With way we have constructed treaps thus far, 
+the depth of a node in a treap is $\Theta(n)$ in the worst case.
+This is bad.
+We can reduce this by randomising the priorities in a list;
+we only care about the keys in our binary search tree and having
+fast operations.
+This leads us to getting an expected logarithmic depth to our tree.
+
+\emph{Randomised treap}: priorities are independently and
+uniformly distributed continuous random variables.
+Whenever we insert a new key into the treap, we generate a random real
+number, for example, in $(0,1)$
+(in practise we could just choose an integer in a large range,
+we just want to avoid two elements having the same priority).
+
+As we have shown that the time taken for the operations defined above
+are proportional to the depth of the node, and that the expected
+depth of a given node in a randomised treap is logarithmic (that is,
+for $n$ nodes and a given node $v$ with depth $d$, $E(d) = O(\log n)$),
+then we can perform every operation in $O(\log n)$ time.
+
+\end{document}

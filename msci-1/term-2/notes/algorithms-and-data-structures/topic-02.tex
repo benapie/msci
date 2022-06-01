@@ -1,0 +1,64 @@
+\chapter{Trees}
+
+\begin{definition}[Tree]
+    A \textbf{tree} is a connected graph without cycles. The vertices of the graph are called \textbf{nodes} and the edges are called \textbf{branches}. If node $A$ and $B$ are connected by a branch and $A$ is above $B$, then we say that $A$ is the \textbf{parent} of $B$ and that $B$ is the \textbf{child} of $A$. \textbf{Sibling} nodes share the same parent node. The node at the top of the tree, that is the only node with no parents, is called the \textbf{root} node.
+    
+    In a tree structure, node is an object which stores pointers to its parents and children.
+\end{definition}
+
+\begin{definition}[Binary tree]
+    A \textbf{binary tree} is a type of tree where every node has up to two children, so it stores a pointer to parent, a pointer to the left child, and a pointer to the right child. If a node does not have a parent, left child, or right child, then the respective pointer will be \ttfamily{NULL}.
+\end{definition}
+
+\begin{remark}
+    A benefit of trees is that they give a fast insert, look-up, and delete operations. These are known as \textbf{dictionary operations}.
+\end{remark}
+
+\begin{remark}
+    From any given tree, we can pick a given node and create a \textbf{subtree} by taking the given node as the root node and considering only its children.
+\end{remark}
+
+\begin{definition}
+    A \textbf{binary search tree} (BST) is a type of binary tree such that for any given node, every element in the subtree formed from the left child has data smaller than the node and every element in the subtree from the right child has data larger than the node.
+\end{definition}
+
+\begin{example}
+    The following graph is an example of a binary search tree.
+    \begin{center} 
+        \begin{forest}
+            for tree={circle,draw}
+            [$8$
+                [$3$
+                    [$1$]
+                    [$6$
+                        [$4$]
+                        [$7$]
+                    ]
+                ]
+                [$10$
+                    [,phantom]
+                    [$14$
+                        [$13$]
+                        [,phantom]
+                    ]
+                ]
+            ]
+        \end{forest}
+    \end{center}
+\end{example}
+
+\begin{definition}[Tree traversal]
+    Tree traversal is a form of graph traversal and refers to the process of visiting (checking / updating) each node in a tree data structure exactly once.
+\end{definition}
+
+\begin{definition}[In-order tree traversal]
+    For \textbf{in-order tree traversal}, we recurse into the left subtree (if it exists), then display the data part of the root, and then recurse into the right subtree (if it exists).
+\end{definition}
+
+\begin{definition}[Pre-order tree traversal]
+    For \textbf{pre-order tree traversal}, we display the data part of the root, then recurse into the left subtree (if it exists), and then recurse into the right subtree (if it exists).
+\end{definition}
+
+\begin{definition}[Post-order tree traversal]
+    For \textbf{post-order tree traversal}, we recurse into the left subtree (if it exists), then recurse into the right subtree (if it exists), and then display the data of the root.
+\end{definition}

@@ -1,0 +1,177 @@
+\section{Probability theory}
+
+\subsection{Basics}
+
+We first introduce some basic probability theory, and introduce some probabilistic inequalities that will give us some foundations for studying randomised algorithms. 
+
+\begin{definition}[Finite discrete probability space]
+    A \emph{finite discrete probability space} is a pair $(\Omega, \Pr)$ where
+    \begin{enumerate}
+        \item $\Omega$ is a finite set; and 
+        \item $\Pr: \Omega \to [0,1]$
+    \end{enumerate} 
+    such that $\sum_{\omega \in \Omega} \Pr[\omega] = 1$.
+\end{definition}
+
+\begin{remark}
+    As $\Pr$ is a function, it is instinctive to use the notation $\Pr(w)$; however, it is commonplace to use square brackets instead: $\Pr[w]$.
+\end{remark}
+
+\begin{lemma}[Law of total probability]
+    Let $(\Omega, \Pr)$ be a finite discrete probability space, $A \subset \Omega$ be an event, and $\mathcal B = \{B_i\}_{i=1}^n$ be a disjoint partition of $\Omega$. Then
+    \[ \Pr[A] = \sum_{B \in \mathcal B} \Pr[A \cap B]. \]
+\end{lemma}
+
+
+\begin{definition}[Events]
+    Let $(\Omega, \Pr)$ be a finite discrete probability space.
+    \begin{enumerate}
+        \item An \emph{event} $A$ is a subset of $\Omega$; that is, $A \subset \Omega$. Define
+        \[ \Pr[A] := \sum_{\omega \in A} \Pr[w]. \]
+        \item Let $A \subset \Omega$ be an event. The \emph{complement} of $A$, denoted by $\overline A$, is the event $\Omega \setminus A$. 
+        \item Let $A, B \subset \Omega$ be two events. $A$ and $B$ are \emph{independent} if
+        \[ \Pr[A \cap B] := \Pr[A] \cdot \Pr[B]. \]
+        \item Let $A, B \subset \Omega$ be two events. The \emph{conditional probability of $A$ given $B$}, denoted by $\Pr[A \mid B]$, is
+        \[ \Pr[A \mid B] := \frac{\Pr[A \cap B]}{\Pr[B]} \]
+        given $\Pr(B) > 0$. 
+    \end{enumerate}
+\end{definition}
+
+\begin{proposition}
+    Let $(\Omega, \Pr)$ be a finite discrete probability space and $A, B \subset \Omega$ be independent events with $\Pr[B] > 0$. Then
+    \[ \Pr[A \mid B] = \Pr[A]. \]
+\end{proposition}
+
+\begin{definition}[Random variable]
+    Let $(\Omega, \Pr)$ be a finite discrete probability space. A \emph{random variable} $X$ on $(\Omega, \Pr)$ is a function $X: \Omega \to \R$.
+\end{definition}
+
+\begin{remark}
+    We will abuse notation here, and define
+    \[ (X = x) := \{w \in \Omega: X(\omega) = x\}. \]
+    For $\geq$, we use similar notation:
+    \[ (X \geq x) := \{w \in \Omega: X(\omega) \geq x\} \]
+    and similar for $>$, $\leq$, and $<$. 
+\end{remark}
+
+\begin{definition}[Independent random variables]
+    Let $(\Omega, \Pr)$ be a finite discrete probability space with random variables $X$ and $Y$. $X$ and $Y$ are \emph{independent} if for all $x, y \in \R$, the events $\{X \leq x\}$ and $\{Y \leq y\}$ are independent. 
+\end{definition}
+
+\begin{definition}[Bernoulli process]
+    Let $(\Omega, \Pr)$ be a finite discrete probability space. A \emph{Bernoulli process} is a (possibly finite) sequence of independent random variables $\{X_i\}_{i=1}^\infty$ such that
+    \begin{enumerate}
+        \item for all $i \in \N$, $X_i \in \{0,1\}$; and
+        \item $\Pr[X_i = 1] = \Pr[X_j = 1]$ for all $i,j \in \N$.
+    \end{enumerate} 
+\end{definition}
+
+\begin{definition}[Expectation]
+    Let $(\Omega, \Pr)$ be a finite discrete probability space with random variable $X$. The \emph{expected value} (or \emph{expectation}) of $X$ is
+    \[ \E[X] := \sum_{x \in \im X} x \cdot \Pr(X = x). \]
+\end{definition}
+
+\begin{remark}
+    We may get lazy and drop the $\im X$ from formulas; for example, we may write    
+    \[ \E[X] = \sum_{x} x \cdot \Pr(X = x). \]
+\end{remark}
+
+\begin{lemma}
+    Expectation is linear.
+\end{lemma}
+
+\begin{definition}[Conditional expectance on an event]
+    Let $(\Omega, \Pr)$ be a finite discrete probability space with random variable $X$ and event $A \subset \Omega$. The \emph{conditional expected value} of $X$ given $A$ is
+    \[ \E[X \mid A] := \sum_{x} x \cdot \Pr[X = x \mid A]. \]
+\end{definition}
+
+\begin{proposition}
+    Let $(\Omega, \Pr)$ be a finite discrete probability space with random variables $X$ and $Y$. Then 
+    \[ \E[X] = \sum_y \E[X \mid Y = y] \cdot \Pr[Y = y]. \]
+\end{proposition}
+
+\begin{definition}[Conditional expectance]
+    Let $(\Omega, \Pr)$ be a finite discrete probability space with random variables $X$ and $Y$. The \emph{conditional expected value} of $X$ given $Y$, denoted by $\E[X \mid Y]$, is the function
+    \begin{align*}
+        f: \im Y &\mapsto \R, \\
+        y &\mapsto \E[X \mid Y = y].
+    \end{align*}
+\end{definition}
+
+\begin{proposition}[Law of iterated expectation]
+    Let $(\Omega, \Pr)$ be a finite discrete probability space with random variables $X$ and $Y$. Then
+    \[ \E[X] = \E[\E[X \mid Y]]. \]
+\end{proposition}
+
+\begin{definition}[Variance]
+    Let $(\Omega, \Pr)$ be a finite discrete probability space with random variable $X$. The \emph{variance} of $X$ is
+    \[ \Var[X] := \E[(X - \E[X])^2]. \]
+\end{definition}
+
+\begin{proposition}
+    Let $(\Omega, \Pr)$ be a finite discrete probability space with random variable $X$. Then 
+    \[ \Var[X] = \E[X^2] - (\E[X])^2. \]
+\end{proposition}
+
+\begin{definition}[Covariance]
+    Let $(\Omega, \Pr)$ be a finite discrete probability space with random variables $X$ and $Y$. The \emph{covariance} of $X$ and $Y$ is
+    \[ \Cov[X] := \E[XY] - \E[X] \cdot \E[Y]. \]
+\end{definition}
+
+\begin{proposition}
+    Let $(\Omega, \Pr)$ be a finite discrete probability space with independent random variables $X$ and $Y$. Then $\Cov[X, Y] = 0$.
+\end{proposition}
+
+\begin{proposition}
+    Let $(\Omega, \Pr)$ be a finite discrete probability space with random variables $X$ and $Y$ and $a, b \in \R$. Then
+    \[ \Var[aX+bY] = a^2 \Var[X] + b^2 \Var[Y] + 2ab\Cov[X,Y]. \]
+\end{proposition}
+
+This is all the basic theory that we need.
+
+\subsection{Inequalities}
+
+\begin{theorem}[Union bound]
+    Let $(\Omega, \Pr)$ be a finite discrete probability space and $\{A_n\}_{n=1}^\infty$ be a collection of events. Then
+    \[ \Pr\left[\bigcup_{n=1}^\infty A_n\right] \leq \sum_{i=1}^\infty \Pr[A_n]. \]
+\end{theorem}
+
+
+\begin{theorem}[Markov's inequality]
+    Let $(\Omega, \Pr)$ be a finite discrete probability space with random variable $X: \Omega \to \R_{\geq 0}$ and $\alpha \in \R_{\geq 0}$. Then
+    \[ \Pr[X \geq \alpha] \leq \frac{\E[X]}{\alpha}. \]
+\end{theorem}
+
+\begin{theorem}[Jensen's inequality]
+    Let $(\Omega, \Pr)$ be a finite discrete probability space with random variable $X$ and $f: \R \to \R$ be a function. Then
+    \begin{enumerate}
+        \item if $f$ is convex, then $f(\E[X]) \leq \E[f(X)]$; and
+        \item if $f$ is concave, then $f(\E[X]) \geq \E[f(X)]$.
+    \end{enumerate}
+\end{theorem}
+
+\begin{theorem}[Chebyshev's inequality]
+    Let $(\Omega, \Pr)$ be a finite discrete probability space with random variable $X$ and $\alpha \in \R_{\geq 0}$. Then
+    \[ 
+        \Pr\left[\left\lvert X - \E[X] \right\rvert \geq \alpha\right] \leq \frac{1}{\alpha^2} \Var[X].    
+    \]
+\end{theorem}
+
+\begin{theorem}[Generic Chernoff bound (multiplicative form)]
+    Let $(\Omega, \Pr)$ be a finite discrete probability space with independent random variables $\{X_i\}_{i=1}^n$ taking values in $\{0,1\}$. Let $X = \sum_{i=1}^n X_i$ be their sum and $\delta \geq 0$. Then
+    \[ \Pr[X \geq (1 + \delta)\E[X]] \leq \left( \frac{e^{\delta}}{(1+\delta)^{1 + \delta}} \right)^{\E[X]}. \]
+\end{theorem}
+
+The following is a similar bound to the above for random variables that do not take variables in $\{0,1\}$. 
+
+\begin{theorem}[Hoeffding's inequality]
+    Let $(\Omega, \Pr)$ be a finite discrete probability space with independent random variables $\{X_i\}_{i=1}^n$ such that for all $i \in \{1, \ldots, n\}$, $\lvert X_i \rvert \leq c_i$ for some $c_i \in \R_{\geq 0}$. Then for all $t > 0$,
+    \[ \Pr\left[\sum_{i=1}^n X_i \geq t\right] \leq \exp\left(\frac{-t^2}{2\sum_{i=1}^n c_i^2}\right). \]
+\end{theorem}
+
+The following is again a similar bound to the above for dependent random variables.
+
+\begin{theorem}
+    Let $(\Omega, \Pr)$ be a finite discrete probability space with independent random variables $\{X_i\}_{i=1}^n$ where there exists $a, b \in \R$ such that $a \leq X_i \leq b$ for all $i \in \{1, \ldots, n\}$. Then for all $\delta > 0$,
+    \[\Pr[X \geq (1 + \delta)\E[X]] \leq \exp\left(\frac{-2\delta^2\E[X]^2}{n(b-a)^2}\right). \]
+\end{theorem}

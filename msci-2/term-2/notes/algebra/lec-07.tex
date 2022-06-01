@@ -1,0 +1,223 @@
+\lecture{7}{4/2}
+
+\begin{example}
+    Find all subgroups of $S_3$.
+\end{example}
+
+\begin{solution}
+    We have $\lvert S_3 \rvert = 6$; hence,
+    if $H \subset S_3$ is a subgroup then
+    $\lvert H \rvert \in \{1,2,3,6\}$.
+    \begin{description}
+        \item[$\lvert H \rvert = 1$]
+            This must be the trivial subgroup: $\{1\} \subset S_3$.
+
+        \item[$\lvert H \rvert = 2$]
+            We must have $H = \{1,x\}$ where $x\in S_3$ has order $2$.
+            Thus $x$ must have a representation as a product of disjoint
+            transpositions; however, as we are in $S_3$ we cannot have
+            a product of more than $1$ transpositions. Hence
+            \[
+                x \in \{(1\;2), (1\;3), (2\;3)\}.
+            \]
+        
+        \item[$\lvert H \rvert = 3$]
+            We must have $H = \{1, x, x^2\}$ where $x \in S_3$ has order $3$.
+            Here the only two distinct $x$ are $(1\;2\;3)$ and $(1\;3\;2)$,
+            but $(1\;2\;3)^2 = (1\;3\;2)$ so we have one subgroup.
+            
+        \item[$\lvert H \rvert = 3$] $H = S_3$.
+    \end{description}
+    Hence we get the following subgroup structure for $S_3$.
+    \begin{center}
+        \begin{tikzpicture}
+            % NODES
+            %% TOP NODE
+            \node (S3)     {$S_3$};
+            %% MIDDLE ROW NODES
+            \node (12) [below left = 0.5cm and 1.5cm of S3]  
+                {$\langle (1\;2) \rangle$};
+            \node (13) [below left = 0.5cm and 0cm of S3]
+                {$\langle (1\;3) \rangle$};
+            \node (23) [below right = 0.5cm and 0cm of S3]
+                {$\langle (2\;3) \rangle$};
+            \node (123) [below right = 0.5cm and 1.5cm of S3] 
+                {$\langle (1\;2\;3) \rangle$};
+            %% BOTTOM NODE
+            \node (1) [below = 1.5cm of S3] {$\{1\}$};
+            % EDGES
+            %% TOP TO MIDDLE
+            \draw (S3) -- (12);
+            \draw (S3) -- (13);
+            \draw (S3) -- (23);
+            \draw (S3) -- (123);
+            %% MIDDLE TO BOTTOM
+            \draw (12) -- (1);
+            \draw (13) -- (1);
+            \draw (23) -- (1);
+            \draw (123) -- (1);
+        \end{tikzpicture}
+    \end{center}
+\end{solution}
+
+\section{An application to number theory}
+
+An application of Lagrange's theorem (and some ring theory) is 
+the \emph{Fermat-Euler} theorem.
+We must define $\varphi(n)$ first, however.
+
+\begin{definition}[Euler's totient function]
+    \textbf{Euler's totient function} $\varphi(n): \N \to \N$
+    is the number of positive integers up to $n$ that are coprime to $n$.
+\end{definition}
+
+\begin{theorem}[Fermat-Euler]
+    Let $a,n \in \N$ be coprime, then
+    \[
+        a^{\varphi(n)} \equiv 1 \pmod n.
+    \]
+\end{theorem}
+
+\begin{proof}
+    We have 
+    \[
+        a^{\varphi(n)} \equiv 1 \pmod n
+        \iff a^{\varphi(n)} - 1 \in n\Z
+        \iff \overline{a^{\varphi(n)}} = \overline 1 \qquad \text{in}\; 
+        (\Z/n)^\times.
+    \]
+    From last term we have
+    \[
+        \left\lvert (\Z/n)^\times \right\rvert = \varphi(n)
+    \]
+    By Lagrange's theorem we have that 
+    $\lvert \overline a \rvert$
+    divides
+    $\varphi(n)$.
+    Thus $\ord(\overline a)m = \varphi(n)$ for some $m \in \Z$.
+    Therefore
+    \[
+        \overline a^{\varphi(n)}
+        = ((\overline a)^{\ord(\overline a)})^m
+        = (\overline 1)^m
+        = \overline 1.
+    \]
+\end{proof}
+
+\chapter{Homomorphisms and isomorphisms}
+
+This content will be very familiar from the definitions for rings.
+
+\begin{definition}[Homomorphism]
+    Let $G$ and $H$ be groups.
+    A \textbf{homomorphism} $\varphi: G \to H$ is a function
+    such that
+    \[
+        \varphi(xy) = \varphi(x)\varphi(y)
+    \]
+    for all $x, y\in G$.
+\end{definition}
+
+If a homomorphism $\varphi: G \to H$ is bijective, it is an \textbf{isomorphism}.
+We denote $G \cong H$.
+
+\begin{remark}
+    A point on notation: in the definition for a homomorphism we are using the
+    binary operation in $G$ for $xy$ and the binary operation in $H$ for
+    $\varphi(x)\varphi(y)$.
+    These are not necessarily the same.
+\end{remark}
+
+\begin{example}
+    Any group of order $2$ is isomorphic to $\Z/2$.
+    To show that, we consider the group $\{e, x\}$ where $e$
+    is the identity and $x \neq e$.
+    If we define the function
+    $e \mapsto \overline 0$
+    and
+    $x \mapsto \overline 1$
+    we see that it is indeed an isomorphism, so $\{e, x\} \cong \Z/2$.
+\end{example}
+
+\begin{example}
+    Similarly to the last example, any group of order $3$ is
+    isomorphic to $\Z/3$.
+    To see this, take the group $\{e,x,y\}$ with $e$ identity.
+    It is clear to see that $xy = e$ as if $xy = x$ then $y = 1$ and
+    if $xy = y$ then $x = 1$.
+    Furthermore, we have that $x^2 = y$ as if $x^2 = 1$ then
+    $x^2y = y$, but $x^2y = x(xy) = x = y$; a contradiction.
+    Similarly $y^2 = x$.
+    We define the map $\varphi:\{e,x,y\} \to \Z/3$ by
+    \[
+        e \mapsto \overline 0, \qquad x \mapsto \overline 1,
+        \qquad y \mapsto \overline 2.
+    \]
+    It is trivial to see that this is an isomorphism.
+\end{example}
+
+\begin{example}
+    We can relate $D_n$ to $\Z/n$ by defining the homomorphism 
+    \[
+        \varphi: D_n \to \Z/2, \qquad \varphi(r^is^j) = \overline j \pmod 2.
+    \]
+    To confirm this, we just need to check that
+    \[
+        \varphi(xy) = \varphi(x) + \varphi(y)
+    \]
+    for all $x,y \in D_n$ 
+    (don't be confused by the notation, we use the additive notation for
+    $\Z/2$ but the multiplicative notation for $D_n$ as usual):
+    \begin{align*}
+        \varphi(r^as^b\cdot r^cs^d)
+        &= \varphi(r^as^br^c(s^bs^b)s^d)
+        = \varphi(r^{a-c}s^{b+d})
+        = \overline{b + d} \\
+        \varphi(r^as^b)\varphi(r^cs^d)
+        &= \overline b + \overline d
+        = \overline{b + d}.
+    \end{align*}
+\end{example}
+
+\begin{example}
+    Prove that the map
+    \[
+        \varphi: \Z/6 \to S_3, \qquad \varphi(\overline a) = (1\;2\;3)^a
+    \]
+    is a homomorphism.
+\end{example}
+
+\begin{solution}
+    First, we must show that $\varphi$ is well-defined.
+    That is,
+    if 
+    $\overline a = \overline b$
+    then
+    $\varphi(\overline a) = \varphi(\overline b)$.
+    If 
+    $\overline a = \overline b$ 
+    then
+    $a - b = 6m$
+    for some $m \in \Z$.
+    So
+    \[
+        \phi(\overline a)
+        = (1\;2\;3)^{\overline a}
+        = (1\;2\;3)^{b + 6m}
+        = (1\;2\;3)^b((1\;2\;3)^{3})^{2m}
+        = (1\;2\;3)^b
+        = \varphi(\overline b)
+    \]
+    as a $3$-cycle has order $3$.
+    So we have shown that $\varphi$ is well-defined,
+    now we must show that it is a homomorphism:
+    \[
+        \varphi(\overline a + \overline b)
+        = (1\;2\;3)^{a+b}
+        = (1\;2\;3)^a(1\;2\;3)^b
+        = \varphi(\overline a)\varphi(\overline b).
+    \]
+\end{solution}
+
+We define the \textbf{kernel} and \textbf{image} of a homomorphism
+identically to how we did last term in ring theory.

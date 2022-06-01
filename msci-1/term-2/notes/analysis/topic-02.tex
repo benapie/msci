@@ -1,0 +1,67 @@
+\chapter{Infinite series}
+
+\section{Fundamental notions and properties}
+
+\begin{definition}
+    Let $(a_k)$ be a sequence of real numbers. Then define $(s_n)$ as \[ s_n = \sum_{k = 0}^n a_k = a_0 + a_1 + \ldots + a_{n - 1} + a_{n}, \] this is called a \textbf{series}. The terms of $s_n$ are called the \textbf{partial sums} of $(a_k)$. If the sequence of partial sums is convergent, then we say the series $\sum_{k = 0}^\infty a_k$ is \textbf{convergent} and we write \[ \sum_{k = 0}^\infty = \lim_{n \to \infty} s_n; \] otherwise we say that the series is \textbf{divergent}.
+\end{definition}
+
+\begin{example}[Geometric series]
+    Consider $a_k = q^k$ for some $q \in \mathbb R$. It is known that \[ s_n = \sum_{k = 0}^n a_k =\frac{1 + q^{n + 1}}{1 - q} \] for $q \neq 1$ (this can be proved with induction), wwhich describes $s_n$ by an explicit formula. See that if $\abs{q} < 1$ then \[ \lim_{n \to \infty} s_n = \lim_{n \to \infty} \left( \frac{1 - q^{n + 1}}{1 - q} \right) = \frac{1}{1 - q} = \sum_{k = 0}^\infty q^k. \] If $\abs{q} \geq 1$, it is unbounded.
+\end{example}
+
+\begin{remark}
+    \begin{enumerate}
+        \item We can reparametrise a sequence a sequence by setting $b_k = a_{k - N}$ \[ \sum_{k = 0}^\infty a_k = \sum_{k = N}^\infty b_k. \]
+        \item Any number of finite are unimportant in an infinite series: \[ \sum_{k = 0}^\infty a_k = \sum_{k = 0}^{N - 1} a_k + \sum_{k = N}^\infty a_k; \] thus, \[ \sum_{k = 0}^\infty \; \text{converges} \iff \sum_{k = N}^\infty \; \text{converges}. \]
+        \item The geometric series is an exception in the sense that we can easily compute its value, this is not normally the case (unfortunately). In fact, we will struggle to simple answer whether an infinite series converges.
+    \end{enumerate}
+\end{remark}
+
+\begin{lemma}
+    If $\sum_{k = 0}^\infty a_k$ converges, then $\lim_{n \to \infty} a_k = 0$.
+\end{lemma}
+
+\begin{proof}
+    Let $s_n = sum_{k = 0}^n a_k$. Since the series is  convergent we have $s_n \to s^\star$. Note that $a_k = s_k - s_{k - 1}$. So \[ \lim_{k \to \infty} a_k = \lim_{k \to \infty} (s_k - s_{k - 1}) = s^\star - s^\star = 0. \tag{COLT} \]
+\end{proof}
+
+\begin{example}
+    The \textbf{harmonic series} is given by \[ \sum_{k = 1}^\infty a_k \] with $a_k = \frac1k$; hence $a_k \to 0$ as $k \to \infty$; however, $\sum_{k = 1}^\infty a_k$ is divergent. To prove this, consider the following:
+    \begin{align*}
+        s_1 &= 1 \\
+        s_2 &= s_1 + \frac12 \\
+        s_4 &= s_2 + \frac13 + \frac14 \geq s_2 + 2 \cdot \frac14 = s_2 + \frac12 \geq 1 + 1 \\
+        s_8 &= s_4 + \frac15 + \ldots + \frac18 \geq s_4 + 4 \cdot \frac18 = s_4 + \frac12 \geq 1 + \frac32 \\
+        s_{16} &= s_8 + \frac19 + \ldots + \frac1{16} \geq s_8 + 8 \cdot \frac1{16} = s_8 + \frac12 \geq 1 + 2 \\
+        s_{2^n} &= s_{2^{n - 1}} + \frac{1}{2^{n - 1} + 1} + \ldots + \frac{1}{2^n} \geq s_{2^{n-1}} + 2^{n - 1} \cdot \frac{1}{2^n} = s_{2^{n-1}} + \frac12
+    \end{align*}
+    and hence by induction \[ s_{2^n} \geq 1 + \frac n2 \] and hence the harmonic series is divergent.
+\end{example}
+
+\begin{theorem}[COLT for series]
+    Assume the infinite series $\sum_{k = 0}^\infty a_k$ and $\sum_{k = 0}^\infty b_k$ both converge with limits $a$ and $b$ respectively. Let $c \in \mathbb R$, then
+    \begin{enumerate}
+        \item $\sum_{k = 0}^\infty (a_k + b_k)$ is convergent with limit $a + b$;
+        \item $\sum_{k = 0}^\infty c \cdot a_k$ is convergent with limit $c \cdot a$; and
+        \item if $a_k \leq b_k$ for all $k$, then $a \leq b$.
+    \end{enumerate}
+\end{theorem}
+
+\section{Convergence tests}
+
+\begin{theorem}[Comparison tests]
+    Assume $0 \leq a_k \leq b_k$ for all $k \in \mathbb N$. Then \begin{enumerate}
+        \item if $\sum_{k = 0}^\infty b_k$ is convergent with limit $b$, then $\sum_{k = 0}^\infty a_k$ is also convergent with limit $a \leq b$, and
+        \item if $\sum_{k = 0}^\infty a_k$ is divergent then so is $\sum_{k = 0}^\infty b_k$.
+    \end{enumerate}
+    This theorem is \emph{similar} to the squeeze theorem, but for series.
+\end{theorem}
+
+\begin{proof}
+    We know that both $\sum_{k = 0}^\infty a_k$ and $\sum_{k = 0}^\infty b_k$ are monotone increasing and bounded above by $b$; therefore, $\sum_{k = 0}^\infty a_k$ must be convergent to a number $a$ such that $a \leq b$ by a previopus theorem. The statement on the divergence comes via the contrapositive.
+\end{proof}
+
+\begin{theorem}[Integral test]
+    Let $f : [N, \infty] \to [0, \infty)$ be monotone decreasing function. Set $a_k = f(k)$ and \[ F_k = \int_N^k f(x) \, dx \] for all $k \in \mathbb N$. Then $\sum_{k = 0}^\infty a_k$ is convergent if, and only if, the sequence $(F_k)$ is convergent. Or, \[ \sum_{k = 0}^\infty a_k \; \text{converges} \iff \int_N^\infty f(x) \, dx \; \text{converges}. \] We also have \[ \int_N^\infty f(x) \, dx \leq \sum_{k = N}^\infty f(k) \leq f(N) + \int_N^\infty f(x) \, dx. \]
+\end{theorem}

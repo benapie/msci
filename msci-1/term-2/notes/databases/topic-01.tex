@@ -1,0 +1,93 @@
+\chapter{Introduction}
+
+\begin{definition}[Database]
+    A \textbf{database} is a collection of logically related data, designed to meet the needs of an organisation.
+\end{definition}
+
+A database is a single repository of data, which may be shared by many users. All data is integrated with minimum amount of duplication and in larger databases we may have a data dictionary to store metadata about the data.
+
+\begin{definition}[Database management system]
+    A \textbf{database management system} (DBMS) is a system software that allows users to define, create, maintain, and control the access to the database. DBMS have two basic features:
+    
+    \begin{enumerate}
+        \item data definition language (DDL), this allows users to define the database (specify data types, the structure, and constraints on the data);
+        
+        \item data manipulation language (DML), this allows users to insert, update, delete, and retrieve the data from the database.
+    \end{enumerate}
+\end{definition}
+
+A DBMS offers \textbf{controlled access} to the database, such that
+
+\begin{enumerate}
+    \item the system is secure by preventing any unauthorised access;
+    
+    \item allows concurrency of use such that multiple users can access the database at once; and
+    
+    \item recovery control, in the event of data loss are malicious attack data can be rolled back.
+\end{enumerate}
+
+\begin{definition}[Database application program]
+    A \textbf{database application program} is a computer program that interacts with the user and the DBMS.
+\end{definition}
+
+\begin{example}
+    Structured query language (SQL) is a common DDL and DML that is used by database application program to communicate with the DBMS.
+\end{example}
+
+\begin{definition}[Components of a DBMS environment]
+    Following are components you may find in a DBMS environment.
+    
+    \begin{enumerate}
+        \item Hardware, can range from a PC to a network of computers.
+        
+        \item Software, database management system, operating system, network software, and also the application programs. 
+        
+        \item Data, the data used by the organisation and an abstract description of this data called the \textbf{schema} of the database.
+        
+        \item Procedures, documented instructions on how to use and run the system.
+        
+        \item People, the people involved with the system in any way.
+    \end{enumerate}
+\end{definition}
+
+\begin{definition}[Roles in a DBMS environment]
+    There are a number of roles that people may take in database management system environment:
+    \begin{enumerate}
+        \item database designers, which can be split into
+        \begin{enumerate}
+            \item logical designers, they consider what data to store;
+            \item physical designers, they consider how the data is stored;
+        \end{enumerate}
+        \item database administrator, they maintain the database and overview the security and integrity of the database;
+        \item application developers; and
+        \item end users.
+    \end{enumerate}
+\end{definition}
+
+Advantages of databases:
+\begin{multicols}{2}
+    \begin{enumerate}
+        \item allows the sharing of data;
+        \item control of redundancy;
+        \item data consistency;
+        \item data security and integrity;
+        \item faster development of new applications;
+        \item better data accessibility;
+        \item economy of scale;
+        \item control of concurrency; and
+        \item better backup and recovery procedures.
+    \end{enumerate}
+\end{multicols}
+
+Disadvantages of databases:
+\begin{multicols}{2}
+    \begin{enumerate}
+        \item complexity and size of the system;
+        \item higher cost of implementation of the DBMS;
+        \item additional hardware cost;
+        \item slower processing of some applications; and
+        \item higher impact of a failure.
+    \end{enumerate}
+\end{multicols}
+
+

@@ -1,0 +1,202 @@
+%! TEX root = master.tex
+\lecture{15}{11/11}
+
+\section{Connectedness}
+
+\begin{definition}[Clopen]
+	If $X$ is a topological space then we say $A \subset X$ is \emph{clopen}
+	if it is open and closed.
+\end{definition}
+
+For any space $X$, clearly $X$ and $\varnothing$ are clopen.
+
+\begin{definition}[Connected]
+	A topological space $X$ is called \emph{connected} if the only clopen
+	subsets of $X$ is $X$ and $\varnothing$.
+\end{definition}
+
+\begin{problem}
+	Show that $\R$ is connected.
+\end{problem}
+
+\begin{solution}
+	Suppose $U \subset \R$ is clopen and $U \not\in \left\{
+		\varnothing, \R
+	\right\}$.
+	Then $V = \R \setminus U$ is also clopen.
+	Let $x \in U$ and $y \in V$.
+	Without loss of generality, assume $x < y$.
+	Define
+	\[
+		A = \left\{
+			a \in [x, \infty):
+			[x,a] \subset U
+		\right\}.
+	\]
+	Clearly $x \in A$.
+	If $a \in A$, then $a < y$.
+	Let $s = \sup A$ and suppose $s \in U$.
+	Then as $U$ is open there is $\varepsilon > 0$ such that
+	$(s - \varepsilon, s + \varepsilon) \subset U$.
+	Now $[x,s] \subset U$ and so $[x, s + \sfrac12 \varepsilon] \subset U$.
+	Hence $s$ is not a supremum; and so $s \not\in U$.
+	So $s \in V$.
+	As $V$ is also open, there is $\varepsilon > 0$ such that
+	$(s - \varepsilon, s + \varepsilon) \subset V$.
+	So $(s - \varepsilon, s + \varepsilon) \not\subset U$,
+	but then $s$ is also not a supremum.
+	Hence no such $U$ and $V$ exist
+	and so $\R$ and $\varnothing$ are the only clopen sets in $\R$.
+	Therefore, $\R$ is connected.
+\end{solution}
+
+\begin{problem}
+	Show that $\Q$ is not connected.
+\end{problem}
+
+\begin{solution}
+	Observe that
+	\[
+		\Q = (\Q \cap (-\infty, \sqrt 2)) \cup (\Q \cap (\sqrt 2, \infty)).
+	\]
+	Now, both $\Q \cap (-\infty, \sqrt 2)$ and $\Q \cap (\sqrt 2, \infty)$
+	are clopen and so $\Q$ is not connected.
+\end{solution}
+
+\begin{problem}
+	Show that the connected subsets of $\R$ are the intervals.
+\end{problem}
+
+\begin{solution}
+	Suppose $A \subset \R$ is connected.
+	Let $x,y \in A$ and $z \in \R \setminus A$ with 
+	$x < z < y$.
+	Then
+	\[
+		A = \left( 
+			(-\infty, z) \cap A 
+		\right) \cup \left( 
+			(z,\infty) \cap A 
+		\right)
+	\]
+	which is the union of 2 clopen sets. 
+	Hence $[x,y] \subset A$.
+\end{solution}
+
+\begin{problem}
+	Consider $X = \left\{
+		0,1
+	\right\}$ with the discrete topology.
+	Show that $X$ is not connected.
+\end{problem}
+
+\begin{solution}
+	Observe that $\left\{
+		0
+	\right\}$ is clopen.
+\end{solution}
+
+\begin{problem}
+	Show that the Furstenberg topology on $\Z$ is not connected.
+\end{problem}
+
+\begin{solution}
+	Observe that $
+		\Z = (2\Z) \cup (1 + 2\Z)
+	$.
+\end{solution}
+
+\begin{theorem}[]
+	The continuous image of a connected space is connected.
+\end{theorem}
+
+\begin{proof}
+	Let $h: X \to Y$ be continuous and $X$ be a connected space.
+	Suppose $A \subset h(X)$ is clopen, and so
+	$A$ and $A' = h(X) \setminus A$ are open in $h(X)$.
+	Let $U, U' \subset Y$ be open in $Y$ such that $A = U \cap h(X)$
+	and $A' = U' \cap h(X)$.
+	As $A \cup A' = h(X)$ we have
+	\[
+		X = h^{-1}(A \cup A')
+		= h^{-1}(A) \cup h^{-1}(A')
+		= h^{-1}(U) \cup h^{-1}(U').
+	\]
+	As $X$ is connected either $X = h^{-1}(U)$ or $X = h^{-1}(U')$.
+	Hence $X = h^{-1}(A)$ or $X = h^{-1}(A')$.
+	Thus $A = h(X)$ or $A' = h(X)$.
+	That is, $A = \varnothing$.
+	Hence the only clopen sets are $h(X)$ and $\varnothing$.
+\end{proof}
+
+\begin{proposition}[]
+	Let $X$ be a topological space.
+	Then the following are equivalent.
+	\begin{enumerate}
+		\item $X$ is connected.
+		\item $X$ cannot be written as the disjoint union of two non-empty open
+			sets.
+		\item There is no continuous surjective function from $X$ to
+			a discrete space with more than one point.
+	\end{enumerate}
+\end{proposition}
+
+\begin{solution}
+	$(i) \iff (ii)$: if $X$ is connected and
+	$X = A \cup ( X \setminus A)$ where $A$ and $X \setminus A$ are open, then
+	$A$ is clopen.
+	$(i) \implies (iii)$: let $Y$ be a discrete space with more than one point.
+	Observe that $Y$ is not connected. 
+	If $h: X \to Y$ is surjective and continuous then $h(X) = Y$.
+	So $X$ is unconnected.
+	$(iii) \implies (ii)$: suppose $X = U \cup V$, where $U$ and $V$ are open
+	disjoint and non-empty.
+	Then define $f: X \to \left\{
+		0,1
+	\right\}$
+	as
+	\[
+		f(p) =
+		\begin{cases}
+			0 & x \in U, \\
+			1 & x \in V.
+		\end{cases}
+	\]
+	Oberse that $f$ is surjective and continuous (by contrapositive).
+\end{solution}
+
+\begin{examples}[]
+	\begin{enumerate}
+		\item Consider $\det: \operatorname{GL}_n(\R) \to \R \setminus \left\{
+			0
+		\right\}$.
+		$\det$ is continuous, surjective, and $\R \setminus \left\{
+			0
+		\right\}$ is unconnected.
+		Therefore $\operatorname{GL}_n(\R)$ is unconnected.
+		
+		\item $O(n)$ is not connected by similar reasoning to $(i)$.
+
+		\item $(0,1)$ is connected as we have the function
+			\[
+				\tan^{-1} \circ \left( 
+					x \mapsto \frac{x + \sfrac{\pi}2}{\pi}  
+				\right)
+			\]
+			which is surjective and continuous 
+			(and of course $\R$ is connected).
+
+		\item Let $X = (0,1)$ and $Y = (0,1]$.
+			Observe that 
+			\[
+				X \setminus \left\{
+					p
+				\right\} =
+				(0,p) \cup (p,1)
+			\]
+			is disconnected but $Y \setminus \left\{
+				1
+			\right\} = (0,1)$ hence $(0,1)$ and $(0,1]$
+			are not homeomorphic.
+	\end{enumerate}
+\end{examples}

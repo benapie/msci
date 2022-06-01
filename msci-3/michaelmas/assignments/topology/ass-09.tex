@@ -1,0 +1,93 @@
+\documentclass[a4paper, answers]{exam}
+\input{../preamble.tex}
+
+\begin{document}
+
+\begin{center}
+	\textbf{\textsc{Topology III, Assignment 9}}
+	\\
+	\textsc{Ben Napier}
+	\vspace{1em}
+\end{center}
+
+\begin{questions}
+	\question
+	In this question we shall show that $\operatorname{SO}(n)$ is connected
+	by induction.
+
+	Recall that in lectures we have that if a connected topological group $G$
+	acts on a space $X$ such that $X/G$ is connected then $X$ is connected.
+	\begin{parts}
+		\part
+		Let $n \geq 0$.
+		Show that inclusion of spaces 
+		$
+			i: \operatorname{SO}(n) 
+			\xhookrightarrow{} \operatorname{SO}(n+1)
+		$
+		given by
+		\[
+			i(A) = \begin{pmatrix}
+				1 & 0 \\ 0 & A
+			\end{pmatrix}
+		\]
+		includes $\operatorname{SO}(n)$ as a subgroup of
+		$\operatorname{SO}(n+1)$.
+
+		\part
+		Thinking of $\operatorname{SO}(n)$ as a subgroup, we let
+		$\operatorname{SO}(n)$ acts of $\operatorname{SO}(n+1)$
+		by left multiplication $A \cdot B = i(A)B$ for all
+		$A \in \operatorname{SO}(n)$, $B \in \operatorname{SO}(n+1)$.
+		Suppose $v \in S^n \subset \R^{n+1}$ is a point on the unit
+		$n$-sphere expressed as a row vector and suppose that $C$ is an
+		$n \times (n + 1)$ matrix such that
+		$
+			\begin{pmatrix}
+				v \\ C
+			\end{pmatrix}
+			\in \operatorname{SO}(n+1)
+		$.
+		Show that the orbit of
+		$
+			\begin{pmatrix}
+				v \\ C
+			\end{pmatrix}
+		$
+		is given by
+		\[
+			\left\{
+				\begin{pmatrix}
+					v \\ D
+				\end{pmatrix}:
+				\begin{pmatrix}
+					v \\ D
+				\end{pmatrix}
+				\in \operatorname{SO}(n+1)
+			\right\}.
+		\]
+
+		\part
+		Hence or otherwise give a continuous bijective map
+		\[
+			\phi: \operatorname{SO}(n+1)/\operatorname{SO}(n)
+			\to S^n.
+		\]
+
+		\part Argue that $\phi$ is a homeomorphism.
+
+		\part Using the connectedness of $S^n$ for $n \geq 1$,
+		and the connectedness of $\operatorname{SO}(1)$
+		(which just consists of a single point),
+		give an induction showing that $\operatorname{SO}(n)$
+		is connected for all $n \geq 1$.
+	\end{parts}
+
+	\question
+	Let the group of $n \times n$ invertible matrices $\operatorname{GL}_n(\R)$
+	act in the usual way on $\R^n$ by left multiplication.
+	Show that $\R^n/\operatorname{GL}_n(\R)$ consists of two points,
+	and give the topology on this quotient space.
+\end{questions}
+
+\end{document}

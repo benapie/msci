@@ -1,0 +1,94 @@
+\pc{1}{28/1}
+
+\question Study \texttt{HelloTriangle.js} and answer the following questions.
+\begin{parts}
+    \part What has been done in the vertex shader?
+    \begin{solution}
+        The vertex shader program accepts a vertex but
+        does not apply any computation to it. 
+    \end{solution}
+
+    \part What has been done in the fragment shader?
+    \begin{solution}
+        The fragment shader does not accept any input and sets the
+        colour to the fragment to red.
+    \end{solution}
+
+    \part What is \texttt{a\_Position} in the main program?
+    \begin{solution}
+        \texttt{a\_Position} is a variable that is used in the vertex shader.
+    \end{solution}
+
+    \part How can you extend \texttt{HelloTriangle.js} to add another triangle
+    for rendering (display)?
+    \begin{solution}
+        To display another triangle, we can modify the
+        \texttt{vertices}
+        array to have double the amount of points specifying the second
+        triangle. 
+        Then we must return 6 instead of 3 from the \texttt{initVertexBuffers}
+        function so that it will render the other vertices.  
+    \end{solution}
+
+    \part Now, how do you expect to change if you want to render many triangles
+    in the program?
+    \begin{solution}
+        We could modify \texttt{initVertexBuffers} to take a parameter $n$
+        that represents the number of triangles to draw on screen.
+        All we need to modify is our \texttt{vertices} array.
+    \end{solution}
+\end{parts}
+
+\question Can you identify the main, vertex shader, and fragment shader
+programs in \texttt{p1-ColoredPoints.js} or \texttt{HelloTriangle.js}?
+\begin{solution}
+    The main program is the function \texttt{main}, 
+    the vertex shader is stored in the string
+    \texttt{VSHADER\_SOURCE},
+    and the fragment shader is stored in the string
+    \texttt{FSHADER\_SOURCE}.
+\end{solution}
+
+\question Can you identify which of the above three programs are run by the
+CPU or GPU?
+\begin{solution}
+    The main program is executed on the CPU and the shaders are executed
+    on the GPU.
+\end{solution}
+
+\question Which WebGL instruction invokes vertex and fragment shader programs?
+\begin{solution}
+    The function
+    \texttt{initShaders(gl, VSHADER\_SOURCE, FSHADER\_SOURCE)}
+    initialises the shaders for the program. 
+\end{solution}
+
+\question What are the purposes of \texttt{gl.bindBuffer()} and
+\texttt{gl.bufferData()}?
+\begin{solution}
+    These functions are used in
+    \texttt{HelloTriangle.js}
+    because there is data that is unchanging throughout the operation
+    of the program.
+    \texttt{gl.bindBuffer()}
+    gives us access to a bufferData and
+    \texttt{gl.bufferDate()}
+    pushes data to it.
+    In this case we are pushing the vertices of our triangle.
+    This allows us to access to data faster in operations as it
+    is never changing.
+    We do not use these functions in \texttt{p1-ColoredPoints.js}
+    as the data changes throughout operation (position of mouse)
+    and so would not be appropriate.
+\end{solution}
+
+\question What are the purposes of \texttt{gl.TRIANGLES} and
+\texttt{gl.POINTS} in \texttt{gl.drawArrays()}?
+\begin{solution}
+    These objects are called \emph{primitives}. 
+    It refers to the interpretation scheme used by OpenGL on astream of vertices.
+    \texttt{gl.POINTS} will draw each individual vertex with a given
+    point size.
+    \texttt{gl.TRIANGLES} will draw the first three vertices as a triangle, 
+    then the next three vertices as a different triangle, and so on.
+\end{solution}

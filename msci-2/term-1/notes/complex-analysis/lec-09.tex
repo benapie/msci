@@ -1,0 +1,95 @@
+\lecture{9}{30/10}
+
+\begin{definition}[Bounded set]
+    If $(X, d)$ is a metric space and $A \subset X$, we say that $A$ is bounded if there exists $x \in X$ and $R > 0$ such that
+    \[ A \subset B_R(x). \]
+\end{definition}
+
+\begin{lemma}[]
+    In a non-empty metric space $(X, d)$, all compact sets are bounded. 
+\end{lemma}
+
+\begin{proof}
+    Given a compact set $A \subset X$ (of a metric space $(X, d)$) assume that $A$ is not bounded. 
+    That is, for all $x \in X$ and $R > 0$ we have
+    \[ A \not \subset B_R(x). \]
+    So we pick $x \in X$ and we know that $A \not \subset B_n(x)$ for all $n \in \N$. 
+    Then we pick $x_n \in A \setminus B_n(x)$. If $x_{n_k}$ is a convergent subsequence of $x_n$ with limit $x_0$, then 
+    \[ d(x_{n_k}, x_0) \geq d(x_{n_k}) - d(x, x_0) \geq n_k - d(x, x_0) \to \infty. \]
+\end{proof}
+
+\begin{remark}
+    Recall the Bolzano-Weierstrass theorem...
+
+    A bounded sequence in $\R$ has a convergent subsequence. 
+
+    This implies that if $b > a$, $[a, b$ is compact.
+\end{remark}
+
+\begin{theorem}[Heine-Borel]
+    If $K \subset \R^n$, then $K$ is compact if and only if $K$ is closed and bounded.
+\end{theorem}
+
+remark  The above theorem is not trust in all metric spaces, \emph{but} the complex numbers are isometric to $\R^2$ with the Euclidean metric. That is...
+
+\begin{theorem}[Heine-Borel for $\C$]
+    $K \subset \C$ is compact if and only if $K$ is closed and bounded.
+\end{theorem}
+
+\begin{proof}
+    \begin{description}
+        \item[$\implies$] Above.
+        \item[$\impliedby$] We have that $K$ is closed and bounded and we want to tprove that it is compact. 
+            That is, given $\{z_n\}_{n = 1}^\infty \subset K$ with $z_n \to z_0$ that $z_0 \in K$. 
+            We write $z_n = x_n + iy_n$. 
+            Consider $\{x_n\}_{n = 1}^\infty$. 
+            Note that $z_n \in B_R(z_0)$ and so for some (other) $R$ $z_n \in B_R(0)$ as $K$ is bounded. 
+            This implies that for all $n$,
+            \[ \lvert x_n \'rvert \leq \lvert z_n 'rvert < R, \quad \lvert y_n \rvert \leq \lvert z_n \rvert < R. \]
+            By the Bolzano-Weierstrass thoerem, there exists a subsequence $\{ x_{n_k} \} \subset \{ x_n \}$ which is convergent. 
+            Note that $x_{n_{k_j}}$ still converges as it is a subsequence of a convergent sequence.
+            So
+            \[ z_{n_{k_j}} = x_{n_{k_j}} + iy_{n_{k_j}} \to z \]
+            as $j \to \infty$ where $z \in \C$.
+            As $z_{n_{k_j}} \in K$ and $K$ is closed, we have that $z \in K$ and hence $K$ is compact.
+            %todo another sketchy proof.
+    \end{description}
+\end{proof}
+
+\begin{example}
+    \begin{enumerate}
+        \item $\C$ is not compact as it is not bounded.
+        \item $S^2 = \R^3$ is compact.
+        \item The set of orthogonal and unitary matrices are both compact.
+    \end{enumerate}
+\end{example}
+
+\begin{lemma}[]
+    Let $(X_1, d_1)$ and $(X_2, d_2)$ be metric spaces. 
+    A function $f: X_1 \to X_2$ is continuous if and only if for every convergent sequence $\{x_n\} \subset X_1$ with limit $x$, we have
+    \[ f(x_n) \to f(x) \]
+    as $n \to \infty$.
+\end{lemma}
+
+\begin{theorem}[]
+    Let $(X_1, d_1)$ and $(X_2, d_2)$ be metric spaces.
+    Suppose $f$ is continuous and $K \subset X$ is compact. Then $f(K)$ is compact.
+\end{theorem}
+
+\begin{remark}
+    More informally here, we are saying that the continous image of a copmact set is compact.
+\end{remark}
+
+\begin{proof}
+    Given $\{ y_n \}_{n = 1}^\infty \subset f(K)$ we write $y_n$ as $y_n = f(x_n)$ with $x_n \subset K$. 
+    Then there exists a subsequence $\{ x_{n_k} \}_{k = 1}^\infty \subset K$ with $x_{n_k} \to x$ as $k \to \infty$. 
+    Then
+    \[ y_{n_k} = f(x_{n_k}) \to f(x) \in f(K) \]
+    and so $f(K)$ is compact.
+\end{proof}
+
+\begin{example}
+    Any continuous function $f$ will attain its minimum and maximum on any compact set.
+\end{example}
+
+% end of metric spaces, thank fuck. 

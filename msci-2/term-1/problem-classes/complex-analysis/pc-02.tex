@@ -1,0 +1,75 @@
+\pc{2}{8/11}
+\question From the definition of complex differentiability, show that
+\begin{parts}
+    \part $f(z) = \sfrac1z$ is complex differentiable for all non-zero complex $z$, and determine its derivative.
+    \begin{solution}
+        \begin{align*}
+            \frac{f(z + h) - f(z)}{h} &= \frac{\frac1{z + h} - \frac1z}{h} \\
+                                      &= \frac{\left(\frac{z - (z + h)}{z(z + h)}\right)}{h} \\
+                                      &= \frac{-1}{z(z+h)} \to \frac{-1}{z^2}
+        \end{align*}
+        as $h \to 0$; hence the derivative of $f$ exists for all $z \neq 0$ and is equal to $f'(z) = -\sfrac1{z^2}$.
+    \end{solution}
+
+    \part $f(z) = \Im{(z)}$ is not complex differentiable anywhere.
+    \begin{solution}
+        \begin{align*}
+            \frac{f(z + h) - f(z)}{h} &= \frac{\Im{(z + h)} - \Im{(z)}}{h} \\
+                                      &= \frac{\Im{(h)}}{h},
+        \end{align*}
+        this tends to $1$ as $h \to 0$ if $h \in \R$; however, it tends to $-1$ as $h \to 0$ if $h \in i\R$. Therefore, $f$ is not complex differentiable anywhere.
+    \end{solution}
+
+    \part Verify the Cauchy-Riemann equations for (a) and (b).
+    \begin{solution}
+        \begin{align*}
+            f(x + iy) &= \frac1{x + iy} \\
+                      &= \frac{x - iy}{x^2 + y^2} \\
+                      &= \left(\frac{x}{x^2 + y^2}\right) + i\left(\frac{-y}{x^2 + y^2}\right)
+        \end{align*}
+        and we set
+        \[ u(x, y) = \frac{x}{x^2 + y^2}, \qquad v(x, y) = \frac{-y}{x^2 + y^2}. \]
+        Then
+        \begin{align*}
+            u_x(x, y) &= \frac{(1)(x^2 + y^2) - (x)(2x)}{(x^2 + y^2)^2} = \frac{(y + x)(y - x)}{(x^2 + y^2)^2} \\ 
+            u_y(x, y) &= \frac{(0)(x^2 + y^2) - (x)(2y)}{(x^2 + y^2)^2} = \frac{-2xy}{(x^2 + y^2)^2} \\
+            v_x(x, y) &= \frac{(0)(x^2 + y^2) - (-y)(2x)}{(x^2 + y^2)^2} = \frac{2xy}{(x^2 + y^2)^2} \\
+            v_y(x, y) &= \frac{(-1)(x^2 + y^2) - (-y)(2y)}{(x^2 + y^2)^2} = \frac{(y + x)(y - x)}{(x^2 + y^2)^2}.
+        \end{align*}
+        It is clear to see that $u_x = v_y$ and $u_y = -v_x$ for all $(x, y) \neq (0, 0)$.
+    \end{solution}
+\end{parts}
+
+\question Find out where the following function is differentiable and give the formula for its derivative.
+\[ f(z) = \dfrac{e^z + 1}{e^z - 1}. \]
+\begin{solution}
+    $f$ is not defined for $e^z - 1 = 0$, which we know only occurs when $z \in 2i\pi\Z$. We know that the numerator and denominator are both differentiable for all $z$; therefore, by the quotient rule, $f$ is differentiable for all $z \neq 0$.
+    \begin{align*}
+        f(z)  &= \frac{(e^z - 1) + 2}{e^z - 1} \\
+              &= 2 + \frac2{e^z - 1} \\
+        f'(z) &= \frac{-2e^z}{e^z - 1}.
+    \end{align*}
+\end{solution}
+
+\question At which points is the following function differentiable?
+\[ f(x, y) = x\cosh{y} + \sin{(iy)} \cos{x}. \]
+\begin{solution}
+    Recall that $\sin{(iy)} = i\sinh{y}$. Substituting this into $f$ we get
+    \[ f(x, y) = x\cosh(y) + i\sinh{y}\cos{x} \]
+    so $f(x, y) = u(x, y) + iv(x, y)$ where
+    \[ u(x, y) = x\cosh{y}, \qquad v(x, y) = \sinh{y}\cos{x}. \]
+    Then
+    \begin{align*}
+        u_x(x, y) &= \cosh{y}         & u_y(x, y) &= x\sinh{y}               \\
+        v_x(x, y) &= -\sin{x}\sinh{y} & v_y(x, y) &= \cos{x}\cosh{y}.
+    \end{align*}
+    So we have
+    \begin{align*}
+        u_x = v_y  &\iff \cosh{y}  = \cos{x}\cosh{y} \tag{1} \\
+        u_y = -v_x &\iff x\sinh{y} = \sin{x}\sinh{y} \tag{2}.
+    \end{align*}
+    As $\cosh{x} \neq 0$, $(1) \iff \cos{x} = 1 \iff x \in 2\pi\Z$. As $\sin{x} = 0$ for all $x \in 2\pi\Z$ we have that $(1)$ and $(2)$ hold if and only if
+    \[ x \in 2\pi\Z \quad\text{and}\quad x\sinh{y} = 0. \] As $\sinh{y} = 0 \iff y = 0$, we have that if $(1)$ and $(2)$ hold then
+    \[ (x = 0) \quad \text{or} \quad ( x \in 2\pi\Z, x \neq 0, y = 0). \]
+    Therefore, $f$ is complex differentiable if and only if $z \in i\R$ or $z \in 2\pi\Z, z\neq 0$. Furthering this, $f$ is not holomorphic anywhere as there exists no ball at any point or radius such that the function is complex differentiable at every point in the ball.
+\end{solution}

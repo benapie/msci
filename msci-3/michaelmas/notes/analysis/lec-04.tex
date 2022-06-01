@@ -1,0 +1,180 @@
+%! TEX root = master.tex
+
+\subsection{Cauchy sequences}
+\lecture{4}{16/10}
+
+\begin{definition}[]
+	A sequence $\left\{ x_n \right\}$ of real numbers
+	is called a \emph{Cauchy sequence} if for every $\varepsilon > 0$
+	there is $N \in \N$ such that for every $n, m \geq N$ we have \[
+		\left\lvert x_n - x_m \right\rvert < \varepsilon.
+	\]
+\end{definition}
+
+\begin{problem}
+	Prove that every cauchy sequence is also a Cauchy sequence.
+\end{problem}
+
+\begin{proof}
+	Let $\left\{ x_n \right\}$ such that $x_n \to x$.
+	Let $\varepsilon > 0$ and $N \in \N$ such that \[
+		\left\lvert x_n - l \right\rvert < \frac{\varepsilon}2, \qquad
+		\left\lvert x_m - l \right\rvert < \frac{\varepsilon}2
+	\]
+	for all $n, m \geq N$.
+	Now
+	\begin{align*}
+		\left\lvert x_n - x_m \right\rvert
+		&=    \left\lvert x_n - l + l - x_m \right\rvert \\
+		&\leq \left\lvert x_n - l \right\rvert 
+			+ \left\lvert x_m - l \right\rvert \\
+		&<    \varepsilon. \qedhere
+	\end{align*}
+\end{proof}
+
+\begin{theorem}[]
+	Every Cauchy sequence in $\R$ is convergent.
+\end{theorem}
+
+\begin{proof}
+	Let $\left\{ x_n \right\}$ be a Cauchy sequence.
+	First we shown that $\left\{ x_n \right\}$ is bounded.
+	Fix $\varepsilon = 1$.
+	Then there exists $N \in \N$ such that for all $n \geq N$ we have
+	$\left\lvert x_n - x_N \right\rvert < \varepsilon = 1$.
+	Now see that for all $n \geq N$,
+	\begin{align*}
+		\left\lvert x_n \right\rvert 
+		&=    \left\lvert x_n - x_N + x_N \right\rvert \\
+		&\leq \left\lvert x_n - x_N \right\rvert 
+			 + \left\lvert x_N \right\rvert \\ 
+		&\leq \varepsilon + \left\lvert x_N \right\rvert
+	\end{align*}
+	and so $\left\{ x_n \right\}$ is bounded and, hence,
+	has a convergent subsequence.
+	Let $\left\{ x_{n_k} \right\}$ by this subsequence
+	with $x_{n_k} \to l$.
+	Now see that $\varepsilon > 0$ there exists $N_1, N_2 \in \N$ such that
+	for all $r \geq N_1$ and $n,m \geq N_2$ we have \[
+		\left\lvert x_{n_r} - l \right\rvert < \frac{\varepsilon}{2} 
+		\qquad \;\text{and}\; \qquad
+		\left\lvert x_n - x_m \right\rvert < \frac{\varepsilon}{2}.
+	\]
+	Fix $s = \min\left\{ r : n_r > \max\left\{ N_1, N_2 \right\} \right\}$
+	and $N = n_s$.
+	Then, for all $n > N$, \[
+		\left\lvert x_n - l \right\rvert
+		\leq \left\lvert x_n - x_{n_s} \right\rvert
+			+ \left\lvert x_{n_s} - l \right\rvert
+		< \frac{\varepsilon}{2} + \frac{\varepsilon}{2} 
+		= \varepsilon. \qedhere
+	\]
+\end{proof}
+
+\section{Open and closed sets in $\R$}
+\subsection{Open sets}
+
+\begin{definition}[Open set]
+	A subset $U \subset \R$ is \emph{open} if for every
+	$u \in U$ there is an open interval $I$ such that $I \subset U$
+	and $u \in I$.
+\end{definition}
+
+\begin{proposition}[]
+	The union of any collection of open sets is open, 
+	while the intersection of any finite collection of open sets is open.
+\end{proposition}
+
+\begin{proof}
+	Let $U$ be the union of any collection of open sets.
+	So $U = \bigcup_\alpha U_{\alpha\in I}$ with labelling set $I$ 
+	where $U_\alpha$ is open.
+	Take $u \in U$.
+	Then there is an $\alpha \in I$ such that $u \in U_\alpha$.
+	Since $U_\alpha$ is open, there is an open interval
+	$I \subset U_\alpha \subset U$ with $u \in I$.
+	Hence $U$ is open.
+	
+	Now let $U_1$ and $U_2$ be open.
+	Let $u \in U_1 \cap U_2$.
+	Then $u \in U_1$ and $u \in U_2$.
+	We have open intervals $I_1 \subset U_1$ and $I_2 \subset U_2$
+	such that $u \in I_1$ and $u \in I_2$.
+	So $u \in I_1 \cap I_2 \subset U_1 \cap U_2$.
+	As $I_1$ and $I_2$ are open intervals, so is $I_1 \cap I_2$.
+	Hence $U_1 \cap U_2$ is open.
+	Now we can apply this reasoning to see that any finite intersection of
+	open sets is also open.
+\end{proof}
+
+\begin{theorem}[]
+	Let $U \subset \R$ be open.
+	Then there is a collection of disjoint open intervals
+	$\left\{ I_n : n \in \N \right\}$
+	such that \[
+		U = \bigcup_{n \in \N} I_n.
+	\]
+\end{theorem}
+
+\begin{proof}
+	Fix $x \in U$
+	and let 
+	\[
+		b = \sup \left\{ y \in \R : (x,y) \subset U \right\}
+	\]
+	and 
+	\[
+		a = \inf \left\{ z \in \R : (z,x) \subset U \right\}.
+	\]
+	Define $I_x = (a,b)$.
+	By definition $a < x < b$, so $x \in I_x$.
+	We not prove that $b \not\in U$.
+	By contradiction, we will assume $b \in U$.
+	Then there is $\varepsilon > 0$ such that 
+	$(b - \varepsilon, b + \varepsilon) \subset U$.
+	$(x, b + \varepsilon) 
+	= (x, b) \cup (b - \varepsilon, b + \varepsilon) \subset U$,
+	this contradicts our definition of $b$ as a supremum.
+	Similarly, $a \not \in U$.
+	Take $w \in I_x$ with $x < w < b$.
+	By definition, there is $y > w$ such that $(x,y) \subset U$.
+	Hence $w \in (x,y)$ and so $w \in U$.
+
+	We have left to prove that our $I_x$'s are disjoint.
+	Suppose $I_{x_1} = (a_1, b_1)$ and $I_{x_2} = (a_2, b_2)$.
+	Suppose that $I_{x_1} \cap I_{x_2} \neq \varnothing$.
+	Further assume that (without loss of generality) that $a_1 > a_2$.
+	Then $a_2 \in (a_1, b_1)$ and so $a_2 \in U$; a contradiction.
+
+	Finally, we prove that $\left\{ I_x : x \in U \right\}$ is countable.
+	By the density of $\Q$ in $\R$, 
+	we know that each $I_x$ contains an element $r \in \Q$.
+	Therefore
+	\[
+		\left\{ I_x : x \in U \right\}
+		= \left\{ I_r  : r \in \Q \cap U \right\}
+	\]
+	where $\Q \cap U$ is countable.
+\end{proof}
+
+\subsection{Closed sets}
+
+\begin{definition}[Point of closure]
+	A point $x \in \R$ is a \emph{point of closure} 
+	for a set $E \subset \R$ if
+	for every $r > 0$
+	there is $y \in E$
+	such that
+	\[
+		\left\lvert x - y \right\rvert < r.
+	\]
+	The set of all points of closure is denoted $\overline E$,
+	and is called the \emph{closure of $E$}. 
+\end{definition}
+
+Equivalently, a point $x \in \R$ is a point of closure
+for a set $E \subset \R$ if
+for every open interval containing $x$,
+it contains a point of $E$.
+Moreover, observe that each element of $E$ is a point of closure in $E$,
+so $E \subset \overline E$.

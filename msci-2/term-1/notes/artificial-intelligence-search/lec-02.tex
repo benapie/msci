@@ -1,0 +1,51 @@
+\chapter{Uninformed search}
+
+\lecture{2}{14/10}
+
+\begin{definition}[Uninformed search]
+    An \textbf{uninformed search} (also known as \textbf{blind search} or \textbf{brute-force search}) is a search algorithm that does not use any domain specific to generate the search tree. That is, we use nothing more than the definition of the search problem to solve it.
+\end{definition}
+
+\begin{example}[Breadth-first search]
+    This algorithm follows the following principle: given the fringe of a search tree, every node on the fringe is expanded at each phase. That is, the node(s) with the smallest depth is expanded at every phase.
+\end{example}
+
+The implementation of breadth-first search has been well covered in previous modules and will not be repeated.
+
+We can evaluate the performance of a search strategy on the following four parameters.
+\begin{enumerate}
+    \item \textbf{Completeness}, will the algorithm find a solution if one exists?
+    \item \textbf{Optimality}, will the algorithm find an optimal solution if it finds one?
+    \item \textbf{Time complexity}, how long does it take to run?
+    \item \textbf{Space complexity}, how much memory is needed to perform a search?
+\end{enumerate}
+
+Time complexity and space complexity are topics that are covered in detail in other modules this year; however, within search trees we can closely related this concepts to 
+\begin{enumerate}
+    \item the branching factor, the maximum number of children a node has;
+    \item the depth of the shallowest goal node;
+    \item the maximum length from the root; and
+    \item the total number of nodes generated.
+\end{enumerate}
+
+\begin{example}[Performance of breadth-first search]
+    Suppose that our branching factor (as described above) is $b$ for each state. So in our search tree, every node at depth 1 (the root) generates $b$ children, then each child generates $b$ children themselves for a total of $b^2$ successors from the root. This goes on such that the total number of nodes is
+    \[ 1 + b + b^2 + \ldots + b^d = \Omega(b^d) \]
+    where $d$ is the depth of the search tree. All of these nodes will have to be stored in memory as any one of them may belong on the path to a goal node; hence, the time complexity and space complexity are both exponential in the shallowest depth of a goal node, $d$. Breadth-first search, although not fast, is complete but not necessarily optimal.
+\end{example}
+
+\begin{example}[Depth-first search]
+    Another commonly covered algorithm, \textbf{depth-first search} follows the principle of expanding the node with the greatest depth on a fringe. The implementation for depth-first search is very similar to breadth-first search (only a data structure changes).
+\end{example}
+
+\begin{example}[Performance of depth-first search]
+    Depth-first search is not complete. To see why, consider a state space that can return to the initial state and does following a depth-first search. Then it will recursve forever along this loop even if a solution exists somewhere else in the search tree. 
+
+    Although it is not complete, it uses significantly less memory that breadth-first search as it can delete subtrees once they have been completely expanded (and obviously no goal nodes have been found). In fact, we only have to store the path between the current node and the root as well as the children on that path; hence, our space complexity is $O(bm)$ where $b$ is our branching factor (described above) and $m$ is the maximum depth of any node in the search tree.
+\end{example}
+
+\begin{example}[Iterative deepening]
+    We can implement breadth-first search using depth-first search. We cut off our tree after depth $1$ and perform depth-first search (DFS). We then cut off our tree after depth $2$ and perform DFS again. We then cut off at depth $3$ and repeat DFS, and so on. This technique is called iterative deepening. In this algorithm, we are expanding the first node $d+1$ times (where $d$ is the depth of the goal) and we are expanding the nodes at depth 2 $d$ times and so on. The nodes at the depth are only expanded once. So the total number of expansions in this is
+    \[ (d+1) + b(d) + b^2(d-1) + \ldots + b^{d-1}(2) + b^d(1) = \sum_{i = 0}^d (d + 1 - i) b^i \]
+    and this leads to the running time being $O(b^d)$ (and is the same for the space complexity). Assuming a bounded branching factor, this algorithm is complete but not optimal (as it really is just breadth-first search).
+\end{example}

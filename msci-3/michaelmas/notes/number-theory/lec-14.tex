@@ -1,0 +1,104 @@
+%! TEX root = master.tex
+\lecture{14}{20/11}
+
+\begin{corollary}
+	Let $I$ be a non-zero ideal $I$ in $R$.
+	Then $R / I$ is finite.
+\end{corollary}
+
+\begin{proof}
+	We know that $I \cap \Z$ is non-zero.
+	Thus there is a non-zero $m \in I \cap \Z$.
+	We have $(m)_R \subset I \subset R$ and
+	\[
+		R = \Z \alpha_1 + \ldots + \Z \alpha_r
+	\]
+	for some $r \in \N$.
+	But then $(m)_R = mR = \Z m \alpha_1 + \ldots + \Z m \alpha_n$.
+	Hence
+	\[
+		R / (m)_R \cong \Z/m\Z \times \ldots \times \Z/m\Z,
+	\]
+	$r$-many copies of $\Z/m\Z$.
+	So $R/(m)_R$ is finite.
+	By the general theory of abelian groups
+	\[
+		[R: (m)_R] = [R:I][I:(m)_R]
+	\]
+	and hence the RHS is finite.
+	Thus $[R:I] < \infty$ and so
+	$\left\lvert R/I \right\rvert < \infty$.
+\end{proof}
+
+\begin{definition}[]
+	Let $I$ be a non-zero ideal in $R$.
+	Then $N(I) = \left\lvert R/I \right\rvert \in \N$.
+\end{definition}
+
+From the Corollary above, this is well-defined.
+We will note important properties of the norm, which will allow us to measure
+the \emph{size} of an ideal.
+\begin{enumerate}
+	\item $N(R) = 1$.
+	\item For ideals $I$ and $J$ with $I \supset J$ we have
+		$N(I) \leq N(J)$. If $I \supset J$ and $I \neq J$, then
+		$N(I) \leq N(J)$.
+\end{enumerate}
+These properties can be easily proved using the definitions.
+
+\begin{proposition}[]
+	Every non-zero prime ideal in $R$ is maximal.
+\end{proposition}
+
+\begin{proof}
+	Let $\mathfrak p$ be a prime ideal in $R$.
+	We know $R/\mathfrak p$ is finite.
+	As $\mathfrak p$ is prime, $R/\mathfrak p$ is an integral domain
+	which is finite.
+	We claim that it is also a field.
+	Indeed, given a non-zero element $\alpha \in R/\mathfrak p$ we consider
+	the maps $R / \mathfrak p \to R / \mathfrak p$, $y \mapsto \alpha y$.
+	This map is injective as $\alpha y_1 = \alpha y_2$.
+	Thus $\alpha(y_1 - y_2) = 0$, and so $y_1 = y_2$ since $R/\mathfrak p$
+	is an integral domain and $\alpha \neq 0$.
+	But $R/\mathfrak p$ is finite so the map is surjective.
+	Therefore there is $\beta \in R/\mathfrak p$ such that $\alpha \beta = 1$.
+	Thus $\alpha$ is invertible.
+	So $R/\mathfrak p$ is a field.
+\end{proof}
+
+From Algebra II, we have seen that if an ideal is maximal it is also prime.
+Hence, in $R$, the notions of maximality and primality coincide.
+Now we move onto showing that every prime ideal is invertible.
+
+\begin{lemma}[]
+	Let $I \subset R$ be a non-zero ideal.
+	Then $I$ contains a product of one or more non-zero prime ideals.
+\end{lemma}
+
+\begin{proof}
+	Assume otherwise.
+	Suppose $I$ is such that $N(I)$ is minimal.
+	Clearly $I$ is not prime.
+	Then there is $b, b' \in R/I$ such that $bb' \in I$.
+	Put $J = I + (b) \supset I$ ($I \neq J$) and
+	$J' = I + (b')$ ($J' \neq I$).
+	Then 
+	\[
+		N(I) < N(J), N(J').
+	\]
+	Hence $J$ contains prime ideals $\mathfrak p_1, \ldots, \mathfrak p_n$
+	and $J'$ contains prime ideals $\mathfrak p_1', \ldots, \mathfrak p_m'$.
+	Then 
+	\[
+		\mathfrak p_1 \ldots \mathfrak p_m \mathfrak p_1' \ldots \mathfrak p_m'
+		\subset JJ' = (bb') + bI + b'I + I^2
+		\subset I;
+	\]
+	a contradiction.
+\end{proof}
+
+\begin{theorem}[]
+	Non-zero prime ideals in $R$ are invertible.
+\end{theorem}
+

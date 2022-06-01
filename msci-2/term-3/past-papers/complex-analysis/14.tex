@@ -1,0 +1,618 @@
+\paper{2014}
+\setcounter{question}{0}
+\question 
+\begin{parts}
+    \part
+    Define what is means for a complex valued function 
+    $f(z)$
+    defined on the complex plane to be, at the point $z_0$,
+    \begin{subparts}
+        \subpart
+        complex differentiable; and
+        \begin{solution}
+            $f(z)$ is complex differentiable at a point $z_0$ if
+            \[
+                \lim_{h \to 0}
+                \left(
+                    \frac{f(z_0 + h) - f(z_0)}{h}
+                \right)
+                = f'(z_0)
+            \]
+            exists.
+        \end{solution}
+        
+        \subpart 
+        holomorphic.
+        \begin{solution}
+            $f(z)$ is holomorphic at a point $z_0$ if
+            there exists $\varepsilon > 0$ such that
+            for all $z \in B_\varepsilon(z_0)$, 
+            $f(z)$ is complex differentiable.
+        \end{solution}
+    \end{subparts}
+
+    \part 
+    State the Cauchy-Riemann equations,
+    and use them to determine where the function
+    \[
+        f(x + iy) = x\sin(x + iy)
+    \]
+    is complex-differentiable and where it is holomorphic.
+    State carefully any results from the module that you use.
+    \begin{solution}
+        Let $f(z) = f(x + iy) = u(x,y) + iv(x,y)$
+        where $u, v: \R^2 \to \R$.
+        The Cauchy-Riemann equations are as follows:
+        \begin{align*}
+            u_x(x,y) &=  v_y(x,y) \\
+            u_y(x,y) &= -v_x(x,y).
+        \end{align*}
+        Now we will calculate $u$ and $v$ for $x \sin(x+iy)$.
+        \begin{align*}
+            x \sin(x+iy)
+            &= x
+            \left(
+                \sin(x)\cos(iy) + \sin(iy)\cos(x)
+            \right) \\
+            &= x\sin(x)\cosh(y) + i\left( x\sinh(y)\cos(x) \right);
+        \end{align*}
+        so, we have
+        \begin{align*}
+            u(x,y)   &= x\sin(x)\cosh(y) \\
+            v(x,y)   &= x\sinh(y)\cos(x).
+        \end{align*}
+        Calculating partial derivatives:
+        \begin{align*}
+            u_x(x,y) &= \sin(x)\cosh(y) + x \cos(x)\cosh(y) \\
+            u_y(x,y) &= x\sin(x)\sinh(y) \\
+            v_x(x,y) &= \sinh(y)\cos(x) - x\sinh(y)\sin(x) \\
+            v_y(x,y) &= x\cosh(y)\cos(x).
+        \end{align*}
+        Now we will apply the Cauchy-Riemann equations.
+        \begin{description}
+            \item[$u_x = v_y$]
+                \begin{align*}
+                    \sin(x)\cosh(y) + x \cos(x)\cosh(y)
+                    &= x\cosh(y)\cos(x) \\
+                    \sin(x) \cosh(y)
+                    &= 0
+                \end{align*}
+                and as $\cosh(y) \geq 1$ for all $y \in \R$,
+                then $\sin(x) = 0$ which is satisfied only by
+                $x = \pi \Z$.
+
+            \item[$u_y = -v_x$]
+                \begin{align*}
+                    x\sin(x)\sinh(y)
+                    &= -\sinh(y)\cos(x) + x\sinh(y)\sin(x) \\
+                    \sinh(y)\cos(x) &= 0.
+                \end{align*}
+                So either $\sinh(y) = 0$ or $\cos(x) = 0$.
+                If $\sinh(y) = 0$ then $y = 0$.
+                If $\cos(x)$ then $x = \pi \Z + \frac\pi2$.
+        \end{description}
+        However, $\pi \Z \neq \pi \Z +  \frac\pi2$.
+        Therefore $f$ is complex differentiable 
+        for $x = \pi\Z$ and $y = 0$
+        and holomorphic nowhere.
+    \end{solution}
+\end{parts}
+
+\question
+State the Weierstrass $M$-test,
+and use it to prove that if $\rho$ is a positive real number
+then the series
+\[
+    \sum^{\infty}_{n=1} \frac{n}{e^{nx}} 
+\]
+is uniformly convergent on $\{x+iy\in\C : x \geq \rho\}$.
+\begin{solution}
+    \hfill \\
+    \textbf{Theorem} (Weierstrass $M$-test).
+    \textit{
+        \hspace{-7pt} Let $\{f_n\}_{n=1}^\infty$ 
+        be a sequence of functions $f_n: X \to \C$
+        on some set $X$.
+        Then if there exists a sequence of postive numbers $M_n$
+        satisfying
+        \[
+            \abs{f(x)} \leq M_n
+        \]
+        for all $x \in X$ and $M_n$ satisfies
+        \[
+            \sum^{\infty}_{n=1} M_n < \infty
+        \]
+        then $ \sum^{\infty}_{n=1} f_n(x) $
+        uniformly converges to some limit function $f: X \to \C$.
+    }
+    Now, looking at this summation we
+    let $f_n(x) = ne^{-nx}$.
+    Then we have
+    \[
+        \abs{f_n(x)} = ne^{-nx} \leq ne^{-n\rho}.
+    \]
+    So we take $M_n = ne^{-n\rho}$.
+    Now we use the ratio test:
+    \[
+        \abs{
+            \frac{M_{n+1}}{M_n}
+        }
+        = \frac{n+1}{n} e^{-\rho}
+        \to e^{-\rho}
+    \]
+    as $n \to \infty$. 
+    As $e^{-\rho} < 1$, 
+    we have that $M_n$ is absolutely convergent.
+    Therefore, we have satisfied all the constraints of the
+    Weierstrass $M$-test
+    and thus $\sum_{n=1}^\infty ne^{-nx}$ uniformly converges
+    to some limit function $f$ on
+    $\{x + iy \in \C : x \geq \rho\}$.
+
+    \emph{
+        \hspace{-7pt} Interestingly, it is not much more hard work to calculate
+        this function.
+        If we let
+        $g(x) = ne^{-nx}$
+        and consider that
+        $g(x) = - \frac{d}{dx} \left( e^{-nx} \right)$
+        and then use the geometric series, 
+        we easily find that the series converges to
+        \[
+            f(x) = \frac{e^x}{(e^x - 1)^2}.
+        \]
+    }
+\end{solution}
+
+\question
+Let $\gamma$ be the circle centred at the origin with radius $R > 0$.
+Find (stating any results you use):
+\begin{parts}
+    \part
+    $\displaystyle \oint_\gamma z \,dz$;
+    \begin{solution}
+        $\gamma$ is a simple closed contour and $f(z) = z$
+        is a holomorphic function; therefore
+        $\oint_\gamma z \,dz = 0$.
+        (Cauchy's theorem for simple closed contours).
+    \end{solution}
+
+    \part
+    $\displaystyle \oint_\gamma \overline z \,dz$; and
+    \begin{solution}
+        Now $\overline z$ is not a holomorphic,
+        so we can't use Cauchy's theorem.
+        It also isn't meromorphic so now residues here.
+        We just have to solve it directly, which isn't too
+        much work.
+        We let $\gamma(\theta) = Re^{i\theta}$, and so
+        $\gamma'(\theta) = Ri e^{i\theta}$.
+        Then
+        \begin{align*}
+            \oint_\gamma \overline z \,dz
+            &= \int_0^{2\pi} 
+                \overline{\gamma(\theta)} 
+                \gamma'(\theta) \,d\theta \\
+            &= R^2 i\int_0^{2\pi} 
+                e^{-i\theta}
+                e^{i\theta} \,d\theta \\
+            &= R^2 i \int_0^{2\pi} d\theta \\
+            &= 2R^2 \pi i.
+        \end{align*}
+    \end{solution}
+
+    \part
+    $\displaystyle \oint_\gamma \abs z \,dz$.
+    \begin{solution}
+        We define $\gamma$ as we did in the last part.
+        \begin{align*}
+            \oint_\gamma \abs z \,dz
+            &= \int_0^{2\pi} 
+                \abs{\gamma(\theta)} 
+                \gamma'(\theta) \,d\theta \\
+            &= \int_0^{2\pi} 
+                (R)
+                (Ri e^{i\pi})
+                \,d\theta \\
+            &= R^2 i \int_0^{2\pi} e^{i\pi} \,d\theta \\
+            &= 0.
+        \end{align*}
+        
+    \end{solution}
+\end{parts}
+
+\question
+By using the substitution $z = e^{2i\theta}$, or otherwise, calculate
+\[
+    \int_{\theta = 0}^\pi \frac{1}{5 + \cos^2\theta} \,d\theta.
+\]
+
+\question
+Let $f(z)$ be a holomorphic function defined for all $z \in \C$.
+Suppose that $\abs{f(z)}$ tends to $0$ as $\abs z$ tends to infinity.
+Find $f(z)$, stating any result that you use.
+\begin{solution}
+    As $\abs{f(z)} \to 0$ as $\abs z \to \infty$, we have
+    for all $\varepsilon > 0$, there exists a $x > 0$
+    such that
+    \[
+            \abs z > x \quad \implies \quad \abs{f(z)} < \varepsilon.
+    \]
+    Let $\varepsilon = 1$ and $N > 0$ such that it satisfies the above.
+    $f(z)$ is defined on $\C$, so it is defined on $\overline B_N(0)$
+    and so the supremum is defined on this set.
+    Then we have
+    \[
+        \abs{f(z)} \leq \max\{1, \sup_{\overline B_N(0)} \abs f\}
+    \]
+    and so $f$ is bounded.
+    As $f$ is entire and bounded, by Liouville's theorem, $f$ is constant.
+    As $\abs{f(z)} = 0$ implies $f(z) = 0$, we have that $f(z) = 0$.
+\end{solution}
+
+\question
+\begin{parts}
+    \part 
+    Show that the M\"obius transformation
+    \[
+        g(z) = \frac{-z+i}{z+i}
+    \]
+    maps the upper half plane $\Im(z) > 0$ onto the open unit disc
+    of complex nubers of modulus less than $1$.
+
+    \part
+    Show that if $a$ and $b$ are complex numbers with
+    $\overline ab$ having negative imaginary part, then
+    \[
+        f(z) = \frac{az + b}{\overline az + \overline b} 
+    \]
+    is a M\"obius transformation which maps the upper half plane onto 
+    the open unit disc.
+
+    \part 
+    Assuming that all M\"obius transformations
+    from the upper half plane onto the open disc may be
+    written in the form given in (b), use the M\"obius
+    transformation $g(z)$ defined in (a) to show that any 
+    M\"obius transformation from the open unit disc onto itself
+    may be written in the form
+    \[
+        h(z) = e^{i\theta} \left( \frac{z - z_0}{\overline{z_0} z - 1} \right)
+    \]
+    for some fixed $\theta$, $z_0$, with $\abs{z_0} < 1$.
+
+    \part 
+    For each complex number $z_0$ of modulus less than $1$,
+    find a M\"obius transformation from the open unit disc onto
+    itself mapping $z_0$ to $0$ and whose derivative at 
+    $z_0$ is a positive real number.
+\end{parts}
+
+\question
+\begin{parts}
+    \part
+    Find the poles and residues of
+    \[
+        \frac{1}{\cosh(z)}.
+    \]
+    \begin{solution}
+        \begin{align*}
+            \cosh(z)
+            &= \cosh(x + iy) \\
+            &= \cosh\left( i\left( y - ix \right) \right) \\
+            &= \cos \left( y - ix \right) \\
+            &= \cos(y) \cosh(x) + i\sin(y) \sinh(x).
+        \end{align*}
+        $ \frac{1}{\cosh(z)} $ 
+        has a pole if $y = \pi\Z + \frac\pi2$ and $x=0$.
+        All of these poles are simple as
+        \[
+            \frac{1}{\cosh' \left( i \left( \pi k + \frac\pi2 \right) \right) }
+            = \frac{1}{i \sin \left( \pi k + \frac\pi2 \right) } 
+            = i(-1)^{k+1}
+        \]
+        for $k \in \Z$ and, infact, these are the residues:
+        \[
+            \Res_{z=i\left(\pi k + \frac\pi2\right)} = i(-1)^{k+1}.
+        \]
+    \end{solution}
+
+    \part
+    Let $R>0$ be given.
+    Let $\gamma_R$ be the straight line from $z = R$
+    to $z = R + i\pi$;
+    that is,
+    $\gamma_R(t) = R + it$ with $t \in [0,\pi]$.
+    Show that
+    \[
+        \abs{\int_{\gamma_R} \frac{1}{\cosh(z)} \,dz}
+        \leq \frac{\pi}{\sinh(R)}.
+    \]
+    State any result that you use.
+    \begin{solution}
+        This is a clear application of the estimation lemma.
+        Calculating the length of $\gamma$:
+        \begin{align*}
+            L(\gamma_R)
+            &= \int_0^\pi \abs{\gamma_R'(t)} \,dt \\
+            &= \int_0^\pi dt \\
+            &= \pi.
+        \end{align*}
+        Now looking for an upper bound on $\abs f$:
+        \begin{align*}
+            \abs{f(\gamma_R(t))}
+            &=    \frac{2}{\abs{e^{R+it} + e^{-R-it}}} \\
+            &\leq \frac{2}{\abs{e^{R+it}} - \abs{e^{-R-it}}}
+            \tag{reverse triangle inequality} \\
+            &=    \frac{2}{e^R - e^{-R}} \\
+            &=    \frac{1}{\sinh(R)}.
+        \end{align*}
+        Now applying the estimation lemma:
+        \begin{align*}
+            \abs{\int_{\gamma_R} \frac{1}{\cosh(z)} \,dz}
+            &\leq L(\gamma_R) \, \sup_{\gamma_R} \abs{ \frac{1}{\cosh(z)} } \\
+            &\leq L(\gamma_R) \left( \frac{1}{\sinh(R)} \right) \\ 
+            &=    \frac{\pi}{\sinh(R)}.
+        \end{align*}
+    \end{solution}
+
+    \part 
+    Let $\delta_R$ be the straight line from $z = -R + i\pi$ to $-R$.
+    Show that
+    \[
+        \lim_{R \to \infty}
+        \int_{\gamma_R} \frac{1}{\cosh(z)} \,dz
+        = \lim_{R \to \infty} 
+        \int_{\gamma_R} \frac{1}{\cosh(z)} \,dz
+    \]
+    \begin{solution}
+        Following similar steps to above we get
+        \[
+            \int_{\delta_R} \frac{1}{\cosh(z)} \,dz
+            \leq \frac{\pi}{\sinh(R)} 
+        \]
+        and taking limits of these gives us the equality shown
+        in the question.
+    \end{solution}
+
+    \part By integrating around the rectangle with vertices 
+    $R$, $R + i\pi$, $-R + i\pi$, $-R$, or otherwise, find
+    \[
+        \infint \frac{1}{\cosh(x)} \,dx.
+    \]
+    \begin{solution}
+        First I will start with an \emph{or otherwise} approach,
+        which is quite clear when considering the common hyperbolic identities.
+        It is know that $\cosh^2(x) = \sinh^2(x) + 1$.
+        Consider the substitution $u = \sinh(x)$, 
+        then $du = \cosh(x) \,dx$ and we have
+        \[
+            \int \frac{1}{\cosh(x)} \,dx
+            = \int \frac{1}{u^2 + 1} \,du
+            = \arctan(u) + c
+            = \arctan(\sinh(x)) + c
+        \]
+        for some constant $c \in \R$.
+        So
+        \begin{align*}
+            \infint \frac{1}{\cosh(x)} \,dx
+            &= \lim_{x \to \infty}
+            \left(
+                \arctan(\sinh(x)) - \arctan(\sinh(-x))
+            \right) \\
+            &= \lim_{x \to \infty} 
+            \left(
+                \arctan(x) - \arctan(-x)
+            \right) \\
+            &= \pi.
+        \end{align*}
+        Nothing complex.
+    \end{solution}
+    \begin{solution}
+        Now for the expected method.
+        We define two contours:
+        \begin{align*}
+            \varphi_R(t)          &= R(2t-1) \\
+            \overline\varphi_R(t) &= R(1-2t) + \pi i.
+        \end{align*}
+        So now we have $\alpha_R = \gamma_R + \varphi_R + \delta_R + \overline\varphi_R$.
+        Using Cauchy's residue theorem, we get
+        \[
+            \int_\alpha \frac{1}{\cosh(z)} \,dz
+            = 2\pi i \left( \Res_{z=\frac{i\pi}2} \left(\frac{1}{\cosh(z)}\right) \right) 
+            = 2\pi.
+        \]
+        Looking into the integrals over $\varphi_R$ and $\overline\varphi_R$:
+        \begin{align*}
+            \int_{\varphi_R} \frac{1}{\cosh(z)} \,dz
+            &= \int_0^1 \frac{2R}{\cosh(R(2t-1))} \, dt \\
+            &= \int_{-R}^{R} \frac{1}{\cosh(u)} \,du \\
+            \int_{\overline\varphi_R} \frac{1}{\cosh(z)} \,dz
+            &= \int_0^1 \frac{-2R}{\cosh(R(1-2t) + i\pi)} \, dt \\
+            &= \int_0^1 \frac{2R}{\cosh(R(1-2t))} \, dt \\
+            &= -\int_{R}^{-R} \frac{1}{\cosh(u)} \,du \\
+            &= \int_{-R}^{R} \frac{1}{\cosh(u)} \,du.
+        \end{align*}
+        Now
+        \begin{align*}
+            \int_{\alpha_R} \frac{1}{\cosh(z)} \,dz
+            &= \int_{\gamma_R + \varphi_R + \delta_R + \overline\varphi_R}
+                \frac{1}{\cosh(z)} \,dz \\
+            &= \int_{\varphi_R} \frac{1}{\cosh(z)} \,dz
+                + \int_{\overline\varphi_R} \frac{1}{\cosh(z)} \,dz \\
+            &= 2\int_{-R}^R \frac{1}{\cosh(z)} \,dz \\
+            &= 2\pi.
+        \end{align*}
+        And so finally we get
+        \[
+            \infint \frac{1}{\cosh(x)} \,dx
+            = \lim_{R \to \infty} \int_{-R}^{R} \frac{1}{\cosh(u)} \,du
+            = \pi.
+        \]
+    \end{solution}
+\end{parts}
+
+\question
+\begin{parts}
+    \part
+    Find the poles and residues of
+    \[
+        \frac{1}{z^4 + 4}.
+    \]
+    \begin{solution}
+        The poles are $1 + i$, $-1 + i$, $-1 - i$, $1 - i$
+        and the residues, calculated with the cover up rule,
+        are given by the formula
+        \[
+            \Res_{z=z_0} \left( \frac{1}{z^4 + 4} \right) = -\frac{1}{16}z_0.
+        \]
+    \end{solution}
+
+    \part 
+    Show that $z^4 + z + 4$ has one root in each quadrant
+    and that all roots lie inside the circle of radius $2$ centred
+    at the origin.
+    
+    State any result you use and give full details of any estimates involved.
+    \begin{solution}
+        We claim that for all $R \geq 0$, $R < R^4 + 4$:
+        \begin{enumerate}
+            \item 
+                if $R \in [0,1)$,
+                $R < 4 < R^4 + 4$; and
+
+            \item
+                if $R \in [1,\infty)$,
+                $R < R^4 < R^4 + 4$;
+        \end{enumerate}
+        hence, we have proved our claim.
+        
+        Let $f(z) = z^4 + z + 4$ and $g(z) = z^4 + 4$.
+        Now,
+        we consider the contour
+        $\alpha = \gamma + \tilde\varphi + \varphi$
+        where
+        \begin{enumerate}
+            \item $\gamma(t) = e^{it}$, $t \in [0,\pi]$;
+            \item $\tilde\varphi(t) = 2i(1 - t)$, $t \in [0,1]$; and
+            \item $\varphi(t) = 2t$, $t \in [0,1]$.
+        \end{enumerate}
+        We will show that $\abs{f(z) - g(z)} < \abs{g(z)}$
+        for each of these.
+        \begin{enumerate}
+            \item 
+                If $z \in \gamma$, 
+                then $z = 2e^{it}$ for some $t \in [0,\pi]$
+                so:
+                \[
+                    \abs{f(z) - g(z)}
+                    = \abs{z} 
+                    = 2 
+                    < 15 
+                    = \abs{ \left( 2e^{it} \right)^4 } - \abs 1 
+                    < \abs{ \left( 2e^{it} \right)^4 + 1 } 
+                    = \abs{g(z)}.
+                \]
+
+            \item
+                If $z \in \tilde\varphi(t)$ 
+                then $z = ix$ for some $x \in \R$
+                so
+                \[
+                    \abs{f(z) - g(z)}
+                    = \abs{z} 
+                    = \abs{ix} 
+                    = \abs{x} 
+                    = x 
+                    < x^4 + 4 
+                    = (ix)^4 + 4
+                    = \abs{g(z)}.
+                \]
+
+            \item 
+                If $z \in \varphi(t)$
+                then $z = x$ for some $x \in \R$
+                so
+                \[
+                    \abs{f(z) - g(z)}
+                    = \abs z
+                    = \abs x
+                    < \abs{x^4 + 4}
+                    = \abs{g(z)}.
+                \]
+        \end{enumerate}
+        So we have shown for all $z \in \alpha$,
+        $\abs{f(z) - g(z)} < \abs{g(z)}$;
+        therefore, $f$ and $g$ have the same number of zeros inside
+        $D_\alpha^{\text{int}}$.
+        From above, we know that $\frac1{g(z)}$ has 1 pole
+        at $1 + i \in D_\alpha^{\text{int}}$;
+        hence $g(z)$ has a zero at $1 + i$.
+        Therefore $f(z)$ has a root in the upper right quadrant.
+        Now, roots to complex polynomials come in conjugate pairs;
+        therefore, $f(z)$ has a root in the upper left quadrant too.
+        Now we know that the two remaining roots
+        lie either on the imaginary axis, the real axis, or the lower half plane.
+        \begin{enumerate}
+            \item 
+                If $z = ix$ for $x \in \R$
+                then
+                \[
+                    z^4 + z + 4
+                    = x^4 + ix + 4
+                    \neq 0.
+                \]
+
+            \item 
+                If $z = x$ for $x \in \R$
+                then
+                \[
+                    z^4 + z + 4
+                    = x^4 + x + 4
+                    > 0.
+                \]
+        \end{enumerate}
+        So we know that the other two roots do \emph{not}
+        lie on the imaginary or real axis;
+        hence, they lie in the lower half plane.
+        Again, roots come in conjugate pairs;
+        therefore, one root must be in the 
+        lower left quadrant
+        and the othe rin the
+        lower right quadrant.
+    \end{solution}
+
+    \part 
+    Let $\gamma$ be the $D$-shaped contour made up of
+    (a) the arc of the real axis between $-2$ and $2$ and
+    (b) the arc of the circle centred at $0$ of radius $2$
+    lying in the upper half plane. 
+    Find
+    \[
+        \oint_\gamma \frac{4z^3 + 1}{z^4 + z + 4} \,dz.
+    \]
+    State any result that you use.
+    \begin{solution}
+        This is a simple application of the argument principle.
+        For a meromorphic function $f(z)$ and a simple closed contour $\gamma$
+        \[
+            \frac{1}{2\pi i} \int_\gamma \frac{f'(z)}{f(z)} \,dz
+            = Z_f - P_f
+        \]
+        where $Z_f$ is the number of zeros $f$ has in $D_\gamma^\text{int}$
+        and $P_f$ is the number of poles $f$ has in $D_\gamma^\text{int}$
+        (note that both of these number are counting multiplicities).
+        
+        We have already done most of the ground work to answer this question.
+        We know that it has no poles, but we need to find the zeros of
+        $z^4 + z + 4$.
+        Well, infact, we see that there are $2$ zeroes from part (b);
+        therefore,
+        $Z_f - P_f = 2$.
+        So we have
+        \[
+            \int_\gamma \frac{4z^3 + 1}{z^4+z+4} \,dz
+            = 4\pi i.
+        \]
+    \end{solution}
+\end{parts}

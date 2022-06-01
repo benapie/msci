@@ -1,0 +1,275 @@
+\assignment{9}{?}
+
+\setcounter{question}{73}
+\question Let $B$ be the region bounded by the five planes
+$x = 0$, $y = 0$, $z = 0$, $x + y = 1$, and $z = x + y$.
+\begin{parts}
+    \part Find the volume of $B$.
+    \begin{solution}
+        \begin{align*}
+            \text{volume}_B
+            &= \int_B \,dV \\
+            &= \int_0^1 dx \int_0^{1-x} dy \int_0^{x+y} dz \\
+            &= \int_0^1 dx \int_0^{1-x} dy (x+y) \\
+            &= \int_0^1 \left(xy + \frac12y^2\right)^{y=1-x}_{y=0} dx \\
+            &= -\frac12 \int_0^1 (x^2 - 1) \,dx \\
+            &= \frac13.
+        \end{align*}    
+    \end{solution}
+
+    \part Evaluate $\int_B x \,dV$.
+    \begin{solution}
+        \begin{align*}
+            \int_B x \,dV
+            &= \int_0^1 dx \int_0^{1-x} dy \int_0^{x+y} dz \, (x) \\
+            &= \int_0^1 dx \int_0^{1-x} dy \, x(x+y) \\
+            &= \int_0^1 dx \left(x^2y+\frac12xy^2\right)^{y={1-x}}_{y=0} \\
+            &= -\frac12\int_0^1 x(x^2 - 1) \,dx \\
+            &= \frac18.
+        \end{align*}
+    \end{solution}
+
+    \part Evaluate $\int_B y \,dV$.
+    \begin{solution}
+        \begin{align*}
+            \int_B y \,dV
+            &= \int_0^1 dx \int_0^{1-x} dy \int_0^{x+y} dz \, (y) \\
+            &= \int_0^1 dx \int_0^{1-x} dy \, y(x+y) \\
+            &= \int_0^1 dx \, \left(\frac12xy^2 + \frac13y^3\right)^{y=1-x}_{y=0} \\
+            &= \frac16 \int_0^1 (x^3 - 3x + 2) \,dx \\
+            &= \frac18.
+        \end{align*}
+    \end{solution}
+\end{parts}
+
+\setcounter{question}{86}
+\question Integrate $\nabla \times \bm F$ where
+\[
+    \bm F = 3y \bm e_1 - xz\bm e_2 + yz^2 \bm e_3,
+\]
+over the portion $S$ of the surface 
+$2z = x^2 + y^2$ below the plane $z = 2$,
+both directly and by using Stokes' theorem.
+Take the area elements of $S$ to point outwards, 
+so that their $z$ components are negative.
+\begin{solution}
+    We will compute this integral directly first.
+    We calculate the curl of $\bm F$:
+    \[
+        \nabla \times \bm F = (z^2 + x, 0, -(z+3)).
+    \]
+    We can describe our surface with the level set
+    \[
+        f(x,y,z) = x^2 + y^2 - 2z, \qquad \nabla f(x,y,z) = (2x,2y,-2).
+    \]
+    Now
+    \[
+        d\bm A 
+        = \frac{-\nabla f}{\bm e_3 \cdot \nabla f} 
+        = (x,y,-1),
+    \]
+    note that the minus sign here comes from the restriction that
+    $z < 0$.
+    Let $A$ be the disk centered at the origin on the $x$-$y$ plane
+    with radius $2$
+    (that is, the projection of $S$ to the $x$-$y$ plane).
+    Then
+    \begin{align*}
+        \int_S \nabla \times \bm F \cdot d\bm A
+        &= \int_A (z^2+x, 0, -(z+3)) \cdot (x,y,-1) \,dx\,dy \\
+        &= \int_A \frac14x(x^2 + y^2 + x) + \frac12(x^2 + y^2) + 3 \,dx\,dy \\
+        &= \int_0^{2\pi} d\theta \int_0^2 dr \,
+            \left(
+                \frac14 r^6 \cos\theta + r^3 \cos^2\theta + \frac12r^3 + 3r 
+            \right) \\
+        &= \int_0^{2\pi}
+            \left(
+                \frac{2^5}{7} \cos\theta + 2\cos{2\theta} + 10
+            \right) \,d\theta \\
+        &= 20\pi.
+    \end{align*}
+    Now we look at using Stokes' theorem.
+    We define
+    \[
+        \bm x(\theta) = (2\cos\theta, -2\sin\theta, -2), 
+        \qquad \bm x'(\theta) = (-2\sin\theta, -2\cos\theta, 0),
+    \]
+    we traverse clockwise such that we agree with the area element
+    having a negative $z$ component.
+    Now
+    \begin{align*}
+        \int_S \nabla \times \bm F \cdot d\bm A
+        &= \int_{\partial S} \bm F \cdot d\bm x \\
+        &= \int_{0}^{2\pi} \bm F(\bm x(\theta)) \, \bm x'(\theta) \,d\theta \\
+        &= \int_{0}^{2\pi} (10 - 2\cos2\theta) \,d\theta \\
+        &= 20\pi.
+    \end{align*}
+\end{solution}
+
+\setcounter{question}{114} %todo
+\question Consider the series
+\[
+    \varphi(x,y)
+    = \sum^{\infty}_{n=1} B_n \sin(n\pi x) \sinh(n\pi y).
+\]
+Show that $\varphi$ solves Laplace's equation $\nabla^2 \varphi = 0$
+in the unit square and obeys the Dirichlet boundary conditions
+\[
+    \varphi(0,y) = \varphi(1,y) = \varphi(x,0) = 0 
+    \quad\text{for}\quad
+    x, y \in (0,1).
+\]
+\begin{parts}
+    \part 
+    If in addition it is given that $\varphi(x,y) = 1$ for $x \in (0,1)$,
+    find the coefficients $B_n$.
+
+    \part 
+    Using your solution to part (a), find a function $\tilde{\varphi}(x,y)$
+    solving Laplace's equation on the unit square with the Dirichlet boundary conditions
+    \[
+        \tilde{\varphi}(x,0)
+        = \tilde{\varphi}(0,y)
+        = 0, 
+        \qquad \tilde{\varphi}(x,1)
+        = \tilde{\varphi}(1,y)
+        = 1
+    \]
+    for $x,y \in (0,1)$.
+
+    \part 
+    If $\tilde{\varphi}(x,y)$ is a solution to the problem posed in part (b),
+    show that $1 - \tilde{\varphi}(1-y,1-x)$ is a solution to the same problem.
+    Given that the solution to this problem is unique,
+    this implies that $\tilde{\varphi}(x,y) = 1 - \tilde{\varphi}(1-y,1-x)$.
+
+    \part 
+    Deduce the curious fact that, for $x \in (0,1)$,
+    \[
+        \sum^{\infty}_{n=0} 
+        \frac
+        {\sin((2n+1)\pi x) \cosh((2n+1)\pi(x-\sfrac12))}
+        {(2n+1)\cosh((2n+1)\sfrac\pi2)} 
+        = \frac\pi8.
+    \]
+    (Hint: consider setting $y = 1 - x$.)
+\end{parts}
+
+\setcounter{question}{116}
+\question By integrating both sides against an arbitrary test-function, find the
+coefficients $c$ or $c_m$ in the following generalised function identities
+($\delta^{(m)}(x)$ is the $m$th derivative of $\delta(x)$ with respect
+to $x$):
+\begin{parts}
+    \part 
+    $x^n \delta^{(m)}(x) = c\delta^{(m - n)}(x)$, where $m \geq n$;
+    \begin{solution}
+        For $f \in K$, we first consider the LHS:
+        \begin{align*}
+            \infint x^n \delta^{(m)} f(x) \,dx
+            &= \infint \delta^{(m)} (x) (x^nf(x))\,dx \\
+            &= (-1)^m \infint \delta(x) (x^nf(x))^{(m)} \,dx \\
+            (x^nf(x))^{(m)}
+            &= \sum^{m}_{k=0} 
+                \binom mk
+                \frac{d^{m-k}}{dx^{m-k}} (x^n)
+                \frac{d^k}{dx^k} (f(x)),
+        \end{align*}
+        For $k < m - n$ we will get $0$ as the $x^n$ will
+        differentiate to $0$.
+        Additionally, as we are evaluating at $x = 0$, 
+        for $k > m - n$ we will also get $0$;
+        therefore, we only need to evaluate this term at $k = m - n$.
+        So
+        \begin{align*}
+            (x^nf(x))^{(m)} \rvert_{x=0}
+            &= \binom m{m-n} f^{(m-n)}(0) \\
+            &= \binom mn f^{(m-n)}(0).
+        \end{align*}
+        Now consider the RHS:
+        \begin{align*}
+            \infint c \delta^{(m-n)}(x) f(x) \,dx
+            &= c \infint \delta^{(m-n)}(x) (f(x)) \,dx \\
+            &= c (-1)^{(m-n)} \infint \delta(x) f^{(m-n)}(x) \,dx \\
+            &= c (-1)^{(m-n)} f^{(m-n)}(0).
+        \end{align*}
+        Equating the LHS and RHS we get
+        \begin{align*}
+            \binom mn f^{(m-n)}(0)
+            &= c(-1)^{(m-n)} f^{(m-n)}(0) \\
+            c &= \binom mn (-1)^{(m-n)}.
+        \end{align*}
+    \end{solution}
+
+    \part 
+    $\delta(x^3 + x) = c\delta(x)$;
+    \begin{solution}
+        For $f \in K$, we consider the LHS.
+        Let $g(x) = x^3 + x$. 
+        Then $g(x) = 0$ for $x \in \R$
+        if and only if $x = 0$.
+        Therefore
+        \[
+            \delta(x^3 + x) 
+            = \frac{\delta(x - 0)}{g'(0)} 
+            = \delta(x).
+        \]
+        Hence $c = 1$.
+    \end{solution}
+
+    \part 
+    $e^{-\lambda x}\delta^{(n)}(x) = \sum_{m = 0}^{n} c_m \delta^{(m)}(x)$,
+    where $\lambda$ is a real constant; and
+    \begin{solution}
+        For $f \in K$, we initially check the LHS:
+        \begin{align*}
+            \infint e^{-\lambda x} \delta^{(n)}(x) f(x) \,dx
+            &= \infint \delta^{(n)}(x) \left(e^{-\lambda x} f(x)\right) \,dx \\
+            &= (-1)^n \infint \delta(x) \left(e^{-\lambda x} f(x)\right)^{(n)} \,dx \\
+            &= (-1)^n \sum^{n}_{k=0} \binom nk
+                \frac{d^{n-k}}{dx^{n-k}}\left(e^{-\lambda x}\right)
+                \frac{d^k}{dx^k} \left(f^{(k)}\right) \rvert_{x = 0} \\
+            &= (-1)^n \sum^{n}_{k=0} \binom nk
+                \left((-\lambda)^{n-k}\right)
+                \left(f^{(k)}(0)\right).
+        \end{align*}
+        Now we look at the RHS:
+        \begin{align*}
+            \infint \sum^{n}_{k=0} 
+                c_k \delta^{(k)}(x) f(x) \,dx
+            &= \sum^{n}_{k=0} c_k \infint
+                \delta^{(k)}(x) f(x) \,dx \\
+            &= \sum^{n}_{k=0} c_k (-1)^k f^{(k)}(0).
+        \end{align*}
+        Equating the sides:
+        \begin{align*}
+            (-1)^n \sum^{n}_{k=0} \binom nk
+                \left((-\lambda)^{n-k}\right)
+                \left(f^{(k)}(0)\right)
+            &= \sum^{n}_{k=0} c_k (-1)^k f^{(k)}(0) \\
+            c_k &= (-1)^k \lambda^{(n-k)} \binom nk.
+        \end{align*}
+    \end{solution}
+
+    \part
+    $\delta(\tanh(x) - \lambda) = c\delta(x - \tanh^{-1}(\lambda))$,
+    where $\abs{\lambda} < 1$.
+    \begin{solution}
+        For $f \in K$, we consider the LHS.
+        Let $g(x) = \tanh(x) - \lambda$.
+        If $g(x) = 0$ then $\tanh(x) = \lambda$ so $x = \tanh^{-1}(\lambda)$.
+        Note that the domain of $\tanh^{-1}$ 
+        is equal to the image of $\tanh$ which is $[0,1)$; 
+        hence, as $\lvert \lambda \rvert < 1$,
+        $\tanh^{-1} (\lambda)$ is well defined.
+        Additionally, $\tanh: \R \to [0,1)$ is a bijection;
+        hence, only one $\lambda$ exists such that $x = \tanh^{-1}(\lambda)$.
+        $g'(x) = 1 - \tanh^2(x)$, so
+        \[
+            \delta(\tanh(x) - \lambda)
+            = \frac{\delta(x - \tanh^{-1}(\lambda)}{g'(\tanh^{-1}(\lambda)}
+            = \frac{1}{1-\lambda^2} \delta(x - \tanh^{-1}(\lambda));
+        \]
+        therefore, $c = \frac{1}{1-\lambda^2}$.
+    \end{solution}
+\end{parts}

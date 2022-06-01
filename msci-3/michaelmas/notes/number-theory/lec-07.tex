@@ -1,0 +1,129 @@
+%! TEX root = master.tex
+\lecture{7}{4/11}
+
+$(iii)$, in other words, sates that every element of
+$\Z[\alpha]$ can be written as $f(\alpha)$ for some
+$f(x) \in \Z[x]$ where $\deg f \leq d - 1$.
+
+An abelian group $G \subset \C$ is \emph{finitely generated}
+if there is $\gamma_1, \ldots, \gamma_r$ such that
+\[
+	G = \left\{ \sum_{i=1}^r a_i \gamma_i : a_i \in \Z \right\}.
+\]
+We often write
+$G = \Z\gamma_1 + \ldots + \Z\gamma_r
+= \Z \langle \gamma_1, \ldots, \gamma_r \rangle$.
+
+\begin{proof}
+	$(i) \implies (ii)$: let $f(x) \in \Z[x]$ be a monic polynomial
+	of smallest degree such that $f(\alpha) = 0$,
+	which we know exists as $\alpha \in \overline\Z$.
+	Assume that $f$ is reducible, then there is non-constant polynomials
+	$h(x)$ and $g(x)$ such that $f(x) = h(x) g(x)$.
+	Now observe that
+	\[
+		\deg(g), \deg h \in \left\{ 1, \ldots, \deg(f) - 1 \right\}.
+	\]
+	As $f(\alpha) = 0$, then either $h(\alpha) = 0$ or $g(\alpha) = 0$.
+	In either case, the existence of such a polynomial contradicts
+	the minimality of $f$. 
+	Hence $f$ is irreducible in $\Z[x]$.
+	By Gauss' lemma, $f$ is irreducible in $\Q[x]$.
+	Therefore, $f$ must be the minimal polynomial
+	and so $p(x) \in \Z[x]$.
+	
+	$(ii) \implies (iii)$: it is enough to show that any power of $\alpha$
+	can be written as an integral combination of elements
+	$ \left\{ 1, \alpha, \ldots, \alpha^{d-1} \right\} $.
+	Let $p(x)$ be of degree $d$, so
+	\[
+		p(x) = x^d + p_{d-1}x^{d-1} + \ldots + p_1 x + p_0 \in \Z[x].
+	\]
+	We can see that
+	\begin{align*}
+		\alpha^d
+		&= -(p_{d-1}\alpha^{d-1} + \ldots + p_1 \alpha + p_0) \\
+		&\in \Z \langle 1, \alpha, \ldots, \alpha^{d-1} \rangle
+	\end{align*}
+	and so any power of $\alpha$ lies within
+	$\in \Z \langle 1, \alpha, \ldots, \alpha^{d-1} \rangle$.
+
+	$(iii) \implies (iv)$: let $G = \Z[\alpha]$ and consider $G$ as an
+	abelian group with respect to addition.
+	From $(iii)$ we see that $G$ is finitely generated with the powers of
+	$\alpha$ up to $d-1$ being the generators.
+	Then we have
+	\[
+		\alpha G = \alpha \Z[\alpha] \subset \Z[\alpha] = G
+	\]
+	since $\alpha \in \Z[\alpha]$ and $\Z[\alpha]$ is a ring.
+
+	$(iv) \implies (i)$: let
+	$G = \Z \langle \gamma_1, \ldots, \gamma_r \rangle$.
+	As $\alpha G \subset G$,
+	we can express
+	\[
+		\alpha \gamma_i = \sum^{r}_{j=1} \mu_{ij} \gamma_j
+	\]
+	for $i \in \left\{ 1, \ldots, r \right\}$ and $\mu_{ij} \in \Z$.
+	Now we state this in terms of matrices as
+	\[
+		\alpha
+		\begin{pmatrix}
+			\gamma_1 \\
+			\vdots \\
+			\gamma_r \\
+		\end{pmatrix}
+		=
+		\begin{pmatrix}
+			\mu_{11} & \ldots & \mu_{1r} \\
+			\vdots & \ddots & \vdots \\
+			\mu_{r1} & \ldots & \mu_{rr} \\ 
+		\end{pmatrix}
+		\begin{pmatrix}
+			\gamma_1 \\ 
+			\vdots \\
+			\gamma_r \\
+		\end{pmatrix}
+		.
+	\]
+	Now we let
+	\[
+		M =
+		\begin{pmatrix}
+			\mu_{11} & \ldots & \mu_{1r} \\
+			\vdots & \ddots & \vdots \\
+			\mu_{r1} & \ldots & \mu_{rr} \\ 
+		\end{pmatrix}
+	\]
+	and we observe that $\gamma$ is an \emph{eigenvalue}
+	to the \emph{eigenvector} $(\gamma_1, \ldots, \gamma_r)$
+	to $M$.
+	That is, $\gamma$ is a root to the characteristic polynomial
+	$p_N(x) = \det(x \cdot I - M)$, which is monic with coefficients in $\Z$.
+	Hence, $\alpha$ is an algebraic integer.
+\end{proof}
+
+\begin{corollary}
+	$\overline\Z$ is a ring.
+\end{corollary}
+
+\begin{proof}
+	Let $\alpha, \beta \in \overline\Z$.
+	We introduce the notation
+	\begin{align*}
+		\Z[\alpha, \beta]
+		&= \left\{ \sum_{i,j = 0}^{d_1,d_2} a_{i,j} \alpha^i \beta^j:
+		d_1,d_2 \in \N, a_{i,j} \in \Z \right\} \\
+		&= \left\{ f(\alpha, \beta) : f(x,y) \in \Z[x,y] \right\}.
+	\end{align*}
+	Clearly this defines a ring.
+	We can also see that it is finitely generated.
+	Taking $G = \Z[\alpha, \beta]$ we can see that
+	$(\alpha + \beta) G \subset G$, $(\alpha\beta)G \subset G$,
+	and $(-\alpha)G \subset G$ and hence $\alpha + \beta$,
+	$\alpha\beta$, and $-\alpha$ are all algebraic integers.
+	Thus $\overline\Z$ is a ring.
+\end{proof}
+
+

@@ -1,0 +1,281 @@
+%! TEX root = master.tex
+\section{Compactness}
+\lecture{18}{19/11}
+
+\begin{definition}[Compact]
+	Let $X$ be a topological space.
+	A \emph{cover} of $X$ is a collection 
+	$
+		\left\{
+			U_i
+		\right\}_{i \in I}
+	$
+	of subsets of $X$ such that 
+	$\bigcup_{i \in I} U_i = X$.
+	The cover is called an \emph{open cover} if every $U_i$ is open.
+	A \emph{subcover} of
+	$
+		\left\{
+			U_i
+		\right\}_{i \in I}
+	$
+	is a cover
+	$
+		\left\{
+			U_j
+		\right\}_{j \in J}
+	$
+	where $J \subset I$.
+	$X$ is said to be \emph{compact} if and only if every open cover of $X$
+	admits a finite subcover.
+\end{definition}
+
+\begin{examples}
+	\begin{enumerate}
+		\item If $X$ is a finite set, it is compact.
+		\item We claim $\R$ is not compact.
+			Consider the open cover
+			$\left\{
+				U_i
+			\right\}$
+			where
+			$U_i = (i-1,i+1)$.
+			Clearly this covers $\R$, but there is no finite
+			subcover that can cover $\R$.
+		\item Let $X$ be an infinite set with the topology
+			\[
+				\tau = \left\{
+					U \subset X: 
+					\text{$X \setminus U$ is finite}
+				\right\} \cup \left\{
+					0
+				\right\}.
+			\]
+			We claim that $X$ is compact.
+			Suppose
+			$
+				\left\{
+					U_i
+				\right\}_{i \in I}
+			$ 
+			is an open cover of $X$.
+			Without loss of generality, we assume that each $U_i$ is
+			non-zero.
+			Now pick $j \in I$.
+			Then
+			$
+				X \setminus U_j = \left\{
+					p_1, \ldots, p_n
+				\right\}
+			$.
+			For each
+			$
+				k \in \left\{
+					1, \ldots, n
+				\right\}
+			$,
+			there is 
+			$i_k \in I$
+			such that
+			$p_k \in U_{i_k}$.
+			Then
+			\[
+				X 
+				= U \cup \left\{
+					p_1, \ldots, p_n
+				\right\}
+				= U \cup U_{i_1} \cup U_{i_2} \cup \ldots \cup U_{i_n}.
+			\]
+		\item We claim the closed interval $[0,1]$ is compact.
+			Let
+			$
+				\left\{
+					U_i
+				\right\}_{i \in I}
+			$
+			be an open cover of $[0,1]$.
+			Without loss of generality, we assume that each $U_i$
+			is an open interval.
+			Let $A$ be the collection of points $a \in [0,1]$
+			such that there is a finite subcover of $[0,a]$
+			from the open cover above.
+			Clearly $0 \in A$, so $A$ is non-empty.
+			Thus we let $s = \sup A$.
+			Suppose $s < 1$, thus
+			$s \in U_j \supset (s - \varepsilon, s + \varepsilon)$ 
+			for some $j \in J$ and $\varepsilon > 0$.
+			As $U_j$ is an open interval, 
+			$
+				\left[
+					0, s - \frac{\varepsilon}{2}
+				\right]
+			$
+			can be covered by a finite number of $U_i$'s.
+			Thus, with $U_j$, also covers
+			$
+				\left[
+					0, s + \frac{\varepsilon}{2} 
+				\right]
+			$.
+			Thus $s$ must not be the supremum. 
+			Therefore, $\sup A = 1$.
+	\end{enumerate}
+\end{examples}
+
+\begin{proposition}[]
+	The continuous image of a compact set is compact.
+\end{proposition}
+
+\begin{proof}
+	Let $X$ be a compact topological space, $Y$ be a topological space,
+	and $f: X \to Y$ be continuous.
+	Let
+	$
+		\left\{
+			V_i
+		\right\}_{i \in I}
+	$
+	be an open cover of $Y$. So
+	\[
+		f(X) \subset \bigcup_{i \in I} V_i.
+	\]
+	Then
+	\[
+		X
+		= f^{-1}(f(X))
+		\subset f^{-1} \left( 
+			\bigcup_{i \in I} V_i 
+		\right)
+		= \bigcup_{i \in I} f^{-1}(V_i)
+		\subset X.
+	\]
+	As $X$ is compact, there is 
+	$i_1, \ldots, i_n \in I$
+	such that
+	\[
+		X = \bigcup_{k=1}^n f^{-1}\left( 
+			V_{i_k} 
+		\right).
+	\]
+	So
+	\begin{align*}
+		f(X)
+		&= f\left( 
+			\bigcup_{k=1}^n f^{-1}(V_{i_k})
+		\right) \\
+		&= \bigcup_{k=1}^n f(f^{-1}(V_{i_k})) \\
+		&\subset \bigcup_{k=1}^n V_{i_k}
+	\end{align*}
+	and so $f(X)$ is compact.
+\end{proof}
+
+\begin{proposition}[]
+	A closed subset of a compact space is compact.
+\end{proposition}
+
+\begin{proof}
+	Let $X$ be compact and $A \subset X$ be closed.
+	Let 
+	$
+		\left\{
+			U_i
+		\right\}_{i \in I}
+	$
+	be an open cover of $A$.
+	Then
+	\[
+		X = \left( 
+			\bigcup_{i \in I} U_i 
+		\right) \cup \left( 
+			X \setminus A 
+		\right)
+	\]
+	gives an open cover of $X$.
+	As $X$ is compact, there is 
+	$i_1, \ldots, i_n \in I$
+	such that
+	\[
+		X = \bigcup_{k=1}^n U_{i_k} \cup (X \setminus A)
+	\]
+	is a finite open cover of $X$.
+	So $A \subset \bigcup_{k=1}^n U_{i_k}$,
+	thus $A$ is compact.
+\end{proof}
+
+\begin{theorem}[]
+	In Hausdorff spaces, compact subsets are closed.
+\end{theorem}
+
+\begin{proof}
+	Let $X$ be a Hausdorff space, and $A \subset X$ be compact.
+	Let $p \in X \setminus A$ and $q \in A$.
+	Then there is open sets $U_q$ and $V_q$ such that
+	$p \in U_q$, $q \in V_q$, and $U_q \cap V_q = \varnothing$.
+	Then
+	$
+		A \subset \bigcup_{q \in A} V_q.
+	$
+	As $A$ is compact,
+	there is $q_1, \ldots, q_n \in A$ such that
+	$
+		A \subset \bigcup_{k=1}^n V_{q_k}
+	$.
+	Note that 
+	$\bigcap_{k=1}^n U_{q_k} \ni p$ 
+	is an open set and
+	\[
+		\left(
+			\bigcap_{k=1}^n U_{q_k}
+		\right) \cap A
+		\subset \left( 
+			\bigcap_{k=1}^n U_{q_k} 
+		\right) \cap \bigcup_{k=1}^n \left( 
+			V_{q_k} 
+		\right)
+		= \varnothing.
+	\]
+	So $\bigcup_{k=1}^n U_{q_k} \subset X \setminus A$;
+	hence, $X \setminus A$ is open and so $A$ is closed.
+\end{proof}
+
+\begin{corollary}
+	A bijective continuous function from a compact space to a
+	Hausdorff space is a homeomorphism.
+\end{corollary}
+
+\begin{proof}
+	Let $X$ be compact, $Y$ be Hausdorff, and $f: X \to Y$ be a bijective
+	continuous function.
+	It is enough to show that if $A \subset X$ is closed, then
+	$
+		f(A) = \left( 
+			f^{-1} 
+		\right)^{-1}(A)
+	$
+	is closed.
+	$A$ is compact, so $f(A)$ is compact, so $f(A)$ is closed.
+\end{proof}
+
+\begin{example}[]
+	Consider the Furstenbergy topology on $\Z$.
+	We claim that $\Z$ is \emph{not} compact.
+	Let
+	$
+		U(a, b) = \left\{
+			a + bn: n \in \N
+		\right\}
+	$
+	and consider the open cover
+	\[
+		\left\{
+			U(p,1): \text{$p$ prime}
+		\right\} \cup \left\{
+			U(5,2)
+		\right\}
+	\]
+	of $\Z$.
+	If there is a finite subcovering of this cover,
+	then there is finitely many primes;
+	a contradiction.
+\end{example}
+

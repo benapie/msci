@@ -1,0 +1,152 @@
+%! TEX root = master.tex
+\section{Dedekind domain}
+\lecture{13}{20/11}
+
+For this section, we will write $R$ to denote the ring of integers for some
+number field $K$.
+We have seen that for ideals $I$ and $J$ in $R$,
+\[
+	I \cdot J = \left\{
+		\sum_{n \in \N} a_i b_j: a_i \in I, b_j \in J, n \in \N
+	\right\}
+\]
+is again an ideal in $R$.
+Note that
+$I \cdot R = I$
+and so
+$I \cdot J \subset I \cdot R = I$
+and similarly 
+$I \cdot J \subset J$.
+Recall that any non-proper ideal is prime if
+$ab \in I \implies a \in I \;\text{or}\; b \in I$.
+
+\begin{lemma}[]
+	Let $\mathfrak p$ be a prime ideal in a ring $R$.
+	Then
+	\[
+		\mathfrak p \supset IJ \iff
+		\mathfrak p \supset I \;\text{or}\; \mathfrak p \supset J
+	\]
+	for ideals $I$ and $J$.
+\end{lemma}
+
+\begin{proof}
+	$(\implies)$: 
+	is obvious.
+	$(\impliedby)$: 
+	suppose 
+	$\mathfrak p \supset IJ$, 
+	but
+	$\mathfrak p \not\supset I$.
+	Then there is 
+	$a \in I \setminus \mathfrak p$.
+	Now for any $b \in J$, 
+	$ab \in IJ \subset \mathfrak p$.
+	So either $a \in \mathfrak p$ or $b \in \mathfrak p$.
+	But $a \not\in \mathfrak p$ so $b \in \mathfrak p$.
+	Thus $J \subset \mathfrak p$.
+\end{proof}
+
+We will now move on to define the divisibility of ideals.
+That is, if for two ideals $I$ and $J$ in $R$ there is an ideal $S$ such that
+$J = IS$, then we may write $I \mid J$.
+This clearly implies that $I \supset J$, since $J = IS \subset IR = I$.
+But the reverse statement is not at all obvious.
+Our aim here is to show that a non-zero ideal $I$ in $R$ can be written as a
+unique product of prime ideals.
+Another interesting point is that we can use $R$ as an \emph{identity} when
+multiplying ideals. 
+This is key in how we define the inverse of an ideal.
+
+\begin{definition}[Fractional ideal]
+	A \emph{fractional ideal} of $R$ is a subgroup under addition of the form
+	\[
+		\lambda I = \left\{
+			\lambda \alpha: \alpha \in I
+		\right\} \subset K
+	\]
+	where $I$ is a non-zero ideal in $R$ and $\lambda \in K^\times$.
+	We denote \emph{$\mathcal J(R)$} the set of fractional ideals in $R$.
+\end{definition}
+
+Clearly any ideal $I$ is also a fractional ideal, by taking $\lambda = 1$.
+
+\begin{definition}[Principal fractional ideal]
+	A fractional ideal of $R$ of the form $\lambda R$ is called a
+	\emph{principal fractional ideal}, denoted $(\lambda)_R \subset K$.
+	We write $\mathcal P(R)$ for the set of principal fractional ideals
+	of $R$.
+\end{definition}
+
+Fractional ideals in $R$ act the same as integral ideals
+(that is, non-fractional).
+For fractional ideals $\mathfrak a$ and $\mathfrak b$ in $R$, we define
+\begin{align*}
+	\mathfrak a \cdot \mathfrak b &= \left\{
+		\sum^{n}_{i=1} a_i b_i : a_i \in \mathfrak a, b_i \in \mathfrak b
+	\right\}, \\
+	\mathfrak a + \mathfrak b &= \left\{
+		\sum^{n}_{i=1} (a_i + b_i): a_i \in \mathfrak a, b_i \in \mathfrak b
+	\right\}.
+\end{align*}
+
+\begin{lemma}[]
+	Let $\mathfrak a, \mathfrak b \in \mathcal J(R)$.
+	Then $\mathfrak a + \mathfrak b$, $\mathfrak a \cdot \mathfrak b$, and
+	$\mathfrak a \cap \mathfrak b$ are fractional ideals.
+\end{lemma}
+
+\begin{proof}
+	%todo
+\end{proof}
+
+$\mathcal J(R)$ also has \emph{associativity}, 
+\emph{commutativity}, \emph{distributivity}, and
+for fractional ideals $\mathfrak a$, $\mathfrak b$, and $\mathfrak c$
+if $\mathfrak a \subset \mathfrak b$ then
+$\mathfrak c \mathfrak a \subset \mathfrak c \mathfrak b$.
+
+\begin{definition}[Invertible ideal]
+	A fractional ideal $\mathfrak a$ is \emph{invertible} if there is a
+	fractional ideal $\mathfrak b$ of $R$ such that
+	\[
+		\mathfrak a \cdot \mathfrak b = R = (1)_R.
+	\]
+\end{definition}
+
+Note that inverses of fractional ideals must be unique.
+Indeed, if $\mathfrak a \neq \mathfrak c$ such that
+$\mathfrak{ab} = \mathfrak{ac} = R$.
+Then $\mathfrak{abc} = R$.
+But $(\mathfrak{ac})\mathfrak b = \mathfrak{acb}$ and so
+$\mathfrak b = \mathfrak c$. Thus $\mathfrak b = \mathfrak c$.
+So we can safely write $\mathfrak a^{-1}$ as the inverse of any
+$a \in \mathcal J(R)$.
+Our aim is to show that for every $a \in \mathcal J(R)$, $a$ is invertible.
+Infact, we show that $\mathcal J(R)$ is an abelian group.
+This is why we do not include the zero fractional ideal in $\mathcal J(R)$.
+If we are in a principal ideal domain, for every ideal $I$ in $R$
+we have $I = (\lambda)_R$.
+Indeed, $(\lambda I)(\lambda^{-1}I) = \lambda R \lambda^{-1} R = R$.
+So $I$ is invertible.
+But if we are not in a principal ideal domain, how do obtain $I^{-1}$?
+For example, if $R = \Z[\sqrt{-6}]$ what is
+$\left( 
+	(5, 1 + 3\sqrt{-5})_R 
+\right)^{-1}$?
+
+\begin{theorem}[]
+	Every non-zero ideal $I$ in $R$ is a finitely generated free abelian group.
+\end{theorem}
+
+That is, 
+\[
+	I 
+	= \Z \alpha_1 + \ldots + \Z \alpha_r
+	= (\alpha_1, \ldots, \alpha_r)_R
+\]
+and by \emph{free} we mean that for every $\alpha \in I$
+there is unique integers $m_1, \ldots, m_r \in \Z$
+such that
+$\alpha = m_1 \alpha_1 + \ldots + m_r \alpha_r$.
+

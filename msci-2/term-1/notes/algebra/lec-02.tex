@@ -1,0 +1,79 @@
+\lecture{2}{10/10}
+
+Let's move forward to a formal definition of a ring.
+
+\begin{definition}[Ring]
+    A \textbf{ring} $R$ is a set with two binary operations called \textbf{addition} (usually denoted $+$) and \textbf{multiplication} (usually denoted $\cdot$ or $\times$, but not always). A ring must be an \textbf{abelian group} under addition and must satisfy:
+    \begin{enumerate}
+        \item (identity) $\; \exists \; 1 \in R : 1 \cdot x = x \cdot 1 = 1$;
+        \item (associativity) $\; \forall \; a, b, c \in R : a \cdot (b \cdot c) = (a \cdot b) \cdot c$; and
+        \item (distributibity) $\; \forall \; a, b, c \in R$ we have
+            \begin{enumerate}
+                \item $a \cdot (b + c) = a \cdot b + a \cdot c$; and
+                \item $(b + c) \cdot a = b \cdot a + c \cdot a$.
+            \end{enumerate}
+    \end{enumerate}
+\end{definition}
+
+\begin{remark}
+    A few notes on this definition.
+    \begin{enumerate}
+        \item Addition is always commutative from the definiition of an abelian group.
+        \item Unlike addition, multiplication does not have to be commutative.
+        \item We call $0$ the \textbf{additive identity} and $1$ the \textbf{multipliciative identity}.
+        \item Subtraction is called the \textbf{inverse} of addition, so for $a, b \in R$ we have \[ a - b = a + (-b) \] where $-b$ is such that \[ b + (-b) = 0. \]
+    \end{enumerate}
+\end{remark}
+
+\begin{example}[Endomorphisms of a vector space]
+    Let $V$ be a complex vector space of dimension $n$. Then 
+    \[ \operatorname{End}{(V)} = \{ f : V \to V, f \; \text{is linear} \}. \] 
+    We define 
+    \[ (f_1 + f_2)(v) := f_1(v) + f_2(v) \] 
+    and 
+    \[ (f_1 \circ f_2)(v) = f_1(f_2(v)) \] 
+    for all $v \in V$. From previous courses, we have seen that 
+    \[ f_1 + f_2, f_1 \circ f_2 \in \operatorname{End}{(V)} \] 
+    and that $\operatorname{End}{(V)}$ is an abelian group under $+$.
+    \begin{enumerate}
+        \item (Identity) We define  $\operatorname{Id}: V \to V$ such that $\operatorname{Id}{(v)} = v$. This forms the identity element as \[ f \circ \operatorname{Id}{(v)} = f(\operatorname{Id}{(v)}) = f(v) = \operatorname{Id}{(f(v))} = \operatorname{Id}{(v)} \circ f. \]
+
+        \item (Associativity) $f, g, h \in \operatorname{End}{(v)}$. We know that $f(v) = Av$ where $A \in M_n(\C)$. As matrices are associative, so is $f, g, h$. That is,
+            \begin{align*}
+                f \circ (g \circ h)(v) &= f(g \circ h(v)) \\
+                                       &= f(g(h(v)) \\
+                                       &= A(B(Cv)) \\
+                                       &= AB(Cv) \\
+                                       &= AB(h(v)) \\
+                                       &= (f \circ g)(h(v)).
+            \end{align*}
+        
+        \item (Distributivity) The proof for this property follows the same reasoning as above.
+    \end{enumerate}
+    Therefore, the endomorphisms of a complex vector space is a ring using the operations defined above.
+\end{example}
+
+\begin{example}[Integers modulo $n$]
+    If we divide any $x \in \Z$ by $n$ then the remainder is in \[ \{ 0, 1, 2, \ldots, n-1 \}. \] Every integer is associated with its remainder, that is \[ \Z/n = \{ \bar 0, \bar 1, \ldots, \overline{n - 1} \} \] where $\bar 0, \bar 1, \ldots, \overline{n - 1}$ are called \textbf{residue classes $\bmod \; n$}. The residue class $\bmod \; n$ $\bar i$ is the set of all numbers that leave a remainder $i$ when divided by $n$. We also denote $\Z/n$ with $\Z_n$, $\Z/_{n\Z}$, and $\Z/(n)$.
+    \begin{enumerate}
+        \item (Identity) $\bar 1 \in \Z/n$ is our identity element as \[\bar a \cdot \bar 1 = \overline{a \cdot 1} = \bar a = \overline{1 \cdot a} = \bar 1 \cdot \bar a.\]
+        \item (Associativity) Let $\bar a, \bar b, \bar c \in \Z/n$. Then \[ \bar a (\bar b + \bar c) = \bar a (\overline{b + c}) = \overline{a(b + c)} = \overline{ab + ac} + \overline{ab} + \overline{ac} = \bar a \bar b + \bar a \bar c. \]
+        \item (Distributivity) Let $\bar a, \bar b, \bar c \in \Z/n$. Then \[ \bar a \cdot (\bar b + \bar c) = \bar a(\overline{b + c}  = \overline{a(b + c)} + \overline{ab + ac} = \overline{ab} + \overline{ac} = \bar a \bar b + \bar a \bar c. \]
+    \end{enumerate}
+    Hence integers modulo $n$ is a ring under the opeerations defined above.
+\end{example}
+
+\begin{example}[Integers modulo $3$]
+    Let $n = 3$. Then $\Z/3 = \{ \bar 0, \bar 1, \bar 2 \}$. We can look at a table to see how the addition operator works.
+    \begin{center}
+        \begin{tabular}{cccc}
+            \toprule
+            $+$ & $\bar 0$ & $\bar 1$ & $\bar 2$ \\
+            \midrule
+            $\bar 0$ & $\bar 0$ & $\bar 1$ & $\bar 2$ \\
+            $\bar 1$ & $\bar 1$ & $\bar 2$ & $\bar 0$ \\
+            $\bar 2$ & $\bar 2$ & $\bar 0$ & $\bar 1$ \\
+            \bottomrule
+        \end{tabular}
+    \end{center}
+\end{example}

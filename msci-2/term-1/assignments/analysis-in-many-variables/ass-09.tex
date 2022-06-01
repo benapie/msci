@@ -1,0 +1,53 @@
+\assignment{9}{13/01}
+
+\setcounter{question}{57}
+\question Find the stationary points of the function $f(x, y) = e^{-x^2 - y^2}$ restricted to the line $ax + by = c$, where $a$, $b$, and $c$ are three real constants.
+\begin{solution}
+    We let
+    \[ 
+        \mathcal L(x, y, \lambda) = 
+        f(x, y) - \lambda (g(x, y) - c) = 
+        e^{-x^2 - y^2} - \lambda(ax + by - c). 
+    \]
+    Now we solve $\nabla \mathcal L = \bm 0$:
+    \[
+        \nabla \mathcal L =
+        \bm e_1 (-2xe^{-x^2 - y^2} - \lambda a) +
+        \bm e_2 (-2ye^{-x^2 - y^2} - \lambda b) -
+        \bm e_3 (ax + by - c) = 0.
+    \]
+    Then $bx = ay$. So
+    \begin{align*}
+        a\left(\frac{ay}b\right) + by &= c \\
+        y\left(\frac{a^2}b + b\right) &= c \\
+        y &= \frac{cb}{a^2 + b^2}
+    \end{align*}
+    and similarly we have
+    \[ x = \frac{ca}{a^2 + b^2}. \]
+    Therefore, our only sationary point is
+    \[ \frac1{a^2 + b^2} (ca, cb). \]
+\end{solution}
+
+\question Find the maximum and minimum values of the function $f(x, y) = xy$ subject to the constraint $x^2 + y^2 = 1$.
+\begin{solution}
+    Define
+    \[ \mathcal L(x, y, \lambda) = xy - \lambda(x^2 + y^2 - 1). \]
+    Then
+    \[ 
+        \nabla \mathcal L = 
+        \bm e_1 (y - 2x\lambda) + 
+        \bm e_2 (x - 2y\lambda) - 
+        \bm e_3 (x^2 + y^2 - 1). 
+    \]
+    Then $\nabla \mathcal L = \bm 0$ implies that
+    \[ y = 2x\lambda, \quad x = 2y\lambda, \quad x^2 + y^2 - 1 = 0. \]
+    Hence, $y^2 = x^2$. 
+    It follows that $x = \pm \frac1{\sqrt2}$, and so $y = \pm \frac1{\sqrt2}$.
+    We have
+    \begin{align*}
+        f\left(\frac1{\sqrt2}, \frac1{\sqrt2}\right) &= \frac12 = f\left(-\frac1{\sqrt2},-\frac1{\sqrt2}\right) \\
+        f\left(\frac1{\sqrt2}, -\frac1{\sqrt2}\right) &= \frac12 = f\left(-\frac1{\sqrt2}, \frac1{\sqrt2}\right).
+    \end{align*}
+    Therefore, 
+    \[ \min f = \frac{-1}2, \qquad \max f = \frac12. \]
+\end{solution}

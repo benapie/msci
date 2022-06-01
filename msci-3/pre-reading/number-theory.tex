@@ -1,0 +1,349 @@
+%! TEX root = ../master.tex
+\subsection{Prime numbers}
+
+This section comes from \emph{
+	Elementary Number Theory: Primes, Congruences, and Secrets
+} by \emph{William Stein} (first chapter).
+
+\begin{definition}[Divides]
+	Suppose $a,b \in \Z$.
+	We say that \textbf{$a$ divides $b$}, 
+	denoted $a \mid b$,
+	if there exists $c \in \Z$ such that $ac = b$.
+	$a$ is called a \textbf{divisor} of $b$. 
+\end{definition}
+
+\begin{remark}
+	The idea of divisors was introduced in Algebra II and simple examples
+	will be omitted.
+\end{remark}
+
+\begin{definition}[Prime and composite]
+	Let $n \in \Z$ and $n > 1$.
+	$n$ is \textbf{prime} if the only positive divisors are $1$ and $n$. 
+	If $n$ is not prime, it must be \textbf{composite}.
+\end{definition}
+
+\begin{remark}
+	$1$ is not considered prime nor composite.
+\end{remark}
+
+\begin{theorem}[Fundamental theorem of arithmetic]
+	Every natural number can be expressed as a product of primes unique up to 
+	order.
+\end{theorem}
+
+\begin{remark}
+	This theorem is ingrained in our intuition, but the proof requires a little
+	more work.
+\end{remark}
+
+\begin{definition}[Greatest common divisor]
+	Suppose $a, b \in \Z$.
+	Then we define the \textbf{greatest common divisor} as \[
+		\gcd(a,b) = \max \{ d \in \Z: d \mid a \;\text{and}\; d \mid b \}
+	\] with the exception that $\gcd(0,0) = 0$.
+\end{definition}
+
+\begin{lemma}[]
+	\label{lem:gcd-lem-1}
+	Suppose $a, b \in \Z$. Then
+	\[
+		\gcd(a, b)
+		= \gcd(b, a)
+		= \gcd(\pm a, \pm b)
+		= \gcd(a, b - a)
+		= \gcd(a, b + a).
+	\]
+\end{lemma}
+
+\begin{proof}
+	Here we will only prove $\gcd(a, b) = \gcd(a, b - a)$;
+	the proof for the others follows a similar reasoning.
+	Let $d = \gcd(a, b)$.
+	Then $d \mid a$ and $d \mid b$.
+	Let $n, m \in \Z$ such that
+	$dn = a$ and $dm = b$.
+	Now $d(m - n) = b - a$
+	and so $d \mid b - a$.
+	Therefore
+	\[
+		\{ d \in \Z : d \mid a \;\text{and}\; d \mid b \}
+		\subset \{ d \in \Z : d \mid a \;\text{and}\; d \mid b - a \}
+	\]
+	and hence $\gcd(a, b) \leq \gcd(a, b - a)$.
+	Simiarly we see that \[
+		\gcd(a, b - a)
+		=    \gcd(-a, b - a)
+		\leq \gcd(-a, b)
+		=    \gcd(a,b).
+	\]
+\end{proof}
+
+\begin{lemma}
+	Suppose $a, b, n \in \Z$.
+	Then
+	\[
+		\gcd(a,b) = \gcd(a, b - an).
+	\]
+\end{lemma}
+
+\begin{proof}
+	This can be shown by repeatively applying Lemma \ref{lem:gcd-lem-1}.
+\end{proof}
+
+\begin{proposition}[]
+	\label{prop:quotient-remainder}
+	Suppose $a$ and $b$ are integers where $b$ is non-zero.
+	Then there exists unique integers $q$ and $r$ such that
+	$0 \leq r \leq \abs b$ and $a = bq + r$.
+\end{proposition}
+
+\begin{proof}
+	For simplicity, we will assume $a$ and $b$ are positive.
+	Now let
+	\[
+		Q = \left\{ n \in \Z_{\geq 0} : a - bn \geq 0 \right\}.
+	\]
+	It is clear to see that $Q$ is non-empty and bounded.
+	Let $q = \max Q$.
+	Let $r = a - bq < b$.
+	Here we have proved existence, but not uniqueness.
+	Now let $q'$ and $r'$ satisfy the conditions.
+	As $r' = a - bq' \geq 0$, we have $q' \in Q$.
+	Therefore $q' \leq q$.
+	We assume that $q' \neq q$, so $q' = q - m$ for $m \geq 1$.
+	Now
+	\[
+		r' 
+		= a - bq' 
+		= a - b(q - m)
+		= a - bq + bm
+		= r + bm
+		\geq b;
+	\]
+	a contradiction.
+	Hence our assumption that $q' \neq q$ is false.
+\end{proof}
+
+\begin{algorithm}[Division algorithm]
+	Suppose $a$ and $b$ are integers with $b$ non-zero.
+	The \textbf{division algorithm} calculates integers $q$ and $r$
+	such that $a = bq + r$ with $0 \leq r < \abs b$.
+\end{algorithm}
+
+\begin{remark}
+	The steps of the division algorithm and using it to calculate the greatest 
+	common divider was covered in Algebra II and will be omitted.
+	The idea is to, with $a, b \in \Z$, apply Lemma \ref{lem:gcd-lem-1} to see $
+		\gcd(a,b) = \gcd(b,r)
+	$ with $q$ and $r$ coming from the application of Proposition 
+	\ref{prop:quotient-remainder}.
+\end{remark}
+
+\begin{lemma}[]
+	Let $a$, $b$, and $n$ be integers.
+	Then
+	\[
+		\gcd(an, bn) = \abs n \cdot \gcd(a, b).
+	\]
+\end{lemma}
+
+\begin{proof}
+	For simplicity we will assume that $a$ and $b$ are positive.
+	Now we will prove by induction using $a + b = 2$ as our base case.
+	In this case, $a = b = 1$ and clearly $
+		\gcd(n, n) = \abs n \cdot \gcd(1, 1)
+	$
+	so it holds for the base case.
+	Now let $k > 2$ and we assume that our Lemma holds for all $a + b < k$.
+	We assume without loss of generality that $a \geq b$,
+	and let $a = q(b) + r$ with $0 \leq r < b$.
+	Then $\gcd(a, b) = \gcd(b, r)$.
+	Similarly $
+		\gcd(an, bn) = \gcd(bn, rn)
+	$. Now \[
+		b + r = b + (a - bq) = a - b(q - 1) \leq a < a + b = k
+	\] and so \[
+		\gcd(an, bn) = \gcd(bn, rn) = \abs n \cdot \gcd(b, r).
+	\]
+	Thus, the as the Lemma holds for the base case $a + b = 2$ and
+	for $a + b = k$ assuming it holds true for $a + b < k$: by induction, 
+	the Lemma must hold for all $a + b > 1$ and thus $a, b > 0$.
+\end{proof}
+
+\begin{lemma}[Euclid's]
+	Let $a$, $b$, and $n$ be integers such that $n$ divides $a$ and $b$.
+	Then $n$ divides $\gcd(a, b)$.
+\end{lemma}
+
+\begin{proof}
+	Let $m_1$ and $m_2$ be integers such that $nm_1 = a$ and $nm_2 = b$.
+	Then
+	\[
+		\gcd(a,b) = \gcd(nm_1, nm_2) = \abs n \cdot \gcd(m_1, m_2).
+	\]
+\end{proof}
+
+\begin{theorem}[]
+	Let $p$ be a prime integer and $a$ and $b$ be positive integers.
+	If $p$ divides $ab$, then $p$ divides $a$ or $p$ divides $b$.
+\end{theorem}
+
+\begin{proof}
+	If $p$ divides $a$, we are done.
+	Now assume $p$ does not divide $a$.
+	Then $\gcd(p, a) = 1$ so
+	$\gcd(pb, ab) = b \gcd(p, a) = b$.
+	As $p \mid \gcd(pb, ab)$, then $p \mid b$.
+\end{proof}
+
+\begin{proposition}[]
+	\label{prop:nat-primes}
+	Every natural number $n > 1$ is a product of primes.
+\end{proposition}
+
+\begin{proof}
+	Let $P(n)$ be the statement that $n$ is a product of primes.
+	$P(2)$ holds as $2 = 2 \cdot 1$.
+	Now assume that $P(k)$ holds.
+	Now we consider whether $P(k+1)$ holds, that is, 
+	is $k + 1$ a product of primes.
+	If $k + 1$ is prime, then we are done.
+	Assume otherwise, then $k + 1 = ab$ for some $a, b \in \N$
+	with $2 \leq a, b \leq k$.
+	By $P(k)$, $a$ and $b$ are a product of primes.
+	And hence $n$ is a product of primes.
+	Therefore all natural numbers arwe a product of primes.
+\end{proof}
+
+\begin{problem}
+	Is there an algorithm that can factor an integer in polynomial time?
+\end{problem}
+
+\begin{remark}
+	This is an open problem; we don't actually have an answer to this yet,
+	at least for the Turing machine computation model.
+	We do have an algorithm to factor an in polynomial time for quantum computers
+	though.
+\end{remark}
+
+\begin{proof}[Proof for the fundamental theorem of arithmetic]
+	We now have enough to solve this theorem.
+	For $n = 1$ we have the empty product.
+	Now lets look at $n > 1$.
+	By Proposition \ref{prop:nat-primes}
+	$n = p_1 p_2 \ldots p_d$.
+	Now suppose
+	$n = q_1 q_2 \ldots q_m$.
+	Clearly
+	\[
+		p_1 \mid n = q_1 q_2 \ldots q_m,
+	\]
+	and by Euclid's lemma either $p_1 \mid q_1$ or $p_1 \mid q_2 \ldots q_m$.
+	Now if $p_1 \mid q_1$ then $p_1 = q_1$ as they are prime.
+	Now we repeatively apply Euclid's lemma to see that $p_1 = q_i$ for some
+	$i \in \{1, \ldots, m\}$.
+	Now we cancel $p_1$ and $q_i$ and repeat this argument to find that
+	both expression are equal up to order.
+\end{proof}
+
+\begin{problem}
+	Let $a$, $b$, $c$, and $n$ be integers with $a$ and $b$ coprime.
+	Prove that
+	\begin{enumerate}
+		\item $(a \mid n \;\text{and}\; b \mid n) \implies ab \mid n$; and
+		\item $a \mid bc \implies a \mid c$.
+	\end{enumerate}
+\end{problem}
+
+\begin{solution}
+	\hfill
+	\begin{enumerate}
+		\item
+			Let $am_1 = n$ and $bm_2 = n$.
+			As $a$ and $b$ are coprime, there exists integers $r_1$ and $r_2$
+			such that $ar_1 + br_2 = 1$.
+			Multiplying by $b$ we get $nar_1 + nbr_2 = n$.
+			Then $bm_2ar_1 + am_1br_2 = n$
+			and so $ab(m_2r_1 + m_1r_2) = n$
+			hence $ab \mid n$.
+
+		\item
+			As $a \mid bc$, $a \mid b$ or $a \mid c$.
+			As $a \not\mid b$, then $a \mid c$.
+	\end{enumerate}
+\end{solution}
+
+
+\begin{problem}
+	Let $a$, $b$, $c$, $d$, and $m$ be integers.
+	Prove that
+	\begin{enumerate}
+		\item $(a \mid b \;\text{and}\; b \mid c) \implies a \mid c$;
+		\item $(a \mid b \;\text{and}\; c \mid d) \implies ac \mid bd$;
+		\item $m \neq 0 \implies (a \mid b \iff ma \mid mb)$; and
+		\item $(a \mid d \;\text{and}\; d \neq 0) \implies \abs d \leq \abs a$.
+	\end{enumerate}
+\end{problem}
+
+\begin{solution}
+	\begin{enumerate}
+		\item Omitted.
+		\item 
+			Let $an = b$ and $cm = d$.
+			Then $(ac)(nm) = bd$ and so $ac \mid bd$.
+		\item
+			\begin{description}
+				\item[$\implies$] 
+					Let $an = b$.
+					Then $(ma)(n) = mb$ and so $ma \mid mb$.
+				\item[$\impliedby$]
+					Let $man = mb$.
+					Then $m(an - b) = 0$.
+					As $m = \neq 0$, $an = b$.
+					Hence $a \mid b$.
+			\end{description}
+		\item
+			Let $an = d$.
+			So $\abs a \abs n = \abs{an} = \abs d$.
+			Therefore $\abs d \leq \abs a$.
+	\end{enumerate}
+\end{solution}
+
+\begin{problem}
+	Suppose $a$, $b$, and $n$ are positive integers.
+	Prove that $a^n \mid b^n \implies a \mid b$.
+\end{problem}
+
+\begin{solution}
+	Let $p_1, p_2, \ldots$ be the primes in order.
+	By the fundamental theorem of arithmetic we can uniquely (up to order)
+	express $a$ and $b$ as a product of these primes.
+	Let
+	\[
+		a = p_1^{\alpha_1} p_2^{\alpha_2} \ldots p_r^{\alpha_r},
+		\qquad b = p_1^{\beta_1} p_2^{\beta_2} \ldots p_r^{\beta_r}.
+	\]
+	Note that
+	\[
+		a^n = p_1^{n\alpha_1} p_2^{n\alpha_2} \ldots p_r^{n\alpha_r},
+		\qquad b^n = p_1^{n\beta_1} p_2^{n\beta_2} \ldots p_r^{n\beta_r}
+	\]
+	and as $a^n \mid b^n$ we must have $n\alpha_i \leq n\beta_i$ for each $i$.
+	So $\alpha_i \leq \beta_i$.
+	Then clearly $a \mid b$.
+\end{solution}
+
+\begin{problem}
+	Suppose $a$ and $k$ are positive integers and $p$ is prime.
+	Prove that $p \mid a^k \implies p^k \mid a^k$.
+\end{problem}
+
+\begin{solution}
+	We let $a = p_1^{\alpha_1} p_2^{\alpha_2} \ldots p_r^{\alpha_r}$.
+	Now $a^k = p_1^{k\alpha_1} p_2^{k\alpha_2} \ldots p_r^{k\alpha_r}$.
+	As $p \mid a^k$, we must have $p = p_i$ for some $i$.
+	But note that $p_i^k$ is a factor too; hence
+	$p^k \mid a^k$.
+\end{solution}

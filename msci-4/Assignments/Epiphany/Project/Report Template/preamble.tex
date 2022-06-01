@@ -1,0 +1,71 @@
+\documentclass[a4paper, 11pt]{report}
+
+\usepackage{graphicx}
+\usepackage{amsmath, amssymb}
+\usepackage{bm}
+\usepackage{siunitx}
+\usepackage{hyperref}
+\usepackage{booktabs}
+
+%%%
+%%% Maths shortcuts
+%%%
+\newcommand{\N}{\mathbb N}
+\newcommand{\Z}{\mathbb Z}
+\newcommand{\R}{\mathbb R}
+\newcommand{\pt}{\text{pt}}
+\DeclareMathOperator{\id}{id}
+\DeclareMathOperator{\im}{im}
+\DeclareMathOperator{\coker}{coker}
+
+%%%
+%%% Tikz
+%%%
+\usepackage{tikz}
+  \tikzstyle{vertex}=[circle,fill=black!25,minimum size=12pt,inner sep=2pt]
+\usepackage{tikz-cd}
+
+%%%
+%%% Title page
+%%%
+\usepackage{titling}
+\pretitle{%
+  \vspace{-4em}
+  \begin{center}
+    \huge
+    \includegraphics[width=8em]{images/logo}\\[\bigskipamount]
+    \vspace{1em}
+    }
+
+    \posttitle{
+  \end{center}
+  \vspace{1em}
+}
+
+%%%
+%%% Referencing
+%%%
+\usepackage[sorting=none, backend=biber]{biblatex}
+\addbibresource{ref.bib}
+
+
+%%%
+%%% Theorems
+%%%
+\usepackage{amsthm}
+
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[chapter]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{proposition}[theorem]{Proposition}
+
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{remark}[theorem]{Remark}
+
+\newtheoremstyle{break}{\topsep}{\topsep}{}{}{\bfseries}{}
+{\newline}{\thmname{#1}\thmnumber{ #2}\thmnote{ ({\normalfont\textsc{#3}})}.}
+\theoremstyle{break}
+\newtheorem{problem}[theorem]{Problem}

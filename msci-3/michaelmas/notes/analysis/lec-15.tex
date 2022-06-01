@@ -1,0 +1,214 @@
+%! TEX root = master.tex
+\lecture{15}{24/11}
+
+\begin{theorem}[Simple approximation]
+	An extended real-valued function $f$ on a measurable set $E$
+	is measurable if and onl if there is a sequence of simple functions
+	$
+		\left\{
+			\varphi_n
+		\right\}
+	$
+	such that $\varphi_n \to f$ pointwise on $E$ and
+	$\left\lvert \varphi_n \right\rvert \leq \left\lvert f \right\rvert$
+	on $E$ for all $n \in \N$.
+	If $f$ is non-negative, we may take
+	$
+		\left\{
+			\varphi_n
+		\right\}
+	$
+	to be increasing.
+\end{theorem}
+
+\begin{proof}
+	$(\implies)$:
+	as $f$ is the pointwise limit of a sequence of measurable functions,
+	$f$ is measurable.
+	$(\impliedby)$:
+	assume $f$ is measurable and non-negative.
+	The general case follows from expressing $f$ as the difference of two
+	non-negative functions.
+	Let $n \in \N$ and define
+	\[
+		E_n = \left\{
+			x \in E: f(x) \leq n
+		\right\}.
+	\]
+	Then $E_n$ is bounded and $\restr f{E_n}$ is a non-negative, bounded,
+	and measurable function.
+	By the Simple Approximation Lemma, with $\varepsilon = \frac1n$,
+	we may select $\varphi_n$ and $\psi_n$ simple on $E_n$
+	such that $\varphi_n(x) \leq f(x) \leq \psi_n(x)$
+	and $0 \leq \psi_n(x) - \varphi_n(x) < \frac1n$.
+	We extend $\varphi_n$ to all of $E$ by setting $\varphi_n(x) = n$
+	if $f(x) > n$.
+	$\varphi_n$ is a simple function defined on $E$ and
+	$o \leq \varphi_n(x) \leq f(x)$.
+	We claim $\varphi_n \to f$ pointwise on $E$.
+	Indeed, if we let $x \in E$ we consider two cases.
+	First, if $f(x)$ is finite, we choose $N \in \N$ such that
+	$f(x) < N$.
+	Then
+	$0 \leq f(x) - \varphi_n(x) < \frac1n$
+	for all $n \geq N$.
+	Thus
+	\[
+		\lim_{n \to \infty} \varphi_n(x) = f(x).
+	\]
+	Now if we assume $f(x)$ is infinite, then $\varphi_n(x) = n$.
+	So $\lim_{n \to \infty} \varphi_n(x) = f(x)$
+	and clearly
+	$
+		\left\{
+			\varphi_n
+		\right\}
+	$
+	is increasing.
+\end{proof}
+
+\section{Lebesgue integral}
+
+Recall our \emph{canonical representation} of a simple function $\varphi$,
+\[
+	\varphi(x) = \sum a_i \chi_{E_i}(x), \qquad
+	E_i = \left\{
+		x \in E: \varphi(x) < a_i
+	\right\}.
+\]
+
+\begin{definition}[Interal of a simple function]
+	For a simple function $\varphi: E \to \R$ with
+	$\left\lvert E \right\rvert < \infty$, we define the
+	\emph{the integral of $\varphi$ over $E$} by
+	\[
+		\int_E \varphi =
+		\sum_{i=1}^n a_i m(E_i)
+	\]
+	where $\varphi$ has the canonical representation.
+\end{definition}
+
+\begin{lemma}[]
+	Let
+	$
+		\left\{
+			E_i
+		\right\}_{i=1}^n
+	$
+	be a collection of disjoint measurable subsets of a set $E$
+	with $m(E) < \infty$.
+	For $i \in \left\{
+		1, \ldots, n
+	\right\}$
+	we let $a_i \in \R$ be any real number.
+	Then
+	\[
+		\varphi = \sum_{i=1}^n a_i \chi_{E_i} \;\text{on $E$}\; \implies
+		\int_E \varphi = \sum_{i=1}^n a_i m(E_i)
+	\]
+\end{lemma}
+
+\begin{proof}
+	Let $\lambda_1, \ldots, \lambda_m$ be the unique values of
+	$\varphi$.
+	For each $K \in \left\{
+		1, \ldots, m
+	\right\}$,
+	we define \[
+		A_j = \left\{
+			x \in E: \varphi(x) = \lambda_J
+		\right\}.
+	\]
+	By definition,
+	\[
+		\int_E \varphi =
+		\sum_{J=1}^m \lambda_J m(A_J).
+	\]
+	Let $I_J$ be the set of indices $i \in \left\{
+		1, \ldots, n
+	\right\}$
+	for which $a_i = \lambda_J$.
+	Then
+	\[
+		\left\{
+			1 \ldots, n
+		\right\}
+		= \bigcup_{J=1}^m I_J
+	\]
+	and the union is disjoint.
+	For each $j \in \left\{
+		1, \ldots, m
+	\right\}$,
+	\[
+		m(A_J) = \sum_{i \in I_J} m(E_i).
+	\]
+	Thus
+	\begin{align*}
+		\sum_{i=1}^n a_i m(E_i)
+		&= \sum_{J=1}^n \left( 
+			\sum_{i \in I_J} a_im(E_i) 
+		\right) \\
+		&= \sum_{J=1}^m \lambda_J \left( 
+			\sum_{i\in I_j} m(E_I) 
+		\right) \\
+		&= \sum_{J=1}^m \lambda_J m(A_J) \\
+		&= \int_E \varphi. \qedhere
+	\end{align*}
+\end{proof}
+
+\begin{proposition}[Linearity and monotonicity of the integral of simple
+	functions]
+	Let $\varphi, \psi: E \to \R$ be simple functions,
+	with $\left\lvert E \right\rvert < \infty$.
+	For all $\alpha, \beta \in \R$,
+	\[
+		\int_E (\alpha \varphi + \beta \psi)
+		= \alpha \int_E \varphi + \beta \int_E \psi
+	\]
+	and
+	\[
+		\varphi \leq \psi \implies \int_E \varphi \leq \int_E \psi.
+	\]
+\end{proposition}
+
+\begin{proof}
+	Now, as $\varphi$ and $\psi$ are simple,
+	$\left\lvert \varphi(E) \right\rvert,
+	\left\lvert \psi(E) \right\rvert < \infty$.
+	So we can choose
+	$
+		\left\{
+			E_i
+		\right\}_{i=1}^n
+	$
+	be a disjoint collection of subsets of $E$ such that
+	$\bigcup E_i = E$ and both $\varphi$ and $\psi$ are constant
+	on $E_i$ fo reach $i \in \left\{
+		1, \ldots, n
+	\right\}$. 
+	Let $a_i$ be the value of $\varphi$ on $E_i$ and $b_i$
+	be the value of $\psi$ on $E_i$.
+	By the previous Lemma,
+	\begin{align*}
+		\int_E \varphi &= \sum_{i=1}^n a_i m(E_i), \\
+		\int_E \psi &= \sum_{i=1}^n b_i m(E_i).
+	\end{align*}
+	The simple function $\alpha\varphi + \beta\psi$ takes constant
+	value $\alpha a_i + \beta b_i$ on $E_i$.
+	Then
+	\begin{align*}
+		\int_E \alpha \varphi + \beta \psi
+		&= \sum (\alpha a_i + \beta b_i) m(E_i) \\
+		&= \alpha \sum a_i m(E_i) + \beta \sum b_i m(E_i) \\
+		&= \alpha \int_E \varphi + \beta \int_E \psi.
+	\end{align*}
+	Now to prove monotonicty.
+	Let $\eta = \psi - \varphi \geq 0$.
+	Then
+	\[
+		\int_E \psi - \int_E \varphi
+		= \int_E (\psi - \varphi)
+		= \int_E \eta
+		\geq 0. \qedhere
+	\]
+\end{proof}

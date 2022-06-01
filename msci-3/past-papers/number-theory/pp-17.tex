@@ -1,0 +1,287 @@
+\documentclass[a4paper, answers]{exam}
+\input{../preamble.tex}
+
+\begin{document}
+
+\begin{center}
+	\textbf{\textsc{Number Thoery III, 2017}} \\
+	\textsc{Ben Napier}
+	\vspace{1em}
+\end{center}
+
+Credit will be given for the best \emph{two} answers
+from Section A, the best \emph{three} answers from Section B,
+and the answer to \emph{the} answer to the question from Section C.
+Questions in Section B and C carry twice as many marks as those in
+Section A.
+
+\begin{center}
+	\textsc{\textbf{Section A}}
+\end{center}
+
+\begin{questions}
+	\question 
+	\begin{parts}
+		\part
+		Prove that there are no integral solutions to the Diophantine 
+		equation
+		\[
+			15x^2 - y^2 = 1.
+		\]
+
+		\part
+		Let $R = \Z\left[\sqrt d\right]$, where $d < -1$ is an odd integer.
+		\begin{subparts}
+			\subpart
+			Prove that 2 is an irreducible element in $R$.
+			
+			\subpart
+			Using the previous part or otherwise, prove that $R$ is not a UFD.
+			(Hint: You may consider the element $1 - d$).
+		\end{subparts}
+	\end{parts}
+
+	\question
+	\begin{parts}
+		\part
+		What is the full ring of integers $\mathcal O_{-11}$ in
+		$K = \Q\left(\sqrt{-11}\right)$?
+
+		\part
+		Put $\alpha = -5 + \sqrt{-11}$ and $\beta = 7 + \sqrt{-11}$.
+		By considering $\beta/\alpha$, or otherwise, find
+		$\gamma \in \mathcal O_{-11}$ such that
+		\[
+			\operatorname{N}_{K/\Q}(\beta - \gamma\alpha)
+			< \operatorname{N}_{K/\Q}(\alpha).
+		\]
+
+		\part
+		Let $R = \Z\left[\sqrt{-11}\right]$ and put 
+		$J = \left(3, 1 + \sqrt{-11}\right)_R$.
+		Show that $J^2 = \left(9, a + \sqrt{-11}\right)_R$ for some integer $a$.
+	\end{parts}
+
+	\question
+	\begin{parts}
+		\part
+		Let $K = \Q\left(\sqrt 3\right)$.
+		Let $\mathcal O_3$ be the number ring of $K$.
+		Then prove that $\alpha \in \mathcal O_3$ is a unit if and only if
+		$
+			\left\lvert \operatorname{N}_{K/\Q}(\alpha) \right\rvert = 1
+		$.
+
+		\part
+		Let $K = \Q(\alpha)$,
+		where $\alpha$ is a root of the polynomial $x^3 + 14x + 7$.
+		Find the degree $[K: \Q]$ and calculate the trace 
+		$
+			\operatorname{Tr}_{K/\Q}(\beta)
+		$
+		for $\beta = \alpha^2 - \alpha - 1$.
+	\end{parts}
+
+	\question
+	\begin{parts}
+		\part
+		\begin{subparts}
+			\subpart
+			Give the ring of integers $\mathcal O_{69}$ of 
+			$\Q\left(\sqrt{69}\right)$
+			and find its fundamental unit.
+
+			\subpart
+			Give all solutions in integers $x, y$, if any, of
+			$x^2 - 69y^2 = 4$.
+		\end{subparts}
+
+		\part
+		Let $R = \Z\left[\sqrt{-74}\right]$.
+		Factorise the ideal $\left(13 - \sqrt{-74}\right)_R$ as a product of 
+		prime ideals.
+		Determine which, if any, of these are principal ideals and show that $R$
+		has an ideal class of order $5$.
+	\end{parts}
+
+	\question
+	\begin{parts}
+		\part
+		Let $R = \Z\left[\sqrt{-31}\right]$.
+		Calculate the norm $\operatorname{N}(I)$ of the ideal in $R$ given by
+		\[
+			I = \left(2 - \sqrt{-31}, 3 + 2\sqrt{-31}\right)_R
+		\]
+		and exhibit a fractional ideal $F$ such that $IF = R$.
+
+		\part
+		Determine how many solutions there are to the equation
+		\[
+			x^2 + 2y^2 = 11^{11}
+		\]
+		such that $x$ is not divisible by $11$.
+		(You may use that $\Z\left[\sqrt{-2}\right]$ is a UFD, but you should
+		emphasise at which point you are invoking this.)
+	\end{parts}
+
+	\question
+	Let $R = \mathcal O_{-23}$.
+	Consider the ideals $I_1 = \left( 3, -2 + \sqrt{-23} \right)_R$
+	and $I_2 = \left( 8, 1 + \sqrt{-23} \right)_R$ in $R$.
+	\begin{parts}
+		\part
+		Do $I_1$ and $I_2$ lie in the same ideal class?
+
+		\part
+		Is either one of $I_1$ or $I_2$ principal?
+	\end{parts}
+
+	\begin{center}
+		\textsc{\textbf{Section B}}
+	\end{center}
+
+	\question
+	\begin{parts}
+		\part
+		Let $m \neq n$ be two square-free integers, i.e. they are products
+		of distinct primes.
+		Prove that $\Q\left(\sqrt m\right) \neq \Q\left(\sqrt n\right)$.
+
+		\part
+		Given any integer $n$, let 
+		$\omega_n = \exp\left(\sfrac{2\pi i}n\right)$
+		denote a primitive $n$-th root of unity.
+		The fields $\Q\left(\omega_n\right) = \Q\left[\omega_n\right]$
+		are called \emph{cyclotomic} extensions of $\Q$.
+		\begin{subparts}
+			\subpart
+			For any positive integer $n$, prove that
+			$
+			\omega^2_{2n} = \omega_n
+			$
+			and
+			$
+			-\omega^{n+1}_{2n} = \omega_{2n}
+			$.
+
+			\subpart
+			Using the above relations, or otherwise, prove that
+			$
+				\Q\left[\omega_n\right]
+				= \Q\left[\omega_{2n}\right],
+			$
+			where $n$ is a positive odd integer.
+		\end{subparts}
+
+		\part
+		Give an example of a quadratic extension of $\Q$ which is also a
+		cyclotomic extension.
+	\end{parts}
+
+	\question
+	\begin{parts}
+		\part
+		Show that
+		$
+		\Z\left[\sqrt{-11}\right]
+		$
+		contains elements of norm $53$ and $103$, respectively.
+		How many integer solutions are there to
+		\[
+			x^2 + 11y^2 = 2^2 \cdot 53^5 \cdot 103^7?
+		\]
+		How many integers solutions with $x,y$ positive are there?
+		(You may assume that
+		$
+		\Z\left[\frac{\left(1 + \sqrt{-11}\right)}2\right]
+		$
+		is a UFD and that the only units in this ring are $\pm 1$.)
+
+		\part
+		In this part, you may use that $\Z\left[i\right]$ is a UFD.
+		\begin{subparts}
+			\subpart
+			Factorise $2$ as a product of primes in $\Z\left[i\right]$.
+
+			\subpart
+			Prove that equation
+			\[
+				\left(x + 16i\right) \left(x - 16i\right) = y^3
+			\]
+			would necessarily imply that $x + 16i$ is a cube in $\Z[i]$.
+
+			\subpart
+			Prove that the Diophantine equation
+			\[
+				x^2 + 256 = y^3
+			\]
+			has at most finitely many solutions where $x$ and $y$ are integers.
+			(Carefully justify your method.)
+		\end{subparts}
+	\end{parts}
+
+	\question
+	Determine the ideal class group of $K = \Q\left(\sqrt{-39}\right)$.
+	(You may assume that every ideal class contains an ideal of norm no more
+	than $B_K$, where, in the usual notation,
+	$B_K = \left(\frac4\pi\right)^t \frac{n!}{n^n} 
+	\sqrt{\left\lvert \Delta_K \right\rvert}$.)
+
+	\question
+	Let $K = \Q(\theta)$ where $\theta$ is a root of 
+	$f(x) = x^3 - 3x - 3$.
+	\begin{parts}
+		\part
+		Find the norm and trace of $\theta^2 + 1$.
+
+		\part
+		Find the discriminant 
+		$\Delta_K\left(\Z\left[\theta\right]\right)$ 
+		and show that $\mathcal O_K = \Z\left[\theta\right]$.
+
+		\part
+		Show that the class number of $K$ is $1$.
+		(You may use the formula from Question 9.)
+	\end{parts}
+
+	\begin{center}
+		\textsc{\textbf{Section C}}
+	\end{center}
+
+	\question
+	For this question, you may assume that, if $\omega$ is a primitive $k$-th
+	root of unity, then
+	$\left[\Q\left(\omega\right): \Q\right] > 2$, when $k \neq 2,3,4,6$.
+	For an algebraic number $\theta$, let $K = \Q\left(\theta\right)$.
+	\begin{parts}
+		\part
+		Let $\theta = \sqrt[4]{11}$.
+		\begin{subparts}
+			\subpart
+			Find the minimal polynomial for $\theta$.
+			Using this, or otherwise, find all the conjugates of $\theta$,
+			and find all the embeddings $\sigma_i: K \to \C$.
+
+			\subpart
+			Use the morphisms $\sigma_i$ to find an embedding of $K$
+			into a space $\R^r \times \C^s$.
+			What are the integers $r$ and $s$?
+
+			\subpart
+			What is the cardinality of the set of units in $K$?
+		\end{subparts}
+
+		\part
+		Let $\theta = \sqrt d$, where $d$ is a square-free integer.
+		\begin{subparts}
+			\subpart
+			Explicitly compute the group of finite order units in $K$.
+			How does this group depend on $d$?
+
+			\subpart
+			Find the group structure for the whole group of units of $K$.
+		\end{subparts}
+	\end{parts}
+\end{questions}
+
+\end{document}

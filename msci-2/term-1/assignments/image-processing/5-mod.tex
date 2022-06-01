@@ -1,0 +1,16 @@
+\section{Modifications}
+
+As mentioned in the parameters section, 
+it has been shown that choosing some parameters \emph{locally} (namely $h$) 
+can lead to better performance in the non-local means filter \cite{duval2010parameter}.
+
+Another modification to the non-local means algorithm is changing the 
+weighting function. 
+The original non-local means functions uses the L2 norm (Euclidean norm);
+however, research has shown that the L3 norm to be more effective as the
+difference between two neighbourhoods as the differences become more pronounced 
+\cite{wahid2015modified}.
+
+Utilising \emph{summed square image} and \emph{fast Fourier transforms},
+the non-local means algorithm was able to run (up to) fifty times more efficiently
+with denoising results that were similar to the original algorithm in MSE \cite{wang2006fast}.

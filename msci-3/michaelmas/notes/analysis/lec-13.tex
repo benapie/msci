@@ -1,0 +1,377 @@
+%! TEX root = master.tex
+\section{Measurable functions}
+\lecture{13}{21/11}
+
+\begin{definition}[Almost everywhere]
+	A property $P$ is said to hold \emph{almost everywhere}
+	(abbreviated \emph{a.e.})
+	in a measurable set $E$ if there exists $E_0 \subset E$
+	with $m(E_0) = 0$ such that $P$ holds in $E \setminus E_0$.
+\end{definition}
+
+\begin{proposition}[]
+	\label{prop:measurable}
+	Let $E \subset \R$ be measurable, $f: E \to \R$, and $c \in \R$.
+	Then the following are equivalent.
+	\begin{enumerate}
+		\item
+			$
+				\left\{
+					x \in E: f(x) > c
+				\right\}
+			$
+			is measurable.
+
+		\item
+			$
+				\left\{
+					x \in E: f(x) \geq c
+				\right\}
+			$
+			is measurable.
+
+		\item
+			$
+				\left\{
+					x \in E: f(x) < c
+				\right\}
+			$
+			is measurable.
+
+		\item
+			$
+				\left\{
+					x \in E: f(x) \leq c
+				\right\}
+			$
+			is measurable.
+	\end{enumerate}
+	Each of these properties implies that for each extended real number $c$,
+	the set
+	$
+		\left\{
+			x \in E: f(x) = c
+		\right\}
+	$
+	is measurable.
+\end{proposition}
+
+\begin{proof}
+	Since measurable sets form a $\sigma$-algebra,
+	so $(i) \iff (iv)$ and $(ii) \iff (iii)$ as they are
+	complementary.
+	So now we prove $(i) \implies (ii)$.
+	Observe
+	\[
+		\left\{
+			x \in E: f(x) \geq c
+		\right\}
+		= \bigcap_{k=1}^\infty \left\{
+			x \in E: f(x) > c - \frac1k
+		\right\},
+	\]
+	and so we are done.
+	Similarly, for $(ii) \implies (i)$ we see that
+	\[
+		\left\{
+			x \in E: f(x) > c
+		\right\}
+		= \bigcup_{k=1}^\infty \left\{
+			x \in E: f(x) \geq c + \frac1k
+		\right\}
+	\]
+	and so we are done.
+	For our last statement, observe that
+	\[
+		\left\{
+			x \in E: f(x) = c
+		\right\}
+		=
+		\left\{
+			x \in E: f(x) \geq c
+		\right\}
+		\cap
+		\left\{
+			x \in E: f(x) \leq c
+		\right\}
+	\]
+	and furthermore
+	\[
+		\left\{
+			x \in E: f(x) = \infty
+		\right\}
+		=
+		\bigcap_{k=1}^\infty
+		\left\{
+			x \in E: f(x) > k
+		\right\}. \qedhere
+	\]
+\end{proof}
+
+\begin{definition}[Lebesgue measurable]
+	An extended real-valued function $f$ defined on $E$ is said to be
+	\emph{Lebesgue measurable} (or just \emph{measurable})
+	provided $E$ is measurable and it satisfies the four properties
+	from Proposition \ref{prop:measurable}.
+\end{definition}
+
+\begin{proposition}[]
+	Let $f$ be a function defined on a measurable set $E$.
+	Then $f$ is measurable if and only if for every open set
+	$O \subset f(E)$,
+	$f^{-1}(O)$ is measurable.
+\end{proposition}
+
+\begin{proof}
+	$(\impliedby)$:
+	consider the open set $(c, \infty)$.
+	Observe that
+	$
+		f^{-1}(c, \infty) =
+		\left\{
+			x \in E: f(x) > c
+		\right\}
+	$
+	is measurable.
+	Thus $f$ is measurable.
+	$(\implies)$:
+	let $O$ be open.
+	Then there is a collection
+	$
+		\left\{
+			I_k
+		\right\}
+	$
+	of open bounded intervals such that
+	$
+		O = \bigcup_{k=1}^\infty I_k
+	$.
+	Observe that for every 
+	$I_k = (a_k, b_k)$,
+	$I_k = A_k \cap B_k$
+	where $A_k = (a_k, \infty)$ and $B_k = (-\infty, b_k)$.
+	Since $f$ is measurable, $f^{-1}(A_k)$ and $f^{-1}(B_k)$ are measurable
+	(look at the definition of these sets).
+	Then
+	\[
+		f^{-1}(O)
+		= f^{-1}
+		\left( 
+			\bigcup_{k=1}^\infty (A_k \cap B_k) 
+		\right)
+		=
+		\bigcup_{k=1}^\infty
+		\left( 
+			f^{-1}(A_k) \cap f^{-1}(B_k) 
+		\right)
+	\]
+	is measurable.
+\end{proof}
+
+\begin{proposition}[]
+	A continuous real-valued function with a measurable domain is measurable.
+\end{proposition}
+
+\begin{proof}
+	Let $E \subset \R$ be measurable, $O \subset \R$ be open, and
+	$f: E \to \R$ be continuous.
+	As $f$ is continuous, 
+	$f^{-1}(O) = E \cap U$ where $U$ is open.
+	As $U$ is open (and thus a countable union of disjoint open intervals),
+	it is measurable.
+	Hence $f^{-1}(O) = E \cap U$ is measurable.
+	Therefore $f$ is measurable.
+\end{proof}
+
+\begin{proposition}[]
+	A monotone function that is defined on an interval is measurable.
+\end{proposition}
+
+\begin{proof}
+	Let $E$ be an interval, hence it is measurable.
+	Then
+	$
+		\left\{
+			x \in E: f(x) > c
+		\right\}
+	$
+	is either an interval, a single point set, or empty for all $c$, 
+	thus it is measurable.
+	Hence $f$ is measurable.
+\end{proof}
+
+\begin{proposition}[]
+	Let $f$ be an extended real-valued function on a measurable set $E$.
+	\begin{enumerate}
+		\item If $f$ is measurable on $E$ and $f(x) = g(x)$ a.e. on $E$.
+			Then $g$ is measurable on $E$.
+
+		\item Let $D \subset E$ be a measurable subset.
+			$f$ is measurable on $E$ if and only if
+			$\restr fD$ and $\restr f{E \setminus D}$ are measurable.
+	\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+	$(i)$: define 
+	$
+		A =
+		\left\{
+			x \in E: f(x) \neq g(x)
+		\right\}.
+	$
+	Now let, as $f(x) = g(x)$ a.e. there is $E_0 \subset E$ with measure zero
+	such that $f(x) = g(x)$ for every $x \in E \setminus E_0$.
+	Observe that $A \subset E_0$ so
+	\[
+		m^\star(A) \leq m^\star(E_0) = 0,
+	\]
+	and so $A$ is measurable with $m(A) = 0$.
+	Further, note
+	\[
+		\left\{
+			x \in E: g(x) > c
+		\right\}
+		= \left\{
+			x \in A: g(x) > c
+		\right\} \cup \left( 
+			\left\{
+				x \in E: f(x) > c
+			\right\}
+			\cap 
+			\left( 
+				E \setminus A 
+			\right)
+		\right).
+	\]
+	Now
+	$
+		\left\{
+			x \in A: g(x) > c
+		\right\}
+		\subset A
+	$
+	is measurable since it is a subset of a set of measure zero
+	(from similar argument to before).
+	Finally, as $E$ and $A$ are measurable, $E \setminus A$.
+	Combining this with the fact that $f$ is measurable,
+	the set
+	\[
+		\left\{
+			x \in E : f(x) > c
+		\right\}
+		\cap (E \setminus A)
+		=
+		\left(
+			\left\{
+				x \in E: f(x) > c
+			\right\}^c
+			\cup (E \setminus A)^c
+		\right)^c
+	\]
+	is measurable.
+	So $g$ is measurable.
+	$(ii)$: let $c \in \R$.
+	Then
+	\[
+		\left\{
+			x \in E: f(x) > c
+		\right\}
+		=
+		\left\{
+			x \in D: f(x) > c
+		\right\}
+		\cup 
+		\left( 
+			\left\{
+				x \in E \setminus D: f(x) > c
+			\right\} 
+		\right).
+	\]
+	If $f$ is measurable on $E$,
+	$
+		\left\{
+			x \in E: f(x) > c
+		\right\}
+	$
+	is measurable.
+	Hence
+	\[
+		\left\{
+			x \in D : f(x) > c
+		\right\}
+		\cup
+		\left\{
+			x \in E \setminus D: f(x) > c
+		\right\}
+	\]
+	is measurable.
+	Hence $f$ is measurable on $D$ and $E \setminus D$.
+\end{proof}
+
+\begin{proposition}[]
+	For a finite family
+	$
+		\left\{
+			f_k
+		\right\}_{k=1}^m
+	$
+	of measurable functions each with a domain $E$.
+	Then
+	$
+		\min
+		\left\{
+			f_1, \ldots, f_n
+		\right\}
+	$
+	and
+	$
+		\max
+		\left\{
+			f_1, \ldots, f_n
+		\right\}
+	$
+	are measurable.
+\end{proposition}
+
+\begin{proof}
+	Let $c \in \R$.
+	Then observe
+	\[
+		\left\{
+			x \in E: \max
+			\left\{
+				f_1, \ldots, f_n
+			\right\}
+			(x) > c
+		\right\}
+		=
+		\bigcap_{k=1}^\infty
+		\left\{
+			x \in E:
+			f_k(x) > c
+		\right\}
+	\]
+	and so is measurable.
+	A similar argument show that the minimum functino is also measurable.
+\end{proof}
+
+For a function $f$ defined on $E$, we have the associated functions
+$\left\lvert f \right\rvert$, $f^+$, and $f^-$
+defined by
+\begin{align*}
+	\left\lvert f \right\rvert(x)
+	&= \max\left\{
+		f(x)< -f(x)
+	\right\}, \\
+	f^+(x)
+	&= \max\left\{
+		f(x), 0
+	\right\}, \\
+	f^-(x)
+	&= \max\left\{
+		-f(x), 0
+	\right\}.
+\end{align*}
+By the previous proposition, if $f$ is measurable so are the three
+functions defined above.

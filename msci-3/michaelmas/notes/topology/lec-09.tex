@@ -1,0 +1,71 @@
+%! TEX root = master.tex
+
+\lecture{9}{25/10}
+
+\begin{definition}[Homeomorphism]
+	Let $X$ and $Y$ be two topological spaces.
+	We say that a map $h: X \to Y$ is a \emph{homeomorphism} if $h$ is
+	bijective, $h$ is continuous, and $h^{-1}$ is continuous.
+	If such a map exists, we say that $X$ and $Y$ are homeomorphic, denoted
+	$X \cong Y$.
+\end{definition}
+
+\begin{example}[]
+	We will show that $(0,1) \cong \R$.
+	First, we can easily map $(0,1)$ to $(-\sfrac{\pi}2, \sfrac{\pi}2)$ with the
+	bijection $h_1(x) = \pi \left( x - \frac12 \right)$, with
+	$h_1^{-1}(x) = \frac{x}{\pi} + \frac12$.
+	Both $h_1$ and its inverse are continuous, and so $h_1$ is a homeomorphism.
+	Now we consider $h_2: (-\sfrac{\pi}2, \sfrac{\pi}2)$ as $h_2(x) = \tan{x}$,
+	well known to be a continuous bijection on this interval, as well as its
+	inverse.
+	Since both $h_1$ and $h_2$ are homeomorphisms, it is not difficult to reason
+	that $h_1 \circ h_2$ is also a homeomorphism; hence, $(0,1) \cong \R$.
+\end{example}
+
+Even though $(0,1) \cong \R$, we will see that $[0,1) \not\cong \R$ (we will
+see this once we have introduced the concept of \emph{connectedness}).
+
+\begin{example}[]
+	Consider the topological space $\R$ with the standard Euclidean topology.
+	This space is \emph{not} homeomorphic to $\R$ with the discrete topology.
+	Any singleton set in $\R$ with the discrete topology is open, and any
+	bijection must map singleton sets to singleton sets. A singleton set in $\R$
+	with the Euclidean topology must not be open; hence, no such map exists.
+\end{example}
+
+\begin{example}[]
+	We will give an example of a non-Hausdorff space $X$ in which for every
+	$a \in X$, there is an open set $a \in U \subset X$ where $U$ is 
+	homeomorphic to $\R$ in the standard topology: the \emph{real line with the
+	origin doubled}.
+	We define $X = \R \cup \left\{ \overline 0 \right\}$.
+	Let $f_0 : \R \to X$ such that $p \mapsto p$ and $f_{\overline 0}: \R \to X$
+	such that
+	\[
+		f_{\overline 0}(p) =
+		\begin{cases}
+			p           & p \neq 0, \\
+			\overline 0 & p = 0.
+		\end{cases}
+	\]
+	In our topology, $U \subset X$ is open if and only if $f_{0}^{-1}(U)$ is
+	open and $f_{\overline 0}^{-1}(U)$ is open.
+	We can easily check that this defines a topology on $X$.
+	Now suppose $a \in X$ such that $a \neq 0$ and $a \neq \overline 0$.
+	Then 
+	$
+		\left( 
+			a - \frac{\left\lvert a \right\rvert}{2}, 
+			a + \frac{\left\lvert a \right\rvert}{2} 
+		\right)
+	$ 
+	is an open set in $X$ containing $a$ and homeomrorphic to $(0,1)$.
+	Now $(-1, 1) \ni 0$ is open in $X$ and homeomorphic to $(0,1)$,
+	and $(-1, 0) \cup \left\{ \overline 0 \right\} \cup (0,1) \ni \overline 0$
+	is open in $X$ and homeomorphic to $(0,1)$.
+	Note that if $U \ni 0$ is open and $V \ni \overline O$ is open (in $X$)
+	then $U \cap V \neq \varnothing$.
+	Hence $X$ is non-Hausdorff.
+\end{example}
+

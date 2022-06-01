@@ -1,0 +1,83 @@
+\section{Implementation}
+
+Definition \ref{def:non-local-means} is effective; however, the computational complexity is
+$O(n^4)$
+where $n^2$ is the number of pixels in the image. This makes it particularly computational
+intensive to apply.
+This has lead to different implementations to improve execution time \cite{wang2006fast}.
+
+\begin{definition}[Neighbourhoods]
+    Let $\Omega$ be an image, $p \in \Omega$, and $r \in \N$.
+    Then
+    $B(p, r)$
+    indicates a \textbf{neighbourhood} centered at $p$ with size
+    $(2r + 1) \times (2r + 1)$;
+    that is,
+    it is a collection of pixels where we can move from one pixel to any other pixel without
+    leaving the collection.
+\end{definition}
+
+A neighbourhood is typically square (but not necessarily).
+
+\begin{figure*}
+    \begin{equation}
+        \label{equ:squared-euclidean-distance}
+        d^2(B(p, f), B(q, f)) = 
+            \frac1{3(2f + 1)^2} \sum_{i = 1}^3 \sum_{j \in B(0, f)} 
+            \left(u_i(p + j) - u_i(q + j)\right)
+    \end{equation}
+    \begin{equation} 
+        \label{equ:f}
+        f(p, q)               = 
+            \exp{\left(-\frac{\max\{d^2(p, q) - 2\sigma^2, 0\}}{h^2}\right)}
+    \end{equation}
+\end{figure*}
+
+\subsection{Pixelwise}
+
+A \emph{pixelwise} implementation was introduced by A. Buades et al. \cite{buades2011non} as 
+follows.
+For a color image $u = (u_1, u_2, u_3)$, we define
+\[ u_i(p) = \frac1{C(p)} \sum_{q \in B(p, r)} v_i(q) f(p, q) \]
+for a fixed $r$ which can be increased or decreased depending on the necessity of finding noise.
+We define $f(p, q)$ using the squared Euclidean distance between the patches centered at $p$ and 
+$q$, as shown in Equation \ref{equ:squared-euclidean-distance}. The explicit formula for $f$ uses
+an exponential kernel, as shown in Equation \ref{equ:f} where $\sigma$ denotes the standard deviation
+of the noise and $h$ is the filtering parameter set depending on the value of $\sigma$.
+
+\subsection{Patchwise}
+
+For each point $p \in \Omega$ where $\Omega$ is our image, we have a \emph{patch} $B(p, f)$ 
+(centered at $p$ with size $(2f + 1) \times (2f + 1)$).
+\[ \hat B = \frac1C \sum_{Q(q,f) \in B(p, f)} u_i(Q) w(B, Q) \]
+where $C$ is our normalisation function.
+By applying the procedure for all patches in the image,
+we remove $(2f + 1)^2$ estimates for each pixel.
+These estimates can be averaged at each pixel location to get the final denoised image:
+\[ \hat u(p) = \frac1{(2f + 1)^2} \sum_{Q(q, f) \;\mid\; q \in B(p, f)} \hat Q(p). \]
+The weighting function is the same defined in the pixelwise implementation.
+
+\subsection{Comparison}
+
+The main difference between these version is the gain on the \emph{peak signal-to-noise ratio}, 
+as defined in Definition \ref{def:peak-signal-to-noise-ratio}.
+This is due to the larger noise reducition of the final aggregation process;
+however, there is no overall improvement in the preservations of details.
+The patchwise implementation has the benefit of running faster than the pixelwise
+implementation, as discussed before.
+
+\begin{definition}[Mean squared error]
+    \label{def:mean-squared-error}
+    Given a noise-free $m \times n$ monochrome image $I$ and a noisy approximation $K$, 
+    the \textbf{mean squared error} (MSE) is defined as
+    \[ \operatorname{MSE}{(I, K)} = 
+    \frac1{mn} \sum_{i=0}^{m-1} \sum_{j=0}^{n-1} \left(I(i,j) - K(i,j)\right)^2. \]
+\end{definition}
+
+\begin{definition}[Peak signal-to-noise ratio]
+    \label{def:peak-signal-to-noise-ratio}
+    Given a noise-free $m \times n$ monochrome image $I$ and a noisy approximation $K$,
+    the \textbf{peak signal-to-noise ratio} (PSNR) is defined as
+    \[ \operatorname{PSNR}{(I, K)} =
+    10 \cdot \log_{10} \left(\frac{(\max{I})^2}{\operatorname{MSE}{(I, K)}}\right).\]
+\end{definition}

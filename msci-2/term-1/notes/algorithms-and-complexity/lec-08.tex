@@ -1,0 +1,37 @@
+\chapter{Matchings in graphs}
+\lecture{8}{25/11}
+
+\begin{definition}[Matching]
+    Let $G = (V, E)$ be an undirected graph. 
+    A set $M \subset E$ is a \textbf{matching} in $G$ if no two edges in $M$ have an end-vertex in common. 
+\end{definition}
+
+We say that a matching is \textbf{maximum} if there is no other matching in $G$ with more edges.
+
+A vertex $v \in V$ is \textbf{matched} by $M$ if $v$ is an end-vertex for some edge in $M$; otherwise, it is \textbf{unmatched}.
+
+The \textbf{matching number} $v_G$ of $G$ is the size of a maximum matching in $G$.
+
+\begin{problem}[Maximum matching]
+    Given a graph $G$, determine $v_G$.
+\end{problem}
+
+\begin{definition}[Alternating paths and cycles]
+    Let $G = (V, E)$ be a graph and $M \subset E$ be a matching in $G$.
+
+    A path $P \subset E$ is said to be \textbf{alternating} with respect to $M$ if and only if for all two consecutive edges in $P$ only one of them is in $M$.
+
+    A cycle $C \subset E$ is said to be \textbf{alternating} with respect to $M$ if and only if for all two consecutive edges in $C$ only one of them is in $M$.
+\end{definition}
+
+\begin{lemma}[]
+    Let $G$ be a graph with a matching $M$ and an alternating path $P$ with respect to $M$.
+    If each end-point of $P$ is unmatched by $M$ or matched by $M \cap P$ then
+    $M \bigoplus$ is another matching. 
+\end{lemma}
+
+\begin{definition}[Augmenting paths]
+    An alternating path $P$ with respect to a matching $M$ is \textbf{augmenting} if both end-points of $P$ are unmatched by $M$.
+\end{definition}
+
+%todo

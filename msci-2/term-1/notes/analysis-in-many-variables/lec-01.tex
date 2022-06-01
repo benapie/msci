@@ -1,0 +1,37 @@
+\chapter{Review of partial differentiation}
+\lecture{1}{7/10}
+
+\section{First derivatives}
+
+\begin{definition}[Derivative]
+    Let $f: \R \to \R$. Then the derivative with respsect to $x$ is \[ \frac{df}{dx} = \lim_{h \to 0} \left( \frac{f(x+h) - f(x)}{h} \right) \] if it exists.
+\end{definition}
+
+\begin{example}
+    Let $f(x) = cx^n$, then $ \frac{df}{dx} = cnx^{n - 1} $. 
+\end{example}
+
+\begin{definition}[]
+    Let $f: \R \times \R \to \R$. Then we define the \textbf{partial derivative} as \[ \frac{\partial f}{\partial x} = \lim_{h \ to 0} \left( \frac{f(x+h, y) - f(x, y)}{h} \right).\] That is, $ \frac{\partial f}{\partial x} $ is defined by differentiating with respect to $x$ and treating $y$ as a constant.  
+\end{definition}
+
+\begin{example}
+    Let $f(x, y) = cx^y$. Then $ \frac{\partial f}{\partial x} = cyx^{y-1}$ and $ \frac{\partial f}{\partial y} = (\log{x})cx^y$.
+\end{example}
+
+When we extend this to three variables, we hold two variables constant and differentiate the other one. In fact, for $n$ variables, we hold $n-1$ variables and differentiate with respect to the one we did not hold.
+
+\begin{example}
+    If $(r, \theta)$ are polar coordinates and $(x, y)$ are cartesian coordinates we can view $x$ and $y$ as functions of $r$ and $theta$. That is, \[ x(r, \theta) = r \cos{\theta}, \quad y(r, \theta) = r\sin{\theta}. \] Then we have
+    \begin{align*}
+        \frac{\partial x}{\partial r} &= \cos{\theta} & \frac{\partial y}{\partial r} &= \sin{\theta} \\
+        \frac{\partial x}{\partial \theta} &= -r\sin{\theta} = -y & \frac{\partial y}{\partial \theta} &= r\cos{\theta} = x.
+    \end{align*}
+    We can also write $r$ and $\theta$ in terms of $x$ and $y$. \[ r(x, y) = \sqrt{x^2 + y^2}, \quad \theta(x, y) = \arctan \frac yx. \] We then have
+    \begin{align*}
+        \frac{\partial r}{\partial x} &= \frac{x}{\sqrt{x^2 + y^2}} & 
+            \frac{\partial r}{\partial y} &= \frac{y}{\sqrt{x^2 + y^2}} \\ 
+        \frac{\partial \theta}{\partial x} &= \frac{y}{x^2 + y^2} &
+        \frac{\partial \theta}{\partial y} &= \frac{x}{x^2 + y^2}. \\
+    \end{align*}
+\end{example}

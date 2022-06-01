@@ -1,0 +1,164 @@
+%! TEX root = master.tex
+\lecture{8}{11/11}
+
+\begin{theorem}[]
+	Let $f_n: E \subset \R \to \R$ be a sequence of continuous functions
+	converging uniformly to $f: E \to \R$.
+	Then $f$ is continuous.
+\end{theorem}
+
+\begin{proof}
+	Let $\varepsilon > 0$.
+	By the definition of uniform convergence, there is $N \in \N$ such that
+	for every $x \in E$, $\left\lvert f_n(x) - f(x) \right\rvert < \varepsilon$.
+	Now as $f_n$ is continuous, there is $\delta > 0$ such that
+	\[
+		\left\lvert x - y \right\rvert < \delta
+		\implies
+		\left\lvert f_N(x) - f_N(y) \right\rvert < \varepsilon.
+	\]
+	Therefore, with $x,y \in E$ with $\left\lvert x - y \right\rvert < \delta$
+	we have
+	\[
+		\left\lvert f(x) - f(y) \right\rvert
+		\leq \left\lvert f(x) - f_N(x) \right\rvert
+		+ \left\lvert f_N(x) - f_N(y) \right\rvert
+		+ \left\lvert f_N(y) - f(y) \right\rvert
+		\leq 3 \varepsilon.
+	\]
+\end{proof}
+
+\begin{definition}[Cantor function]
+	Let $\mathcal C$ be the cantor set on $[0,1]$.
+	Then the \emph{Cantor function}  $C: [0,1] \to [0,1]$
+	is defined as
+	\[
+		c(x) =
+		\begin{cases}
+			\sum_{n=1}^\infty \frac{a_n}{2^n} &
+				x = \sum_{n=1}^\infty \frac{2a_n}{3^n} \in \mathcal C
+				\;\text{for $a_n \in \left\{
+					0,1
+				\right\}$}, \\
+			\sup_{C \ni y \leq x} c(y) &
+				x \in [0,1] \setminus \mathcal C.
+		\end{cases}
+	\]
+\end{definition}
+
+\begin{theorem}[]
+	The Cantor function is uniformly continuous, monotone, surjective, and
+	has a vanishing derivative on $\mathcal C^c$.
+\end{theorem}
+
+\section{Outer measures}
+
+\begin{definition}[Length of an interval]
+	Let $I$ be a non-empty interval of real numbers.
+	We define the \emph{length of $I$} to be $\infty$ if $I$ is unbounded
+	and the difference of the endpoints otherwise. We denote the length of
+	$I$ as $l(I)$.
+\end{definition}
+
+\begin{definition}[Outer measure]
+	Let $A \subset \R$.
+	We define the \emph{outer measure} of $A$, $m^\star(A)$,
+	as the greatest lower bound of all sums of the lengths of the intervals
+	covering $A$.
+	That is,
+	\[
+		m^\star(A) = \inf\left\{
+			\sum_{k=1}^\infty l(I_k): A \subset
+			\bigcup_{k=1}^\infty I_k
+		\right\}.
+	\]
+\end{definition}
+
+It follows immediately from our definition that $m^\star(\varnothing) = 0$.
+Furthermore, since any cover of $B$ is a cover of any subset of $B$,
+we see that outer measures are \emph{monotone} in the sense that
+\[
+	A \subset B \implies m^\star(A) \leq m^\star(B).
+\]
+
+\begin{proposition}[]
+	The outer measure of an interval is its length.
+\end{proposition}
+
+\begin{proof}
+	We begin with the closed and bounded interval $[a,b]$.
+	Let $\varepsilon > 0$.
+	Then $(a-\varepsilon, b+\varepsilon) \supset [a,b]$
+	and so 
+	\[
+		m^\star([a,b]) \leq l\left( 
+			(a - \varepsilon, b + \varepsilon) 
+		\right)= b - a + 2\varepsilon.
+	\]
+	Thus $m^\star([a,b]) \leq b - a$.
+	We have left to show that $m^\star([a,b]) \geq b - a$.
+	This is equivalent to showing that if $\left\{
+		I_k
+	\right\}_{k=1}^\infty$ is any countable collection of open intervals
+	covering $[a,b]$ then
+	\[
+		\sum_{k=1}^\infty l(I_k) \geq b - a.
+	\]
+	By the Heine-Borel theorem, there is a finite subcovering,
+	say $\left\{
+		I_k
+	\right\}_{k=1}^n$.
+	As $a \in \bigcup_{k=1}^n I_k$, there is $i \in \left\{
+		1,\ldots, n
+	\right\}$ such that $a \in I_i$. 
+	Denote $I_i = (a_i, b_i)$.
+	Clearly $a \in I_i$. Now if $b_1 \geq b$ then
+	\[
+		\sum_{k=1}^n l(I_k) \geq b_1 - a_1 > b - a
+	\]
+	and we are done. Otherwise, $b_1 \in [a,b)$ and, as before, there is
+	$j \in \left\{
+		1, \ldots, n
+	\right\} \setminus \left\{
+		i
+	\right\}$ such that $b_1 \in I_j$.
+	Denote $I_j = (a_2, b_2)$ and obverse that $a_2 < b_1 < b_2$.
+	If $b_2 \geq b$ then
+	\[
+		\sum_{k=1}^n l(I_k)
+		\geq (b_1 - a_1) + (b_2 - a_2)
+		= b_2 - (a_2 - b_2) - a_1
+		\geq b_2 - a_1
+		> b - a.
+	\]
+	We continue this selection process until we terminate, which will happen
+	in at most $n$ steps.
+	Thus we have the subcollection $\left\{
+		(a_k, b_k)
+	\right\}_{k=1}^N$ for some $N \leq n$ where $a_1 < a$.
+	Observe that $a_{k+1} < b_k$ for $k \in \left\{
+		1, \ldots, N-1
+	\right\}$ and $b_N \geq b$.
+	Thus
+	\begin{align*}
+		\sum^{N}_{k=1} l(I_k)
+		&\geq \sum^{N}_{k=1} l\left( 
+			(a_k,b_k) 
+		\right) \\
+		&= (b_N - a_N) + \ldots + (b_1 - a_1) \\
+		&= b_N - (a_N - b_{N-1}) - \ldots - (a_2 - b_1) - a_1 \\
+		&> b_n - a_1 \\
+		&\geq b - a.
+	\end{align*}
+	Thus we have shown our statement for $[a,b]$.
+	Now consider any bounded interval. 
+	Given $\varepsilon > 0$, there is bounded closed intervals $J_1$ and $J_2$
+	such that $J_1 \subset I \subset J_2$ and so
+	\[
+		l(I) - \varepsilon < l(J_1), \qquad l(J_2) \leq l(I) + \varepsilon.
+	\]
+	Thus $l(I) = m^\star(I)$.
+	Finally, if $I$ is unbounded then for every $n \in \N$ there is
+	$J \subset I$ with $l(J) = n$.
+	Hence $m^\star(I) \geq m^\star(J) = l(J) = n$ an so $m^\star(I) = \infty$.
+\end{proof}

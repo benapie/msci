@@ -1,0 +1,91 @@
+\chapter{Equally likely outcomes and counting principles}
+
+\section{Classical probability}
+
+One of the simplest scenarios we are faced with in probability is where we have A \textbf{finite sample space} \[ \Omega = \{ \omega_1, \omega_2, \ldots, \omega_m \} \] with $m$ \textbf{equally likely} outcome, such that \[ \Prob{(\omega_i)} = \frac{1}{\abs{\Omega}} = \frac{1}{m}. \] For any event $A \subset \Omega$ \[ \Prob{(A)} = \frac{\abs{A}}{\abs{\Omega}}. \]
+
+\begin{example}
+    Roll a fair dice. Then \[ \Omega = \{ 1, 2, 3, 4, 5, 6 \}. \] All outcomes are equally likely, so \[ \Prob{(\text{odd score})} = \frac{\abs{\{ 1, 3, 5 \}}}{\abs{\Omega}} = \frac{1}{2}. \]
+\end{example}
+
+\section{Counting principles}
+
+Given a finite sample space and assuming that outcomes are equally likely, to determine probabilities of certain events comes down to counting. We have a number of principles that we can use to help make counting easier.
+
+\begin{proposition}[Multiplication principle]
+    Suppose we make $k$ choices in succession with $m_k$ representing the number of possibilities for the $k$th choice. Then the total number of possible selections is \[ \prod_{i = 1}^k m_i. \]
+\end{proposition}
+
+\begin{example}
+    In a standard deck of cards, there are 13 denominations and 4 suits. So there are a total of 52 cards.
+\end{example}
+
+\begin{proposition}[Ordered choices of distinct objects with replacement]
+    Select $r$ from a collection of $m$ distinct objects with replacement, that is, every object is available at each choice. Then the number of possible selections is \[ m^r. \]
+\end{proposition}
+
+\begin{proposition}[Ordered choices of distinct objects without replacement]
+    Select $ \leq n$ from a collection of $n$ distinct objects without replacement. So no object can be used more than once. Then the total number of possible selections is \[ \frac{m!}{(m - r)!} = (m)_r. \]
+\end{proposition}
+
+\begin{example}
+    From a deck of cards, what is the probability of being dealt the king of diamonds, the queen of diamonds, then the jack of diamonds (in any order) in a deal of 3 cards.
+\end{example}
+
+\begin{solution}
+    The number different ordered hands of $3$ cards is \[ 52 \cdots 51 \cdot 50 = (52)_3. \] The number of these hands that consist of the 3 cards we're looking for \[ 3 \cdot 2 \cdot 1 = 6; \] hence the probability is \[ \frac{6}{(52)_3} = 4.5 \cdot 10^{-5}. \]
+\end{solution}
+
+\begin{example}
+    Suppose there are $n < 365$ people in a room. Let $B$ be the event that at least two people have the same birthday. What is $\Prob{(B)}$? How large does $n$ have to be so that $\Prob{(B)} = \frac{1}{2}$.
+\end{example}
+
+\begin{proposition}[Unordered choice without replacement]
+    Suppose that there is a collection of $m$ distinct objects, we select $r \leq m$ of them, no object may be chosen more than once; and the order does not matter. The number of distinct selections of size $r$ is \[ \binom{m}{r} = \frac{(m)_r}{r!} = \frac{m!}{r!(m - r)!}. \]
+\end{proposition}
+
+\begin{example}
+    There are 5 candidates for staff-student committee reps. 3 are to be chosen. How many ways are there to choose the reps?
+\end{example}
+
+\begin{solution}
+    There are \[ \binom{5}{3} = \frac{5!}{3!(2!)} = 10 \] ways to do this.
+\end{solution}
+
+\begin{example}
+    What is the change of having no aces in a four card hand?
+\end{example}
+
+\begin{solution}
+    The number of hands is $\binom{52}{4}$ and the number of hands with no ace is $\binom{48}{4}$. Therefore, the probability of having no aces in a four card hand is \[ \frac{\binom{48}{4}}{\binom{52}{4}} = \frac{(48!)^2}{(44!)(52!)}. \]
+\end{solution}
+
+\begin{remark}
+    As a general rule of thumb for these kind of questions, use an unordered approach for questions involving decks of cards and an ordered approach for question involving dice.
+\end{remark}
+
+\begin{example}
+    Suppose you are dealt 5 cards. The event $A$ is that 4 out of the 5 cards have the same suit. What is $\Prob{(A)}$?
+\end{example}
+
+\begin{solution}
+    There are $\binom{52}{5}$ hands with all the same likeliness. We need to count the number of times there is $4$ cards of the same suit. We describe a way of building the hand we are looking for:
+    \begin{enumerate}
+        \item choose the suit (4 choices);
+        \item choose the denominations for the cards ($\binom{13}{4}$ choices); then
+        \item choose the last card (39 choices).
+    \end{enumerate}
+    So \[ \Prob{(A)} = \frac{ \left( \frac{4 \cdot \binom{13}{4} \cdot 39}{(4!)(9!)} \right) }{ \left( \binom{52}{5} \right) }. \]
+\end{solution}
+
+\begin{proposition}[Ordered choice from 2 types of object]
+    Consider that we have $m$ objects, $r$ of type 1 and $m - r$ of type 2, where objects are indistinguishable from others of their type. The number of \textbf{distinct}, \textbf{ordered} choices of the $m$ objects is \[ \binom{m}{r}. \]
+\end{proposition}
+
+\begin{proposition}[Ordered grouping of indistinguishable objects]
+    The number of ways to divide $m$ indistinguishable objects into $k$ distinct groups is \[ \binom{m + k - 1}{m} = \binom{m + k - 1}{k - 1} \] by a previous principle.
+\end{proposition}
+
+\begin{proof}
+    List all $m$ objects in a line and insert $k - 1$ fences to distinguish the group boundaries. We see that the number of ways to divide these numbers is the same as the number of objects and fences in the line, so \[ \binom{m + k - 1}{m} = \binom{m + k - 1}{k - 1} \] by a previous principle.
+\end{proof}

@@ -1,0 +1,178 @@
+%! TEX root = master.tex
+\lecture{16}{28/11}
+
+\begin{theorem}[]
+	Any proper non-zero ideal in $R$ has a unique factorisation into prime
+	ideals (up to reordering).
+\end{theorem}
+
+\begin{proof}
+	We know that this factorisation exists,
+	we have left to prove that it is unique.
+	Let
+	\[
+		I 
+		= \mathfrak p_1 \ldots \mathfrak p_n
+		= \mathfrak q_1 \ldots \mathfrak q_m.
+	\]
+	We need to show that $n = m$ and $\mathfrak p_i = \mathfrak q_i$
+	(up to reorderings).
+	As $\mathfrak p_n$ is prime,
+	it must divide one of $\mathfrak q_i$ (by the previous Lemma).
+	Without loss of generality, we will assume that 
+	$\mathfrak p_n \mid \mathfrak q_m$.
+	But $\mathfrak q_m$ is prime, so it is irreducible and thus
+	$\mathfrak p_n = \mathfrak q_m$.
+	Both are invertible, so we have
+	\[
+		\mathfrak p_1 \ldots \mathfrak p_{n-1}
+		= \mathfrak q_1 \ldots \mathfrak q_{m-1}.
+	\]
+	We repeat this process, assuming without loss of generality that
+	$m \geq n$, to get
+	\[
+		R = \mathfrak q_1 \ldots \mathfrak q_{m-n}. \qedhere
+	\]
+\end{proof}
+
+Rings in which every non-zero proper ideal unqiuely factorises into a product
+of prime ideals (up to reordering) are known as \emph{Dedekind domains}.
+
+\begin{example}[]
+	Let $R = \Z[\sqrt{-6}]$.
+	Observe
+	\[
+		(1 + 3\sqrt{-6})(1 - 3\sqrt{-6}) = 5 \cdot 11
+	\]
+	as elements of $R$.
+	Now both of these are indeed factorisations in $R$ to irreducibles.
+	So $R$ is \emph{not} a unique factorisation domain.
+	In terms of ideals, this gives
+	\[
+		(1 + 3\sqrt{-6})_R (1 - 3\sqrt{-6})_R
+		= (5)_R (11)_R. \tag{$\star$}
+	\]
+	Now, we define
+	\[
+		\mathfrak p_5 = (5, 1 + 3\sqrt{-6}), \qquad
+		\overline{\mathfrak p_5} = (5, 1 - 3\sqrt{-6})
+	\]
+	and similarly,
+	\[
+		\mathfrak p_{11} = (11, 1 + 3\sqrt{-6}), \qquad
+		\overline{\mathfrak p_{11}} = (11, 1 - 3\sqrt{-6}).
+	\]
+	Through expansion, we see that
+	$\mathfrak p_5 \overline{\mathfrak p_5} = (5)_R$, and
+	$\mathfrak p_{11} \overline{\mathfrak p_{11}} = (11)_R$.
+	Furthermore,
+	$\mathfrak p_5 \mathfrak p_{11} = (1 + 3\sqrt{-6})_R$ and
+	$\overline{\mathfrak p_5} \overline{\mathfrak p_{11}}
+	= (1 + 3\sqrt{-6})_R$.
+	We can show that 
+	$R/\mathfrak p_5 \cong R/\overline{\mathfrak p_5} \cong \mathbb F_5$
+	and similarly 
+	$R/\mathfrak p_{11} \cong R/\overline{\mathfrak p_{11}} \cong 
+	\mathbb F_{11}$.
+	So $\mathfrak p_5$ and $\mathfrak p_{11}$ are maximal and thus prime.
+	Thus $(\star)$ becomes
+	\[
+		(\mathfrak p_5 \mathfrak p_{11})
+		(\overline{\mathfrak p_5 \mathfrak p_{11}})
+		= (55)_R
+		= (\mathfrak p_5 \overline{\mathfrak p_5})
+			(\mathfrak p_{11} \overline{\mathfrak p_{11}})
+	\]
+\end{example}
+
+We can even show that the notions of principal ideal domains and
+unqiue factorisation domains coincide in $R$.
+
+\begin{lemma}[]
+	Let $I$ be a non-zero ideal in $R$.
+	Then there is an ideal $J$ such that $IJ$ is principal.
+\end{lemma}
+
+\begin{proof}
+	Let $\alpha \in I$ be a non-zero element.
+	Then $(\alpha)_R \subset I$.
+	$I$ is invertible, so $I \mid (\alpha)_R$.
+	Consider the factorisations
+	\begin{align*}
+		I &= \mathfrak p^{e_1}_1 \ldots \mathfrak p_n^{e_n} \\
+		(\alpha)_R &= \mathfrak p_1^{r_1} \ldots \mathfrak p_n^{r_n}.
+	\end{align*}
+	$\mathfrak p_i$ are distinct prime ideals, $e_i, r_i \in \N$, and
+	$0 \leq e_i \leq r_i$.
+	Let $J = \mathfrak p_1^{r_1 - e_1} \ldots \mathfrak p_n^{r_n - e_n}$.
+\end{proof}
+
+\begin{theorem}[]
+	If $R$ is a unique factorisation domain, then $R$ is a principal ideal 
+	domain.
+\end{theorem}
+
+\begin{proof}
+	It is enough to show that every prime ideal is principal.
+	Let $\mathfrak p$ be a prime ideal.
+	Then there is an ideal $\mathfrak q$ such that
+	\[
+		\mathfrak{pq} = (a)_R
+	\]
+	for some $a \in \mathfrak p$.
+	Since we are in a unique factorisation domain, we can decompse
+	$a = p_1 \ldots p_m$ into irreducible (and thus prime) elements.
+	The principal ideals $(p_i)_R$ are prime since $p_i$ are prime elements.
+	Then we have \[
+		\mathfrak{pq} = (p_1)_R \ldots (p_m)_R.
+	\]
+	Since we are in a Dedekind domain, this decomposition is unique.
+	As $\mathfrak p$ is unique, $\mathfrak p = p_i$ for somek $i$.
+	Hence $\mathfrak p$ is principal.
+\end{proof}
+
+\section{The case of quadratic fields}
+
+We let $K = \Q(\sqrt d)$ where $d$ is a square free integer
+and $R = \mathcal O_K = \Z + \omega\Z$ where $\omega = \sqrt d$
+if $d \equiv 2,3 \pmod 4$ and $\omega = \frac{1+\sqrt d}2$ if
+$d \equiv 1 \pmod 4$.
+
+In any quadratic field, the map $x + y\sqrt d \mapsto x - y\sqrt d$
+is a field automoprhism.
+In particular,
+$\overline{\alpha\beta} = \overline\alpha \overline\beta$
+and
+$\overline{\alpha + \beta} = \overline\alpha + \overline\beta$.
+It is easy to see that $N_{K/\Q}(\alpha) = \alpha \overline\alpha$
+and $\operatorname{Tr}_{K/\Q}(\alpha) = \alpha + \overline{\alpha}$.
+We also note
+\[
+	\Q = \left\{
+		\alpha \in K: \overline{\alpha} = \alpha
+	\right\}.
+\]
+Furthermore, if $\alpha \in R$, then $ \overline{\alpha} \in R$.
+Indeed, if $\alpha \in R$, then
+\[
+	\alpha^2 + a_1 a\alpha + a_0 = 0
+\]
+for some $a_0,a_1 \in \Z$.
+But since $\overline{a_1} = a_1$
+and $ \overline{a_0} = a_0$, we must have
+\[
+	\overline{\alpha}^2 + a_1 \overline{\alpha} + a_0 = 0.
+\]
+The following are easy to check:
+\begin{enumerate}
+	\item for every ideal $I \subset R$, 
+		$
+			\overline I = \left\{
+				\overline\alpha: \alpha \in I
+			\right\} \subset R
+		$ is also an ideal; and
+	\item if $I = (a_1, \ldots, a_n)$, then
+		$
+			\overline I = (\overline{a_1}, \ldots, \overline{a_n})
+		$.
+\end{enumerate}

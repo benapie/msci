@@ -1,0 +1,227 @@
+\documentclass[a4paper, answers]{exam}
+\input{../preamble.tex}
+
+\begin{document}
+
+\begin{center}
+	\textbf{\textsc{Analysis III, Assignment 4}}
+	\\
+	\textsc{Ben Napier}
+	\vspace{1em}
+\end{center}
+
+\begin{questions}
+	\question
+	\begin{parts}
+		\part
+		Define what it means that a function is measurable.
+		\begin{solution}
+			A function $f: E \to \R$ is \emph{measurable}
+			if and only if $E$ is measurable and, for every $c \in R$,
+			$
+				\left\{
+					x \in E: f(x) > c
+				\right\}
+			$
+			is measurable.
+		\end{solution}
+
+		\part
+		Let $f$ be a measurable function and assume that
+		$f(x) \neq 0$ for all $x \in\R$.
+		Show that the function defined by
+		$
+		\left\lvert f(x) \right\rvert
+		$
+		is measurable and prove that there exists a measurable function $g$ 
+		such that, for all $x \in \R$,
+		\[
+			\frac12 \left\lvert f(x) \right\rvert
+			< g(x)
+			< \left\lvert f(x) \right\rvert.
+		\]
+		\begin{solution}
+			 Observe that
+			 \[
+			 	\left\{
+					x \in E: \left\lvert f(x) \right\rvert > c
+			 	\right\}
+				=
+				\left\{
+					x \in E: f(x) > c
+				\right\}
+				\cup
+				\left\{
+					x \in E: f(x) < -c
+				\right\},
+			 \]
+			which is the union of two measurable sets
+			and thus is measurable.
+			Therefore, $\left\lvert f(x) \right\rvert$
+			is measurable.
+			As $f(x) \neq 0$,
+			$\frac12 \left\lvert f(x) \right\rvert 
+			\neq \left\lvert f(x) \right\rvert$
+			and thus
+			\[
+				\frac12\left\lvert f(x) \right\rvert
+				< \frac34 \left\lvert f(x) \right\rvert
+				< \left\lvert f(x) \right\rvert.
+			\]
+			Hence we set $g(x) = \frac34\left\lvert f(x) \right\rvert$
+			and, as
+			\[
+				\left\{
+					x \in E: g(x) > c
+				\right\}
+				=
+				\left\{
+					x \in E: \frac34 \left\lvert f(x) \right\rvert > c
+				\right\}
+				=
+				\left\{
+					x \in E: \left\lvert f(x) \right\rvert > \frac43 c
+				\right\}
+			\]
+			is measurable, $g$ is measurable.
+		\end{solution}
+	\end{parts}
+
+	\question
+	Let $D$ be a dense set of real numbers, that is, a set of real numbers
+	such that every interval contains an element of $D$.
+	Let $f$ be an extended real-valued function on $\R$
+	such that
+	$
+		\left\{
+			x: f(x) > \alpha
+		\right\}
+	$ 
+	is measurable for each $\alpha \in D$.
+	Prove that $f$ is measurable.
+	\begin{solution}
+		Let $\alpha \in \R$ and $n \in \N$.
+		We see that, as $D$ is dense in $\R$, there is $c_n \in D$
+		such that $c_n \in \left( \alpha, \alpha + \frac1n \right)$.
+		Observe that $c_n \to \alpha$ and the set
+		\[
+			\left\{
+				x \in \R: f(x) \geq c_n
+			\right\}
+		\]
+		is measurable.
+		So
+		\[
+			\left\{
+				x \in E: f(x) > \alpha
+			\right\}
+			= 
+			\bigcup_{n=1}^\infty 
+			\left\{
+				x \in E: f(x) \geq c_n
+			\right\}
+		\]
+		is measurable, and thus $f$ is measurable.
+	\end{solution}
+
+	\question
+	Show that
+	\begin{parts}
+		\part 
+		the sum and the product of two simple functions are simple,
+		\begin{solution}
+			$(\varphi + \psi)(E)$ and $(\varphi\psi)(E)$ are both clearly finite
+			since $\varphi$ and $\psi$ are finite.
+			So have left to show that they are measurable.
+			But as both are simple, they are real-valued.
+			That is, they are finite on $E$.
+			Thus $\varphi + \psi$ and $\varphi\psi$ are both
+			measurable. Therefore, they are simple.
+		\end{solution}
+		
+		\part
+		$\chi_{A \cap B} = \chi_A \cdot \chi_B$,
+		\begin{solution}
+			\begin{align*}
+				\chi_A \cdot \chi_B(x)
+				&=
+				\begin{cases}
+					\chi_B & x \in A \\
+					0	   & x \not\in A.
+				\end{cases}
+				\\
+				&=
+				\begin{cases}
+					1 & x \in A \cap B \\
+					0 & x \not\in A \cap B
+				\end{cases}
+				\\
+				&= \chi_{A \cap B}.
+			\end{align*}
+		\end{solution}
+
+		\part
+		$\chi_{A \cup B} = \chi_A + \chi_B - \chi_A \cdot \chi_B$,
+		\begin{solution}
+			\begin{align*}
+				\chi_A + \chi_B - \chi_A \cdot \chi_B
+				&=
+				\chi_A + \chi_B - \chi_{A \cap B} \\
+				&=
+				\begin{cases}
+					1 + \chi_B - \chi_{A \cap B} & x \in A \\
+					\chi_B - \chi_{A \cap B}     & x \not\in A
+				\end{cases}
+				\\
+				&=
+				\begin{cases}
+					2 - \chi_{A \cap B} & x \in A \cap B \\
+					1 - \chi_{A \cap B} & x \in A \setminus B \\
+					1 - \chi_{A \cap B} & x \in B \setminus A \\
+					- \chi_{A \cap B}   & x \not\in A \cap B
+				\end{cases}
+				\\
+				&=
+				\begin{cases}
+					1 & x \in A \cap B \\
+					1 & x \in A \setminus B \\
+					1 & x \in B \setminus A \\
+					0 & x \not\in A \cap B
+				\end{cases}
+				\\
+				&=
+				\begin{cases}
+					1 & x \in A \cup B \\
+					0 & x \not\in A \cup B
+				\end{cases}
+				\\ 
+				&= \chi_{A \cup B}.
+			\end{align*}
+			
+		\end{solution}
+
+		\part
+		$\chi_{A^c} = 1 - \chi_A$.
+		\begin{solution}
+			\begin{align*}
+				1 - \chi_A
+				&=
+				\begin{cases}
+					0 & x \in A \\
+					1 & x \not\in A \\
+				\end{cases}
+				\\
+				&=
+				\begin{cases}
+					0 & x \not\in A^c \\
+					1 & x \in A^c
+				\end{cases}
+				\\
+				&= \chi_{A^c}.
+			\end{align*}
+			
+		\end{solution}
+	\end{parts}
+\end{questions}
+
+\end{document}

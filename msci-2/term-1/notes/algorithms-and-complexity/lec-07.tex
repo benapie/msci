@@ -1,0 +1,91 @@
+\section{Longest common subsequence}
+\lecture{7}{18/11}
+
+\begin{definition}[DNA strand]
+    A \textbf{strand of DNA} consists of a string of molecules called \textbf{bases}: 
+    that is, \textbf{adenine}, \textbf{guanine}, \textbf{cytosine}, and \textbf{thymine}. 
+    For us, this a string over the finite string $\{A, C, G, T\}$.
+\end{definition}
+
+We want to know how \emph{similar} two DNA strands are. 
+To do this, 
+we treat the strands as sequences and define a measure of the similarity as the length of the largest shared subsequence.
+
+\begin{example}
+    Let $s_n = (A, G, G, T)$ and $t_n = (A, A, G, T)$. 
+    Then the largest shared subsequence is $u_n = (A, G, T)$ which has size 3.
+\end{example}
+
+\begin{definition}[Common subsequence]
+    Let $s_n$ and $t_n$ be sequences. $u_n$ is a \textbf{common subsequence} 
+    of $s_n$ and $t_n$ if it is a subsequence of $s_n$ and $t_n$.
+\end{definition}
+
+\begin{example}
+    Let $s_n = (A, B, C, B, D, A, B)$ and $t_n = (B, D, C, A, B, A)$. 
+    Some common subsequences of $s_n$ and $t_n$ are
+    \begin{enumerate}
+        \item $(B, C, A)$;
+        \item $(B, C, B, A)$; and
+        \item $(B, D, A, B)$.
+    \end{enumerate}
+\end{example}
+
+\begin{problem}[Longest common subsequence]
+    Given sequences $s_n$ and $t_n$, 
+    what is the longest common subsequence of $s_n$ and $t_n$ ($\operatorname{LCS}{(s_n, t_n)}$)?
+\end{problem}
+
+Now that we have introduced this problem, 
+we can see how to apply dynamic programming to solve it.
+
+\begin{theorem}[]
+    Let 
+    $S = (s_1, \ldots, s_k)$ 
+    be a longest common subsequence of 
+    $X = (x_1, \ldots, x_m)$ and $Y = (y_1, \ldots, y_n)$. 
+    Then
+    \begin{enumerate}
+        \item if $x_m = y_n$, 
+            then $z_k = x_m = y_n$ 
+            and $(z_1, \ldots, z_{k - 1})$ 
+            is a longest common subsequence of 
+            $(x_1, \ldots, x_{m -1})$ 
+            and 
+            $(y_1, \ldots, y_{n - 1})$;
+        \item if $x_m \neq y_n$ and $z_k \neq x_m$ 
+            then $z$ is a longest common subsequence of 
+            $x_1, \ldots, x_{n - 1}$ and $Y$; and
+        \item if $x_m \neq y_n$ and $z_k \neq y_n$ then 
+            $z$ is a longest common subsequence of 
+            $X$ and $(y_1, \ldots, y_{n - 1})$.
+    \end{enumerate}
+\end{theorem}
+
+\begin{proof}
+    Proof by contradiction, this is quite easy to follow. 
+\end{proof}
+
+\begin{corollary}
+    Let $X, Y$ be sequences of size $n$ and $m$. 
+    Let $C_{XY}(i,j)$ be the length of the longest common subsequence of the first $i$ elements of $X$ and the first $j$ characters of $Y$. 
+    Then
+    \[ 
+        C_{XY}(i, j) =
+        \begin{cases}
+            0 & i = 0 \;\text{or} j = 0 \\
+            c(i - 1, j - 1) + 1 & i,j > 0, x_i = y_i \\
+            \max\{c(i, j - 1), c(i - 1, j)\} & \text{otherwise}.
+        \end{cases}
+    \]
+\end{corollary}
+
+Lets look at a bottom-up approach to a dynamic programming solutioin.
+
+\begin{algorithm}[Bottom-up longest common subsequence]
+    We have input $X = (x_1, \ldots, x_m)$ and $Y = (y_1, \ldots, y_n)$. 
+    We have two two-dimensional arrays 
+    $c[0..m, 0..n]$ and $b[1..m, 1..n]$. $c$ 
+    stores the length of the longest common subsequence where the index shows how many characters of $X$ and $Y$ to compare. 
+    $b$ shows us which pair to be consider while reconstructing the longest common subsequence.
+\end{algorithm}

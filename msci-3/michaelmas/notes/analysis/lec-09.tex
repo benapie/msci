@@ -1,0 +1,125 @@
+%! TEX root = master.tex
+\lecture{9}{11/11}
+
+\begin{proposition}[]
+	Outer measure is translation invariant.
+\end{proposition}
+
+\begin{proof}
+	For any set $R \subset \R$ and real number $y \in \R$, 
+	we will use the notation
+	\[
+		R + y = \left\{
+			r + y: r \in R
+		\right\}.
+	\]
+	Let $\left\{
+		I_k
+	\right\}_{k=1}^\infty$
+	be a countable collection of sets and let $A \subset \R$.
+	It is clear that $\{I_k\}$ covers $A$ if and only if
+	$\{I_k + y\}$ covers $A + y$.
+	Similarly, if $I_k$ is open then $I_k + y$ is also open
+	with the same length.
+\end{proof}
+
+\begin{proposition}[]
+	Outer measure is countably subadditive.
+\end{proposition}
+
+A \emph{subadditive} function is a function $f: A \to B$,
+having a domain $A$ and an ordered codomain $B$ that are both closed
+under addition, such that for every $x, y \in A$,
+$f(x + y) \leq f(x) + f(y)$.
+We call a function $g: \Sigma \to \R^\star$ (where $\R^\star$ denotes
+the extended real numbers), having a $\sigma$-algebra domain $\Sigma$,
+\emph{countably subadditive} if  we have
+\[
+	g\left( 
+		\bigcup_{k=1}^\infty E_k
+	\right) \leq
+	\sum^{\infty}_{k=1} g(E_k)
+\]
+for any countable collection
+$\left\{
+	E_k
+\right\}_{k=1}^\infty \subset \Sigma$.
+
+Let $X$ be a set, then recall that a $\sigma$-alphabet 
+$\Sigma \subset \mathcal P(X)$ is closed under complement and under
+countable unions.
+
+\begin{proof}
+	Let $\left\{
+		E_k
+	\right\}_{k=1}^\infty$
+	be a countable collection of sets.
+	If one of these $E_k$ has infinite outer measure, then the statement
+	holds trivially.
+	Suppose $E_k$ has finite outer measure.
+	Let $\varepsilon > 0$. Then for every $k \in \N$
+	there is $\left\{
+		I_{k,i}
+	\right\}_{i=1}^\infty$ of open bounded intervals for which
+	\[
+		E_k \subset \bigcup_{i=1}^\infty I_{k,i}, \qquad
+		\sum^{\infty}_{i=1} l(I_{k,i}) < m^\star(E_k) + \frac{\varepsilon}{2^k}.
+	\]
+	Observe that $\left\{
+		I_{k,i}
+	\right\}_{1 \leq k,i \leq \infty}$ is a countable collection of open
+	bounded intervals that cover $\bigcup_{k=1}^\infty E_k$.
+	Thus by definition
+	\begin{align*}
+		m^\star \left( 
+			\bigcup_{k=1}^\infty E_k 
+		\right)
+		&\leq \sum_{1 \leq k, i \leq \infty} l(I_{k,i}) \\
+		&= \sum_{k=1}^\infty \left( 
+			\sum_{i=1}^\infty l(I_{k,i}) 
+		\right) \\
+		&< \sum_{k=1}^\infty \left( 
+			m^\star(E_k) + \frac{\varepsilon}{2^k}  
+		\right) \\
+		&= \left( 
+			\sum_{k=1}^\infty m^\star (E_k)
+		\right) + \varepsilon.
+	\end{align*}
+	If $\left\{
+		E_k
+	\right\}_{k=1}^n$ is any finite collection of sets, then
+	\[
+		m^\star\left( 
+			\bigcup_{k=1}^n E_k 
+		\right) \leq \sum^{n}_{k=1} m^\star(E_k).
+	\]
+	The finite subadditivity property follows from the countable subadditivity
+	property by taking $E_k = \varnothing$, recalling that 
+	$m^\star(\varnothing) = 0$.
+\end{proof}
+
+\section{The $\sigma$-algebra of measurable sets on $\R$}
+
+Outer measures have useful properties; however, they are not \emph{countable
+additive} or even \emph{finitely additive}.
+
+\begin{definition}[Measurable set]
+	A set $E \subset \R$ is said to be \emph{measurable} if for every
+	set $A$,
+	\[
+		m^\star(A) = m^\star(A \cap E) + m^\star(A \cap E^c).
+	\]
+\end{definition}
+
+The usefulness of measurable sets becomes immediately apparent when we
+see that if $A$ is measurable is disjoint from some set $B$, then
+\[
+	m^\star(A \cup B) = m^\star((A \cup B) \cap A)
+		+ m^\star((A \cup B) \cap A^c)
+	= m^\star(A) + m^\star(B).
+\]
+Observe that, since outer measure is subadditive, $A$ is measurable
+if and only if $m^\star(A) \geq M^\star(A \cap E) + m^\star(A \cap E^c)$,
+which holds if $m^\star(A) = \infty)$. Furthermore, see that $A$ is
+measurable if and only if $A^c$ is measurable.
+Clearly $\varnothing$ and $\R$ are measurable.

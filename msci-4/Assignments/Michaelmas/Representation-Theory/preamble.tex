@@ -1,0 +1,67 @@
+\documentclass[a4paper, answers]{exam}
+
+% tikzcd.yichuanshen.de/ tikcd diagrams
+%======================%
+%   Standard packages  %
+%======================%
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage[UKenglish]{babel}
+\usepackage{enumitem}
+\usepackage{tasks}
+\usepackage{graphicx}
+\setlist[enumerate,1]{
+  label={(\roman*)}
+}
+\usepackage{parskip}
+\usepackage{hyperref}
+
+%======================%
+%        Maths         %
+%======================%
+\usepackage{amsfonts, mathtools, amsthm, amssymb}
+\usepackage{xfrac}
+\usepackage{bm}
+\newcommand\N{\ensuremath{\mathbb{N}}}
+\newcommand\R{\ensuremath{\mathbb{R}}}
+\newcommand\Z{\ensuremath{\mathbb{Z}}}
+\newcommand\Q{\ensuremath{\mathbb{Q}}}
+\newcommand\C{\ensuremath{\mathbb{C}}}
+\newcommand\F{\ensuremath{\mathbb{F}}}
+\newcommand{\abs}[1]{\ensuremath{\left\lvert #1 \right\rvert}}
+\newcommand\given[1][]{\:#1\vert\:}
+\newcommand\restr[2]{{% we make the whole thing an ordinary symbol
+  \left.\kern-\nulldelimiterspace % automatically resize the bar with \right
+  #1 % the function
+  \vphantom{\big|} % pretend it's a little taller at normal size
+  \right|_{#2} % this is the delimiter
+}}
+\usepackage{tikz-cd}
+\usepackage{adjustbox}
+\DeclareMathOperator{\norm}{N}
+\DeclareMathOperator{\trace}{Tr}
+\DeclareMathOperator*{\argmax}{arg\,max}
+\DeclareMathOperator*{\argmin}{arg\,min}
+\DeclareMathOperator*{\esssup}{ess\,sup}
+\DeclareMathOperator*{\SL}{SL}
+\DeclareMathOperator*{\GL}{GL}
+\DeclareMathOperator*{\SO}{SO}
+\DeclareMathOperator*{\aut}{Aut}
+\DeclareMathOperator*{\id}{id}
+\DeclareMathOperator*{\coker}{coker}
+\DeclareMathOperator*{\im}{im}
+
+
+
+%======================%
+%       CompSci        %
+%======================%
+\usepackage{forest}
+\usepackage{textgreek}
+
+%======================%
+%    Pretty tables     %
+%======================%
+\usepackage{booktabs}
+\usepackage{caption}

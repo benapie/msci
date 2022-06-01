@@ -1,0 +1,68 @@
+\pc{2}{1/10}
+\question Let
+\[ E = \{\langle M \rangle : M \;\text{is a Turing machine}\;\text{and}\; L(M) = \emptyset\} \]
+be the language of all (descriptions of) Turing machines recognising the empty language. Show that $E$ is undecidable.
+\begin{solution}
+    Consider $T$ which decides $E$. Now consider $M_1 \in E$ which ignores the input and loops forever. For $T$ to accept on $M_1$ it must decide whether $M$ will terminate and if so that is rejects; hence solving the Halting problem. Therefore, $E$ is undecidable.
+\end{solution}
+
+\question Show that the complement of $E$
+\[ \bar E = \{\langle M \rangle : M \;\text{is a Turing machine}\;\text{and}\; L(M) \neq \emptyset\} \]
+is Turing-recognisable.
+\begin{solution}
+    We run $M$ on all possible inputs (infinite but countable). We do this in parallel in stages. In the first stage, we run 1 step on the first input. Then in the second stage we run 2 steps on the first 2 inputs and so on. At stage $k$ we run $k$ steps on the first $k$ inputs. If any accept, we terminate and accept.
+\end{solution}
+
+\question Show that $E$ is not Turing-recognisable.
+\begin{solution}
+    If $E$ and $\bar E$ were both Turing-recognisable, then we would have that $E$ is decidable. We know that $E$ is not decidable and $\bar E$ is Turing-recognisable; therefore, $E$ is not Turing-recognisable.
+\end{solution}
+
+\question Let
+\[ EQ = \{\langle M_1, M_2 \rangle : M_1, M_2 \;\text{are Turing machines} \;\text{and}\; L(M_1) = L(M_2)\} \]
+be the language of all pairs of (descriptions of) Turing machine recognising the same language. Show that $EQ$ is undecidable.
+\begin{solution}
+    Take $E_0$ to be a trivial Turing machine that will reject everything. Then $EQ(M, E_0)$ would solve the $E$ from an eariler question.
+\end{solution}
+
+\question Show that the union of two countable sets is countable.
+\begin{solution}
+    Let $A, B$ be countable sets. As these are countable we can write
+    \[ A = \{ a_1, a_2, \ldots \} \qquad B = \{ b_1, b_2, \ldots \}. \]
+    Now we arrange
+    \[ A \cup B = \{ a_1, b_1, a_2, b_2, \ldots \} \]
+    and so it is countable. More formally, as $A$ and $B$ are countable we know there exists injections
+    \[ f_A: A \to \N, \qquad f_B: B \to \N. \]
+    So we construct the injection
+    \[ 
+        f_{A \cup B}(x) = 
+        \begin{cases}
+            2f_A(x)     & x \in A \\
+            2f_B(x) + 1 & x \in B, x \not \in A.
+        \end{cases}
+    \]
+\end{solution}
+
+\question Show that the Cartesian product $\N \times \N$ is countable.
+\begin{solution}
+    Consider the function $f: \N \times \N \to \N$ defined as $f(m,n) = p^mq^n$ for distinct primes $p$ and $q$. Notice that $f$ is an injection. 
+\end{solution}
+
+\question Generalise Exercise 6 to the Cartesian product of finite many copies of $\N$.
+\begin{solution}
+    Consider the function $f: \N^k \to \N$ such that
+    \[ f(\bm v) = p_1^{v_1} \cdot p_2^{v_2} \cdot \ldots \cdot p_k^{v_k} \]
+    where $\bm v = \bm e_i v_i$ and $p_1, p_2, \ldots, p_k$ are $k$ distinct primes. It is clear that  $f$ is an injection.
+\end{solution}
+
+\question Show that the set of subsets of $\N$ is uncountable.
+\begin{solution}
+    Let $S_1, S_2, \ldots \subset P(\N)$ be the list of all subsets of $\N$. Now we construct a set $S$ such that
+    \[ S = \{ k: k \not \in S_i \;\forall\; i \in \N \}. \]
+    Now for all $i \in \N$, $S \neq S_i$. So $f$ is not a bijection and thus $P(\N)$ is uncountable.
+\end{solution}
+
+\question Show that the set of irrational numbers is uncountable.
+\begin{solution}
+    We define $\R = \Q \cup \{\text{irrationals}\}$. As we know that $\R$ is uncountable, $\Q$ is countable, and the union of two countable sets is countable we conclude that the irrationals are uncountable.
+\end{solution}

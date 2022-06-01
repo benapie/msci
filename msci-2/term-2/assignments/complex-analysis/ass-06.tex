@@ -1,0 +1,118 @@
+\assignment{6}{6/3}
+
+\setcounter{question}{1}
+\question 
+Let $f$ be a non-constant entire function, and set $g(z) = f\left(\frac1z\right)$.
+Note that $g(z)$ gives a holomorphic function on $\C^\star$.
+\begin{parts}
+    \part 
+    Show that $g$ \emph{cannot} be bounded near $z = 0$, so in particular does
+    not extend to a holomorphic function on all of $\C$.
+    \begin{solution}
+        If $g$ is bounded near $z = 0$, $f$ is bounded near $z = \infty$
+        and by Liouville's theorem would imply that $f$ is constant,
+        which is a contradiction.
+    \end{solution}
+
+    \part 
+    Let $f$ be a polynomial of degree $n$.
+    Show that $g$ has a pole of order $n$ at $z = 0$.
+    \begin{solution}
+        Let $f(z) = a_0 + a_1z + \ldots + a_nz^n$.
+        Then
+        \[
+            g(z) 
+            = a_0 + \frac{a_1}z + \ldots + \frac{a_n}{z^n}
+            = \sum^{0}_{i = -n} a_{-i} z^n
+        \]
+        and so $g$ has a pole of order $n$ at $z = 0$.
+    \end{solution}
+
+    \part Assume that $f$ is \emph{transcendental}, that is, $f$ is not
+    a polynomial, so in the power series expansion 
+    \[
+        f(z) = \sum^{\infty}_{n=0} a_nz^n
+    \]
+    we have infinitely many $a_n \neq 0$.
+    Show that $g$ has an essential singularity at $z = 0$.
+    \begin{solution}
+        \[
+            g(z) = \sum^{\infty}_{n=0} a_n \left(\frac1z\right)^n = \sum^{0}_{n = -\infty} a_{-n} z^n.
+        \]
+        As $f$ has infinitely many $a_n \neq 0$ for $n > 0$, 
+        then $g$ has infinitely many $a_{-n} \neq 0$ for $n < 0$;
+        therefore, $g$ has an essential singularity at $z = 0$.
+    \end{solution}
+
+    \part Apply the Big Picard Theorem to $g$ to deduce that if $f$ is not a polynomial,
+    then the image of $f$ contains $\C \setminus \{b\}$ for some $b \in \C$.
+    If $f$ is a non-constant polynomial, what is the image of $f$?
+    \begin{solution}
+        $f$ is not a polynomial hence $g$ has an essential singularity at $0$.
+        By the Big Picard Theorem, there exists a $b \in \C$ such that
+        \[
+            g(\C^\star) \supset \C \setminus \{b\}.
+        \]
+        But $g(\C^\star) = \C = \im f$ so
+        \[
+            \im f \supset \C \setminus \{b\}
+        \]
+        as required.
+        If $f$ is a non-constant polynomial, the image of $f$ is $\C$; proof as follows.
+        Let $w \in \C$. Then $g(z) = f(z) - w$ is also a non-constant polynomial,
+        and by the fundamental theorem of algebra we have that there exists
+        a $z_0$ such that $g(z_0) = 0$.
+        Hence $f(z_0) = w$.
+        Thus we have shown that the image of any non-constant polynomial is $\C$.
+    \end{solution}
+\end{parts}
+
+\question Determine all zeros and pole with their orders of
+\begin{parts}
+    \setcounter{partno}{3}
+    \part
+    \[
+        \frac{1}{z^2} + \frac{1}{z^2 + 1}.
+    \]
+    \begin{solution}
+        Let
+        \[
+            f(z) = \frac1{z^2} + \frac1{z^2+1}.
+        \]
+        $f$ has a pole of order $2$ at $0$
+        and two simple poles at $i$ and $-i$.
+        We have
+        \begin{align*}
+            \Res_{z = 0} (f)
+            &= \Res_{z=0} \left(\frac1{z^2}\right) + \Res_{z=0} \left(\frac1{z^2 + 1}\right)
+            = 0 \\
+            \Res_{z=i} (f)
+            &= \Res_{z=i} \left(\frac1{z^2}\right) + \Res_{z=i} \left(\frac1{z^2 + 1}\right)
+            = 0 + \lim_{z \to i} \left(\frac1{z+i}\right)
+            = \frac{-i}2 \\
+            \Res_{z=-i} (f)
+            &= \Res_{z=-i} \left(\frac1{z^2}\right) + \Res_{z=-i} \left(\frac1{z^2 + 1}\right)
+            = 0 + \lim_{z \to -i} \left(\frac1{z-i}\right)
+            = \frac i2.
+        \end{align*}
+    \end{solution}
+\end{parts}
+Find the residues at the poles.
+
+\question Determine the integral over the unit circle of
+\begin{parts}
+    \part
+    \[
+        \frac{1 - \cos z}{z^2}.
+    \]
+    \begin{solution}
+        \begin{align*}
+            \int_{\abs z = 1} \frac{1 - \cos z}{z^2} \,dz = 0.
+        \end{align*}
+        This is clear as we have a pole of order $2$ at $0$,
+        and our residue at this point is $\Res_{z = 0} = 0$
+        (from our fourth method of calculating residues).
+        We can also apply Cauchy's integral formula for derivatives
+        to get the same answer.
+    \end{solution}
+\end{parts}

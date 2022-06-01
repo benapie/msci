@@ -1,0 +1,57 @@
+\assignment{7}{28/11}
+
+\setcounter{question}{36}
+\question The functions $f$, $g$ are scalars, while $\bm A$ and $\bm B$ are vector functions with components $A_i$ and $B_i$, respectively. Verify the following identities using index notation:
+\begin{parts}
+    \part $\nabla(fg) = f(\nabla g) + g(\nabla f)$,
+    \begin{solution}
+        \begin{align*}
+            \left( \nabla(fg) \right)_i &= \frac{\partial(fd)}{\partial x_i} \\
+            &= \frac{\partial f}{\partial x_i} g + f \frac{\partial g}{\partial x_i} \\
+            &= (\nabla f)_i g + f(\nabla g)_i
+        \end{align*}
+        as required.
+    \end{solution}
+
+    \setcounter{partno}{5}
+    \part $\nabla \times (\bm A \times \bm B) = (\nabla \cdot \bm B) \bm A - (\nabla \cdot \bm A) \bm B + (\bm B \cdot \nabla) \bm A - (\bm A \cdot \nabla) \bm B$.
+    \begin{solution}
+        \begin{align*}
+            \left(\nabla \times (\bm A \times \bm B)\right)_i &= \varepsilon_{ijk} \frac{\partial(\bm A \times \bm B)_k}{\partial x_j} \\
+            &= \varepsilon_{ijk} \varepsilon_{klm} \partial_j (A_l B_m) \\
+            &= \varepsilon_{ijk} \varepsilon_{klm} ((\partial_j A_l) B_m + A_l (\partial_j B_m)) \\
+            &= (\partial_m A_i) B_m + A_i(\partial_m B_m) - (\partial_j A_j)B_i - A_j(\partial_j B_i) \\
+            &= (\nabla \cdot \bm B)A_i - (\nabla \cdot \bm A) B_i + (A_i \partial_m)B_m - (B_i \partial_j)A_j
+        \end{align*}
+        as required.
+    \end{solution}
+\end{parts}
+
+\setcounter{question}{46}
+\question Define $f: \R^2 \to \R$ by $f(\bm 0) = 0$ whilst for $\bm x \neq \bm 0$:
+\[ f(\bm x) = \frac{x^3}{x^2 + y^2}. \]
+Calculate the partial derivatives of $f$ with respect to $x$ and $y$ at $\bm x = \bm 0$ \emph{using their definitions as limits}. 
+Defining $R(\bm h)$ at the origin by
+\[R(\bm h) = f(\bm h) - f(\bm 0) - h \cdot \nabla f\]
+as usual, show that $\frac{R(\bm h)}{\norm{\bm h}}$ does not tend to zero as $\bm h$ tends to $\bm 0$, so that $f$ is not differentiable at the origin.
+
+On the line through the origin, $\bm x = \bm b t$, (with $\bm b$ a constant vector), $f$ becomes a function of the single variable $t$, $f(\bm bt)$. 
+Write $\bm b = \bm e_1 b_1 + \bm e_2 b_2$ and use this to write $f(\bm bt)$ explicitly as a function of $t$. 
+Show that this function is differentiable at the origin, that is, $\sfrac{df}{dt}$ exists at $t = 0$ despite $f(\bm x)$ not being differentiable at $\bm 0$.
+
+\begin{solution}
+    \begin{align*}
+        \frac{\partial f}{\partial x} (\bm 0) &= \lim_{h \to 0} \left(\frac{f(h, 0) - f(\bm 0)}{h}\right) \\
+        &= \lim_{h \to 0} \left(\frac{\left(\frac{h^3}{h^2}\right)}{h}\right) = 1 \\
+        \frac{\partial f}{\partial y} (\bm 0) &= \lim_{h \to 0} \left(\frac{f(0, h) - f(\bm 0)}{h}\right) = 0 \\
+        \nabla f(\bm 0) &= (1, 0) \\
+        R(\bm h) &= \frac{h_1^3}{h_1^2 + h_2^2} - 0 - h_1 \\
+        \frac{R(\bm h)}{\norm{\bm h}} &= \frac{-h_1h_2^2}{(h_1^2 + h_2^2)^{\frac32}}.
+    \end{align*}
+    Consider $h = h_1 = h_2$, then 
+    \[ \frac{R(\bm h)}{\norm{\bm h}} = \frac{-h^3}{2\sqrt 2 h^3} = -\frac1{2\sqrt 2} \not \to 0 \]
+    as $h \to 0$; hence, $f$ is \emph{not} differentiable at $\bm 0$.
+    Now we consider $\bm x = \bm bt$, so
+    \[ f(\bm x) = f(\bm bt) = t\frac{b_1^3}{b_1^2 + b_2^2}, \]
+    this is just $t$ multiplied by a constant; hence, it is dofferentiable at the origin. 
+\end{solution}

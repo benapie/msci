@@ -1,0 +1,167 @@
+\pc{3}{17/2}
+
+\question Consider the following simple grammar:
+\begin{align*}
+    T &\to R            \\
+    T &\to aTc          \\
+    R &\to \varepsilon \\
+    R &\to RbR.
+\end{align*}
+\begin{parts}
+    \part Construct a leftmost and rightmost derivation of the string $aabbbcc$.
+    \begin{solution}
+        Leftmost:
+        \begin{align*}
+            T 
+            &\implies aTc \\
+            &\implies aaTcc \\
+            &\implies aaRcc \\
+            &\implies aaRbRcc \\
+            &\implies aaRbRbRcc \\
+            &\implies aaRbRbRbRcc \\
+            &\implies aabRbRbRcc \\
+            &\implies aabbRbRcc \\
+            &\implies aabbbRcc \\
+            &\implies aabbbcc.
+        \end{align*}
+        Rightmost:
+        \begin{align*}
+            T 
+            &\implies aTc \\
+            &\implies aaTcc \\
+            &\implies aaRcc \\
+            &\implies aaRbRcc \\
+            &\implies aaRbRbRcc \\
+            &\implies aaRbRbRbRcc \\
+            &\implies aaRbRbRbcc \\
+            &\implies aaRbRbbcc \\
+            &\implies aaRbbbcc \\
+            &\implies aabbbcc.
+        \end{align*}
+    \end{solution}
+
+    \part Show that this grammar is ambiguous by building two parse trees for the above string.
+    \begin{solution}
+        Let's just construct the leftmost and rightmost derivations.
+        The leftmost derivation parse tree is on the left and the rightmost derivation
+        parse tree is on the right.
+        \begin{center}
+            \begin{forest}
+                [$T$
+                    [$a$]
+                    [$T$
+                        [$a$]
+                        [$T$
+                            [$R$
+                                [$R$
+                                    [$R$
+                                        [$R$[$\varepsilon$]]
+                                        [$b$]
+                                        [$R$[$\varepsilon$]]
+                                    ]
+                                    [$b$]
+                                    [$R$[$\varepsilon$]]
+                                ]
+                                [$b$]
+                                [$R$[$\varepsilon$]]
+                            ]
+                        ]
+                        [$c$]
+                    ]
+                    [$c$]
+                ]
+            \end{forest}
+            \hspace{6em}
+            \begin{forest} 
+                [$T$
+                    [$a$]
+                    [$T$
+                        [$a$]
+                        [$T$
+                            [$R$
+                                [$R$[$\varepsilon$]]
+                                [$b$]
+                                [$R$    
+                                    [$R$[$\varepsilon$]]
+                                    [$b$]
+                                    [$R$ 
+                                        [$R$[$\varepsilon$]]
+                                        [$b$]
+                                        [$R$[$\varepsilon$]]
+                                    ]
+                                ]
+                            ]
+                        ]
+                        [$c$]
+                    ]
+                    [$c$]
+                ]
+            \end{forest}
+        \end{center}
+    \end{solution}
+\end{parts}
+
+\question For the grammar of the last question, construct an equivalent unambiguous grammar
+and build the unique parse tree of the string $aabbbcc$ in this unambiguous grammar.
+\begin{solution}
+    \begin{align*}
+        T &\to R \\
+        T &\to aTc \\
+        R &\to \varepsilon \\
+        R &\to bR.
+    \end{align*}
+    \begin{center}
+        \begin{forest}
+            [$T$
+                [$a$]
+                [$T$
+                    [$a$]
+                    [$T$
+                        [$R$
+                            [$b$]
+                            [$R$
+                                [$b$]
+                                [$R$
+                                    [$b$]
+                                    [$R$[$\varepsilon$]]
+                                ]
+                            ]
+                        ]
+                    ]
+                    [$c$]
+                ]
+                [$c$]
+            ]
+        \end{forest}
+    \end{center}
+\end{solution}
+
+\question Consider the grammar
+\[
+    A \to Aab \mid Aaab \mid cA \mid bcab.
+\]
+\begin{parts}
+    \part Eliminate the left recursion in the grammar.
+    \begin{solution}
+        \begin{align*}
+            A &\to bcabB \mid cAB \\
+            B &\to abB \mid aabB \mid \varepsilon.
+        \end{align*}
+    \end{solution}
+
+    \part After the elimination of the left recursion in this grammar,
+    perform left factoring in the resulting grammar.
+    \begin{solution}
+        \begin{align*}
+            A &\to bcabB \mid cAB \\
+            B &\to aC \mid \varepsilon \\
+            C &\to bB \mid abB.
+        \end{align*}
+    \end{solution}
+\end{parts}
+
+\question Construct a (predictive) recursive descent parser for the unambiguous grammar
+that you constructed two questions ago.
+\begin{solution}
+    %todo
+\end{solution}

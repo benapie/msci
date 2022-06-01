@@ -1,0 +1,129 @@
+\chapter{Partial differentiable equations}
+\section{The heat equation}
+\lecture{13}{10/2}
+
+Consider a volume $V$ enclosed by a surface $S$.
+The total heat in $V$ at time $t$ is
+\[
+    H(t) = \int_V T(\bm x, t) \,dV,
+\]
+a 3-dimensional integral over $\bm x$ of $T(\bm x, t)$,
+the temperature at point $\bm x$ at time $t$.
+If there are no soruces or sinks of heat in $V$, then
+\[
+    \text{rate of change of total heat in $V$}
+    =
+    \text{total flux of heat into $V$ through $S$}.
+\]
+That is,
+\[
+    \frac{d}{dt} \int_V T(\bm x, t) \,dV
+    = - \int_S \bm v \cdot d\bm A
+\]
+where $\bm v$ is the \textbf{local heat flux}.
+Furthermore, $\bm v$ is proportional to the gradient
+of the temperature
+\[
+    \bm v = -k\nabla T \tag{$\star$}
+\]
+with $k > 0$. The minus sign is as heat flows from hot to cold.
+The gradient in $(\star)$ is a 3-dimensional gradient,
+not including $\frac{\partial}{\partial t}$.
+Hence
+\begin{align*}
+    \frac{\partial}{\partial t} \int_V T \,dV
+    &= k\int_S \nabla T \cdot d\bm A \\
+    \int_V \frac{\partial T}{\partial t} \,dV
+    &= k\int_V \nabla^2 T \,dV
+\end{align*}
+using the divergence theorem where 
+$\nabla^2 T = \nabla \cdot (\nabla T)$.
+So
+\[
+    \int_V
+    \left(
+        \frac{\partial T}{\partial t} - k\nabla^2 T
+    \right)
+    \,dV = 0.
+\]
+If there are no heat sources anywhere, $V$ could be
+any volume. Hence
+\[
+    \frac{\partial T}{\partial t} - k\nabla^2T = 0
+\]
+everywhere. That is,
+\[
+    \frac{\partial T}{\partial t} = k\nabla^2 T
+\]
+(this is the heat (or diffusion) equation).
+
+\begin{remark}
+    \hfill
+    \begin{enumerate}
+        \item Derivation for the heat equation is like that 
+            for the continuity equation. 
+            $(\star)$ allows the system to be closed.
+
+        \item In following, we usually set $k = 1$.
+
+        \item Looking at $1$-dimensional space,
+            the heat equation becomes
+            \[
+                \frac{\partial T(x, t)}{\partial t} 
+                = \frac{\partial^2 T(x,t)}{\partial x^2}.
+            \]
+    \end{enumerate}
+\end{remark}
+
+\section{Separation of variables}
+
+Separation of variables is a general method for solving linear 
+partial differential equations.
+We start by looking for simple solutions for when the
+partial differential equation reduces to an ordinary
+differential equation and then add them up.
+
+\begin{example}
+    A rod of length $L$ is insulated along its length.
+    For all $t < 0$, one end has temperature $T = 0$
+    and the other end has temperature $T = 100$.
+    \begin{enumerate}
+        \item What is $T(x,t)$ for $t \leq 0$?
+
+        \item At $t \geq 0$, the ends of the rod satisfy
+            \[
+                T(0,t) = T(L,t) = 0.
+            \]
+            What is $T(x,t)$ for all $t > 0$?
+    \end{enumerate}
+\end{example}
+
+\begin{solution}
+    \hfill
+    \begin{enumerate}
+        \item
+            Since
+            $\frac{\partial T}{\partial t} = 0$
+            for $t<0$,
+            $T(x,t) = X(x)$ for some $X(x)$.
+            \[
+                \frac{\partial T}{\partial t}
+                = \frac{\partial^2 T}{\partial x^2} 
+            \]
+            gets
+            \[
+                0 = \frac{\partial^2 X}{\partial x^2}.
+            \]
+            Hence
+            \[
+                X(x) = ax + b.
+            \]
+            $X(0) = 0$ and $X(L) = 100$ so
+            \[
+                X(x) = \frac{100}{L} x = T(x,t)
+            \]
+            for $t \leq 0$.
+
+        \item Next lecture.
+    \end{enumerate}
+\end{solution}

@@ -1,0 +1,87 @@
+\lecture{2}{9/10}
+\begin{proposition}[Propertiies of modulus]
+    \hspace{0em}
+    \begin{enumerate}
+       \item (triangle inequality) $\lvert \lvert z_1 \rvert - \lvert z_2 \rvert \rvert \leq \lvert z_1 + z_2 \rvert \leq \lvert z_1 \rvert + \lvert z_2 \rvert$;
+       \item $\lvert z \rvert \implies z = 0$; and
+       \item $\max(\lvert \operatorname{Re}{(z)} \rvert, \lvert \operatorname{Im}{(z)} \rvert) \leq \lvert z \rvert \leq \lvert \operatorname{Re}{(z)} \rvert + \lvert \operatorname{Im}{(z)} \rvert$.
+    \end{enumerate} 
+\end{proposition}
+
+$\lvert z_1 - z_2 \rvert$ denotes the distance between the points $z_1$ and $z_2$ on an Argand diagram.
+
+\begin{example}
+    Consider \[ \{ z \in \C : \lvert z - i \rvert = 1 \}. \] This defines a circle of radius $1$ centered on $i$ on an Argand diagram.
+\end{example}
+
+\begin{example}
+    Consider \[ \{ z \in \C : \lvert z - i \rvert < \lvert z + i \rvert \}. \] This defines a region called the upper half plane (denoted $\mathbb H$) which is every point above the real line.
+\end{example}
+
+\section{Exponential and trigonmetric functions}
+
+\begin{definition}[Complex exponential]
+    We define $\exp : \C \to \C$ as \[ \exp{(x + iy)} = e^x(\cos{y} + i\sin{y}) \] and we use the shorthand \[ e^z = \exp{z}. \]
+\end{definition}
+
+\begin{remark}
+    Maybe there is a better definition of \[ e^z = \sum_{n=0}^{\infty} \frac{z^n}{n!} \] but we will alter show this is the same as the definition above. 
+\end{remark}
+
+\begin{proposition}[Properties of $\exp$]
+    \hspace{0em}
+    \begin{enumerate}
+        \item $e^z \neq 0 \; \forall \; z \in \C$;
+        \item $e^{z_1 + z_2} = e^{z_1}e^{z_2} \; \forall \; z_1, z_2 \in \C$;
+        \item $e^z = 1 \iff z = 2\pi i k, k \in \Z \; \forall \; z \in \C$;
+        \item $e^{-z} = \frac{1}{e^z} \; \forall \; z \in \C$; and
+        \item $\lvert e^z \rvert = e^{\operatorname{Re}{(z)}} \; \forall \; z \in \C$.
+    \end{enumerate}
+\end{proposition}
+
+\begin{proof}
+   Proving the above properities is left as an exercise.
+\end{proof}
+
+\begin{lemma}[Euler's formula]
+    \[ e^{2\pi i}=1, \quad e^{\pi i}=-1. \]
+\end{lemma}
+
+\begin{lemma}
+    $\exp{z}$ is $2\pi i$-periodic. That is, $\exp{(z + 2\pi i)} = \exp{z}$.
+\end{lemma}
+
+\begin{definition}[Trigonmetric functions]
+   For all $z \in \C$:
+   \begin{align*}
+       \sin{z} &= \frac{1}{2i} (e^{iz} - e^{-iz}), & \cos{z} &= \frac12(e^{iz} + e^{-iz}), \\
+       \sinh{z} &= \frac12(e^z - e^{-z}), & \cosh{z} &= \frac12(e^z + e^{-z}).
+   \end{align*}
+\end{definition}
+
+\begin{remark}
+    \hspace{0em}
+    \begin{enumerate}
+        \item For $z \in \R$, these agree with the real definitions.
+        \item Old trigonmetric identites still hold.
+        \item All functions are unbounded.
+    \end{enumerate}
+\end{remark}
+
+\section{Logarithm and complex powers}
+
+A note on notation, we use $\C^\star$ to denote $\C \setminus \{0\}$.
+
+\begin{lemma}[]
+    For all $w \in \C^\star$, $e^z = w$ has a solution. If we write $w = \lvert w \rvert e^{i\phi}$ then all solutions are of the form \[ z = \log{\lvert w \rvert} + i(\phi + 2\pi), k \in \Z. \] Here $\log$ is the natural logarithm and there is infinite solutions as we know that $\exp{z}$ is periodic.
+\end{lemma}
+
+\begin{proof}
+    \[ e^z = e^{\log{\lvert w \rvert} + i(\phi + 2\pi k)} = e^{\log{\lvert w \rvert}} e^{i\phi} e^{2\pi ki} = \lvert w \rvert e^{i\phi} = w. \] Let $z = x + iy$. If $e^z = w$ then \[ e^x = \lvert e^z \rvert = \lvert w \rvert \implies x = \log{\lvert w \rvert} \] and \[ e^{x + iy} = \lvert w \rvert e^{i\phi} \implies e^x e^{iy} = \lvert w \rvert e^{i\phi} \implies e^{iy} = e^{i\phi}. \] This implies that \[ e^{i(y - \phi)} = 1 \implies y - \phi = 2\pi k, k \in \Z \implies y = \phi + 2\pi k, k \in \Z. \] 
+\end{proof}
+
+Note that in the proof above, we used the $\log$ function for real numbers (which we have already defined) not complex numbers.
+
+\begin{definition}[Logarithm]
+    Given $\theta_1, \theta_2 \in \R$ with $\theta_2 - \theta_1 = 2\pi$ and $\arg$ (the corresponding argument function) then \[ \log{z} = \log{\lvert z \rvert} + i\arg{z} \] where $\log: \C^\star \to \C$ is called a branch of logarithm. We define \[ \Log{z} = \log{\lvert z \rvert} + i\Arg{z} \] as the principle branch of log.
+\end{definition}

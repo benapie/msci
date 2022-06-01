@@ -1,0 +1,112 @@
+\lecture{2}{15/1}
+
+\begin{proof}
+    \begin{align*}
+        \int_\delta f(z) \,dz
+        &= \int_{a'}^{b'} f(\delta(t)) \delta'(t) \,dt \\
+        &= \int_{a'}^{b'} f(\gamma(\phi(t))(\gamma \circ \phi)'(t) \,dt \\
+        &= \int_{a'}^{b'} f(\gamma(\phi(t)) \gamma'(\phi(t)) \phi'(t) \,dt \\
+        &= \int_a^b f(\gamma(t)) \gamma'(t) \,dt \\
+        &= \int_\gamma f(z) \,dz
+    \end{align*}
+    where $s = \phi(t)$, so $\phi'(t)\,dt = ds$.
+\end{proof}
+
+\begin{definition}[Contour]
+    Let $\gamma : [a, b] \to \C$ be a curve.
+    Suppose that there are
+    \[ a = a_0 < a_1 < \ldots < a_{n-1} < a_n = b \]
+    such that
+    \[ \gamma_i:[a_{i - 1}, a_i], \qquad \gamma_i(t) = \gamma(t) \]
+    are $C^1$, then $\gamma$ is called \textbf{piecewise $C^1$} or a
+    \textbf{contour}.
+\end{definition}
+
+If $U \subset \C$ is open and $f: U \to \C$ is continuous then we have
+\[ \int_\gamma f(z) \, dz = \sum_{i = 1}^n \left(\int_{\gamma_i} f(z) \,dz\right). \]
+All properties of integrals over $C^1$ curves also hold for contours.
+
+Now suppose $\gamma: [a, b] \to \C$ and $\delta:[c, d] \to \C$ are contours
+with $\gamma(b) = \delta(c)$. Then we define the contour
+\[ (\gamma + \delta): [a, b + d - c] \to \C \]
+by
+\[
+    (\gamma + \delta) =
+    \begin{cases}
+        \gamma(t) & t \in [a,b] \\
+        \delta(t + c - b) & t \in [b, b + d - c] \\
+    \end{cases}
+    .
+\]
+We have
+\[ 
+    \int_{\gamma + \delta} f(z) \,dz =
+    \int_\gamma f(z) \,dz + \int_\delta f(z) \,dz.
+\]
+
+\section{Fundamental theorem of calculus}
+
+\begin{theorem}[Fundamental theorem of calculus]
+    Let $U \subset \C$ be an open set,
+    $f: U \to \C$ be a holomorphic function, and
+    $\gamma: [a, b] \to U$ be a contour.
+    Then
+    \[ \int_\gamma f'(z) \,dz = f(\gamma(b)) - f(\gamma(a)). \]
+    If $\gamma$ is closed (that is, $\gamma(a) = \gamma(b)$)
+    then $\int_\gamma f'(z) \,dz = 0$.
+\end{theorem}
+
+\begin{proof}
+    \[ \int_\gamma f'(z) \,dz 
+        = \int_a^b f'(\gamma(t)) \gamma'(t) \,dt 
+        = \int_a^b (f \circ \gamma)'(t) \,dt \tag{$\star$}. \]
+    If $u + iv$ then
+    \begin{align*}
+        (\star)
+        &= \int_a^b (u \circ \gamma)'(t) \, dt + i\int_a^b (v \circ \gamma)'(t) \,dt \\
+        &= u(\gamma(b)) - u(\gamma(a)) + i(v(\gamma(b)) - v(\gamma(a))) \\
+        &= f(\gamma(b)) - f(\gamma(a)).
+    \end{align*}
+    This applies for $\gamma$ being a $C^1$ curve;
+    however, to extend this for $\gamma$ being a contour
+    we simply sum the integrals over all the $C^1$ curves that make up
+    $\gamma$.
+\end{proof}
+
+\begin{remark}
+    The fundamental theorem of calculus shows us that $\int_\gamma f'(z) \,dz$
+    depends only on the endpoints of $\gamma$ if $f$ holds on an open set containing
+    $\gamma$.
+\end{remark}
+
+\begin{example}
+    Calculate
+    \[ \int_{\lvert z \rvert = r} z^n \,dz. \]
+\end{example}
+
+\begin{solution}
+    $\int_{\lvert z \rvert = r} z^n \,dz = \int_\gamma z^n \,dz$ where
+    $\gamma(\theta) = re^{i\theta}: [0, 2\pi] \to \C$.
+    If $n \neq 1$, then $z^n = f'(z)$ where $f(z) = \frac1{n+1}z^{n+1}$.
+    $f$ is holomorphic on $\C^\star$; hence we meet the requirements
+    for the fundamental theorem of calculus (FTC).
+    Therefore
+    \[
+        \int_{\lvert z \rvert = r} z^n \, dz 
+        = f(\gamma(b)) - f(\gamma(a))
+        = f(\gamma(2\pi)) - f(\gamma(0))
+        = 0.
+    \]
+    If $n = 1$, there is no obvious holomorphic antiderivative of
+    $z^{-1}$ on $\C^\star$ or any set containing the circle $S$.
+    \begin{align*}
+        \int_{\lvert z \rvert = r} z^n \,dz
+        &= \int_\gamma z^{-1} \,dz \\
+        &= \int_0^{2\pi} \left(re^{i\theta}\right)^{-1} 
+           \left(re^{i\theta}\right)' \,dz \\
+        &= \int_0^{2\pi} \left(\frac{rie^{i\theta}}{re^{i\theta}}\right) \,d\theta \\
+        &= \int_0^{2\pi} i \,d\theta = 2\pi i \neq 0;
+    \end{align*}
+    therefore, $z^{-1}$ has no holomorphic antiderivative on $\C^\star$ by the
+    fundamental theorem of calculus.
+\end{solution}

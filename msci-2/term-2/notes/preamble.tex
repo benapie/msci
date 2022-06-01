@@ -1,0 +1,155 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%=%=%=%=%==%=%=%=%=%%%%%%%%%%%%%%%%
+%%%%%%%%%=%=%=%=%=%============%=%=%=%=%=%%%%%%%%%
+%%%%%%=%=%=%==========================%=%=%=%%%%%%
+%%%/          2020 EPIPHANY PREAMBLE          \%%%
+%%%\                Ben Napier                /%%%
+%%%%%%=%=%=%==========================%=%=%=%%%%%%
+%%%%%%%%%=%=%=%=%=%============%=%=%=%=%=%%%%%%%%%
+%%%%%%%%%%%%%%%%=%=%=%=%==%=%=%=%=%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%======================%
+%   Standard packages  %
+%======================%
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage[UKenglish]{babel}
+\usepackage{enumitem}
+\usepackage{graphicx}
+\setlist[enumerate,1]{label={(\roman*)}}
+\usepackage{parskip}
+
+%======================%
+%        Maths         %
+%======================%
+\usepackage{amsfonts, mathtools, amsthm, amssymb}
+\usepackage{xfrac}
+\usepackage{bm}
+\newcommand\N{\ensuremath{\mathbb{N}}}
+\newcommand\R{\ensuremath{\mathbb{R}}}
+\newcommand\Z{\ensuremath{\mathbb{Z}}}
+\newcommand\Q{\ensuremath{\mathbb{Q}}}
+\newcommand\C{\ensuremath{\mathbb{C}}}
+
+
+%======================%
+%       CompSci        %
+%======================%
+\usepackage{algorithm, algpseudocode}
+\usepackage{listings}
+\lstset{
+    language=Python,
+    basicstyle=\small\ttfamily,
+    numbers=left,
+    numberstyle=\tiny,
+    frame=tb,
+    columns=fullflexible,
+    showstringspaces=false,
+    breaklines=true,
+    postbreak=\mbox{{$\hookrightarrow$}\space},
+}
+\usepackage{textgreek}
+
+
+%======================%
+%    Module Specific   %
+%======================%
+%%% Algorithms and Complexity
+\newcommand\poly{\ensuremath{\mathsf P}}
+\newcommand\sat{\ensuremath{\mathsf{SAT}}}
+\DeclareMathOperator\TIME{TIME}
+%%% Algebra
+\DeclareMathOperator\ord{ord}
+\DeclareMathOperator\lcm{lcm}
+\DeclareMathOperator\im{im}
+\DeclareMathOperator\sgn{sgn}
+\DeclareMathOperator\Orb{Orb}
+\DeclareMathOperator\Stab{Stab}
+%%% Analysis in Many Variables
+\newcommand\norm[1]{\left\lVert#1\right\rVert}
+%%% Complex Analysis
+\newcommand\abs[1]{\left\lvert#1\right\rvert}
+\DeclareMathOperator\Res{Res}
+%%% Machine Learning
+\DeclareMathOperator\logit{logit}
+\DeclareMathOperator*\argmin{arg\,min}
+\DeclareMathOperator*\argmax{arg\,max}
+
+%======================%
+%       Drawing        %
+%======================%
+\usepackage{forest}
+\usepackage{tikz, pgfplots, pgf}
+\pgfplotsset{compat=1.16}
+\usetikzlibrary{positioning}
+
+%======================%
+%    Pretty tables     %
+%======================%
+\usepackage{booktabs}
+\usepackage{caption}
+\captionsetup[table]{skip=10pt}
+
+
+%======================%
+%     Environments     %
+%======================%
+\usepackage{mdframed}
+\mdfsetup{skipabove=1em,
+          skipbelow=1em,
+          startcode=\leavevmode}
+\theoremstyle{definition}
+\newmdtheoremenv[nobreak=true]{definition}{Definition}[chapter]
+\newmdtheoremenv[nobreak=true]{problem}[definition]{Problem}
+\newtheorem*{examplex}{Example}
+\font\manual=manfnt
+\newenvironment{example}
+    {\begin{examplex}}
+    {\renewcommand{\qedsymbol}{\manual\char'170}\qed\end{examplex}}
+\let\algorithm\relax
+\newmdtheoremenv[nobreak=true]{algorithm}[definition]{Algorithm}
+\theoremstyle{plain}
+\newmdtheoremenv[nobreak=true]{theorem}[definition]{Theorem}
+\newmdtheoremenv[nobreak=true]{proposition}[definition]{Proposition}
+\newmdtheoremenv[nobreak=true]{corollary}[definition]{Corollary}
+\newmdtheoremenv[nobreak=true]{lemma}[definition]{Lemma}
+\theoremstyle{remark}
+\newtheorem*{remarkx}{Remark}
+\newenvironment{remark}
+    {\begin{remarkx}}
+    {\renewcommand{\qedsymbol}{\footnotesize $\triangle$}\qed\end{remarkx}}
+\newenvironment{solution}{\begin{proof}[Solution]}{\end{proof}}
+
+%======================%
+%    Page Formatting   %
+%======================%
+\usepackage{fancyhdr}
+\usepackage{titling}
+\pagestyle{fancy}
+\fancyhf{}
+\lhead{\textsc{\mytitle}}
+\rfoot{\leftmark}
+\rhead{\thepage}
+\renewcommand{\footrulewidth}{0.5pt}
+\date{2020 Epiphany Term}
+
+
+%======================%
+%    Lecture Command   %
+%======================%
+\newcommand{\lecture}[2]{\marginpar{Lecture #1 \\ On #2}}
+
+%======================%
+%   Header and Footer  %
+%======================%
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks,
+    citecolor=black,
+    filecolor=black,
+    linkcolor=black,
+    urlcolor=black,
+    pageanchor=false
+}

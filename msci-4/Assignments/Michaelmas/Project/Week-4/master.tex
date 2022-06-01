@@ -1,0 +1,49 @@
+\input{../preamble.tex}
+
+\addbibresource{ref.bib}
+
+\begin{document}
+
+\begin{center}
+  \textbf{On the Tutte polynomial} \\
+  \textsc{Project IV: Computational Topology, \\ Michaelmas Term, Week 4} \\
+  \textsc{Ben Napier}
+  \vspace{1em}
+\end{center}
+
+\begin{definition}[Tutte polynomial]
+  Let $G = (V,E)$ be an undirected graph. For $A \subset E$, denote $k(A)$ as the number of connected components on the subgraph induced by $A$. We define the \emph{Tutte polynomial} as
+  \begin{equation}
+    \label{eq:tutte}
+    T_G(x,y) = \sum_{A \subset E} (x-1)^{k(A) - k(E)} (y-1)^{k(A) + \lvert A \rvert - \lvert V \rvert}.
+  \end{equation}
+\end{definition}
+
+This polynomial has some useful properties, namely it is indeed a graph property (preserved under isomorphisms), multiplicative over disjoint unions, and the Tutte polynomial of a dual graph $G^*$ of a undirected planar graph $G$ is given by
+\[
+  T_{G^*}(x,y) = T_G(y,x).
+\]
+
+We introduce another invariant of graphs.
+
+\begin{definition}[Chromatic polynomial]
+  Let $G = (V,E)$ be a directed graph. We define the \emph{chromatic polynomial} of $G$, $\chi_G$, as the number of proper $k$-colourings that exist on $G$.
+\end{definition}
+
+The Tutte polynomial is infact a generalisation of the chromatic polynomial. Indeed, for a undirected graph $G = (V,E)$ the Tutte polynomial specialises at $y = 0$:
+\begin{equation}
+  \chi_G(\lambda) = (-1)^{\lvert V \rvert - k(G)} \lambda^{k(G)} T_G(1 - \lambda, 0).
+\end{equation}
+
+We see that if $\chi_G(\lambda)(3) \geq 1$, then there is a three colouring on $G$. Thus determining the Tutte polynomial is $\mathsf{NP}$-hard. Infact, we have an upper bound on our complexity: it has been shown that it is $\mathsf{\#P}$-complete \cite{annan1995complexities} (while some of the coefficients can be computed in polynomial time).
+
+Moving forward, we can generalised the notion of a Tutte polynomial to simplicial complexes, as outlined by \textcite{krushkal2014polynomial}. Within the definition of the Tutte polynomial (\ref{eq:tutte}), we sum over all spanning subgraphs of $G$. Using more \emph{higher-dimensional friendly language}, the sum over all subcomplexes of dimension 1 such that the entire 0-skeleton is included in each complex. Translating this to a simplicial complex, we may say that $L \subset K$ is a spanning $n$-dimensional subcomplex of a simplicial complex $K$ of dimension $\geq n$ if their $(n-1)$-skeletons coincide. We define
+\begin{equation}
+  T_K(x,y) = \sum_{L \subset K^{(n)}} x^{\lvert H_{n-1}(L) \rvert - \lvert H_{n-1}(K) \rvert} y^{\lvert H_n(L) \rvert}
+\end{equation}
+where the summation is taken over the \emph{spanning} $n$-subcomplexes $L$ of $K$.
+We can see that (1) and (3) are equivalent for graphs by observing that $n(H) = k(A) + \lvert A \rvert - \lvert V \rvert$ (where $H = (V,A)$) defines the nullity of $H$: the rank of $H_1(H)$.
+
+\printbibliography
+
+\end{document}

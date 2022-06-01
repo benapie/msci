@@ -1,0 +1,109 @@
+\documentclass[a4paper]{article}
+\usepackage{amsmath}
+\usepackage{booktabs}
+
+\title{Machine Learning Coursework}
+\date{Due 1 May 2020}
+\author{ppqn55}
+
+\begin{document}
+
+\maketitle
+
+\section{Introduction}
+
+% todo
+
+\section{Experimental procedure}
+
+\subsection{Data preparation}
+
+\paragraph{Initial merging}
+
+Firstly, I merged the \texttt{studentAssessment} with the \texttt{assessment}
+table using left join on \texttt{id\_assessment}.
+Then I calculated a new variable \texttt{weight\_score}
+which is just the \texttt{weight} multiplied by the \texttt{score}
+for each assessment.
+Then I summed the \texttt{weight\_score} for each presentation of a student.
+Then I appended the student demographics.
+The \texttt{final\_result} attribute is changed from categorical to
+a integer between 0 and 3 inclusive.
+The final attributes that I used are:
+\begin{enumerate}
+    \item numerical attributes:
+        \begin{enumerate}
+            \item \texttt{weighted\_score};
+            \item \texttt{num\_of\_prev\_attempts};
+            \item \texttt{studied\_credits};
+        \end{enumerate}
+    \item catergorical attributes:
+        \begin{enumerate}
+            \item \texttt{code\_module};
+            \item \texttt{code\_presentation};
+            \item \texttt{gender};
+            \item \texttt{age\_band};
+            \item \texttt{number\_of\_prev\_attempts};
+            \item \texttt{code\_modul}; and
+            \item \texttt{code\_module}.
+        \end{enumerate}
+\end{enumerate}
+
+\paragraph{Sampling}
+
+I used a stratified shuffle with a test set size of $20\%$ of the total data set.
+
+\paragraph{Pipeline}
+My \emph{numerical pipleine} cosisted of an median imputer and a standard scaler
+and my categorical pipline uses one hot encoding.
+
+\subsection{Performance measurement}
+
+To measure the performance of the models, we use
+the \emph{root mean square error}.
+
+\subsection{Parameter selection}
+
+Following are the results of grid searches done for the main
+parameter of each model.
+This was done on using cross-validation on the training set.
+
+\paragraph{Random forest}
+\begin{center}
+    \begin{tabular}{cc}
+        \toprule
+        \multicolumn{2}{c}{Random forest} \\
+        \midrule
+        RMSE & \texttt{n\_estimators} \\
+        \midrule
+        0.28095 & 90 \\
+        0.27981 & 100 \\ 
+        0.27993 & 110 \\
+        \bottomrule
+    \end{tabular}
+    \hspace{5em}
+    \begin{tabular}{cc}
+        \toprule
+        \multicolumn{2}{c}{Logistic regression} \\
+        \midrule
+        RMSE & \texttt{C} \\
+        \midrule
+        0.35508 & 0.1 \\
+        0.34483 & 1 \\ 
+        0.34164 & 10 \\
+        0.34130 & 100 \\
+        0.34140 & 1000 \\
+        \bottomrule
+    \end{tabular}
+\end{center}
+
+Further analysis was done, but other parameters
+were clearly optimal in default or had minimal effect.
+From this, the model parameters were selected as default
+except for logistic regression where $C$ is set to $100$
+(instead of the default being 1).
+
+\section{Discussion}
+\section{Conclusions}
+
+\end{document}

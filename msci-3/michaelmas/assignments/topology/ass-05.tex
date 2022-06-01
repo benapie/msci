@@ -1,0 +1,53 @@
+\documentclass[a4paper, answers]{exam}
+\input{../preamble.tex}
+
+\begin{document}
+
+\begin{center}
+	\textbf{\textsc{Topology III, Assignment 5}} \\
+	\textsc{Ben Napier}
+	\vspace{1em}
+\end{center}
+
+\begin{questions}
+
+	\question 
+	Let $X$ be a topological space and
+	$\Delta: X \to X \times X$
+	be the map given by $\Delta(x) = (x,x)$
+	for all $x \in X$.
+	Show that $X$ is a Hausdorff space if and only if the image
+	$\Delta(X) \subset X \times X$ is closed in $X \times X$.
+	\begin{solution}
+		$(\implies)$:
+		let $(x,y) \in (X,X) \setminus \Delta(X)$,
+		so $x \neq y$.
+		As $X$ is Hausdorff, there is open $U,V \subset X$
+		such that $x \in U$, $y \in V$, and $U \cap V = \varnothing$.
+		Now observe that $(U \times V) \cap \Delta(X) = \varnothing$
+		since they are disjoint.
+		Furthermore, $U \times V$ is an open neighbourhood of $(x,y)$;
+		thus $(X \times X) \setminus \Delta(X)$ is open.
+		Therefore $\Delta(X)$ is closed.
+
+		$(\impliedby)$:
+		assume $\Delta(X)$ is closed in $X \times X$ and consider
+		$(x,y) \in X \times X$ such that $x \neq y$.
+		Hence $(x,y) \not\in \Delta(x)$.
+		So $(x,y)$ is in the open set 
+		$(X \times X) \setminus \Delta(X)$,
+		so for some $B \in \mathcal B_{X \times Y}$
+		we have $(x,y) \in B \subset \left( 
+			X \times X 
+		\right) \setminus \Delta(X)$.
+		Note that there is $U, V \subset X$ open
+		such that $B = U \times V$, 
+		and so $x \in U$ and $y \in V$.
+		Now as $U \times V \subset (X \times X) \setminus \Delta(X)$,
+		$U \cap V = \varnothing$.
+		Thus $X$ is Hausdorff.
+	\end{solution}
+
+\end{questions}
+
+\end{document}

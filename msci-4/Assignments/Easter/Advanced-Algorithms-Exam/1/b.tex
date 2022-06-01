@@ -1,0 +1,43 @@
+\part[8] For every integer $k \geq 1$, give a graph of safety number $k$ that is not a tree. For every integer $k \geq 1$, give also a tree of safety number $k$. Justify your answers.
+
+\begin{solution}
+    We denote $\Delta(G)$ as the maximum degree of a graph $G$.
+
+    For a non-tree and $k = 1$, we claim that $2P_1$ has safety number 1. $2P_1$ is not a tree as it is disconnected, and we have the trivial $1$-colouring where both vertices are given the same colour. Then $\Delta(G) = 0 \leq 3$, so the maximum degree of any induced subgraph is $0$. Thus the colouring is safe. $2P_1$ is not empty, thus there is no $0$-colouring, proving our claim. The graph is drawn below.
+
+    \begin{center}
+        \begin{tikzpicture}
+            \node[main, fill=red!50] (1) {};
+            \node[main, fill=red!50] (2) [left of=1] {};
+        \end{tikzpicture}
+    \end{center}
+
+    For a non-tree and $k = 2$, we consider $2P_2 = uv + wx$. As before, $2P_2$ is not a tree as it is disconnected, and we have a $2$-colouring $c: V(2P_2) \to \{1,2\}$ where $c(u)=c(w)=1$ and $c(v)=c(x)=2$. It is clear that this is a minimal colouring, the existence of edges prohibits a $1$-colouring. This colouring is safe as $\Delta(G) = 1 \leq 3$, and so any induced subgraph has maximum degree $1$. Thus $2P_2$ has safety number $2$. The graph is drawn below.
+
+    \begin{center}
+        \begin{tikzpicture}
+            \node[main, fill=red!50] (1) {};
+            \node[main, fill=blue!50] (2) [left of=1] {};
+            \node[main, fill=red!50] (3) [left of=2] {};
+            \node[main, fill=blue!50] (4) [left of=3] {};
+            \draw (1) -- (2) (3) -- (4);
+        \end{tikzpicture}
+    \end{center}
+
+    For a non-tree and $k \geq 3$, we may consider the complete graph $K_k$. We have $\chi(K_k) = k$, with each vertex having a distinct colour. For $x, y \in V(K_k)$, the induced subgraph $K_k[\{x,y\}]$ is $P_2$, thus $\Delta(K_k[\{x,y\}]) = 1$. Thus this colouring is safe, and so the safety number $k$. The graph is drawn below for $k = 3$.
+
+    \begin{center}
+        \begin{tikzpicture}
+            \node[main, fill=red!50] (1) {};
+            \node[main, fill=blue!50] (2) [above left of=1] {};
+            \node[main, fill=green!50] (3) [below left of=2] {};
+            \draw (1) -- (2) -- (3) -- (1);
+        \end{tikzpicture}
+    \end{center}
+
+    For a tree and $k = 1$, we consider $P_1$ and the trivial colouring, which is a safe and minimal colouring. Thus the safety number of $P_1$ is $1$. 
+
+    For a tree and $k \geq 2$, we consider the star graph $G = S_{3(k-1)}$ and let $v \in V(G)$ be the internal node. This is always $2$-colourable, where the internal node has one colour and the leaves all share another colour. For $k = 2$ this is safe, as $\Delta(S_{k-1}) = 3$ (and so any induced subgraph must have degree at most $3$). So we now consider $k \geq 3$. We first claim that a safe $k$-colouring exists for $G$. If we partition the leaves into $k-1$ sets of size $3$, then colouring each partition a distinct colour and the internal node a distinct colour, we have us a $k$-colouring ($k-1$ colour used for the leaves, $1$ used for the internal node). This is indeed safe, the subgraph induced from any two distinct partitions is $6P_1$, which has maximum degree $0$. Similarly, the subgraph induced from any partition and the internal node is the claw graph, which has maximum degree $3$. We finally claim that there is no safe $k-1$-colouring which is safe, and thus the safe $k$-colouring above must be minimal (and thus the safety number is $k$). Suppose we have a safe $(k-1)$-colouring $c: V(G) \to \{1, \ldots, k-1\}$. $c(v)$ must have a unique colour, as it is a dominating vertex. So we let $c(v) = 1$ (without loss of generality). We now claim that there is a colour set $C$ with size at least $4$. Indeed, we have used $1$ colour for the internal node, thus we have $k-2$ colours left to colour the remaining $3(k-1)$ leaves. Observe
+    \[ \frac{3(k-1)}{k-2} \geq \frac{3(k-1)}{k-1} = 3, \]
+    and so at least one of the colour sets has size $4$ or more. We now consider the subgraph induced by $C \cup \{v\}$, which is $K_{1, \lvert C \rvert}$ (as $C$ is a independent set and $v$ is a dominating vertex). But $\Delta(K_{1, \lvert C \rvert}) = \lvert C \rvert \geq 4$, so thus the colouring is not safe. Therefore, the safety number of $G$ is $k$.  
+\end{solution}

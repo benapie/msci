@@ -1,0 +1,136 @@
+\documentclass[a4paper, answers]{exam}
+\input{../preamble.tex}
+
+\begin{document}
+
+\begin{center}
+	\textbf{\textsc{Analysis III, Assignment 3}}
+	\\
+	\textsc{Ben Napier}
+	\vspace{1em}
+\end{center}
+
+\begin{questions}
+	\question 
+	Let $C$ be the cantor set.
+	Prove that $C$ is measurable and that is has measure zero.
+	\begin{solution}
+		Recall that the Cantor set $C = \bigcap_{n=1}^\infty C_n$
+		and further recall that $C_n$ has $2^n$ closed intervals each with
+		length $\left( 
+			\frac13 
+		\right)^n$.
+		So $C_n$ and $C$ are measurable.
+		Since the Lebesgue measure is finitely additive, $m(C_n) = \left( 
+			\frac23 
+		\right)^n$.
+		As $C \subset C_n$, $m(C) \leq m(C_n)$
+		and we must have $m(C) = 0$.
+	\end{solution}
+
+	\question
+	\begin{parts}
+		\part 
+		Let $f_n$ be a sequence of continuous, real valued functions
+		on $[0,1]$ which converges uniformly to $f$.
+		Prove that $\lim_{n \to \infty} f_n(x_n) = f(\sfrac12)$ for any sequence
+		$\left\{
+			x_n
+		\right\}$
+		which converges to $\sfrac12$.
+		\begin{solution}
+			Let $\varepsilon > 0$.
+			Then there is $N_1 \in \N$ such that for every $n \geq N_1$ and
+			$x \in [0,1]$ we have
+			\[
+				\left\lvert f_n(x) - f(x) \right\rvert 
+				< \sfrac{\varepsilon}{2} 
+			\]
+			by the uniform convergnce of $f_n$ to $f$.
+			As $f$ is continuous, there is $\delta > 0$ such that
+			\[
+				\left\lvert x - \sfrac12 \right\rvert < \delta
+				\implies \left\lvert f(x) - f\left( 
+					\sfrac12 
+				\right) \right\rvert < \sfrac{\varepsilon}{2}.
+			\]
+			By the convergence of $x_n$ to $\frac12$, there is $N_2 \in \N$
+			such that for every $n \geq N_2$ we have
+			\[
+				\left\lvert x_n - \sfrac12 \right\rvert < \delta.
+			\]
+			Thus, for every $n \geq \max\left\{
+				N_1, N_2
+			\right\}$ we have
+			\begin{align*}
+				\left\lvert f_n(x_n) - f\left( 
+					\sfrac12 
+				\right) \right\rvert
+				&\leq \left\lvert f_n(x_n) - f(x) \right\rvert
+				+ \left\lvert f(x) - f\left( 
+					\sfrac12 
+				\right) \right\rvert \\
+				&< \sfrac{\varepsilon}2 + \sfrac{\varepsilon}{2} \\
+				&= \varepsilon.
+			\end{align*}
+			
+		\end{solution}
+
+		\part 
+		Must the conclusion still hold if the converge is only pointwise?
+		Explain.
+		\begin{solution}
+			Consider the sequence of continuous functions
+			\[
+				f_n(x) =
+				\begin{cases}
+					(2x)^n		& x \in \left[0,\sfrac12\right), \\
+					(2(1-x))^n	& x \in \left(\sfrac12,1\right], \\
+					1			& x = \frac12.
+				\end{cases}
+			\]
+			Now $f_n \to f$ piecewise where
+			\[
+				f(x) =
+				\begin{cases}
+					0 & x \in [0,1] \setminus \frac12, \\
+					1 & x = \frac12.
+				\end{cases}
+			\]
+			But $f_n$ does not converge uniformly as it does not preserve
+			continuity. 
+			Let $x_n = \frac12 - \frac1n$, then
+			\[
+				f_n(x_n)
+				= f_n\left( 
+					\frac12 - \frac1n 
+				\right)
+				= \left( 
+					1 - \frac2n 
+				\right)^n
+				\to \frac{1}{e^2}
+			\]
+			as $n \to \infty$.
+			But $f(\sfrac12) = 1 \neq \sfrac{1}{e^2}$.
+		\end{solution}
+	\end{parts}
+
+	\question
+	Prove that the outer measure of the set of irrational numbers in the
+	interval $[0,1]$ is equal to $1$.
+	\begin{solution}
+		As $\Q$ is countable, it has measure zero. 
+		Thus it is measurable.
+		Therefore
+		\[
+			1
+			= m^\star([0,1])
+			= m^\star([0,1] \cap \Q) + m^\star([0,1] \setminus \Q).
+		\]
+		Now as $[0,1] \cap \Q \subset \Q$,
+		it also has measure zero and so
+		$m^\star([0,1] \setminus \Q) = 1$.
+	\end{solution}
+\end{questions}
+
+\end{document}

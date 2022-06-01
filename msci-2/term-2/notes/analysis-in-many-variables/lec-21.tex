@@ -1,0 +1,104 @@
+\lecture{21}{19/3}
+
+\begin{example}
+    Show that $x \delta^{(2)}(x) = -2\delta'(x)$
+    where $\delta^{(2)}(x) = \delta''(x)$.
+\end{example}
+
+\begin{solution}
+    For all $f \in K$, we start with the LHS:
+    \begin{align*}
+        \int_{-\infty}^{\infty} f(x) x \delta^{(2)}(x) \,dx
+        &= \int_{-\infty}^{\infty} \delta^{(2)}(x) (xf(x)) \,dx \\
+        &= -\int_{-\infty}^{\infty} \delta'(x) (xf(x))' \,dx \\
+        &= \int_{-\infty}^{\infty} \delta(x) (xf(x))'' \,dx \\
+        &= (xf(x))'' \rvert_{x=0} \\
+        &= (f(x) + xf'(x))' \rvert_{x=0} \\
+        &= 2f'(x) + xf''(x) \rvert_{x=0} \\
+        &= 2f'(0).
+    \end{align*}
+    Now for the RHS:
+    \begin{align*}
+        \int_{-\infty}^{\infty} f(x) (-2\delta'(x)) \,dx
+        &= 2\int_{-\infty}^{\infty} \delta(x) (f(x))' \,dx \\
+        &= 2f'(x) \rvert_{x=0} \\
+        &= 2f'(0).
+    \end{align*}
+    Therefore, $\delta^{(2)}(x) = \delta''(x)$.
+\end{solution}
+
+\begin{example}
+    Show that $\delta(e^x - 1) = \delta(x)$.
+\end{example}
+
+\begin{solution}
+    Let $u = e^x - 1$, $du = e^x \,dx$.
+    For $f \in K$
+    \begin{align*}
+        \int_{-\infty}^{\infty} \delta(e^x - 1) f(x) \,dx
+        &= \int_{-\infty}^{\infty} \frac{\delta(u) f(\log(u+1))}{u+1} \,du \\
+        &= f(0);
+    \end{align*}
+    hence, $\delta(e^x-1) = \delta(x)$.
+\end{solution}
+
+\begin{remark}
+    More generally, if $g(x)$ is differentiable
+    with real zeros at $a_1$, $a_2$, $\ldots$, $a_n$
+    then
+    \[
+        \delta(g(x)) = \sum^{n}_{i=1} \frac{\delta(x-a_i)}{g'(a_i)}.
+    \]
+\end{remark}
+
+\begin{example}
+    Show that 
+    \[
+        h(x)\delta(x-y) = h(y)\delta(x-y).
+    \]
+\end{example}
+
+\begin{solution}
+    For $f \in K$, we will first consider the LHS:
+    \begin{align*}
+        \int_{-\infty}^{\infty} f(x) h(x) \delta(x-y) \,dx
+        &= \int_{-\infty}^{\infty} \delta(x-y) (h(x)f(x)) \,dx \\
+        &= \int_{-\infty}^{\infty} (h(x)f(x)) \rvert_{x=y} \\
+        &= h(y)f(y).
+    \end{align*}
+    Now the RHS:
+    \begin{align*}
+        \int_{-\infty}^{\infty} f(x) h(y) \delta(x-y) \,dx \\
+        &= h(y) \int_{-\infty}^{\infty} f(x) \delta(x-y) \,dx \\
+        &= h(y) (f(x)) \rvert_{x=y} \\
+        &= h(y)f(y)
+    \end{align*}
+    as required.
+\end{solution}
+
+\begin{example}
+    Find $c$ in the generalised function identity
+    \[
+        x^{n-1} \delta^{(n)}(x) = c \delta'(x).
+    \]
+\end{example}
+
+\begin{solution}
+    For $f \in K$, first we consider the RHS:
+    \begin{align*}
+        \int_{-\infty}^{\infty} c\delta'(x) f(x) \,dx
+        &= -c\int_{-\infty}^{\infty} \delta(x) f'(x) \,dx \\
+        &= -c f'(0).
+    \end{align*}
+    Now for the LHS:
+    \begin{align*}
+        \int_{-\infty}^{\infty} x^{n-1} \delta^{(n)}(x) f(x) \,dx
+        &= (-1)^n \int_{-\infty}^{\infty} \delta(x) (x^{n-1}f(x))^{(n)} \\
+        &= (-1)^n (x^{n-1}f(x))^{(n)} \rvert_{x=0} \\
+        &= (-1)^n \sum_{k=0}^n \binom{n}{k} 
+            \frac{d^{n-k}}{dx^{n-k}} (x^{n-1}) \frac{d^k}{dx^k} (f(x)) \rvert_{x=0} \\
+        &= (-1)^n \binom nk (n-1)! f'(0) \\
+        &= (-1)^n n! f'(0);
+    \end{align*}
+    therefore, $c = (-1)^{n+1} n!$.
+\end{solution}

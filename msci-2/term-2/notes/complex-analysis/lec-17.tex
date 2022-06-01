@@ -1,0 +1,214 @@
+\lecture{17}{16/3}
+
+\begin{lemma}[Jordan's lemma]
+    Let $r > 0$, 
+    $f$ be homomorphic in 
+    \[
+        D = \{z: \abs z > r\},
+    \]
+    and $z f(z)$ be bounded in $D$.
+    Then for any $\alpha > 0$
+    \[
+        \lim_{R \to \infty} \int_{C_R} e^{i\alpha z} f(z) \,dz = 0.
+    \]
+\end{lemma}
+
+\begin{example}
+    Compute
+    \[
+        \int_{-\infty}^{\infty} \frac{x \sin(x)}{x^2 + 1} \,dx.
+    \]
+\end{example}
+
+\begin{solution}
+    The idea here is to use Jordan's lemma. 
+    We integrate
+    $
+        g(z) = \frac{z e^{iz}}{z^2 + 1} 
+    $
+    over the contour $\gamma_R = L_R + C_R$
+    which is the $D$-shaped curve we considered in the previous example. %todo
+    We will set $R > 2$.
+    \begin{enumerate}
+        \item 
+            \hfill
+            \begin{align*}
+                \int_{L_R} g(z) \,dz
+                &= \int_{-R}^{R} g(x) \,dx \\
+                &= \int_{-R}^{R} \frac{e^{ix} \, x}{x^2 + 1} \,dx \\
+                &= \int_{-R}^{R} \frac{x}{x^2 + 1} (\cos x + i\sin x) \, dx 
+            \end{align*}
+            and so 
+            \[
+                \Im\left(\int_{L_R} g(z) \,dz\right) = \int_{-R}^{R} \frac{x\sin x}{x^2 + 1} \,dx.
+            \]
+
+        \item 
+            For $\int_{\gamma_R} g(z) \,dz$ we use the residue theorem.
+            We have
+            \[
+                g(z) = \frac{z e^{iz}}{z^2 + 1} = \frac{ze^{iz}}{(z + i)(z - i)}
+            \]
+            hence we have simple poles at $i$ and $-i$.
+            The pole at $i$ is the only pole in 
+            $D_{\gamma_R}^{\text{int}}$, 
+            so we only need to calculate
+            $\Res_{z = i} (g)$.
+            The cover up rule tells us that
+            \[ 
+                \Res_{z = i} (g) 
+                = \lim_{z \to i} (z-i)g(z) 
+                = \lim_{z \to i} \frac{ze^{iz}}{z+i} 
+                = \frac{ie^{-1}}{2i} 
+                = \frac{e^{-1}}{2} 
+            \]
+            By the residue theorem,
+            \[
+                \int_{\gamma_R} g(z) \,dz = 2\pi i \Res_{z=i} (g) = \pi i e^{-1}.
+            \]
+
+        \item 
+            So far we have handle $L_R$ and $\gamma_R$, so now we must look at $C_R$.
+            We want
+            \[
+                \lim_{R \to \infty} \int_{C_R} g(z) \,dz = 0
+            \]
+            \emph{but}
+            \[
+                \sup_{C_R}
+                \left\lvert
+                    \frac{ze^{iz}}{z^2 + 1} 
+                \right\rvert
+                \geq \frac{R}{R^2 + 1}
+            \]
+            and so we \emph{cannot} use the estimation lemma to get what we want.
+            But we can use Jordan's lemma.
+            Let $\alpha = 1$ and
+            \[
+                f(z) = \frac{z}{z^2 + 1}.
+            \]
+            Then $f$ is holomorphic on 
+            \[
+                D = \{ z: \abs z > 2 \}
+            \]
+            and
+            \[
+                zf(z) = \frac{z^2}{z^2 + 1} 
+            \]
+            so
+            \[
+                \abs{zf(z)} \leq \frac{\abs z^2}{\abs{\abs z^2 - 1}} 
+            \]
+            by reverse triangle inequality.
+            So if $\abs z > 2$ then
+            \[
+                \abs{zf(z)} \leq \frac{\abs z^2}{\abs z^2 - 1} 
+                = \frac{1}{1 - \frac{1}{\abs z^2}} 
+                \leq \frac{1}{1 - \frac{1}{2^2}}
+                = \frac{1}{1 - \frac14}
+                = \frac43.
+            \]
+            therefore $zf(z)$ is bounded on $D$.
+            Let $g(z) = e^{iz} f(z)$ and take $\alpha = 1$ and so by Jordan's lemma we have
+            \[
+                \lim_{R \to \infty} \int_{C_R} g(z) \,dz = 0.
+            \]
+    \end{enumerate}
+    Now we just put everything together.
+    As $ \frac{x \sin x}{x^2 + 1} $ is even,
+    \begin{align*}
+        \int_{-\infty}^{\infty} \frac{x \sin x}{x^2 + 1} \,dx
+        &= \lim_{R \to \infty} \int_{-R}^{R} \frac{x \sin x}{x^2 + 1} \,dx \\
+        &= \lim_{R \to \infty} \Im \left( \int_{L_R} g(z) \,dz \right) \\
+        &= \lim_{R \to \infty} \Im \left( \int_{\gamma_R} g(z) \,dz - \int_{C_R} g(z) \,dz \right) \\
+        &= \lim_{R \to \infty} \Im(\pi i e^{-1}) - \lim_{R \to \infty} \Im\left(\int_{C_R} g(z) \,dz\right) \\
+        &= \pi e^{-1} - 0 \\
+        &= \pi e^{-1}.
+    \end{align*}
+\end{solution}
+
+\begin{lemma}[Indentation lemma]
+    Suppose that $g$ is a meromorphic function on $\C$ that has a simple pole at $0$.
+    Consider the contour 
+    $C_{\varepsilon}(\theta) = \varepsilon e^{i\theta}$ 
+    for 
+    $\theta \in [0, \pi]$.
+    Then
+    \[
+        \lim_{\varepsilon \to 0} \int_{C_\varepsilon} g(z) \,dz = \pi i \Res_{z = 0}(g).
+    \]
+\end{lemma}
+
+\begin{example}
+    Evaluate the integral
+    \[
+        \int_0^\infty \frac{\sin(x)}{x} \,dx.
+    \]
+\end{example}
+
+\begin{solution}
+    We cannot use the strategy used in the last example as the function
+    \[
+        g(z) = \frac{e^{iz}}{z}
+    \]
+    has a pole at $z = 0$, so the $D$-shaped contour we constructed will lie on the curve.
+    We will define a different contour.
+    We consider $0 < \rho < R$ and then define the curve $\gamma_{\rho, R}$ as
+    \[
+        \gamma_{\rho, R} = L_2 + \overline{C_\rho} + L_1 + C_R
+    \]
+    where
+    \begin{enumerate}
+        \item $L_2$ is the straight line from $-R$ to $-\rho$;
+        \item $\overline{C_\rho} = -C_\rho$ with $C_\rho(\theta) = \rho e^{i\theta}$, $\theta \in [0, \pi]$;
+        \item $L_1$ is the straight line running from $\rho$ to $R$; and
+        \item $C_R(\theta) = R e^{i\theta}$, $\theta \in [0, \pi]$.
+    \end{enumerate}
+    This is similar to our $D$-shaped contour but skips over the origin.
+    We call these kinds of contours \emph{indented}.
+    For simplicity we will just write $\gamma$.
+    Note that since the only pole of $g$ is $z = 0$, 
+    then by Cauchy's theorem we have
+    \[
+        \int_\gamma g(z) \,dz = 0.
+    \]
+    Therefore
+    \[
+        \int_{L_1} g(z) \,dz + \int_{L_2} g(z) \,dz = \int_{C_\rho} g(z) \,dz - \int_{C_R} g(z) \,dz. \tag{$\star$}
+    \]
+    However, we have that
+    \begin{align*}
+        \int_{L_1} g(z) \,dz + \int_{L_2} g(z) \,dz
+        &= \int_{\rho}^R \frac{e^{iz}}{x} \,dx + \int_{-R}^{-\rho} \frac{e^{ix}}{x} \,dx \\
+        &= \int_{\rho}^{R} \frac{e^{ix}}{x} \,dx - \int_{\rho}^{R} \frac{e^{-ix}}{x} \,dx \\
+        &= \int_{\rho}^{R} \frac{e^{ix} - e^{-ix}}{x} \,dx \\
+        &= \int_{\rho}^R \frac{e^{ix} - e^{-ix}}{x} \,dx \\
+        &= 2i \int_{\rho}^{R} \frac{\sin(x)}{x} \,dx.
+    \end{align*}
+    Take Jordan's lemma where $f(z) = \frac1z$ and $\alpha = 1$. Clearly
+    $\abs{zf(z)} = 1$ is bounded hence
+    \[
+        \lim_{R \to \infty} \int_{C_R} g(z) \,dz = \lim_{R \to \infty} \int_{C_R} \frac{e^{iz}}{z} \,dz = 0.
+    \]
+    Now we compute
+    \[
+        \lim_{\rho \to 0} \int_{C_R} g(z) \,dz.
+    \]
+    For this we use the indentation lemma.
+    $g(z)$ has a simple pole at $0$ and by the cover up rule 
+    \[
+        \Res_{z = 0} (g) = \lim_{z \to 0} \frac{ze^{iz}}{z} = 1.
+    \]
+    Hence, by the indentation lemma
+    \[
+        \lim_{\rho \to 0} \int_{C_\rho} g(z) \,dz = \pi i.
+    \]
+    Taking $(\star)$ as $\rho \to 0$ and $R \to \infty$ we get
+    \[
+        2i \int_0^\infty \frac{\sin(x)}{x} \,dx = \pi i
+    \]
+    and hence
+    \[
+        \int_0^\infty \frac{\sin(x)}{x} \,dx = \frac{\pi}{2}.
+    \]
+\end{solution}

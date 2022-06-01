@@ -1,0 +1,82 @@
+%! TEX root = master.tex
+
+
+\begin{lemma}[]
+	Let $X$ be a topological space.
+	$X$ and $\varnothing$ are closed.
+	Furthermore, arbitrary intersections and finite unions of closed sets are
+	closed.
+\end{lemma}
+
+\begin{proof}
+	$X = X \setminus \varnothing$ and $\varnothing = X \setminus X$.
+	Now suppose $V_i$ is closed for $i \in I$.
+	$X \setminus V_i$ is open.
+	$X \setminus \bigcap_i V_i = \bigcup_i \left( X \setminus V_i \right)$;
+	hence, arbitrary intersections are closed.
+	Similarly
+	$X \setminus \bigcup_{i = 1}^n V_i = \bigcap_{i=1}^n (X \setminus V_i)$
+	and so finite unions are closed.
+\end{proof}
+
+\begin{definition}[]
+	Suppose $X$ is a topological space such that for all distinct $x,y \in X$
+	there exists open sets $U, V \subset X$ such that $x \in U$, $y \in V$, and
+	$U \cap V = \varnothing$.
+	We call $X$ a \emph{Hausdorff} space.
+\end{definition}
+
+Hausdorffness is an example of a \emph{separation axiom}.
+
+\begin{lemma}[]
+	Let $M$ be a metric space.
+	Then $M$ is a Hausdorff space.
+\end{lemma}
+
+\begin{proof}
+	Let $x, y \in M$ and $R = d(x,y) > 0$ where $d$ is the metric of $M$.
+	Now let $z \in B_{\frac R2}(x) \cap B_{\frac R2}(y)$.
+	Then
+	\begin{align*}
+		R
+		&= d(x,y) \\
+		&\leq d(x,z) + d(z,y) \\
+		&< \frac R2 + \frac R2 \\
+		&= R;
+	\end{align*}
+	hence, no such $z$ exists and 
+	$B_{\frac R2}(x) \cap B_{\frac R2}(y) = \varnothing$.
+\end{proof}
+
+\begin{example}[]
+	Consider the topological space $(X, \left\{ \varnothing, X \right\})$ where
+	$X$ is a set with more than one element.
+	Let $x, y \in X$ be distinct points. 
+	Then the only open set such that $x \in U$ is $X$, and $y \in U$.
+	Therefore, this is not a Hausdorff space.
+\end{example}
+
+\begin{example}[Furstenburg topology on $\Z$]
+	Consider the topology on $\Z$ such that $U \subset \Z$ is open if for all
+	$a \in \Z$ there is $0 \neq d \in \Z$ such that $a + d\Z \subset U$.
+	Lets investigate this topology.
+	Clearly $\varnothing$ and $\Z$ are open.
+	Let $U_1$ and $U_2$ be open and $a \in U_1 \cap U_2$ with $d_i \in \Z$ such
+	that $a + d_i\Z \subset U_i$ for $i \in \left\{ 1, 2 \right\}$.
+	See that $a + (d_1d_2)\Z \subset U_1 \cap U_2$ and so a finite intersections
+	of open sets are open.
+	Now let $U_i$ be open for $i \in I$ for some collection $I$.
+	Let $a \in \bigcup_i U_i$ and $d \in \Z$ such that 
+	$a + d\Z \subset U_1$.
+	Now $a + d\Z \subset U_1 \subset \bigcup_i U_i$; hence, $\bigcup_i U_i$ is 
+	open.
+	This is also Hausdorff, which we will prove.
+	Suppose $a, b \in \Z$ are distinct integers.
+	Let $U = a + 2(b-a) \Z \ni a$ and $V = b + 2(b-a)\Z \ni b$.
+	If $z \in U \cap V$, we have $z = a + 2(b - a)m = b + 2(b-a)n$ and so
+	$b - a = 2(b-a)(m-n)$ for some $m, n \in \Z$; a contradiction.
+	Therefore $U \cap V = \varnothing$.
+\end{example}
+
+There is an interesting question of whether the Furstenburg topology on $\Z$
+arises from a metric on $Z$.

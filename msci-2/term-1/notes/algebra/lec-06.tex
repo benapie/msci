@@ -1,0 +1,90 @@
+\lecture{6}{24/10}
+
+\begin{proof}[Proof for existence]
+    If $\deg{g} > \deg{f}$ then we simply take $q(x) = 0$ and $r(x) = f(x)$. If $\deg{g} \leq \deg{f}$ then let 
+    \begin{align*}
+        f(x) &= a_0 + a_1x + \ldots + a_mx^m \\
+        g(x) &= b_0 + b_1x + \ldots + b_nx^n \\
+    \end{align*}
+    where $a_m, b_n \neq 0$. Let $d = m - n \geq 0$. We use induction on $d$. For $d = 0$, we have $m = n$. Set $q(x) = \frac{a_m}{b_n}$ and
+    \[ r(x) = f(x) - q(x)g(x). \]
+    Here we have a suitable $q, r$. Now we can move on to the inductive step. Assume the existence of a suitable $q(x), r(x)$ for all $d < k$ for some $k \geq 0$. Now we consider $d = k$. So $m = n + k$. Consider
+    \[ f_1(x) = f(x) - \frac{a_m}{b_n} x^{m - n} g(x). \]
+    We now have that $\deg{f_1} < \deg{f}$, so by our assumption there exists a $q_1(x)$ and $r(x)$ such that
+    \[ f_1(x) = q_1(x)g(x) + r(x). \]
+    So we have
+    \[ f(x) = f_1(x) + \frac{a_m}{b_n} x^{m - n}g(x) = g(x) \left(q_1(x) + \frac{a_m}{b_n} x^{m - n}\right) + r(x) \] and hence we have a suitable $r(x)$ and $q(x) = q_1(x) + \frac{a_m}{b_n}x^{m - n}$. By induction, this is true for all $d \geq 0$.
+\end{proof}
+
+\chapter{Greatest common divisors in a ring}
+
+\begin{definition}[Greatest common divisor]
+    Let $R$ be a commutative ring and $a, b \in R$. We call $d$ the \textbf{greatest common divisor} of $a$ and $b$, denoted $d = \gcd{(a, b)}$ if
+    \begin{enumerate}
+        \item $d$ \emph{divides} both $a$ and $b$ (that is, there exists $x, y \in R$ such that $a = xd$ and $b = yd$); and
+        \item if $e \in R$ divides $a$ and $b$ then $e$ divides $d$.
+    \end{enumerate}
+\end{definition}
+
+\begin{example}
+    With this definition of the geratest common divisor, we have that $1$ and $-1$ are both greatest common divisors for $2$ and $3$ in $\Z$; however, we can make the definition unique in rings with total ordering (that is, the $\leq$ and $>$ relations exist) by considering the greatest common divisor as the greatest of the possible. This is typically how we define \emph{the} greatest common divisor. Obviously, we cannot do this in fields such as $\C$ or $\Z[\sqrt{-2}]$ but it does not really matter that the greatest common divisor is not unique in these fields.
+\end{example}
+
+\begin{remark}
+    It is actually possible for a two numbers in a ring to not have a greatest common divisor.
+\end{remark}
+
+\begin{remark}
+    In any ring R, $\gcd(0,0)=0$ and is unique.
+\end{remark}
+
+\section{The Euclidean algorithm}
+
+\begin{example}
+    Let $f(x) = x^2 + 1$ and $g(x) = x^2 + 3x +1$ in $\Q[x]$. Find $\gcd{(f(x), g(x))}$.
+\end{example}
+
+\begin{solution}
+    Here we will use the fact that if $f(x) = q(x)g(x) + r(x)$, then
+    \[ \gcd(f(x), g(x)) = \gcd(g(x), r(x)). \]
+    So,
+    \[ f(x) = g(x) - 3x. \]
+    Now as our remainder $-3x$ has a lower degree as $g$, we stop. But now we can perform the same thing with dividing $g(x)$ by $-3x$. So
+    \[ g(x) = \left(-\frac13 x - \frac13\right)(-3x) + 1. \]
+    Here we are trying to find $\gcd(f(x), g(x)) = \gcd{(-3x, 1)}$, and
+    \[ -3x = 1 \cdot (-3x) + 0; \]
+    here we know that $\gcd{(f(x), g(x))}$ is given by the last non-zero remainder so
+    \[ \gcd(f(x),g(x)) = 1. \]
+\end{solution}
+
+\begin{example}
+    Let $f(x) = x^2 + 7x + 6$ and $g(x) = x^2 - 5x - 6$ in $\Q[x]$. Find $\gcd{(f(x), g(x))}$.
+\end{example}
+
+\begin{solution}
+    \begin{align*}
+        f(x) &= 1 \cdot g(x) + 12 (x + 1) \\
+        g(x) &= \frac{1}{12} x \cdot 12 \cdot (x + 1) - 6(x+1) \\
+        12(x + 1) &= (-2) \cdot (-6) \cdot (x + 1) + 0
+    \end{align*}
+    So $\gcd(f(x),g(x)) = x + 1$. Even though we have a $12$ constant in it, $12$ is a unit in $\Q[x]$ meaning it will divide \emph{everything}.
+\end{solution}
+
+\begin{remark}
+    A polynomial in $F[x]$ is called \textbf{monic} if the leading coefficient is $1$. Above we showed that we can find a monic greatest common divisor even though we started with a non-monic one. The following result will show that there is always a monic $\gcd$ and it is always unique.
+\end{remark}
+
+\begin{lemma}[$\gcd$ is unique up to units]
+    Let $R$ be an integral domain. Let $a, b \in R$. Then if $d = \gcd{(a, b)}$ exists we have that $ud$ is also a $\gcd{(a, b)}$ for all units $u \in R^\times$.
+\end{lemma}
+
+\begin{proof}
+    \begin{description}
+        \item[$\implies$] Lets assume that $d = \gcd(a, b)$ and $u \in R^{\times}$. $d$ divides $a$ hence there exists some $m \in R$ such that $dm = a$. Therefore
+            \[ du(u^{-1}m) = a; \]
+            hence $du$ divides $a$. So $du$ divides $a$ and similarily $du$ divides $b$. Now if there exists $e \in R$ that divides $a, b \in R$ we know that there exists $k$ such that $ek = d$. So $eku = du$ so $e$ divides $du$ and therefore $du$ is a $\gcd$.
+        \item[$\impliedby$] Next we assume that $d$ and $d'$ are two $\gcd$s. Then, by definition, both divide $a$ and $b$ and both must divide each other. This means
+            \[ d = d'u,\quad d' = dv, \]
+            for some $u, v \in R$. Thus $d = duv$. If $d = 0$, then also $d' = 0$, so we may take $u = 1$. If $d \neq 0$, then (since $R$ is an integral domain), we can cancel $d$ and obtain $uv = 1$. Hence $u$ and $v$ are units, so we are done.
+    \end{description}
+\end{proof}

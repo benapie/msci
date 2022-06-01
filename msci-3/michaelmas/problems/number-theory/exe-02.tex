@@ -1,0 +1,81 @@
+\documentclass[a4paper, answers]{exam}
+\input{../preamble.tex}
+
+\begin{document}
+
+\begin{center}
+	\textbf{\textsc{Number Theory III, Problem Sheet 2}} \\
+	\textsc{Ben Napier}
+	\vspace{1em}
+\end{center}
+
+\begin{questions}
+	\question
+	Let $L$ be an extension of a field $F$ with $[L:F] < \infty$.
+	\begin{parts}
+		\part 
+		Let $K_1$, $K_2$ be fields with $F \subset K_1$ and $K_2 \subset L$.
+		Define $K_1 K_2$ as the smallest field in $L$ which contains both $K_1$
+		and $K_2$.
+		Show that
+		\[
+			[K_1 K_2 : F] \leq [K_1 : F] [K_2 : F].
+		\]
+
+		\part
+		With the notation as above, assume now that $\gcd(n,m) = 1$ where
+		$m = [K_1 : F]$ and $n = [K_2: F]$.
+		Show that $[K_1 K_2 : F] = [K_1 : F][K_2 : F]$.
+	\end{parts}
+
+	\question
+	Let $\theta \in \C$ and set $K = \Q(\theta)$.
+	For $a$, $b$, and $c$ in $\Q$, calculate 
+	$\operatorname{Tr}_{K/\Q}(a + b\theta + c\theta^2)$ and
+	$\operatorname{N}_{K/\Q}(a + b\theta + c\theta^2)$ where $\theta$ satisfies
+	$\theta^3 + \theta^2 + 2 = 0$.
+	
+	\question
+	\begin{parts}
+		\part
+		Let $d$ be a square free integer.
+		Show that $\sqrt d \not\in \Q$.
+
+		\part
+		Let $K$ be a number field with $[K: \Q] = 2$.
+		Show that there exists a square free integer $d \in \Z$ such that
+		$K = \Q(\sqrt d)$.
+	\end{parts}
+
+	\question
+	Let $\alpha \in \overline\Z$.
+	\begin{parts}
+		\part
+		Show that, $\operatorname{N}_{L/\Q}(\alpha) \in \Z$ and
+		$\operatorname{Tr}_{L/\Q}(\alpha) \in \Z$ for any number field $L$
+		that contains $\alpha$.
+
+		\part
+		Let $\alpha \in K$, for some number field $K$.
+		Show that $\alpha \in \mathcal O^\times_K$ if and only if
+		$\operatorname{N}_{K/\Q}(\alpha) = \pm 1$.
+	\end{parts}
+
+	\question
+	\begin{parts}
+		\part
+		Show that the folowing two definitions of the field of algebraic numbers
+		$\overline\Q$ are equivalent: 1) the union of all algebraic numbers,
+		and 2) the union of all number fields.
+
+		\part
+		Determine all the irreducible polynomials in $\overline\Q[x]$.
+	\end{parts}
+
+	\question
+	(Hard) Let $F \subset L$ be a field extension with $[L:F] = d < \infty$.
+	Show that if $L = F(\theta)$ for some $\theta \in L$ then there exists
+	only finitely many different subfields $K$ of $L$ containing $F$.
+\end{questions}
+
+\end{document}

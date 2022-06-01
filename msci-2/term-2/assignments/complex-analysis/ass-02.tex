@@ -1,0 +1,152 @@
+\assignment{2}{31/1}
+
+\setcounter{question}{0}
+\question Let $\gamma$ be the curve
+$\gamma(\theta) = 2e^{i\theta}$, with $\theta \in [0,2\pi]$.
+Show that
+\[
+    \left\lvert \int_\gamma \frac{e^z}{z^2 + 1} \, dz \right\rvert \leq \frac{4\pi e^2}3.
+\]
+\begin{solution}
+    \[
+        L(\gamma) 
+        = \int_0^{2\pi} \lvert \gamma'(\theta) \rvert \,d\theta
+        = \int_0^{2\pi} \lvert 2ie^{i\theta} \rvert \,d\theta
+        = \int_0^{2\pi} 2 \,d\theta = 4\pi.
+    \]
+    For $z = \gamma(\theta)$ for $\theta \in [0, 2\pi]$ we have
+    \[
+        \lvert f(z) \rvert 
+        =    \left\lvert \frac{e^z}{z^2 + 1} \right\rvert
+        =    \frac{\lvert e^z \rvert}{\lvert z^2 + 1 \rvert}
+        =    \frac{e^{\Re(z)}}{\lvert z^2 - (-1) \rvert}
+        \leq \frac{e^2}{\lvert \lvert z \rvert^2 - \lvert -1 \rvert \rvert}
+        =    \frac{e^2}{3} .
+    \]
+    Therefore $\frac{e^2}3 \geq \sup_\gamma\lvert f \rvert$.
+    By the estimation lemma we have
+    \[
+        \left\lvert 
+            \int_\gamma f(z) \, dz
+        \right\rvert
+        \leq L(\gamma) \sup_\gamma\lvert f \rvert
+    \]
+    for all $f: U \to \C$ continuous and $\gamma$ contours.
+    Hence
+    \[
+        \left\lvert
+            \int_\gamma \frac{e^z}{z^2 + 1} \,dz
+        \right\rvert
+        \leq (4\pi) \left(\frac{e^2}3\right) = \frac{4\pi e^2}{3}.
+    \]
+\end{solution}
+
+\setcounter{question}{1}
+\question Let $z = re^{i\theta}$ be in $\C \setminus \R_{\leq 0}$,
+where $\R_{\leq 0} = \{x \in \R: x \leq 0\}$.
+We consider the following closed $\gamma$ in $\C \setminus \R_{\leq 0}$:
+first the straight line segment $[1, z]$,
+then the circle segment in $\C \setminus \R_{\leq 0}$ connecting $z$ with $r \in \R$,
+and finally $[r, 1]$.
+Sketch $\gamma$ and use Cauchy's Theorem to show
+\[
+    \int_{[1,z]} \frac{dw}{w} = \Log(z),
+\]
+where $\Log(z)$ denotes the principal branch of the logarithm.
+\begin{solution}
+    Let $f(w) = \frac1w$.
+    Let us define the circle segment between $z$ and $r$ as the contour$\phi(t)$,
+    where
+    \[
+        \phi(t) = e^{i(\theta - t)}, \qquad \phi'(t) = -ie^{i(\theta - t)}.
+    \]
+    Now let $D$ be the domain restricted by $[1, z]$, $\phi$, and $[r, 1]$.
+    It is clear that $D$ is starlike and that $f$ is holomorphic on $D$.
+    As $\gamma$ is closed, then by Cauchy's theorem for starlike domains
+    we have
+    \[
+        \int_\gamma \frac{dw}{w} = 0.
+    \]
+    Therefore
+    \[
+        \int_{[1,z]} \frac{dw}{w} 
+        = -\int_\phi \frac{dw}{w} - \int_{[r, 1]} \frac{dw}{w}.
+    \]
+    Now we will describe $[r, 1]$ as the contour
+    \[ \eta(t) = r - t(r - 1), \qquad \eta'(t) = -(r - 1). \]
+    Now
+    \begin{align*}
+        \int_\eta \frac{dw}{w}
+        &= \int_0^1 \frac{\eta'(t)}{\eta(t)} \, dt \\
+        &= \int_0^1 \frac{-(r-1)}{r-t(r-1)} \,dt \\
+        &= \int_0^1 \frac{1}{t-\frac{r}{r-1}} \,dt \\
+        &= \left(\Log\left(t-\frac r{r-1}\right)\right)^1_0 \\
+        &= \Log\left(\frac{-1}{r-1}\right) - \Log\left(\frac{-r}{r-1}\right) \\
+        &= -\Log{r}
+    \end{align*}
+    and
+    \begin{align*}
+        \int_\phi \frac{dw}{w}
+        &= \int_0^\theta \frac{\phi'(t)}{\phi(t)} \,dt \\
+        &= \int_0^\theta \frac{-ie^{i(\theta - t)}}{e^{i(\theta - t)}} \,dt \\
+        &= \int_0^\theta -i \,dt \\
+        &= \left(-it\right)_0^\theta \\
+        &= -i\theta.
+    \end{align*}
+    Therefore
+    \[
+        \int_{[1,z]} \frac{dw}{w}
+        = \Log{r} + i\theta
+        = \Log\lvert z \rvert + i \Arg z
+        = \Log z.
+    \]
+\end{solution}
+
+\setcounter{question}{2}
+\question Verify Cauchy's Theorem directly for the function $f(z) = z^2$
+on the following contours:
+\begin{parts}
+    \part the unit circle with centre $0$,
+    \begin{solution}
+        Let $\gamma(\theta) = e^{i\theta}$ with $\theta \in [0, 2\pi]$.
+        Then $\gamma'(\theta) = ie^{i\theta}$.
+        So
+        \begin{align*}
+            \int_\gamma f(z) \, dz
+            &= \int_0^{2\pi} f(\gamma(\theta)) \gamma'(\theta) \,d\theta \\
+            &= \int_0^{2\pi} e^{2i\theta} \cdot ie^{i\theta} \,d\theta \\
+            &= \int_0^{2\pi} ie^{3i\theta} \,d\theta \\
+            &= \left(\frac13 e^{3i\theta}\right)_0^{2\pi} = 0.
+        \end{align*}
+    \end{solution}
+
+    \part the unit circle with centre $1$.
+    \begin{solution}
+        Now $\gamma(\theta) = e^{i\theta} + 1$ with $\theta \in [0, 2\pi]$.
+        We have $\gamma'(\theta) = ie^{i\theta}$ as before. Then
+        \begin{align*}
+            \int_\gamma z^2 \,dz
+            &= \int_0^{2\pi} (e^{i\theta} + 1)^2 \cdot ie^{i\theta} \,d\theta \\
+            &= \int_0^{2\pi} \left(ie^{3i\theta} + 2ie^{2i\theta} + ie^{i\theta}\right) \,d\theta \\
+            &= \left(\frac13e^{3i\theta} +e^{2i\theta} + e^{i\theta}\right)^{2\pi}_0 \\
+            &= 0.
+        \end{align*}
+    \end{solution}
+\end{parts}
+
+\setcounter{question}{4}
+\question Let $\gamma$ be the boundary of the square with vertices in
+$1 - i$, $-1 - i$, $-1 + i$, and $1 + i$,
+traced anti-clockwise.
+Determine
+\[
+    \int_\gamma e^{\sin{z}} \,dz.
+\]
+\begin{solution}
+    $f(z) = e^{\sin{z}}$ is a holomorphic function on $\C$,
+    and $\gamma \subset \C$ is a closed contour;
+    hence by Cauchy's theorem for starlike domains we have
+    \[
+        \int_\gamma f(z) \,dz = 0.
+    \]
+\end{solution}

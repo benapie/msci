@@ -1,0 +1,44 @@
+\usepackage{parskip}
+
+\usepackage{adjustbox}
+
+\usepackage{mathtools}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{bm}
+\mathtoolsset{centercolon}
+
+\usepackage{enumitem}
+\setenumerate{label=(\roman*)}
+
+\usepackage{complexity}
+
+
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}
+\numberwithin{theorem}{section}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{proposition}[theorem]{Proposition}
+
+
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+
+\newtheoremstyle{break}{\topsep}{\topsep}{}{}{\bfseries}{}
+{\newline}{\thmname{#1}\thmnumber{ #2}\thmnote{ ({\normalfont\textsc{#3}})}.}
+\theoremstyle{break}
+\newtheorem{problem}[theorem]{Problem}
+
+\renewcommand{\R}{\ensuremath{\mathbb R}}
+\newcommand{\N}{\ensuremath{\mathbb N}}
+\renewcommand{\E}{\ensuremath{\mathbb E}}
+\DeclareMathOperator{\im}{im}
+\DeclareMathOperator{\Var}{Var}
+\DeclareMathOperator{\Cov}{Cov}
+\newcommand{\TV}{\ensuremath{\text{TV}}}
+\newcommand{\mix}{\ensuremath{\text{mix}}}

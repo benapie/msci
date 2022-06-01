@@ -1,0 +1,144 @@
+\clearpage
+\question A challenger holds two qubits $\ket 0$ and $\alpha \ket 0 + \beta \ket 1$, where $\lvert \beta \rvert$ should be thought as small so that the two qubits are ``close''. It picks random bit $c \in \{0,1\}$, and hands out the first qubit to a distinguisher if $c = 0$, and the second qubit if $c = 1$. The advantage of the distinguisher is defined as its probability of correctly guessing $c$ minus 1/2 (i.e., how much better than ``trivial guessing'' it does).
+\begin{parts}
+    \part[5] Show there is a distinguisher that can win this game with advantage $\Omega(\lvert \beta \rvert^2)$ by measurement in the standard basis.
+    \begin{solution}
+        We propose the following strategy. Measure the qubit in the standard basis $(\ket0, \ket1)$.
+        \begin{enumerate}
+            \item If $\ket 0$ is measured, guess $c = 0$.
+            \item If $\ket 1$ is measured, guess $c = 1$.
+        \end{enumerate}
+        We now prove this has advantage $\Omega(\lvert \beta \rvert^2)$.
+
+        Let $\ket m$ be the qubit given to the distinguisher. If $\ket m = \ket 0$, then they measure $\ket0$ with probability $1$ and $\ket1$ with probability $0$. If $\ket m = \alpha\ket0 + \beta\ket1$, then they measure $\ket0$ with probability $\lvert\alpha\rvert^2$ and $\ket1$ with probability $\lvert\beta\rvert^2$. Then
+        \begin{align*}
+            P(\text{correct})
+             & = P(\text{correct} \mid \ket m = \ket 0)P(\ket m = \ket 0)
+            \\ &\qquad +P(\text{correct} \mid \ket m = \alpha\ket0 + \beta\ket 1)P(\ket m = \alpha\ket0 + \beta\ket 1) \\
+             & = \frac12 P(\text{correct} \mid \ket m = \ket 0) + \frac12 P(\text{correct} \mid \ket m = \alpha\ket0 + \beta\ket1) \\
+             & = \frac12(1) + \frac12(\lvert\beta\rvert^2)                                                                         \\
+             & = \frac12 + \frac12\lvert\beta\rvert^2.
+        \end{align*}
+        Thus the advantage is $\frac12\lvert\beta\rvert^2 = \Omega(\lvert\beta\rvert^2)$.
+    \end{solution}
+
+    \part[10] Show it is possible to distinguish with advantage $\Omega(\lvert \beta \rvert)$, for instance by either applying a unitary transformation before measurement, or by measuring in a different basis.
+    \begin{solution}
+        We parameterise $\alpha$ and $\beta$ as positive real numbers with $n \in \mathbb N$; that is, $\alpha, \beta: \mathbb N \to \mathbb C$ such that $\alpha(n) \to 1$ and $\beta(n) \to 0$ as $n \to \infty$. Note, we must have $\lvert\alpha(n)\rvert^2 + \lvert\beta(n)\rvert^2 = 1$.
+
+        We recall that $f(n) = \Omega(g(n))$ if and only if
+        \[ \liminf_{n \to \infty} \frac{\lvert f(n) \rvert}{g(n)} > 0, \]
+        with the assumption that $g(n) > 0$ for sufficiently large $n$.
+
+        Let $\ket{\varphi} = \alpha(n)\ket0 + \beta(n)\ket 1$, and pick the measurement basis $(\ket+, \ket-)$.
+
+        Note that the angle between $\ket0$ and $\ket+$ is $\pi/4$, thus measuring $\ket0$ yields $\ket+$ with probability $\cos^2\pi/4 = 1/2$, and $\ket-$ with probability also $1/2$.
+
+        Measuring $\ket\varphi$ gives $\ket+$ with probability
+        \begin{align*}
+            \lvert\braket{\varphi|+}\rvert^2
+             & =
+            \left\lvert
+            \begin{pmatrix}
+                \overline\alpha(n) & \overline\beta(n)
+            \end{pmatrix}
+            \begin{pmatrix}
+                1/\sqrt2 \\ 1/\sqrt2
+            \end{pmatrix}
+            \right\rvert^2
+            \\
+             & = \left\lvert\frac{1}{\sqrt2}(\overline\alpha(n) + \overline\beta(n))\right\rvert^2                                          \\
+             & = \frac12\lvert\alpha(n) + \beta(n)\rvert^2                                                                                  \\
+             & = \frac12(\alpha(n)\overline\alpha(n) + \beta(n)\overline\beta(n) + \overline\alpha(n)\beta(n) + \alpha(n)\overline\beta(n)) \\
+             & = \frac12(1 + \overline\alpha(n)\beta(n) + \alpha(n)\overline\beta(n)).
+        \end{align*}
+        As the sum of measuring $\ket+$ and $\ket-$ must sum to 1, measuring $\ket\varphi$ gives $\ket-$ with probability
+        \[ \frac12(1 - \overline\alpha(n)\beta(n) - \alpha(n)\overline\beta(n)). \]
+        We now outline our strategy.
+        \begin{enumerate}
+            \item[(I)] If $\overline\alpha(n)\beta(n) + \alpha(n)\overline\beta(n) > 0$, then we guess $c = 0$ if we measure $\ket-$ and $c = 1$ if we measure $\ket+$.
+            \item[(II)] If $\overline\alpha(n)\beta(n) + \alpha(n)\overline\beta(n) < 0$, then we guess $c = 0$ if we measure $\ket+$ and $c = 1$ if we measure $\ket-$.
+        \end{enumerate}
+        Note that if $\overline\alpha(n)\beta(n) + \alpha(n)\overline\beta(n) = 0$, then $\beta(n) = 0$ and $\alpha(n) = 1$, which we disregard (we assume $\lvert \beta(n) \rvert$ is \emph{close} to $0$, but not quite $0$).
+
+        We consider the advantage of strategy (I) first. The probability of success is
+        \begin{align*}
+            p_\text{I}(n)
+             & = \frac12\left(\frac12\right) + \frac12\left(\frac12(1+\overline\alpha(n)\beta(n) + \alpha(n)\overline\beta(n))\right) \\
+             & = \frac12 + \frac12(\overline\alpha(n)\beta(n) + \alpha(n)\overline\beta(n)).
+        \end{align*}
+        Thus the advantage is
+        \[ a_\text{I}(n) = \frac12(\overline\alpha(n)\beta(n) + \alpha(n)\overline\beta(n)). \]
+        Similarly, for strategy (II),
+        \begin{align*}
+            p_\text{II}(n)
+             & = \frac12\left(\frac12\right) + \frac12\left(\frac12(1-\overline\alpha(n)\beta(n) - \alpha(n)\overline\beta(n))\right) \\
+             & = \frac12 - \frac12(\overline\alpha(n)\beta(n) + \alpha(n)\overline\beta(n)).
+        \end{align*}
+        So the advantage is
+        \[ a_\text{II}(n) = -\frac12(\overline\alpha(n)\beta(n) + \alpha(n)\overline\beta(n)). \]
+        Thus, our overall advantage is
+        \begin{align*}
+            a(n) & =
+            \begin{cases}
+                a_\text{I}(n)  & \text{if $\overline\alpha(n)\beta(n) + \alpha(n)\overline\beta(n) > 0$}, \\
+                a_\text{II}(n) & \text{if $\overline\alpha(n)\beta(n) + \alpha(n)\overline\beta(n) < 0$}.
+            \end{cases}
+            \\
+                 & = \frac12 \lvert \overline\alpha(n)\beta(n) + \alpha(n)\overline\beta(n) \rvert
+        \end{align*}
+        See that
+        \[
+            \liminf_{n \to \infty}
+            \left(
+            \frac{a(n)}{\lvert\beta(n)\rvert}
+            \right)
+            =
+            \liminf_{n \to \infty}
+            \left(
+            \frac{\lvert \overline\alpha(n)\beta(n) + \alpha(n)\overline\beta(n) \rvert}{2\lvert\beta(n)\rvert}
+            \right) > 0.
+        \]
+        Thus $a(n) = \Omega(\lvert \beta(n) \rvert)$.
+    \end{solution}
+
+    \part[20] Is it possible to do even better?
+    \begin{solution}
+        The Helstrom-Holevo bound establishes an upper bound to the amount of information that can be known about a quantum state.
+
+        \textbf{Theorem.} If $\ket{\varphi}$ is either in state $\ket{\varphi_a}$ or $\ket{\varphi_b}$, where $\lvert \braket{\varphi_a | \varphi_b} \rvert = \cos\theta$, then an optimal strategy for correctly inferring state $\ket\varphi$ is less than or equal to $\frac12(1 + \sin\theta)$. Furthermore, this bound can be achieved by choosing the measurement basis as the eigenvectors of
+        \[ \ket{\varphi_a}\bra{\varphi_a} - \ket{\varphi_b}\bra{\varphi_b}. \]
+
+        Let $\ket\varphi = \alpha\ket0 + \beta\ket 1$. Through careful consideration, the eigenvalues of $\ket{0}\bra{0} - \ket\varphi\bra\varphi$ are $\lvert\beta\rvert$ and $-\lvert\beta\rvert$, and some corresponding eigenvectors are
+        \[
+            \begin{pmatrix}
+                \frac{\alpha\overline\beta}{\lvert\beta\rvert(\lvert \beta \rvert + 1)} \\
+                1
+            \end{pmatrix},
+            \qquad
+            \begin{pmatrix}
+                \frac{-\lvert\beta\rvert(\lvert \beta \rvert + 1)}{\overline\alpha\beta} \\
+                1
+            \end{pmatrix}
+        \]
+        respectively. Our optimal measurement basis would be normalised forms of these vectors. Using this basis, our optimal strategy has probability of success is $\frac12(1+\sin\theta)$, and so our advantage is
+        \begin{align*}
+            a
+             & = \frac12\sin\theta                                    \\
+             & = \frac12\sqrt{1 - \cos^2\theta}                       \\
+             & = \frac12\sqrt{1 - \lvert \braket{0|\varphi} \rvert^2} \\
+             & = \frac12\sqrt{1 - \left\lvert
+                \begin{pmatrix}
+                    1 & 0
+                \end{pmatrix}
+                \begin{pmatrix}
+                    \alpha \\ \beta
+                \end{pmatrix}
+            \right\rvert^2}                                           \\
+             & = \frac12 \sqrt{1 - \lvert \alpha \rvert^2}            \\
+             & = \frac12 \lvert \beta \rvert                          \\
+             & = \Theta(\lvert\beta\rvert).
+        \end{align*}
+        Thus we cannot perform any better than this $\Omega(\beta)$ bound.
+    \end{solution}
+\end{parts}

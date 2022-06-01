@@ -1,0 +1,57 @@
+% $ biblatex auxiliary file $
+% $ biblatex bbl format version 3.2 $
+% Do not modify the above lines!
+%
+% This is an auxiliary file used by the 'biblatex' package.
+% This file may safely be deleted. It will be recreated by
+% biber as required.
+%
+\begingroup
+\makeatletter
+\@ifundefined{ver@biblatex.sty}
+  {\@latex@error
+     {Missing 'biblatex' package}
+     {The bibliography requires the 'biblatex' package.}
+      \aftergroup\endinput}
+  {}
+\endgroup
+
+
+\refsection{0}
+  \datalist[entry]{nty/global//global/global}
+    \entry{dorigo1996study}{inproceedings}{}
+      \name{author}{2}{}{%
+        {{hash=26c8dbd8b76182fc666371044ae8dfa4}{%
+           family={Dorigo},
+           familyi={D\bibinitperiod},
+           given={Marco},
+           giveni={M\bibinitperiod}}}%
+        {{hash=e8a681f350ef11120f7aa2c824a941bd}{%
+           family={Gambardella},
+           familyi={G\bibinitperiod},
+           given={Luca\bibnamedelima Maria},
+           giveni={L\bibinitperiod\bibinitdelim M\bibinitperiod}}}%
+      }
+      \list{organization}{1}{%
+        {Springer}%
+      }
+      \strng{namehash}{13466f3d80cebe76f80a290fc62b6ccf}
+      \strng{fullhash}{13466f3d80cebe76f80a290fc62b6ccf}
+      \strng{bibnamehash}{13466f3d80cebe76f80a290fc62b6ccf}
+      \strng{authorbibnamehash}{13466f3d80cebe76f80a290fc62b6ccf}
+      \strng{authornamehash}{13466f3d80cebe76f80a290fc62b6ccf}
+      \strng{authorfullhash}{13466f3d80cebe76f80a290fc62b6ccf}
+      \field{sortinit}{D}
+      \field{sortinithash}{6f385f66841fb5e82009dc833c761848}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{International Conference on Parallel Problem Solving from Nature}
+      \field{title}{A study of some properties of Ant-Q}
+      \field{year}{1996}
+      \field{pages}{656\bibrangedash 665}
+      \range{pages}{10}
+    \endentry
+  \enddatalist
+\endrefsection
+\endinput
+

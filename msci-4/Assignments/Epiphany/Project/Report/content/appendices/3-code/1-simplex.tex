@@ -1,0 +1,272 @@
+\section{Simplex library}
+
+This library implements the \texttt{Simplex} data structure, and the structures \texttt{SimplicialComplex} and \texttt{FilteredSimplicialComplex} built on top of this.
+
+\subsection{Implementation of simplices}
+
+The following class implements the \texttt{Simplex} data structure.
+
+\begin{minted}{python}
+class Simplex:
+    __vertices: FrozenSet[int]
+
+    def __init__(self, vertices: Set[int] | FrozenSet[int]):
+        if isinstance(vertices, FrozenSet):
+            self.__vertices = vertices
+        else:
+            self.__vertices = frozenset(vertices)
+
+    def __repr__(self):
+        output = [str(self.dim), "-Sim("]
+        output2 = []
+        for vertex in self.vertices:
+            output2.append(str(vertex))
+        output.append(",".join(output2))
+        output.append(")")
+        return "".join(output)
+
+    def __hash__(self) -> int:
+        return hash(self.__vertices)
+
+    def __eq__(self, other) -> bool:
+        return hash(self) == hash(other)
+
+    def __contains__(self, item: Hashable) -> bool:
+        return item in self.__vertices
+
+    def __iter__(self) -> Generator[int, None, None]:
+        for vertex in self.__vertices:
+            yield vertex
+
+    def __add__(self, other: int):
+        vertices = set(self.__vertices)
+        vertices.add(other)
+        return Simplex(vertices)
+
+    @property
+    def dim(self):
+        return len(self.__vertices) - 1
+
+    @property
+    def vertices(self):
+        for vertex in self.__vertices:
+            yield vertex
+
+    @property
+    def facets(self) -> Generator[Simplex, None, None]:
+        for vertex in self.vertices:
+            yield Simplex(self.__vertices.difference({vertex}))
+
+    @property
+    def faces(self) -> Generator[Simplex, None, None]:
+        for face_dim in range(self.dim, 0, -1):
+            for face in combinations(self.__vertices, face_dim):
+                yield face
+
+    def p_faces(self, p: int) -> Generator[Simplex, None, None]:
+        for p_face in combinations(self.__vertices, p + 1):
+            yield Simplex(p_face)
+
+    def intersect(self, other: Simplex) -> Simplex:
+        simplex = Simplex(self.__vertices.intersection(other.__vertices))
+        return simplex
+
+    def union(self, *simplices: Simplex) -> Simplex:
+        vertices = self.__vertices
+        for simplex in simplices:
+            vertices = vertices.union(simplex.__vertices)
+        return Simplex(vertices)
+
+    def get_vertices(self) -> Set[int]:
+        return set(self.__vertices)
+\end{minted}
+
+\subsection{Implementation of simplicial complex}
+
+The following class implements the \texttt{SimplicialComplex} data structure.
+
+\begin{minted}{python}
+class SimplicialComplex:
+    __simplices: Dict[int, Set[Simplex]]
+    __check_valid: bool
+
+    def __init__(self, check_valid=False):
+        self.__simplices = dict()
+        self.__check_valid = check_valid
+        pass
+
+    def __repr__(self):
+        output = []
+        for p in self.__simplices:
+            for p_simplex in self.__simplices[p]:
+                output.append(str(p_simplex))
+        return "\n".join(output)
+
+    def __contains__(self, item: Simplex) -> bool:
+        if not isinstance(item, Simplex):
+            raise ValueError(
+                "Simplicial complex only contains simplex, " +
+                    "contains operation of non-simplex type prohibited.")
+        if item.dim not in self.__simplices:
+            return False
+        return item in self.__simplices[item.dim]
+
+    @property
+    def dim(self):
+        return max(self.__simplices.keys())
+
+    @property
+    def size(self):
+        size = 0
+        for simplices in self.__simplices.values():
+            size += len(simplices)
+        return size
+
+    def __add_vertex(self, simplex: Simplex):
+        if simplex.dim not in self.__simplices:
+            self.__simplices[simplex.dim] = set()
+        self.__simplices[simplex.dim].add(simplex)
+
+    def add_simplex(self, simplex: Simplex):
+        if simplex.dim == 0:
+            self.__add_vertex(simplex)
+            return
+        if self.__check_valid:
+            for facet in simplex.facets:
+                if simplex.dim - 1 not in self.__simplices:
+                    raise ValueError("Not all facets are in the complex, "
+                      + "cannot add simplex.")
+                if facet not in self.__simplices[simplex.dim - 1]:
+                    raise ValueError("Not all facets are in the complex, "
+                      + "cannot add simplex.")
+        self.__add_vertex(simplex)
+\end{minted}
+
+\subsection{Implementation of filtered simplicial complex}
+
+The following class implements the \texttt{FilteredSimplicialComplex} data structure.
+
+\begin{minted}{python}
+class FilteredSimplicialComplex:
+    __simplices: Dict[int, Set[Simplex]]
+    __weights: Dict[Simplex, float]
+    __check_valid: bool
+
+    def __init__(self, check_valid=False):
+        self.__simplices = dict()
+        self.__weights = dict()
+        self.__check_valid = check_valid
+        pass
+
+    def __repr__(self) -> str:
+        output = []
+        for p in self.__simplices:
+            for p_simplex in self.__simplices[p]:
+                output.append(f"{str(p_simplex)} \
+                    w: {self.__weights[p_simplex]}")
+        return "\n".join(output)
+
+    def __contains__(self, item: Simplex) -> bool:
+        if not isinstance(item, Simplex):
+            raise ValueError(
+                "Simplicial complex only contains simplex, " +
+                    "contains operation of non-simplex type prohibited.")
+        if item.dim not in self.__simplices:
+            return False
+        return item in self.__simplices[item.dim]
+
+    def __eq__(self, other: FilteredSimplicialComplex):
+        if self.__simplices != other.__simplices:
+            return False
+        if self.__weights != other.__weights:
+            return False
+        return True
+
+    @property
+    def dim(self):
+        return max(self.__simplices.keys())
+
+    @property
+    def size(self):
+        size = 0
+        for simplices in self.__simplices.values():
+            size += len(simplices)
+        return size
+
+    def p_simplices(self, p: int) -> Generator[Simplex, None, None]:
+        if p not in self.__simplices:
+            return
+        for p_simplex in self.__simplices[p]:
+            yield p_simplex
+
+    def __add_simplex(self, simplex: Simplex, weight: float):
+        if simplex.dim not in self.__simplices:
+            self.__simplices[simplex.dim] = set()
+        self.__simplices[simplex.dim].add(simplex)
+        self.__weights[simplex] = weight
+
+    def add_simplex(self, simplex: Simplex, weight: float):
+        if simplex.dim == 0:
+            self.__add_simplex(simplex, weight)
+            return
+        if self.__check_valid:
+            for facet in simplex.facets:
+                if simplex.dim - 1 not in self.__simplices:
+                    raise ValueError("Not all facets are in the complex, " 
+                        + "cannot add simplex.")
+                if facet not in self.__simplices[simplex.dim - 1]:
+                    raise ValueError("Not all facets are in the complex, " 
+                        + "cannot add simplex.")
+                facet_weight = self.__weights[facet]
+                if facet_weight > weight:
+                    raise ValueError("Not all facets have a lower weight.")
+        self.__add_simplex(simplex, weight)
+
+    def get_weight(self, simplex: Simplex) -> float:
+        if simplex.dim not in self.__simplices:
+            raise ValueError("Simplex not in complex.")
+        if simplex not in self.__simplices[simplex.dim]:
+            raise ValueError("Simplex not in complex.")
+        return self.__weights[simplex]
+
+    def p_simplex_count(self, p: int) -> int:
+        if p not in self.__simplices:
+            return 0
+        return len(self.__simplices[p])
+
+    def get_edge_neighbours(self, vertex: int) -> Set[int]:
+        if 1 not in self.__simplices:
+            return set()
+        edge_set = set()
+        for edge in self.__simplices[1]:
+            if vertex in edge:
+                edge_set = edge_set.union(edge.get_vertices())
+        edge_set.discard(vertex)
+        return edge_set
+
+    def reweight(self, simplex: Simplex, weight: float) -> None:
+        if simplex.dim not in self.__simplices:
+            raise ValueError("Simplex not in complex.")
+        if simplex not in self.__simplices[simplex.dim]:
+            raise ValueError("Simplex not in complex.")
+        self.__weights[simplex] = weight
+
+    def get_simplex_ordering(self) -> List[Simplex]:
+        simplex_list = list()
+        for simplices in self.__simplices.values():
+            simplex_list += simplices
+        simplex_list = sorted(simplex_list, 
+            key=lambda k: self.__weights[k])
+        return simplex_list
+
+    def get_weight_ordering(self) -> List[float]:
+        return sorted(self.__weights.values())
+
+    def cap(self, weight_limit: float) -> FilteredSimplicialComplex:
+        fc = FilteredSimplicialComplex()
+        for simplex in self.get_simplex_ordering():
+            if self.__weights[simplex] > weight_limit:
+                break
+            fc.add_simplex(simplex, self.__weights[simplex])
+        return fc
+\end{minted}

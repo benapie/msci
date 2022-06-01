@@ -1,0 +1,113 @@
+\assignment{1}{25/10}
+
+\setcounter{question}{0}
+\question Consider the set of integers $\Z$ together with the binary operators $\oplus$ and $\odot$ define by
+\[ x \oplus y = x + y + 1, \qquad x \odot y = xy + x + y, \]
+for all $x, y \in \Z$. Show that $\Z$ with the operators $\oplus$ and $\odot$ is a commutative ring by verifying the conditions in the final definition. (You may use the fact that $\Z$ with $+$ and $\cdot$ is a ring. You do \emph{not} need to show that $\oplus$ makes $\Z$ into an abelian group.)
+\begin{solution}
+    We assume $\oplus$ makes $\Z$ into an abelian group.
+    Then $0 \in \Z$ is our multiplicative identity as
+    $0 \odot x = x \odot 0 = x$.
+    \begin{align*}
+        x \odot (y \odot z) 
+        &= x \odot (yz + y + z) \\
+        &= xyz + xy + xz + x + yz + y + z \\
+        &= (xy + x + y) \odot z \\
+        &= (x \odot y) \odot z;
+    \end{align*}
+    hence, we have associativity.
+    $\odot$ is clearly commutative.
+    \begin{align*}
+        x \odot (y \oplus z)
+        &= x(y + z + 1) + x + (y + z + 1) \\
+        &= xy + xz + x + x + y + z + 1 \\
+        &= x \odot y + x \odot z + 1 \\
+        &= (x \odot y) \oplus (x \odot z);
+    \end{align*}
+    paired with the fact that $\odot$ is commutative we can conlude that $\oplus$ and $\odot$ are distributive.
+    Therefore, these operators make $\Z$ into a commutative ring.
+\end{solution}
+
+\setcounter{question}{5}
+\question Give the tables for addition and multiplication of elements in the ring $\Z/5$.
+\begin{solution}
+    \begin{center}
+        \begin{tabular}{cccccc}
+            \toprule
+            $+$ & $\bar 0$ & $\bar 1$ & $\bar 2$ & $\bar 3$ & $\bar 4$ \\
+            \midrule
+            $\bar 0$ & $\bar 0$ & $\bar 1$ & $\bar 2$ & $\bar 3$ & $\bar 4$ \\
+            $\bar 1$ & $\bar 1$ & $\bar 2$ & $\bar 3$ & $\bar 4$ & $\bar 0$ \\
+            $\bar 2$ & $\bar 2$ & $\bar 3$ & $\bar 4$ & $\bar 0$ & $\bar 1$ \\
+            $\bar 3$ & $\bar 3$ & $\bar 4$ & $\bar 0$ & $\bar 1$ & $\bar 2$ \\
+            $\bar 4$ & $\bar 4$ & $\bar 0$ & $\bar 1$ & $\bar 2$ & $\bar 3$ \\
+            \bottomrule
+        \end{tabular}
+        \begin{tabular}{cccccc}
+            \toprule
+            $\times$ & $\bar 0$ & $\bar 1$ & $\bar 2$ & $\bar 3$ & $\bar 4$ \\
+            \midrule
+            $\bar 0$ & $\bar 0$ & $\bar 0$ & $\bar 0$ & $\bar 0$ & $\bar 0$ \\
+            $\bar 1$ & $\bar 0$ & $\bar 1$ & $\bar 2$ & $\bar 3$ & $\bar 4$ \\
+            $\bar 2$ & $\bar 0$ & $\bar 2$ & $\bar 4$ & $\bar 1$ & $\bar 3$ \\
+            $\bar 3$ & $\bar 0$ & $\bar 3$ & $\bar 1$ & $\bar 4$ & $\bar 2$ \\
+            $\bar 4$ & $\bar 0$ & $\bar 4$ & $\bar 3$ & $\bar 2$ & $\bar 1$ \\
+            \bottomrule
+        \end{tabular}
+    \end{center}
+\end{solution}
+
+\setcounter{question}{8}
+\question Show that $\Z[i] = \{a + bi : a, b \in \Z\}$, where $i^2 = -1$ is a ring by showing that it is a subtring of a certain field. Is $\Z[i]$ an integral domain? (Motivate your answer.)
+\begin{solution}
+    Let $R = \Z[i]$.
+    We are going to show that $R \subset \C$ is a subring, and hence a ring (as $\C$ is a ring under complex addition and multiplication).
+    Clearly $0, 1 \in R$ serve as our identities and match that of $\C$.
+    Let $a + ib, c + id \in R$. Then
+    \begin{align*}
+        (a + ib) + (c + id) = (a + c) + i(b + d) &\in R \\
+        (a + ib)(c + id) = (ac - bd) + i(ad + bc)&\in R;
+    \end{align*}
+    hence, $R$ is closed under addition and multiplications.
+    $R$ is commutative (as $\C$ is), and it is clear that for all
+    $a + ib, c + id \in R$ we have
+    \[ (a + ib)(c + id) = 0 \quad \implies \quad a + ib = 0 \quad\text{or}\quad c + id = 0. \]
+\end{solution}
+
+\setcounter{question}{12}
+\question 
+\begin{parts}
+    \part Show that the function 
+    $f: \Z[\sqrt 2] \to \Z[\sqrt 2]$ 
+    define by 
+    $f(m + n\sqrt 2) = m - n\sqrt 2$ 
+    satisfies
+    \[ f(xy) = f(x)f(y), \quad \text{for all}\; x, y \in \Z[\sqrt 2]. \]
+    \begin{solution}
+        \begin{align*}
+            f((m + n\sqrt 2)(p + q\sqrt 2))
+            &= f((mp + 2nq) + \sqrt2(mq + np)) \\
+            &= mp + 2nq - \sqrt2(mq + np) \\
+            &= (m - n\sqrt2)(p - q\sqrt2) \\
+            &= f(m + n\sqrt2)f(p + q\sqrt 2).
+        \end{align*}
+    \end{solution}
+
+    \part Show that 
+    $m + n\sqrt 2 \in \Z[\sqrt 2]$
+    is a unit if and only if 
+    $m^2 - 2n^2 = \pm 1$.
+    \begin{solution}
+        Let $m + n\sqrt 2$ be a unit.
+        Then there exists $p + q\sqrt2$ such that
+        \begin{align*}
+            (m + n\sqrt2)(p + q\sqrt2) &= 1 \\
+            f((m + n\sqrt2)(p + q\sqrt2)) &= f(1) \\
+            (m - n\sqrt2)(p - q\sqrt 2) &= 1 \\
+            (m^2 - 2n^2)(p^2 - 2q^2) &= 1.
+        \end{align*}
+        Hence, $m^2 - 2n^2 = \pm 1$.
+        In both of these situations, it can be shown that $m + \sqrt 2$ is aunit.
+        Therefore, $m + n\sqrt2$ is a unit if and only if $m^2 - 2n^2 = \pm1$.
+    \end{solution}
+\end{parts}

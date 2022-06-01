@@ -1,0 +1,77 @@
+\subsection{Expansion methods}
+
+Methods presented here are introduced by \textcite{zomorodian2010fast}, as well as the complexity analysis. 
+
+The expansion of a 1-skeleton effectively \emph{fills in} higher dimensional simplices whose faces are present, and assigns a weight to these simplices. That is, for a graph $G$, calculate the clique complex $\Cl(G)$ with a corresponding weight function $w: \Cl(G) \to \mathbb R_{\geq 0}$. 
+
+We have seen that we can easily compute the weights on the simplices (Lemma \ref{lem:weight-definition-equivalent}), thus we focus on the construction of the clique complex.
+
+\begin{problem}[CliqueComplex]
+    Instance: let $G = (V,E)$ be a graph. \\
+    Question: compute $\Cl(G)$. 
+\end{problem}
+
+We are now discarding all embedding information of $S$, and focusing solely on the topological features of the $1$-skeleton given by the skeleton method. 
+
+We first introduce the \emph{inductive expansion algorithm}. We fix some arbitrary ordering on the vertices of our 1-skeleton, to give meaning to the \textsc{LowerNghbrs} function in Algorithm \ref{alg:inductive-algorithm}.
+
+\begin{algorithm}
+    \caption{The inductive expansion algorithm.}
+    \label{alg:inductive-algorithm}
+    \begin{algorithmic}
+        \Function{LowerNghbrs}{graph $G$, vertex $u \in G$}
+        \State \Return $\{v \in V(G): v < u, \{u,v\} \in E(G)\}$
+        \EndFunction
+        \Function{InductiveExpansion}{graph $G$, level $k \in \{2, 3, \ldots\}$}
+        \State $K \gets V(G) \cup E(G)$
+        \For{$i \gets 1$ to k}
+        \For{each $i$-simplex $\tau \in K$}
+        \State $N \gets \cap_{u \in \tau} \textsc{LowerNghbrs}(G, u)$
+        \For{each $v \in N$}
+        \State $K \gets K \cup \{\tau \cup \{u\}\}$
+        \EndFor
+        \EndFor
+        \EndFor
+        \EndFunction
+    \end{algorithmic}
+\end{algorithm}
+
+We briefly share some intuition of Algorithm \ref{alg:inductive-algorithm} (a sketch of correctness): the skeleton of this code follows closely to the brute force method. For each $i$-simplex, we check if it forms the face of a $(i+1)$-simplex (using the fixed ordering to avoid double checking simplices). If it does, we add that $(i+1)$-simplex to the complex.
+
+Analysing the complexity of expansion algorithms is tricky as we have an output that has exponential size (in the size of the input), but we can form a rough lower bound on the first level of expansion: from line segments to triangles. For each edge, we look at the (lower) neighbours of the endpoints to compute the set of shared (lower) neighbours. We then perform a constant time operation on each of the shared neighbours, thus we get the lower bound $\sum_{v \in V} \left(\deg v\right)^2$. This was was bounded by \textcite{de1998upper}:
+\[
+    \frac{4\lvert E \rvert^2}{\lvert V \rvert} \leq \sum_{v \in V} \left(\deg v\right)^2 \leq \lvert E \rvert \left(
+    \frac{2\lvert E \rvert}{\lvert V \rvert - 1} + \lvert V \rvert - 2
+    \right).
+\]
+Thus, the first level of expansion runs in time $O(n^3)$. We repeat the subsequent levels by a similar sum on the degrees on the triangles, tetrahedron, etc.; however, we typically fix the number of dimensions to expand into, so we take the overall time complexity to be $O(n^3)$. Further research is needed into the restriction of this bound.
+
+We highlight a key inefficiency in the inductive algorithm (to motivate the incremental algorithm): when we compute the neighbours of a simplex, we repeat computations already done for its faces. Thus, instead of inducting on dimension, we can incrementally add vertices and construct cofaces for which the vertex is maximal. 
+
+\begin{algorithm}
+    \caption{The incremental expansion algorithm, where we induct on the dimension.}
+    \label{alg:incremental-algorithm}
+    \begin{algorithmic}
+        \Function{AddCofaces}{graph $G$, level $k$, simplex $\tau$, $N$, $K$}
+        \If{$\dim\tau \geq k$}
+        \State \Return
+        \EndIf
+        \For{each $v \in N$}
+        \State $\sigma \gets \tau \cup \{v\}$
+        \State $M \gets N \cap \textsc{LowerNghbrs}(G, v)$
+        \State $\textsc{AddCofaces}(G, k, \sigma, M, K)$
+        \EndFor
+        \EndFunction
+        \Function{IncrementalExpansion}{$G$, $k$}
+        \State $K \gets \varnothing$
+        \For{each $u \in V(G)$}
+        \State $N \gets \textsc{LowerNghbrs}(G, u)$
+        \State $\textsc{AddCofaces}(G, k, \{u\}, N, K)$
+        \EndFor
+        \EndFunction
+    \end{algorithmic}
+\end{algorithm}
+
+In Algorithm \ref{alg:incremental-algorithm}, we start with an empty complex. We than add all the cofaces of each vertex for which the vertex is maximal. The initial calls of \textsc{AddCofaces} in \textsc{IncrementalExpansion} will add all simplices (of the $k$-skeleton) for which $u$ is a maximal vertex. 
+
+Further restriction of the worst-case running time (than the one presented for the inductive algorithm) is yet to be seen. 

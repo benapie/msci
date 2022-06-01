@@ -1,0 +1,291 @@
+\chapter{Random variables}
+
+\section{Definitions}
+
+\begin{definition}[Random variable]
+    A \textbf{random variable} $X$ on a sample space $\Omega$ is a mapping $X : \Omega \to X(\Omega)$ given by $\omega \mapsto X(\omega)$. \[ X(\Omega) = \{ X(\omega) : \omega \in \Omega \}. \]
+\end{definition}
+
+We will typically find ourselves with either
+\begin{enumerate}
+    \item $X(\Omega) \subset \mathbb R$, univariate random variable; or
+    \item $X(\Omega) \subset \mathbb R^n$, multivariate random variable.
+\end{enumerate}
+
+\begin{example}
+    Consider throwing two dice with sample space \[ \Omega = \{ (i, j) : i, j \in \{ 1, 2, 3, 4, 5, 6 \} \}. \] Let the random variable $X$ be the sum of the numbers on the dice. Then \[ X(i, j) = i + j \; \forall \; (i, j) \in \Omega. \] Also \[ (X = 10) = \{ (4, 6), (5, 5), (6, 4) \} \] and \[ (X \in \{ 0, 1, 2 \}) = \{ (1, 1) \}. \]
+\end{example}
+
+\begin{definition}[Indicator function]
+An \textbf{indicator function} is a common type of random variable that we may use, denoted $\mathbbm 1_A$ where $A \in \mathcal F$ is such that $\mathbbm 1_A : \Omega \to \{ 0, 1 \}$ defined by \[ \mathbbm 1_A(\omega) = \begin{cases} 1 & \omega \in A \\ 0 & \text{otherwise} \end{cases}. \] Note that \[ \mathbb P(\mathbbm 1_A = 1) = \mathbb P(A), \qquad \mathbb P(\mathbbm 1_A = 0) = \mathbb P(A') = 1 - \mathbb P(A). \]
+\end{definition}
+
+\begin{theorem}
+   The function $\mathbb P_X : B \subset X(\Omega) \to \mathbb R$ defined by \[ \mathbb P_x(B) = \mathbb P(X \in B) = \mathbb P(\{ \omega \in \Omega : X(\omega) \in B \}) \] is a probability on $X(\Omega)$.
+\end{theorem}
+
+\section{Discrete random variables}
+
+\begin{definition}[Discrete random variable]
+    A random variable $X : \Omega \to X(\Omega)$ is said to be \textbf{discrete} when there exists a finite or infinitely countable set $\mathcal X \subset X(\Omega)$ such that $\mathbb P(X \in \mathcal X) = 1$. The function $p : \mathcal X \to [0, 1]$ is defined by \[ p(x) = P(X = x) \quad \forall \; x \in \mathcal X \] is called the \textbf{probability mass function}.
+\end{definition}
+
+\begin{theorem}
+    Suppose $X$ is a discrete random variable and $p : \mathcal X \to [0, 1]$ is the probability mass function. Then \[ \mathbb P(X \in B) = \sum_{x \in B} p(x) \quad \forall \; B \subset \mathcal X \] and \[ \sum_{x \in \mathcal X} p(x) = 1. \] The probability mass function summarises all information about the distribution of $X$.
+\end{theorem}
+
+\begin{proof}
+    This can be simply proved using the 4th axiom of probability at the start of this course and that \[ (X \in B) = \bigcup_{x \in B} \{ X = x \}. \]
+\end{proof}
+
+\begin{theorem}
+    A random variable $X : \Omega \to X(\Omega)$ is discrete whenever
+    \begin{enumerate}
+        \item $X(\Omega)$ is finite or countable; or
+        \item $\Omega$ is finite or countable.
+    \end{enumerate}
+\end{theorem}
+
+\begin{example}
+    Toss three coins and let $X$ be the total number of heads. We can tabulate this as follows.
+    \begin{center}
+        \begin{tabular}{ccccccccc}
+            \toprule
+            $\omega$ & HHH & HHT & HTH & THH & HTT & THT & TTH & TTT \\
+            \midrule
+            $X(\omega)$ & $3$ & $2$ & $2$ & $2$ & $1$ & $1$ & $1$ & $0$ \\
+            \bottomrule
+        \end{tabular}
+    \end{center}
+    This is a discrete random variable as $\Omega is finite$. Now, we can find the probability mass function from the tabulation.
+    \begin{center}
+        \begin{tabular}{ccccc}
+            \toprule
+            $x$ & 0 & 1 & 2 & 3 \\
+            \midrule
+            $p(x)$ & $\frac18$ & $\frac38$ & $\frac38$ & $\frac18$ \\
+            \bottomrule
+        \end{tabular}
+    \end{center}
+    We will shortly recognise this as being binomially distributed.
+\end{example}
+
+\section{The binomial and geometric distributions}
+
+We call a scenario \textbf{binomial} if it meets the following criteria:
+\begin{enumerate}
+    \item consists of a fixed number of trials;
+    \item trials are independent;
+    \item each trial has two outcomes, \emph{success} or \emph{failure}; and
+    \item each \emph{success} has a fixed probability.
+\end{enumerate}
+
+We can model binomial scenarios using the binomial distribution.
+
+\begin{definition}[Binomial distribution]
+    We say that a discrete random variable $X$ is \textbf{binomially distributed} with parameters $n \in \mathbb N$ and $p \in [0, 1]$, denoted by $X \sim \operatorname{Bin}(n, p)$, when $\mathcal X = \{ 0, 1, 2, \ldots, n \}$ and \[ p(x) = \binom{n}{x} p^x (1 - p)^{n - x} \quad \forall \; x \in \{ 0, 1, 2, \ldots, n \}. \] If $n = 1$ we call this a \textbf{Bernoulli trial} and we call $X \sim \operatorname{Bin}(1, p)$ is known as a \textbf{Bernoulli random variable}.
+\end{definition}
+
+\begin{example}
+    If we roll $4$ fair dice and let $X$ be the number of $6$s, then $X \sim \operatorname{Bin}\left(4, \frac16\right)$. \[ \mathbb P(X = x) = \binom{4}{x} \left(\frac16\right)^x\left(\frac56\right)^{4 - x}. \]
+\end{example}
+
+Suppose we extend the binomial distribution to an infinite number of trials, this leads us to the following definition.
+
+\begin{definition}[Geometric distribution]
+    We say that a discrete random variable $X$ is \textbf{geometrically distributed} with parameter $p \in (0, 1]$ and we write $X \sum \operatorname{Geo}(p)$ when $\mathcal X = \mathbb N$ and \[ p(x) = (1 - p)^{x - 1} p \quad \forall \; x \in \{ 1, 2, 3, \ldots \}. \]
+\end{definition}
+
+\begin{definition}[Poisson distribution]
+    We sya that a discrete random variable $X$ is \textbf{Poisson distributed} with parameter $\lambda > 0$, denoted $X \in \operatorname{Po}(\lambda)$, when $\mathcal X = \mathbb Z_+$ and \[ p(x) = \frac{e^{-\lambda} \lambda^x}{x!} \quad \forall \; x \in \mathbb Z_+. \]
+\end{definition}
+
+We use the Poisson distribution to model events with a constant average rate per unit time. That is, \[ \mathbb P(\, \text{event in} \; (x, x + h)) \approx rh \] where $r$ is the average rate per unit time and for small $h$. Note that we can use the Poisson distribution over any median, such as the surface of an object, than time.
+
+\begin{example}
+    Suppose in a particular fleet of aircraft there has been $32$ crashes in $25$ years. Let $W, M, Y$ denote the number of crashed in the next week, month, and year respectively. Assume that a year has $365$ days and a month has $30$ days. Also suppose that crashes happen at random such that we can model it using a Poisson distribution.
+    \begin{enumerate}
+        \item How are $W, M, Y$ distributed?
+        \item Find $\mathbb P(\, \text{no crashes next week} \,)$.
+        \item Find $\mathbb P(\, \text{no crashes next month})$.
+        \item Find $\mathbb P(\, \text{no crashes next year})$.
+    \end{enumerate}
+\end{example}
+
+\begin{solution}
+    \begin{enumerate}
+        \item $W \sim \operatorname{Po}\left(\frac{32}{25} \cdot \frac{1}{365} \cdot 7\right)$, $M \sim \operatorname{Po}\left(\frac{32}{25} \cdot \frac{1}{365} \cdot 30\right)$, $Y \sim \operatorname{Po}\left(\frac{32}{25}\right)$.
+        \item $\mathbb P(W = 0) = 0.976$.
+        \item $\mathbb P(M = 0) = 0.900$.
+        \item $\mathbb P(Y = 0) = 0.278$.
+    \end{enumerate}
+\end{solution}
+
+\begin{theorem}[Binomial $\to$ Poisson]
+    Consider $\lambda > 0$. Let $X_n \sim \operatorname{Bin}(n, p_n)$ such that \[ \lim_{n \to \infty} n p_n = \lambda. \] Let $Y \in \operatorname{Po}(\lambda)$. Then for all $x \in \mathbb Z_+$ \[ \lim_{n \to \infty} p_{X_n}(x) = p_Y(x). \] We describe this by saying that $X_n$ \textbf{converges in distribution} to $Y$.
+\end{theorem}
+
+\begin{proof}
+    This is a simple look at the probability mass function for the binomial distribution and taking the limit as $n \to \infty$ to obtain the probability mass function for the Poisson distribution.
+\end{proof}
+
+\begin{example}
+    Let $X \in \operatorname{Bin}(1000, 0.001)$. As our $n$ is large, \[ X \sim \operatorname{Po}(1000 \cdot 0.001) = \operatorname{Po}(1). \] Hence \[ \mathbb P(X \leq 2) \approx \mathbb P (X = 0) + \mathbb P(X = 1) + \mathbb P(X = 2) = \frac{5}{2e} = 0.920. \]
+\end{example}
+
+\section{Continuous random variable}
+
+\begin{definition}[Continuous random variable and probability density function] 
+    Consider a real-valued random variable $X : \Omega \to \mathbb R$. We say that $X$ is a \textbf{continuous random variable}, or that $X$ has a continuous probability distribution, or that $X$ is continuously distributed, when there is a non-negative function $f: \mathbb R \to \mathbb R$ such that \[ \mathbb P(X \in [a, b]) = \int_a^b f(t) \, dt, \] for all $x \in [a, b] \subset \mathbb R$. $f$ is called the \textbf{probability density function} of $X$.
+\end{definition}
+
+\begin{remark}
+    Note that not all distributions have a unique probability density function, for example the probability density functions \[ f_1(x) = \begin{cases} 1 & 0 \leq x \leq 1 \\ 0 & \text{otherwise} \end{cases}, \qquad f_2(x) = \begin{cases} 1 & 0 < x < 1 \\ 0 & \text{otherwise} \end{cases} \] give the same distribution.
+\end{remark}
+
+\begin{theorem}
+    Let $X$ be continuously distributed with probability density function $f$, then foir $B \subset R$ that is a finite union of intervals, \[ \mathbb P(X \in B) = \int_B f(t) \, dt. \] Like the probability mass function, the probability density function contains almost all information we have about a continuous random variable.
+\end{theorem}
+
+\begin{example}
+    Let $X$ be a continuous random variable with probability density function $f(x) = kx^2$ for $0 < x < 1$. Find $k$ and calculate $\mathbb P(x \in \left[0, \frac13\right])$.
+\end{example}
+
+\begin{solution}
+    \[ \int_0^1 kx^2 \, dx = 1 \iff \left[\frac13kx^3\right]^1_0 = 1 \iff k = 3. \] \[ \mathbb P\left(X \in \left[0, \frac13\right]\right) = \int_0^{\frac13} 3x^2 \, dx = \left[x^3\right]^{\frac13}_0 = \frac1{27}. \]
+\end{solution}
+
+\section{The uniform distribution}
+
+\begin{definition}[Uniform distribution]
+    Let $a, b \in \mathbb R$ with $a < b$. We say a continuous random variable $X$ is \textbf{uniformly distributed} on $[a, b]$, denoted $X \sim \operatorname{U}(a, b)$, when \[ f(x) = \begin{cases} \frac1{b - a} & x \in [a, b] \\ 0 & \text{otherwise} \end{cases}. \]
+\end{definition}
+
+\begin{remark}
+    Note that for $x, x + h \in [a, b]$, $\mathbb P(X \in [x, x + h])$ is constant regardless of $x$ for $X \sim \operatorname{U}(a, b)$.
+\end{remark}
+
+\begin{example}
+    Let $X \sim \operatorname{U}(0, 3)$. What is $\mathbb P(X \leq 1)$.
+\end{example}
+
+\begin{solution}
+   \[ \mathbb P(X \leq 1) = \int_0^1 \frac{1}{3 - 0} \, dx = \left[\frac13x\right]^1_0 = \frac13. \] 
+\end{solution}
+
+\section{The exponential distribution}
+
+\begin{definition}[Exponential distribution]
+Let $\beta > 0$. We say a continuous random variable is \textbf{exponentially distributed} with parameter $\beta$, denoted $X \sim \operatorname{Exp}(\beta)$, when \[ f(x) = \begin{cases} \beta e^{-\beta x} & x \geq 0 \\ 0 & \text{otherwise} \end{cases}. \]
+\end{definition}
+
+\begin{example}
+    Let $X \sim \operatorname{Exp}(\ln{k})$, $k > 1$. Prove that \[ \mathbb (X < k) = 1 - k^{-k}. \]
+\end{example}
+
+\begin{solution}
+    Proof follows from integrating the probability density function for the exponential distribution. 
+\end{solution}
+
+\section{The normal distribution}
+
+\begin{definition}[Normal distribution]
+    Let $\mu, \sigma \in \mathbb R$ with $\sigma > 0$. We say a continuous random variable $X$ is \textbf{normally distributed} with parameters $\mu, \sigma^2$, denoted $X \sim \mathcal N(\mu, \sigma^2)$, when \[ f(x) = \frac{1}{\sigma \sqrt{2 \pi}} e^{-\frac12\left(\frac{x - \mu}{\sigma}\right)^2} \quad \forall \; x \in \mathbb R. \]
+\end{definition}
+
+\section{Cumulative distribution functions}
+
+\begin{definition}[Cumulative distribution function]
+    For any real-valued random variable $X$, the function $F : \mathbb R \to [0, 1]$ defined by \[ F(x) = \mathbb P(X \leq x) \quad \forall \; x \in \mathbb R \] is called the \textbf{cumulative distribution function}.
+\end{definition}
+
+\begin{theorem}[Relation between cumulative distribution function and probability density function]
+    Suppose that $X$ is a continuous distributed random variable on $\mathbb R$ with probability density function $f$. Then $F$ is continuous and for all $x \in \mathbb R$, \[ F(x) = \int_{-\infty}^x f(t) \, dt, \qquad f(x) = \dfrac{dF}{dx}(x) \] when $f$ is continuous at $x$.
+\end{theorem}
+
+\begin{theorem}
+    If $X$ is a discrete real valued random variable with probability mass function $p$, then $F$ is piecewise constant and \[ F(x) = \sum_{t : t \leq x} p(t) \] and $p(x) = F(x) - F(x^-)$ where $x^-$ is the limit from the left.
+\end{theorem}
+
+\begin{theorem}[Proprieties of cumulative distribution functions]
+    Let $F$ be a cumulative distribution function of a real valued random variable, then
+    \begin{enumerate}
+        \item $\lim_{t \to -\infty} F(t) = 0$ and $\lim_{t \to \infty} F(t) = 1$;
+        \item monotonicity, $s \leq t \implies F(s) \leq F(t)$; and
+        \item right continuity, for all $t \in \mathbb R$, $F(t) = F(t^+)$ where $t^+$ is the limit from the right.
+    \end{enumerate}
+\end{theorem}
+
+\begin{theorem}
+    The cumulative distribution function of a random variable completely determines its distribution.
+\end{theorem}
+
+\section{Standard normal tables}
+
+\begin{definition}[Standard normal distribution] 
+    A continuous random variable $Z$ is \textbf{standard normally distributed} if $Z \sim \mathcal N(0, 1)$. We normally use $Z$ for this random variable, $\phi$ for the probability density function of $Z$, and $\Phi$ for the cumulative density function of $Z$. \[ \phi(z) = \frac{1}{\sqrt{2 \pi}} e^{\frac12 z^2}, \qquad \Phi(z) = \int_{-\infty}^z \phi(t) \, dt \]
+\end{definition}
+
+\begin{remark}
+    $\Phi(z)$ has no analytical solution, we typically tabulate it.
+\end{remark}
+
+\begin{example}
+    The following are the standard normal tables needed for this question.
+    \begin{center}
+        \begin{tabular}{cccccc}
+            \toprule
+            $z$ & $0$ & $1.28$ & $1.64$ & $1.96$ & $2.58$ \\
+            \midrule
+            $\Phi(z)$ & $0.5$ & $0.9$ & $0.95$ & $0.975$ & $0.995$ \\
+            \bottomrule
+        \end{tabular}
+    \end{center}
+    Suppose $Z \sim \mathcal N(0, 1)$. Calculate $\mathbb P(-1.28 \leq z \leq 1.64)$.
+\end{example}
+
+\begin{solution}
+    \begin{align*}
+        \mathbb P(-1.28 \leq z \leq 1.64) &= \mathbb P(z \leq 1.64) - \mathbb P(z \leq -1.28) \\
+        &= \mathbb P(z \leq 1.64) + \mathbb P(z \leq 1.28) - 1 \\
+        &= \Phi(1.64) + \Phi(1.28) - 1 = 0.85.
+    \end{align*}
+\end{solution}
+
+\section{Functions of random variables}
+
+\begin{theorem}
+    Suppose $X : \Omega \to X(\Omega)$ is a random variable and $g : X(\Omega) \to S$is some function. Then $g(X)$ is also a random variable, that is \[ P(g(x) \in B) = \mathbb P(\{\omega \in \Omega : g(X(\omega)) \in B\}). \]
+\end{theorem}
+
+\begin{example}
+    Let $X \sim \operatorname{Bin}(n, p)$. Show that $n - X \sim \operatorname{Bin}(n, 1 - p)$.
+\end{example}
+
+\begin{solution}
+    \begin{align*}
+        \mathbb P(Y = x) &= \mathbb P(n - X = x) \\
+        &= \mathbb P(X = n - x) \\
+        &= \binom{n}{n - x} p^{n - x} (1 - p)^x \\
+        &= \binom{n}{x} (1-p)^x p^{n - x};
+    \end{align*}
+    hence $n - X \sim \operatorname{Bin}(n, 1 - p)$.
+\end{solution}
+
+\begin{theorem}[Standardising the normal distribution]
+    Suppose $\mu, \sigma \in \mathbb R$ with $\sigma > 0 $. If $X \sim \mathcal N(\mu, \sigma^2)$ and $Z \sim \mathcal N(0, 1)$, then \[ \frac{X - \mu}{\sigma} \sim \mathcal N(0, 1) \] and \[ \sigma Z + \mu \sim \mathcal N(\mu, \sigma^2). \]
+\end{theorem}
+
+\begin{corollary}
+    If $X \sim \mathcal N(\mu, \sigma^2)$, then \[ F(x) = \Phi\left(\frac{x - \mu}{\sigma}\right). \]
+\end{corollary}
+
+\begin{example}
+    If $X \sim \mathcal N(2, 4)$, then 
+    \begin{align*}
+        \mathbb P(X \geq 5.28) &= \mathcal P\left(z \geq \frac{5.28 - 2}{2}\right) \\
+        &= 1 - \mathbb P\left(z \leq \frac{5.28 - 2}{2}\right) \\
+        &= 1 - \mathbb P(z \leq 1.64) \\
+        &= 1 - \Phi(1.64) = 0.05.
+    \end{align*}
+\end{example}

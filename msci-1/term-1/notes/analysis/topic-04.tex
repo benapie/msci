@@ -1,0 +1,136 @@
+\chapter{Quantifiers, negation and proof techniques}
+
+\section{Quantifiers}
+
+We have already been using the quantifiers defined in this section, however, it is worth formally writing down a definition.
+
+Recall that an expression $A(x)$ like $x>1$ is a conditional statement (Definition \ref{def:conditional_statement}). By choosing real values for the variable $x$, we obtain true or false statements. For example, $A(2)$ is a true statement but $A(0)$ is not. We can combine conditional statements with \textbf{quantifiers} to obtain new statements. The two quantifiers we use are
+\begin{enumerate}
+    \item $\forall$, this abbreviates the phrase \textbf{for all}; and
+    \item $\exists$, this abbreviates the phrase \textbf{there exists}.
+\end{enumerate}
+
+\begin{example}
+    Following are some examples of statements containing these quantifiers and the natural language description of the statement.
+    \begin{enumerate}
+        \item For all real numbers $x$, $x^2$ is non-negative. \[\forall\;x\in\mathbb R:x^2\geq 0\]
+        \item For every natural number $k$, $2k+1$ is odd. \[\forall\;k\in\mathbb N:2k+1\text{ is odd}\]
+        \item There exists a real number $x$ such that $x^2=-1$ (this is false). \[\exists\; x\in\mathbb R: x^2=-1\]
+        \item For all positive $\epsilon$, there exists a natural number $n$ such that $\epsilon>\frac1n$. \[\forall\;\epsilon>0\;\exists\;n\in\mathbb N:\epsilon>\frac1n\]
+    \end{enumerate}
+\end{example}
+
+\section{Negation}
+
+\begin{theorem}[Rule of negation]
+    Generally, we have the following formal rule to negate a logic statement. Suppose $A$ is a mathematical statement consisting of a list of quantifiers with a concluding conditional statement of the form \[Q_1x_1Q_2x_2\ldots Q_nx_n:P(x_1,\ldots,x_n)\] where $Q_i\in\{\forall,\exists\}$. To get a statement for not $A$ ($\lnot A$) you follow these 2 steps:
+    \begin{enumerate}
+        \item replace each $\forall$ to $\exists$ and each $\exists$ to $\forall$; and
+        \item replace $P(x_1,\ldots,x_n)$ to $\text{not }P(x_1,\ldots,x_n)$
+    \end{enumerate}
+\end{theorem}
+
+\begin{example}
+    Following are some examples of negation of a mathematical statement.
+    \begin{enumerate}
+        \item
+        \begin{align*}
+            A&:\forall\;n\in\mathbb N:a\;\text{is a prime number}\\
+            \text{not}\;A&:\;\exists\;n\in\mathbb N:a\;\text{is not a prime number}
+        \end{align*}
+        
+        \item
+        \begin{align*}
+            A&:\forall\;\epsilon>0\;\exists\;N\in\mathbb N\;\forall\;n\geq N:|x_n-x^*|<\epsilon\\
+            \text{not}\;A&:\;\exists\;\epsilon>0\;\forall\;N\in\mathbb N\;\exists\;n\geq N:|x_n-x^*|\geq\epsilon
+        \end{align*}
+    \end{enumerate}
+\end{example}
+
+\section{Proof techniques}
+
+\begin{definition}
+    Let $A$ and $B$ be mathematical statements. `If $A$ then $B$' is a statement that is false only if $A$ is true and $B$ is false. Symbolically, we write \[A\implies B.\] Likewise, `if $B$ then $A$' and `if $A$ then $B$' is often written as `$A$ if and only if $B$' or \[A\iff B.\]
+\end{definition}
+
+\begin{theorem}
+    The negation of `if $A$ then $B$' is `$A$ and (not $B$)'.
+\end{theorem}
+
+\begin{proof}
+    We can prove this using truth tables.
+    \begin{center}
+        \begin{tabular}{cccccc}
+            \toprule
+            $A$ & $B$ & if $A$ then $B$ & $A$ & not $B$ & $A$ and (not $B$) \\
+            \midrule
+            F & F & T & F & T & F \\
+            F & T & T & F & F & F \\
+            T & F & F & T & T & T \\
+            T & T & T & T & F & F \\
+            \bottomrule
+        \end{tabular}
+    \end{center}
+    Therefore, \[(A\implies B)\iff\text{not}\;(A\;\text{and}\;(\text{not}\;B)).\]
+\end{proof}
+
+\begin{definition}
+    The technique called \textbf{indirect proof} or \textbf{proof by contradiction} would be to attempt to prove `If $A$ then $B$' by assuming its negation, and arriving at a contradiction.
+\end{definition}
+
+\begin{example}
+    Give an indirect proof of 
+    \begin{center}
+        `if $n^2$ is even then $n$ is even'.
+    \end{center}
+    
+    \begin{proof}
+        The negation of this statement is
+        \begin{center}
+            `$n^2$ is even and $n$ is odd'.
+        \end{center}
+        Let $n=2k+1$ for $k\in\mathbb Z$, then \[n^2=4k^2+4k+1\] which is not even; a contradiction as required.
+    \end{proof}
+\end{example}
+
+\begin{theorem}
+    Let $A$ and $B$ be mathematical statements. Then
+    \begin{center}
+        `if $A$ then $B$'
+    \end{center}
+    is equivalent to
+    \begin{center}
+        `if (not $B$) then (not $A$)'.
+    \end{center}
+    These statements are \textbf{contrapositives} of each other.
+\end{theorem}
+
+\begin{proof}
+    This can be proved through a truth table.
+    \begin{center}
+        \begin{tabular}{cccccc}
+            \toprule
+            $A$ & $B$ & if $A$ then $B$ & not $A$ & not $B$ & if not $B$ then not $A$ \\
+            \midrule
+            F & F & T & T & T & T \\
+            F & T & T & T & F & T \\
+            T & F & F & F & T & F \\
+            T & T & T & F & F & T \\
+            \bottomrule
+        \end{tabular}
+    \end{center}
+    Therefore, the contrapositive of any given statement is equivalent to the original statement.
+\end{proof}
+
+\begin{example}
+    We give a contrapositive proof of
+    \begin{center}
+        `if $n^2$ is even then $n$ is even'.
+    \end{center}
+    The contrapositive is
+    \begin{center}
+        `if $N$ is odd then $n^2$ is odd'.
+    \end{center}
+    Assume $n$ is odd, $n=2k+1$ for $k\in\mathbb Z$, then \[n^2=4k^2+4k+1=2(2k^2+2k)+1\] so $n^2$ is odd, as required.
+\end{example}
+

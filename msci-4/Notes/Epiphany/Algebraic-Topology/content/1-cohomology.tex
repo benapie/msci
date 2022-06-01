@@ -1,0 +1,480 @@
+\section{Cohomology}
+
+\subsection{Homomorphisms of groups}
+
+\begin{definition}
+    Let $A$ be a group and $G$ an abelian group. We define
+    \[ \Hom(A, G) = \{\text{group homomorphism}\;\varphi: A \to G\} \]
+    as an abelian group with structure given by $(f + g)(a) = f(a) + g(a)$ and $0(a) = 0 \in G$.
+\end{definition}
+
+\begin{example}
+    $\Hom(\mathbb Z, G) \cong G$ with the isomorphism $\varphi \mapsto \varphi(1)$, as for any homomorphism $\varphi: \mathbb Z \to G$, $\varphi(1)$ fully describes the map.
+\end{example}
+
+\begin{example}
+    $\Hom(\mathbb Z/n, G) \cong \ker f$ where $f: G \to G$ such that $x \mapsto n \cdot x$. This can be seen as any homomorphism $\varphi: \mathbb Z/n \to G$ must preserve the property that $n\overline x = \overline 0$. We also see that $\Hom(\mathbb Z/n, \mathbb Z) \cong 0$.
+\end{example}
+
+\begin{example}
+    $\Hom(\mathbb Z/n, \mathbb Z/m) \cong \mathbb Z/\gcd(n, m)$ is just an application of the first example.
+\end{example}
+
+\begin{lemma}
+    Let $\{A_i\}_{i\in \mathcal I}$ be a sequence of abelian groups and $G$ an abelian group. Then
+    \[
+        \Hom\left(
+        \bigoplus_{i \in \mathcal I} A_i, G
+        \right) \cong \prod_{i \in \mathcal I} \Hom(A_i, G)
+    \]
+    via the map $f \mapsto \prod_{i \in \mathcal I} \restr f{A_i}$.
+\end{lemma}
+
+\begin{corollary}
+    $\Hom(\mathbb Z^n, \mathbb Z) \cong \mathbb Z^n$.
+\end{corollary}
+
+Let $f: A \to B$ be a group homomorphism. Then there is an induced group homomorphism
+\begin{align*}
+    f^*: \Hom(B,G)     & \to \Hom(A, G),                           \\
+    (\varphi: B \to G) & \mapsto (\varphi \circ f: A \to B \to G).
+\end{align*}
+
+Similarly, if $g: G \to H$ be a group homomorphism between two abelian groups. Then we have the induced group homomorphism
+\begin{align*}
+    g^*: \Hom(A, G)    & \to \Hom(A, H),                           \\
+    (\varphi: A \to G) & \mapsto (g \circ \varphi: A \to G \to H). \\
+\end{align*}
+
+\subsection{Cochain complexes}
+
+\begin{definition}
+    A \emph{cochain complex} $D = (D^*, \delta_*)$ is a sequence of abelian groups and group homomorphisms
+    \[
+        \ldots
+        \xrightarrow{\delta_{-1}} D^0
+        \xrightarrow{\delta_{0}} D^1
+        \xrightarrow{\delta_{1}} D^2
+        \xrightarrow{\delta_2} \ldots
+        \xrightarrow{\delta_{n-1}} D^n
+        \xrightarrow{\delta_n} \ldots
+    \]
+    such that $\delta_{i+1} \circ \delta_i = 0$. We call the $\delta_i$ the \emph{coboundary maps}. As with chain complexes, we will use non-negative chain complexes (so $C_i = 0$ for all $i < 0$). The \emph{cohomology groups} of $D$ are defined as
+    \[
+        H^n(D) = \frac
+        {\ker(\delta_n: D^n \to D^{n+1})}
+        {\im(\delta_{n-1}: D^{n-1} \to D^n)}.
+    \]
+    Elements of $\ker\delta_n$ and $\im\delta_{n-1}$ are called \emph{$n$-cocycles} and \emph{$n$-coboundaries} respectively.
+\end{definition}
+
+For any chain complex, there is a \emph{dual} cochain complex. Let $C = (C_*, \partial_*)$ be a chain complex
+\[
+    \xrightarrow{\partial_3} C_2
+    \xrightarrow{\partial_2} C_1
+    \xrightarrow{\partial_1} C_0
+    \xrightarrow{} 0.
+\]
+For all $n \in \mathbb N_0$, we define
+\[
+    \delta_n = \partial_{n+1}^*: \Hom(C_n, G) \to \Hom(C_{n+1}, G).
+\]
+Thus we have the cochain complex $D = (\Hom(C_*, G), \delta_*)$
+\[
+    0
+    \xrightarrow{} \Hom(C_0, G)
+    \xrightarrow{\delta_0} \Hom(C_1, G)
+    \xrightarrow{\delta_1} \Hom(C_2, G)
+    \xrightarrow{\delta_2} \ldots.
+\]
+We call $D$ the cochain complex \emph{dual} to the chain complex $C$. The \emph{cohomology} of $C$ with coefficients in $G$ is defined as
+\[
+    H^n(C) = \frac
+    {\ker(\delta_n: \Hom(C_n, G) \to \Hom(C_{n+1}, G))}
+    {\im(\delta_{n-1}: \Hom(C_{n-1}, G) \to \Hom(C_{n}, G))}.
+\]
+
+\subsection{Cohomology of a space}
+
+We define the singular cohomology of a space as one may expect. Let $X$ be a space, $A \subset X$, and $G$ an abelian group. Then our singular chain group is
+\begin{align*}
+    C^n(X, A; G) & = \Hom(C_n(X, A), G), \\
+    \delta_n     & = \partial^*_{n+1}.
+\end{align*}
+Then our singular cohomology groups are defined by
+\[
+    H^n(X, A; G) = \frac
+    {\ker\delta_n}
+    {\im\delta_{n-1}}.
+\]
+We can also do the same for spaces that admit a cellular structure:
+\begin{align*}
+    C^n_{\text{CW}}(X; G) & = \Hom(C_n^{\text{CW}}(X), G),             \\
+    \delta_n^\text{CW}    & = \left(\partial^\text{CW}_{n+1}\right)^*, \\
+    H^n_{\text{CW}}(X; G) & = \frac
+    {\ker\delta_n^\text{CW}}
+    {\im\delta_{n-1}^\text{CW}}.
+\end{align*}
+
+\begin{theorem}
+    Let $X$ be a CW complex, $G$ be an abelian group, and $n \in \mathbb N_0$. Then
+    \[
+        H^n(X; G) \cong H_\text{CW}^n(X; G).
+    \]
+\end{theorem}
+
+\begin{example}
+    We consider $S^1$. We give $S^1$ the cellular structure $e_0 \cup e_1$ where we glue the endpoints of $e_1$ to $e_0$. Now $C_0^\text{CW} \cong C_1^\text{CW} \cong \mathbb Z$ and $C_i^\text{CW} \cong 0$ for $i > 1$. Thus we get the CW chain complex
+    \[
+        0 \to \mathbb Z \xrightarrow{0} \mathbb Z \to 0
+    \]
+    (reread notes on cellular structure to convince yourself of the map $0$). Lets now examine the dual cochain complex:
+    \[
+        0 \to \Hom(\mathbb Z, G) \xrightarrow{0^*} \Hom(\mathbb Z, G) \to 0
+    \]
+    (note that the ordering of this sequence has flipped). But we have seen $\Hom(\mathbb Z, G) \cong G$, and also $0^* = 0$, so we get
+    \[
+        0 \to G \xrightarrow{0} G \to 0.
+    \]
+    Thus
+    \[
+        H^i_\text{CW}(S^1; G) \cong \begin{cases}
+            G & i \in \{0,1\}, \\
+            0 & \text{else}.
+        \end{cases}
+    \]
+    In fact,
+    \[
+        H^i_\text{CW}(S^n; G) \cong \begin{cases}
+            G & i \in \{0,n\}, \\
+            0 & \text{else}.
+        \end{cases}
+    \]
+\end{example}
+
+\begin{example}
+    We now consider $\mathbb R \mathbb P^2$. We can consider this space as $D^2$ with antipodal boundary points identified. This realises a cellular structure $e_0 \cup e_1 \cup e_2$, giving us the CW chain complex
+    \[
+        0 \to \mathbb Z \xrightarrow{2} \mathbb Z \xrightarrow{0} \mathbb Z \to 0
+    \]
+    (reread notes on cellular structure if you are not convinced by the maps). Thus our standard homology groups are
+    \[
+        H_i(\mathbb R \mathbb P^2) = \begin{cases}
+            \mathbb Z   & i = 0,       \\
+            \mathbb Z/2 & i = 1,       \\
+            0           & \text{else}.
+        \end{cases}
+    \]
+    We now examine the CW cochain complex
+    \[
+        0
+        \to \Hom(\mathbb Z, G)
+        \xrightarrow{0^*} \Hom(\mathbb Z, G)
+        \xrightarrow{2^*} \Hom(\mathbb Z, G)
+        \to 0.
+    \]
+    That is,
+    \[
+        0
+        \to G
+        \xrightarrow{0} G
+        \xrightarrow{g \mapsto 2 \cdot g} G
+        \to 0.
+    \]
+    This is not easy to characterise generally, so we take $G = \mathbb Z$. Then we get the cohomology groups
+    \[
+        H^i(\mathbb R \mathbb P^2) = \begin{cases}
+            \mathbb Z   & i = 0,       \\
+            \mathbb Z/2 & i = 2,       \\
+            0           & \text{else}.
+        \end{cases}
+    \]
+\end{example}
+
+\subsection{Cochain maps}
+
+\begin{definition}
+    A \emph{cochain map} $f: C^* \to D^*$ between two cochain complexes $C = (C^*, \delta^C_*)$ and $D = (D^*, \delta^D_*)$ is a sequence $f_*$ of homomorphisms $f_n: C_i \to D_i$ such that the diagram
+    \begin{center}
+        % https://tikzcd.yichuanshen.de/#N4Igdg9gJgpgziAXAbVABwnAlgFyxMJZABgBpiBdUkANwEMAbAVxiRAGEA9QgX1PUy58hFAEZyVWoxZsuwMAGpRPEHwHY8BImVGT6zVohAARbqv4gMG4UXG7q+mUdPylKnpJhQA5vCKgAMwAnCABbJDIQHAgkACYHaUMQAIB9XgtgsKRxKJjEAGYEgzZU12VzQJDwxEjo7KKnEAAdJtgGHDpOdjSK5Kq46jqChqSWto7OYx6PHiA
+        \begin{tikzcd}
+            C^n \arrow[d, "f_n"] \arrow[r, "\delta^C_n"] & C^{n+1} \arrow[d, "f_{n+1}"] \\
+            D^n \arrow[r, "\delta^D_n"]                  & D^{n+1}
+        \end{tikzcd}
+    \end{center}
+    commutes for all $n \in \mathbb N_0$.
+\end{definition}
+
+\begin{definition}
+    A \emph{cochain homotopy} is a sequence of homomorphisms $h_n: C_n \to D_{n-1}$ such that
+    \[
+        f_n - g_n = h_{n+1} \circ \delta_n^C + \delta_{n-1}^D \circ h_n
+    \]
+    for all $n \in \mathbb N_0$. That is, the diagram
+    \begin{center}
+        % https://tikzcd.yichuanshen.de/#N4Igdg9gJgpgziAXAbVABwnAlgFyxMJZABgBpiBdUkANwEMAbAVxiRAGEA9YMAWgEYAviEGl0mXPkIoATOSq1GLNl0Kjx2PASIAWedXrNWiDtzABqISLEgMmqUTIyFh5SYAiZgcPW2JW6WQ5ZwMlYxBPNRs7SW0UPRDFIzZPHksfBRgoAHN4IlAAMwAnCABbJDIQHAgkflDkkwAdRtgGHDoAfR5vTnZrQpLyxDqqmsQ5JLcQZtb2jrBe-pBisqQAZmpqpD1J8JmYNs7uoU53JZWhna3EAFZ6qf3D+dPzwYrNsY3dtgKuviEAAS8AHZP7eEDUBh0ABGBwACv4HCYilhsgALHCvVbDD7be7hX5gIEg+ZYoYTa53b4mX5pQHA0F0nw2C61XGIL6ucJo0m+Vnjdk7LlsHlMkQUQRAA
+        \begin{tikzcd}
+            C^{n-1} \arrow[rr, "\delta_{n-1}^C"] \arrow[dd, "f_{n-1} - g_{n-1}"'] &  & C^n \arrow[rr, "\delta_n^C"] \arrow[dd, "f_n - g_n"] \arrow[lldd, "h_n"] &  & C^{n+1} \arrow[dd, "f_{n+1} - g_{n+1}"] \arrow[lldd, "h_{n+1}"] \\
+            &  &                                                                          &  &                                                                 \\
+            D^{n-1} \arrow[rr, "\delta_{n-1}^D"]                                  &  & D^n \arrow[rr, "\delta_n^D"]                                             &  & D^{n+1}
+        \end{tikzcd}
+    \end{center}
+    commutes for all $n \in \mathbb N_0$.
+\end{definition}
+
+\begin{lemma}
+    \hspace{0em}
+    \begin{enumerate}
+        \item Let $f: C^* \to D^*$ be a cochain map between two cochain complexes $C = (C^*, \delta^C_*)$ and $D = (D^*, \delta^D_*)$. Then the induced map
+              \begin{align*}
+                  f_*: H^n(C) & \to H^n(D),       \\
+                  [c]         & \mapsto [f_n(c)],
+              \end{align*}
+              is well-defined.
+        \item If cochain maps $f, g: C^* \to D^*$ are cochain homotopic then $f_* = g_*$.
+    \end{enumerate}
+\end{lemma}
+
+\begin{lemma}
+    \hspace{0em}
+    \begin{enumerate}
+        \item     Let $f: C_* \to D_*$ be a chain map. Then the induced map
+              \begin{align*}
+                  f^*: \Hom(D_*, G)    & \to \Hom(C_*, G),                             \\
+                  (\varphi: D_* \to G) & \mapsto (\varphi \circ f: C_* \to D_* \to G),
+              \end{align*}
+              is a cochain map.
+        \item If $f, g: C_* \to D_*$ are homotopic chain maps, then $f^*$ and $g^*$ are homotopic cochain maps.
+    \end{enumerate}
+\end{lemma}
+
+\subsection{Properties of cohomology}
+
+\begin{enumerate}
+    \item Let $f: (X, A) \to (Y, B)$ be a map of pairs of spaces. Then $f_*$ is a chain map which induces a map $f^*: H^n(Y, B; G) \to H^n(X, A; G)$ on cohomology.
+    \item Let $f, g: (X,A) \to (Y,A)$ be homotopic maps of pairs of spaces. Then $f^* = g^*$.
+    \item If $f: X \to Y$ is a homotopy equivalence, $f^*$ defines an isomorphism.
+    \item Let $(X, A)$ be a pair of spaces. Then there is a long exact sequence on cohomology \[
+              0 \to H^0(X, A; G) \to H^0(X; G) \to H^0(A; G) \xrightarrow{\delta^*} H^1(X,A;G) \to \ldots
+          \]
+          using the inclusion map $i: A \to X$, quotient map $q_*: C_*(X) \to C_*(X,A) = C_*(X)/C_*(A)$ and the connecting homomorphism $\delta^*$.
+\end{enumerate}
+
+\begin{theorem}
+    Let $X$ be a space and $G$ be an abelian group. Let $Z \subset A \subset X$ such that $\overline Z \subset \mathring A$. Then the inclusion
+    \[
+        i: (X \setminus Z, A \setminus Z) \xhookrightarrow
+        (X,A)
+    \]
+    induces an isomorphism
+    \[
+        i^*: H^n(X, A; G) \xrightarrow{\cong} H^n(X \setminus Z, A \setminus Z; G)
+    \]
+    on cohomology.
+\end{theorem}
+
+\begin{theorem}
+    Let $G$ be an abelian group and $X$ a space such that $X = \mathring A \cup \mathring B$ for $A, B \subset X$. Then there is a long exact sequence
+    \begin{align*}
+        \ldots & \to H^n(X; G) \xrightarrow{i^* \oplus i^*}
+        H^n(A; G) \oplus H^n(B; G) \xrightarrow{i^* \oplus -i^*}
+        H^n(A \cap B; G)                                    \\
+               & \xrightarrow{d}
+        H^{n+1}(X; G) \to \ldots
+    \end{align*}
+    where $d$ is the connecting homomorphism.
+\end{theorem}
+
+\subsection{Cup products}
+
+The main benefit of working with cohomology is that we can give it ring structure, by defining the \emph{cup product}. Our aim is to construct a map
+\[
+    {\smile}: H^i(X; R) \times H^j(X; R) \to H^{i+j}(X;R)
+\]
+for a commutative ring $R$ which satisfies the multiplication axioms for ring structure.
+$x \smile b$.
+
+We first define ${\smile}$ on cochain groups, and show that it extends to a well-defined map on cohomology. We define
+\begin{align*}
+    {\smile}: C^i(X;R) \times C^j(X; R) & \to C^{i+j}(X; R), \\
+    (\varphi(\sigma), \psi(\sigma))     & \mapsto
+    \varphi(\restr{\sigma}{[0, \ldots, i]}) \psi(\restr{\sigma}{[i, \ldots, i+j]}).
+\end{align*}
+Intuitively, we are evaluating $\varphi$ on the \emph{front} $i$-face and $\psi$ on the \emph{back} $j$-face.
+
+\begin{theorem}
+    \hspace{0em}
+    \begin{enumerate}
+        \item If $\varphi$ and $\psi$ are cocycles, then $\varphi \smile \psi$ is a cocycle.
+        \item ${\smile}$ is well-defined on homology classes.
+    \end{enumerate}
+\end{theorem}
+
+To prove this, we need the following.
+
+\begin{lemma}
+    Let $X$ be a space, $R$ be a commutative ring, $\varphi \in C^i(X; R)$, and $\psi \in C^j(X; R)$ for some $i, j \in \mathbb N_0$. Then
+    \[
+        \delta(\varphi \smile \psi) = (\delta\varphi \smile \psi) + (-1)^i (\varphi \smile \delta\psi).
+    \]
+\end{lemma}
+
+\begin{proof}
+    Let $X$ be a space and $\sigma: \Delta^{i+j+1} \to X$ be a singular simplex. Then
+    \begin{align*}
+        (\delta\varphi \smile \psi)(\sigma)
+         & = \sum_{k=0}^{i+1} (-1)^k \varphi\left(\restr{\sigma}{[0, \ldots, \hat k, \ldots, i+1]}\right) \cdot \psi\left(\restr{\sigma}{[i+1, \ldots, i+j+1]}\right)   \\
+        (-1)^i (\varphi \smile \psi)
+         & = \sum_{k=i}^{i+j+1} (-1)^k \varphi\left(\restr{\sigma}{[0, \ldots, i]}\right) \cdot \psi\left(\restr{\sigma}{[i, \ldots, \hat k, \ldots, i + j + 1]}\right)
+    \end{align*}
+    and so by adding the RHS we get
+    \[ \delta(\varphi \smile \psi) = (\delta\varphi \smile \psi) + (-1)^i(\varphi \smile \delta\psi).\qedhere\]
+\end{proof}
+
+Now we prove the theorem.
+
+\begin{proof}
+    \hspace{0em}
+    \begin{enumerate}
+        \item Let $\varphi \in C^i(X;R)$ and $\psi \in C^j(X;R)$ be cocycles. Then
+              \begin{align*}
+                  \delta(\varphi \smile \psi)
+                   & = (\delta\varphi \smile \psi) + (-1)^i (\varphi \smile \delta\psi) \\
+                   & = (0 \smile \psi) + (-1)^i(\varphi \smile 0)                       \\
+                   & = 0 + 0 = 0.
+              \end{align*}
+        \item Let $\varphi \in C^i(X;R)$, $\psi \in C^j(X;R)$, $\theta \in C^{i-1}(X; R)$, and $\chi \in C^{j-1}(X;R)$ be cocycles. We aim to show that \[
+                  [(\varphi + \delta\theta) \smile (\psi + \delta\chi)] = [\varphi \smile \psi].
+              \]
+              We recall that $\delta(\varphi \smile \psi) = (\delta\varphi \smile \psi) + (-1)^i (\varphi \smile \delta\psi)$, and so we get
+              \begin{align*}
+                  \varphi \smile \delta\chi      & = (-1)^i \delta(\varphi \smile \chi), \\
+                  \delta\theta \smile \psi       & = \delta(\theta \smile \psi),         \\
+                  \delta\theta \smile \delta\chi & = \delta(\theta \smile \delta\chi).
+              \end{align*}
+              Thus \begin{align*}
+                  \left((\varphi + \delta\theta) \smile (\psi + \delta\chi)\right) - (\varphi \smile \psi)
+                  \\ = \delta\left((-1)^i(\varphi \smile \chi) + (\theta \smile \psi) + (\theta \smile \delta\chi)\right)
+              \end{align*}
+              which is a coboundary. \qedhere
+    \end{enumerate}
+\end{proof}
+
+% todo examples of cup products on surfaces
+
+\subsection{The cohomology ring}
+
+\begin{proposition}
+    Let $R$ be a commutative ring and let $X$ be a space.
+    \begin{enumerate}
+        \item The cup product is $R$-bilinear and associative.
+        \item The conglomerate $H^*(X;R) = \bigoplus_{n \in \mathbb N_0} H^n(X;R)$, with operations ${+}$ and ${\smile}$, forms a ring. The unit of the ring is $1_X$, the cohomology class in $H^0(X;R)$ is represented by the constant map $X \to R$ that sends $x \mapsto 1 \in R$ for every $x \in X$.
+    \end{enumerate}
+\end{proposition}
+
+\begin{proof}
+    \begin{enumerate}
+        \item First we prove associativity. Let $\varphi \in C^i(X; R)$, $\psi \in C^j(X; R)$, $\chi \in C^k(X; R)$, and $(\sigma: \Delta^{i + j + k} \to X) \in C_{i+j+k}(X; R)$. Then
+              \begin{align*}
+                  (\varphi \smile \psi) \smile \chi(\sigma)
+                   & = (\varphi \smile \psi)(\restr{\sigma}{[0, \ldots, i+j]}) \cdot \chi(\restr{\sigma}{[i+j, \ldots, i+j+k]})                              \\
+                   & = \varphi(\restr{\sigma}{[0, \ldots, i]}) \cdot \psi(\restr{\sigma}{[i, \ldots, i+j]}) \cdot \chi(\restr{\sigma}{[i+j, \ldots, i+j+k]}) \\
+                   & = \varphi \smile (\psi \smile \chi)(\sigma).
+              \end{align*}
+              Showing that $\varphi$ is $R$-bilinear is trivial.
+        \item We have already shown that the cup product is $R$-bilinear and associative, and we know that cohomology is an abelian group with $+$. Thus, we have left to show that $1_X$ is the multiplicative identity, but this is clear. So we are done.
+    \end{enumerate}
+\end{proof}
+
+\begin{theorem}
+    Let $f: X \to Y$ be a map of spaces. Then
+    \[ f^*: H^*(Y; R) \to H^*(X; R) \]
+    is a ring homomorphism.
+\end{theorem}
+
+\begin{proof}
+    Let $\varphi \in C^i(Y;R)$, $\psi \in C^j(X;R)$, and $(\sigma: \Delta^{i+j} \to X) \in C_{i+j}(X)$. Then
+    \begin{align*}
+        (f^*(\varphi) \smile f^*(\psi))(\sigma)
+         & = f^*(\varphi)(\restr{\sigma}{[0, \ldots, i]}) \cdot f^*(\psi)(\restr{\sigma}{[i, \ldots, i+j]})          \\
+         & = (\varphi \circ f)(\restr{\sigma}{[0, \ldots, i]}) \cdot (\psi \circ f)(\restr{\sigma}{i, \ldots, i+j]}) \\
+         & = (\varphi \smile \psi)(f \circ \sigma)                                                                   \\
+         & = f^*(\varphi \smile \psi)(\sigma).
+    \end{align*}
+    We already know $f^*$ is a homomorphism for the abelian group, so we are done.
+\end{proof}
+
+\begin{corollary}
+    Let $X$ and $Y$ be spaces such that $X \simeq Y$. Then
+    \[ H^*(X;R) \cong H^(Y;R) \]
+    are isomorphic rings.
+\end{corollary}
+
+\begin{proof}
+    As $X \simeq Y$, there is $f: X \to Y$ and $g: Y \to X$ such that $f \circ g \simeq \id_X$ and $g \circ f \simeq \id_Y$. That is, $(f \circ g)^* = f^* \circ g^* = \id$ and $(g \circ f)^* = g^* \circ f^* = \id$. Thus $f^*$ and $g^*$ are inverse ring homomorphisms of each other.
+\end{proof}
+
+\begin{theorem}[Graded commutativity]
+    Let $X$ be a space, $[\varphi] \in H^i(X;R)$, and $[\psi] \in H^j(X;R)$. Then
+    \[ [\varphi \smile \psi] = (-1)^{ij} [\psi \smile \varphi] \in H^{i+j}(X;R). \]
+\end{theorem}
+
+The proof for this can be found in Hatcher.
+
+% Examples of cohomology ring on different spaces. 
+
+\subsection{Cap products}
+
+In this subsection we define \emph{cap products}, another $R$-bilinear product:
+\[ {\frown}: H^i(X;R) \times H_j(X; R) \to H_{j - i}(X; R). \]
+As with the cup product, we define the cap product on the chain and cochain level, and then show that they induce well-defined maps on homology and cohomology.
+
+\begin{definition}[Cap product]
+    Let $\varphi \in C^i(X;R)$ be a singular cochain and $\sigma: \Delta^j \to X$ with $i \leq j$. We define
+    \[ \varphi \frown \sigma = \varphi(\restr{\sigma}{[0, \ldots, i]}) \otimes \restr{\sigma}{[i, \ldots, j]} \in R \otimes C_{j - i} = C_{j-i}(X;R). \]
+    We extend to all of $C_j(X;R)$ by linearity. When $i \geq j$, we take ${\frown}$ to be the zero map (by definition).
+\end{definition}
+
+\begin{lemma}
+    Let $X$ be a space, $R$ a commutative ring, $\varphi \in C^i(X;R)$, and $\sigma \in C_j(X;R)$. Then
+    \[ \partial(\varphi \frown \sigma) = (-1)^i(-\delta\varphi \frown \sigma + \varphi \frown \partial\sigma) \in C_{j - i - 1}(X;R). \]
+\end{lemma}
+
+\begin{proof}
+    % todo
+\end{proof}
+
+\begin{lemma}
+    The cap product induces a well-defined map
+    \begin{align*}
+        H^j(X;R) \times H_j(X;R) & \to H_{j-i}(X;R) ,               \\
+        ([\varphi], [\sigma])    & \mapsto [\varphi \frown \sigma].
+    \end{align*}
+\end{lemma}
+
+We have two key lemmas on the cap product: the identity of cohomology acts as identity on homology, and a special case wher cap product is the same as evaluation.
+
+\begin{lemma}
+    Let $X$ be a space, $R$ a commutative ring, $\sigma \in H_i(X;R)$, and $1_X \in H^0(X;R)$ be the identity in the cohomology ring. Then
+    \[ 1_X \frown \sigma = \sigma. \]
+\end{lemma}
+
+\begin{lemma}
+    Suppose that $X$ is a path connected space and $R$ is a commutative ring. Then
+    \begin{align*}
+        {\frown}: H^i(X;R) \times H_i(X;R) &\to H_0(X; R) \cong R \\
+        ([\varphi], [\sigma]) &\mapsto \langle \varphi, \sigma \rangle.
+    \end{align*}
+\end{lemma}
+
+% examples of the cap product
+
+\begin{theorem}[Cup-cap formula]
+    Let $X$ be a space, $R$ a commutative ring, $\varphi \in C^i(X;R)$, $\psi \in C^j(X;R)$, and $\sigma \in C_n(X;R)$. Then
+    \[ \varphi \frown (\psi \frown \sigma) = (\psi \smile \varphi) \frown \sigma \in C_{n-i-j}(X; R). \]
+\end{theorem}
+
+\begin{theorem}
+    Let $f: X \to Y$ be a map of spaces. Let $\varphi \in C^i(Y; \mathbb Z)$ and $\sigma \in C_n(X; \mathbb Z)$. Then
+    \[ f_*(f^*(\varphi) \frown \sigma) = \varphi \frown f_*(\sigma). \]
+\end{theorem}

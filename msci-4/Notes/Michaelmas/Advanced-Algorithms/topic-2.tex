@@ -1,0 +1,429 @@
+\section{Graph classes}
+
+\subsection{Initial theory}
+
+We build some theory around graph classes (that is, a collection of graphs that can be defined by a property all the graphs share). We first informally introduce \emph{graph operations}: a graph operation $\pi$ produces a new graph from initial one(s). We have quite simple (elementary) graph operations, such as vertex addition or deletion, and we also have more advanced operations such as graph complement.
+
+\begin{definition}[Closed]
+  A graph class $\mathcal G$ is \emph{closed under} a graph operation $\pi$ if for every $G \in \mathcal G$, the graph obtained from applying $\pi$ to $G$ also belongs to $\mathcal G$.
+\end{definition}
+
+
+To make things clear, we will formally define a (simple undirected) graph. A \emph{graph} is the 2-tuple $G = (V,E)$ where $V$ is a set of \emph{vertices} and $E \subset \{\{x,y\}: x,y \in V, x \neq y\}$ is a set of \emph{edges}. We may be lazy and denote an edge as $xy$. We will denote $\mathbb G$ as the set of all graphs up to graph isomorphisms; that is,
+\[ \mathbb G = \{(V, E)\}/{\simeq} \]
+where $V$ and $E$ are as above and $\simeq$ is the graph isomorphism equivalence relation. Notation will be abused here! For example, let $G = \{\{a,b\}, \varnothing\}$ and $H = \{\{x,y\}, \varnothing\}$. It is correct to write $G \simeq H$, or $[G] = [H]$, but you may find $G = H$ written.
+
+We are particularly vague about graph operations, but we can define some operations more formally. For example, consider the vertex deletion graph operation $\pi: \{((V,E), v): (V,E) \in \mathbb G, v \in V\} \to \mathbb G$, where
+\[
+  ((V,E), v) \mapsto \left(V \setminus \{v\}, \left\{\{u_1, u_2\} \in E: u_1 \neq v, u_2 \neq v\right\}\right).
+\]
+For this operation, we may denote $G-v = \pi(G, v)$ and
+\[G - \{v_1, \ldots, v_n\} = \pi(\ldots(\pi(G, v_1), \ldots), v_n).\]
+Also, for graphs $G$ and $H$, we denote $G + H$ as the disjoint union of graphs $G$ and $H$ (in the way you would expect) and $kG$ (for $k \in \mathbb Z_{\geq 0}$) as the disjoint union of $k$ copies of $G$.
+
+\begin{definition}[Hereditary]
+  A graph class $\mathcal G$ is said to be \emph{hereditary} if it is closed under vertex deletion.
+\end{definition}
+
+\begin{example}
+  The following are hereditary graph classes: bipartite graphs, chordal graphs, interval graphs, perfect graphs, and planar graphs.
+\end{example}
+
+\begin{example}
+  Consider the class of graphs with diameter 1. One may expect this to be the graph of complete graphs, but there are trivialities here. Consider $K_2$. If we delete either vertex, we get $K_1$, which has diameter 0, and is in fact the only non-null graph with such diameter. Thus, the class of graphs with diameter at most 1 is hereditary.
+\end{example}
+
+\begin{example}
+  Consider the class of graphs of diameter 2. This class is not hereditary, consider the path graph $P_3=(\{a,b,c\}, \{\{a,b\}, \{b,c\}\})$. Observe that $G-b$ is disconnected, thus the diameter is certainly not 2.
+\end{example}
+
+\begin{definition}[Induced subgraph]
+  A graph $H$ is an \emph{induced subgraph} of a graph $G$ if $G$ can be modified into $H$ by a sequence of vertex deletions. Furthermore, a graph is said to be \emph{$H$-free} if $H$ is not an induced subgraph of $G$. For $G = (V,E)$ and $S \subset V$, we denote $G[S]$ as the \emph{subgraph induced in $G$ by $S$}.
+\end{definition}
+
+\begin{example}
+  Consider $P_4$, on the left below. The graph in the middle is $P_4$-free, while the graph on the right is not $P_4$-free as $P_4$ can be obtained by deleting the top right vertex.
+  \[\begin{tikzcd}
+      \bullet & \bullet & \bullet & \bullet
+      \arrow[no head, from=1-4, to=1-3]
+      \arrow[no head, from=1-3, to=1-2]
+      \arrow[no head, from=1-2, to=1-1]
+    \end{tikzcd}
+    \begin{tikzcd}
+      \bullet && \bullet \\
+      \\
+      \bullet && \bullet \\
+      & \bullet
+      \arrow[no head, from=1-1, to=3-1]
+      \arrow[no head, from=3-1, to=4-2]
+      \arrow[no head, from=4-2, to=3-3]
+      \arrow[no head, from=3-3, to=1-3]
+      \arrow[no head, from=1-3, to=1-1]
+      \arrow[no head, from=1-1, to=3-3]
+      \arrow[no head, from=3-1, to=1-3]
+    \end{tikzcd}
+    \begin{tikzcd}
+      \bullet && \bullet \\
+      \\
+      \bullet && \bullet \\
+      & \bullet
+      \arrow[no head, from=1-1, to=3-1]
+      \arrow[no head, from=3-1, to=4-2]
+      \arrow[no head, from=4-2, to=3-3]
+      \arrow[no head, from=3-3, to=1-3]
+      \arrow[no head, from=1-3, to=1-1]
+      \arrow[no head, from=3-1, to=1-3]
+    \end{tikzcd}\]
+\end{example}
+
+For a graph $H$, we see that the class of $H$-free graphs is hereditary (this is immediate from the definition).
+
+\begin{definition}[$\mathcal F$-free]
+  Let $\mathcal F = \{H_i\}_{i=1}^p$ be a set of graphs. A graph $G$ is $\mathcal F$-free if $G$ is $H$-free for every $H \in \mathcal F$.
+\end{definition}
+
+\begin{example}
+  Let $\mathcal F = \{C_3, C_5, C_7, \ldots\}$, the set of odd cycles. Then any bipartite graph is $\mathcal F$-free.
+\end{example}
+
+\begin{definition}[Minimal]
+  A family of graphs $\mathcal F$ is \emph{minimal} if no graph in $\mathcal F$ is an induced subgraph of another graph in $\mathcal F$.
+\end{definition}
+
+\begin{example}
+  From a previous example, we see that $\mathcal F = \{C_3, C_5, C_7, \ldots\}$ is minimal; deleting any edge from an odd cycle leaves a path graph, which certainly cannot be another odd cycle. However, consider the set of complete graphs $\{K_i\}_{i=0}^\infty$. Applying vertex deletion to any $K_i$ results in $K_{i-1}$, and thus is not minimal.
+\end{example}
+
+\begin{theorem}
+  \label{the:obstruction-set}
+  Let $\mathcal G$ be a graph class. Then $\mathcal G$ is hereditary if and only if there is a unique minimal family of graphs $\mathcal F$ such that $\mathcal G$  consists of exactly those graphs that are $\mathcal F$-free.
+\end{theorem}
+
+\begin{proof}
+  $\implies$: first suppose that $\mathcal G$ is hereditary. Let $\mathcal F' = \mathbb G \setminus \mathcal G$. Now let $\mathcal F \subset \mathcal F'$ such that $H \in \mathcal F$ if and only if $H$ is $(\mathcal F' \setminus \{H\})$-free. This set is minimal and unique (uniqueness requires a non-trivial argument). Now let $G \in \mathcal G$ and suppose that it contains some $H \in \mathcal F \subset \mathbb G \setminus \mathcal G$ as an induced subgraph. As $\mathcal G$ is hereditary, $H \in \mathcal G$; a contradiction. So $\mathcal G \subset \{G \in \mathbb G: \text{$G$ is $\mathcal F$-free}\}$. Now let $G \not\in \mathcal G$; that is, $G \in \mathcal F'$. Then either $G \in \mathcal F$ or $G$ is contains an induced subgraph $H \in \mathcal F$. In either case, $\mathcal G$ is not $\mathcal F$-free and thus $\mathcal G = \{G \in \mathbb G: \text{$G$ is $\mathcal F$-free}\}$.
+  $\impliedby$: suppose $\mathcal F$ is as in the statement of the theorem. Let $G = (V,E) \in \mathcal G$ and $v \in V$. $G$ is $\mathcal F$-free, thus $G - v$ is also $\mathcal F$-free, and so $G - v \in \mathcal G$; hence, $\mathcal G$ is hereditary.
+\end{proof}
+
+\begin{definition}[Obstruction set]
+  The \emph{obstruction set} $\mathcal F_{\mathcal G}$ of a hereditary graph class $\mathcal G$ is that as defined in Theorem \ref{the:obstruction-set}.
+\end{definition}
+
+\begin{example}
+  Consider the class of complete bipartite graphs $\mathcal G$ (that is, every vertex in one partition is adjacent to every vertex in the other partition). $\mathcal G$ is indeed hereditary, we move to understand $\mathcal F_{\mathcal G}$. Let $G \in \mathcal G$. It is clear that $G$ is free from odd cycles, just like for the class of bipartite graphs, but this does not uniquely describe $\mathcal G$ as otherwise all bipartite graphs would be complete bipartite! We claim that $\mathcal F_{\mathcal G} = \{C_3, P_1 + P_2\}$. Indeed, let $G = (V,E)$ be a complete bipartite graph with partitions $A, B \subset V$. As $G$ is bipartite, $G$ is $C_3$-free. Now suppose that $G$ has $P_1 + P_2 = (\{x,y,z\}, \{\{x,y\}\})$ as an induced subgraph. Without loss of generality, assume $x, z \in A$. Then $y \in B$. Then there no edge $\{z,y\}$; a contradiction. Thus all graphs in $\mathcal G$ are $\mathcal F_{\mathcal G}$-free. Now suppose $G = (V,E)$ is $\{C_3, P_1 + P_2\}$-free. Then $G$ is also $\{C_3, C_5, C_7, \ldots\}$-free, so $G$ is bipartite. Now we assume that $G$ is disconnected. As $G$ is $(P_1 + P_2)$-free, each component must be a single vertex; that is, $G$ is a set of isolated vertices, which is complete bipartite. Assume $G$ is not complete bipartite for a contradiction. Now if $G$ is connected we pick $u \in A$ and $v \in B$ such that $u$ and $v$ are not adjacent. Pick $w$ as the neighbour after $u$ in a path from $u$ to $v$. As $w, v \in B$, they cannot be connected. But now observe that $u$, $v$, and $w$ induce $P_1 + P_2$; a contradiction. Thus all graphs which are $\mathcal F_{\mathcal G}$-free are in $\mathcal G$, and so $\mathcal F_{\mathcal G}$ is the obstruction set of $\mathcal G$.
+\end{example}
+
+Obstruction sets are helpful when we want to recognise whether a graph belongs to a specific hereditary graph class. Consider a graph $G = (V,E)$ and a graph class $\mathcal G$, and suppose that we want to check whether $G \in \mathcal G$. If we know the obstruction set of $G$ and it is finite, say $\mathcal F_{\mathcal G} = \{H_1, \ldots, H_r\}$, then we have the following polynomial time algorithm for checking membership.
+
+Consider each $H_i = (V_i, E_i) \in \mathcal F_{\mathcal G}$. By brute force, we check in $O\left(\binom n{\lvert V_i \rvert}\right) = O(n^{\lvert V_i \rvert})$ time whether $G$ contains $H_i$ as an induced subgraph. If so, then $G$ is not in $\mathcal G$. Otherwise, after considering all $H_i$, we conclude $G \in \mathcal G$.
+
+Of course, this is assuming $\mathcal F_{\mathcal G}$ is finite, and we have already seen a graph class for which this isn't the case (bipartite graphs). When $\mathcal F_{\mathcal G}$ is infinite, this certainly gets harder, but in some cases still possible; for example, there is a polynomial time algorithm for checking if $G$ is \emph{odd-hole-free}; that is, $\{C_5, C_7, C_9, \ldots\}$-free.
+
+\begin{definition}[Restriction]
+  For a problem $\Pi$, denote $\Pi(\mathcal G)$ as the restriction of $\Pi$ to graphs in $\mathcal G$.
+\end{definition}
+
+\begin{example}
+  Let $\Pi = \mathsc{Col}$ and $\mathcal G$ the class of planar graphs. Then $\Pi(\mathcal G)$ is the colouring problem for planar graphs.
+\end{example}
+
+A \emph{dichotomy theorem} may state the complexity for certain classes of problems, either easy ($\P$) or hard ($\NPC$). But forming a dichotomy theorem is usually too difficult, so we may strict our problems to hereditary graph classes. But, even then it may be too difficult, so we may restrict to a hereditary graph class with a finite obstruction set, and use algorithms similar to the one prosed above to make some progress. In doing so, we understand more of the complexity of our problem.
+
+\begin{theorem}
+  Let $H$ be a graph and $\mathcal G$ be the class of $H$-free graphs.
+  \begin{enumerate}
+    \item If $H$ is an induced subgraph of $P_4$ or $P_1 + P_3$, then $\mathsc{Col}(\mathcal G) \in \P$.
+    \item Otherwise, $\mathsc{Col}(\mathcal G) \in \NPC$.
+  \end{enumerate}
+\end{theorem}
+
+\subsection{More operations}
+
+Now we develop some more theory by introducing two new graph operations: \emph{edge contraction} and \emph{edge deletion}.
+
+Let $G = (V,E)$ and $e \in E$. The \emph{deletion} of the edge $e$ results in the graph $(V, E \setminus \{e\})$, which we may denote $G-e$. We may formally define this: edge deletion is a graph operation $\pi: \{((V,E), e): (V,E) \in \mathbb G, e \in E\} \to \mathbb G$ where
+\[ ((V,E), e) \mapsto (V, E \setminus \{e\}). \]
+
+\begin{example}
+  The class of bipartite graphs and the class of planar graphs are both closed under edge deletion, but not all hereditary graph classes are closed under edge deletion. The complete bipartite graphs are clearly not. We also claim that the class of $P_4$-free graphs are not closed under edge deletion. Indeed, $C_4$ is $P_4$ free, but the removal of any edge results in $P_4$; a graph that is not $P_4$-free.
+\end{example}
+
+\begin{definition}[Spanning subgraph]
+  A graph $G$ contains a graph $H$ as a \emph{spanning subgraph} if $G$ can be modified into $H$ by a sequence of edge deletions. Otherwise, $G$ is \emph{$H$-spanning-subgraph-free}.
+\end{definition}
+
+We can reformulate problems in terms of these operations; for example, consider the following reformulation of \textsc{Hamilton Path} problem.
+
+\begin{problem}[Hamilton Path]
+Instance: a graph $G = (V,E)$. \newline
+Question: does $G$ contain $P_{\lvert V \rvert}$ as a spanning subgraph?
+\end{problem}
+
+Now we move to our other operation: let $G = (V,E)$ be a graph and $e = uv \in E$. The \emph{contraction} of $e$ removes $u$ and $v$ from $G$ but adds a new vertex which is adjacent to all other neighbours of $u$ and $v$. That is, $\pi: \{((V,E), uv): (V,E) \in \mathbb G, uv \in E\} \to \mathbb G$ such that
+\begin{align*}
+  ((V,E), uv) & \mapsto ((V \setminus \{u, v\})\cup \{w\},                                                                            \\
+              & \qquad\left\{e \in E: u,v \not\in e \right\} \cup \left\{\{w,x\}: \{u,x\} \in E \;\text{or}\; \{v,x\} \in E\right\}).
+\end{align*}
+We denote this operation by $G/e = \pi(G, e)$ (as opposed to edge deletion, which was $G\setminus e$).
+
+We do note that we are considering simple graphs here, so if you contract an edge whose endpoints share edges with the same vertices then we remove multiple edges such that the graph is simple, as the formalisation above establishes (that is, we are using sets and not multisets).
+
+\begin{definition}[Contraction]
+  A graph $G$ contains a graph $H$ as a \emph{contraction} if $G$ can be modified into $H$ by a sequence of edge contractions. Otherwise $G$ is \emph{$H$-contraction-free}.
+\end{definition}
+
+\begin{example}
+  Consider the class of claw-free graphs (the claw graph is the graph $K_{1,3}$). This class is not closed under edge contraction. This can be shown by looking at the bull graph.
+  \[\begin{tikzcd}
+      \bullet &&&& \bullet \\
+      & \bullet && \bullet \\
+      && \bullet
+      \arrow[no head, from=3-3, to=2-2]
+      \arrow[no head, from=2-2, to=1-1]
+      \arrow[no head, from=3-3, to=2-4]
+      \arrow[no head, from=2-4, to=1-5]
+      \arrow[no head, from=2-2, to=2-4]
+    \end{tikzcd}\]
+  The bull graph can be transformed into the claw graph through edge contraction, but not by vertex deletion.
+\end{example}
+
+\begin{theorem}
+  A graph $G = (V,E)$ contains a graph $H = (V', E')$ as a contraction if and only if for every $x \in V$ there exists a non-empty subset $W_x \subset V$ such that
+  \begin{enumerate}
+    \item $W_x$ is connected;
+    \item $\mathcal W = \{W_x\}_{x \in V}$ is a partition of $V$; and
+    \item for all $x, y \in V'$, there is $x' \in W_x$ and $y' \in W_y$ with $\{x', y'\} \in E$ if and only if $\{x,y\} \in E$. % check this, change of math choice has made this notmake sense!!
+  \end{enumerate}
+\end{theorem}
+
+By contracting each $W_x$ to a single vertex, we obtain $H$. The set $\mathcal W$ is called an \emph{$H$-witness structure} of $G$, and $W_x \in \mathcal W$ is called an \emph{$H$-witness bag} of $G$ for $x \in V$.
+
+\begin{example}
+  Consider the following graph.
+  \[\begin{tikzcd}
+      \textcolor{rgb,255:red,214;green,92;blue,92}{\bullet} & \textcolor{rgb,255:red,214;green,214;blue,92}{\bullet} &&&&& \textcolor{rgb,255:red,153;green,92;blue,214}{\bullet} && \textcolor{rgb,255:red,153;green,92;blue,214}{\bullet} \\
+      && \textcolor{rgb,255:red,214;green,214;blue,92}{\bullet} &&&&& \textcolor{rgb,255:red,153;green,92;blue,214}{\bullet} \\
+      \textcolor{rgb,255:red,214;green,92;blue,92}{\bullet} & \textcolor{rgb,255:red,214;green,214;blue,92}{\bullet} && \textcolor{rgb,255:red,214;green,214;blue,92}{\bullet} & \textcolor{rgb,255:red,92;green,214;blue,214}{\bullet} & \textcolor{rgb,255:red,92;green,214;blue,214}{\bullet} & \textcolor{rgb,255:red,153;green,92;blue,214}{\bullet} && \textcolor{rgb,255:red,153;green,92;blue,214}{\bullet} \\
+      \textcolor{rgb,255:red,214;green,92;blue,92}{\bullet} &&&& \textcolor{rgb,255:red,92;green,214;blue,214}{\bullet}
+      \arrow[no head, from=1-1, to=3-1]
+      \arrow[no head, from=3-1, to=4-1]
+      \arrow[no head, from=1-2, to=3-2]
+      \arrow[no head, from=3-2, to=2-3]
+      \arrow[no head, from=2-3, to=3-4]
+      \arrow[no head, from=3-4, to=3-2]
+      \arrow[no head, from=3-2, to=3-1]
+      \arrow[no head, from=3-1, to=1-2]
+      \arrow[no head, from=3-4, to=3-5]
+      \arrow[no head, from=3-5, to=4-5]
+      \arrow[no head, from=4-5, to=3-6]
+      \arrow[no head, from=3-6, to=1-7]
+      \arrow[no head, from=1-7, to=1-9]
+      \arrow[no head, from=1-9, to=2-8]
+      \arrow[no head, from=2-8, to=3-9]
+      \arrow[no head, from=3-9, to=1-9]
+      \arrow[no head, from=2-8, to=1-7]
+      \arrow[no head, from=3-7, to=1-7]
+      \arrow[no head, from=3-5, to=3-6]
+      \arrow[no head, from=3-6, to=2-3]
+      \arrow[no head, from=2-3, to=1-2]
+      \arrow[no head, from=3-6, to=3-7]
+    \end{tikzcd}\]
+  Here the colours of the vertices define the partition $\mathcal W$, and it is clear to see that this is a $P_4$-witness structure. In fact, this graph has two different possible partitions. See below another $P_4$-witness structure.
+  \[\begin{tikzcd}
+      && \textcolor{rgb,255:red,214;green,214;blue,92}{\bullet} &&& \textcolor{rgb,255:red,92;green,214;blue,214}{\bullet} & \textcolor{rgb,255:red,92;green,214;blue,214}{\bullet} \\
+      &&& \textcolor{rgb,255:red,214;green,214;blue,92}{\bullet} && \textcolor{rgb,255:red,92;green,214;blue,214}{\bullet} & \textcolor{rgb,255:red,92;green,214;blue,214}{\bullet} \\
+      \textcolor{rgb,255:red,214;green,92;blue,92}{\bullet} & \textcolor{rgb,255:red,214;green,214;blue,92}{\bullet} & \textcolor{rgb,255:red,214;green,214;blue,92}{\bullet} && \textcolor{rgb,255:red,214;green,214;blue,92}{\bullet} & \textcolor{rgb,255:red,92;green,214;blue,214}{\bullet} & \textcolor{rgb,255:red,92;green,214;blue,214}{\bullet} & \textcolor{rgb,255:red,153;green,92;blue,214}{\bullet} \\
+      & \textcolor{rgb,255:red,214;green,214;blue,92}{\bullet} &&&& \textcolor{rgb,255:red,92;green,214;blue,214}{\bullet}
+      \arrow[no head, from=3-1, to=3-2]
+      \arrow[no head, from=3-2, to=4-2]
+      \arrow[no head, from=1-3, to=3-3]
+      \arrow[no head, from=3-3, to=2-4]
+      \arrow[no head, from=2-4, to=3-5]
+      \arrow[no head, from=3-5, to=3-3]
+      \arrow[no head, from=3-3, to=3-2]
+      \arrow[no head, from=3-2, to=1-3]
+      \arrow[no head, from=3-5, to=3-6]
+      \arrow[no head, from=3-6, to=4-6]
+      \arrow[no head, from=4-6, to=3-7]
+      \arrow[no head, from=2-7, to=1-6]
+      \arrow[no head, from=1-6, to=2-6]
+      \arrow[no head, from=2-6, to=1-7]
+      \arrow[no head, from=1-7, to=1-6]
+      \arrow[no head, from=2-6, to=2-7]
+      \arrow[no head, from=3-8, to=2-7]
+      \arrow[no head, from=3-6, to=3-7]
+      \arrow[no head, from=3-7, to=2-4]
+      \arrow[no head, from=2-4, to=1-3]
+      \arrow[no head, from=3-7, to=3-8]
+      \arrow[no head, from=3-7, to=2-7]
+    \end{tikzcd}\]
+  So $\mathcal W$ may not be unique.
+\end{example}
+
+We may use combinations of vertex deletions, edge deletions, and edge deletions to obtain smaller graphs, and we have terminology to describe such.
+
+\begin{definition}
+  \begin{enumerate}
+    \item A graph $G$ contains a graph $H$ as a \emph{subgraph} if $G$ can be modified into $H$ by a sequence of vertex deletions and edge deletions. Otherwise, $G$ is \emph{$H$-subgraph-free}.
+    \item A graph $G$ contains a graph $H$ as a \emph{minor} if $G$ can be modified into $H$ by a sequence of vertex deletions, edge deletions, and edge contractions. Otherwise, $G$ is \emph{$H$-minor-free}.
+    \item A graph $G$ contains a graph $H$ as an \emph{induced minor} if $G$ can be modified into $H$ by a sequence of vertex deletions and edge contractions. Otherwise, $G$ is \emph{$H$-induced-minor-free}.
+  \end{enumerate}
+\end{definition}
+
+Let us consider some general containment problems.
+
+\begin{example}
+  Consider the problem of deciding whether a graph $H$ is a spanning subgraph of another $G = (V,E)$. This is $\NP$-complete as for $H = P_{\lvert V \rvert}$, this problem specialises to $\mathsc{Hamilton Path}$.
+\end{example}
+
+\begin{example}
+  Now we consider the problem of deciding whether a graph $G = (V,E)$ contains a fixed graph $H = (V', E')$ as a spanning subgraph. This now becomes polynomial time, as $\lvert V' \rvert = \lvert V \rvert$, so $G$ has constant size too. Thus we check all options by brute force in $O\left(n^{\lvert V \rvert}\right)$ time. Similarly, if we can check in the same time whether $H$ is an induced subgraph.
+\end{example}
+
+\begin{theorem}
+  Deciding whether a graph $G$ contains a fixed graph $H$ as a \emph{minor} is solvable in $O(n^3)$ time.
+\end{theorem}
+
+As we may define a hereditary graph class with an obstruction set, we can do the same for closure under taking minors.
+
+\begin{theorem}
+  Every class of graphs closed under taking minors can be defined by a \emph{finite} set of forbidden minors.
+\end{theorem}
+
+By forbidden minors, we mean that every graph on the graph class does not contain any of the forbidden minors as minors.
+
+\begin{theorem}[Wagner's]
+  A graph is planar if and only if it is $(K_5, K_{3,3})$-minor-free.
+\end{theorem}
+
+We have established that for a fixed graph $H$, deciding whether a graph $G$ contains $H$ as a spanning subgraph, subgraph, induced subgraph, or minor are all in $\P$, but what about for contractions only and for induced minors?
+
+\begin{theorem}
+  Deciding if a graph $G$ contains $P_4$ as a contraction is $\NP$-complete.
+\end{theorem}
+
+\begin{theorem}
+  Deciding if $G$ contains the $H^*$ as an induced minor is $\NP$-complete.
+\end{theorem}
+
+In the above theorem, $H^*$ is the following graph.
+
+\adjustbox{scale=0.4,center}{\begin{tikzcd}
+    &&&&&& \bullet && \bullet && \bullet \\
+    \\
+    &&&&& \bullet && \bullet && \bullet && \bullet &&&&& {} \\
+    &&&&&&& \bullet && \bullet \\
+    &&&& \bullet &&&& \bullet &&&& \bullet \\
+    &&& {} &&& \bullet &&&& \bullet \\
+    && \bullet &&&&&& \bullet &&&&&& \bullet \\
+    & {} &&& \bullet &&&& \bullet &&&& \bullet \\
+    & \bullet &&&&& \bullet & \bullet & \bullet & \bullet & \bullet &&&&& \bullet \\
+    &&& \bullet & \bullet &&&&&&&& \bullet & \bullet \\
+    \bullet && \bullet &&&& \bullet &&&& \bullet &&&& \bullet && \bullet \\
+    &&& \bullet & \bullet &&&&&&&& \bullet & \bullet \\
+    & \bullet &&&&& \bullet & \bullet & \bullet & \bullet & \bullet &&&&& \bullet \\
+    && {} && \bullet &&&& \bullet &&&& \bullet \\
+    && \bullet &&&&&& \bullet &&&&&& \bullet \\
+    &&&&&& \bullet &&&& \bullet \\
+    &&&& \bullet &&&& \bullet &&&& \bullet \\
+    &&&&&&& \bullet && \bullet \\
+    &&&&& \bullet && \bullet && \bullet & {} & \bullet \\
+    \\
+    &&&&&& \bullet && \bullet && \bullet
+    \arrow[no head, from=9-9, to=9-8]
+    \arrow[no head, from=9-9, to=9-10]
+    \arrow[no head, from=9-9, to=13-9]
+    \arrow[no head, from=13-9, to=13-8]
+    \arrow[no head, from=13-8, to=13-7]
+    \arrow[no head, from=11-11, to=13-11]
+    \arrow[no head, from=11-7, to=9-7]
+    \arrow[no head, from=9-7, to=9-8]
+    \arrow[no head, from=13-7, to=11-7]
+    \arrow[no head, from=15-3, to=11-3]
+    \arrow[no head, from=11-3, to=7-3]
+    \arrow[no head, from=11-1, to=10-4]
+    \arrow[no head, from=10-4, to=9-7]
+    \arrow[no head, from=11-1, to=12-4]
+    \arrow[no head, from=12-4, to=13-7]
+    \arrow[no head, from=15-3, to=12-5]
+    \arrow[no head, from=12-5, to=9-7]
+    \arrow[no head, from=7-3, to=10-5]
+    \arrow[no head, from=10-5, to=13-7]
+    \arrow[no head, from=9-10, to=9-11]
+    \arrow[no head, from=9-11, to=11-11]
+    \arrow[no head, from=13-11, to=10-13]
+    \arrow[no head, from=10-13, to=7-15]
+    \arrow[no head, from=9-11, to=12-13]
+    \arrow[no head, from=12-13, to=15-15]
+    \arrow[no head, from=9-7, to=8-5]
+    \arrow[no head, from=8-5, to=7-3]
+    \arrow[no head, from=7-3, to=9-2]
+    \arrow[no head, from=9-2, to=11-1]
+    \arrow[no head, from=11-1, to=13-2]
+    \arrow[no head, from=13-2, to=15-3]
+    \arrow[no head, from=15-3, to=14-5]
+    \arrow[no head, from=14-5, to=13-7]
+    \arrow[no head, from=9-11, to=8-13]
+    \arrow[no head, from=8-13, to=7-15]
+    \arrow[no head, from=7-15, to=9-16]
+    \arrow[no head, from=9-16, to=11-17]
+    \arrow[no head, from=11-17, to=13-16]
+    \arrow[no head, from=13-16, to=15-15]
+    \arrow[no head, from=15-15, to=14-13]
+    \arrow[no head, from=14-13, to=13-11]
+    \arrow[no head, from=11-17, to=10-14]
+    \arrow[no head, from=10-14, to=9-11]
+    \arrow[no head, from=13-11, to=12-14]
+    \arrow[no head, from=12-14, to=11-17]
+    \arrow[no head, from=7-15, to=11-15]
+    \arrow[no head, from=11-15, to=15-15]
+    \arrow[no head, from=9-9, to=8-9]
+    \arrow[no head, from=8-9, to=7-9]
+    \arrow[no head, from=13-9, to=14-9]
+    \arrow[no head, from=14-9, to=15-9]
+    \arrow[no head, from=7-9, to=6-11]
+    \arrow[no head, from=6-11, to=5-13]
+    \arrow[no head, from=5-13, to=3-12]
+    \arrow[no head, from=3-12, to=1-11]
+    \arrow[no head, from=1-11, to=1-9]
+    \arrow[no head, from=1-9, to=1-7]
+    \arrow[no head, from=1-7, to=3-6]
+    \arrow[no head, from=3-6, to=5-5]
+    \arrow[no head, from=5-5, to=6-7]
+    \arrow[no head, from=6-7, to=7-9]
+    \arrow[no head, from=7-9, to=4-8]
+    \arrow[no head, from=4-8, to=1-7]
+    \arrow[no head, from=7-9, to=4-10]
+    \arrow[no head, from=4-10, to=1-11]
+    \arrow[no head, from=5-5, to=3-8]
+    \arrow[no head, from=3-8, to=1-11]
+    \arrow[no head, from=1-7, to=3-10]
+    \arrow[no head, from=3-10, to=5-13]
+    \arrow[no head, from=5-5, to=5-9]
+    \arrow[no head, from=5-9, to=5-13]
+    \arrow[no head, from=15-9, to=16-7]
+    \arrow[no head, from=16-7, to=17-5]
+    \arrow[no head, from=17-5, to=19-6]
+    \arrow[no head, from=19-6, to=21-7]
+    \arrow[no head, from=21-7, to=21-9]
+    \arrow[no head, from=21-9, to=21-11]
+    \arrow[no head, from=21-11, to=19-12]
+    \arrow[no head, from=19-12, to=17-13]
+    \arrow[no head, from=17-13, to=16-11]
+    \arrow[no head, from=16-11, to=15-9]
+    \arrow[no head, from=17-5, to=17-9]
+    \arrow[no head, from=21-11, to=18-10]
+    \arrow[no head, from=18-10, to=15-9]
+    \arrow[no head, from=15-9, to=18-8]
+    \arrow[no head, from=18-8, to=21-7]
+    \arrow[no head, from=17-5, to=19-8]
+    \arrow[no head, from=19-8, to=21-11]
+    \arrow[no head, from=17-9, to=17-13]
+    \arrow[no head, from=17-13, to=19-10]
+    \arrow[no head, from=19-10, to=21-7]
+    \arrow[no head, from=13-9, to=13-10]
+    \arrow[no head, from=13-10, to=13-11]
+  \end{tikzcd}}
+
+\begin{theorem}
+  There exists graph problems that are $\PSPACE$-complete for $\mathbb G$, but for all proper hereditary subsets $\mathcal G \subset \mathbb G$ can be solved in $O(1)$ time.
+\end{theorem}

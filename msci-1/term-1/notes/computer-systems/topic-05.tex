@@ -1,0 +1,205 @@
+\chapter{Sequential logic design}
+
+\section{Circuits}
+
+The circuits we have looked at up until now have all been combinational logic, that is, the output only depends on the current input values. Here we will look at sequential logic (defined below) and how we analyse it.
+
+\begin{definition}
+    \textbf{Sequential logic} is a type of logic circuit whose output depends on the input signals as well as the sequence of past inputs. Sequential logic remembers the previous inputs and stores it in the \textbf{state} (memory) of the system, this is a set of bits called \textbf{state variables} that contain all the information about the past necessary to explain the future behaviour of the circuit.
+\end{definition}
+
+\begin{remark}
+    Sequential logic can be modelled using finite state machines.
+\end{remark}
+
+\begin{definition}
+    A \textbf{flip-flop} is a circuit that has two stable states and can be used to store state information. It is a basic element in sequential logic. Flip-flops can be divided into common types:
+    pee
+    \begin{enumerate}
+        \item \textbf{SR}, set reset;
+        \item \textbf{D}, data or delay; and 
+        \item \textbf{T}, toggle.
+    \end{enumerate}
+    We will only look at the first two types here.
+\end{definition}
+
+\begin{figure}
+    \centering
+    \begin{circuitikz}
+		\draw
+			(1,2) node[nor port] (nor1) {}
+	        (1,0) node[nor port] (nor2) {}
+	        (nor1.in 1) node[left] {$S$}
+	        (nor2.in 2) node[left] {$R$}
+	        (nor1.out) -- (2,2) node[right] {$Q$}
+	        (nor2.out) -- (2,0) node[right] {$\tilde Q$}
+	        (1.25,2) -- (1.25,1.25) -- ([yshift=13]nor2.in 1) -- (nor2.in 1)
+	        (1.25,0) -- (1.25,0.75) -- ([yshift=-13]nor1.in 2) -- (nor1.in 2)
+	    ;
+	\end{circuitikz}
+    \caption{A SR NOR latch.}
+    \label{fig:sr_nor_latch}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \begin{circuitikz}
+		\draw
+			(1,2) node[nand port] (nand1) {}
+	        (1,0) node[nand port] (nand2) {}
+	        (nand1.in 1) node[left] {$S$}
+	        (nand2.in 2) node[left] {$R$}
+	        (nand1.out) -- (2,2) node[right] {$Q$}
+	        (nand2.out) -- (2,0) node[right] {$\tilde Q$}
+	        (1.25,2) -- (1.25,1.25) -- ([yshift=13]nand2.in 1) -- (nand2.in 1)
+	        (1.25,0) -- (1.25,0.75) -- ([yshift=-13]nand1.in 2) -- (nand1.in 2)
+	    ;
+	\end{circuitikz}
+    \caption{A SR NAND latch.}
+    \label{fig:sr_nand_latch}
+\end{figure}
+
+\begin{table}
+    \centering
+    \begin{tabular}{ccc}
+        \toprule
+        $S$ & $R$ & $Q'$ \\
+        \midrule
+        0 & 0 & $Q$ \\
+        0 & 1 & $0$ \\
+        1 & 0 & $1$ \\
+        1 & 1 & $X$ \\
+        \bottomrule
+    \end{tabular}
+    \caption{The SR latch characteristic table.}
+    \label{tab:sr_latch}
+\end{table}
+
+\begin{definition}
+    The $SR$ latch is the most basic and fundamental building block where $S$ and $R$ stand for set and reset. A circuit diagram constructed using only NOR-gates for a $SR$ latch can be found in Figure \ref{fig:sr_nor_latch}. A similar construction using only NAND-gates can be found in Figure \ref{fig:sr_nand_latch}.
+    
+    We can describe the behaviour of this sequential circuit using a one dimensional state table, also known as a characteristic table. The state table for a SR latch can be found in Table \ref{tab:sr_latch}. Note that $Q'$ refers to the next state of $Q$ and $X$ means `don't care', that is, this value is not allowed.
+\end{definition}
+
+\begin{definition}
+    We call a latch \textbf{transparent} if an input signal causes immediate change in the output, however, additional logic can be added to a transparent circuit to make it \textbf{opaque} such that the state of the circuit cannot be changed unless an enabled signal $E$ is asserted. We call such a circuit \textbf{gated}.
+\end{definition}
+
+\begin{figure}
+    \centering
+    \begin{circuitikz}
+		\draw
+			(4,2) node[nor port] (nor1) {}
+	        (4,0) node[nor port] (nor2) {}
+	        (2,2.28) node [and port] (and1) {}
+	        (2,-0.28) node [and port] (and2) {}
+	        (0,2.56) node [not port] (not) {}
+	        (nor1.out) -- (5,2) node[right] {$Q$}
+	        (nor2.out) -- (5,0) node[right] {$\tilde Q$}
+	        (-1,2.56) -- node[left,xshift=-3] {$D$} (not.in)
+	        (0,1) node[left] {$E$} -| (and2.in 1)
+	        (0,1) -| (and1.in 2)
+	        (-0.75,2.56) |- (and2.in 2)
+	        (and1.out) -- (nor1.in 1)
+	        (and2.out) -- (nor2.in 2)
+	        (4.25,2) -- (4.25,1.25) -- ([yshift=13]nor2.in 1) -- (nor2.in 1)
+	        (4.25,0) -- (4.25,0.75) -- ([yshift=-13]nor1.in 2) -- (nor1.in 2)
+	    ;
+    \end{circuitikz}
+    \caption{A gated D latch based on a SR NOR latch.}
+    \label{fig:gated_d_latch}
+\end{figure}
+
+\begin{definition}
+    A synchronous sequential circuit consists of interconnected elements such that
+    \begin{enumerate}
+        \item every circuit element is either a register or a combinational circuit;
+        \item at least one circuit element is a register;
+        \item all registers receive the same clock signal; and
+        \item every cyclic path contains at least one register.
+    \end{enumerate}
+    
+    A synchronous sequential circuit has
+    \begin{enumerate}
+        \item a discrete set of states $\{S_0,\ldots,S_{l-1}\}$;
+        \item a clock input, whose rising edge indicates when a state change occurs;
+        \item a functional specification which details the next state and all outputs for each possible current state and set of inputs.
+    \end{enumerate}
+\end{definition}
+
+\begin{enumerate}
+    \item $t_{\text{setup}}$, time before rising edge during which inputs must be stable;
+    \item $t_{\text{hold}}$, time after rising edge during which inputs must be stable;
+    \item $t_{\text{ccq}}$, time until output starts to change; and
+    \item $t_{\text{pcq}}$, time by which output has stabilised.
+\end{enumerate}
+
+\begin{definition}
+    The clock frequency determines how fast the computer operates. Overclocking is setting the clock cycle faster than manufacturers recommend.
+\end{definition}
+
+\begin{remark}
+    The time between tick ($T_c$) must be at least $t_{\text{pcq}}+t_{\text{pd}}+t_{\text{setup}}$. Rearranging we see that \[t_{\text{pd}}<T_c-(t_{\text{pcq}}+t_{\text{setup}}).\] Here $(t_{\text{pcq}}+t_{\text{setup}})$ is called the sequencing overhead.
+\end{remark}
+
+There is also a minimum delay requirement. Designers have a min-delay constraint: \[t_{\text{cd}>t_{\text{hold}}-t_{\text{ccq}}}.\] Often, in order to allow direct connection of flip-flops \[t_{\text{hold}}<t_{\text{ccq}}.\]
+
+Buffers can be added to circuitry to fix hold time violations.
+
+\begin{figure}
+    \centering
+    \begin{circuitikz}
+    
+    \end{circuitikz}
+    \caption{Caption}
+    \label{fig:my_label}
+\end{figure}
+
+Suppose the input $D$ to a flip-flop is connected to a button. If $D$ is unpressed or pressed when the clock rises, $Q$ will be set to a stable state. If $D$ is in the process of being pressed just when the clock rises, $Q$ may be set to a \textbf{metastable} state. The state will be drived to a 1 or 0 eventually, but it make take a long time.
+
+A pair of flip-flops can be used to synchronise the input with the clock. % todo define synchronisers
+
+
+% look at pipelining, tpcq=0.3 and tsetup=0.2
+% pipelining lets you add more registers and increase the clock speed
+
+\section{Memory}
+
+\begin{definition}
+    There are three common types of memory:
+    \begin{enumerate}
+        \item dynamic random access memory (DRAM);
+        \item static random access memory (SRAM); and
+        \item read only memory (ROM).
+    \end{enumerate}
+\end{definition}
+
+2 dimensional array of bit cells: each cell stores one bit
+N address bits and $M$ data bits
+\begin{enumerate}
+    \item $2^N$ rows and $M$ columns
+    \item depth: number of rows (number of words)
+    \item width, number of columns (size of word);
+    \item array size: $\text{depth}\times\text{width}=2^N\times M$
+\end{enumerate}
+
+\begin{definition}
+    Memory consists of latches, each holding a single bit value at an address.
+\end{definition}
+
+The interface between the CPU and memory is the
+\begin{enumerate}
+    \item memory address register (MAR);
+    \item memory data register (MDR).
+\end{enumerate}
+
+\begin{definition}
+    For each bit, DRAM has one transistor and one capacitor.
+\end{definition}
+
+\begin{definition}
+    Multiported memory, memory that can access more than oen adress lien atonce. Here the memory has inputs for 3 
+    \begin{enumerate}
+        \item 
+    \end{enumerate}
+\end{definition}

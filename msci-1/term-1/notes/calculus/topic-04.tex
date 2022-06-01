@@ -1,0 +1,163 @@
+\chapter{Integration}
+
+This chapter is lacking many topics, due to the assumed knowledge from previous studies, namely:
+\begin{enumerate}
+    \item standard integrals;
+    \item integration by parts;
+    \item integration by substitution; and
+    \item integration by rational functions using partial fractions.
+\end{enumerate}
+
+\section{Indefinite integrals}
+
+\begin{definition}
+    A function $f(x)$ has an indefinite integral (anti-derivative) \[F(x)=\int{f(x)\,dx}\] in $(a,b)$ if \[F'(x)=f(x)\;\forall\;x\in(a,b).\]
+\end{definition}
+
+\begin{remark}
+    $F(x)$ is unique up to the addition of a constant.
+\end{remark}
+
+\begin{definition}
+    $f(x)$ is integrable in $(a,b)$ if the indefinite integral $F(x)$ is continuous in $[a,b]$.
+\end{definition}
+
+\begin{example}
+    $f(x)=\frac1{x^2}$ is not integrable in $(0,1)$ because \[F(x)=\int\dfrac1{x^2}\,dx=\dfrac{-1}{x^2}+c\] is not continuous on $[0,1]$ (as it is not continuous at $x=0$).
+\end{example}
+
+\section{Definite integral}
+
+Following are some (fairly obvious) properties for definite integrals. Let $f(x)$ and $g(x)$ both be functions that are integrable on $(a,b)$.
+
+\begin{enumerate}
+    \item $\int_a^b{\lambda f(x)+\mu g(x)\,dx}=\lambda\int^b_af(x)\,dx+\mu\int^b_ag(x)\,dx$;
+    \item if $c\in(a,b)$ then $\int^b_a{f(x)\,dx}=\int^c_a{f(x)\,dx}+\int^b_c{f(x)\,dx}$;
+    \item if $f(x)\geq g(x)\;\forall\;x\in[a,b]$ then $\int^b_a{f(x)\,dx}\geq\int^b_a{g(x)\,dx}$; and
+    \item if $m\in f(x)\leq M\;\forall\; x\in[a,b]$ then $m(b-a)\in\int^b_a{f(x)\,dx}\leq M(b-a)$.
+\end{enumerate}
+
+\section{The fundamental theorem of calculus}
+
+\begin{theorem}[Fundamental theorem of calculus]
+    If $f(x)$ is continuous on $[a,b]$ then $F(x)=\int^x_0{f(t)\,dt}$ is differentiable on $(a,b)$ with $F'(x)=f(x)$, that is, \[F'(x)=\dfrac{d}{dx}\left(\int^x_0f(t)\,dt\right)=f(x).\] Furthermore, if $\tilde F(x)$ is any indefinite integral of $f(x)$ then \[\int^b_a{f(x)\,dx}=\tilde F(b)-\tilde F(a).\]
+\end{theorem}
+
+\begin{example}
+    Following are examples using the above theorem.
+    \begin{enumerate}
+        \item \[\dfrac d{dx}\int^x_0{e^t\sin{t}\,dt=e^x\sin{x}};\]
+        \item \[\dfrac d{dx}\int^{x^2}_3{e^t\sin{t}}=(e^{x^2}\sin{x^2})(2x);\text{ and}\]
+        \item \[\dfrac d{dx}\int^x_\pi t\sin{t}\,dt=t\sin{t}.\]
+    \end{enumerate}
+\end{example}
+
+\section{Logs and exponentials revisited}
+
+Following are important results that can be used regarding limits:
+
+\begin{enumerate}
+    \item powers beat logs, \[\lim_{x\to\infty}\left(\dfrac{\log{x}}{x^n}\right);\]
+    \item exponentials beat powers, \[\lim_{x\to\infty}\left(\dfrac{x^n}{e^x}\right);\text{ and}\]
+    \item \[\lim_{x\to\infty}\left(1+\dfrac ax\right)^x=e^a.\]
+\end{enumerate}
+
+\begin{lemma}
+    For $x\neq 0$, \[e^x\geq 1+x.\]
+\end{lemma}
+
+\begin{proof}
+    Let $f(x)=e^x-(1+x)$ where $f(0)=0$. As $f'(x)=e^x-1\geq0$, $f(x)$ is increasing in $[0,\infty)$. That is $f(x)\geq0\;\forall\;x\geq0$ and thus the lemma holds.
+\end{proof}
+
+\begin{lemma}
+    For $x\geq0$ and $n\in\mathbb N$ \[e^x\geq\sum_{j=0}^n{\dfrac{x^j}{j}}.\]
+\end{lemma}
+
+% not proved but can be done with induction with reasoning similar to that of the lemma above.
+
+% Here we will prove the important results stated earlier.
+
+% \begin{enumerate}
+%     \item Here we can use a substitution of $x=e^y$ to get
+%     \[\lim_{x\to\infty}{\left(\dfrac{\log{x}}{x^n}\right)}=\lim_{y\to\infty}{\left(\dfrac y{e^{ny}}\right)}\]
+%     and using the above lemmas \[0\leq\dfrac y{e^{ny}}\leq\dfrac y{1+ny+\frac12(ny)^2}\leq\dfrac y{\frac12(ny)^2}\]
+% \end{enumerate}
+
+\section{Integration using a recurrence relation}
+
+\begin{example}
+    Calculate \[\int_0^1x^2e^x\,dx.\]
+    
+    Let \[I_n=\int_0^1x^ne^x\,dx\] for integer $n\geq0$ and then
+    \begin{align*}
+        I_{n+1}&=\int_0^1x^{n+1}e^x\,dx\\
+        &=(x^{n+1}e^x)\Big|^1_0-\int_0^1(n+1)x^{n}e^x\,dx\\
+        &=e-(n+1)I_n.
+    \end{align*}
+    Therefore,
+    \begin{align*}
+        I_0&=\int_0^1e^x\,dx=e-1\\
+        I_1&=e-I_0=1\\
+        I_2&=e-2I_1=e-2,
+    \end{align*}
+    and \[\int_0^1x^2e^x\,dx=e-2.\]
+\end{example}
+
+\begin{example}
+    Calculate \[\int\tan^4{(x)}\,dx.\]
+    
+    Let \[F_n(x)=\int\tan^n{x}\] and note that
+    \begin{align*}
+        \int\tan^n{x}\sec^2{x}\,dx&=\frac1{n+1}\tan^{n+1}\\
+        &=\int\tan^n{x}(1+\tan^2{x})\,dx\\
+        &=F_n(x)+F_{n+2}(x),
+    \end{align*}
+    and so \[F_{n+2}(x)=\frac1{n+1}\tan^{n+1}(x)-F_n(x).\] Therefore,
+    \begin{align*}
+        F_0(x)&=\int\,dx=x\\
+        F_2(x)&=\tan{x} - x\\
+        F_4(x)&=\frac13\tan^3{x}-\tan{x}+x+c.
+    \end{align*}
+\end{example}
+
+\section{Definite integrals using odd and even functions}
+
+The \textbf{oddness} or \textbf{eveness} of a function $f(x)$ can be useful for integrals of the form \[\int^a_{-a}f(x)\,dx.\]
+
+\begin{theorem}
+    For any odd function $f_{\text{odd}}(x)$ \[ \int^{a}_{-a} f_{\text{odd}}(x) \, dx = 0. \]
+\end{theorem}
+
+\begin{proof}
+    \begin{align*}
+        \int^{a}_{-a} f_{\text{odd}}(x) \, dx &= \int^{a}_{0} f_{\text{odd}}(x) \, dx + \int^{0}_{-a} f_{\text{odd}}(x) \, dx \\
+        &=\int^{a}_{0}f_{\text{odd}}(x)\,dx-\int^{0}_{a}f_{\text{odd}}(-x)\,dx\\
+        &=\int^{a}_{0}f_{\text{odd}}(x)\,dx+\int^{0}_{a}f_{\text{odd}}(x)\,dx\\
+        &=\int^{a}_{0}f_{\text{odd}}(x)\,dx-\int^{a}_{0}f_{\text{odd}}(x)\,dx\\
+        &=0
+    \end{align*}
+\end{proof}
+
+\begin{theorem}
+    For an even function $f_{\text{even}}(x)$ \[\int^a_{-a}f_{\text{even}}(x)\,dx=2\int^a_0f_{\text{even}}(x)\,dx\]
+\end{theorem}
+
+\begin{proof}
+    \begin{align*}
+        \int^a_{-a}f_{\text{even}}(x)\,dx&=\int^a_0f_{\text{even}}(x)\,dx+\int^0_{-a}f_{\text{even}}(x)\,dx\\
+        &=\int^a_0f_{\text{even}}(x)\,dx-\int^0_{a}f_{\text{even}}(-x)\,dx\\
+        &=\int^a_0f_{\text{even}}(x)\,dx+\int^a_0f_{\text{even}}(-x)\,dx\\
+        &=2\int^a_0f_{\text{even}}(x)\,dx
+    \end{align*}
+\end{proof}
+
+\begin{theorem}
+    For any function $f(x)=f_{\text{even}}(x)+f_{\text{odd}}(x)$ \[\int^a_{-a}f(x)\,dx=2\int^a_0f_{\text{even}}(x)\,dx.\]
+\end{theorem}
+
+\begin{example}
+    Calculate \[\int_{-1}^1\left(\dfrac{e^xx^4}{\cosh{x}}\right)\,dx.\]
+    
+    Let \[f(x)=\dfrac{e^xx^4}{\cosh{x}}\] and as $f_1(x)=\cosh{x}$ and $f_2(x)=x^4$ are both even functions then \[f_{\text{even}}(x)=\dfrac{x^4}{\cosh{x}}\left(\frac12(e^x+e^{-x})\right)=x^4,\] therefore, \[\int^1_{-1}f(x)\,dx=2\int^1_0x^4\,dx=\frac25x^5\Big|^1_0=\frac25.\]
+\end{example}

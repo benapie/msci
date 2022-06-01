@@ -1,0 +1,267 @@
+\section{Cellular homology}
+
+\subsection{Good pairs}
+
+\begin{definition}[Good pair]
+  Let $A \neq \varnothing$ be a closed subset of some space $X$. Suppose $A$ is a deformation retract of some neighbourhood $V \subset X$ of $A$, so $A \subset V$.
+\end{definition}
+
+\begin{example}
+  Consider $X = \R^2$ and $Y = \{(x,y) \in x: y \leq 0\}$. We present a retract $r: V \to Y$ of $V$ onto $Y$, where $V = \{(x,y) \in X: y \leq 1\}$:
+  \[
+    r(x,y) = \begin{cases}
+      (x,y) & y \leq 0,    \\
+      (x,0) & y \in (0,1].
+    \end{cases}
+  \]
+  There is a clear homotopy $H: V \times I \to V$ from $r$ to $\id_X$,
+  \[
+    H((x,y),t) = \begin{cases}
+      (x,y)  & y \leq 0,    \\
+      (x,ty) & y \in (0,1].
+    \end{cases}
+  \]
+
+\end{example}
+
+We recall the Hawaiian earring space $\mathbb H$, given by
+\[
+  \mathbb H = \bigcup_{n=1}^\infty \left\{
+  (x,y) \in \R^2: (x-1/n)^2 + y^2 = (1/n)^2
+  \right\}
+\]
+and endowed with the subspace topology from the standard topology on $\R^2$.
+
+\begin{example}
+  We claim the pair $(\mathbb H, \{(0,0)\})$ is \emph{not} a good pair. If we look at any neighbourhood of $(0,0)$, we see that it would contain infinitely many circles, and thus it must not be homotopy equivalent to a point.
+\end{example}
+
+\begin{theorem}
+  Let $(X, A)$ be a good pair. Then the quotient map $q: (X,A) \to (X/A, \{\pt\})$ induces an isomorphism \[q_*: H_n(X,A) \xrightarrow{\cong} H_n(X/A, \pt) \cong \tilde H_n(X/A).\]
+\end{theorem}
+
+\begin{proof}
+  We consider the following diagram.
+
+  \adjustbox{scale=0.85, center}{
+    % https://tikzcd.yichuanshen.de/#N4Igdg9gJgpgziAXAbVABwnAlgFyxMJZABgBpiBdUkANwEMAbAVxiRAAkB9MACgA0A9AEEAlCAC+pdJlz5CKAEzkqtRizZdefUgDUxk6djwEiAFmXV6zVog7d+AHQdwYOALZYwTOAAIhpHx0fJxd3T28-fSkQDCM5IjIARhUrdVtNfmEAp2AnCDQYACc6HAhCsDo3GGA0HHEncSjDWRNFUmTLNRs7LSzA4SaYmWN5ZHMO1WsNe0zRYOdXDy9fHLyC4tLyyura+odJHx4dAfnQpYjVh3yikrKKqpq6hv0VGCgAc3giUAAzQog3EgyCBSkhEp0prYnABjAjvCTRP4AoHUUGIADMELSIAAjpwAFQI37-QGIJQgiBgrHdGFwkDUBh0ABGMAYAAVhvFbAwYD8cESQEjSQBWVGUxDmSbY2lgeEM5msjlxVogHl8gVCqkUpCS1LdPGEgyCklIclo0VS-UEjUmjFinXUtgy+FGzVk+2IC16p0OWGy+mqhXszkqwpYd4AC354go4iAA
+    \begin{tikzcd}
+      H_n(X/A) \arrow[rr, "\cong"] \arrow[d, "q_*"]         &  & {H_n(X,V)} \arrow[d, "q_*"] &  & {H_n(X\setminus A, V \setminus A)} \arrow[ll, "\cong"] \arrow[d, "q_*"] \arrow[d, "\cong"']             \\
+      {H_n(X/A, \{\operatorname{pt}\})} \arrow[rr, "\cong"] &  & {H_n(X/A, V/A)}             &  & {H_n((X/A) \setminus \{\operatorname{pt}\}, (V/A) \setminus \{\operatorname{pt}\})} \arrow[ll, "\cong"]
+    \end{tikzcd}
+  }
+
+  Since $(X,A)$ is a good pair, there is a neighbourhood $V$ of $A$ with $A \simeq V$ (convince yourself that such a homotopy exists). So $H_n(X, A) \cong H_n(X,V)$ and $H_n(X/A, \{\pt\}\}) \cong H_n(X/A, V/A)$ (again, convince yourself of this). Thus the left two horizontal maps are indeed isomorphisms. We can conclude the same for the right two maps by excision. We have left to show that $\restr{q_*}{X\setminus A}: H_n(X \setminus A, V \setminus A) \to H_n((X \setminus A)/A, (V\setminus A)/A) = H_n((X/A) \setminus \{\pt\}, (V/A) \setminus \{\pt\})$ is an isomorphism. But $q: (X,A) \to (X/A, \{\pt\})$ is an isomorphism on $X \setminus A$ and so $V \setminus A$ too, as so $\restr{q_*}{X\setminus A}$ is an isomorphism. The above diagram commutes as for each square the two routes around the square are induced by the same map of pairs. We conclude that $q_*$ is an isomorphism.
+\end{proof}
+
+\subsection{CW complex}
+
+\begin{definition}[CW complex]
+  A \emph{CW complex} is a space $X$ with a filtration
+  \[\varnothing = X_{-1} \subset X_0 \subset X_1 \subset \ldots\]
+  and a collection of maps $\{\varphi_i: S^{n-1} \to X_{n-1}\}_{i \in \mathcal I_n}$ called the \emph{attaching maps} that satisfy
+  \begin{enumerate}
+    \item for all $n \in \N$, \[
+            X_n = \left(X_{n-1} \sqcup \bigsqcup_{i \in \mathcal I_n} D_i^n\right)/{\sim}
+          \]
+          where $\varphi_i(x) \sim x$ for all $i \in \mathcal I_n$ and $x \in \partial D^n_i \cong S^{n-1}$; and
+    \item $X = \colim_n X_n = \bigcup_{n \in \Z_{\geq 0}} X_n$.
+  \end{enumerate}
+  We call $X_n$ the \emph{$n$-skeleton} of $X_n$.
+\end{definition}
+
+\begin{definition}
+  \hspace{0em}
+  \begin{enumerate}
+    \item A CW structure on a space $Y$ is a CW complex $X$ and a homeomorphism $f: X \xrightarrow{\cong} Y$.
+    \item The dimension of $X$ is $-1$ if $X = \varnothing$, and is $n$ if this is the largest $n$ such that $X_{n-1} \neq X$. If no such $n$ exists, then the dimension is $\infty$.
+    \item A CW complex $X$ is called finite dimensional if $\dim X < \infty$.
+    \item A CW complex of dimension $\leq n$ is called an $n$-complex.
+    \item A CW complex is finite if it has finitely many cells.
+    \item The maps $\overline\varphi_i: D^n \to X$ extending the attaching maps are the characteristic maps.
+    \item The image of each copy of $D^n$ under $\overline\varphi_i$ is called an $n$-cell, and the image $\overline\varphi_i(\mathring D^n)$ is called an open $n$-cell.
+    \item A subcomplex of a CW complex $X$ is a subset $Y \subset X$ that is the union of cells of $X$.
+  \end{enumerate}
+\end{definition}
+
+\begin{example}[$0$-complexes]
+  Every collection of discrete points is a $0$-complex.
+\end{example}
+
+\begin{example}[$1$-complexes]
+  The following are some examples of $1$-com\-plex\-es.
+  \begin{itemize}
+    \item A CW structure on $I$ can be constructed in two ways.
+          \begin{itemize}
+            \item Take two $0$-cells and one $1$-cell. We glue one endpoint of the $1$-cell to one of the $0$-cells, and the other endpoint to the other $0$-cell.
+            \item We can also construct $I$ as just one $1$-cell, with no $0$-cells.
+          \end{itemize}
+    \item We can also construct a CW structure on $S^1$ in two ways.
+          \begin{itemize}
+            \item Take one $0$-cell and one $1$-cell, and glue both endpoints of the $1$-cell to the $0$-cell.
+            \item Take two $0$-cells and two $1$-cells. We glue one endpoint of each $1$-cell to one $0$-cell, and the other endpoints to the other $0$-cell.
+          \end{itemize}
+    \item We can build a CW structure over any graph, where the $0$-cells are the vertices and the $1$-cells are the edges. We identify the endpoints of edges to the vertices adjacent to it.
+  \end{itemize}
+\end{example}
+
+We introduce the notion of \emph{wedge sum}. If $X$ and $Y$ are \emph{pointed spaces}, the wedge sum of $X$ and $Y$, denoted $X \vee Y$, is the quotient space of the disjoint union of $X$ and $Y$ with the basepoints of $X$ and $Y$ identified. For example, the wedge sum of two circles $S_1 \vee S_1$ is the appropriately named \emph{figure-eight space}.
+
+\begin{example}[$2$-complexes]
+  The following are some examples of $2$-com\-plex\-es.
+  \begin{itemize}
+    \item A CW structure on $S^n$ can be constructed with two cells, one $0$-cell and one $n$-cell. We identify the boundary of the $n$-cell to the single $0$-cell. For intuition, consider what is happening on $S^2$. We take a disk and identify the boundary $S^1$ with a point, wrapping the disk around into $S^2$.
+    \item We describe a CW structure on $\mathbb T$. It can be built as a union of one $0$-cell, two $1$-cells, and one $2$-cell. The $1$-skeleton is a wedge $S^1 \vee S^1$, which we may build by identifying all the endpoints of the $1$-cells to the $0$-cell. To attach the $2$-cell, we glue the boundary to a loop in $S^1 \vee S^1$ representing the commutator $aba^{-1}b^{-1} \in \pi_1(S^1 \vee S^1)$, which is a free group on two generators $a$ and $b$ corresponding to generators of the fundamental groups of the two individual circles in the wedge.
+  \end{itemize}
+\end{example}
+
+\begin{definition}
+  \hspace{0em}
+  \begin{enumerate}
+    \item A space $X$ is Hausdorff if for all $x, y \in X$ there exists open subsets $U, V \subset X$ with $x \in U$ and $y \in V$ such that $U \cap V = \varnothing$.
+    \item A space $X$ is normal if for every pair of disjoint closed sets $S, T \subset X$, there exists open subsets $U \supset S$ and $V \supset T$  with $U \cap V = \varnothing$.
+  \end{enumerate}
+\end{definition}
+
+\begin{theorem}
+  Let $X$ be a CW complex and let $A$ be a non-zero subcomplex.
+  \begin{enumerate}
+    \item Every point of $X$ is closed.
+    \item A CW complex $X$ is normal.
+    \item Every cell of $X$ is closed and compact.
+    \item A CW complex is compact if and only if it is finite.
+    \item A CW complex is connected if and only if it is path connected.
+    \item $(X,A)$ is a good pair.
+  \end{enumerate}
+\end{theorem}
+
+We note that since points are closed, normal implies Hausdorff.
+
+\begin{example}[Non-examples]
+  \hspace{0em}
+  \begin{itemize}
+    \item The space $\mathbb E$ is not a CW complex. We will not prove this, but assume there is a CW complex $X$ consisting of one $0$-cell and countably many $1$-cells. Consider the $0$-cell as a subcomplex $A$. Then $(X,A)$ must be a good pair; a contradiction (we have already shown that this cannot be a good pair).
+    \item There are many spaces for which we cannot build a CW structure; for example, any non-Hausdorff space or any space in which a point is not closed.
+  \end{itemize}
+\end{example}
+
+\subsection{Degree of maps}
+
+\begin{definition}[Degree of a map]
+  Let $f: S^n \to S^n$ be a map, which induces a homomorphism on the $n$th homology groups $f_*: H_n(S^n) \to H_n(S^n)$. As $H_n(S^n) \cong \Z$, this determines a homomorphism from $\Z \to \Z$, hence $f_*(a) = da$ for some $d \in \Z$. This $d$ is called the degree of $f$.
+\end{definition}
+
+Let us characterise the behaviour of such a notion. We say that a map $f$ \emph{factors} over a map $g$ if there exists a map $h$ such that $f = h \circ g$. We may also that $f$ factors if there exists $g$ and $h$ such that $f = h \circ g$.
+\begin{enumerate}
+  \item $\deg(\id_{S^n}) = 1$.
+  \item If $f$ is not surjective, then $\deg f = 0$. To see this, suppose $x \in S^n$ such that there is no $y \in S^n$ such that $f(y) = x$. Then we see that $f$ factors as $S^n \to S^n \setminus \{x\} \xhookrightarrow{} S^n$, and so $f_*$ factors as $H_n(S^n) \to H_n(S^n \setminus \{x\}) \xhookrightarrow{} H_n(S_n)$. But we see $S^n \setminus \{0\} \cong \R^{n}$ and so, if $n > 0$, $H_n(S^n \setminus \{x\}) \cong 0$. Thus $f_*$ must be the zero map, and so $\deg f = 0$.
+  \item If $f \sim g$ (homotopic), then $f_* = g_*$ so $\deg f = \deg g$.
+  \item $(f \circ g)_* = f_* \circ g_*$ so $\deg(f \circ g) = \deg(f) \deg(g)$.
+  \item If $f$ is a homotopy equivalence with homotopy inverse $g$, then $\deg f = \pm 1$ (as $\deg(f)\deg(g) = 1$).
+\end{enumerate}
+
+\begin{definition}[Suspension]
+  The suspension $SX$ of a space $X$ is the quotient space
+  \[SX = (X \times I)/{\sim}\]
+  where $(x,0) \sim (y,0)$ and $(x,1) \sim (y,1)$ for all $x, y \in X$. Given a map $f:X \to Y$ between two spaces, the suspension map $Sf: SX \to SY$ is defined by
+  \[Sf([x, t]) = [f(x), t].\]
+\end{definition}
+
+Intuitively, the suspension of a space is obtained by stretching $X$ out and collapsing both end faces to points. We recall that the \emph{cone} of a space $X$ is the quotient space $CX = (X \times I)/{\sim}$ where $(x,0) \sim (y,0)$ for all $x,y \in X$.
+
+\begin{example}
+  We show that $SS^{n} \cong S^{n+1}$ (the cone of $S^n$ is homeomorphic to $S^{n+1}$). We let $I = [-1, 1]$, $S^n = \{\bm x \in \R^n: \lVert x \rVert = 1\}$, and we first define a map $f: S^n \times I$ such that $(\bm x, t) \mapsto (\bm x\sqrt{1-t^2}, t)$. We see that is surjective on $S^{n+1} \setminus (\R^{n+1} \times \{-1, 1\})$, as
+  \[ f\left(\frac{\bm y}{\sqrt{1-y_{n+2}^2}}, y_{n+2}\right) = \bm y \]
+  for all $\bm y \in S^{n+1} \setminus (\R^{n+1} \times \{-1, 1\})$. We now define the induced map $\overline f: SS^n \to S^{n+1}$ as $[\bm x, t] \mapsto f(\bm x, t)$ and claim that this factors as the composition of the quotient map $q: S^n \times I \to SS^n$ such that $(\bm x, t) \mapsto [\bm x, t]$ and $\overline f$. Indeed, $f(\bm x, 1) = f(\bm y, 1)$ and $f(\bm x, -1) = f(\bm y, -1)$ for all $\bm x, \bm y \in S^n$. If $f(\bm x, t) = f(\bm y, s)$, then $\bm x = \bm y$ and $s = t$, or $s = t \in \{-1,1\}$. So, although $f$ is not injective, $\overline f$ is. $f$ is surjective on $S^{n+1} \setminus (\R^{n+1} \times \{-1, 1\})$, but we note that all points in $S^{n+1} \cap (\R^{n+1} \times \{1\})$ belong to the same equivalence class of $SS^{n}$. Namely, $[\bm x, 1] = [\bm 0, 1]$ and $\overline f(\bm 0, 1) = (\bm 0, 1)$. Similarly, $f(\bm 0, -1) = (\bm 0, -1)$, and so $\overline f$ is surjective. 
+\end{example}
+
+\begin{proposition}
+  Let $X$ and $Y$ be spaces. For $i \in \Z_{\geq 0}$, there is a natural isomorphism $\tilde H_{i+1}(SX) \xrightarrow{\cong} \tilde H_i(X)$ in the sense that for any map $f: X \to Y$, the following diagram commutes.
+  \begin{center}
+    % https://tikzcd.yichuanshen.de/#N4Igdg9gJgpgziAXAbVABwnAlgFyxMJZABgBpiBdUkANwEMAbAVxiRAB128HYACACQD6wLAGoAjAF8AFAGUAGgEoQk0uky58hFGXFVajFm07c+QkRJmyAmstXrseAkXHl99Zq0QcuWHjAFhLBklFTUQDEctF1I9ag8jbxM-MyCZWxV9GCgAc3giUAAzACcIAFskMhAcCCQAJnjDLx8AYwIcsKLSisRXatrEAGZGz2N2NrAO+xAS8srqGqQ+hObZQsEAKk6Z7vqFgeGDUe91rckKSSA
+    \begin{tikzcd}
+      \tilde H_{i+1}(SX) \arrow[r, "\cong"] \arrow[d, "Sf_*"] & \tilde H_{i}(X) \arrow[d, "f_*"] \\
+      \tilde H_{i+1}(SY) \arrow[r, "\cong"]                   & \tilde H_{i}(Y)
+    \end{tikzcd}
+  \end{center}
+\end{proposition}
+
+\begin{proof}
+  % todo
+\end{proof}
+
+\begin{corollary}
+  Let $f: S^n \to S^n$ be a map. Then $\deg Sf = \deg f$
+\end{corollary}
+
+\begin{example}
+  We consider the reflection $R_n: S^n \to S^n$ through $S^{n-1}$ living on the equator. We note that $SR_n = R_{n+1}$ for $n \in \N_0$. From this, we see that
+  \[ \deg(R_n) = \deg(SR_{n-1}) = \deg(R_{n-1}) = \ldots = \deg(R_0) = -1. \]
+  The base case is something for you to verify.
+\end{example}
+
+\begin{example}
+  The antipodal map $a: S^n \to S^n$, $x \mapsto -x$ has degree $(-1)^{n+1}$. This can be seen by noting that this map can be factored as a series of reflections, one for each hyperplane. 
+\end{example}
+
+\begin{lemma}
+  If $f: S^n \to S^n$ has no fixed points then $f \cong a$, so $\deg(f) = (-1)^{n+1}$. 
+\end{lemma}
+
+\begin{proof}
+  A homotopy $h: S^n \times I \to S^n$ can be constructed by
+  \[
+    h(x, t) = \dfrac{(1-t) f(x) - tx}{\lVert (1 - t) f(x) - tx \rVert}
+  \]
+  with addition in $\R^{n+1}$. It is an exercise to prove that this homotopy is well-defined. 
+\end{proof}
+
+\begin{theorem}[Hairy Ball theorem]
+  If $n$ is even, then for every continuous vector field $v$ on $S^n$, there is a point of $S^n$ at which $v$ vanishes. 
+\end{theorem}
+
+\begin{proof}
+  We prove this by considering the contrapositive of the statement. We form $w(x)$ as the associated unit vector of $v(x)$. We construct a homotopy from the the identity on $S^n$ to the antipodal map. We then compare the degree of the antipodal map and the identity map and conclude that $n$ must be odd. 
+\end{proof}
+
+\subsection{Local degree}
+
+We need a technique for computing the degrees of map. We suppose $n > 0$ and $f: S^n \to S^n$ is a continuous map, and that for some point $y \in S^n$, $f^{-1}(y)$ consists of finitely many points $x_1, \ldots, x_m$. We let $U_1, \ldots, U_m$ be disjoint $n$-disc neighbourhoods of the $x_i$, and let $V$ be an $n$-disc neighbourhood of $y$ such that $f(U_i) \subset V$ for each $i$. Then we have the following commutative diagram. 
+
+\begin{center}
+  \scriptsize
+% https://tikzcd.yichuanshen.de/#N4Igdg9gJgpgziAXAbVABwnAlgFyxMJZABgBoAmAXVJADcBDAGwFcYkQAJAfTAAoBlAHphSAAiFhRAHSlwYOALZYwzONKnAAHlywyAvgEoQe0uky58hFOVLFqdJq3bc+AVR1j3WdXMXLV6lo6+kYmZth4BEQALLb2DCxsiJw8vABqYmk+8koqajLAAJ4hxqYgGBGWRDZUNAlOyS4CwmIS2X55ogBmgsAAtACMeryFBqFlFRZR1qTR8Y5JKXwS4+FTVsixc3ULzqkrpWuRG7G1Dol7yy3iwu25AQXFUobG9jBQAObwRKBdAE4QBRIADMNBwECQADYdhdkl0uAAqQ4gf6ApADMEQxA2c4NFGI5GooGIWIgcFIACsMLx8KRYRRAOJpPJiDIuMWMgAxgQPoTGejMUg2fUOVJuWBefSiSDBazqYs0Do+WjEBiyVjQez2ABrJVS-kk2WakXsABWyuJVPVUPl7C5PItSBxLOhWuS9olrz0QA
+\begin{tikzcd}
+  &  & {H_n(U_i, U_i \setminus \{x_i\})} \arrow[rr, "f_*"] \arrow[lldd, "\cong"] \arrow[dd, "k_i"] &  & {H_n(V, V \setminus \{y\})} \arrow[dd, "\cong"] \\
+  &  &                                                                                             &  &                                                 \\
+{H_n(S^n, S^n \setminus \{x_i\})} &  & {H_n(S^n, S^n \setminus f^{-1}(y))} \arrow[rr, "f_*"] \arrow[ll, "p_i"]                     &  & {H_n(S^n, S^n \setminus \{y\})}                 \\
+  &  &                                                                                             &  &                                                 \\
+  &  & H_n(S^n) \arrow[rr, "f_*"] \arrow[lluu, "\cong"] \arrow[uu, "j"]                            &  & H_n(S^n) \arrow[uu, "\cong"]                   
+\end{tikzcd}
+\end{center}
+
+All maps are given by inclusions, quotients, or $f$. The top isomorphisms come from excision, and the bottom isomorphisms come from the long exact sequence of pairs. We observe that $H_n(U_i, U_i \setminus \{x_i\})$ and $H_n(V_i, V_i \setminus \{x_i\})$ are both canonically identified with $H_n(S^n) \cong \Z$, and this motivates the following definition.
+
+\begin{definition}[Local degree]
+  Let $f$ be as above. The \emph{local degree} of $f$ at $x_i$, denoted $\deg(f|x_i)$ is the degree of the map $H_n(U_i, U_i \setminus \{x_i\}) \xrightarrow{f_*} H_n(V_i, V_i \setminus \{x_i\})$.
+\end{definition}
+
+\begin{proposition}
+  $\deg f = \sum_i \deg(f|x_i)$.
+\end{proposition}
+
+\begin{proof}
+  This can be shown by identifying certain homology groups with $\Z$, and then morphisms become identities. We then argue on the commutativity of the squares. 
+\end{proof}
+
+\begin{example}
+  If $f$ is a homeomorphism, every arrow on the diagram becomes an homeomorphism and so $\deg f = \deg(f|x)$ for all $x \in X$. 
+\end{example}
+
+\begin{example}
+  We consider $S^1 \subset \C$, and define $f: S^1 \to S^1$ by $f_k(z) = z^k$ for $k > 0$. By setting $y = 0$, we have the pre-image points $x_1, \ldots, x_n$. For each $i$, the restriction $\restr f{U_i}: U_i \to V$ is homotopic to $\restr{r_\theta}{U_i}L U_i \to V$, where $r_\theta$ is a rotation of $S^1$ through angle $\theta$. Thus $\deg(f_k|x_i) = \deg(r_\theta|x_i) = 1$, since $r_\theta$ is a homeomorphism (we note that these homotopies are not global, just their local restrictions). By our proposition, $\deg(f_k) = k$.
+\end{example}
+
+\begin{example}
+  By taking repeated suspensions of the above map, we can construct a map of any degree from $S^m \to S^m$ for every $m$. 
+\end{example}

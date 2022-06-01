@@ -1,0 +1,46 @@
+\lecture{19}{5/12}
+
+To see why the above remark holds true, we need to look at \emph{saddle point}.
+
+\begin{example}
+    \begin{enumerate}
+        \item Consider $f(x, y) = x^2 - y^2$. The point $(0, 0)$ on $f$ is not a minimum or a maximum; however, $\nabla f(0,0) = \bm 0$. This is a \emph{saddle point}.
+        \item Consider $f(x, y) = (x^2 + y^2 + 1)^2 = (r^2 + 1)$ where $r^2 = \norm{x}^2$. We have
+            \[ \nabla f = 2(r^2 - 1) \nabla (r^2) = 4(r^2 - 1) \bm x = \bm 0 \implies \bm x = 0 \;\text{or}\; r^2 - 1 = 0. \]
+            If $r^2 - 1 = 0$ then $r^2 = 1 \implies (x, y)$ on the unit circle.
+            $\bm x = \bm 0$ is a local maximum, but \emph{not} a global maximum. All points on the unit circle are (non-strict) minimums. 
+    \end{enumerate}
+\end{example}
+
+\section{Local extrema of functions of two variables}
+
+Suppose $f(x, y)$ is a function and all of its partial derivatives up to order $n + 1$ exist and are continuous in some neighbourhood of $\bm a = (x_0, y_0)$. Then for $\bm h = (h_1, h_2)$ small
+\begin{align*}
+    f(\bm a + \bm h) &= f(\bm a) + \ldots + \sum_{k = 0}^n \left( \binom nk h_1^k h_2^{n - k} \frac{\partial^n}{\partial x^k \partial y^{n - k}} f(x_0, y_0) \right) + R_n(x, y) \\
+    &= f(\bm a) + \bm h_1 \cdot \nabla f + \frac{1}{2!} (\bm h \cdot \nabla)^2 f + \ldots + \frac1{n!} (\bm h \cdot \nabla)^nf + R_n \\
+    &= f(\bm a) + \frac12 \bm h^t H \bm h + R_2
+\end{align*}
+where $H$ is the \textbf{Hessian matrix} defined (in two dimensions) as
+\[ H = \begin{pmatrix} \frac{\partial^2 f}{\partial x^2} & \frac{\partial^2 f}{\partial x\partial y} \\ \frac{\partial^2 f}{\partial y \partial x} & \frac{\partial^2 f}{\partial y^2} \end{pmatrix} \]
+which is clearly symmetric (if the second partial derivatives are continuous).
+
+Now, $\bm a$ will be a \textbf{strict local minimum} if
+\[ f(\bm a + \bm h) > f(\bm a) \]
+for all sufficiently small $\bm h \neq \bm 0$.
+Similarly, $\bm a$ is a \textbf{strict local maximum} if
+\[ f(\bm a + \bm h) < f(\bm a) \]
+for all sufficiently small $\bm h \neq \bm 0$.
+
+By neglecting higher order terms, we see that
+\[ f(\bm a + \bm h) - f(\bm a) = \frac12 \bm h^t H \bm h; \]
+hence, if $\bm h^t H \bm h > 0$ for small $\bm h \neq \bm 0$ then $\bm a$ is a strict local minimum (and similarly for strict local maximum).
+
+A symmetric matrix $H$ is 
+\begin{enumerate}
+    \item \textbf{positive definite} if and only if $\bm h^t H \bm h > 0$ for all $\bm h \neq 0$ if and only if the eigenvalues of $H$ are all positive;
+    \item \textbf{negative definite} if and only $\bm h^t H \bm h < 0$ for all $\bm h \neq 0$ if and only if the eigenvalues of $H$ are all negative;
+    \item \textbf{positive semi-definite} if and only if $\bm h^t H \bm h \geq 0$; and
+    \item \textbf{negative semi-definite} if and only if $\bm h^t H \bm h \leq 0$.
+\end{enumerate}
+
+%todo conclusion which i think bleeds onto the next lecture

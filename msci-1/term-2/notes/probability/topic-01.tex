@@ -1,0 +1,224 @@
+\chapter{Axioms of probability}
+
+The mathematical theory of probability is based on axioms much like Euclidean geometry, which has the mathematical objects of points and lines. In probability, we use \textbf{events} and \textbf{probabilities}. We use \textbf{set theory} to express these concepts.
+
+\section{Sets}
+
+\begin{definition}[Set]
+    A \textbf{set} is an unordered collection of unique \textbf{elements}. If an element $x$ belongs to the set $S$ we write $x \in S$.
+\end{definition}
+
+In this course, most of our sets are \textbf{finite}, meaning that we can express them as \[ S = \{ x_1, x_2, \ldots, x_n \}; \] or countably infinite.
+
+\begin{definition}[Countable]
+    A set $S$ is \textbf{countable} if either
+    \begin{enumerate}
+        \item $S$ is finite; or
+        \item there is a bijection (one-to-one mapping) between $S$ and the natural numbers.
+    \end{enumerate}
+\end{definition}
+
+\begin{example}
+    $\mathbb{N}$, $\mathbb{Z}$, and $\mathbb{Q}$ are countably infinite; however, $\mathbb{R}$ and $[0, 1]$ are not countable infinite.
+\end{example}
+
+\begin{definition}[Empty set]
+    An important set is the \textbf{empty set}, we write \[ \varnothing = \{ \}. \]
+\end{definition}
+
+\begin{definition}[Subset]
+    We write $A \subset B$ to say that $A$ is a \textbf{subset} of $B$, or \[ \forall \; x \in A, \; x \in B. \]
+\end{definition}
+
+\begin{example}
+    \[ \{ 1, 2, 3 \} \subset \{ 1, 2, 3, 5, 7, 9 \} \subset \mathbb{N} \subset \mathbb{Z}. \]
+\end{example}
+
+\begin{remark}
+    For any set $A$, \[\varnothing \subset A.\]
+\end{remark}
+
+\begin{definition}[Power set]
+    The \textbf{power set} of the set $A$ is the set of all subsets denoted as \[ 2^A = \{ B : B \subset A \}. \]
+\end{definition}
+
+\begin{example}
+    Given $A = \{ 0, 1 \}$, then \[ 2^A = \{ \varnothing, \{ 1 \}, \{ 2 \}, \{ 1, 2 \} \} \]
+\end{example}
+
+\section{Sample space and events}
+
+Consider a scenario with various different outcomes. We write $\Omega$ as the set of all possible outcomes. $\Omega$ is called the \textbf{sample space} and each $\omega \in \Omega$ is an \textbf{outcome}.
+
+\begin{example}
+    Consider rolling a standard 6 sided dice. An obvious sample space is $\Omega = \{ 1, 2, 3, 4, 5, 6 \}$; however, we could also have $\Omega = \{ \text{odd}, \text{even} \}$ or $\{ 6, \text{not} \; 6 \}$
+\end{example}
+
+Often, $\Omega$ is finite or countable infinite. In this case, we call it \textbf{discrete}.
+
+\begin{definition}[Events]
+    Associated to our sample space $\Omega$ is a collection $\mathcal{F}$ of all events: \[ A \subset \Omega \; \forall \; A \in \mathcal{F}. \] We say that an event has occurred when the outcome at the end of the scenario is the set $A$.
+\end{definition}
+
+\begin{remark}
+    $\varnothing$ is an impossible event, $\Omega$ is a certain event.
+\end{remark}
+
+If $\Omega$ is discrete, we can always take $\mathcal{F} = 2^A$ so that every subset of $\Omega$ is an event; however, if $\Omega$ is not discrete we need to be more careful.
+
+\section{Event calculus}
+
+We may combine events using set theory operators. 
+
+\begin{definition}
+    For an event $A \in \mathcal{F}$, define its \textbf{complement} $A^{c}$ (not A) \[ A^c = \{ \omega \in \Omega : \omega \not \in A \}. \]
+\end{definition}
+
+\begin{remark}
+    Notice that $(A^c)^c = A$, $A \cap A^c = \varnothing$, and $A \cup A^c = \Omega$. $\bar{A}$ is also valid notation for complement.
+\end{remark}
+
+Let $A, B$ be events. Table \ref{tab:event_notation} shows the notation and meaning for events.
+
+\begin{table}
+    \centering
+    \begin{tabular}{r l l p{8em}}
+        \toprule
+        Notation & Set theory language & Probability language & Meaning as events \\
+        \midrule
+        $A \cup B$ & $A$ union $B$ & $A$ or $B$ & $A$ happens or $B$ happens (or both) \\ \addlinespace
+        $A \cap B$ & $A$ intersects $B$ & $A$ and $B$ & $A$ and $B$ happens \\ \addlinespace
+        $A^c$ & $A$ complement & not $A$ & $A$ does not happen \\ \addlinespace
+        $A \setminus B$ & $A$ minus $B$ & $A$ but not $B$ & $A$ happens but $B$ does not \\ \addlinespace
+        $A \subset B$ & $A$ is a subset of $B$ & $A$ implies $B$ & If $A$ happens $B$ must also happen \\
+        \bottomrule
+    \end{tabular}
+    \caption{Meaning of event notation in regards to set theory language, probability language, and events.}
+    \label{tab:event_notation}
+\end{table}
+
+\begin{proposition}
+    Given events $A, B$, then \[ A \setminus B = A \cap B^c. \]
+\end{proposition}
+
+\begin{proof}
+    \begin{align*}
+        A \setminus B &= \{ \omega \in \Omega : \omega \in A, \omega \not \in B \} \\
+        &= \{ \omega \in \Omega : \omega \in A \} \cap \{ \omega \in \Omega : \omega \not \in B \} \\
+        &= A \cap B^c.
+    \end{align*}
+\end{proof}
+
+\begin{definition}[Disjoint]
+    Two sets $A, B$ are \textbf{disjoint} if $A \cap B = \varnothing$.
+\end{definition}
+
+\begin{example}
+    Consider $\Omega = \{ 1, 2, 3, 4, 5, 6 \}$ and events
+    \begin{enumerate}
+        \item $A = \{ 2, 4, 6 \}$;
+        \item $B = \{ 1, 3, 5 \}$; and
+        \item $C = \{ 1, 2, 3 \}$.
+    \end{enumerate}
+    Then $A \cup B = \Omega$, $A \cap B = \varnothing$, $A^c = B$, $C \setminus A = \{ 1, 3 \}$, $A \cup C = \{ 1, 2, 3, 4, 6 \}$.
+\end{example}
+
+\begin{remark}
+    For multiple events we use the notation \[ \bigcup\limits_{i = 1}^{n} A_i = A_1 \cup A_2 \cup \ldots \cup A_n \] and \[ \bigcap\limits_{i = 1}^{n} A_i = A_1 \cap A_2 \cap \ldots \cap A_n. \] For infinite unions / intersections we can use the notation \[ \bigcup\limits_{i = 1}^{\infty} A_i = A_1 \cup A_2 \cup \ldots \] and \[ \bigcap\limits_{i = 1}^{\infty} A_i = A_1 \cap A_2 \cap \ldots. \]
+\end{remark}
+
+\begin{definition}[De Morgan's law]
+    Given sets $A, B$, then \[ (A \cap B)^c = A^c \cup B^c, \quad (A \cup B)^c = A^c \cap B^c. \]
+\end{definition}
+
+\section{Axioms of probability}
+
+\begin{definition}
+    A probability $\mathbb{P}$ on a sample space $\Omega$ with a collection of events $\mathcal{F}$ is a function mapping every event $A \in \mathcal{F}$ to a real number $\mathbb{P}(A)$ satisfying
+    \begin{description}
+        \item[A1] $\mathbb{P}(A) \geq 0$ for all $A$;
+        \item[A2] $\mathbb{P}(A) = 1$;
+        \item[A3] if $A$ and $B$ are disjoint (that is, $A \cap B = \varnothing$), then \[ \mathbb{P}(A \cup B) = \mathbb{P}(A) + \mathbb{P}(B); \text{and} \]
+        \item[A4] for an infinite sequence $A_1, A_2, \ldots$ of pairwise disjoint (such that all pairs are disjoint) events \[ \mathbb{P} \left( \bigcup\limits_{i=1}^\infty A_i \right) = \sum_{i=1}^\infty \mathbb{P}(A_i). \]
+    \end{description}
+\end{definition}
+
+\begin{example}
+    Consider a finite sample space $\Omega = \{ \omega_1, \omega_2, \ldots, \omega_n \}$ with size $|\Omega| = m$. We can define a valid probability $\mathbb{P}$ by taking any numbers $p_1, p_2, \ldots, p_m$ with $p_i \geq 0$ and $\sum_{i = 1}^m p_i = 1$ and declare for any event $A \subset \Omega$ \[ \mathbb{P}(A) = \sum_{i : w_i \in  A} p_i. \]
+\end{example}
+
+\begin{definition}
+    A probability $\mathbb{P}$ on a sample space $\Omega$ with a collection of events $\mathcal{F}$ is a function mapping every event $A \in \mathcal{F}$ to a real number $\mathbb{P}(A)$ satisfying
+    \begin{description}
+        \item[A1] $\mathbb{P}(A) \geq 0$ for all $A$;
+        \item[A2] $\mathbb{P}(A) = 1$;
+        \item[A3] if $A$ and $B$ are disjoint (that is, $A \cap B = \varnothing$), then \[ \mathbb{P}(A \cup B) = \mathbb{P}(A) + \mathbb{P}(B); \text{and} \]
+        \item[A4] for an infinite sequence $A_1, A_2, \ldots$ of pairwise disjoint (such that all pairs are disjoint) events \[ \mathbb{P} \left( \bigcup\limits_{i=1}^\infty A_i \right) = \sum_{i=1}^\infty \mathbb{P}(A_i). \]
+    \end{description}
+\end{definition}
+
+\begin{example}
+    Consider a finite sample space $\Omega = \{ \omega_1, \omega_2, \ldots, \omega_n \}$ with size $|\Omega| = m$. We can define a valid probability $\mathbb{P}$ by taking any numbers $p_1, p_2, \ldots, p_m$ with $p_i \geq 0$ and $\sum_{i = 1}^m p_i = 1$ and declare for any event $A \subset \Omega$ \[ \mathbb{P}(A) = \sum_{i : w_i \in  A} p_i. \]
+\end{example}
+
+\begin{definition}[Partition]
+    Events $E_1, E_2, \ldots, E_k$ form a \textbf{partition} of a sample space $\Omega$ if
+    \begin{enumerate}
+        \item $\Prob{(E_i)} > 0 \; \forall \; i$;
+        \item $E_i \cap E_j = \varnothing \; \forall \; i \neq j$; and
+        \item $\bigcup_{i = 1}^k E_i = \Omega$.
+    \end{enumerate}
+\end{definition}
+
+\begin{proposition}[Consequences of the axioms]
+    All of these follow from A1 - A4.
+    \begin{description}
+        \item[C1] $\Prob{(B \setminus A)} = \Prob{(B)} - \Prob{((A \cap B))}$;
+        \item[C2] $\Prob{(A^c)} = 1 - \Prob{(A)}$;
+        \item[C3] $\Prob{(\varnothing)} = 0$;
+        \item[C4] $\Prob{(A)} \leq 1$;
+        \item[C5] if $A \subset B$, then $\Prob{(A)} \leq \Prob{(B)}$;
+        \item[C6] $\Prob{(A \cap B)} = \Prob{(A)} + \Prob{(B)} - \Prob{(A \cup B)}$;
+        \item[C7] if $A_1, A_2, \ldots, A_k$ are pairwise disjoint, then \[ \Prob{ \left( \bigcup_{i = 1}^k A_i \right)} = \sum_{i = 1}^k \Prob{(A_i)}; \]
+        \item[C8] for any events $A_1, A_2, A_3, \ldots$ \[ \Prob{ \left( \bigcup_{i = 1}^\infty A_i \right) } \leq \sum_{i = 1}^\infty \Prob{(A_i)}; \]
+        \item[C9] if $A_1 \subset A_2 \subset \ldots$ is an increasing sequence of events then \[ \Prob{ \left( \bigcup_{i = 1}^\infty \right) } = \lim_{n \to \infty} \Prob{(A_n)}; \; \text{and} \] 
+        \item[C10] if $E_1, E_2, \ldots, E_k$ is a partition, then \[ \sum_{i = 1}^k \Prob{(E_i)} = 1. \]  
+    \end{description}
+\end{proposition}
+
+\begin{example}
+    Prove that for any events $A_1, A_2, \ldots$ \[ \Prob{ \left( \bigcup_{i = 1}^\infty A_i \right) } \leq \sum_{i = 1}^\infty \Prob{(A_i)} \] given that for an infinite sequence $A_1, A_2, \ldots$ of pairwise disjoint (such that all pairs are disjoint) events \[ \mathbb{P} \left( \bigcup\limits_{i=1}^\infty A_i \right) = \sum_{i=1}^\infty \mathbb{P}(A_i) \] and that if $A \subset B$, then $\Prob{(A)} \leq \Prob{(B)}$.
+\end{example}
+
+\section{Sigma-algebras}
+
+Recall that we have a sample space $\Omega$ and a collection $\mathcal F$ of subsets of $\Omega$ called events. If $\Omega$ is discrete (that is, finite or infinitely countable), then we can take $\mathcal F = 2^\Omega$ such that all subsets of $\Omega$ are events. If $\Omega$ is uncountable, then it is too much to demand that $\Prob{(A)}$ is defined for all $A \in \Omega$.
+
+\begin{definition}
+    A collection $\mathcal F$ is called a \textbf{$\sigma$-algebra} if
+    \begin{description}
+        \item[S1] $\Omega \in \mathcal F$;
+        \item[S2] $A \in \mathcal F \implies A^c \in \mathcal F$; and
+        \item[S3] if $A_1, A_2, \ldots \in \mathcal F$, then $\bigcup_{i = 1}^\infty A_i \in \mathcal F$.  
+    \end{description}
+\end{definition}
+
+\begin{example}
+    The power set $2^\Omega$ is the biggest $\sigma$-algebra over $\Omega$. The set $\{ \varnothing, \Omega \}$ is the trivial $\sigma$-algebra which is the smallest $\sigma$-algebra over $\Omega$.
+\end{example}
+
+\begin{example}
+    Consider $\Omega = \{ 1, 2, 3, 4, 5, 6 \}$. The choice of $\sigma$-algebra may depend on exactly what I am interested in. The following are all $\sigma$-algebras over $\Omega$.
+    \begin{enumerate}
+        \item $\mathcal F_0 = \{ \varnothing, \Omega \}$;
+        \item $\mathcal F_1 = \{ \varnothing, \{ 1, 3, 5 \}, \{ 2, 4, 6 \}, \Omega \}$; and
+        \item $\mathcal F_2 = 2^\Omega$.
+    \end{enumerate}
+    Note that $\mathcal F_0 \subset \mathcal F_1 \subset \mathcal F_2$.
+\end{example}
+
+\begin{definition}
+    If $\Omega$ is a set and the collection $\mathcal F$ of subsets of $\Omega$ is a $\sigma$-algebra, and $\mathbb P$ satisfies A1-A4 for all events in $\mathcal F$, then $(\Omega, \mathcal F, \mathbb P)$ is called a \textbf{probability space}.
+\end{definition}
+
+In practise, we rarely make our $\sigma$-algebras explicit. They just sit there in the background.

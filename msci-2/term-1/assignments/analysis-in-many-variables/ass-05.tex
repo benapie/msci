@@ -1,0 +1,82 @@
+\assignment{5}{14/11}
+
+\setcounter{question}{32}
+\question Evaluate $\varepsilon_{ijk} \varepsilon_{ijl} x_k x_l$.
+\begin{solution}
+    \begin{align*}
+        \varepsilon_{ijk}\varepsilon_{ijl} x_k x_l
+        &= \varepsilon_{jki} \varepsilon_{ijl} x_k x_l \\
+        &= (\delta_{jj} \delta_{kl} - \delta_{jl} \delta_{kj}) x_k x_l \\
+        &= (\delta_{jj} \delta_{kl} - \delta_{lk}) x_k x_l \\
+        &= \delta_{jj} \delta_{kl} x_k x_l - \delta_{lk} x_k x_l \\
+        &= d_{jj} x_l x_l - x_l x_l \\
+        &= 2 x_l x_l = 2 \norm{\bm x}^2.
+    \end{align*}
+\end{solution}
+
+\setcounter{question}{14}
+\question Let $\bm x$ be the position vector in three dimensions, with $r = \norm{\bm x}$, and let $\bm a$ be a constant vector. Show that (using the Einstein Summation Convention)
+\begin{parts}
+    \part $\nabla \cdot \bm x = 3$,
+    \begin{solution}
+        \[ \nabla \cdot \bm x = \frac{\partial x_i}{\partial x_i} = d_{ii} = 3. \]
+    \end{solution}
+
+    \part $\nabla \times \bm x = 0$,
+    \begin{solution}
+        \[ (\nabla \times \bm x)_i = \varepsilon_{ijk} \frac{\partial \bm x_k}{\partial \bm x_j} = \varepsilon_{ijk} \delta_{kj} = 0. \] 
+    \end{solution}
+
+    \part $\nabla r = \frac{\bm x}r$,
+    \begin{solution}
+        \begin{align*}
+            (\nabla r)_i &= \frac{\partial}{\partial x_i} (\sqrt{x_j x_j})_i \\
+            &= \frac{\partial}{\partial x_i} (x_j x_j) \left( \frac{1}{2\sqrt{x_jx_j}} \right) \\
+            &= 2 \delta_{ij} x_j \left( \frac{1}{2\sqrt{x_jx_j}} \right) \\
+            &= \frac{x_i}{r}.
+        \end{align*}
+    \end{solution}
+
+    \part $\nabla \cdot (r^n \bm x) = (n + 3)r^n$,
+    \begin{solution}
+        \begin{align*}
+            \nabla \cdot(r^n \bm x) &= \frac{\partial}{\partial x_i} (r^n x_i) \\
+            &= \frac{\partial}{\partial x_i} (r^n) x_i + r^n \frac{\partial}{\partial x_i} (x_i) \\
+            &= (n r^{n - 1}) \left(\frac{\partial r}{\partial x_i}\right) (x_i) + 3r^n \\
+            &= (nr^{n - 1} x_i) \left( \frac{x_i}{r} \right) + 3r^n \\
+            &= (n + 3) r^n.
+        \end{align*}
+    \end{solution}
+
+    \part $\nabla(\bm a \cdot \bm x) = \bm a$,
+    \begin{solution}
+        \begin{align*}
+            \left(\nabla (\bm a \cdot \bm x)\right)_i &= \frac{\partial}{\partial x_i} (\bm a \cdot \bm x) \\
+            &= \frac{\partial}{\partial x_i} (a_j x_j) \\
+            &= a_j \delta_{ij} = a_i.
+        \end{align*}
+    \end{solution}
+
+    \part $\nabla \cdot (\bm a \times \bm x) = 0$, and
+    \begin{solution}
+        \begin{align*}
+            \nabla \cdot (\bm a \times \bm x) &= \frac{\partial}{\partial x_i} (\bm a \times \bm x)_i \\
+            &= \frac{\partial}{\partial x_i}  (\varepsilon_{ijk} a_j x_k) \\
+            &= \varepsilon_{ijk} \left( \frac{\partial a_j}{\partial x_i}  x_k + a_j \frac{\partial x_k}{\partial x_i} \right) \\
+            &= \varepsilon_{ijk} a_j \delta_{ik} \\
+            &= - \varepsilon_{ijk} a_j \delta_{ik};
+        \end{align*}
+        as $\varepsilon{ijk}$ is anti-symmetric and $\delta_{ik}$ is symmetric, hence $\nabla \cdot (\bm a \times \bm x) = 0$.
+    \end{solution}
+
+    \part $\nabla \times (\bm a \times \bm x) = 2\bm a$.
+    \begin{solution}
+        \begin{align*}
+            \left( \nabla \times (\bm a \times \bm x) \right)_i &= \varepsilon_{ijk} \left( \frac{\partial}{\partial x_j} (\bm a \times \bm x)_k \right) \\
+                &= \varepsilon_{ijk} \varepsilon_{klm} \frac{\partial}{\partial x_j} (a_l x_m) \\
+                &= (\delta_{il} \delta_{jm} - \delta_{im} \delta_{jl}) a_l \delta_{jm} \\
+                &= a_i \delta_{jm}\delta_{jm} - \delta_{im} a_j \delta_{jm} \\
+                &= a_i \delta_{jj} - \delta_{ij} a_j = 3a_i - a_i = 2a_i.
+        \end{align*}
+    \end{solution}
+\end{parts}

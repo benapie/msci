@@ -1,0 +1,119 @@
+%! TEX root = master.tex
+\lecture{10}{12/11}
+
+\begin{theorem}[]
+	For a cyclotomic field $K$ we have
+	$[K:\Q] = \phi(n)$ and $\mathcal O_K = \Z[\zeta]$.
+\end{theorem}
+
+Here $\phi$ denotes Euler's totient function.
+It denotes the order of the group $\left( 
+	\Z/n\Z 
+\right)^\times$ and is determined by the following rules:
+\begin{enumerate}
+	\item $\phi(nm) = \phi(n) \phi(m)$;
+	\item $\phi(p^r) = (p-1)p^{r-1}$; and
+	\item $\phi(1) = 1$.
+\end{enumerate}
+
+\section{Euclidean domains, principal ideal domains, and unique factorisation
+domains}
+
+\begin{definition}[Integral domain]
+	An \emph{integral domain} is a commutative ring $R$ such that for every
+	$a, b \in R$,
+	\[
+		ab = 0 \implies a = 0 \;\text{or}\; b = 0.
+	\]
+\end{definition}
+
+Observe that for any number field $K$,
+$\mathcal O_K \subset K$ and is an integral domain.
+
+\begin{definition}[Euclidean function]
+	Let $R$ be an integral domain.
+	A \emph{Euclidean function} (or \emph{norm}) for $R$ is a function
+	$\varphi: R \setminus \left\{
+		0
+	\right\} \to \N \cup \left\{
+		0
+	\right\}$ such that
+	\begin{enumerate}
+		\item for every $a, b \in R \setminus \left\{
+			0
+		\right\}$ such that $b \mid a \implies \varphi(b) \leq \varphi(a)$; and
+		
+		\item for every $a \in R$ and $b \in R \setminus \left\{
+			0
+		\right\}$ there is $q, r \in R$ such that
+		$a = bq + r$ with $r = 0$ or $\varphi(r) < \varphi(b)$.
+	\end{enumerate}
+\end{definition}
+
+\begin{definition}[Euclidean domain]
+	An integral domain for which a Euclidean function exists is called a
+	\emph{Euclidean domain} (ED).
+\end{definition}
+
+\begin{examples}
+	\begin{enumerate}
+		\item $\Z$ is a Euclidean domain.
+			Indeed, the map defined by $a \mapsto \left\lvert a \right\rvert$
+			is a Euclidean functioun.
+
+		\item $\Q[x]$ is also a Euclidean domain.
+			Indeed, the map $f(x) \mapsto \deg{f(x)}$.
+	\end{enumerate}
+\end{examples}
+
+\begin{lemma}[]
+	Consider the Gaussian integers, $K = \Q(i)$.
+	The ring of Gaussian integers $\mathcal O_K = \Z[i]$ is a
+	Euclidean domain with Euclidean function
+	\[
+		\varphi(x) = \operatorname{N}_{K/\Q}(x).
+	\]
+\end{lemma}
+
+\begin{proof}
+	For a quadratic field $K = \Q(\sqrt d)$,
+	we have seen that $\operatorname{N}_{K/\Q}(a + b\sqrt d) = a^2 - db^2$
+	for $a,b \in \Q$.
+	Here we take $d = -1$.
+	We have to check that $\varphi$ is actually a Euclidean function.
+	Let $r,s \in \Z[i] \setminus \left\{
+		0
+	\right\}$.
+	Then as $r \mid s$, $s = ra$ for some $a \in \Z[i]$.
+	Then
+	\begin{align*}
+		N(s)
+		&= N(ra) \\
+		&= N(r) N(a) \\
+		&\geq N(r).
+	\end{align*}
+	So $(i)$ holds.
+	Now for $(ii)$: consider $x, y \in \Z[i]$ with $y \neq 0$.
+	Then $\frac xy = a' + b'i$, $a', b' \in \Q$.
+	Let $a, b \in \Q$ such that
+	\[
+		\left\lvert a - a' \right\rvert \leq \frac12, \qquad
+		\left\lvert b - b' \right\rvert < \frac12.
+	\]
+	Set $q = a + bi$.
+	Then
+	\[
+		x = qy + ((a' - a) + (b' - b)i)y = x - qy.
+	\]
+	Furthermore
+	\begin{align*}
+		\operatorname{N}_{K/\Q}(((a'-a) + (b'-b)i)y)
+		&= \operatorname{N}_{K/\Q}((a' - a) + (b' - b)i)
+			\operatorname{N}_{K/\Q}(y) \\
+		&= ((a'-a)^2 + (b'-b)^2)
+			\operatorname{N}_{K/\Q}(y) \\
+		&\leq \frac12 \operatorname{N}_{K/\Q}(y) \\
+		&< \operatorname{N}_{K/\Q}(y)
+	\end{align*}
+	as $y \neq 0$ if and only if $N_{K/\Q}(y) \neq 0$.
+\end{proof}

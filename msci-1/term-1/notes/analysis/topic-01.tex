@@ -1,0 +1,232 @@
+\chapter{Basic logic and sets}
+
+\section{Logic}
+
+In mathematics, we formulate mathematical \textbf{statements} are prove them.
+
+\begin{example}
+    Following are some examples of mathematical statements.
+    \begin{enumerate}
+        \item There are infinitely many prime numbers.
+        \item $\sqrt2$ is irrational.
+    \end{enumerate}
+\end{example}
+
+We introduce the objects we work with by \textbf{definitions}, here is a definition:
+
+\begin{definition}
+    A \textbf{statement} is a sentence which is either true or false.
+\end{definition}
+
+Going back to the examples above, \emph{(i)} and \emph{(ii)} are both examples of true statements. The statements $(2 < 1)$ and $(\sqrt2=1.5)$ are both examples of false statements. $x>5$ is not a statement as, depending on the value of $x$, can be true or false. Instead, we call this a \textbf{conditional statement} which is defined below.
+
+\begin{definition}\label{def:conditional_statement}
+    A \textbf{conditional statement} contains variables which can be specified to obtain a statement which is then either true or false.
+\end{definition}
+
+Connectives can be used to join statements together to create new statements, as shown in the following definition.
+
+\begin{definition}
+    Let $A,B$ be two statements,
+    \begin{enumerate}
+        \item $(A\tand B)$ is a statement which is true only if both $A$ and $B$ are true;
+        \item $(A\tor B)$ is a statement which is false only if $A$ and $B$ are false; and
+        \item $(\tnot A)$ is a statement which is true only if $A$ is false.
+    \end{enumerate}
+\end{definition}
+
+The values of combined statements can be illustrated via a \textbf{truth table}.
+
+\begin{example}
+    \begin{enumerate}
+        \item The truth table of the statement $A\tor (\tnot B)$ is as follows.
+        \begin{center}
+            \begin{tabular}{cccc}
+                \toprule
+                $A$ & $B$ & $\tnot B$ & $A\tor (\tnot B)$ \\
+                \midrule
+                false & false & true & true \\
+                false & true & false & false \\
+                true & false & true & true \\
+                true & true & false & true \\
+                \bottomrule
+            \end{tabular}
+        \end{center}
+        
+        \item The truth table of the statement $S=(A\tor B)\tand ((\tnot A)\tor B)$ is as follows.
+        \begin{center}
+            \begin{tabular}{cccccc}
+                \toprule
+                $A$ & $B$ & $\tnot A$ & $A\tor B$ & $(\tnot A)\tor B$ & $S$ \\
+                \midrule
+                false & false & true & false & true & false \\
+                false & true & true & true & true & true \\
+                true & false & false & true & false & false \\
+                true & true & false & true & true & true \\
+                \bottomrule
+            \end{tabular}
+        \end{center}
+    \end{enumerate}
+\end{example}
+
+\begin{definition}
+    We say that two expression by unspecified statements are \textbf{equivalent} if the truth tables made from their inputs and outputs are the same. We denote that sets $A$ and $B$ are equivalent as $A\iff B$.
+\end{definition}
+
+\begin{example}
+    Prove, using truth tables, that
+    \[\tnot(A\tor B)\iff(\tnot A)\tand (\tnot B).\]
+    \begin{center}
+        \centering
+        \begin{tabular}{cccccc}
+            \toprule
+            $A$ & $B$ & $\tnot(A\tor B)$ & $\tnot A$ & $\tnot B$ & $(\tnot A)\tand(\tnot B)$ \\
+            \midrule
+            false & false & true & true & true & true \\
+            false & true & false & true & false & false \\
+            true & false & false & false & true & false \\
+            true & true & false & false & false & false \\
+            \bottomrule
+        \end{tabular}
+    \end{center}
+    As the inputs and outputs for the two statements in the truth table are identical, they are equivalent.
+\end{example}
+
+\begin{lemma}
+    Given that $A,B.C$ are statements, the following laws hold:
+    \begin{enumerate}
+        \item commutativity:
+        \begin{align*}
+            A\tand B&\iff B\tand A,\\
+            A\tor B&\iff B\tor A;
+        \end{align*}
+        
+        \item associativity:
+        \begin{align*}
+            A\tand(B\tand C)&\iff(A\tand B)\tand C,\\
+            A\tor(B\tor C)&\iff(A\tor B)\tor C; and
+        \end{align*}
+        
+        \item distributivity:
+        \begin{align*}
+            A\tand(B\tor C)&\iff(A\tand B)\tor(A\tand C),\\
+            A\tor(B\tand C)&\iff(A\tor B)\tand(A\tor C).
+        \end{align*}
+    \end{enumerate}
+\end{lemma}
+
+\section{Sets}
+
+\begin{definition}
+    A \textbf{set} is an unordered collection of elements where every element is contained only once.
+\end{definition}
+
+\begin{example}
+    The set
+    \[X=\{a,b,12,b,17,12,c\}=\{a,b,12,17,c\}\]
+    has 5 elements. $a$ is an element in the set (or $a\in X$) and $21$ is not an element in the set (or $21\not\in X$)
+\end{example}
+
+\begin{definition}
+    We can define some \textbf{basic set operators} illustrated with Venn diagrams. Let $X,Y$ be two sets.
+    \begin{enumerate}
+        \item $X\cup Y$ is the \textbf{union} of sets $X$ and $Y$, it is the set of all elements contained in at least one of the two sets.
+        \begin{figure}[H]
+            \centering
+            \begin{venndiagram2sets}[labelA={$X$}, labelB={$Y$}]
+                \fillA
+                \fillB
+            \end{venndiagram2sets}
+            \caption{Venn diagram representing $X\cup Y$.}
+            \label{fig:venn_XcupY}
+        \end{figure}
+        
+        \item $X\cap Y$ is the \textbf{intersection} of sets $X$ and $Y$, it is the set of all elements contained in both sets.
+        \begin{figure}[H]
+            \centering
+            \begin{venndiagram2sets}[labelA={$X$}, labelB={$Y$}]
+                \fillACapB
+            \end{venndiagram2sets}
+            \caption{Venn diagram representing $X\cap Y$.}
+            \label{fig:venn_XcapY}
+        \end{figure}
+        
+        \item $X\setminus Y$ is the relative complement of $Y$ in $X$, it is the set of all elements contained in $X$ but not in $Y$.
+        \begin{figure}[H]
+            \centering
+            \begin{venndiagram2sets}[labelA={$X$}, labelB={$Y$}]
+                \fillANotB
+            \end{venndiagram2sets}
+            \caption{Venn diagram representing $X\setminus Y$.}
+            \label{fig:venn_XnotY}
+        \end{figure}
+    \end{enumerate}
+\end{definition}
+
+\begin{example}
+    \begin{enumerate}
+        \item $\{5,2,7\}\cup\{1,2,8,7\}=\{5,2,7,1,8\}$
+        \item $\{5,2,7\}\cap\{1,2,8,7\}=\{2,7\}$
+        \item $\{5,2,7\}\setminus\{1,2,8,7\}=\{5\}$
+    \end{enumerate}
+\end{example}
+
+\begin{definition}
+    Given that $X,Y$ are sets, $X\subset Y$ means that $X$ is a \textbf{subset} of $Y$ such that every element of $X$ is an element of $Y$, or for $x\in X$, $x\in Y$.
+\end{definition}
+
+\begin{example}
+    Given $X = \{ 2, 7 \}$ and $Y = \{ 2, 3, 4, 5, 6, 7 \}$, $X\subset Y$.
+\end{example}
+
+\begin{definition}
+    We define the \textbf{empty set} as the set without any elements, denoted as
+    \[\varnothing=\{\}.\]
+    The empty set is contained in every set, such that
+    \[\varnothing\subset X\]
+    is true for all sets $X$.
+\end{definition}
+
+\begin{definition}
+    The number of elements in a given set $X$ is called the \textbf{cardinality} of $X$, denoted as $|X|$.
+\end{definition}
+
+\begin{lemma}
+    Let $X,Y,Z$ be sets, then the following laws hold:
+    \begin{enumerate}
+        \item commutativity:
+        \begin{align*}
+            X\cup Y&=Y\cup X,\\
+            X\cap Y&=Y\cap X;
+        \end{align*}
+        
+        \item associativity:
+        \begin{align*}
+            X\cup(Y\cup Z)&=(X\cup Y)\cup Z,\\
+            X\cap(Y\cap Z)&=(X\cap Y)\cap Z;
+        \end{align*}
+        
+        \item distributivity:
+        \begin{align*}
+            X\cup(Y\cap Z)&=(X\cup Y)\cap(X\cup Z),\\
+            X\cap(Y\cup Z)&=(X\cap Y)\cup(X\cap Z);
+        \end{align*}
+        
+        \item De Morgan's law:
+        \begin{align*}
+            Z\setminus(X\cup Y)&=(Z\setminus X)\cap(Z\setminus Y),\\
+            Z\setminus(X\cap Y)&=(Z\setminus X)\cup(Z\setminus Y).
+        \end{align*}
+    \end{enumerate}
+\end{lemma}
+
+Often, when we have to prove the \textbf{equality of two sets} $X=Y$ by first proving $X\subset Y$ and conversely proving $Y\subset X$.
+
+\begin{example}
+    Let $S$ be the set of all differences between two squares, $O$ be the set of all odd integers, and $Z$ be the set of all integers divisible by $4$. Show that $S=O\cup Z$.
+    
+    Let $n=a^2-b^2\in S$ where $a,b\in\mathbb Z$, then
+    \[n=(a+b)(a-b).\]
+    If $(a-b)$ is even, then so is $(a+b)$ as $(a+b)=(a-b)+2b$ $\implies n=(a-b)(a+b)$ is divisible by $4$ $\therefore n\in Z$. If $(a+b)$ is odd, then so is $(a+b)$ $\implies$ n is odd $\therefore n\in O$. Therefore, $S=O\cup Z$.
+\end{example}
+

@@ -1,0 +1,93 @@
+\section{Chain rule, again}
+\lecture{16}{18/11}
+
+\begin{theorem}[Chain rule]
+    Let $f(\bm x): U \to \R$ be differentiabile with $U$ open in $\R^n$. Let $\bm x$ be a function of $u_1, \ldots, u_m$ such that
+    \[ \frac{\partial x_1}{\partial u_1}, \ldots, \frac{\partial x_1}{\partial u_m}, \frac{\partial x_2}{\partial u_1}, \ldots, \frac{\partial x_2}{\partial u_m}, \ldots, \frac{\partial x_n}{\partial u_1}, \ldots, \frac{\partial x_n}{\partial u_m} \]
+    all exist. Let $F(u_1, \ldots, u_m) = f(\bm x(u_1, \ldots, u_m))$. Then
+    \[ \frac{\partial F}{\partial u_b} = \frac{\partial x_i}{\partial u_b} \frac{\partial f}{\partial x_i}.  \]
+\end{theorem}
+
+\begin{proof}
+    We set
+    \begin{align*}
+        \bm x(u_1, \ldots, u_b, \ldots, u_m)    &= \bm a             \\
+        \bm x(u_1, \ldots, u_b + k, \ldots, u_m) &= \bm a + \bm h(k).
+    \end{align*}
+    Then
+    \begin{align*}
+        \frac{\partial F}{\partial u_b} &= \lim_{k \to 0} \left(\frac{F(u_1, \ldots, u_{b} + k, \ldots, u_m) - F(u_1, \ldots, u_k)}{k}\right) \\
+        &= \lim_{k \to 0} \left(\frac{f(\bm x(u_1, \ldots, u_b + k, \ldots, u_m)) - f(\bm x(u_1, \ldots, u_b, \ldots, u_m))}{k}\right) \\
+        &= \lim_{k \to 0} \left(\frac{f(\bm a + \bm h(k)) - f(\bm a)}{k}\right) \\
+        &= \lim_{k \to 0} \left(\frac{\bm h(k) \cdot \nabla f(\bm a) + R(\bm h(k))}{k}\right) \\
+        &= \left(\lim_{k \to 0}\left(\frac{\bm h(k)}{k}\right)\right) \cdot \nabla f(\bm a) + \lim_{k \to 0} \left(\frac{R(\bm h(k))}{k}\right).
+    \end{align*}
+    We have that
+    \[ \lim_{k \to 0} \left(\frac{\bm h(k)}{k}\right) = \lim_{k \to 0} \left(\frac{\bm a + \bm h(k) - \bm a}{k}\right) = \frac{\partial \bm x}{\partial u_b}. \]
+    We also know that
+    \[ \lim_{k \to 0} \left(\frac{R(\bm h(k))}{k}\right) = \lim_{k \to 0} \left(\frac{R(\bm h(k))}{\norm{\bm h(k)}}\frac{\norm{\bm h(k)}}{k}\right). \]
+    From the definition of differentiability, we have
+    \[ \lim_{k \to 0} \left(\frac{R(\bm h(k)}{\norm{k}}\right) = 0 \]
+    and
+    \[ \lim_{k \to 0} \left(\frac{\norm{\bm h(k)}}{k}\right) = \pm \norm{\lim_{k \to 0}\left(\frac{\bm h(k)}{k}\right)} = \pm \norm{\frac{\partial \bm x}{\partial u_b}} \]
+    hence
+    \[ \lim_{k \to 0} \left(\frac{R(\bm h(k))}{k}\right) = 0. \]
+\end{proof}
+
+\section{The implicit function theorem}
+
+Recall our definition of a \emph{level set} $S$ of a function $f: U \to \R$ where $U$ is open in $\R^n$. In $n = 2$, a level set is typically a curve called a \textbf{level curve}. Our question is, when can a level set of $f(x, y): U \to \R^2$ with $U$ open in $\R^2$ be written in the form $y = g(x)$ with $g$ being a differentiable function of just \emph{one} variable?
+
+\begin{example}
+    \begin{enumerate}
+        \item Consider the level set $f(x, y) = x^2 - y = c$. The level sets for varying $c$ are shown in Figure \ref{fig:level-set-ex-1}.
+        \item Consider the level set $f(x, y) = x^2 + y^2 = c$. The level sets for varying $c$ are shown in Figure \ref{fig:level-set-ex-2}.
+    \end{enumerate}
+\end{example}
+
+\begin{figure}
+    \centering
+    \begin{tikzpicture}
+        \begin{axis}[axis lines=middle,
+                     xmin=-2, xmax=2, ymin=-2, ymax=5]
+            \addplot[color = skyblue,
+                     smooth] {x^2 - 1};
+            \addlegendentry{$c = 1$}
+            \addplot[color = scarletred,
+                     smooth] {x^2};
+            \addlegendentry{$c = 0$}
+            \addplot[color = chameleon,
+                     smooth] {x^2 + 1};
+            \addlegendentry{$c = -1$}
+        \end{axis}
+    \end{tikzpicture}
+    \caption{Some level sets of $f(x, y) = x^2 - y = c$.}
+    \label{fig:level-set-ex-1}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \begin{tikzpicture}
+        \begin{axis}[axis lines=middle,
+            xmin=-3, xmax=3, ymin=-3, ymax=3]
+            \addplot[color = skyblue,
+                     smooth,
+                     domain = -1:1] {sqrt(1 - x^2)};
+            \addplot[color = skyblue,
+                     smooth,
+                     domain = -1:1] {-sqrt(1 - x^2)};
+            \addlegendentry{$c = 1$}
+            \addplot[color = scarletred,
+                     smooth,
+                     domain = -2:2] {sqrt(4 - x^2)};
+            \addplot[color = scarletred,
+                     smooth,
+                     domain = -2:2] {-sqrt(4 - x^2)};
+            \addlegendentry{$c = 4$}
+        \end{axis}
+    \end{tikzpicture}
+    \caption{Some level sets of $f(x, y) = x^2 + y^2 = c$.}
+    \label{fig:level-set-ex-2}
+\end{figure}
+
+Writing $y = g(x)$ gives $y$ as an explicit function of $x$. $f(x, y) = c$ gives (or tries to) give $y$ as an implicit formula. To go from explicit to implicit we can set $f(x, y) = g(x) - y$ and $c = 0$, say. The question is, can ewe go the other way?

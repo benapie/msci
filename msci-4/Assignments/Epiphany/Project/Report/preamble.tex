@@ -1,0 +1,155 @@
+\usepackage{graphicx}
+\usepackage{amsmath, amssymb}
+\usepackage{mathtools}
+\allowdisplaybreaks
+\usepackage{bm}
+\usepackage{siunitx}
+\usepackage{hyperref}
+\usepackage{booktabs}
+\usepackage{parskip}
+\usepackage[textwidth=10em, textsize=scriptsize]{todonotes}
+\usepackage[margin=2.5cm]{geometry}
+\usepackage{blkarray}
+%%%
+% (i), (ii), (iii), ... in enumerate environment
+%%%
+\usepackage{enumitem}
+\setlist[enumerate,1]{label={(\roman*)}}
+
+%%%
+% Table caption
+%%%
+\usepackage{caption}
+\usepackage{subcaption}
+\captionsetup[table]{skip=10pt}
+
+%%%
+% Complexity classes
+%%%
+\usepackage{complexity}
+
+%%%
+%%% Maths shortcuts
+%%%
+\newcommand{\N}{\mathbb N}
+\newcommand{\Z}{\mathbb Z}
+\renewcommand{\R}{\mathbb R}
+\renewcommand{\E}{\operatorname E}
+\newcommand{\pt}{\text{pt}}
+\DeclareMathOperator*{\argmax}{arg\,max}
+\DeclareMathOperator*{\argmin}{arg\,min}
+\DeclareMathOperator{\id}{id}
+\DeclareMathOperator{\im}{im}
+\DeclareMathOperator{\coker}{coker}
+\DeclareMathOperator{\SNF}{SNF}
+\DeclareMathOperator{\ob}{ob}
+\DeclareMathOperator{\dom}{dom}
+\DeclareMathOperator{\cod}{cod}
+\DeclareMathOperator{\diam}{diam}
+\DeclareMathOperator{\cech}{\check{C}}
+\DeclareMathOperator{\vr}{VR}
+\DeclareMathOperator{\swi}{SWI}
+\DeclareMathOperator{\gr}{GR}
+\DeclareMathOperator{\ipers}{ipers}
+\DeclareMathOperator{\pers}{pers}
+\DeclareMathOperator{\Pers}{Pers}
+\DeclareMathOperator{\dgm}{dgm}
+\DeclareMathOperator{\codim}{codim}
+\DeclareMathOperator{\Hom}{Hom}
+\DeclareMathOperator{\rank}{rank}
+\DeclareMathOperator{\sk}{sk}
+\DeclareMathOperator{\low}{low}
+\DeclareMathOperator{\Ch}{Ch}
+\DeclareMathOperator{\Cl}{Cl}
+\DeclareMathOperator{\WS}{WS}
+\DeclareMathOperator{\VDWS}{VDWS}
+\DeclareMathOperator{\Pow}{Pow}
+\DeclareMathOperator{\Set}{Set}
+\DeclareMathOperator{\Ab}{Ab}
+\DeclareMathOperator{\Grp}{Grp}
+\newcommand\restr[2]{{\left.\kern-\nulldelimiterspace#1\vphantom{\big|}\right|_{#2}}}
+
+%%%
+%%% Tikz
+%%%
+\usepackage{tikz}
+\tikzstyle{vertex}=[circle,fill=black!25,minimum size=12pt,inner sep=2pt]
+\usepackage{tikz-cd}
+
+%%%
+%%% Title page
+%%%
+\usepackage{titling}
+\pretitle{%
+  \vspace{-4em}
+  \begin{center}
+    \huge
+    \includegraphics[width=8em]{images/logo}\\[\bigskipamount]
+    \vspace{1em}
+    }
+
+    \posttitle{
+  \end{center}
+  \vspace{1em}
+}
+
+%%%
+%%% Algorithms
+%%%
+\usepackage{algpseudocode}
+\usepackage{algorithm}
+
+%%%
+%%% Code
+%%%
+\usepackage[outputdir=out]{minted}
+  \setminted[python]{
+    frame=lines,
+    framesep=2mm,
+    baselinestretch=1.2,
+    bgcolor=LightGray,
+    fontsize=\footnotesize,
+    linenos
+  }
+\usepackage{xcolor}
+  \definecolor{LightGray}{gray}{0.9}
+
+%%%
+%%% Referencing
+%%%
+\usepackage[sorting=none, backend=biber]{biblatex}
+\addbibresource{ref.bib}
+
+
+%%%
+%%% Theorems
+%%%
+\usepackage{amsthm}
+
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{proposition}[theorem]{Proposition}
+
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{remark}[theorem]{Remark}
+
+\newtheoremstyle{break}{\topsep}{\topsep}{}{}{\bfseries}{}
+{\newline}{\thmname{#1}\thmnumber{ #2}\thmnote{ ({\normalfont\textsc{#3}})}.}
+\theoremstyle{break}
+\newtheorem{problem}[theorem]{Problem}
+
+%%
+% Appendices
+%%
+\usepackage[toc,page]{appendix}
+
+% Labelling
+\counterwithin{figure}{section}
+\counterwithin{table}{section}
+\counterwithin{algorithm}{section}
+
+\usepackage{siunitx}

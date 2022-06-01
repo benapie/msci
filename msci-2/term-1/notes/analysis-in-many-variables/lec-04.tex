@@ -1,0 +1,64 @@
+\lecture{4}{14/10}
+Refering back to the standard basis, $\bm e_i$ is orthonormal with respect to the dot product. That is, \[ \bm e_i \cdot \bm e_j = \begin{cases} 1 & i = j \\ 0 & i \neq j \end{cases} = \delta_{ij}. \] $\delta_{ij}$ is also known as \emph{Kronecker delta}.
+
+We may use $x, y, z, \ldots$ for $x_1, x_2, x_3, \ldots$ for small number of variables.
+
+\begin{definition}[Dot product]
+    Given vectors $u, v \in \R^n$, we define the dot product as \[ \bm u \cdot \bm v = u_1v_1 + u_2v_2 + \ldots + u_nv_n. \] 
+\end{definition}
+
+\begin{definition}[Length of a vector]
+    Given a vector $u \in \R^n$, we define its length to be \[ \norm{\bm u} = \sqrt{\bm u \cdot \bm u}. \]
+\end{definition}
+
+These definitions should be familiar from linear algebra as should the following.
+
+\begin{definition}[Angle between two vectors]
+    Let $\theta$ be the angle two vectors $\bm u, \bm v \in \R^n$. Then \[ \bm u \cdot \bm v = \norm{\bm u} \norm{\bm v} \cos{\theta}. \]
+\end{definition}
+
+\begin{remark}
+    $\norm{\bm x}$ is sometimes denoted $r$ since it is the radial coordinate of $'bm x$ in speherical coordinates.
+\end{remark}
+
+\begin{definition}[Scalar field]
+    A \textbf{scalar field} is a real-valued functions $f : \R^n \to \R$ such that $f: \bm x \mapsto f(\bm x)$.
+\end{definition}
+
+\begin{example}
+    Let $n = 3$. Consider $f(\bm x) = \dfrac{xy}{\tan{z}}$. $f$ is a scalar field.
+\end{example}
+
+\begin{remark}
+    For $n = 3$, we can write $f(\bm x) = f(x, y, z)$.
+\end{remark}
+
+\begin{definition}[Vector field]
+    A \textbf{vector field} is a vector-valued function $f : \R^n \to \R^m$ such that $x \mapsto f(\bm x)$. In most cases that we will study, we will look at the case where $n = m$.
+\end{definition}
+
+\begin{example}
+    The function \[ f(\bm x) = \bm x (\bm a \cdot \bm x) \] where $a \in \R$ is a vector field. We can also write this in component notation, that is \[ f_i = x_i(a_jx_j). \]
+\end{example}
+
+\section{Curves in $\R^n$}
+
+\begin{definition}[Curves in $\R^n$]
+    We give curves in $\R^n$ parametrically by specifying $\bm x$ as a function $\bm x: \R \to \R^n$ of some paramter $t$ such that $t \mapsto \bm x(t)$. 
+\end{definition}
+
+\begin{example}
+    The equation $\bm x(t) = \bm a + t \bm b$ defines a straight line parallel to the vector $\bm b$ and crosses through the point $\bm a$.
+\end{example}
+
+\begin{definition}[Tangent to curves]
+    If $\bm x(t)$ is differentiable $\frac{dx}{dt}$ it is a vector that is tangent to the curve (as long as it is non-zeor).
+\end{definition}
+
+\begin{example}
+    $\bm x(t) = \cos{t} \bm e_1 + \sin{t} \bm e_2 + t \bm e_3$ gives a helix (this looks like a spring). \[ \frac{d(\bm x(t)}{dt} = -\sin{t} \bm e_1 + \cos{t} \bm e_2 + \bm e_3 \] represents the tangent to the helix.
+\end{example}
+
+\begin{remark}
+    If $t$ is taken to be the arc length $s$ along the curve from a fixed point then \[ \norm{\frac{d \bm x}{ds}} = 1. \] % todo revisit?
+\end{remark}

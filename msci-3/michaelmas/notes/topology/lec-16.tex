@@ -1,0 +1,198 @@
+%! TEX root = master.tex
+\lecture{16}{12/11}
+
+\begin{proposition}[]
+	Let $X$ be a space,
+	$Z \subset X$ be connected, and $Y \subset X$ with 
+	$Z \subset Y \subset \overline Z$.
+	Then $Y$ is connected.
+	In particular, the closure of a connected set is connected.
+\end{proposition}
+
+\begin{proof}
+	Suppose $Y = A \cup A'$ where $A$ and $A'$ are open and disjoint.
+	So there is open $U,U' \subset X$ such that $A = U \cap Y$ and
+	$A' = U' \cap Y$.
+	As $Z \subset Y$,
+	\begin{align*}
+		Z &= Y \cap Z \\
+		  &= (A \cup A') \cap Z \\
+		  &= (A \cap Z) \cup (A' \cap Z) \\
+		  &= (U \cap Z) \cup (U' \cap Z).
+	\end{align*}
+	Now observe
+	\[
+		(U \cap Z) \cap (U; \cap Z) \subset (U \cap Y) \cap (U' \cap Y)
+		= varnothing
+	\]
+	and so $U \cap Z$ and $U' \cap Z$ are disjoint clopen sets in $\Z$.
+	$\Z$ is clopen so without loss of generality assume that
+	$Z = U \cap Z$ and $\varnothing = U' \cap Z$.
+	So $Z \subset X \setminus U'$, a closed set.
+	So $Y \subset \overline \Z \subset X \setminus U'$.
+	Thus $Y \cap A' = A' = \varnothing$
+	and $Y \cap A = A = Y$.
+	Hence $Y$ is connected.
+\end{proof}
+
+\begin{corollary}
+	Let $X$ be a topological space and $Z \subset X$.
+	If $Z$ is connected and dense in $X$, then $X$ is connected.
+\end{corollary}
+
+\begin{proposition}[]
+	Let $\mathcal A = \left\{
+		A_i: i \in I
+	\right\}$
+	be a collection of subsets of a topological space $X$ such that
+	$\bigcup_{i \in I} A_i = X$.
+	Assume that $A_i$ is connected and for each $i,j \in I$ we hav
+	$A_i \cap A_j \neq \varnothing$.
+	Then $X$ is connected.
+\end{proposition}
+
+\begin{proof}
+	Suppose $U$ and $V$ are open subsets of $X$ and 
+	$U \cup V  = X$ and $V \cap V = \varnothing$.
+	Fix $\varepsilon \in I$.
+	Then $U \cap A_\varepsilon$ and $V \cap A_\varepsilon$ are
+	complementary open subsets of $A_\varepsilon$.
+	Without loss of generality, assume that $U \cap A_\varepsilon
+	= A_\varepsilon$ and $V \cap A_\varepsilon = \varnothing$.
+	If $i \in I$, $U \cap A_i$ and $V \cap A_i$ are complementary
+	clopen sets of $A_i$.
+	Noting that
+	\[
+		(U \cap A_i) \cap A_\varepsilon
+		= (U \cap A_\varepsilon) \cap A_i
+		= A_\varepsilon \cap A_i \neq \varnothing.
+	\]
+	Hence $U \cap A_i \neq \varnothing$.
+	Hence $U \cap A_i = A_i$.
+	Thus $A_i \subset U$ for every $i \in I$.
+	Hence
+	$X = \bigcup_{i\in I} A_i \subset U \subset X$
+	and so $X = U$ and $V = \varnothing$.
+\end{proof}
+
+\begin{theorem}[]
+	If $X$ and $Y$ are connected,
+	then $X \times Y$ is connected.
+\end{theorem}
+
+\begin{proof}
+	Pick $p \in X$ and $q \in Y$.
+	Now $\left\{
+		p
+	\right\} \times Y \cong Y$ and $X \times \left\{
+		q
+	\right\} \cong X$ so both are connceted.
+	As $(p,q)$ are in both sets,
+	$(X \times \left\{
+		q
+	\right\}) \cup (\left\{
+		p
+	\right\} \times Y)$ is also connected.
+	Now
+	\[
+		X \times Y = \bigcup_{q \in Y} \left( 
+			\left( 
+				X \times \left\{
+					q
+				\right\} 
+			\right) \cup \left( 
+				\left\{
+					p
+				\right\} \times Y 
+			\right) 
+		\right)
+	\]
+	and by the previous proposition, $X \times Y$ is connected.
+\end{proof}
+
+\begin{example}[]
+	$\R^n$ is thus connected.
+	$B^n$ is connected since $B^n \cong \R^n$
+	and similarly $D^n = \overline{B^n}$ is also connected.
+	Finally $T^n$ is the product of $n$ connected spaces,
+	and thus it is connected.
+\end{example}
+
+\begin{example}
+	Now consider $S^n$.
+	We can define $S^n = U^n \cup L^n$ where
+	\begin{align*}
+		U^n &= S^n \cap \left\{
+			\left( 
+				x_1, \ldots, x_{n+1} 
+			\right): x_1 \geq 0
+		\right\} \\
+		L^n &= S^n \cap \left\{
+			\left( 
+				x_1, \ldots, x_{n+1}: x_1 \leq 0 
+			\right)
+		\right\}.
+	\end{align*}
+	Now we define $f: D^n \to U^n$ by
+	\[
+		(x, \ldots, x_n) \mapsto \left(
+			\sqrt{1 - x_2^2 - \ldots - x_{n+1}^2}, x_2, \ldots, x_{n+1}
+		\right)
+	\]
+	and $f^{-1} : U^n \to D^n$ by
+	\[
+		(x_1, \ldots, x_{n+1}) \mapsto
+		(x_2, \ldots, x_{n+1})
+	\]
+	and so $U^n \cong D^n$.
+	Simiarly, $L^n \cong D^n$ and as
+	$U^n \cap L^n \neq \varnothing$, $S^n$ is connected.
+\end{example}
+
+\begin{definition}[Component]
+	A \emph{component} of a topological space $X$ is a maximal connected
+	space.
+\end{definition}
+
+Note that each point is in a unique component.
+Otherwise, if $p \in C_1, C_2$ for distinct components $C_1$
+and $C_2$, then $C_1 \cap C_2 \neq \varnothing$ and
+$C_1 \cup C_2$ is connected.
+Then either $C_1$ is not maximal or $C_2$ is not maximal.
+
+\begin{proposition}[]
+	Each component of a topological space $X$ is closed.
+\end{proposition}
+
+\begin{proof}
+	Let $C$ be a compoment of $X$.
+	As $C$ is connected, so is $\overline C$.
+	As $C$ is maximal and $C \subset \overline C$,
+	$C = \overline C$.
+\end{proof}
+
+\begin{examples}
+	\begin{enumerate}
+		\item
+		Let $X$ be a connected topological space.
+		Then $X$ is the only component of itself.
+
+		\item
+		Let $X$ be a discrete topological space.
+		Then every singleton set is a component since any set with more than one
+		point is not connected.
+
+		\item
+		In $\Q$, the components are singleton sets.
+		Suppose $x, y \in A \subset \Q$ such that $x < y$.
+		Choose an irrational $\alpha \in (x,y)$.
+		Then 
+		$
+			A = \left( 
+				(-\infty, \alpha) \cap A 
+			\right) \cup \left( 
+				(\alpha, \infty) \cap A %s/textbf/emph/g
+			\right)
+		$.
+	\end{enumerate}
+\end{examples}

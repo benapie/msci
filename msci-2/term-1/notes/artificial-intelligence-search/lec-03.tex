@@ -1,0 +1,59 @@
+\chapter{Heuristic search}
+\lecture{3}{21/10}
+
+In a heuristic search we are given additional information about a problem, unlike uninformed search. More formally...
+
+\begin{definition}[Heuristic search]
+    Heuristic search refers to a search strategy that attempts to optimize a problem by iteratively improving the solution based on a given heuristic function or a cost measure.
+\end{definition}
+
+Heuristic functions are functions that give us a \emph{general} idea about where our solution is. It might not be optimal, but it gives us more information about which steps are the best to take at each step of our algorithm.
+
+In this algorithm we expand a fringe node $z$ if it has the minimal value from a given evaluation function $f(z)$ which is defined on the nodes of the tree. Our evaulation function can vary depending on our implementation, for example
+\begin{enumerate}
+    \item $f(z) = \operatorname{depth}{(z)}$ generates breadth-first search; and
+    \item $f(z) = \operatorname{depth}{(z)}^{-1}$ generates depth-first search.
+\end{enumerate}
+
+As well as choice of evaluation function, we can also specify termination conditions. So instead of `terminate when a goal node is on the fringe' we can have something else.
+
+We typically derive our evaluation function from a \textbf{heuristic function} $h$ such that $h(z) > 0$ represents an estimation of the shortest path from $z$ to a goal node. $h$ must satisfy
+\begin{enumerate}
+    \item $z \;\text{is a goal node}\; \iff h(z) = 0$; and
+    \item $h(z)$ depends only on the state associated with $z$ (and not how we got there).
+\end{enumerate}
+
+\begin{remark}
+    The efficiency of a heuristic search algorithm is solely dependent on the quality of the heuristic function. That is, how good of an approximation the heuristic function is at the distance from a goal node.
+\end{remark}
+
+\begin{example}
+    We can give Euclidean distance between ondes on a graph as a heuristic looking for the shortest path. 
+\end{example}
+
+\begin{example}[Greedy best-first search]
+    Here, our evaluation function is equal to a provided heuristic function. Termination occurs when a goal node appears on the fringe. This algorithm need not provide an optimal solution, and it may not even terminate (it is incomplete). In the worst case scenario where our heuristic function is useless, we have a running time of $O(b^d)$ where $b$ is the branching factor and $d$ is the depth of the shallowest goal node. The performance of this algorithm is highly dependent on the quality of the heuristic function (as stated above... you're going to hear this a lot).
+\end{example}
+
+\section{Building a heuristic function from nothing}
+
+Even if we are not supplied any additional information, we can still construct our own heuristic.
+
+\begin{example}[Custom heuristic functions (from nothing)]
+    Suppose the state associated with a $z$ is $(c_1, c_2, \ldots, c_i)$ where $i \neq n$ ($n$ is the number of cities). Consider the following heuristic
+    \[ h(z) = \min{\{\delta(c_i, c') : c' \;\text{is unvisited}\}}. \]
+    If $i = n$, we simply have $h(z) = 0$ (the definition of a heuristic function). This is effectively a `visit the nearest neighbour' heuristic.
+\end{example}
+
+\section{A* search}
+
+A* search is a best-first search. We are given a heuristic function $h(z)$ and we construct our evaluation function as 
+\[ f(z) = g(z) + h(z) \]
+where $g(z)$ is the cost to travel from the root node to $z$. Our termination condition if our goal node $z$ appears on the fringe and $g(z) = \min_i\{g(z_i)\}$ where $z_i$ are all the nodes on the fringe. We know that there cannot be any other paths as the step costs must be positive.
+
+\begin{remark}
+    \begin{enumerate}
+        \item A* search is \emph{complete} and \emph{optimal}.
+        \item A goal node is never expanded under A* search.
+    \end{enumerate}
+\end{remark}

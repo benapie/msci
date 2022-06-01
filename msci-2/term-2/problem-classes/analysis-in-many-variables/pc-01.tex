@@ -1,0 +1,52 @@
+\pc{1}{23/1}
+
+\question Compute the differential, 
+or Jacobian matrix, 
+and the Jacobian of the function 
+$\bm V: \R^2 \to \R^2$
+defined by
+\[
+    \bm V(x, y) = (x\cos y, x\sin y).
+\]
+
+\question Repeat the previous question for
+\[
+    \bm V(x, y) = (e^x\cos y, e^x\sin y).
+\]
+
+\question Draw diagrams to represent these vector fields as a collectino of arrows:
+\begin{parts}
+    \part $\bm U = \left(\frac x2, \frac y2\right)$; and
+    \part $\bm V = (-y, x)$
+\end{parts}
+in $\R^2$.
+
+\question In the following integrals sketch the integration regions
+and then evaluate the integrals.
+Next interchange the order of integrations and re-evaluate.
+\begin{parts}
+    \part $\int_0^1 \left(\int_x^1 xy \,dy\right)\,dx$;
+    \part $\int_0^{\frac{\pi}2} \left(\int_0^{\cos\theta} \cos\theta \,dr\right) \,d\theta$;
+    \part $\int_0^1 \left(\int_1^{2-y} (x+y)^2 \,dx\right)\,dy$.
+\end{parts}
+
+\question Change the order of integration in the double integral
+\[
+    \int_0^2 \int_x^{2x} f(x, y) \,dy \,dx.
+\]
+
+\question A function $f(x, y)$ is defined by
+\[
+    f(x, y)=
+    \begin{cases}
+        1  & -1 < x-y < 0 \\
+        -1 & 0 < x-y < 1 \\
+        0  & \text{otherwise}.
+    \end{cases}
+\]
+Compute $\int_0^\infty\left(\int_{-\infty}^\infty f(x, y) \,dx\right)\,dy$
+and also $\int_{-\infty}^\infty\left(\int_0^\infty f(x, y)\,dy\right)\,dx$
+(for the second case it might help to draw a picture).
+Comment on your two answers - why does Fubini fail?
+
+

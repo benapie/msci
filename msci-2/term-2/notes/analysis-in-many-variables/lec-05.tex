@@ -1,0 +1,125 @@
+\lecture{5}{21/1}
+
+A \textbf{line integral} is an integral where the function to be
+integrated is evaluated along a curve.
+The term \emph{contour integral} is also used,
+but this is typically reserved for line integrals in the complex plane.
+
+\begin{definition}[Line integral]
+    For a vector field $\bm v: U \subset \R^n \to \R^n$, 
+    the \textbf{line integral} along a regular arc $C \subset U$,
+    in the direction $\bm r$ is defined as
+    \[
+        \int_C \bm v(\bm r) \cdot d\bm r =
+        \int_a^b \bm v(\bm r(t)) \cdot \bm r'(t) \, dt.
+    \]
+\end{definition}
+
+\begin{remark}
+    As suggested by the notation,
+    the line integral does not depend on the choice of parameters.
+    Suppose $t = t(u)$, with $u$ being the alternative parameter.
+    Then
+    \[
+        \frac{d\bm x}{du} = \frac{d\bm x}{dt} \frac{dt}{du} \tag{chain rule}
+    \]
+    and
+    \begin{align*}
+        \int \bm v(\bm x(t(u))) \cdot \frac{d\bm x}{du} \, du
+        &= \int \bm v(\bm x(t(u))) \cdot \frac{d\bm x}{dt} \frac{dt}{du} \, du \\
+        &= \int \bm v(\bm x(t)) \cdot \frac{d\bm x}{dt} \, dt
+    \end{align*}
+    which is equal to our original expression.
+\end{remark}
+
+If $C$ is a regular curve, then we still write
+\[
+    \int_C \bm v \cdot d\bm x;
+\]
+that is, we sum over the arcs.
+If $C$ is a \emph{closed regular} curve or arc we sometimes write this as
+\[ \oint_C \bm v \cdot d\bm x. \]
+
+\begin{example}
+    Let
+    \[
+        \bm u(\bm x) =
+        (x^2z, xyz, x)
+    \]
+    in $\R^3$ and let $C$ be the circle with centre
+    $\bm a = (a_1, a_2, a_3)$ and radius $r$ in the $x$-$y$ plane
+    given by
+    \[
+        \bm x(t) = \bm a + r\cos t \bm e_1 + r\sin t \bm e_2
+    \]
+    where $t \in [0, 2\pi]$.
+    Calculate
+    \[
+        \oint_C \bm u \cdot d\bm x.
+    \]
+\end{example}
+
+\begin{solution}
+    \begin{align*}
+        \frac{d\bm x}{dt} 
+        &= -r\sin t\bm e_1 + r\cos t \bm e_2 \\
+        &= (-r\sin t, r\cos t, 0) \\
+        \bm x(t) 
+        &= (a_1 + r\cos t, a_2 + r\sin t, a_3) \\
+        \bm u(\bm x(t))
+        &= ((a_1 + r\cos t)^2a_3, (a_1 + r\cos t)(a_2 + r\sin t)a_3,
+        a_1 + r\cos t) \\
+        \bm u(\bm x(t)) \cdot \frac{d\bm x}{dt}
+        &= -r\sin t(a_1 + r\cos t)^2a_3 + 
+        r\cos t(a_1 + r\cos t)(a_2 + r\sin t)a_3.
+    \end{align*}
+    Therefore
+    \begin{align*}
+        \oint_C \bm u \cdot d\bm x
+        &= \int_0^{2\pi}
+        \big(
+            -r\sin t(a_1 + r\cos t)^2a_3
+            \\& \qquad\qquad
+            + r\cos t(a_1 + r\cos t)(a_2 + r\sin t)a_3
+        \big)
+        \, dt \\
+        &= \int_0^{2\pi}
+        \big(
+            -r\sin t(a_1 + r\cos t)^2 a_3
+            +r\cos t(a_1 + r\cos t)a_2a_3
+            \\& \qquad\qquad
+            +r\cos t(a_1 + \cos t)r\sin t a_3
+        \big)
+        \, dt \\
+        &= \int_0^{2\pi} -\cos t (a_1 + r\cos t) a_2 a_3 \, dt \\
+        &= \int_0^{2\pi} \left( r^2\cos^2{t} + a_2 a_3 \right) \, dt \\
+        &= \pi r^2 a_2 a_3.
+    \end{align*}
+\end{solution}
+
+\section{Surface integrals: defining a surface}
+
+To integrate over a surface we must define the surface.
+There are (at least) two ways to do this.
+
+\paragraph{Method 1} 
+We can directly generalise from line integrals; that is,
+define a surface in parametric form $\bm x(u, v)$ in $\R^2$.
+
+\begin{example}
+    Points on a sphere of radius $a$ centred on the origin can be
+    parametrised in spherical (polar) coordinates,
+    with $u$ and $v$ usually written as $\theta$ and $\phi$,
+    \[
+        \bm x(\theta, \phi) = (x(\theta, \phi), 
+        y(\theta, \phi), 
+        z(\theta, \phi))
+    \]
+    where
+    \[
+        x(\theta, \phi) = a\sin\theta\cos\phi, \qquad
+        y(\theta, \phi) = a\sin\theta\sin\phi, \qquad
+        z(\theta, \phi) = a\cos\theta,
+    \]
+    and $\theta \in [0, \pi]$ and $\phi \in [0, 2\pi]$.
+\end{example}

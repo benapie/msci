@@ -1,0 +1,150 @@
+%! TEX root = master.tex
+
+\subsection{$\limsup$ and $\liminf$}
+\lecture{3}{12/10}
+
+\begin{definition}[]
+	Let $\left\{ x_n \right\}$ be a sequence of real numbers.
+	We define
+	\begin{align*}
+		\limsup x_n 
+		&= \inf_n\left\{ \sup_{k \geq n} \left\{ x_k \right\} \right\}, \\
+		\liminf x_n 
+		&= \sup_n\left\{ \inf_{k \geq n} \left\{ x_k \right\} \right\}.
+	\end{align*}
+\end{definition}
+
+\begin{proposition}[]
+	Let $\left\{ x_n \right\}$ be a sequence of real numbers.
+	Then $\limsup x_n$ is the greatest cluster point of $\left\{ x_n \right\}$
+	and $\liminf x_n$ is the least cluster point.
+\end{proposition}
+
+\begin{proof}
+	By contradiction, we take $l_1$ to be a cluster point such that \[
+		l_1 < l = \liminf x_n.
+	\]
+	By the previous lemma, there is a subsequence $\left\{ x_{n_k} \right\}$
+	subseqeunce with limit $l_1$.
+	That is, for all $\varepsilon > 0$ there is $N \in \N$ such that for all
+	$k \geq N$ we have \[
+		\left\lvert x_{n_k} - l_1 \right\rvert < \varepsilon.
+	\]
+	Now we choose $\varepsilon = \frac{l - l_1}{2}$. So \[
+		x_{n_k} < l_1 + \varepsilon = l - \varepsilon.
+	\]
+	But $l = \liminf x_n = l - \varepsilon$; a contradiction.
+	We can use a similar reasoning to obtain the proof for $\limsup$.
+\end{proof}
+
+\begin{proposition}[]
+	Let $\left\{ x_n \right\}$ be a sequence of real numbers.
+	An element $l = \limsup\left\{ x_n \right\}$ if and only if
+	\begin{enumerate}
+		\item for every $\varepsilon > 0$ there is $N \in \N$
+			such that for all $n \geq N$ we have $x_n < l + \varepsilon$; and
+		\item for every $\varepsilon > 0$ and $N \in \N$ there is $n \geq N$
+			such that $x_n > l - \varepsilon$.
+	\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+	We first prove $(i)$ by contradiction.
+	Suppose there is $\varepsilon > 0$ such that for all $n \geq N$
+	we have $x_n \geq l + \varepsilon$.
+	Then \[
+		l = \limsup\left\{ x_n \right\} 
+		= \inf_n\left\{ \sup_{k\geq n} \left\{ x_k \right\} \right\}
+		\geq l + \varepsilon.
+	\]
+	Similarly, for $(ii)$
+	we assume that there exists $\varepsilon > 0$ and $N \in \N$
+	such that for all $n > N$ we have $x_n \leq l - \varepsilon$.
+	Now \[
+		l = \limsup x_n
+		= \inf_n \left\{ \sup_{k \geq n} \left\{ x_k \right\} \right\}
+		\leq l - \varepsilon.
+	\]
+	Now we prove that $(i)$ and $(ii)$ imply our definition of $\limsup$.
+	By $(i)$, $\left\{ x_n \right\}$ is bounded from above and by the
+	completeness of $\R$, $\sup x_n$ exists and $\sup x_n \leq l + \varepsilon$.
+	Moreover, from $(ii)$ the sequence $\left\{ x_n \right\}$ contains an element
+	larger than $l - \varepsilon$.
+	In particular,
+	$\sup\left\{ x_n \right\} \geq l - \varepsilon$.
+	Hence 
+	\begin{align*}
+		l - \varepsilon &\leq \sup x_n \leq l + \varepsilon \\ 
+		l - \varepsilon &\leq \limsup x_n \leq l + \varepsilon
+	\end{align*}
+	and so for arbitrarily small $\varepsilon$ we have $l = \limsup x_n$.
+\end{proof}
+
+\begin{proposition}[]
+	Let $\left\{ x_n \right\}$ be a sequence of real numbers.
+	An element $l = \liminf x_n$ if and only if
+	\begin{enumerate}
+		\item for all $\varepsilon > 0$ there exists $N \in \N$ such that
+			for all $n \geq N$ we have $x_n > l - \varepsilon$; and
+		\item for all $\varepsilon > 0$ and $N \in N$ there exists
+			$n \geq N$ such that $x_n < l + \varepsilon$.
+	\end{enumerate}
+\end{proposition}
+
+\begin{solution}
+	First we prove $(i)$.
+	Assume, for a contradiction, that there is $\varepsilon > 0$ such that for
+	all $n \geq N$, $x_n > l - \varepsilon$.
+	Then \[
+		l = \liminf x_n
+		= \sup_n\left\{ \inf_{k\geq n}\left\{ x_k \right\} \right\}
+		> l - \varepsilon.
+	\]
+	We can show similarly that $l < l + \varepsilon$
+	by assuming the negation of $(ii)$.
+	We have left to show that $(i)$ and $(ii)$ imply our definition of $\liminf$.
+	By $(i)$, $\left\{ x_n \right\}$ is bounded and by the completeness of the
+	reals $\inf x_n$ exists and $\inf x_n \geq l - \varepsilon$.
+	By $(ii)$, there is some element of $\left\{ x_n \right\}$ that is smaller
+	than $l + \varepsilon$. 
+	So $\inf x_n \leq l + \varepsilon$.
+	And so \[
+		l - \varepsilon \leq \liminf x_n \leq l + \varepsilon
+	\]
+	which completes our proof.
+\end{solution}
+
+\begin{proposition}[]
+	A sequence $\left\{ x_n \right\}$ of real numbers
+	is convergent if and only if \[
+		\liminf x_n = \limsup x_n.
+	\]
+\end{proposition}
+
+\begin{proof}
+	Let $x_n \to l$.
+	So for all $\varepsilon > 0$
+	there is $N \in \N$
+	such that $\left\lvert x_n - l \right\rvert < \varepsilon$
+	for all $n \geq N$.
+	But $\left\lvert x_n - l \right\rvert < \varepsilon$ implies that
+	$l - \varepsilon < x_n < l + \varepsilon$;
+	hence, $\liminf x_n = l = \limsup x_n$ and we have proved
+	the $\implies$ of this proposition.
+	Now we prove the $\impliedby$.
+	For all $\varepsilon > 0$ there is $N \in \N$ such that
+	$x_n > l + \varepsilon$ for all $n \geq N$.
+	Similarly, $x_n < l - \varepsilon$.
+	Therefore $\left\lvert x_n - l \right\rvert < \varepsilon$.
+\end{proof}
+
+\begin{theorem}[Bolzano-Weierstrass]
+	Every bounded sequence in $\R$ has a convergent subsequence.
+\end{theorem}
+
+\begin{proof}
+	Let $\left\{ x_n \right\}$ be bounded by $M > 0$.
+	Then $l = \limsup x_n \in [-M,M]$.
+	We know that $l$ is a cluster point; hence,
+	there is a subsequence of $\left\{ x_n \right\}$ that converges to $l$.
+\end{proof}

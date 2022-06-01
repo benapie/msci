@@ -1,0 +1,103 @@
+\chapter{The completeness axiom for $\mathbb R$}
+
+The rational numbers $\mathbb Q$ are \textbf{dense} inside the real numbers, but there are \textbf{gaps}. For example, $\sqrt 2$ cannot be written as a rational number. We want to define $\mathbb R$ so that it has no gaps. A more technical way to say this is to give the axiom that the real numbers are \textbf{complete}. We now start to work towards the definition.
+
+\begin{definition}
+    Let $X$ be a set of real numbers. A number $M\in X$ is called a \textbf{maximum} of $X$ if $x\leq M$ for all $x\in X$, we use the notation \[M=\max{X}.\] Similarly, $m\in X$ is called the \textbf{minimum} for $X$ if $m\leq x$ for all $x\in X$, and we use the notation \[m=\min{X}.\] 
+\end{definition}
+
+\begin{example}
+    Following are some example sets each with their maximum and minimum.
+    \begin{enumerate}
+        \item $X=\{2,3,6,8,9\}$, $\max{X}=9$ and $\min{X}=2$;
+        \item $X=\{\frac1n:n\in\mathbb N\}$, $\max{X}=1$ and $\min{X}$ does not exist; and 
+        \item $X=[0,\infty)$, $\min{X}=0$ and $\max{X}$ does not exist.
+    \end{enumerate}
+\end{example}
+
+\begin{definition}
+    A set $X\subset\mathbb R$ is \textbf{bounded above} if there exists $c_1\in\mathbb R$ such that $x\leq c_1$ for all $x\in X$. Similarly, $X$ is \textbf{bounded below} if there exists $c_2\in\mathbb R$ such that $x\geq c_2$ for all $x\in X$.
+\end{definition}
+
+\begin{example}
+    $X=\{\frac1n:n\in\mathbb N\}$ is 
+    \begin{enumerate}
+        \item bounded above ($c_1=1$,$c_1=5$,$c_1=100$); and
+        \item bounded below ($c_2=0$,$c_2=-5$,$c_2=-100$).
+    \end{enumerate}
+\end{example}
+
+\begin{example}
+    $X=\{x\in\mathbb R:x^2\leq 2\}$ is bounded above and below ($c_1=2$,$c_2=-\frac32$).
+\end{example}
+
+\begin{definition}
+    We say a set $X\subset\mathbb R$ is \textbf{bounded} if it both bounded above and bounded below.
+\end{definition}
+
+\begin{definition}
+    Let $X\subset R$ be bounded above. A number $c_0$ is a \textbf{least upper bound} or \textbf{supremum} if both
+    \begin{enumerate}
+        \item $c_0$ is an upper bound for $X$, that is $x\leq c_0$ for all $x\in X$; and
+        \item if $c$ is any upper bound for $X$ then $c_0\leq c$.
+    \end{enumerate}
+    That is, $c_0$ is the minimum among all possible upper bounds for $X$. We write $\sup{X}=c_0$. Similarly, if $X$ is bounded below, a number $c_1$ is a \textbf{greatest lower bound} or \textbf{infimum} if
+    \begin{enumerate}
+        \item $c_1$ is a lower bound; and
+        \item if $c$ is any lower bound for $X$ then $c_1\leq c$.
+    \end{enumerate}
+    That is, $c_1$ is the maximum among all possible lower bounds for $X$. We write $\inf{X}=c_1$.
+\end{definition}
+
+\begin{proposition}
+    Let $X$ be a subset of $\mathbb R$ that is bounded above. $c_0\in\mathbb R$ is the supremum of $X$ if and only if both the following are true:
+    \begin{enumerate}
+        \item if $x\in X$ then $x\leq c_0$; and
+        \item there exists a convergent sequence $(x_n)_{n\in\mathbb N}$ with $x_n\in X$ and $\lim_{n\to\infty}x_n=c_0$.
+    \end{enumerate}
+    Let $X\subset\mathbb R$ be bounded below. $c_0\in\mathbb R$ is $\inf{X}$ if and only if
+    \begin{enumerate}
+        \item $x\in X$ then $x\geq c_0$; and
+        \item there exists a convergent sequence $(y_n)_{n\in\mathbb N}$ with $y_n\in X$ and $\lim_{n\to\infty}y_n=c_0$.
+    \end{enumerate}
+\end{proposition}
+
+\begin{proof}
+    Suppose $(ii)$ is true, that is \[\exists\;(x_n)\;\text{with}\;x_n\in X;\;\text{and}\;\lim_{n\to\infty}x_n=x^*.\] We need to show that if $c$ is an upper bound for $X$ then \[c\geq\lim_{n\to\infty}=x^*.\] Suppose $c<x^*$ and $c\geq x$ for all $x\in X$. Let \[\epsilon=\dfrac{x^*-c}{2}.\] Find $n\in\mathbb N$ with \[|x_n-x^*|<\epsilon=\dfrac{x^*-c}{2}.\] Then
+    \begin{align*}
+        x_n&=(x_n-x^*)+x^*\\
+        &>\dfrac{c-x^*}{2}+x^*\\
+        &=\dfrac{c+x^*}{2}\\
+        &>c;
+    \end{align*}
+    a contradiction. Conversely, suppose $c_0=\sup{X}$. We need to construct $x_n\in X$ with $\lim_{n\to\infty}x_n=c_0$. Choose $n\in\mathbb N$ consider \[\left(c_0-\frac1n,c_0\right)\] if there exists \[x_n\in\left(c_0-\frac1n,\right)\cap X\] then we can use the squeeze theorem to conclude \[\lim_{n\to\infty}x_n=c_0.\] Assume \[\left(c_0-\frac1n,c_0\right]\cap X=\varnothing\] for a contradiction. By construction $(c_0,\infty)\cap X=\varnothing$, then $c\geq x\;\forall\;x\in X$ \[\left(c_0-\frac1n,c_0\right]\cup(c_0,\infty)=(c_0\frac1n,\infty)\] hence \[c_0-\frac1n\geq x\;\forall\;x\in X;\] a contradiction and \[c_0=\sup{X}.\]
+\end{proof}
+
+\begin{example}
+    Find the supremum and infimum (if they exist) of the following sets.
+    \begin{enumerate}
+        \item \[X=\left\{\frac1n:n\in\mathbb N\right\}\]
+        Guess $\sup{X}=1$. \[1\geq\frac1n\iff n\geq1\] which is true if $n\in\mathbb N$, therefore, $1$ is an upper bound. Moreover, $1\in X$ so we take the constant sequence $(x_j)_{j\in\mathbb N}$, $x_j=1$ to conclude that $\sup{X}=1$. Guess $\inf{X}=0$. \[0<\frac1n\;\forall\;n\in\mathbb N\] so take $0$ as a lower bound. Consider $(y_j)_{j\in\mathbb N}$, $y_j=\frac1j\in X$. As \[\lim_{j\to\infty}y_j=\lim_{j\to\infty}\frac1j=0\] then $\inf{X}=0$.
+        
+        \item \[X=(0,\infty)\]
+        There are no real upper bounds, so $\sup{X}$ does not exist (that is, $X$ is unbounded above). Guess $\inf{X}=0$, if $x\in X$ then $x\geq 0$ so $0$ is a lower bound. Choose $x_n=\frac1n$, $n\in\mathbb N$. $\frac1n>0$ so $\frac1n\in X$. As \[\lim_{n\to\infty}x_n=0\] so $\inf{X}=0$.
+        
+        \item \[X=\left\{\dfrac{n}{1+n^2}:n\in\mathbb N\right\}=\left\{\frac12,\frac25,\frac3{10},\frac4{17},\frac5{26},\ldots\right\}\]
+        Guess $\sup{X}=\frac12$. \[\dfrac{n}{1+n^2}\leq\frac12\iff n^2-2n+1=(n-1)^2\geq 1\] which is true for all $n\in\mathbb N$, therefore, $\frac12$ is an upper bound. As $\frac12\in X$, $\sup{X}=\frac12$. Guess $\inf{X}=0$, \[0<\dfrac{n}{1+n^2}\] since $n\geq 1$ and $1+n^2\geq2$ so $0$ is a lower bound. As \[\lim_{n\to\infty}\left(\dfrac{n}{1+n^2}\right)=0\] $\inf{X}=0$.
+        
+        \item \[X=\left\{x_{n,m}=\dfrac{nm}{1+n^2+m^2}:n,m\in\mathbb N\right\}\]
+        Guess $\sup{X}=\frac12$. \[\frac12\geq\dfrac{nm}{1+n^2+m^2}\iff1+(n-m)^2\geq 0,\] therefore, $\frac12$ is an upper bound. Set $n=m$, \[\lim_{n\to\infty}x_{n,n}=\lim_{n\to\infty}\left(\dfrac{n^2}{1+2n^2}\right)=\frac12\] so $\sup{X}=\frac12$. Guess $\inf{X}=0$. As $nm>0$ and $1+n^2+m^2>0$ so $0$ is a lower bound. Set $m=1$, \[\lim_{n\to\infty}x_{n,1}=\lim_{n\to\infty}\left(\dfrac{n}{2+n^2}\right)=0\] therefore, $\inf{X}=0$.
+        
+        \item \[X=\left\{x_n=\dfrac{n^2-4n+4}{1+2n^2}:n\in\mathbb N\right\}=\left\{\frac13,0,\frac1{19},\frac4{33},\ldots\right\}\]
+        Observe that $x_2=0$ and \[x_n=\dfrac{(n-2)^2}{1+2n^2}\] which can only be $0$ where $n=2$, elsewhere it is positive, therefore, $\inf{X}=0$. Guess $\sup{X}=\frac12$, \[\frac12\geq\dfrac{(n-2)^2}{1+2n^2}\iff n\geq 7\] which is true for $n\in\mathbb N$, so $\frac12$ is an upper bound. Finally, \[\lim_{n\to\infty}x_n=\frac12\] so $\sup{X}=\frac12$.
+    \end{enumerate}
+\end{example}
+
+\begin{proposition}[Completeness axiom for the real numbers]
+    Every non-empty subset of $\mathbb R$ that is bounded has a supremum. 
+\end{proposition}
+
+\begin{remark}
+    This is \textbf{defining information} for the real numbers, it is not obvious. This is an \textbf{axiom} and cannot be proved.
+\end{remark}
+

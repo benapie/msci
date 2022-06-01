@@ -1,0 +1,97 @@
+\subsection{A brief touch on category theory}
+
+Category theory has the ambitious goal to generalize all of mathematics in terms of \emph{categories}, irrespective of the underlying structure of such objects.
+
+\begin{definition}[Category]
+    A \emph{category} $C$ consists of
+    \begin{enumerate}
+        \item a class $\ob(C)$ of \emph{objects};
+        \item a class $\hom(C)$ of \emph{morphisms} between objects;
+        \item a \emph{domain} class function $\dom: \hom(C) \to \ob(C)$;
+        \item a \emph{codomain} class function $\cod: \hom(C) \to \ob(C)$; and
+        \item for every $f,g \in \hom(C)$ such that $\cod(f) = \dom(g)$, a morphism denoted $g \circ f$ (or $gf$) called their \emph{composite}
+    \end{enumerate}
+    such that for all $f, g, h \in \hom(C)$ and $x, y \in \ob(C)$,
+    \begin{enumerate}
+        \item if $\cod(f) = \dom(g)$, then $\dom(g \circ f) = \dom(f)$ and $\cod(g \circ f) = \cod(g)$;
+        \item there exists a morphism $\id_x \in \hom(C)$ (called the \emph{identity morphism}) such that $\dom(\id_x) = x$ and $\cod(\id_x) = x$;
+        \item if $\cod(f) = \dom(g)$ and $\cod(g) = \dom(h)$, then $(h \circ g) \circ f = h \circ (g \circ f)$; and
+        \item if $\dom(f) = x$ and $\cod(f) = y$, then $\id_y \circ f = f \circ \id_x$.
+    \end{enumerate}
+\end{definition}
+
+Note here that there is little in the way of description of what is meant by an \emph{object} and a \emph{morphisms}, which is the purpose at this level of abstraction.
+
+\begin{example} \hspace{0em}
+    \begin{enumerate}
+        \item The category of \emph{sets and functions}, denoted as $\Set$, is a valid category.
+        \item The category of \emph{abelian groups and group homomorphisms}, denoted $\Ab$, is another valid category. It is a \emph{subcategory} of the category of \emph{groups and group homomorphisms}, denoted $\Grp$.
+    \end{enumerate}
+\end{example}
+
+\begin{definition}[Isomorphism]
+    Let $C$ be a category and $x,y \in \ob(C)$. A morphism $f: \hom(x, y)$ is an \emph{isomorphism} if there exists a morphism $f^{-1} \in \hom(y, x)$ such that $f \circ f^{-1} = \id_y$ and $f^{-1} \circ f = \id_x$. We call $f^{-1}$ the \emph{inverse} of $f$.
+\end{definition}
+
+This gives us a generalisation of isomorphisms as we know them for groups, graphs, vector spaces, topology, etc.
+
+We now define a mapping \emph{between} categories. For a category $C$ and $x,y \in \ob(C)$, $\hom(x, y)$ denotes a subclass of of $\hom(C)$ such that, if $f \in \hom(x,y)$, then $\dom(f) = x$ and $\cod(f) = y$. Denote such a morphism by $f: x \to y$.
+
+\begin{definition}[Functor]
+    Let $C$ and $D$ be categories. A \emph{functor} $F: C \to D$ from $C$ to $D$ is a mapping that
+    \begin{enumerate}
+        \item associates each $x \in \ob(C)$ to a $F(x) \in \ob(D)$;
+        \item associates each $f \in \hom(C)$ to a $F(f) \in \hom(D)$ such that
+              \begin{enumerate}
+                  \item $\dom(F(f)) = F(\dom(f))$ and $\cod(F(f)) = F(\cod(f))$;
+                  \item for every $x \in \ob(C)$, we have $F(\id_x) = \id_{F(x)}$; and
+                  \item for all morphism $f, g \in \hom(C)$ such that $\cod(f) = \dom(g)$, we have $F(g \circ f) = F(g) \circ F(f)$.
+              \end{enumerate}
+    \end{enumerate}
+\end{definition}
+
+Functors between categories must preserve identity morphisms and composition of morphisms.
+
+\begin{example}[Examples of functors] \hspace{0em}
+    \begin{enumerate}
+        \item For any category $C$, we may define the \emph{identity endofunctor} (an endofunctor is functor that maps from a category to itself) that maps all objects to itself and all morphisms to itself, we denote this functor $\id_C$.
+        \item We may define \emph{homology} as a \emph{contravariant} functor from the category of chain complexes to the category of abelian groups (or modules, which we will later see). A contravariant functor is defined in the same way as a regular functor, except for the fact that they \emph{reverse composition} and switches the domain and codomain; that is $F(g \circ f) = F(f) \circ F(g)$ (in (ii)(b) above) and if $f: x \to y$, then $F(f): F(y) \to F(x)$.
+        \item Another interesting example (which we do not go into details here) is the abelianization functor mapping from the category of groups to the category of abelian groups. The abelianization of some group $G$ is the quotient of $G$ by the relation $xy = yx$ for all $x,y \in G$, and the construction of this functor is as one would expect (using the canonical quotient map).
+    \end{enumerate}
+\end{example}
+
+\begin{proposition} \label{lem:functors-perserve-isomorphisms}
+    Functors preserve isomorphisms.
+\end{proposition}
+
+\begin{proof}
+    Let $C$ and $D$ be categories and $F: C \to D$ a functor. Let $f \in \hom(C)$ be an isomorphism with inverse $f^{-1}$. Then
+    \[F(f) \circ F(f^{-1}) = F(f \circ f^{-1}) = F(\id_y) = \id_{F(y)}\]
+    and
+    \[F(f^{-1}) \circ F(f) = F(f^{-1} \circ f) = F(\id_x) = \id_{F(x)},\]
+    thus $F(f) \in \hom(D)$ is an isomorphism.
+\end{proof}
+
+\begin{definition}[Natural isomorphism]
+    Let $F$ and $G$ be functors between categories $C$ and $D$. A \emph{natural transformation} $\eta = \{\eta_x\}_{x \in C}$ from $F$ to $G$ is a family of morphisms such that $\eta_x: F(x) \to G(x)$ and the following diagram commutes for all $f: x \to y$ in $C$.
+    \begin{center}
+        % https://tikzcd.yichuanshen.de/#N4Igdg9gJgpgziAXAbVABwnAlgFyxMJZABgBpiBdUkANwEMAbAVxiRADEAKADwEoQAvqXSZc+QijIBGKrUYs2AcR78hI7HgJEATKRnV6zVohDKAnquEgMG8TvKzDCk+dWyYUAObwioAGYAThAAtkhkIDgQSFIG8sYgADoJMDh0APrcINQMdABGMAwACqKaEiABWJ4AFjiCVoEhSADM1JFIunJGbEkp6WZ1-kGhiOFtiC2dzhycfpaDjYgxEVGIHU7xyrNZIDn5RSV2JhXVtQIUAkA
+        \begin{tikzcd}
+            F(x) \arrow[d, "\eta_x"'] \arrow[rr, "F(f)"] &  & G(y) \arrow[d, "\eta_y"] \\
+            G(x) \arrow[rr, "G(f)"']                     &  & G(y)
+        \end{tikzcd}
+    \end{center}
+    If $\eta_x$ is an isomorphism for every $x \in \ob(C)$, then $\eta$ is said to be a \emph{natural isomorphism}. If such an $\eta$ exists, $F$ and $G$ are said to be naturally isomorphic, denoted $F \simeq G$.
+\end{definition}
+
+\begin{definition}[Equivalence of categories]
+    Let $C$ and $D$ be categories. An \emph{equivalence} of two categories is a pair of functors $F: C \to D$ and $G: D \to C$ alongside two natural isomorphisms $F \circ G \simeq \id_D$ and $G \circ F \simeq \id_C$.
+\end{definition}
+
+If such an equivalence of categories exists between categories $C$ and $D$, then $C$ and $D$ are said to be \emph{equivalent}, denoted $C \simeq D$, and in the definition above $F: C \to D$ (or $G: D \to C$) are said to define an equivalence of categories. Equivalence of categories is more analogous to \emph{homotopy equivalence} from homotopy theory then it is to homeomorphic; however, this is not a perfect analogy.
+
+Equivalence of categories do not present particularly strong correspondence between objects within each category; however, it does provide a bijection between the isomorphisms within each category.
+
+\begin{corollary} \label{cor:equivalence-functor-give-bijection-on-isomorphisms}
+    Let $F$ be a functor which defines an equivalence between categories $C$ and $D$. Then $f \in \hom(C)$ is an isomorphism if and only if $F(f) \in \hom(D)$ is an isomorphism.
+\end{corollary}

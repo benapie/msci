@@ -1,0 +1,30 @@
+\part[5] Is the class of interval graphs closed under edge contraction?
+
+\begin{solution}
+    The usual definition of an interval graph is as the intersection graph of a set of intervals on the real line, but we restrict this to the intersection graph of a set of \emph{closed} intervals on the real line, as defined by Diner et al., 2015.
+
+    Let $\{I_i\}_{i=1}^n$ be a finite set of closed intervals where $I_i = [a_i, b_i]$ for $a, b \in \mathbb R$ with $a \leq b$, and let $G = (V,E)$ be the corresponding intersection graph; that is,
+    \begin{align*}
+        V & = \{v_i\}_{i=1}^n,                           \\
+        E & = \{v_iv_j: I_i \cap I_j \neq \varnothing\}.
+    \end{align*}
+    Pick $v_iv_j \in E$. We claim that $G' = G/v_iv_j$ is an interval graph; that is, there is a finite set of intervals $\mathcal J$ such that $G'$ is the interval graph of $\mathcal J$.
+
+    We prove this by construction. For all $k \in \{1, \ldots, n\} \setminus \{i,j\}$, let $I_k \in \mathcal J$. Recall that $G/v_iv_j$ may produced from $G$ with the following operations:
+    \begin{itemize}
+        \item add a new vertex labelled $v_{i \sim j}$;
+        \item add an edge between $v_{i \sim j}$ and every neighbour of $v_i$ and $v_j$; then
+        \item delete $v_i$ and $v_j$.
+    \end{itemize}
+    Thus we add the final interval, $I_{i \sim j}$, defined by
+    \[
+        I_{i \sim j} = \left[\min\{a_i, a_j\}, \max\{b_i, b_j\}\right]
+    \]
+    and let $I_{i \sim j} \in \mathcal J$. Thus we have
+    \[
+        \mathcal J = \{I\}_{k \in \{1,\ldots,n\} \setminus \{i,j\}} \cup \{I_{i\sim j}\}.
+    \]
+    We claim that the interval graph of $\mathcal J$ is $G'$. Indeed, for all $k, l \in \{1,\ldots,n\} \setminus \{i,j\}$, $v_kv_l \in E(G')$ if and only if $I_k \cap I_l \neq \varnothing$ (that is, $v_kv_l \in E(G)$).  We have left to consider $i$ and $j$. But note, $I_i, I_j \subset I_{i \sim j}$ by definition. So if, for some $l \in \{1,\ldots, n\} \setminus \{i,j\}$, $I_l \cap I_{i \sim j}$ if and only if $I_l \cap I_i$ or $I_l \cap I_j$.
+
+    Intuitively, we can consider a contraction of two connected intervals on a interval graph as taking the union of the interval, which is also an interval as the existence of an edge ensures that they are connected. 
+\end{solution}

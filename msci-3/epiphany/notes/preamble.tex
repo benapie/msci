@@ -1,0 +1,108 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%=%=%=%=%==%=%=%=%=%%%%%%%%%%%%%%%%
+%%%%%%%%%=%=%=%=%=%============%=%=%=%=%=%%%%%%%%%
+%%%%%%=%=%=%==========================%=%=%=%%%%%%
+%%%/          2021 EPIPHANY PREAMBLE          \%%%
+%%%\                Ben Napier                /%%%
+%%%%%%=%=%=%==========================%=%=%=%%%%%%
+%%%%%%%%%=%=%=%=%=%============%=%=%=%=%=%%%%%%%%%
+%%%%%%%%%%%%%%%%=%=%=%=%==%=%=%=%=%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% tikzcd.yichuanshen.de/ tikcd diagrams
+%======================%
+%   Standard packages  %
+%======================%
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage[UKenglish]{babel}
+\usepackage{enumitem}
+\usepackage{tasks}
+\usepackage{graphicx}
+\setlist[enumerate,1]{
+	label={(\roman*)}
+}
+\usepackage{parskip}
+
+%======================%
+%        Maths         %
+%======================%
+\usepackage{amsfonts, mathtools, amsthm, amssymb}
+\usepackage{xfrac}
+\usepackage{bm}
+\newcommand\N{\ensuremath{\mathbb{N}}}
+\newcommand\R{\ensuremath{\mathbb{R}}}
+\newcommand\Z{\ensuremath{\mathbb{Z}}}
+\newcommand\Q{\ensuremath{\mathbb{Q}}}
+\newcommand\C{\ensuremath{\mathbb{C}}}
+\newcommand\F{\ensuremath{\mathbb{F}}}
+\newcommand{\abs}[1]{\ensuremath{\left\lvert #1 \right\rvert}}
+\newcommand\given[1][]{\:#1\vert\:}
+\newcommand\restr[2]{{% we make the whole thing an ordinary symbol
+	\left.\kern-\nulldelimiterspace % automatically resize the bar with \right
+	#1 % the function
+	\vphantom{\big|} % pretend it's a little taller at normal size
+	\right|_{#2} % this is the delimiter
+}}
+\usepackage{tikz-cd}
+\usepackage{adjustbox}
+\DeclareMathOperator{\norm}{N}
+\DeclareMathOperator{\trace}{Tr}
+\DeclareMathOperator*{\argmax}{arg\,max}
+\DeclareMathOperator*{\argmin}{arg\,min}
+
+%======================%
+%       CompSci        %
+%======================%
+\usepackage{forest}
+\usepackage{textgreek}
+
+%======================%
+%     Environments     %
+%======================%
+\theoremstyle{definition}
+\newtheorem*{examplex}{Example}
+\newenvironment{example}[1][]
+    {\begin{examplex}[#1]}
+    {\renewcommand{\qedsymbol}{\footnotesize $\triangle$}\qed\end{examplex}}
+\newtheorem{definition}{Definition}
+
+\theoremstyle{plain}
+\newtheorem{lemma}[definition]{Lemma}
+\newtheorem{corollary}[definition]{Corollary}
+
+%======================%
+%    Pretty tables     %
+%======================%
+\usepackage{booktabs}
+\usepackage{caption}
+\captionsetup[table]{skip=10pt}
+
+%======================%
+%    Page Formatting   %
+%======================%
+\usepackage{fancyhdr}
+\usepackage{titling}
+\usepackage{titlesec}
+% \pagestyle{fancy}
+\setlength{\droptitle}{-8em}
+\renewcommand{\maketitlehooka}{\textsc}
+
+\titleformat{\section}{\large\scshape}{}{0pt}{}
+\titleformat{\paragraph}{\scshape}{}{0pt}{}
+\renewcommand{\footrulewidth}{0.5pt}
+\date{2020-2021}
+\author{Ben Napier}
+
+%======================%
+%   Header and Footer  %
+%======================%
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks,
+    citecolor=black,
+    filecolor=black,
+    linkcolor=black,
+    urlcolor=black,
+    pageanchor=false
+}

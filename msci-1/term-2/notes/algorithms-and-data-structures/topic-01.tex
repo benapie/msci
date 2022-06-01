@@ -1,0 +1,156 @@
+\chapter{Sorting algorithms}
+
+So far, we have seen the following sorting algorithms:
+
+\begin{multicols}{3}
+    \begin{enumerate}
+        \item selection sort;
+        \item insertion sort;
+        \item bubble sort;
+        \item merge sort; and
+        \item quicksort.
+    \end{enumerate}
+\end{multicols}
+
+We saw that the worst case time complexity for these algorithms lie between $O(n \log{n})$ and $O(n^2)$. We can, in fact, prove that no comparison-based algorithm \emph{beats} $O(n \log {n})$.
+
+\begin{theorem}\label{the:comparison-based-limit}
+    For any comparison-based sorting algorithm $A$ and any $n \in \mathbb{N}$ large enough, there exists an input $n$ that requires $A$ to run in $\Omega(n \log{n})$.
+\end{theorem}
+
+\begin{remark}
+    \begin{enumerate}
+        \item This theorem applies for \textbf{comparison-based} sorting algorithms only.
+        \item This theorem is looking at a \textbf{worst-case} scenario, most inputs will beat this bound.
+    \end{enumerate}
+\end{remark}
+
+We will now look at sorting algorithms that are not comparison-based.
+
+\section{Bucket sort}
+
+Bucket sort is a sorting algorithm that works by distributing the elements of an array into a number of buckets. Consider that you are sorting $n$ integers that are in the interval $[0, K-1]$. Algorithm \ref{alg:bucket_sort} shows the pseudocode for the bucket sort algorithm. This sorting algorithm is also called \textbf{sorting by counting}. The time complexity is $T(n) = O(n + K)$ (look at the algorithm to convince yourself).
+
+\begin{remark}
+    \begin{enumerate}
+        \item Note here that we have beaten the $O(n \log{n})$ time complexity stated in Theorem \ref{the:comparison-based-limit} if $K$ is small (say $K$ is $o(n \log{n})$). This is allowed because bucket sort is not a comparison-based sorting algorithm. 
+    
+        \item If $K$ gets to large then we can find that it dominates the time complexity is dominated by $\Theta(K)$.
+    \end{enumerate}
+\end{remark}
+
+\begin{algorithm}
+    \caption{Bucket sort algorithm.}
+    \label{alg:bucket_sort}
+    \begin{algorithmic}[1]
+        \Procedure{BucketSort}{$a_1, \ldots, a_n \in [0 \ldots K - 1] \cap \mathbb{Z}_{\geq 2}$}
+            \State create array $C[0, \ldots, K - 1]$ initialised to $0$
+            \For {$i = 1$ to $n$}
+                \State increment $C[a_i]$ by $1$
+            \EndFor
+            \For {$i = 0$ to $K - 1$} 
+                \For {$j = 1$ to $C[i]$}
+                    \State print $i$
+                \EndFor
+            \EndFor
+        \EndProcedure
+    \end{algorithmic}
+\end{algorithm}
+
+\section{Radix sort}
+
+The idea of radix sort is to have as many buckets as you do digits, so for base-$10$ we would have $10$ buckets (some buckets may be unused). Then we repetitively sort for each digit into buckets. This algorithm is best illustrated with an example.
+
+\begin{example}[Radix sort example]
+    Consider the following unsorted array 
+    \begin{center}
+        \ttfamily
+        [67, 23, 90, 6, 43, 22, 18, 75, 49, 12, 36].
+    \end{center}
+    On the first pass we will bucket sort the list based on the far right digit, as follows.
+    \begin{center}
+        \ttfamily
+        \begin{tabular}{|R{1em}|R{1em}|R{1em}|R{1em}|R{1em}|R{1em}|R{1em}|R{1em}|R{1em}|R{1em}|}
+            & & 12 & 43 & & & 36 & & & \\
+            90 &  & 22 & 23 & & 75 & 6 & 67 & 18 & 49 \\
+        \end{tabular}
+    \end{center}
+    This gives us the array
+    \begin{center}
+        \ttfamily
+        [90, 22, 12, 23, 43, 75, 6, 36, 67, 18, 49].
+    \end{center}
+    Next we consider the next digit along (far left), as follows.
+    \begin{center}
+        \ttfamily
+        \begin{tabular}{|R{1em}|R{1em}|R{1em}|R{1em}|R{1em}|R{1em}|R{1em}|R{1em}|R{1em}|R{1em}|}
+            & 18 & 23 & & 49 & & & & & \\
+            \hspace{0em} 6 & 12 & 22 & 36 & 43 & & 67 & 75 &  & 90
+        \end{tabular}
+    \end{center}
+    This gives us the array
+    \begin{center}
+        \ttfamily
+        [6, 12, 18, 22, 23, 36, 43, 49, 67, 75, 90],
+    \end{center}
+    this is now sorted.
+\end{example}
+
+\begin{remark}
+    Radix sort only works if the bucket sort is \textbf{stable}.
+\end{remark}
+
+The running time for radix sort is $\Theta(dn)$ where $d$ is the number of digits, this is clear because there will be $d$ runs and each run has $n$ processes. If radix sort is executed on an array where each element is in the range $\{ 0, 1, \ldots, K - 1 \}$ and is in base-$10$, then $d = \log_{10}{(K - 1)}$ giving $\Theta(n \log{K})$ running time.
+
+Depending on the value of $K$, either bucket sort or radix sort may be prefered.
+\begin{example}[Bucket sort versus radix sort]
+    Let $T_{B}(n)$ and $T_{R}(n)$ be the running time of bucket sort and radix sort respectively.
+    \begin{enumerate}
+        \item If $K = n$, then $T_{B}(n)=O(n)$ and $T_{R}(n)=O(n \log{n})$; therefore, bucket sort has the better running time (asymptotically!).
+        \item If $K = n^2$, then $T_{B}(n)=O(n^2)$ and $T_{R}(n)=O(n \log{n})$; therefore, radix sort has the better running time.
+        \item If $K = 2^n$, then $T_{B}(n)=O(2^n)$ and $T_{R}(n)=O(n^2)$; therefore, radix sort has the better running time.
+    \end{enumerate}
+\end{example}
+
+\section{Searching and selecting}
+
+Suppose you are given a sorted list $A[1 \ldots n]$ that are pairwise distince (that is, no two elements are the same). Assume you are given a number $x$ such that \[ \; \exists \; i \in \{ 1, 2, \ldots, n \} : A[i] = x. \] The aim in \textbf{searching} is to devise an algorithm that finds the position $p$ of $x$ in $A$. Firstly, we can introduce the trivial search where we look through the list in the order presented until we find it.
+
+\begin{algorithm}
+    \caption{Trivial search algorithm.}
+    \label{alg:trivial_search}
+    \begin{algorithmic}[1]
+        \Procedure{TrivialSearch}{int $A[1 \ldots n]$, int $x$}
+            \State p = 1
+            \While{$A[p] \neq x$}
+                \State p = p + 1
+            \EndWhile
+            \State \Return p
+        \EndProcedure
+    \end{algorithmic}
+\end{algorithm}
+
+A better solution to this is \textbf{binary search}, we take the same assumptions as before; that is, we are given a number that we know is in the list but want to find the position.
+
+\begin{algorithm}
+    \caption{Binary search algorithm.}
+    \label{alg:binary_search}
+    \begin{algorithmic}[1]
+        \Procedure{RecursiveBinarySearch}{int $A[1 \ldots n]$, int $left$, int $right$, int $x$}
+            \If{$right = left$ and $A[left] \neq x$}
+                \State handle error
+            \EndIf
+            \State $p = \lfloor (left + right) \cdot \frac{1}{2} \rfloor$
+            \If{$A[p] = x$}
+                \State \Return p
+            \ElsIf{$x < A[p]$}
+                \State RecursiveBinarySearch[A, left, p - 1, x]
+            \Else
+                \State RecursiveBinarySearch(A, p + 1, right, x]
+            \EndIf
+        \EndProcedure
+    \end{algorithmic}
+\end{algorithm}
+
+This is called binary search as each call removes half the space. It belongs to a paradigm called \textbf{divide and conquer}. The time complexity for binary search is $T(n) = O(1) + T(\frac{n}{2}) = O(\log{n})$.
+

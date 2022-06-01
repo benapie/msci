@@ -1,0 +1,215 @@
+\chapter{Differentiable functions}
+
+\section{Definitions and basics}
+
+\begin{definition}[Differentiable function]
+    Let $f : X \mapsto \mathbb{R}$ be a function where $X \subset \mathbb{R}$ is an open subset; that is, for all $c \in X$ there exists a (small) open interval \[ (c - \epsilon, c + \epsilon) \subset X; \] hence, $\lim_{x \to c} f(x)$ is always defined. Then we call $f$ \textbf{differentiable} at $c \in X$ if the limit \[ \lim_{x \to c} \left( \dfrac{f(x) - f(c)}{x - c} \right) \] exists. If so, we write $f'(c)$ for the limit and call it the derivative of $f$ at $c$.
+\end{definition}
+
+\begin{remark}
+    \begin{enumerate}
+        \item The slope of the tangent line at $x = c$ is $f'(c)$.
+        \item If $X = [a, b]$ then $f'(a)$ and $f'(b)$ can be defined from the one sided limits.
+    \end{enumerate}
+\end{remark}
+
+\begin{lemma}[Taylor of first order]
+    Let $f : X \mapsto \mathbb{R}$ as before. Then $f$ is differentiable at $x = c$ if there exists a constant $m$ and a function $r : X \mapsto \mathbb{R}$ such that \[ f(x) = f(c) + m(x - c) + r(x) \cdot (x - c) \tag{$\star$} \] with $r(x)$ continuous at $x = c$ and \[ \lim_{x \to c} r(x) = r(c) = 0. \tag{$\star\star$} \] We can also write this as \[ \lim_{x \to c} \left( \dfrac{f(x) - (f(c) + m(x-c))}{x - c} \right) = 0 \] for some constant $m$.
+\end{lemma}
+
+\begin{proof}
+    Assume $f$ is differentiable at $x = c$; that is, \[ \lim_{x \to c} \left( \dfrac{f(x) - f(c)}{x - c} \right) = f'(c) = m. \] Set 
+    \[ 
+        r(x) =
+        \begin{cases}
+            \dfrac{f(x) - (f(c) + m(x - c))}{x - c} & x \neq c \\
+            0 & x = c \\
+        \end{cases}
+    \]
+    then $(\star)$ and $(\star\star)$ holds by definition. We must now show that $r(x)$ is continuous at $x = c$:
+    \begin{align*}
+        \lim_{x \to c} r(x) &= \lim_{x \to c} \left( \dfrac{f(x) - (f(c) + m(x - c))}{x - c} \right) \\
+        &= \lim_{x \to c} \left( \dfrac{f(x) - f(c)}{x - c} \right) - \lim_{x \to c} \left( \dfrac{m(x - c)}{x - c} \right) \tag{by COLT} \\
+        &= m - m = 0.
+    \end{align*}
+    If $(\star\star)$ holds then \[ 0 = r(c) = \lim_{x \to c} \left( \dfrac{f(x) - f(c)}{x - c} \right) - m \]
+    then 
+    \begin{align*}
+        m &= m + \lim_{x \to c} \left( \dfrac{f(x) - f(c)}{x - c} - m \right) \\
+        &= \lim_{x \to c} \left( m + \dfrac{f(x) - f(c)}{x - c} - m \right) \tag{by COLT} \\
+        &= \lim_{x \to c} \left( \dfrac{f(x) - f(c)}{x - c} \right);
+    \end{align*}
+    therefore, the limit exists.
+\end{proof}
+
+\begin{remark}
+    In practise, one considers $f_1(x) = m + r(x)$ so $(\star)$ becomes \[ f(x) = f(c) + f_1(x) \cdot (x - c) \] with $(\star\star)$, $f_1(x)$ is continuous with $\lim_{x \to c} f_1(x) = m$.
+\end{remark}
+
+\begin{example}
+    Consider $f(x) = \frac{1}{x}$ where $x \in \mathbb{R}^\star = \{ x \in \mathbb{R} : x \neq 0 \}$. Then \[ \frac{f(x) - f(c)}{x - c} = \frac{\frac{1}{x} = \frac{1}{c}}{x - c} = \frac{c - x}{xc(x - c)} = \frac{-1}{xc}; \] thus, $\lim_{x \to c} \left( \frac{f(x) - f(c)}{x - c} \right)$ exists and is equal to $\frac{-1}{c^2}$.
+\end{example}
+
+\begin{theorem}[Differentiable $\implies$ continuous]
+    Let $f : X \mapsto \mathbb{R}$ be differentiable. Then $f$ is continuous on $X$.
+\end{theorem}
+
+\begin{proof}
+    We need to show that \[ \lim_{x \to c} f(x) = f(c); \] that is, \[ \lim_{x \to c} \left( f(x) - f(c) \right) = 0. \] But 
+    \begin{align*}
+        \lim_{x \to c} \left( f(x) - f(c) \right) &= \lim_{x \to c} \left( (x - c) \frac{f(x) - f(c)}{x - c} \right) \\
+        &= \lim_{x \to c} (x - c) \cdot \lim_{x \to c} \left( \frac{f(x) - f(c)}{x - c} \right) \\
+        &= 0 \cdot f'(c) = 0.
+    \end{align*}
+\end{proof}
+
+\begin{remark}
+    The converse of this theorem is false; that is, not being differentiable does not imply it is not continuous. For example, take $f(x) = |x|$ which is continuous but not differentiable at $x = 0$.
+\end{remark}
+
+\begin{theorem}[Differentiation rules]
+    \begin{enumerate}
+        \item Let $f, g$ be diff at $x = c$, then $(f + g)$ and $(f g)$ are differentiable at $x = c$ and 
+        \begin{align*}
+            (f + g)'(c) &= f'(c) + g'(c) \\
+            (f g)'(c) &= f'(c) g(c) + f(c) g'(c).
+        \end{align*}
+        
+        \item Let $f$ be differentiable at $g(c)$ and $g$ be differentiable at $c$, then $(f \circ g)(x)$ is differentiable at $x = c$ with \[ (f \circ g)'(c) = g'(c) f'(g(c)). \]
+        
+        \item Let $f$ be differentiable at $c$ with $f(c) \neq 0$, then $\frac{1}{f(x)}$ is differentiable at $x = c$ with \[ \left(\frac{1}{f}\right)'(c) = \frac{-f'(c)}{f^2(c)}. \]
+    \end{enumerate}
+\end{theorem}
+
+\begin{proof}
+    \begin{enumerate}
+        \setcounter{enumi}{1}
+        \item Let \[ g(x) = g(c) + (x - c) g_1(x) \tag{1} \] with $\lim_{x \to c} g(x) = g'(c)$ and \[ f(g(x)) = f(g(c) + (y - g(c)) - y(y) \tag{2} \] with $\lim_{y \to g(c)} f(y) = f'(g(c))$. Now
+        \begin{align*}
+            (f \circ g)(x) &= f(g(x)) \\
+            &= f(g(c)) + (g(x) - g(c)) \cdot f_1(g(x)) \tag{by 2} \\
+            &= f(g(c) + (x - c) g_1(x) f_1(g(x)) \tag{by 1}
+        \end{align*}
+    \end{enumerate}
+\end{proof}
+
+\begin{remark}
+    There is the tempting proof:
+    \[ \frac{f(g(x) - f(g(c))}{x - c} = \frac{f(g(x)) - f(g(c))}{g(x) - g(c)} \cdot \frac{g(x) - g(c)}{x - c}; \] however, you must show that $g(x) - g(c) \neq 0$.
+\end{remark}
+
+\section{Mean value theorem and L'H\^opital's rule}
+
+\begin{proposition}
+    If $f$ is differentiable at $x = c$ and has a local minimum / maximum at $c$, then $f'(c) = 0$.
+\end{proposition}
+
+\begin{proof}
+    As $f$ has a local minimum or maximum at $c$, then the quotient $\frac{f(x) - f(c)}{x - c}$ must have opposite signs for $x < c$, $x > c$. Hence, the one-sided limits we must have $\geq 0$ and $\leq 0$ but they must be equal as $f$ is continuous (as implied by differentiable). Hence this is not possible with $f'(c) = 0$.
+\end{proof}
+
+\begin{theorem}[Rolle's theorem]
+    Let $f : [a, b] \to \mathbb{R}$ be continuous and differentiable in $(a, b)$ with $f(a) = f(b)$. Then there exists $c \in (a, b)$ such that $f'(c) = 0$.
+\end{theorem}
+
+\begin{theorem}[Mean value theorem]
+    Let $f : [a, b] \to \mathbb{R}$ which is continuous and differentiable on $(a, b)$. Then, there exists $c \in (a, b)$ such that \[ f'(c) = \frac{f(b) - f(a)}{b - a}. \]
+\end{theorem}
+
+\begin{theorem}[Growth theorem]
+    Let $f : I \to \mathbb{R}$ which is continuous on interval $I$ and differentiable on its interior points. Then
+    \begin{enumerate}
+        \item if $f'(x) = 0 \; \forall \; x \in I$, then $f$ is constant;
+        \item if $f'(x) \geq 0 \; \forall \; x \in I$, then $f$ is monotone increasing;
+        \item if $f'(x) \leq 0 \; \forall \; x \in I$, then $f$ is monotone decreasing;
+        \item if $f'(x) > 0 \; \forall \; x \in I$, then $f$ is strictly increasing; and
+        \item if $f'(x) < 0 \; \forall \; x \in I$, then $f$ is strictly decreasing.
+    \end{enumerate}
+\end{theorem}
+
+\begin{remark}
+    Make sure to verify you are working on $1$ interval, for example, take $f(x) = \frac{1}{x}$. This function is not defined on $\mathbb{R}$, rather it is defined on $\mathbb{R} \setminus \{ 0 \}$ which is actually two intervals: $(-\infty, 0) \cup (0, \infty)$.
+\end{remark}
+
+\begin{theorem}[Cauchy's generalised mean value theorem (GMUT)]
+    Let $f, g : [a, b] \to \mathbb{R}$ be differentiable on $(a, b)$. Assume $g'(x) \neq 0 \; \forall \; x \in (a, b)$. Then there exists $c \in (a, b)$ such that \[ \frac{f'(c)}{g'(c)} = \frac{f(b) - f(a)}{g(b) - g(a)}. \]
+\end{theorem}
+
+\begin{remark}
+    If $g(x) = x$, we get the standard mean value theorem.
+\end{remark}
+
+\begin{proof}[Proof of GMUT]
+    Set \[ h(x) = (g(b) - g(a)) f(x) - (f(b) - f(a)) g(x). \] Note that $h(a) = g(b) f(a) - f(b) g(a)$ and $h(b) = -g(a) f(b) + f(a) g(b)$; therefore, we can apply Rolle's theorem: \[ 0 = h'(c) = (g(b) - g(a)) f'(c) - (f(b) - f(a)) g'(c) \] so \[ \frac{f'(c)}{g'(c)} = \frac{f(b) - f(a)}{g(b) - g(a)}. \]
+\end{proof}
+
+\begin{theorem}[L'H\^{o}pital's rule]
+    Let $f, g$ be differentiable functions on $(a, b)$. Assume the one sided limits \[ \lim_{x \to a^+} \left( f(x) \right) = 0 = \lim_{x \to a^+} \left( g(x) \right) \] and $g(x), g'(x) \neq 0 \; \forall \; x \in (a, b)$. Then if \[ \lim_{x \to a} \left( \frac{f'(x)}{g'(x)} \right) \] exists, then also \[ \lim_{x \to a} \left( \frac{f(x)}{g(x)} \right) \] exists with \[ \lim_{x \to a} \left( \frac{f(x)}{g(x)} \right) = \lim_{x \to a} \left( \frac{f'(x)}{g'(x)} \right). \]
+\end{theorem}
+
+\begin{proof}
+    We can extend $f, g$ continuous to $a$ by setting $f(a) = g(a) = 0$. Let $(x_n) \in (a, b)$ be any sequence such that \[ \lim_{n \to \infty} x_n = a. \] We need to show \[ \lim_{n \to \infty} \left( \frac{f(x_n)}{g(x_n)} \right) = \lim_{n \to \infty} \left( \frac{f'(x_n)}{g'(x_n)} \right). \] By GMUT, we can find $(y_n)$ with $a < y_n < x_n$ such that \[ \frac{f'(y_n)}{g'(y_n)} = \frac{f(x_n) - f(a)}{g(x_n) - g(a)} = \frac{f(x_n)}{g(x_n)} \] using $g'(x) \neq 0$. By squeezing $\lim_{n \to \infty} y_n = a$. Hence \[ \lim_{n \to \infty} \left( \frac{f'(y_n)}{g'(y_n)} \right) = \lim_{n \to \infty} \left( \frac{f'(x_n)}{g'(x_n)} \right). \]
+\end{proof}
+
+\begin{remark}[L'H\^{o}pital's rule]
+    \begin{enumerate}
+        \item There exists versions of L'H\^{o}pital's rule with $\lim_{x \to b^-}$ and regular two-sided limits.
+        
+        \item If we have \[ \lim_{x \to \pm \infty} \left( \frac{f(x)}{g(x)} \right) \] then we consider $f \left( \frac{1}{x} \right), g \left( \frac{1}{x} \right)$:
+        \begin{align*}
+            \lim_{x \to \pm \infty} \left( \frac{f(x)}{g(x)} \right) &= \lim_{x \to 0^{\pm}} \left( \frac{f \left( \frac{1}{x} \right)}{g \left( \frac{1}{x} \right)} \right) \\
+            &= \lim_{x \to 0^{\pm}} \left( \frac{-\frac{1}{x^2} f' \left( \frac{1}{x} \right)}{-\frac{1}{x^2} g' \left( \frac{1}{x} \right)} \right) \\
+            &= \lim_{x \to \pm \infty} \left( \frac{f'(x)}{g'(x)} \right)
+        \end{align*}
+        
+        \item If we have that $f(x) \to \infty$ and $g(x) \to \infty$ as $x \to a$ then we can consider that \[ \frac{f(x)}{g(x)} = \frac{ \left( \frac{1}{g(x)} \right)}{\left( \frac{1}{f(x)} \right)}. \] In practise, however, this rarely works.
+        
+        \item If we have are considering $\lim_{n \to \infty} f(x) \cdot g(x)$ where $f(x) \to 0$ and $g(x) \to \infty$ (or vice versa) then we consider that \[ f(x) \cdot g(x) = \frac{g(x)}{\left( \frac{1}{f(x)} \right)} = \frac{f(x)}{\left( \frac{1}{g(x)} \right)}. \]
+        
+        \item There are situations where you need to apply L'H\^{o}pital's rule multiple times.
+        
+        \item The assumption $\lim_{x \to 0} f(x) = \lim_{x \to 0} g(x) = 0$ is essential.
+    \end{enumerate}
+\end{remark}
+
+\begin{example}
+    \begin{enumerate}
+        \item \[ \lim_{x \to 0} \left( \frac{\sin{x}}{x} \right) = \lim_{x \to 0} \left( \frac{\cos{x}}{1} \right) = \cos{0} = 1; \] however, this is a tautological use as \[ \sin'{(0)} = \lim_{x \to 0} \left( \frac{\sin{x} - \sin{0}}{x - 0} \right) = \lim_{x \to 0} \left( \frac{\sin{x}}{x} \right). \] Therefore, we should not use L'H\^{o}pitals in this case. There is a geometric proof in last terms Calculus notes.
+        
+        \item \[ \lim_{x \to 0} \left( \frac{\cos{x} - 1}{x^2} \right) = \lim_{x \to 0} \left( \frac{- \sin{x}}{2x} \right) = - \frac{1}{2} \]
+    \end{enumerate}
+\end{example}
+
+\begin{remark}
+    We can use L'H\^opitals to prove commonly used theorems such as powers beat logs and expoentials beat powers.
+\end{remark}
+
+\section{Taylor's theorem}
+
+\begin{definition}[Taylor's theorem]
+    Let $f : I \to \mathbb R$ be a function which is differentiable $n$-times in the interval $I$. Then there exists a function $r_n(x)$ such that \[ f(x) = f(c) + f'(c) (x - c) + \frac{f''(c)}{2} (x - c)^2 + \ldots + \frac{f^{(n)}(c)}{n!} (x - c)^n + r_n(x)(x - c)^n \] with $\lim_{x \to c} r_n(x) = 0$. This is called the \textbf{Peano form} of the remainder. If in addition $f$ is $n + 1$ times differentiable in $I$ then we write \[f(x) = f(c) + f'(c) (x - c) + \frac{f''(c)}{2} (x - c)^2 + \ldots + \frac{f^{(n)}(c)}{n!} (x - c)^n + \frac{f^{(n + 1)(\Xi)}}{(n + 1)!} (x - c)^{n + 1},\] for a number $\Xi$ between $x$ and $c$ (depending on $x$ and $c$). This is called the \textbf{Lagrange form} of the remainder.
+\end{definition}
+
+\begin{proof}
+    To prove the Peano form of the remainder, we consider the function \[F(x) = f(x) - \left(f(c) + f'(c) (x - c) + \frac{f''(c)}{2} (x - c)^2 + \ldots + \frac{f^{(n)}(c)}{n!} (x - c)^n\right)\] and notice that $r_n(x) = \frac{F(x)}{(x - c)^n}$. We then apply L'H\^opitals to $r_n(x)$ $n$-times to obtain our result of $r_n \to 0$.
+    % Need proof for the Lagrange form of the remainder
+\end{proof}
+
+\begin{corollary}
+    The polynomial part $T_{f, c}^{(n)}(x)$ on the right hand side of the equation shown in Taylor's theorem is called the $n$th Taylor polynomial associated to $f$ at $c$. Assume we have $\left\lvert f^{(n + 1)}(x) \right\rvert \leq M_{n + 1}$ for some constant $M_{n + 1}$, then \[\left\lvert f(x) - T_{f, c}^{(n)}(x) \right\rvert \leq \frac{M_{n + 1}}{(n + 1)!} \left\lvert x - c \right\rvert^{n + 1}.\]
+\end{corollary}
+
+\section{Newton-Raphson method}
+
+\begin{theorem}[Newton iteration]
+    If $f$ is \textbf{twice continuously differentiable} and $f(c) = 0$ for some $c \in (a, b)$ and if $f' > 0$ ($f$ is strictly monotone increasing) and $f'' > 0$ ($f$ is strictly convex) and if $f(x_1) > 0$ for some $x_1 \in (a, b)$ and if we define $(x_n)$ recursively as \[ x_{n + 1} = x_n - \frac{f(x_n)}{f'(x_n)} \] then $(x_n)$ converges to $c$. We have \[ \abs{c - x_n} \leq \frac{1}{f'(c)} f(x_n) \leq \frac{1}{f'(a)} f(x_n) \] for all $n$ and there exists a constant $M > 0$ independent of $n$ such that \[ \abs{x_{n + 1} - c} \leq M \cdot \abs{x_n - c}^2 \] where we can take \[ M = \frac{\max_{\xi \in [a, b]} \abs{f''(\xi)}}{2f(a)}. \]
+\end{theorem}
+
+\begin{proof}
+    As $f$ is strictly monotone increasing on $(a, b)$, $f(c) = 0$, and $f(x_1) > 0$, then $x_1 > c$. We must show inductively that \[ c \leq x_{n + 1} \leq x_n. \] Since $f' > 0$, \[ x_{n + 1} = x_n - \frac{f(x_n)}{f(x_{n + 1})} \leq x_n. \] Furthermore, as \[ x_{n + 1} - x_n = - \frac{f(x_n)}{f(x_{n + 1})} \] we can apply Taylor's theorem and we see that 
+    \begin{align*}
+        f(x_{n + 1}) &= f(x_n) + f'(x_n) (x_{n + 1} - x_n) + \frac{f''(\xi_n)}{2} (x_{n + 1} - x_n)^2 \\
+        &= \frac{f''(\xi_n)}{2} (x_{n + 1} - x_n)^2.
+    \end{align*}
+    
+\end{proof}

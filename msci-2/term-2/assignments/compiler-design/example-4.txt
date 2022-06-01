@@ -1,0 +1,7 @@
+connectives: land lor implies iff neg
+predicates: P[2] Q[2]
+equality: =
+quantifiers: exists forall
+constants:
+formula: forall x_1 forall x_2 ( P(x_1, x_2) implies P(x_2, x_1) )
+variables: x_1 x_2

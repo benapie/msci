@@ -1,0 +1,23 @@
+\section{Definitions}
+
+\emph{Non-local means} is an algorithm in image processing
+which revolves around the principal of replacing the colour of a pixel with an average
+of the colours of similar pixels in order to denoise \cite{buades2005non}.
+
+\begin{definition}[Discrete non-local means]
+    \label{def:non-local-means}
+    Let $\Omega$ be the area of an image and $p, q \in \Omega$ be points.
+    Then
+    \[ u(p) = \frac1{C(p)} \sum_{q \in \Omega}v(q) f(p, q) \]
+    where
+    \begin{enumerate}
+        \item $u(p)$ gives the filtered value
+            (according to the non-local means algorithm) at point $p$;
+        \item $v(q)$ gives the unfiltered value of the image at point $q$;
+        \item $f: \Omega \times \Omega \to \R$ is a \emph{weighting function}; and
+        \item $C(p)$ is a \emph{normalising factor} given by
+            \[ C(p) = \sum_{q \in \Omega} f(p, q). \]
+    \end{enumerate}
+\end{definition}
+
+Discussion on picking $f$ will come later in the document, first we will discuss implementation techniques.

@@ -1,0 +1,217 @@
+\input{../preamble.tex}
+
+\begin{document}
+
+
+\begin{questions}
+
+  \section{Problem sheet 1}
+  \question
+  \begin{parts}
+    \part \hspace{0em}
+    \begin{solution}
+      $\ker f = \{0\}$, $\im f = 2\Z$, $\coker f = \Z/(2\Z) \cong \Z/2$.
+    \end{solution}
+
+    \part\hspace{0em}
+    \begin{solution}
+      $\ker f = \{\overline 0\}$, $\im f = (2\Z)/2r \cong \Z/r$, $\coker f = (\Z/2r)/((2\Z)/2r) \cong \Z/2$
+    \end{solution}
+
+    \part\hspace{0em}
+    \begin{solution}
+      $\ker f = \{(0, \overline 0)\}$, $\im f = (2\Z) \oplus (2\Z)/4 \cong (2\Z) \oplus \Z/2$, $\coker f = (\Z \oplus \Z/4)/(2\Z \oplus (2\Z)/4)$.
+    \end{solution}
+
+    \part\hspace{0em}
+    \begin{solution}
+      $\ker f = \{(0,0)\}$, $\im f = \langle (-1, 1) \rangle \cong \Z$, $\coker f \cong \Z^2 / \Z \cong \Z$.
+    \end{solution}
+
+    \part\hspace{0em}
+    \begin{solution}
+      $\ker f = \{(0,0)\}$,
+      $\im f = \Z\langle (1,1), (1, -1) \rangle$,
+      $\coker f = \Z^2/(\Z\langle (2,0), (0,2) \rangle) \cong \Z/2$.
+    \end{solution}
+
+    \part \hspace{0em}
+    \begin{solution}
+      Same as above, direct sum and direct product coincide for finite number of sets.
+    \end{solution}
+  \end{parts}
+
+  \question
+  \begin{parts}
+    \setcounter{partno}{4}
+    \part \hspace{0em}
+    \begin{solution}
+
+      \begin{center}
+        % https://tikzcd.yichuanshen.de/#N4Igdg9gJgpgziAXAbVABwnAlgFyxMJZABgBpiBdUkANwEMAbAVxiRAGEB9ARgAoAdfgHE6AW1F0AlCAC+pdJlz5CKAEzkqtRizZdiA4WInS5C7HgJEy3TfWatEIYrPkgM55UXU3qdnY8EJHAALACNQgAIALQA9QhlNGCgAc3giUAAzACcIUSQyEBwIJG5fbQcQQVgGHDoXTJy8xAKipHUtezZBAGMCZPqQbNyS6lbEAGYyzoD+XrB+00HGttHiian-Sv5QmGSsMGA0IKysAA8ZYkFBS6vBGigIHDhbm5gwKEPjs5kQajhgrAZHD5ag7d4gkAMOg7BgABUUFhUIBOyWCwISMiAA
+        \begin{tikzcd}
+          C_1(\Gamma) \arrow[rr, "\delta"] \arrow[d, "\cong"]          &  & C_0(\Gamma) \arrow[d, "\cong"] \\
+          0 \arrow[rr, "\begin{pmatrix}0\\0\\\vdots\\0\end{pmatrix}"'] &  & \mathbb Z^n
+        \end{tikzcd}
+      \end{center}
+      $\ker \delta = \{0\}$, $\im \delta = \{0\}$.
+      Thus $H_1(\Gamma) = 0$ and $H_0(\Gamma) = \Z^n/\{0\} = \Z^n$.
+    \end{solution}
+    
+    \part \hspace{0em}
+    \begin{solution}
+      \begin{center}
+        \begin{tikzcd}
+          C_1(\Gamma) \arrow[rr, "\delta"] \arrow[d, "\cong"]          &  & C_0(\Gamma) \arrow[d, "\cong"] \\
+          0 \arrow[rr] &  & \mathbb Z^n
+        \end{tikzcd}
+      \end{center}
+      With $\delta$ given by the matrix
+      \[
+        \begin{pmatrix}
+          -1 & -1 & \ldots & -1 \\
+          1  & 1  & \ldots & 1
+        \end{pmatrix}.
+      \]
+      To calculate the kernel of $\delta$, we solve
+      \[
+        \begin{pmatrix}
+          -1 & -1 & \ldots & -1 \\
+          1  & 1  & \ldots & 1
+        \end{pmatrix}
+        \begin{pmatrix}
+          a_1 \\ a_2 \\ \vdots \\ a_n
+        \end{pmatrix}
+        = 0,
+      \]
+      which gives us $a_1 = -(a_2 + a_3 + \ldots a_n)$ for arbitrary $a_i$, $i > 1$.
+      Thus $\ker \delta \cong \Z^{n-1} \cong H_1(\Gamma)$.
+      Now $\im \delta = \langle (-1, 1) \rangle \cong \Z$, thus
+      $H_0(\Gamma) \cong \Z^2/\Z \cong \Z$.
+    \end{solution}
+  \end{parts}
+
+
+  \section{Problem sheet 2}
+  \setcounter{question}{1}
+  \question \hspace{0em}
+  \begin{solution}
+    First we prove that $C_*$ is a chain complex. 
+    Clearly each group is abelian, now we prove that $\alpha$ and $\beta$ are homomorphisms.
+    Let $a,b,c,d \in \Z$.
+    \begin{align*}
+      \alpha((a,b) + (c,d))
+      &= \alpha(a + c, b + d) \\
+      &= (a + c - b - d, a + c - b - d, a + c - b - d) \\
+      &= (a - b, a - b, a - b) + (c - d, c - d, c - d) \\
+      &= \alpha(a,b) + \alpha(c,d)
+    \end{align*}
+    thus $\alpha$ is a homomorphism.
+    Now let $a,b,c,d,e,f \in \Z$.
+    \begin{align*}
+      \beta(a,b,c) + (d,e,f))
+      &= \beta(a + d, b + e, c + f) \\
+      &= (c + f - a - d, 0) \\
+      &= (c - a, 0) + (f - d, 0) \\
+      &= \beta(a,b,c) + \beta(d,e,f)
+    \end{align*}
+    so $\beta$ is a homomorphism.
+    Now,
+    \begin{align*}
+      (\beta \circ \alpha)(a,b) 
+      &= \beta(\alpha(a,b)) \\
+      &= \beta(a-b, a-b, a-b) \\
+      &= (a-b - (a-b), 0) \\
+      &= 0;
+    \end{align*}
+    thus, $(C_*, (\alpha, \beta))$ is a chain complex.
+
+    Now we prove the same for $D_*$: all groups are clearly abelian.
+    Let $a,b,c,d \in \Z$.
+    Then
+    \begin{align*}
+      \gamma((a,b) + (c,d))
+      &= \gamma(a+c, b+d) \\
+      &= 2(a + c -b - d) \\
+      &= 2(a - b) + 2(c - d) \\
+      &= \gamma(a,b) + \gamma(c,d)
+    \end{align*}
+    thus $\gamma$ is a homomorphism.
+    Let $a,b \in \Z$.
+    \begin{align*}
+      \delta(x + y)
+      &= 0 \\
+      &= \delta(x) + \delta(y),
+    \end{align*}
+    so $\delta$ is a homomorphism.
+    Clearly $(\gamma \circ \delta) = 0$, thus $D_*$ is a chain complex.
+
+    Now we prove that $f_i$ defines a chain map.
+    Let $a,b \in \Z$.
+    \begin{align*}
+      (\gamma \circ f_2)(a,b)
+      &= \gamma(2a, 2b) \\
+      &= 4a - 4b \\
+      (f_1 \circ \alpha)(a,b)
+      &= f_1(a-b, a-b, a-b) \\
+      &= 4a - 4b.
+    \end{align*}
+    Thus $\gamma \circ f_2 = f_1 \circ \alpha$.
+    Now let $a,b,c \in \Z$.
+    Then
+    \begin{align*}
+      (\delta \circ f_1)(a,b,c) 
+      &= \delta(2a + 2b) \\
+      &= 0 \\
+      (f_0 \circ \beta)(a,b,c)
+      &= f_0(c-a, 0) \\
+      &= 0
+    \end{align*}
+    so $\delta \circ f_1 = f_0 \circ \beta$.
+    So $f_i$ defines a chain map.
+
+    Now for the homology groups.
+
+    $C_*$:
+    \begin{align*}
+      \ker(\delta_0^C) &= \Z \oplus \Z \\
+      \ker(\delta_0^C) &= \Z \\
+      \ker(\delta_0^C) &= \Z \\
+      \im(\delta_1^C) &= \Z \\
+      \im(\delta_2^C) &= \Z \\
+    \end{align*}
+    So 
+    \[
+      H_0(C) = \Z, \qquad H_1(C) = 0, \qquad H_2(C) = \Z.
+    \]
+
+    $D_*$:
+    \begin{align*}
+      \ker(\delta_0^D) &= \Z \\
+      \ker(\delta_0^D) &= \Z \\
+      \ker(\delta_0^D) &= \Z \\
+      \im(\delta_1^D) &= 0 \\
+      \im(\delta_2^D) &= 2\Z \\
+    \end{align*}
+    
+    So 
+    \[
+      H_0(D) = \Z, \qquad H_1(D) = \Z/2, \qquad H_2(D) = \Z.
+    \]
+  \end{solution}
+
+  \setcounter{question}{3}
+  \question \hspace{0em}
+  \begin{solution}
+    We note that $\overline{\sigma} \circ \iota_0 = \sigma \circ \iota_1$ and
+    $\overline{\sigma} \circ \iota_1 = \sigma \circ \iota_0$, so
+    \begin{align*}
+      \delta(\sigma + \overline{\sigma}) 
+      &= (\sigma + \overline{\sigma})\circ \iota_0 -(\sigma + \overline{\sigma})\circ \iota_1 \\
+      &= 0,
+    \end{align*}
+    thus indeed $\sigma + \overline{\sigma}$ is a cycle.
+  \end{solution}
+\end{questions}
+
+\end{document}

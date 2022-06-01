@@ -1,0 +1,113 @@
+\chapter{Algorithm correctness}
+
+\section{Software bugs}
+
+\begin{definition}
+    A \textbf{software bug} is an error in a program that causes the program to behave in an unintended or an unexpected way.
+\end{definition}
+
+Bugs typically arise from a programming error (human error) although these can also occur due to secondary programs. That is, a poorly written compiler or interpreter may take a correct program and introduce errors into the resulting machine code.
+
+Bugs can effect programs in numerous ways:
+\begin{enumerate}
+    \item produce incorrect results;
+    \item crash the program;
+    \item render it susceptible to malicious attack; and
+    \item run slowly.
+\end{enumerate}
+
+\begin{definition}
+    \textbf{Software engineering} is a sub-discipline within Computer Science and is the application of a systematic, disciplined, and quantifiable approach to the development, operation, and maintenance of software.
+\end{definition}
+
+\begin{definition}
+    Within software engineering, the waterfall model long established design process for the composition of software. There are (typically) five phases underlying the waterfall model:
+    \begin{enumerate}
+        \item the \textbf{requirements phase}, where a specifications of what the program is intended to do is produced;
+        \item the \textbf{design phase}, where a plan is made for the intended solution with the algorithms and their implementations, data structures, etc.;
+        \item the \textbf{implementation phase}, where the design is implemented as code;
+        \item the \textbf{verification phase}, where the code is tested and debugged; and
+        \item the \textbf{maintenance phase}, which involves the updating and modifying of the code to meet the users needs, to improve performance, and to correct faults (bugs).
+    \end{enumerate}
+\end{definition}
+
+We can establish correctness through software testing or formal methods.
+
+\begin{definition}
+    Software testing is a topic within software engineering where the an attribute or capability of a program or system is evaluated. The phases of software testing include:
+    \begin{enumerate}
+        \item modelling the programs environment such that the program will be tested under conditions as close as possible to those for which the program has been designed for;
+        \item selecting test scenarios to try and cover as many difficult types of scenarios that the program will have to handle;
+        \item running and evaluating test scenarios, preferable in a automated fashion; and
+        \item measuring testing progress such that different questions related to testing have been covered.
+    \end{enumerate}
+\end{definition}
+
+\begin{definition}
+    Formal methods is a research area that takes a different approach to establishing program correctness. It uses mathematically-based techniques to formally specify and formally verify software and hardware systems. It is more concerned with establishing correctness prior to implementation. There are two fundamental activities within the use of formal methods:
+    \begin{enumerate}
+        \item specification; and
+        \item verification
+    \end{enumerate}
+\end{definition}
+
+\begin{remark}
+    There is a tension of a sorts between software testing and formal methods such that some practitioners feel that the expense, time, and skills required for establishing formal techniques for proving program correctness are not merited by the benefit. However, formal methods for proving correctness are becoming more prevalent in safety-critical software where software testing is not seen as thorough enough.
+\end{remark}
+
+\begin{definition}
+    Software metrics are quantitative measurements as to complexity\footnote{Not in the time complexity sense but more a rough idea on how many \emph{paths} are going through your code.} of a piece of software, in other words, it is a measure of testing-hardness. Following are some examples of software metrics.
+    \begin{enumerate}
+        \item number of lines;
+        \item cyclotomic complexity;
+        \item comment density;
+        \item program load time; and
+        \item bugs per line of code.
+    \end{enumerate}
+\end{definition}
+
+Even apparently simple algorithms can be notoriously difficult to design correctly.
+
+\section{Correctness}
+
+\begin{definition}
+    An algorithm is \textbf{totally correct} if it is correct with respect to some specification and it terminates on every input.
+\end{definition}
+
+\begin{definition}
+    An algorithm is \textbf{partially correct} if it is only correct with respect to the specification, that is, there is no guarantee that it will termination.
+\end{definition}
+
+A specification here is the definition of the problem the algorithm is intended to solve. Take the following example.
+
+\begin{example}
+    The specification of a quick-sort algorithm is that the algorithm has sorted the given input list of numbers into ascending order.
+\end{example}
+
+\begin{definition}
+    \textbf{Induction} is a mathematical technique for proving that some property $P(n)$, indexed by a natural number $n\in\mathbb N$ is true (or holds) no matter what the value of $n$. Here are some examples of a property $P(n)$:
+    \begin{enumerate}
+        \item $1+2+3+\ldots+\dfrac n{n+1}$;
+        \item all integers between $2$ and $n$ can be written as a product of primes; and
+        \item the sum of the degrees of an undirected graph with $n$ edges is even.
+    \end{enumerate}
+    All these properties can be proved using induction:
+    \begin{enumerate}
+        \item For $P(1)$
+    \end{enumerate}
+\end{definition}
+
+If our induction property $p$ is indexed by a set of values that can ordered just like the natural numbers then we can perform induction. mathematically, such sets are well-ordered.
+
+% I think the next example is better..
+% \begin{definition}
+%     An invariant, usually associated with some loop, is a property that is always true at some given check-point in an algorithm's execution (usually prior to a loop test.
+% \end{definition}
+
+\begin{definition}
+    In mathematics, an \textbf{invariant} is a property, held by a class of mathematical objects, which remains unchanged when transformations of certain types are applied to the object.
+    
+    In computer science, one can encounter invariants that can be relied on to be true at some given check-point or phase during the execution of a program. 
+\end{definition}
+
+% loop invariant example

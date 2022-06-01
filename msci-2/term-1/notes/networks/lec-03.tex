@@ -1,0 +1,192 @@
+\chapter{Application layer}
+\lecture{3}{22/10}
+
+As you may have remembered from last lecture, the application layer serves to support network applications. Standards at this layer include \emph{FTP}, \emph{SMTP}, and \emph{HTTP}.
+
+When writing network applications, we strive to build a program that can run of different end systems and can communicate over a network. We do not write software to run on network-core devices (routers).
+
+\section{Application architecture}
+
+That are two application architectures we can look at: \emph{client-server} or \emph{peer-to-peer}.
+
+\begin{definition}[Client-server]
+    In the \textbf{client-server model}, we partition our hosts into two types:
+    \begin{enumerate}
+        \item \emph{servers}, these are end systems that host, deliver, and manages most of the resources and services to be consumed by clients;
+        \item \emph{clients}, there are the consumers of the resources as provided by servers.
+    \end{enumerate}
+\end{definition}
+
+Clients may be intermittently connected to a server, but a server is (typically) always on. Servers also typically have static IP addresses so it allows us to assign \emph{domains} that will not have to be regularly configured while clients typically have dynamic IP addresses. Servers have a tendancy to share workload with each other and communicate with each other, this is not typical for clients. 
+
+\begin{definition}[Peer-to-peer]
+    The \textbf{peer-to-peer} architecture partitions work between \emph{peers}. Peers are equally priviledged and equal participants in the application. 
+\end{definition}
+
+So here there are no \emph{always-on} servers. Arbitrary end systems communicate directly. Peers can intermittently connect and change their IP addresses. A common example of peer-to-peer architecture being used is in \emph{torrenting}.
+
+\section{Process communications}
+
+\begin{definition}[Process]
+    A \textbf{process} is a program that runs within a host.
+\end{definition}
+
+Within the same host, two processes communicate using \emph{inter-process communication} as specified by the operating system. Processes in different hosts communicate by exchanging \emph{messages}.
+
+\begin{definition}[Socket]
+    A \textbf{socket} is a software mechanism that allows a process to create and send messages into a network as well a receive messages from it.
+\end{definition}
+
+A socket to a process is effectively what a door is to a house. It provides the interface between the application layer and the transport layer.
+
+If a process wants to send data to a process on a different host, it will push the message through the socket and rely on the transport infrastructure to deliver the message to the socket at the receiving process.
+
+Certain processes will need certain restrictions on the transport service between two sockets. File transfer and web transcations need reliable data transfer while audio and video streaming can tolerate some loss. Factors such as encryption and latency also effect what type of transport service we need.
+
+\begin{definition}[Transmission control protocol]
+    The \textbf{tranmission control protocol} (TCP) is one of the main protocols of the internet protocol suite. It requires setup between the client and server processes and offers reliable transport between sending and receiving processes. It includes flow control such that the sender will not overwhelm the receiver and messages can travel in both directions.
+\end{definition}
+
+TCP is effective for file transfer and other applications that require reliable data transfer, but is noticably slower than some alternative protocols.
+
+\begin{definition}[User datagram protocol]
+    The \textbf{user datagram protocol} (UDP) is an alternative to TCP primarily used when establishing low-latency connections between processes. The data transfer is unreliable and does not provide any flow control, congestion control, timing, security, or connection setup.
+\end{definition}
+
+UDP has a clear advantage in applications where packet loss is not highly avoided, such as streaming audio or video.
+
+\section{Application layer protocol and HTTP}
+
+An application layer protocol defines 
+\begin{enumerate}
+    \item types of messages exchanges;
+    \item message syntax;
+    \item message semantics; and
+    \item rules for when and how processes send and respond to messages.
+\end{enumerate}
+
+The \textbf{hypertext transfer protocol} (HTTP) is a client-server model protocol which consists of a \emph{client} that requests, receives, and displays web objects and \emph{servers} that sends objects in response to requests from clients. 
+When browsing the internet, your device is most likely using HTTP (or HTTPS) to request, receive, and render web pages. 
+HTTP makes use of TCP, a client will initiate the TCP socket connection (normally port 80) and the server accepts the connection and creates a socket. 
+HTTP messages are exchanged between the client (browser) and the server.
+Once communications has finished, the TCP socket is closed.
+
+HTTP is \emph{stateless}, this means the server maintains no information about past client requests.
+
+\begin{remark}
+    Protocols that are not stateless are complex. 
+    Past history must be maintained and if the server  or client crashes the view of states between the two may be inconsistent and must be agreed upon.
+\end{remark}
+
+Within HTTP we can be: \emph{non-persistent}, such that only one object is send through a socket then it is closed; or \emph{persistent}, such that multiple objects can be sent over a single TCP connecition. 
+
+With non-persistent HTTP, we find that downloading multiple objects requires multiple connections. 
+For example, if a simple webpage is requested and received with the socket closed, the client may realise that there are 10 more web objects that must be requested which each must be done on a separate socket! 
+We define the \emph{round-trip time} $t$ as the time for a small packet to travel to the server and back. 
+Then we define the HTTP response time as $2t + a$ where $a$ is the amount of time taken for file transmission. 
+This response time is incured for every file!
+
+For persistent HTTP, the server leaves the connection open after sending the response to the initialisation. 
+Subsequence HTTP messages between the same client and server are sent on this open connection. The client sends requests as soon as it encounters a referenced object. 
+This takes as little as $t + a$ where $t$ is the round-trip time and $a$ is the time taken for file tranmission. 
+This assumes that the connection to the server is already established \emph{and} all files are requested in parallel.
+
+\section{Socket programming}
+
+We will now taken a look at how network client-server applications communicate using sockets (that is, how they are built). 
+
+\begin{example}[]
+    Following is an example of a network application.
+    \begin{enumerate}
+        \item Client reads a line of characters (data) from its keyboard and sends data to the server.
+        \item Server recieves the data and converts the characters to uppercase.
+        \item Server sends the modified data to the client.
+        \item Client receives the modified data and displays it on the screen.
+    \end{enumerate}
+\end{example}
+
+\begin{example}[Socket programming with UDP]
+    In UDP, there is no connection between client and server and there is no handshaking before sending data. 
+    The sender will explicitly attach the IP of the destination and port number to each packet. 
+    The receiver will extract the send IP address and port number from the received packet.
+    The data may be lost or received out of order (given that it is UDP).
+    Looking at the socket interactions, we get the following execution flow.
+    \begin{enumerate}
+        \item The server will have setup a UDP socket at some point to listen on some port. The client will also setup a socket to send data to this socket.
+        \item The client will create a \emph{datagram} with the server IP and the port number and will send it to the server's socket.
+        \item The server will read the datagram from the socket and it will write a reply, specifying the socket corresponding to the client's IP address and port number.
+        \item The client's will read the datagram from the socket and then close the client socket.
+    \end{enumerate}
+    Replicating the example above we get the following python code for a UDP client.
+    \begin{lstlisting}[gobble = 8]
+        from socket import *
+        serverName = ''
+        serverPort = 12000
+
+        clientSocket = socket(AF_INET, SOCK_DGRAM)
+        message = input('Input lowercase sentence: ')
+        clientSocket.sendto(message.encode(), (serverName, serverPort))
+
+        modifiedMessage, serverAdress = clientSocket.recvfrom(i2048)
+        print(modifiedMessage.decode())
+        clientSocket.close()
+    \end{lstlisting}
+    In line 5, \texttt{AF\_INET} refers to IPv4 and \texttt{SOCK\_DGRAM} refers to a UDP socket. 
+    In line 2, an empty server name will default to localhost, so 127.0.0.1.
+
+    Similarly, we get the following code for a UDP server.
+    \begin{lstlisting}[gobble = 8]
+        from socket import *
+        serverPort = 12000
+        serverSocket = socket(AF_INET, SOCK_DGRAM)
+        serverSocket.bind(('', serverPort))
+        print('The server is ready to receive')
+
+        while True:
+            message, clientAddress = serverSocket.recvfrom(2048)
+            modifiedMessage = message.decode().upper()
+            sercerSocket.sendto(modifiedMessage.encode(), clientAddress)
+    \end{lstlisting}
+\end{example}
+
+\begin{example}[Socket programming with TCP]
+    With TCP, the client must first contact the server. 
+    The server must be constantly procesisng and have a socket that welcomes client contact.
+    The client contacts the server by creating a TCP socket specifying its IP address and port number, this then establishes the connection.
+    When the TCP server is contacted by the client it creates a new socket for the server processes to communicate with the particular client.
+    Following is some example Python code for a TCP client.
+    \begin{lstlisting}[gobble=8]
+        from socket import *
+        serverName = ''
+        serverPort = 12000
+        
+        clientSocket = socket(AF_INET, SOCK_STREAM)
+        clientSocket.connect((serverName, serverPort))
+        sentence = input('Input lowercase sentence: ')
+        clientSocket.send(sentence.encode())
+
+        modifiedSentence = clientSocket.recv(1024)
+        print('From server:', modifiedSentence.decode())
+        clientSocket.close()
+    \end{lstlisting}
+    In line 5, \texttt{SOCK\_STREAM} refers to TCP and \texttt{AF\_INET} refers to IP addressing.
+
+    This is not too dissimilar from a UDP client, lets look at the Python code for a TCP server.
+    \begin{lstlisting}[gobble=8]
+        from socket import *
+        serverPort = 12000
+
+        serverSocket = socket(AF_INET, SOCK_STREAM)
+        severSocket.bind(('', serverPort))
+        serverSocket.listen(1)
+        print('The server is ready to receive')
+
+        while True:
+            connectionSocket, addr = serverSocket.accept()
+            sentence = connection = connectionSocket.recv(1024).decode()
+            capsSentence = sentence.upper()
+            connectionSocket.send(capsSentence.encode())
+            connectionSocket.close()
+    \end{lstlisting}
+    Note that on line 14, this closes the socket to the specific client, \emph{not} the welcoming socket.
+\end{example}

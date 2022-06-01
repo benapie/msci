@@ -1,0 +1,29 @@
+\section{Construction of Vietoris-Rips complexes} \label{sec:computing-complexes}
+\label{sec:vietoris-rips-construction}
+
+We dedicate this section to the problem of constructing the Vietoris-Rips filtration of a given metric space. We first introduce the problem formally. 
+
+\begin{problem}[VRFilt]
+Instance: let $(M,d)$ be a metric space and $S \subset M$ be a finite set of points. \\
+Question: compute a compatible ordering of simplices from the filtered Vietoris-Rips complex $(\vr(S; \varepsilon))_{\varepsilon \in \R_{\geq 0}}$.
+\end{problem}
+
+For a metric space $(M, d)$, $S \subset M$, we note that $K = \vr(S; \infty)$ is the simplicial complex containing a single $\lvert S \rvert$-simplex and all of its faces, so the total count of faces is the sum of the first $n$ triangular numbers (including the zeroth triangular number), which is not computationally feasible. It is for this reason that we upper bound $\varepsilon$ in our construction, giving the following derived problem.
+
+\begin{problem}[$\hat\varepsilon$-VRFilt]
+Instance: let $(M,d)$ be a metric space, $S \subset M$ be a finite set of points, and $\hat\varepsilon \in \R_{\geq 0}$. \\
+Question: compute a compatible ordering of simplices from the filtered Vietoris-Rips complex $(\vr(S; \varepsilon))_{\varepsilon \in [0, \hat\varepsilon]}$.
+\end{problem}
+
+We now follow the approach given by \textcite{zomorodian2010fast}. Let $(M,d)$ be a metric space, $S \subset M$ be a finite set of points, and $\hat\varepsilon \in \R_{\geq 0}$. We may split the computation of the Vietoris-Rips complex into the following phases:
+\begin{enumerate}
+    \item compute the weighted graph $(G, w)$ where $G = (V,E)$ is the $1$-skeleton of $\vr(S; \hat\varepsilon)$ and $w: E \to \R_{\geq 0}$ is defined by $w(u,v) = d(u,v)$;
+    \item compute the \emph{expansion} of $(G, w)$ to the weight-filtered simplicial complex $(\vr(S; \hat\varepsilon), w)$; then
+    \item obtain the simplex ordering by sorting the simplices according to their weights.
+\end{enumerate}
+
+Let $n$ be the number of points in $S$. We assume that we can compute $d(u,v)$ for any $u, v \in S$ in $O(1)$ time. It is clear \text{(iii)} reduces to \textsc{Sorting}, which we can achieve in time $\Theta(n\log n)$. Thus, we bring our focus to (i) and (ii), algorithms for which will be hence force referred to as the \emph{skeleton method} and \emph{expansion method} respectively.
+
+\input{content/4-comp-top/1-vietoris-rips/1-skeleton-methods}
+\input{content/4-comp-top/1-vietoris-rips/2-expansion-methods}
+\input{content/4-comp-top/1-vietoris-rips/3-comparison}

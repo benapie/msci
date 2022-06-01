@@ -1,0 +1,45 @@
+\chapter{Image noise}
+
+\lecture{4}{1/11}
+
+\begin{definition}[Image noise]
+    \textbf{Image noise} is random variations in brightness or colour information.
+\end{definition}
+
+Image noise can occur due to the sensors used to produce the image and also through processing and compression for transmission. Noise due to processing can arise from
+\begin{enumerate}
+    \item sampling, when we quantise the continuous data; and
+    \item numerical processing, comes from issues in numerical precision, integer overflow, etc.
+\end{enumerate}
+
+\begin{example}[Lossy compression]
+    \begin{enumerate}
+        \item JPEG is an image format that is \emph{lossy} (that is, data is lost); and
+        \item MPEG is a video format that is lossy.
+    \end{enumerate}
+    These file types remove details to get a reduced file size. This causes \textbf{artifacts} in the image.
+\end{example}
+
+There are several formats that provide \textbf{loseless} compression; that is, no information is lost.
+
+\begin{definition}[Salt and pepper noise]
+    \textbf{Salt and pepper noise} is a form of noise presents itself as sparesly occuring black and white pixel, also known as \textbf{pulse noise}.
+\end{definition}
+
+This type of noise typically presents itself in older sensors; it is not really an issue with modern sensors. 
+
+\begin{definition}[Gaussian noise]
+    \textbf{Gaussian noise} is a form of statistical noise which has probability density function equal to that of the normal distribution. That is, 
+    \[ f(z) = \frac{1}{\sigma \sqrt{2\pi}} e^{-\frac12\left(\frac{x - \mu}{\sigma}\right)^2} \]
+    where $z$ is the grey level, $\mu$ is the mean, and $\sigma^2$ is the variance.
+\end{definition}
+
+This is the most common noise model used in image processing.
+
+We are going to introduce the idea of neighbours, which is similar to neighbours in metric spaces. A pixel $p$ at coordinatges $(x, y)$ has four diagonal neighbours whose coordinates are given by
+\[ (x+1, y+1), (x+1, y-1), (x-1, y+1), (x-1, y-1) \]
+as well as four horizontal and vertical neighbours given by
+\[ (x+1, y), (x-1, y), (x, y+1), (x, y-1). \]
+Together, these form a $3 \times 3$ \textbf{local pixel neighbourhood}. We can extend this idea to a $N \times N$ local pixel neighbourhood. Local pixel neighbourhoods define local areas of influence, relevance, or interest. Image filtering and other operations use $M \times N$ neighbourhoods, but in most cases $N = M$ and $N$ is odd to simplify implementation. 
+
+%todo

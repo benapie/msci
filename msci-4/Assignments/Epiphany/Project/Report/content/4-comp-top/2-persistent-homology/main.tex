@@ -1,0 +1,35 @@
+\clearpage\section{Computing persistent homology}
+\label{sec:computing-persistent-homology}
+This section outlines the standard algorithm for computing persistent homology, and some speed-ups that are utilised by Ripser \cite{bauer2021ripser}. Some experiments are conducted to verify speed-ups, and as we add each speed-up we compare it to the previous original algorithm. We introduce the algorithms in the order:
+
+\begin{enumerate}
+  \item the standard algorithm (no speed-ups);
+  \item sparse matrix representation;
+  \item reduction by killing (clearing); and
+  \item reducing the cohomology boundary matrix.
+\end{enumerate}
+
+Homology will be computed with coefficients in $\mathbb F_2$, given the amenability to a fast algorithm (our algorithms may also be adapted to any field). It is generally agreed that the torsional subgroups of the homology groups with coefficients in some non-divisible group yield no practical information. There are also many challenges to overcome for computing persistent homology over a non-divisible group; for example, our structure theorem for persistence modules does not hold for algebraic structures that are not fields (such as $\mathbb Z$). We pose this as a topic of further research, as not much material exists on its potential uses. Note that the notion of \emph{oriented simplices} does not make much sense over $\mathbb F_2$, as $\overline 1 = \overline{-1}$. 
+
+In the following exposition, we assume homology is calculated up to some fixed dimension $d \in \mathbb N$. Also, for a matrix $M$, we will denote the $i$th column of $M$ by $M_i$. 
+
+We have discussed the existence of a compatible ordering of simplices for a filtered simplicial complex. To make our exposition clearer, we will be considering only \emph{maximal} filtration; that is, filtrations of the form $\{K_i\}_{i=0}^n$ where $K_i = \bigcup_{i=1}^n \{\sigma_i\}$. Thus moving up the filtration by one level corresponds to adding a single simplex. We show how this method can be extended to any filtered simplicial complex.
+
+Let $\mathbb L = \{L_i\}_{i=0}^m$ be any filtered simplicial complex and let $\sigma_1, \ldots, \sigma_n$ be a compatible simplex ordering. We form the maximal filtration $\mathbb K$ by
+\[ \mathbb K = \{K_i\}_{i=0}^n, \qquad K_i = \bigcup_{i=1}^n \{\sigma_i\}. \]
+We then construct the surjective map
+\begin{align*}
+  f: \{1, \ldots, n\} & \to \{0, \ldots m\},                 \\
+  i                   & \mapsto \min\{j: \sigma_i \in L_j\}.
+\end{align*}
+This induces a map
+\begin{align*}
+  f_*: \Pers(H_*(\mathbb K)) & \to \Pers(H_*(\mathbb L)) \\
+  (i, j)                     & \mapsto (f(i), f(j))
+\end{align*}
+(with $f_*(i, \infty) = (f(i), \infty)$) which is a bijection.
+
+\input{content/4-comp-top/2-persistent-homology/1-standard-algorithm}
+\input{content/4-comp-top/2-persistent-homology/2-sparse-matrix-representation}
+\input{content/4-comp-top/2-persistent-homology/3-reduction-by-killing}
+\input{content/4-comp-top/2-persistent-homology/4-cohomology}

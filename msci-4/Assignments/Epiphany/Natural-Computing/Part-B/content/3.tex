@@ -1,0 +1,25 @@
+\section{Comparison of Ant-Q with other algorithms}
+
+The section summarises the results on the comparison of the Ant-Q algorithm with other \emph{nature-inspired} algorithms in \textcite{dorigo1996study}. 
+
+\subsection{Performance of Ant-Q}
+
+Ant-Q was executed on the three datasets Oliver30, 6x6 grid, and ry48p (the first two are TSP, the last is ATSP). The $\gamma$ values were slightly modified to suit the dataset, but for all runs $\gamma \in [0.4, 0.46]$.
+
+Ant-Q found the optimal solution in all three datasets, and the mean tour length at testing closely matched this optimal. In particular, no noticeable decrease was observed in the asymmetrical case. 
+
+\subsection{Ant-Q vs AS}
+
+Ant-Q (with $\gamma = 0.4$) was compared with the original ant-system algorithm (AS) with the same datasets as the last subsection. Both algorithms achieved the optimal route in this experiment, but it is noted that the Ant-Q outperformed AS. The mean best route found by Ant-Q was consistently closer to the optimal than that found by A. The error percentage for Ant-Q was also consistently lower than for AS.
+
+\subsection{Ant-Q vs other \emph{nature-inspired} algorithms}
+
+Ant-Q was compared against the genetic algorithm (GA), evolutionary programming (EP), and simulated annealing (SA) on the datasets Eil50 (50 cities), Eil75 (75 cities), and KroA100 (100 cities). We briefly outline these algorithms.
+
+\begin{description}
+    \item[Genetic algorithm (GA)] Inspired by evolution, genetic algorithms start with an initial population (a set of routes). The \emph{fitness} of this population is calculated (tour lengths), and the best \emph{genes} (edges) are identified, and are \emph{crossed-over} (combined). There is also some mutation introduced to add variation (analogous to the exploration behaviour found in ants).
+    \item[Evolutionary programming (EP)] Evolutionary programming is very similar to the genetic algorithm, but we omit details of cross-over. Intuitively, instead of our population being part of the same \emph{species}, we assume that they are not. Our population asexually reproduces: each parent has one child which has random mutations. Children with favourable characteristics are selected and further mutated and the unfavourable children are discarded. 
+    \item[Simulated annealing] This has already been described in the previous part, but I repeat the same here. It is an iterative process in which there is a running variable, which we will call \emph{entropy}, which is decreased every step. We first pick an initial tour (this can be found using any method). Then, every step we will randomly generate a set of random transformations to the tour, and each perturbation is assigned a \emph{cost difference} (how much better the transformation makes the tour). If the cost difference is positive, the transformation is applied. Otherwise, it stochastically decided whether or not to apply the transformation depending on the entropy (more entropy leads to picking unfavourable transformations more) and the cost difference. If after a step no perturbations are observed, we output the tour. 
+\end{description}
+
+It was found that Ant-Q outperforms every other algorithm on every dataset, except for Eil50 where SA found a slightly better solution; however, SA took a much higher number of tours. 

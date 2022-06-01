@@ -1,0 +1,208 @@
+\chapter{Developing algorithms}
+
+When developing algorithms, we should follow an iterative method:
+
+\begin{enumerate}
+    \item design;
+    \item analyse;
+    \item implement; and
+    \item experiment, then repeat.
+\end{enumerate}
+
+\section{Describing algorithms}
+
+So far algorithms are described using natural language, hand-applied. Ultimate intention, our algorithms to be implemented as programs for execution by computers. What will our computer be? One of our desktops or laptops. What ill our programs be? Python
+
+We'll move to an interim position and develop a more precise language to described our algorithms. Sufficiently precise to allow us to easily move to a python program and analyse the algorithm performance.
+
+\begin{example}[Euclid's algorithm]
+    Euclid's algorithm takes two non-negative integers $m$ and $n$ with $m\geq n$, as follows.
+    \begin{verbatim}
+if n == 0:
+    output m
+else:
+    set m' = n and n' = m mod n
+    set m = m' and n = n' and repeat the algorithm
+    \end{verbatim}
+\end{example}
+
+Euclid's algorithm raises a number of issues:
+\begin{enumerate}
+    \item is it correct?
+    \item does it always halt?
+    \item can it be implemented?
+    \item if so, does the implementation have the same properities as the algorithm?
+\end{enumerate}
+
+PRoving algorithsm or programs dow hat you want of think can be exceedingly complex and are fundamental issues in CompSci
+
+program corretness - whether an algorithm or program does what we think it does
+- analysis of algorithms - exactly how lpong does an algorithm or program take to do whatever it does or exactly how much memory does it use
+
+Tension in CompSci: formal methods vs software testing.
+\begin{enumerate}
+    \item mathematically proving algorithms and programs correct vs
+    \item the systematic study.....
+\end{enumerate}
+
+
+
+How to think of pseudocode:
+\begin{enumerate}
+    \item a list of instructions for a thick person who is capable of performing menial tasks
+\end{enumerate}
+
+Imagine that data items are written on bits of paper placed in uniquely named pigeon-holes. The pigeonhole names are the algorithm variables and the pigeon-holes can be organised in rows, columns, etc.
+
+The control structures of pseudo-code determine the instruction flow, we could equally well give this in the form of a flowchart.
+
+Euclid's algorithm also introduces us to a key aspect of Computeration thinking: recursion. Recursion can be thought of intuitively as follows: stop what you are doing and repeat everything again from the start but on different data, when you are done, pick up where you left off. Imagining that our algorithm is a function, recursion is an algorithm calling itself.
+
+\begin{verbatim}
+algorithm: Euclid(m, n)
+IF n == 0:
+    output m
+ELSE
+    Euclid(n, m mod n)
+\end{verbatim}
+
+We can also describe Euclid's algorithm without using recursion.
+
+\begin{verbatim}
+WHILE n != 0:
+    m = m - n
+    IF n > m:
+        swap m and n
+OUTPUT m
+\end{verbatim}
+
+\section{Sorting algorithms}
+
+We need to explain the constructs and semantics of our pseudo-code.
+Consider the fundamental sorting problem:
+\begin{enumerate}
+    \item input, a list of n integers
+    \item output the list sorted into ascending order
+\end{enumerate}
+
+We assume that our input list A of integers is random-access such that the ith number is denoted A[i], for i = 0,1,2,...,n-1. We assume that we have access to the number of numbers in the input list, we can introduce new variables and list, and we can use variables to access the items of lists.
+
+
+\begin{definition}
+    \textbf{Bubble sort} is a simple sorting algorithm which repetitively steps through a list comparing consecutive elements to sort them.
+    \begin{enumerate}
+        \item in a pass through the niput lists, compare consecutive pairs of numbers in turn, swap them if the first is greater than the second.
+        \item if a swap has been made in a pass through the list then do another pass otherwise halt
+    \end{enumerate}
+\end{definition}
+
+\begin{lstlisting}[caption=Bubble sort]
+change = true
+while change == true:
+    change = false
+    i = 0
+    WHILE i < n-1:
+        IF A[i] > A[i+1]:
+            swap A[i] and A[i+1]
+            change = true
+        i = i + 1
+OUTPUT A
+\end{lstlisting}
+
+
+\begin{definition}
+    \textbf{Selection sort} is also a simple sorting algorithm.
+    
+    \begin{enumerate}
+        \item take the numnber ni A[0] and store it as x
+        \item first pass: compare xx with the numbers in A[1], A[2], ..,. in turn, always keeping the samller numnber in x and the larger number in the list cell
+        \item put the resulting number x into A[0]
+        \item take the number in A[1] and store it as x
+        \item second pass, compare x wit
+    \end{enumerate}
+\end{definition}
+
+\begin{lstlisting}[caption=Selection sort]
+pass = 0
+WHILE pass < n - 1:
+    x = A[pass]
+    i = pass + 1
+    
+    WHILE i <= n - 1:
+        IF A[i] < x:
+            swap x and A[i]
+        i = i + 1
+    A[pass] = x
+    pass = pass + 1
+output A
+\end{lstlisting}
+
+\begin{definition}
+    Merge sorting is a more complicated sorting algorithm.
+    \begin{enumerate}
+        \item chop the input list into (roughly) two halves;
+        \item recursively sort each half;
+        \item merge the two sorted lists together.
+    \end{enumerate}
+\end{definition}
+
+
+\begin{algorithm}
+    \begin{lstlisting}
+    algorithm: merge_sort(l, r)
+    IF 1 < r:
+        m = ceil((r-l+1)/2)-1
+    \end{lstlisting}
+    \caption{whatsup}
+\end{algorithm}
+
+\begin{definition}
+    The binary search algorithm is designed to find an item in a sorted list. Following is a description of the algorithm.
+    Let $x$ be an element to search for and $L$ be a sorted list. We compare $x$ with the median element of $L$, if this median element is $x$ then we are done, otherwise, if the median element is greater than $x$ then $x$ must exist below the median element, if at all. If the median element is less than $x$ then $x$ lies above the median element, if at all.
+    
+
+\end{definition}
+
+\begin{lstlisting}[caption=Binary search.]
+leftptr = 0
+rightptr = n-1
+while leftptr <= rightptr:
+    m = ceil((leftptr+rightptr)/2)
+    if A[m] > x:
+        leftptr = m + 1
+    elif A[m] < x:
+        rightptr = m-1
+    else:
+        return m
+return n
+        
+\end{lstlisting}
+
+
+\section{String matching}
+
+
+The (abstract) string matching problem:
+
+\begin{enumerate}
+    \item we are given a text string and a pattern string; and
+    \item we want to find an occurence of the pattern in the text (if there is one).
+\end{enumerate}
+
+The text string is a list T[0,...,n-1] and the pattern string is a list P[0,...,m-1]. Here is a naive string matching algorithm:
+
+\begin{lstlisting}
+pos = 0
+while pos <= n - m:
+    j = m - 1
+    while (j >=0) and (P[j] == T[pos + j]):
+        j = j - 1
+    if j < 0:
+        return pos
+    else:
+        pos = pos + 1
+return n
+\end{lstlisting}
+
+%todo boyer-moore string matching
+

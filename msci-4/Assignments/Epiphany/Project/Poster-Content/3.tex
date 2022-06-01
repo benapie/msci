@@ -1,0 +1,105 @@
+
+\section{Computation}
+
+\begin{definition}[Codimension]
+  Let $K$ be a $n$-simplex and $L$ be an $m$-simplex such that $L$ is a face of $K$ ($m < n$). The \emph{codimension} of $L$ in $K$ is the difference between the dimensions; that is, $\codim(L) = \dim(K) - \dim(L)$.
+\end{definition}
+
+Like before, we consider a filtration $\{K_i\}_{i=0}^n$ for a simplicial complex $K$ and impart that $K_0 = \varnothing$ and $K_n = K$. We now place a total ordering on the simplices of $K$, denoted $\sigma_1, \ldots, \sigma_m$, in a way that it agrees with our filtration:
+\begin{itemize}
+  \item a face of a simplex precedes the simplex; and 
+  \item a simplex in $K_i$ precedes the simplices in $K_j$ which are not in $K_i$ for all $j > i$.
+\end{itemize}
+We now construct a square matrix $\partial \in M_m(\mathbb F_2)$ such that
+\[
+  \partial[i,j] = \begin{cases}
+    1 & \text{$\sigma_i$ is a face of $\sigma_j$ with codimension 1}, \\
+    0 & \text{else}.
+  \end{cases}  
+\]
+
+We now introduce a standard algorithm for the reduction of this boundary matrix to barcodes.
+
+\begin{minted}{python}
+def add_col_to_col(col_in: int, col_out: int) -> int: ...
+def low(col: int) -> int: ...
+def is_col_reduced(col: int) -> bool: ...
+
+for i in range(len(bmat)):
+    while not is_col_reduced(i):
+        for j in range(0, i):
+            if low(i) == low(j):
+                add_col_to_col(j, i)
+                break
+\end{minted}
+
+The implementations of the top three functions are omitted, but their actions and return values are described. First, we understand this script expects a matrix \texttt{bmat}, a list of lists representing the square matrix $\partial$. \texttt{low} returns the largest row index of an element in a given column with a non-zero entry, and if the column is all zero it returns $-1$. $\mathtt{is\_col\_reduced}(\mathtt{col})$ evaluates true if \texttt{col} is the column with smallest index with its value of \texttt{low} or if $\mathtt{low}(\mathtt{col}) = -1$; otherwise, it evaluates false. We precisely define these functions below. 
+\begin{itemize}
+  \small
+  \item \texttt{add\_col\_to\_col} performs the expected column operation on \texttt{bmat}.
+  \item $\mathtt{low}(\mathtt{col}) = \begin{cases}
+    -1 & \text{if $\partial[i+1, \mathtt{col}+1] = 0$ for all $i$}, \\
+    \min\{i : \partial[i+1, \mathtt{col}+1] \neq 0\} & \text{else}.
+  \end{cases}$
+  \item $\mathtt{is\_col\_reduced}(\mathtt{col}) = \begin{cases}
+    1 & \text{if $\mathtt{low}(\mathtt{i}) = \mathtt{low}(\mathtt{col}) \neq -1$ for all $i < \mathtt{col}$}, \\
+    0 & \text{else}. \\
+  \end{cases}$ 
+\end{itemize}
+We note that each of these functions can be implemented in $O(m)$ time. The exact implementation above runs in $O(m^3)$ time. The reason for the above implementation is to be clear on the exactness of the algorithm. 
+
+On to the main loop (line \texttt{5} onwards), we first claim that this terminates. Although not immediately obvious, our assumptions upon $\sigma_1, \ldots, \sigma_m$ from which we build $\partial$ (which \texttt{bmat} represents) assert that  $\mathtt{is\_col\_reduced}(i)$ will evaluate true by repeating \texttt{7} to \texttt{10}. We have that $\mathtt{is\_col\_reduced}(j)$ is true for each $j \in \{0, \ldots i-1\}$. As $\mathtt{is\_col\_reduced}(i)$ is false, there is $i_1 < i$ such that $\mathtt{low}(i_1) = \mathtt{low}(i)$. So we add the $i_1$th column to the $i$th column, making the new value of $\mathtt{low}(i)$ strictly less than $\mathtt{low}(i_1)$ (as, by definition, every entry below $\mathtt{low}(i_1)$ is zero). To appreciate this, we recall that we are in $\mathbb F_2$. If $\mathtt{is\_col\_reduced}(i)$ is true, we are done; otherwise, there is $i_2 < i$ such that $\mathtt{low}(i_2) = \mathtt{low}(i) < \mathtt{low}(i_1)$. Again, we perform the appropriate column operation. We continue this operation, and as there are only a finite number of rows (that is, a finite number of unique values for \texttt{low}), then we must reach a point at which $\mathtt{is\_col\_reduced}(i)$ is false. 
+
+First, we learn to read the ranks of the homology groups of $K$. Let $R \in M_m(\mathbb F_2)$ be the resulting matrix from running the standard algorithm described above on $\partial$. Define 
+\begin{align*}
+  \operatorname{zeros}_p(R) &= \left\{
+    i: \text{column $i$ in $R$ is zero and $\dim\sigma_i=p$}
+  \right\}, \\
+  \operatorname{lows}_p(R) &= \left\{
+    i: \text{$\operatorname{low}(j) = i$ for some $j$ and $\dim\sigma_i=p$}
+  \right\}.
+\end{align*}
+If $K_i = \{\sigma_j\}_{j=1}^i$, we claim that $\operatorname{zeros}_p(R) - \operatorname{lows}_p(R) = \beta_p$, which can be seen by observing that $\operatorname{zeros}_p(R)$ is the rank of the $p$-cycles, and $\operatorname{lows}_p(R)$ is the rank of the $p$-boundaries. 
+
+Next, we move to persistent homology. Let $f: K \to \R$ be defined on our simplicial complex as in the last section which induces our filtration, with associated sequence $\{a_i\}_{i=0}^m$. If $K_i = \{\sigma_j\}_{j=1}^i$ then $(a_i, a_j) \in \dgm_p(f)$ if and only if $i = \operatorname{low}(j)$ and $\dim\sigma_i = p$. Now we assume otherwise, so there is a step in the filtration in which more than one simplex is added. We simply construct the filtration $\{K_i'\}_{i=0}^m$ such that $K_i' =  \{\sigma_j\}_{j=1}^i$ and let $k': \Z_{\geq 0} \to \Z_{\geq 0}$ be the sequence such that $K_i = K'_{k'(i)}$ for all $i$. Now define $k: \Z_{\geq 0} \to \Z_{\geq 0}$ as $i \mapsto \min\{i': k(i') \geq i \}$. This is a mapping between our filtration and a filtration which only adds one simplex at a time when we move up. Let $(i, j)$ be the indices of some point in the $p$th persistence diagram for $K'$. Then $(a_{k(i)}, a_{k(j)}) \in \dgm_p(f)$
+
+\subsection{Sparseness}
+
+So we have a cubic algorithm for calculating persistent homology in the number of simplices. Let us consider a triangulation of $S^n$: $K = \mathcal P(\{v_1, \ldots, v_{n+2}\}) \setminus \{\{v_1, \ldots, v_{n+2}\}\}$ and consider the ordering of simplices $\sigma_1, \ldots, \sigma_{2^{n+2}-2}$ as discussed, inducing the filtration $\{K_i\}_{i=0}^{2^{n+2}-2}$. From a computational perspective, we say that there is an exponential count of simplices, which is size of our boundary matrix. So, using the method above, we may calculate the persistent homology of the $n$-sphere in $O((2^{n+2}-2)^3)=2^{O(n)}$ time.
+
+In practice, we may want to form our filtration from spaces with some notion of characterisation between data points. Precisely, let $(M, d)$ be a metric space and we consider the Vietoris-Rips complex of some finite subset $S \subset M$ with diameter $l$,
+\[ \operatorname{VR}(S; l) = \{ \sigma \subset S: \operatorname{diam}(\sigma) \leq l\} \]
+where $\operatorname{diam}: \mathcal P(M) \to \R$ such that $S \mapsto \sup_{x, y \in S} d(x, y)$. This induces an ordering on the subcomplexes (consider Vietoris-Rips complex as we let $l$ vary from $0$ to $\infty$), which defines a filtration $\{K_i\}_{i=0}^n$ (where $K_0 = \varnothing$ and $K_n = K = \operatorname{VR}(S; \infty)$). We have
+\[
+  \lvert K \rvert 
+  = \lvert \operatorname{VR}(S; \infty) \rvert 
+  = \lvert \mathcal P(S) \rvert 
+  = 2^{\lvert S \rvert},
+\]
+so we can calculate the persistence diagram of such a filtration in $2^{O(n)}$ time where $n = \lvert S \rvert$. 
+
+See below the boundary matrix for $\partial\Delta_2$ (homotopy equivalent to $S^1$). 
+\[
+  \setcounter{MaxMatrixCols}{20}
+  \begin{pmatrix}
+    0 & 0 & 0 & 0 & 1 & 1 & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+    0 & 0 & 0 & 0 & 1 & 0 & 0 & 1 & 1 & 0 & 0 & 0 & 0 & 0 \\
+    0 & 0 & 0 & 0 & 0 & 1 & 0 & 1 & 0 & 1 & 0 & 0 & 0 & 0 \\
+    0 & 0 & 0 & 0 & 0 & 0 & 1 & 0 & 1 & 1 & 0 & 0 & 0 & 0 \\
+    0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 1 & 1 & 0 & 0 \\
+    0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 1 & 0 & 1 & 0 \\
+    0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 1 & 1 & 0 \\
+    0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 1 & 0 & 0 & 1 \\
+    0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 1 & 0 & 1 \\
+    0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 1 & 1 \\
+    0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+    0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+    0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+    0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+  \end{pmatrix}
+  \setcounter{MaxMatrixCols}{10}
+\]
+This is a sparse matrix; that is, almost all of the entries are 0. This allows us to make a number of computational speed-ups. Recall the operations used in the implementation earlier, as we keep them in mind when considering a data structure. 
+
+We now show the sparse matrix representation from \textcite{edelsbrunner2010computational}, and present an alternative.
+

@@ -1,0 +1,92 @@
+\chapter{Area and volume integration}
+\section{Riemann integration}
+\lecture{3}{16/1}
+
+\begin{remark}
+    We are not going to go much into the theory surrounding Riemann integration;
+    instead, 
+    we will lightly define what it means and move on to the applications.
+    Some of this will look familiar to \emph{regulated functions}
+    from Analysis I.
+\end{remark}
+
+\begin{definition}[Riemann integral]
+    Let $f: U \subset \R \to \R$ be a continuous function
+    and consider the interval $[a, b]$ that is split into $N$ subintervals:
+    \[
+        x_0 = a < x_1 < x_2 < \ldots < x_N = b.
+    \]
+    Then the \textbf{Riemann integral} of $f$ over $[a,b]$ is
+    \[
+        \int_a^b f(x) \, dx 
+        = \lim_{N \to \infty} \sum_{i = 0}^{N - 1} f(x^\star_i) \Delta x_i
+    \]
+    where 
+    \begin{enumerate}
+        \item 
+            $\Delta x_i = x_{i + 1} - x_i$, 
+
+        \item 
+            $x_i^\star \in [x_i, x_{i + 1}]$, and
+
+        \item 
+            $\sup(\Delta x_i) \to 0 \;\text{as}\; N \to \infty$.
+   \end{enumerate}
+\end{definition}
+
+\section{Fubini's theorem}
+
+As for the single integral, the double integral,
+written as $\int_R f(x, y) \, dA$
+(or sometimes $\int\int_R f(x, y) \, dA$)
+can be used to calculate the volume under the surface defined by
+$z = f(x, y)$ where $f(x, y)$ is continuous over $R \subset \R^2$,
+the region over which we wish to perform the integration.
+
+We can define our double integral using the Riemann sum;
+we start by splitting the region of integration $R$ into
+$N$ smaller areas $\Delta A_k$.
+Hence we get
+\[
+    \int_R f(x, y) \, dA =
+    \lim_{N \to \infty} \sum^{N}_{k = 1} 
+    f(x^\star_k, y^\star_k) \Delta A_k.
+\]
+
+Splitting the range of $x$ and $y$ this becomes
+\[
+    \int_A f(x, y) \, dA =
+    \lim_{n, m \to \infty} \sum^{n - 1}_{i = 0} \sum^{m - 1}_{j = 0} 
+    f(x_i^\star, y_j^\star) \Delta x_i \Delta y_j
+\]
+where
+\begin{enumerate}
+    \item $\Delta x_i = x_{i+1} - x_i$,
+    \item $\Delta y_i = y_{i+1} - y_i$,
+    \item $x^\star_i \in [x_i, x_{i+1}]$, and
+    \item $y^\star_i \in [y_i, y_{i+1}]$.
+\end{enumerate}
+
+\begin{example}
+    Integrate the function $f(x, y) = 6xy^2$ over $R = [2, 4] \times [1, 2]$.
+\end{example}
+
+\begin{solution}
+    \begin{align*}
+        \int_2^4\int_1^2 6xy^2 \, dy \, dx
+        &= \int_2^4 \left(2xy^3\right)^2_1 \, dx \\
+        &= \int_2^4 (16x - 2x) \, dx \\
+        &= \left(7x^2\right)^4_2 = 84.
+    \end{align*}
+    Changing the order of integration will get this same answer.
+\end{solution}
+
+\begin{theorem}[Fubini's theorem]
+    Let $A$ be a region and $f(x, y): A \to \R$ be continuous.
+    Then
+    \[
+        \int_A f(x, y) \, dA
+        = \int_y \int_x f(x, y) \, dx \, dy
+        = \int_x \int_y f(x, y) \, dy \, dx.
+    \]
+\end{theorem}

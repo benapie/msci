@@ -1,0 +1,38 @@
+\subpart\hspace{0em}
+\begin{solution}
+    Recall the following variant of the Chernoff bound.
+
+    \vspace{0.5em}
+    \begin{theorem}
+        Let $(\Omega, \Pr)$ be a finite discrete probability space with independent random variables $\{Z_i\}_{i=1}^n$ taking values in $\{0,1\}$. Let $Z = \sum_{i=1}^n Z_i$ be their sum and $\delta \in [0, 1.81]$. Then
+        \[ \Pr[Z \geq (1 + \delta)\E[X]] \leq e^{-\tfrac13 \delta^2 \E[X]}. \]
+    \end{theorem}
+    \vspace{0.5em}
+
+    We take $\delta = \tfrac{1200-np}{np}$ and see that
+    \[ \Pr[Y \geq 600] = \Pr[Y \geq (1 + \delta)\E[X]]. \]
+    Thus we can apply the above Chernoff bound variant, but only when $\delta \in [0, 1.81]$, which we keep in mind. By the Chernoff bound variant stated above (assuming $\delta \in [0, 1.81]$),
+    \begin{align*}
+        \Pr[Y \geq (1 + \delta)\E[X]]
+         & = e^{-\tfrac13 \delta^2 \E[X]}                                                        \\
+         & = \exp\left(-\frac13 \left(\frac{1200-np}{np}\right)^2\left(\tfrac 12np\right)\right) \\
+         & = \exp\left(\frac{1200^2 - 2400np + n^2p^2}{-6np}\right).
+    \end{align*}
+    So
+    \begin{align*}
+        \exp\left(\frac{1200^2 - 2400np + n^2p^2}{-6np}\right) & \leq \frac{1}{50} \\
+        \frac{1200^2 - 2400np + n^2p^2}{-6np}                  & \leq -\log(50)    \\
+        1200^2 - 2400np + n^2p^2                               & \geq 6np \log(50) \\
+        16n^2 - (48000 + 120\log(50))n + 36000000              & \geq 0.           \\
+    \end{align*}
+    The (approximate) critical values for this inequality are
+    \[ n \approx 1304.372, \qquad n \approx 1724.969. \]
+    Thus $n \lessapprox 1304.372$ or $n \gtrapprox 1724.969$. Recall that we assumed that $\delta \in [0,1.81]$. That is,
+    \begin{align*}
+        \delta             & \geq 0    & \delta              & \leq 1.81              \\
+        \frac{1200-np}{np} & \geq 0    & \tfrac{1200-np}{np} & \leq 1.81              \\
+        1200-np            & \geq 0    & 1200-np             & \leq 1.81np            \\
+        n                  & \leq 1500 & n                   & \geq \frac{1500}{2.81} \approx 533.808.
+    \end{align*}
+    Thus the value $n \approx 1724.969$ is not valid. So we have $n \lessapprox 1304.372$, and the greatest integer value is \num{1304}. Therefore, a greatest integer value $n$ can take (using a variant of the Chernoff bound) such that the campaign will cost Lucy at most £600 is \num{1304}.
+\end{solution}

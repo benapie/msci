@@ -1,0 +1,428 @@
+\section*{2016}
+
+\question Let $G$ be the symmetric group $S_n$.
+\begin{parts}
+    \part Define the permutation representation $(\pi, V)$ of $G$.
+    \begin{solution}
+        We take $V = \C^n$ and basis $e_1, \ldots, e_n$. Then
+        \[ \rho(g)e_i = e_{gi}. \]
+    \end{solution}
+
+    \part In the special case $n = 3$, i.e., $G = S_3$, write down the matrices $\pi(g)$ for $g\in \{(1), (1\,2), (1\,2\,3)\} \subset G$ with respect to the standard basis of $V$. Use this to compute the character $\chi_\pi(g)$ for all $g \in G$.
+    \begin{solution}
+        \begin{align*}
+            \rho((1))       & =
+            \begin{pmatrix}
+                1 & 0 & 0 \\
+                0 & 1 & 0 \\
+                0 & 0 & 1 \\
+            \end{pmatrix},      \\
+            \rho((1\,2))    & =
+            \begin{pmatrix}
+                0 & 1 & 0 \\
+                1 & 0 & 0 \\
+                0 & 0 & 1 \\
+            \end{pmatrix},      \\
+            \rho((1\,2\,3)) & =
+            \begin{pmatrix}
+                0 & 0 & 1 \\
+                1 & 0 & 0 \\
+                0 & 1 & 0 \\
+            \end{pmatrix}.
+        \end{align*}
+        $\chi_\pi$ is a class function, and thus fixed on conjugacy classes. Thus
+        \begin{align*}
+            \chi_\pi(e)               & = 3, \\
+            \chi_\pi(\text{2-cycles}) & = 1, \\
+            \chi_\pi(\text{3-cycles}) & = 0.
+        \end{align*}
+    \end{solution}
+\end{parts}
+
+\question Let $G$ be a finite group with conjugacy classes $C_1, \ldots, C_k$ and let $g_i \in C_i$ be an element for each $i \in \{1, \ldots, k\}$.
+\begin{parts}
+    \part Give the definition of a class function of $G$ and define an inner product $\langle -, - \rangle$ between two class functions.
+    \begin{solution}
+        A class function $\chi: G \to \C$ is a function that is constant on conjugacy classes. Standard inner product:
+        \[ \langle \chi, \psi \rangle = \frac{1}{\lvert G \rvert} \sum_{g \in G} \overline\chi(g) \psi(g). \]
+    \end{solution}
+
+    \part Let $w = 1/2(-1 + i\sqrt 3)$ be a cube root of unity. The following is the character table for the alternating group $A_4$:
+    \begin{center}
+        \vspace{1em}
+        \begin{tabular}{CCCCC}
+            \toprule
+            g_i     & (1) & (1\,2)(3\,4) & (1\,2\,3) & (1\,3\,2) \\
+            \#(C_i) & 1   & 3            & 4         & 4         \\
+            \midrule
+            \chi_1  & 1   & 1            & 1         & 1         \\
+            \chi_2  & 1   & 1            & w         & w^2       \\
+            \chi_3  & 1   & 1            & w^2       & w         \\
+            \chi_4  & 3   & -1           & 0         & 0         \\
+            \bottomrule
+        \end{tabular}
+        \vspace{1em}
+    \end{center}
+    Using this table write the following class function $f$ as a sum of irreducible characters. Does $f$ correspond to a character of a finite dimensional representation of $A_4$?
+    \begin{center}
+        \vspace{1em}
+        \begin{tabular}{CCCCC}
+            \toprule
+              & (1) & (1\,2)(3\,4) & (1\,2\,3) & (1\,3\,2) \\
+            \midrule
+            f & 2   & 2            & -1        & -1        \\
+            \bottomrule
+        \end{tabular}
+        \vspace{1em}
+    \end{center}
+    \begin{solution}
+        We combine the class function to the character table.
+        \clearpage
+        \begin{center}
+            \vspace{1em}
+            \begin{tabular}{CCCCC}
+                \toprule
+                g_i     & (1) & (1\,2)(3\,4) & (1\,2\,3) & (1\,3\,2) \\
+                \#(C_i) & 1   & 3            & 4         & 4         \\
+                \midrule
+                \chi_1  & 1   & 1            & 1         & 1         \\
+                \chi_2  & 1   & 1            & w         & w^2       \\
+                \chi_3  & 1   & 1            & w^2       & w         \\
+                \chi_4  & 3   & -1           & 0         & 0         \\
+                \midrule
+                f       & 2   & 2            & -1        & -1        \\
+                \bottomrule
+            \end{tabular}
+            \vspace{1em}
+        \end{center}
+        Note $w + w^2 = -1$. By inspection, we see that $f = \chi_2 + \chi_3$. $f$ is the character of the direct sum of two representations, so $f$ is indeed the character of a representation.
+    \end{solution}
+\end{parts}
+
+\question Let $A = \begin{pmatrix}
+        0 & -1 \\ 1 & 0
+    \end{pmatrix} \in \mathfrak{gl}_2(\C)$.
+
+\begin{parts}
+    \part Compute $\exp(tA)$.
+    \begin{solution}
+        \begin{align*}
+            \exp(tA) & = \sum_{n=0}^\infty \frac{(tA)^n}{n!}                                              \\
+                     & = \sum_{n=0}^\infty \frac{1}{n!}
+            \begin{pmatrix}
+                0 & -t \\
+                t & 0  \\
+            \end{pmatrix}^n                                                                               \\
+                     & =
+            \begin{pmatrix}
+                1 - \frac{t^2}{2!} + \frac{t^4}{4!} - \ldots & - t + \frac{t^3}{3!} - \frac{t^5}{5!} + \ldots \\
+                t - \frac{t^3}{3!} + \frac{t^5}{5!} - \ldots & 1 - \frac{t^2}{2!} + \frac{t^4}{4!} - \ldots   \\
+            \end{pmatrix} \\
+                     & =
+            \begin{pmatrix}
+                \cos t & -\sin t \\
+                \sin t & \cos t  \\
+            \end{pmatrix}.                                                                              \\
+        \end{align*}
+    \end{solution}
+
+    \part Consider the action of $\GL_2(\C)$ on the space of polynomials in two  variables $x_1, x_2$ given by
+    \[ (g\varphi)(\bm x) = \varphi(g(\bm x)^\intercal), \]
+    where $\bm x = (x_1, x_2)^\intercal$. Compute the derived action of $A$.
+    \begin{solution}
+        \begin{align*}
+            A\varphi(x_1,x_2)^\intercal
+             & = \frac{d}{dt} \varphi\exp(tA)(x_1,x_2)^\intercal \bigg|_{t=0}                                          \\
+             & = \frac{d}{dt} \varphi(x_1 \cos t - x_2 \sin t, x_1 \sin t + x_2 \cos t)^\intercal \bigg|_{t = 0}       \\
+             & = \frac{\partial\varphi}{\partial x}(x_1, x_2) \frac{d}{dt} (x_1 \cos t - x_2 \sin t)                   \\ &\qquad+ \frac{\partial\varphi}{\partial y}(x_1, x_2) \frac{d}{dt} (x_1 \sin t + x_2 \cos t) \bigg|_{t = 0} \\
+             & = -x_2 \frac{\partial\varphi}{\partial x}(x_1, x_2) + x_1 \frac{\partial\varphi}{\partial y}(x_1, x_2).
+        \end{align*}
+        Thus
+        \[ A\varphi = -x_2 \frac{\partial\varphi}{\partial x} + x_1 \frac{\partial\varphi}{\partial y}. \]
+    \end{solution}
+\end{parts}
+
+\question Let $V = \C^2$ be the standard representation of $\SL_2(\C)$. Decompose $\Lambda^2(\Sym^3(V))$ into irreducible representations of $\SL_2(\C)$.
+\begin{solution}
+    Since $\SL_2(\C)$ is connected, we can do this at the level of $\mathfrak{sl}_{2, \C}$. We see that, for a representation $W$
+    \begin{align*}
+        \{\text{weights of $\Sym^k(W)$}\}    & = \{\text{sum of unordered $k$-tuplets of weights of $W$}\},          \\
+        \{\text{weights of $\Lambda^k(W)$}\} & = \{\text{sum of unordered $k$-tuplets of distinct weights of $W$}\}. \\
+    \end{align*}
+    First, we compute the weights of $V$:
+    \[ \{\text{weights of $V$}\} = \{-1, 1\}. \]
+    The corresponding weight vectors are $e_1$ and $e_{-1}$.
+    For $\Sym^3(V)$:
+    \[ \{\text{weights of $\Sym^3(V)$}\} = \{-3, -1, 1, 3\}. \]
+    Finally for $\Lambda^2(\Sym^3(V))$:
+    \[ \{\text{weights of $\Lambda^2
+                (\Sym^3(V))$}\} = \{-4, -2, 0, 0, 2, 4\}. \]
+    But this is just $\Sym^4(\C^2) \oplus \C$.
+\end{solution}
+
+\question
+\begin{parts}
+    \part State the character theoretic formulations of the Frobenius reciprocity.
+    \begin{solution}
+        Let $H \subset G$ be a subgroup, $\chi$ a character of $G$, and $\psi$ a character of $H$. Then
+        \[ \langle \Ind^G_H \chi, \psi \rangle = \langle \chi, \Res^G_H \psi \rangle. \]
+    \end{solution}
+
+    You may assume that the symmetric group $G = S_4$ has five conjugacy classes, uniquely determined by the cycle type of its elements. The following table contains three of the columns of its character table, where $x,y,z \in \C$.
+    \begin{center}
+        \vspace{1em}
+        \begin{tabular}{CCCC}
+            \toprule
+            g_i     & (1) & (1\,2)(3\,4) & (1\,2\,3) \\
+            \#(C_i) & 1   & 3            & 8         \\
+            \midrule
+            \chi_1' & 1   & 1            & 1         \\
+            \chi_2' & 1   & 1            & 1         \\
+            \chi_3' & 2   & 2            & y         \\
+            \chi_4' & 3   & z            & 0         \\
+            \chi_5' & x   & -1           & 0         \\
+            \bottomrule
+        \end{tabular}
+        \vspace{1em}
+    \end{center}
+    \part Compute the values of $x$, $y$, and $z$.
+    \begin{solution}
+        Using column orthogonality, we see that $y = -1$. By the sum of squares formula,
+        \[ x^2 = 4! - 1^2 - 1^2 - 2^2 - 3^2 = 24 - 15 = 9 \]
+        so $x = 3$. Finally, by column orthogonality again, $z = -1$.
+    \end{solution}
+
+    \part Let $\rho_i$ denote the irreducible representations of $G$ corresponding to the characters $\chi_i'$ in the character table above, for all $i = 1, \ldots, 5$. Let $H = A_4$ be the subgroup of $G$. The character table for $H$ is given in Question 2[(b)]. Compute characters for the restriction representations $\Res^G_H\rho_i$ for each $i = 1, \ldots, 5$. (Note that these are representations of the subgroup $H$).
+    \begin{solution}
+        The conjugacy classes of $A_4$ have representatives $e$, $(1\,2)(3\,4)$, $(1\,2\,3)$, and $(1\,3\,2)$.
+        \begin{center}
+            \vspace{1em}
+            \begin{tabular}{CCCCC}
+                \toprule
+                g_i                                 & (1) & (1\,2)(3\,4) & (1\,2\,3) & (1\,3\,2) \\
+                \#(C_i)                             & 1   & 3            & 4         & 4         \\
+                \midrule
+                \Res^G_H \chi_1' = \Res^G_H \chi_2' & 1   & 1            & 1         & 1         \\
+                \Res^G_H \chi_3'                    & 2   & 2            & -1        & -1        \\
+                \Res^G_H \chi_4' = \Res^G_H \chi_4' & 3   & -1           & 0         & 0         \\
+                \bottomrule
+            \end{tabular}
+            \vspace{1em}
+        \end{center}
+    \end{solution}
+
+    \part Let $\pi$ be the 3-dimensional irreducible representation of $H$, which corresponds to the character $\chi_4$ in the character table in Question 2[(b)] of $H$. Write $\Ind_H^G(\pi)$ as a direct sum of irreducible representations of $G$.
+    \begin{solution}
+        The solution here comes from examining the character table from Question 2[(b)] and seeing which of the restrictions are irreducible, and if there aren't what their irreducible decomposition is. Then checking the inner product of the induced character against each of them, if it is a 1, then it is in the decomposition.
+    \end{solution}
+\end{parts}
+
+\question Let $G$ be a group of order 55 explicitly defined by
+\[ G = \langle x,y: x^{11} = y^5 = 1, yxy^{-1} = x^4 \rangle.\]
+This group has 7 conjugacy classes containing $1,5,5,11,11,11,11$ elements, representatives of which can be given explicitly by elements $1,x,x^2,y,y^2,y^3,y^4$ respectively. Moreover, there are two irreducible characters $\chi_6$ and $\chi_7$ of $G$ of dimension strictly bigger than 1, whose character values on the conjugacy classes for $x$ and $x^2$ are explicitly given by
+\begin{center}
+    \begin{tabular}{CCC}
+        \toprule
+        g_i    & x & x^2 \\
+        \midrule
+        \chi_6 & u & v   \\
+        \chi_7 & v & u   \\
+        \bottomrule
+    \end{tabular}.
+\end{center}
+Here $u, v \in \C$.
+
+\begin{parts}
+    \part Prove that $\lvert G/C(G)\rvert = 5$, and use it to compute characters of all the $1$-dimensional representations of $G$.
+
+    (You may take $C(G)$ to be the subgroup generated by $x$.)
+    \begin{solution}
+        $G/C(G)$ is generated by $yC(G)$, thus its order is $5$. Thus, $G/C(G) \cong C_5$. We have five 1-dimensional representations here, corresponding to multiplication by a root of unity $w^i$, $i \in \{0,1,2,3,4\}$ for $w = e^{2\pi/5}$. For each representation, it has character $\chi_i$ sending $y$ to $w^i$. $\chi_i$ lifts to $G$ such that $\chi_i(1) = \chi_i(x) = \chi_i(x^2) = 1$ and $\chi_i(y^i) = w^{ij}$ for $i \in \{0,1,2,3,4\}$. We claim that there are no other characters. Indeed, if $\chi: G \to \C^\times$ is such a character then
+        \[ \chi(x) = \chi(yxy^{-1}) = \chi(x^4) = \chi(x)^4 \]
+        so $\chi(x)$ is a third root of unity. But $\chi(x)$ (by definition of $G$) is an eleventh root of unity. Thus $\chi(x) = 1$ as $3$ and $11$ are coprime. But if $\chi$ is trivial on $x$, it must be one of the representations above.
+    \end{solution}
+
+    \part Find dimensions of all the irreducible representations of $G$.
+    \begin{solution}
+        We have found all five one-dimensional representation, note these are irreducible as they are one-dimensional and are pairwise-non-isomorphic. Thus, there are two more representations that are not one-dimensional. Let $\phi$ and $\psi$ be the last two characters of irreducible representations:
+        \[ \lvert G \rvert = 55 = 5 + \phi(e) + \psi(e). \]
+        The only solution to this is $\phi(e) = \psi(e) = 5$ (as neither can be one-dimensional). Thus our dimensions are: $1,1,1,1,1,5,5$.
+    \end{solution}
+
+    \part Complete the character table of $G$.
+
+    (Hint: You may use here that the tensor product of any irreducible representation with a one-dimensional representation is also irreducible.)
+    \begin{solution}
+        The following is what we have so far.
+        \begin{center}
+            \vspace{1em}
+            \begin{tabular}{CCCCCCCC}
+                \toprule
+                g_i        & 1 & x & x^2 & y   & y^2 & y^3 & y^4 \\
+                \#(C_i)    & 1 & 5 & 5   & 11  & 11  & 11  & 11  \\
+                \midrule
+                \mathbbm 1 & 1 & 1 & 1   & 1   & 1   & 1   & 1   \\
+                \chi_1     & 1 & 1 & 1   & w   & w^2 & w^3 & w^4 \\
+                \chi_2     & 1 & 1 & 1   & w^2 & w^4 & w   & w^3 \\
+                \chi_3     & 1 & 1 & 1   & w^3 & w   & w^4 & w^2 \\
+                \chi_4     & 1 & 1 & 1   & w^4 & w^3 & w^2 & w   \\
+                \phi       & 5 & u & v   & ?   & ?   & ?   & ?   \\
+                \psi       & 5 & v & u   & ?   & ?   & ?   & ?   \\
+                \bottomrule
+            \end{tabular}
+            \vspace{1em}
+        \end{center}
+        Here $u, v \in \C$. By the hint, we must have that $\phi$ and $\psi$ are 0 on $y^i$.
+        This was a hard question...
+    \end{solution}
+\end{parts}
+
+\question Let $X$, $Y$, and $H$ be the standard basis of the Lie algebra $\mathfrak{sl}_2(\C)$.
+\begin{parts}
+    \part Compute the matrix $\ad_X$ with respect to the basis $X, Y, H$.
+    \begin{solution}
+        We have
+        \begin{align*}
+            \ad_X(X) & = [X,X] = 0    \\
+            \ad_X(Y) & = [X,Y] = H    \\
+            \ad_X(H) & = [X,H] = -2X.
+        \end{align*}
+        Thus our matrix with the basis above is
+        \[
+            \begin{pmatrix}
+                0 & 0 & -2 \\
+                0 & 0 & 0  \\
+                0 & 1 & 0  \\
+            \end{pmatrix}.
+        \]
+    \end{solution}
+
+    \part Let $(\pi, V)$ be a finite dimensional representation of $\mathfrak{sl}_2(\C)$. Consider the so-called Casimir element
+    \[ \mathcal C = \pi(X)\pi(Y) + \pi(Y)\pi(X) + \frac12\pi(H)^2. \]
+    Show that $\mathcal C$ commutes with $\pi(X)$.
+    \begin{solution}
+        \begin{align*}
+            \pi(X)\mathcal C & = \pi(X)^2\pi(Y) + \pi(X)\pi(Y)\pi(X) + \frac12\pi(X)\pi(H)^2, \\
+            \mathcal C\pi(X) & = \pi(X)\pi(Y)\pi(X) + \pi(Y)\pi(X)^2 + \frac12\pi(H)^2\pi(X).
+        \end{align*}
+        Some properties of $\pi$ may come in handy here. In particular, as $\pi$ is a Lie algebra homomorphism it must commute with the Lie bracket $[-,-]$. Thus
+        \begin{align*}
+            [\pi(X), \pi(Y)] = \pi[X, Y] & = \pi(H),   \\
+            [\pi(X), \pi(H)] = \pi[X, H] & = -2\pi(X).
+        \end{align*}
+        These identities can be used to get the answer.
+    \end{solution}
+
+    \part You can assume that $\mathcal C$ commutes with the action of all elements in $\mathfrak{sl}_2(\C)$. Prove that if $V$ is an irreducible representation, then $\mathcal C$ acts as a scalar.
+    \begin{solution}
+        If $\mathcal C$ commutes for all $\pi(A)$, then it is a $\mathfrak{sl}_2(\C)$-homomorphism, and thus by Schur's Lemma it acts as a scalar.
+    \end{solution}
+
+    \part What is the scalar in (c) for $V = \Sym^n(\C^2)$, the irreducible representation of highest weight $n$?
+    \begin{solution}
+        $\mathcal C$ acts as a scalar, so we check its action on $e_1^n$.
+        \begin{align*}
+            \mathcal C e_1^n & =
+            XY e_1^n + YX e_1^n + \frac12 H^2e_1^n                          \\
+                             & = X(ne_2e_1^{n-1}) + Y(0) + \frac12H(ne_1^n) \\
+                             & = nX(e_2e_1^{n-1}) + \frac n2H(e_1^n)        \\
+                             & = n e_1^{n} + \frac{n^2}2e_1^n               \\
+                             & = \left(\frac12n^2 + n\right) e_1^n.
+        \end{align*}
+        Thus $\mathcal C$ acts as $\left(\frac12n^2 + n\right)$.
+    \end{solution}
+\end{parts}
+
+\question Consider the orthogonal group $\O_2$ which is generated by the matrices
+\[
+    r_\theta =
+    \begin{pmatrix}
+        \cos\theta  & \sin\theta \\
+        -\sin\theta & \cos\theta
+    \end{pmatrix}, \qquad
+    s =
+    \begin{pmatrix}
+        0 & 1 \\ 1 & 0
+    \end{pmatrix}
+\]
+for $\theta \in \R$. You may assume we have the relation $sr_\theta s = r_{-\theta}$ so that every element in $\O_2$ can be uniquely written as $r_\theta$ or $r_\theta s$. Let $(\pi, V)$ be a finite dimensional irreducible representation of $\O_2$.
+\begin{parts}
+    \part Suppose that $v \in V$ is an eigenvector under $\SO_2$-action. Show that $V$ is spanned by $v$ and $sv$. In particular, $\dim V \leq 2$.
+    \begin{solution}
+        As $v$ is a eigenvector under $\SO_2$-action,
+        \[ r_\theta v = \lambda r_\theta v \]
+        for some $\lambda: \SO(2) \to \C^\times$, which must be a group homomorphism. Then
+        \[ r_\theta sv = sr_{-\theta}v = \lambda r_{-\theta} v \]
+        and $ssv = v$, so both $v$ and $sv$ are preserved under all $r_\theta$ and $s$. That is, $\langle v, vs \rangle$ is preserved. But $V$ is irreducible, so we have $V = \langle v, sv \rangle$.
+
+        For later sections, we note that any irreducible representation of $\SO(2)$ is one-dimensional and is $\lambda_n$ for some $\lambda_n(r_\theta) = e^{i n\theta}$ where $n \in \Z$.
+    \end{solution}
+
+    \part Find all possible $\pi$ when $\dim V = 1$.
+    \begin{solution}
+        If $\dim V = 0$, then $v$ and $sv$ are proportional. If $\lambda = \lambda_n$, we have $\lambda_n(r_\theta) = \lambda_n(r_{-\theta})$ for all $\theta$; that is, $n = 0$. Thus $\SO(2)$ acts trivially. Since $s^2 = 1$, we can either have $s = 1$ or $s = -1$. We name this $\mathbbm 1$ and $\varepsilon$ respectively.
+    \end{solution}
+
+    \part Find all possible $\pi$ when $\dim V = 2$ by writing down the matrices of $\pi(r_\theta)$ and $\pi(s)$ with respect to the basis $\{v, sv\}$.
+    \begin{solution}
+        As $\dim V = 2$, $n \neq 0$. Thus
+        \begin{align*}
+            \pi(r_\theta)v  & = e^{in\pi}  & \pi(s)v  & = sv, \\
+            \pi(r_\theta)sv & = e^{-in\pi} & \pi(s)sv & = v.
+        \end{align*}
+        Thus we get the matrices
+        \[
+            \pi(r_\theta) =
+            \begin{pmatrix}
+                e^{in\pi} & 0          \\
+                0         & e^{-in\pi} \\
+            \end{pmatrix}, \qquad
+            \pi(s) =
+            \begin{pmatrix}
+                0 & 1 \\
+                1 & 0
+            \end{pmatrix}.
+        \]
+        Note that the representations for $n < 0$ are isomorphic to the ones $n > 0$, so we assume $n > 0$. We label these representations $\pi_n$.
+    \end{solution}
+
+    \part Show that the assignments
+    \[
+        r_\theta \mapsto \hat r_\theta =
+        \begin{pmatrix}
+            \cos\theta  & \sin\theta & 0 \\
+            -\sin\theta & \cos\theta & 0 \\
+            0           & 0          & 1
+        \end{pmatrix},\quad
+        s \mapsto \hat s =
+        \begin{pmatrix}
+            1 & 0  & 0  \\
+            0 & -1 & 0  \\
+            0 & 0  & -1
+        \end{pmatrix}
+    \]
+    define an injective group homomorphism $\Phi: \O_2 \to \SO_3$.
+    \begin{solution}
+        This is clearly a group homomorphism (make sure to check $\hat s \hat r_\theta \hat s = \hat r_{-\theta}$, which is true by matrix multiplication). We have left to show that this is injective. It is clear that $\hat r_\theta = I$ if and only if $r_\theta = I$. Similarly, $\hat r_\theta\hat s$ always has bottom right entry $-1$, so is never the identity.
+    \end{solution}
+
+    \part Let $V^{(3)}$ be the standard representation of $\SO_3$. Decompose $V^{(3)}$ into irreducible representations of $\O_2$ (viewed as a subgroup of $\SO_3$ via $\Phi$ in (d)).
+    \begin{solution}
+        First, we see that $\langle e_3 \rangle$ is preserved by $\Phi(r_\theta)$ and $\Phi(s)$. As $\Phi(s)(e_3) = -e_3$, this is the sign representation. Next, we see that
+        \begin{align*}
+            \Phi(r_\theta(e_1 + ie_2))
+             & = 
+             \begin{pmatrix}
+                \cos\theta  & \sin\theta & 0 \\
+                -\sin\theta & \cos\theta & 0 \\
+                0           & 0          & 1
+            \end{pmatrix}
+            \begin{pmatrix}
+                1 \\ i \\ 0
+            \end{pmatrix} \\
+            &= e_1(\cos\theta + i\sin\theta) + e_2(-\sin\theta + i\cos\theta) \\ 
+            &= e_1(\cos\theta + i\sin\theta) - ie_2(\cos\theta + i\sin\theta) \\
+            &= e^{i\theta}(e_1 - ie_2).
+        \end{align*}
+    \end{solution}
+\end{parts}

@@ -1,0 +1,145 @@
+% this is a lecture that I caught up on...
+% so im not sure about timings
+\lecture{17}{20/11}
+
+We refer to objects that can be circles \emph{or} lines as \textbf{circline}.
+Hence, our previous proposition could have said: ``M\"obius transformations preserve circlines.''
+
+This fact, as well as the fact that:
+\begin{enumerate}
+    \item circles can be uniquely described with 3 non-colinear points; and
+    \item lines can be uniquely described with 2 points
+\end{enumerate}
+are very powerful!
+
+\begin{example}
+    Let 
+    $
+        T = 
+        \begin{pmatrix} 
+            2 + 2i & -2 - 6i \\ 
+            1      & -1-2i   \\ 
+        \end{pmatrix}
+        .
+    $
+    Find $M_T(\mathbb D)$.
+\end{example}
+
+\begin{solution}
+    Let's look at some boundary points:
+    \begin{align*}
+        M_T(1)  &= 2     \\
+        M_T(-1) &= 3 - i \\
+        M_T(i)  &= 4.
+    \end{align*}
+    This clearly shows that 
+    $M_T(S^1) = B_1(3)$.
+    Let's look at a point on the interior of $\D$:
+    \[ M_T(0) = \frac15(14 + 2i) \in B_1(3); \]
+    hence, by continuity $M_T(\D) = B_1(3)$.
+\end{solution}
+
+In the above example, if we found that $M_T(0) \not\in B_1(3)$, then we would have concluded that $M_T(\D) = \C \setminus \bar B_1(3)$.
+
+\section{The Riemann sphere, again}
+
+\begin{table}
+    \centering
+    \caption{Correspondences between $S^2$ and $\hat \C$.}
+        \label{tab:c-to-s}
+    \begin{tabular}{ccc}
+        \toprule
+        $S^2$ && $\hat \C$ \\
+        \midrule
+        $N$                    & $\longleftrightarrow$ & $\infty$ \\
+        $S$                    & $\longleftrightarrow$ & $0$      \\
+        circle not through $N$ & $\longleftrightarrow$ & circle   \\
+        circle through $N$     & $\longleftrightarrow$ & line     \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+One interesting property about M\"obius transformations is that they give \emph{all} of the biholomorphic maps $S^2 \xrightarrow{\sim} S^2$. 
+We can add this to our table of correspondences, see Table \ref{tab:c-to-s}.
+
+
+It is also interesting to note that the stereographic project is conformal.
+
+\begin{example}
+    Consider $f: \hat \C \to \hat \C$ defined by
+    \[ f(z) = i \frac{z-i}{z+i}. \]
+    We can think of $\hat f: S^2 \to S^2$ as the transformation on $S^2$.
+    $N$ corresponds to $\infty$ and $f(\infty) = i$, so $\hat f(N) = (0, 1, 0)$.
+    $S$ correponds to $0$ and $f(0) = -i$, so $\hat f(S) = (0, -1, 0)$.
+    $(0, 1, 0)$ correponds to $i$ and $f(i) = 0$, so $\hat f(0, 1, 0) = (0, 0, -1)$. So $N, (0, 1, 0), S$ maps to $(0, 1, 0), S, (0, -1, 0)$. % check this
+    One may guess that this is a rotation about the $x$-axis taking the \emph{back} hemisphere to the \emph{bottom} hemisphere, and you would be correct! 
+    The \emph{cheaty} way of proving this is by assuming the rotation is given by a M\"obius transformation.
+\end{example}
+
+\section{M\"obius transformations preserving $\D$ and $\H$}
+
+\begin{definition}[]
+    Let $D \subset \C$ be a domain. Then
+    \[ \Mob{(D)} = \{ f: D \to D, f \;\text{is a M\"obius transformation}\}. \]
+\end{definition}
+
+\begin{proposition}[]
+    \[ f \in \Mob{(\H)} \iff f = M_T, T \in \SL_2(\R). \]
+\end{proposition}
+
+\begin{remark}
+    This gives us a homomorphism mapping $\SL_2(\R)$ to $\Mob(\H)$, and by extension a homomorphism mapping $\SL_2(\R)$ to $\Aut(\H)$ (we will not prove this until term 2).
+\end{remark}
+
+\begin{proof}
+    Let $f \in \Mob(\H)$. 
+    We know that $f$ must map the boundary of $\H$ onto itself; therefore, 
+    \[ f(\R \cup \{\infty\}) = \R \cup \{\infty\}. \]
+    That is,
+    \[ f(\{1, 0 \infty\}) = \{x_1, x_2, x_3\} \subset \R. \]
+    As $f$ preserves the cross-ratio we have
+    \begin{align*}
+        (f(z), x_1; x_2, x_3)       &= (z, 1; 0, \infty)        \\
+        \frac{(f(z) - x_2)(x_1 - x_3)}{(f(z) - x_3)(x_1 - x_2)}
+        &= \frac{z - 0}{1 - 0} \\
+        f(z) &= \frac{z(x_3(x_2 - x_1)) + x_2(x_1 - x_3)}{z(x_2 - x_1) + (x_1 - x_3)} \in \R;
+    \end{align*}
+    hence, for $f = M_T$ we have $T \in \GL_2{(\R)}$.
+    Let $T = \mat abcd$ and $z = x + iy$. Then
+    \begin{align*}
+        \Im\left(M_T(z)\right) &= \Im\left(\frac{az + b}{cz + d}\right) \\
+        &= \Im\left(\frac{(az + b)(c\bar z + d)}{\lvert cz + d\rvert^2}\right) \\
+        &= \Im\left(\frac{bc \bar z + azd}{\lvert cz + d \rvert^2}\right) \\
+        &= \frac{y(ad - bc)}{\lvert cz + d \rvert^2} \\
+        &= \frac{y \det{(T)}}{\lvert cz + d \rvert^2} > 0,
+    \end{align*}
+    as $y > 0$ $\det{(T)} > 0$. Then we can replace $T$ with a special linear matrix and then scale by a real factor.
+\end{proof}
+
+Now we will go through a similar thing for $\D$.
+
+\begin{proposition}[]
+    \[ M_T \in \Mob(\D) \iff T \in \SU(1, 1) \]
+    where 
+    \[ \SU(1, 1) = \left\{ T = \mat{\alpha}{\beta}{\bar{\beta}}{\bar{\alpha}}: \alpha, \beta \in \C, \det{(T)} = \lvert \alpha \rvert ^2 - \lvert \beta \rvert ^2 = 1 \right\}. \]
+\end{proposition}
+
+\begin{remark}
+    Again we have the homomorphism mapping $\SU(1, 1)$ to $\Mob(\D)$ and hence the homomorphism mapping $\SU(1, 1)$ to $\Aut(\D)$. Again, we will prove this in term 2.
+\end{remark}
+
+\begin{proof}
+    Let $f \in \Mob(\D)$. 
+    Here we consider the Cayley map $C = \mat{1}{-i}{1}{i}$.
+    Note that $M_C(\H) = \D$.
+    So we have that $f = M_C^{-1} \circ M_T \circ M_C$ is a M\"obius transformation from $\H$ to $\H$.
+    Hence, $f = M_S$ where 
+    $S \in \SL_2(\R)$ 
+    and
+    $S = C^{-1}TC$. Set $S = \mat abcd$, then 
+    \begin{align*}
+        T &= CSC^{-1} \\
+          &= \frac 12 \mat{(a + d) + i (b - c)}{(a - d) - i(c + b)}{(a - d) + i(c + b)}{(a + d) - i(b - c)}.
+    \end{align*}
+    Also, $\det{(T)} = \det{(CSC^{-1})} = \det{(S)}$, as required. We can follow these calculations back to get $\impliedby$.
+\end{proof}

@@ -1,0 +1,27 @@
+\section{Quotients of rings by ideals}
+\lecture{13}{19/11}
+% may be some content missed in previous section, just check todo
+
+\begin{example}
+    Here we will construct quotient rings for $F[x]$ for a field $F$. 
+    Let $f(x) = x^3 + 1 \in \Q[x]$. 
+    Conceptually, $\Q[x]/(f(x))$ consists of all different remainders after dividing $f(x)$. 
+    Using the Euclidean algorithm, the set of polynomials ios given by all polynomials of degree less than or equal to $2$. 
+    Therefore, we define
+    \[ \Q[x] / (f(x)) = \{ \overline{\gamma(x)} : \gamma(x) \in \Q[x], \deg{\gamma} \leq 2 \}. \]
+    So if $g(x) \in \Q[x]$, using the division algorithm
+    \[ g(x) = q(x) f(x) + r(x) \]
+    where $\deg{r} \leq 2$.
+    We define
+    \[ \overline{g(x)} = \overline{\gamma(x)}. \]
+    We associated $g(x)$ with its remainder after dividing by $f(x)$. So, for example, we have $\overline{x^3 + 1} = \overline 0$ and $\overline{x^4 + x + 2} = \overline{x(x^3 + 1) + 2} = \overline 2$. Moreover, we can define addition and multiplication as before
+    \begin{align*}
+        \overline{f_1(x)} + \overline{f_2(x)} &= \overline{f_1(x) + f_2(x)} \\
+        \overline{f_1(x)} \cdot \overline{f_2(x)} &= \overline{f_1(x) \cdot f_2(x)}.
+    \end{align*}
+    For example,
+    \begin{align*}
+        \overline{x + 1} + \overline{3x + 2} &= \overline{4x + 3} \\
+        (\overline{x + 1}) \cdot (\overline{3x + 2}) &= \overline{(x+1)(3x+2)}.
+    \end{align*}
+\end{example}

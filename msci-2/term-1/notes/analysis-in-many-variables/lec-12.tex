@@ -1,0 +1,77 @@
+\lecture{12}{5/11}
+
+\begin{definition}[Vector calculations in index notation]
+    \begin{enumerate}
+        \item \[ \left(\nabla f\right)_i = \frac{\partial f}{\partial x_i}; \]
+        \item \[ \nabla \cdot \bm v = \frac{\partial v_i}{\partial x_i}; \;\text{and}  \]
+        \item \[ (\nabla \times \bm v)_i = \varepsilon_{ijk} \frac{\partial v_k}{\partial x_j}. \]
+    \end{enumerate}
+\end{definition}
+
+\begin{example}
+    Find the gradient of $f(\bm x) = \norm{x}^2$ in $\R^2$.
+\end{example}
+
+\begin{solution}
+    \begin{align*}
+        f(\bm x)     &= \norm{x}^2 = \bm x \cdot \bm x = x_ix_i \\
+        (\nabla f)_i &= \frac{\partial}{\partial x_i}(x_jx_j) \\
+                     &= \frac{\partial x_j}{\partial x_i} x_j + x_j \frac{\partial x_j}{\partial x_i} \\
+                     &= \delta_{ij}x_j + x_j\delta_{ij} = 2x_i \\
+        \nabla f     &= 2\bm x.
+    \end{align*}
+\end{solution}
+
+\begin{example}
+    Find the $\div$ of $\bm v(\bm x) = \bm x$ and $\bm u(\bm x) = (\bm a \cdot \bm x) \bm x$ in $\R^3$.
+\end{example}
+
+\begin{solution}
+    Note that $v_i = x_i$ and $u_i = a_jx_jx_i$.
+    \begin{align*}
+        \nabla \cdot \bm v = \frac{\partial v_i}{\partial x_i} &= \frac{\partial x_i}{\partial x_i} = \delta_{ii} = 3 \\
+        \nabla \cdot \bm u = \frac{\partial u_i}{\partial x_i} &= \frac{\partial}{\partial x_i} (a_jx_jx_i) \\
+                                                               &= a_j \left( \frac{\partial x_j}{\partial x_i} x_i + x_j \frac{\partial x_i}{\partial x_i} \right) \\
+                                                               &= a_j (\delta_{ij} x_i + 3x_j) \\
+                                                               &= 4a_jx_j = 4\bm a \cdot \bm x.
+    \end{align*}
+\end{solution}
+
+\begin{example}
+    Find the $\curl$ of $\bm v(\bm x) = \bm x$ and $\bm u(\bm x) = (\bm a \cdot \bm x) \bm x$ in $\R^3$.
+\end{example}
+
+\begin{solution}
+    We have that $v_i = x_i$ and $u_i = a_jx_jx_i$ as before.
+    \begin{align*}
+        (\nabla \times \bm v)_i = \varepsilon_{ijk} \frac{\partial v_k}{\partial x_j} &= \varepsilon_{ijk} \frac{\partial x_k}{\partial x_j} \\
+        &= \varepsilon_{ijk} \delta_{jk} \\
+        &= \varepsilon_{ijj} = 0 \\
+        (\nabla \times \bm u)_i = \varepsilon_{ijk} \frac{\partial u_k}{\partial x_j} &= \varepsilon_{ijk} \frac{\partial}{\partial x_j} (a_lx_lx_k) \\
+        &= a_l \varepsilon_{ijk} \left( \frac{\partial x_l}{\partial x_j} x_k + x_l \frac{\partial x_k}{\partial x_j} \right) \\
+        &= a_l \varepsilon_{ijk} ( \delta_{jl} x_k + x_l \delta_{jk}) \\
+        &= a_l \varepsilon_{ijk} \delta_{jl} x_k + a_l \varepsilon_{ijk} x_l \delta_{jk} \\
+        &= a_j \varepsilon_{ijk} x_k + a_l \varepsilon_{ijj} x_l \\
+        &= a_j\varepsilon_{ijk} x_k = a_j \varepsilon_{ijk} x_k \\
+        \nabla \times \bm u &= (\bm a \times \bm x).
+    \end{align*}
+\end{solution}
+
+\begin{example}
+    Show that
+    \[ \nabla \cdot (\nabla \times \bm v) = 0 \]
+    if $\bm v$ has continuous second partial derivatives.
+\end{example}
+
+\begin{solution}
+    Assume that $\bm v$ has continuous second partial derivatives. 
+    \begin{align*}
+        \nabla \cdot (\nabla \times \bm v) &= \frac{\partial}{\partial x_i} (\nabla \times \bm v)_i \\
+        &= \frac{\partial}{\partial x_i} \left( \varepsilon_{ijk} \frac{\partial v_k}{\partial x_j} \right) \\
+        &= \varepsilon_{ijk} \frac{\partial}{\partial x_i} \frac{\partial}{\partial x_j} v_k \\
+        &= -\varepsilon_{jik} \frac{\partial}{\partial x_i} \frac{\partial}{\partial x_j} v_k \\
+        &= -\varepsilon_{jik} \frac{\partial}{\partial x_j} \frac{\partial}{\partial x_i} v_k \\
+        &= -\varepsilon_{ijk} \frac{\partial}{\partial x_i} \frac{\partial}{\partial x_j} v_k;
+    \end{align*}
+    hence, $\nabla \cdot (\nabla \times \bm v) = 0$.
+\end{solution}

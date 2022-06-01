@@ -1,0 +1,88 @@
+\assignment{8}{13/01}
+
+\setcounter{question}{50}
+\question Let $f: \R^2 \to \R$ be the scalar function $f(x, y) = e^{xy} - x + y$.
+\begin{parts}
+    \part Find the vector equations of the tangent and normal lines to the curve $f(x, y) = 0$ at the points $(1, 0)$ and $(0, -1)$.
+    \begin{solution}
+        \[ \nabla f = \bm e_1(ye^{xy} - 1) + \bm e_2(xe^{xy} + 1). \]
+        \begin{description}
+            \item[$(1,0)$] $\nabla f(1, 0) = -\bm e_1 + 2\bm e_2$. 
+                Hence, the normal line has equation
+                \[ (\bm x - (1,0)) \cdot (-1, 2) = 0 \]
+                and the tangent line has equation 
+                \[ \bm x = (1, 0) + t(-1, 2) \]
+                for $t \in \R$.
+
+            \item[$(0, -1)$] $\nabla f(0, -1) = -2\bm e_1 + \bm e_2 = (-2, 1)$.
+                The normal line has equation
+                \[ (\bm x - (0, -1))\cdot(-2, 1) = 0 \]
+                and the tangent line has equation
+                \[ \bm x = (0, -1) + t(-2, 1) \]
+                for $t \in \R$.
+        \end{description}
+    \end{solution}
+
+    \part Use the implicit function theorem for functions of two variables to determine whether nor not the curve $f(x, y) = 2$ can be written in the form $y = g(x)$ for some differentiable function $g(x)$ in the neighbourhoods of the points $(0, 1)$; and $(-1, 0)$.
+    Determine also whether the curve can be written as $x = h(y)$ for some differentiable function $h(y)$, in the neighbourhoods of the same two points.
+    \begin{solution}
+        \begin{description}
+            \item[$(0, 1)$] $\frac{\partial f}{\partial y} = xe^{xy} + 1$, 
+                $\frac{\partial f}{\partial y}(0, 1) = 1 \neq 0$;
+                hence,
+                $y = g(x)$ exists.
+                $\frac{\partial f}{\partial x}(0, 1) = 0$;
+                hence, $x \neq h(y)$ for any $h$.
+
+            \item[$(-1, 0)$] 
+                $\frac{\partial f}{\partial y}(-1, 0) = 0$;
+                hence, $y \neq g(x)$ for any $g$.
+                $\frac{\partial f}{\partial x}(-1, 0) = -1$;
+                hence, $x = h(y)$ exists.
+        \end{description}
+    \end{solution}
+
+    \part Does the function $f(x, y)$ have any critical points? 
+    Justify your answer. 
+    (You can quote without proof that $\lvert x e^{-x^2} \rvert < 1$ for all $x \in \R$.)
+    \begin{solution}
+        Critical points exist where $\nabla f = \bm 0$, so where
+        \[ ye^{xy} - 1 = 0 \qquad \text{and} \qquad xe^{xy} + 1 = 0. \]
+        Through addition of these two conditions, we get that $y = -x$.
+        Hence $xe^{-x^2} - 1 = 0$.
+        As $\lvert xe^{-x^2} \rvert < 1$ for all $x \in \R$
+        we have that 
+        \[ xe^{-x^2} - 1 \neq 0 \]
+        and so there is no critical points for $f$.
+    \end{solution}
+\end{parts}
+
+\setcounter{question}{53}
+\question Find and classify all critical points of $h(x, y) = x^4 + 2xy + y^4$.
+\begin{solution}
+    We have a critical point if
+    \[ \nabla h = \bm e_1 (4x^3 + 2y) + \bm e_2 (2x + 4y^3) = \bm 0; \]
+    clearly $\bm 0$ is a solution to this.
+    \begin{align*}
+        x &= -2y^3 \\
+        y &= -2x^3 \\
+        y &= -2 (-2y^3)^3 = 16y^9 \\
+        y(16y^8 - 1) &= 0.
+    \end{align*}
+    For $y = 0$, we know our only stationary point occurs when $x = 0$.
+    Now,
+    \begin{align*}
+        16y^8 - 1 &= 0 \\
+        (4y^4 - 1)(4y^4 + 1) &= 0 \\
+        (2y^2 - 1)(2y^2 + 1) (4y^4 + 1) &= 0 \\
+        (\sqrt2y - 1)(\sqrt2y + 1)(2y^2 + 1)(4y^4 + 1) &= 0;
+    \end{align*}
+    hence, if $(x, y)$ is a stationary point $y = \pm \frac1{\sqrt2}$ or $y = 0$.
+    A similar line of reasoning can be applied to show that $x$ must satisfy $x = \pm \frac1{\sqrt2}$ or $x = 0$.
+    If $x = \sqrt2$ then
+    \[ \frac4{2\sqrt2} + 2y = 0 \implies y = -\frac1{\sqrt2} \]
+    and if $x = -\sqrt 2$ then
+    \[ \frac{-4}{2\sqrt2} + 2y = 0 \implies y = \frac1{\sqrt 2}. \]
+    Therefore, the stationary points of $h$ are
+    \[ (0,0), \qquad (\sfrac1{\sqrt 2}, -\sfrac1{\sqrt 2}), \qquad (-\sfrac1{\sqrt 2}), \sfrac1{\sqrt 2}). \]
+\end{solution}

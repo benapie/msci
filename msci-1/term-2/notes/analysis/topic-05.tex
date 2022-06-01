@@ -1,0 +1,44 @@
+\chapter{Uniform convergence and the limit theorem}
+
+\section{Pointwise and uniform convergence of functions}
+
+In this chapter we will be discussing the converges of sequences of functions $f_n$. We have three motivations for doing this:
+\begin{enumerate}
+    \item construction of functions, such as \[ f(x) = e^x = \lim_{n \to \infty} \left(1 + \frac xn \right)^n; \]
+    \item approximations of complicated functions by \emph{easier} functions; and
+    \item the main point: preservation of properties from $f_n$ to $f$.
+\end{enumerate}
+
+\begin{definition}[Pointwise convergence]
+    We say that $f_n$ \textbf{converges pointwise} to $f$ if for all $x \in I$ we have \[ \lim_{n \to \infty} f_n(x) = f(x) \] as a sequence of real numbers. That is, \[ \forall \; x \in I \; \forall \; \varepsilon > 0 \; \exists \; N > 0 \; \forall \; n \geq N : \abs{f(x) - f_n(x)} < \epsilon \]
+\end{definition}
+
+\begin{definition}[Uniform convergence]
+    We say that $f_n$ converges uniformly to $f$ on interval $I$ if, given $\varepsilon > 0$, there exists $N \in \mathbb N$ such that for all $n \geq N$ and $x \in I$ we have \[ \abs{f(x) - f_n(x)} < \varepsilon. \]
+\end{definition}
+
+\begin{example}
+    Consider \[ f_n(x) = \frac{\sin{x}}{n} \] for $x \in \mathbb R = I$. Show that $f_n$ converges uniformly to $f(x) = 0$.
+\end{example}
+
+\begin{solution}
+    \[ \abs{f_n(x) - f(x)} = \left| \, \frac{\sin{x}}{n} - 0 \, \right| = \frac{\abs{\sin{x}}}{n} \leq \frac1n, \] hence for $n > \frac{1}{\varepsilon}$ we have \[ \abs{f_n(x) - f(x)} < \varepsilon \] and thus uniform convergence.
+\end{solution}
+
+\begin{example}
+    Consider $f_n(x) = x^n$. This does not converge uniformly to $f(x) = 0$ on $[0, 1]$. Let $\varepsilon = \frac14$. Take $x_n = \sqrt[n]{\frac12} < 1$. Then \[ \abs{f(x) - f_n(x)} = \left| \left( \sqrt[n]{\frac12} \right)^n - 0 \right| = \frac12 > \varepsilon. \] However, $f_n(x)$ is uniformly convergent on $x \in [0, r]$ where $r < 1$ as for all $\varepsilon > 0$ there exists $N \in \mathbb N$ such that for all $n \geq N$ we have \[ \abs{f(x) - f_n(x)} = \abs{x^n} \leq r^n < \epsilon. \]
+\end{example}
+
+\begin{theorem}
+    Let $f(x) = \sum_{k = 0}^\infty a_k x^k$ be a power series with radius of pointwise converges $R > 0$. Then \[ f_n(x) = \sum_{k = 0}^\infty a_k x^k \] converges uniformly to $f(x)$ on all compact subintervals $[-r, r]$ where $r < R$.
+\end{theorem}
+
+\begin{proof}
+    $f(x)$ converges so for all $\varepsilon > 0$ \[ \left| \, \sum_{k = 0}^\infty a_k x^k - \sum_{k = 0}^n a_k x^k \, \right| = \left| \sum_{k = n+1}^\infty a_k x^k \right| < \varepsilon \] for all $n \geq N$ (for some $N \in \mathbb N$). Then for some $x \in [-r, r]$
+    \begin{align*}
+        \abs{f(x) - f_n(x)} &= \left| \sum_{k = n + 1}^\infty a_k x^k \right| \\
+        &\leq \sum_{k = n + 1}^\infty \abs{a_k} \abs{x^k} \\
+        &\leq \sum_{k = n + 1}^\infty \abs{a_k} r^k < \varepsilon.
+    \end{align*}
+\end{proof}
+

@@ -1,0 +1,459 @@
+\chapter{Differentiation}
+
+\section{Derivative as a limit}
+
+\begin{definition}
+    Geometrically, the \textbf{derivative} of a function $f(x)$ at $x=a$, written as $f'(a)$ is the gradient of the tangent line at $x=a$. More formally: \[f'(a)=\lim_{h\to0}\left(\dfrac{f(a+h)-f(a)}{h}\right).\]
+    If this limit exists, then we say that $f(x)$ is differentiable at $x=a$. If this exists $\forall\;a\in\Dom{f}$, then this defines a function $f'(x)$ called the derivative of $f(x)$, written $f'(x)$.
+\end{definition}
+
+\begin{example}
+    Following are the calculations of derivates using the limit definition of a derivative.
+    \begin{enumerate}
+        \item Calculate $f'(x)$ for $f(x)=x^2$ using the limit definition.
+        \begin{align*}
+            f'(x)&=\lim_{h\to0}\left(\dfrac{f(x+h)-f(x)}{h}\right)\\
+            &=\lim_{h\to0}\left(\dfrac{(x+h)^2-(x^2)}{h}\right)\\
+            &=\lim_{h\to0}\left(\dfrac{2xh+h^2}{h}\right)\\
+            &=\lim_{h\to0}(2x+h)\\
+            &=2x
+        \end{align*}
+        
+        \item Calculate $f'(x)$ for $f(x)=\sin{x}$ using the limit definition.
+        \begin{align*}
+            f(x)&=\sin{x}\\
+            f'(x)&=\lim_{h\to0}\left(\dfrac{\sin{(x+h)}-\sin{x}}{h}\right)\\
+            &=\lim_{h\to0}\left(\dfrac{\sin{x}\cos{h}+\sin{h}\cos{x}-\sin{x}}{h}\right)\\
+            &=\lim_{h\to0}\left(\dfrac{\sin{x}(\cos{h}-1)+\sin{h}\cos{x}}{h}\right)\\
+            &=-\sin{x}\lim_{h\to0}\left(\dfrac{1-\cos{h}}{h}\right)+\cos{x}\lim_{h\to0}\left(\dfrac{\sin{h}}{h}\right)\\
+            &=(-\sin{x})(0)+(\cos{x})(1)\\
+            &=\cos{x}
+        \end{align*}
+    \end{enumerate}
+\end{example}
+
+For a function $f(x)$ to be differentiable at $x=a$ a necessary (but not sufficient) condition is that $f(x)$ is continuous at that point. Even if a function is continuous at that point, it can still fail to be differentiable in two ways:
+
+\begin{enumerate}
+    \item the tangent may be vertical;
+    \item the tangent may not exist.
+\end{enumerate}
+
+\begin{example}
+    Following are some examples of functions and justification on whether they are (or aren't) differentiable.
+    \begin{enumerate}
+        \item $f(x)=x^2$, this is a differentiable function as $f(x)$ is continuous for $x\in\mathbb R$ and for all $x$ the tangent is defined and not vertical.
+        
+        \item $f(x)=|x|$, this is not a differentiable function as $\lim_{x\to0}f(x)$ does not exist.
+        
+        \item $f(x)=x^{\sfrac13}$, this is not a differentiable function as $f'(x)=\frac13x^{-\sfrac23}$ and therefore $f'(0)$ does not exist.
+    \end{enumerate}
+\end{example}
+
+\begin{remark}
+    If $f'(a)$ exists than the tangent at $x=a$ is given by \[y=f'(a)(x-a)+f(a).\]
+\end{remark}
+
+\section{Rules of differentiation}
+
+\begin{verbatim}
+    skipped in lectures, check lecture notes
+\end{verbatim}
+
+\section{Derivatives of higher order}
+
+Following are the different notations used for derivatives of higher orders.
+
+\begin{enumerate}
+    \item Lagrange's notation:
+    \begin{enumerate}
+        \item $f'(x)$, first derivative;
+        \item $f''(x)$, second derivative; and
+        \item $f^{(n)}$, $n$th derivative.
+    \end{enumerate}
+    
+    \item Leibnitz's notation:
+    \begin{enumerate}
+        \item $\dfrac{df}{dx}$, first derivative;
+        \item $\dfrac{d^2f}{dx^2}$, second derivative; and 
+        \item $\dfrac{d^nf}{dx^n}$, $n$th derivative.
+    \end{enumerate}
+    
+    \item Euler's notation:
+    \begin{enumerate}
+        \item $Df$, first derivative;
+        \item $D^2f$, second derivative; and
+        \item $D^nf$, $n$th derivative.
+    \end{enumerate}
+    
+    \item Newton's notation:
+    \begin{enumerate}
+        \item $\dot f$, first derivative;
+        \item $\ddot f$, second derivative; and
+        \item $n$ dots on top of $f$ for higher orders.
+    \end{enumerate}
+\end{enumerate}
+
+\begin{theorem}[General Leibnitz rule]
+    The \textbf{general Leibnitz rule} generalizes the product rule for higher order derivatives. It states that, given that $f$ and $g$ are $n$-times differentiable, that $fg$ is also $n$-times differentiable and its $n$th derivative is given by 
+    \[
+        (fg)^{(n)}(x)=\sum_{k=0}^n
+        \begin{pmatrix}
+            n\\k
+        \end{pmatrix}
+        f^{(n-k)}(x)g^{(k)}(x)
+    \] 
+\end{theorem}
+
+\begin{example}
+    Given $f(x)=e^{2x}$ and $g(x)=\sfrac1x$, find $(fg)^{(3)}(x)$.
+    \begin{align*}
+        f^{(1)}&=2e^{2x}&g^{(1)}&=\sfrac{-1}{x^2}\\
+        f^{(2)}&=4e^{2x}&g^{(2)}&=\sfrac{2}{x^3}\\
+        f^{(3)}&=8e^{2x}&g^{(3)}&=\sfrac{-6}{x^4}\\
+    \end{align*}
+    \vspace{-3em}
+    \begin{align*}
+        (fg)^{(3)}&=f^{(3)}g+3f^{(2)}g^{(1)}+3f^{(1)}g^{(2)}+fg^{(3)}\\
+        &=(8e^{2x})(\sfrac1x)+(3)(4e^{2x})(\sfrac{-1}{x^2})+(3)(2e^{2x})(\sfrac2{x^3})+(e^{2x})(\sfrac{-6}{x^4})\\
+        &=8x^{-1}e^{2x}-12x^{-2}e^{2x}+12x^{-3}e^{2x}-6x^{-4}e^{2x}
+    \end{align*}
+\end{example}
+
+\section{The chain rule}
+
+\begin{theorem}[Chain rule theorem]
+    The \textbf{chain rule theorem} states that if $g(x)$ is differentiable at $x$ and $f(x)$ is differentiable at $g(x)$ then the composition $(f\circ g)'(x)$ is differentiable at $x$ and is given by \[(f\circ g)'(x)=f'(g(x))g'(x).\]
+\end{theorem}
+
+\begin{example}
+    \begin{align*}
+        \dfrac d{dx}\left(\sin{x^2}\right)&=\left(\cos{x^2}\right)(2x)\\
+        &=2x\cos{x^2}
+    \end{align*}
+\end{example} 
+
+\section{L'H\^opital's rule}
+
+\begin{remark}
+    In regards to homework and exam questions at Durham, only use this method if the question explicit states to. Even if explicitly stated to use L'H\^opitals rule, you must show the limit satifies the criteria stated below.
+\end{remark}
+
+\begin{definition}
+    \textbf{L'H\^opital's rule} states that if \[\lim_{x\to a}f(x)=0\] and \[\lim_{x\to a}\dfrac{f'(x)}{g'(x)}=L\] exists then \[\lim_{x\to a}\dfrac{f(x)}{g(x)}=L.\]
+\end{definition}
+
+\begin{remark}
+    This rule has more hidden conditions that $f'(x)$ and $g'(x)$ must exist in a small interval around $a$ and that $g'(x)\neq 0$ in this interval.
+\end{remark}
+
+\begin{example}
+	Calculate the following limits using L'H\^opital's rule or otherwise.
+	\begin{enumerate}
+		\item \[L=\lim_{x\to\infty}\dfrac{\sin x}x\] 
+		As \[\lim_{x\to0}\sin x=0 \quad\tand\quad\lim_{x\to0}x=0,\] we can use L'H\^opital's rule to evaluate this limit as \[L=\lim_{x\to0}\dfrac{\cos x}1=1.\]
+		
+		\item \[L=\lim_{x\to0}\dfrac{1-\cos x}x\]
+		As \[\lim_{x\to0}(1-\cos x)=\lim_{x\to0}x=0\] then \[L=\lim_{x\to0}\dfrac{\sin x}1=0.\]
+		
+		\item \[L=\lim_{x\to0}\dfrac{x}{1+x}\]
+		As \[\lim_{x\to0}x=0\neq1=\lim_{x\to0}{(1+x)},\] L'H\^opital's rule does not apply. However, \[L=\lim_{x\to0}\dfrac x{1+x}=\dfrac0{0+1}=0.\]
+		
+		\item \[L=\lim_{x\to0}\dfrac{2\sin{x}-\sin{2x}}{x-\sin{x}}\]
+		As \[\lim_{x\to0}{(2\sin{x}-\sin{2x})}=\lim_{x\to0}{(x-\sin{x})}=0,\] then we can apply L'H\^opital's rule to get \[L=\lim_{x\to0}\dfrac{2\cos{x}-2\cos{2x}}{1-\cos{x}}.\]
+		As \[\lim_{x\to0}{(2\cos x-2\cos{2x})}=\lim_{x\to0}{(1-\cos{x})}=0\] then we can apply L'H\^opital's rule for a second time to get \[L=\lim_{x\to0}\dfrac{-2\sin x+4\sin{2x}}{\sin x}.\]
+		As \[\lim_{x\to0}{-2\sin{x}+4\sin{2x}}=\lim_{x\to0}{\sin{x}}=0\] then we can apply L'H\^optial's rule for a third time to get \[L=\lim_{x\to0}\dfrac{-2\cos{x}+8\cos{2x}}{\cos{x}}=\dfrac{-2+8}{1}=-6\]
+	\end{enumerate}
+\end{example}
+
+\section{Implicit differentiation}
+
+% Might wanna consult the notes on this, if the notes are sparse may want to briefly check up on old a-level notes (if they exist) or look at some of the books recommended for this course on duo.
+
+\section{Boundedness and monotonicity}
+
+\begin{definition}
+	Let $f(x)$ be a function defined on an interval $I$. The function $f(x)$ is \textbf{bounded above in $I$} if \[\exists\;k:f(x)\leq k\;\forall\;x\in I\] where $k$ is a constant.
+	
+	If \[\exists\;x\in I:f(x)=k,\] then the \textbf{bound is attained} and $k$ is the \textbf{global maximum} of $f(x)\in I$.
+\end{definition}
+
+\begin{definition}
+	Let $f(x)$ be a function defined on an interval $I$. The function $f(x)$ is \textbf{bounded below in $I$} if \[\exists\;k:f(x)\geq k\;\forall\;x\in I\] where $k$ is a constant.
+	
+	If \[\exists\;x\in I:f(x)=k,\] then the \textbf{bound is attained} and $k$ is the \textbf{global minimum} of $f(x)\in I$.
+\end{definition}
+
+Combining these two definitions we can define a function as being bounded in an interval.
+
+\begin{definition}
+	Let $f(x)$ be a function defined on an interval $I$. The function $f(x)$ is \textbf{bounded} in interval $I$ if it is bounded above and below in $I$.
+\end{definition}
+
+\begin{example}
+	Take the following function \[f(x)=\dfrac{\operatorname{sgn}{x}}{1+x^2}\] on $[-1,1]$. $f(x)$ is bounded on $[-1,1]$ because $|f(x)|\leq1$. These bounds are not attained. This case there is no global minimum or maximum. % todo I don't quite understand this typing it up, maybe I will when I look at this in the future but regardless..
+\end{example}
+
+\begin{remark}
+	The function $\operatorname{sgn}{x}$ is called the \textbf{sign function}. It is commonly used and is defined as
+	\[
+		\operatorname{sgn}{x}=
+		\begin{cases}
+			-1 & x<0 \\
+			0 & x=0 \\
+			1 & x>0 \\
+		\end{cases}
+		.
+	\]
+\end{remark}
+
+Following is a theorem that guarantees the existence of a global minimum and a global maximum (referred to as the \textbf{extreme values}).
+
+\begin{theorem}[Extreme value theorem]
+	If $f$ is continuous on $[a,b]$ then $f$ is bounded on that interval and the bounds are attained.
+\end{theorem}
+
+\begin{definition}
+	The function $f$ is monotonically increasing in $[a,b]$ if \[f(x_1)\leq f(x_2)\;\forall\;a\leq x_1<x_2\leq b.\] $f$ is monotonically strictly increasing in the same interval if \[f(x_1)<f(x_2)\;\forall\;a\leq x_1<x_2\leq b.\]
+\end{definition}
+
+\begin{definition}
+	The function $f$ is monotonically decreasing in $[a,b]$ if \[f(x_1)\geq f(x_2)\;\forall\;a\leq x_1<x_2\leq b.\] $f$ is monotonically strictly decreasing in the same interval if \[f(x_1)>f(x_2)\;\forall\;a\leq x_1<x_2\leq b.\]
+\end{definition}
+
+\begin{remark}
+	We use the term \textbf{monotonic} to describe functions that are either entirely non-increasing or entirely non-decreasing.
+\end{remark}
+
+\section{Critical points}
+
+\begin{definition}
+	The function $f(x)$ has a \textbf{local maximum} at $x=a$ if \[\exists\;\epsilon>0:f(a)\geq f(x)\;\forall\;x\in(a-\epsilon,a+\epsilon).\]
+	
+	Similarly, the function $f(x)$ has a \textbf{local minimum} at $x=a$ if \[\exists\;\epsilon>0:f(a)\leq f(x)\;\forall\;x\in(a-\epsilon,a+\epsilon).\]
+\end{definition}
+
+\begin{example}
+	The function $f(x)=|x|$ for $x\in[-1,1]$ has a local minimum at $x=0$ (and also a global minimum).
+\end{example}
+
+\begin{remark}
+	For any given function $f$, if $x=a$ is our local maximum and $f$ is differentiable at $x=a$ then $f'(a)=0$.
+\end{remark}
+
+\begin{proof}
+	\begin{align*}
+		f'(a)&=\lim_{h\to0^+}\left(\dfrac{f(a+h)-f(a)}{h}\right)\\
+		&=\lim_{h\to0^-}\left(\dfrac{f(a+h)-f(a)}{h}\right).
+	\end{align*}
+	For $x\in(a,a+\epsilon)$, $f(x)\leq f(a)$ since $x=a$ is a local maximum, therefore, $f'(a)\leq 0$. However, $f'(a)\geq0$, therefore, $f'(a)=0$.
+\end{proof}
+
+\begin{definition}
+	A point $x=a$ on the function $f$ is called a \textbf{stationary point} if $f'(a)=0$.
+\end{definition}
+
+\begin{definition}
+    A point $x=a$ on the function $f$ is called a \textbf{point of inflection} if $f''(a)=0$ and $f''(x)$ changes sign at $x=a$.
+\end{definition}
+
+\begin{definition}
+	A point $x=a$ is a \textbf{critical point} of the function $f(x)$ if either $x=a$ is a stationary point or if $f(x)$ is not differentiable at $x=a$.
+\end{definition}
+
+\begin{remark}
+    Consider $f(x)$ defined on $[a,b]$, then the points $x=a$ and $x=b$ are called \textbf{endpoints}.
+\end{remark}
+
+\begin{definition}
+    The point $x=a$ is an \textbf{endpoint minimum} if \[\exists\;\epsilon>0:f(a)\leq f(x)\;\forall\;x\in[a,a+\epsilon].\]
+\end{definition}
+
+\begin{definition}
+    The point $x=a$ is an \textbf{endpoint maximum} if \[\exists\;\epsilon>0:f(a)\geq f(x)\;\forall\;x\in[a,a+\epsilon].\]
+\end{definition}
+
+\begin{remark}
+    If $f$ is continuous on $[a,b]$ then the extreme values are attained either at critical points or at endpoints. The method to find global minimums and global maximums is to find all critical points and endpoint values.
+\end{remark}
+
+\begin{example}
+    Find the extreme values of \[f(x)=x^2-2|x|+2\] for $x\in[-\frac12,2]$.
+    
+    First we calculate the endpoints: $f(-\sfrac12)=\sfrac54$, $f(2)=2$. As $f(x)$ is not differentiable at $x=0$ it is a critical point with $f(0)=2$. For $x\in(-\frac12,0)$, $f(x)=x^2-2x+2\implies f'(x)=2x-2\neq0$. For $x\in{0,2}$, $f(x)=x^2-2x+2\implies f'(x)=2x-2$ and $f'(1)=0$ so $x=1$ is a critical point with $f(1)=1$.
+    \begin{align*}
+        \text{global maximum}&=\max{\{\sfrac54,2,1,2\}}=2\\
+        \text{global minimum}&=\min{\{\sfrac54,2,1,2\}}=1
+    \end{align*}
+\end{example}
+
+\subsection{The first derivative test}
+
+Suppose $f(x)$ is continuous at a critical point $x=a$.
+
+\begin{enumerate}
+    \item If
+    \begin{align*}
+        \exists\;\epsilon>0&:f'(x)<0\;\forall\;x\in(a-\epsilon,a)\tand\\
+        &:f'(x)>0\;\forall\;x\in(a,a+\epsilon)
+    \end{align*}
+    then $x=a$ is a local minimum.
+    
+    \item If
+    \begin{align*}
+        \exists\;\epsilon>0&:f'(x)<0\;\forall\;x\in(a-\epsilon,a)\tand\\
+        &:f'(x)>0\;\forall\;x\in(a,a+\epsilon)
+    \end{align*}
+    then $x=a$ is a local minimum.
+    
+    \item If
+    \[\exists\;\epsilon>0:f'(x)\text{ has a constant sign }\forall\;x\in(a-\epsilon,a)\]
+    then $x=a$ is a local minimum.
+\end{enumerate}
+
+\subsection{The second derivative test}
+
+If $f(x)$ is twice differentiable at a stationary point $x=a$ then
+\begin{enumerate}
+    \item if $f''(a)>0$, then $x=a$ is a local minimum; and
+    \item if $f''(a)<0$ then $x=a$ is a local maximum.
+\end{enumerate}
+
+\section{Min-max problems}
+
+Optimisation is the topic of finding extreme values and has many applications.
+
+\begin{figure}
+    \centering
+    \begin{tikzpicture}
+        \draw (0,0) rectangle (4,2);
+        \draw (0,2) rectangle (4,4);
+        \draw[<->] (-0.5,0) -- node[left]{$y$} (-0.5,4);
+        \draw[<->] (0,-0.5) -- node[below]{$x$} (4,-0.5);
+    \end{tikzpicture}  
+    \caption{Visualisation of a min-max problem.}
+    \label{fig:fencing_min_max}
+\end{figure}
+
+\begin{example}
+    What length of fencing is required to create two adjacent rectangular fields of the same width with a total area of \SI{15000}{\meter\squared}.
+    
+    Shown in Figure \ref{fig:fencing_min_max}, we have \[\text{area}=xy=15000\iff x=\dfrac y{15000}\tag{$\star^1$}.\] We can define the length of fencing to be $F(x)$ where \[F(x)=3x+2y\tag{$\star^2$}.\] Substituting $(\star^1)$ into $(\star^2)$ gives us \[F(x)=3x+\dfrac{30000}x.\] \[F'(x)=3\left(\dfrac{-10^4}{x^2}+1\right)=0\implies x=100\] therefore the point $x=100$ is a stationary point. 
+    \begin{align*}
+        F''(x)&=\dfrac{6(10^4)}{x^3}\\
+        F''(100)&>0
+    \end{align*}
+    so the point $x=100$ is a local minimum. We can calculate y using $(\star_1)$ \[y=\dfrac{15000}x=\dfrac{15000}{100}=150\] and so the minimum fencing required is \[F=3(100)+2(150)=600.\]
+\end{example}
+
+\section{Rolle's theorem}
+
+\begin{theorem}[Rolle's theorem]
+    If $f$ is continuous on $[a,b]$ and is differentiable on $(a,b)$ with $f(a)=f(b)$ then $\exists\;c\in(a,b):f'(c)=0$.
+\end{theorem} 
+
+\begin{proof}
+    By the extreme value theorem, \[\exists\;x_1,x_2\in[a,b]:f(x_1)\leq f(x)\leq f(x_2)\;\forall\;x\in[a,b].\] There are three cases here to consider:
+    \begin{enumerate}
+        \item if $x_2\in(a,b)$, then $x_2$ is a global maximum and a local maximum, so it must be a stationary point and $f'(x_2)=0$;
+        \item if $x_1\in(a,b)$, then $x_1$ is a global minimum and a local minimum, so it must be a stationary point and $f'(x_1)=0$; and
+        \item if neither of the above are true then $x_1$ and $x_2$ must be $a$ and $b$, however, $f(a)=f(b)$ hence $f(a)\leq f(x)\leq f(a)$ and so $f(x)$ is constant, therefore, $f'(a)=f'(b)=0$.
+    \end{enumerate}
+\end{proof}
+
+\begin{corollary}
+    If $f(x)$ is differentiable at all points in some interval $I$, then any 2 distinct points inside $I$ at which $f(x)=0$ have a point between them at which $f'(x)=0$.
+\end{corollary}
+
+\begin{proof}
+    Let $f(x_1)=f(x_2)=0$ with $x_1\neq x_2$ and $x_1,x_2\in I$. Applying Rolle's theorem to the interval $[x_1,x_2]$, \[\exists\;c\in(x_1,x_2):f'(c)=0.\]
+\end{proof}
+
+\section{Mean value theorem}
+
+\begin{theorem}[Mean value theorem]
+If $f$ is continuous in $[a,b]$ and differentiable in $(a,b)$ then \[\exists\;c\in(a,b):f'(c)=\dfrac{f(b)-f(a)}{b-a}.\]
+\end{theorem}
+
+\begin{proof}
+    Define the function \[g(x)=(b-a)(f(x)-f(a))-(x-b)(f(b)-f(a))\] then $g(a)=0=g(b)$ and hence we can apply Rolle's theorem to $g(x)$ to conclude that there exists $c\in(a,b):g'(c)=0$.
+    \begin{align*}
+        g'(x)&=(b-a)f'(x)-(f(b)-f(a))\\
+        g'(c)&=(b-a)f'(c)-(f(b)-f(a))\\
+        f'(c)&=\dfrac{f(b)-f(a)}{b-a}
+    \end{align*}
+\end{proof}
+
+We can use the mean value theorem to prove results, such as the following.
+
+\begin{example}
+    Prove the following result.
+    
+    If $f$ is continuous on $[a,b]$ and differentiable on $(a,b)$ with $f'(x)\geq0\;\forall\;x\in(a,b)$ then $f$ is increasing (monotonic) on $[a,b]$.
+    
+    \begin{proof}
+        Take $x_1,x_2:a\leq x_1<x_2\leq b$. By the mean value theorem \[\exists\;c\in(a,b):f'(c)=\dfrac{f(x_2)-f(x_1)}{x_2-x_1}\geq0\] and hence $f(x_2)\geq f(x_1)$ so $f$ is increasing.
+    \end{proof}
+\end{example}
+
+\section{Inverse function rule}
+
+\begin{theorem}
+    If $f$ is continuous on $[a,b]$ and is differentiable on $[a,b]$ with $f'(x)\geq 0\;\forall\;x\in(a,b)$ then the inverse function $g(y)$ is differentiable for all \[f(a)<y<f(b)\] with \[g'(y)=\dfrac1{f'(g(y))}.\]
+\end{theorem}
+
+\begin{proof}
+    We know
+    \begin{align*}
+        g(y)&=x&y=f(x)\\
+    \end{align*}
+    therefore
+    \begin{align*}
+        g'(y)\dfrac{dy}{dx}&=1\\
+        g'(y)&=\dfrac1{f'(x)}\\
+        &=\dfrac1{f'(g(y))}.
+    \end{align*}
+\end{proof}
+
+\begin{example}
+    Find the the value of $\frac d{dx}f^{-1}(x)$ where $f(x)=\sin{x}$.
+    
+    Let $g(y)=f^{-1}(x)=\sin^{-1}{x}$. As $f'(x)>0\;\forall\;x\in(-\frac{\pi}2,\frac{\pi}2)$
+    \begin{align*}
+        g'(y)&=\dfrac1{\cos{(g(y))}}\\
+        &=\dfrac1{\sqrt{1-\sin^2{(g(y))}}}\\
+        &=\dfrac1{1-y^2}
+    \end{align*}
+    for all $-1<y<1$. Hence,
+    \[\dfrac d{dx}\sin^{-1}{x}=\dfrac{1}{\sqrt{1-x^2}}.\]
+\end{example}
+
+\section{Partial derivative}
+
+\begin{definition}
+    A partial derivative of a function of several variables is its derivative with respect to one of the variables, with the others held constants.
+    Consider a function of two variables $f(x,y)$. The partial derivative with respect to $x$ is defined as \[\dfrac{\partial f}{\partial x}(x,y)=\lim_{h\to0}\left(\dfrac{f(x+h,y)-f(x,y))}{h}\right)\] and the partial derivative with respect $y$ is \[\dfrac{\partial f}{\partial y}(x,y)=\lim_{h\to0}\left(\dfrac{f(x,y+h)-f(x,y)}{h}\right).\] The notation of higher order partial derivatives follows the same convention as normal derivatives, for example, we denote the second order derivative of $f$ in respect to $x$ as $\frac{\partial^2f}{\partial x^2}$. 
+    
+    The notation $\frac{\partial^2f}{\partial y\partial x}$ means to differentiate in respect to $x$ and then in respect to $y$.
+\end{definition}
+
+\begin{example}
+    \begin{align*}
+        f(x,y)&=x^2y^3-\sin{x}\cos{y}+y\\
+        \dfrac{\partial f}{\partial x}(x,y)&=2xy^3-\cos{x}\cos{y}\\
+        \dfrac{\partial f}{\partial y}(x,y)&=3x^2y^2+\sin{x}\sin{y}+1\\
+        \dfrac{\partial^2 f}{\partial x^2}(x,y)&=2y^2+\sin{x}\cos{x}\\
+        \dfrac{\partial^2 f}{\partial y^2}(x,y)&=6x^2y+\sin{x}\cos{y}\\
+        \dfrac{\partial^2 f}{\partial y\partial x}(x,y)=\dfrac{\partial}{\partial y}\left(\dfrac{\partial f}{\partial x}\right)&=6xy^2+\cos{x}\sin{y}\\
+        \dfrac{\partial^2 f}{\partial x\partial y}(x,y)=\dfrac{\partial}{\partial x}\left(\dfrac{\partial f}{\partial y}\right)&=6xy^2+\cos{x}\sin{y}\\
+    \end{align*}
+\end{example}
+
+\begin{remark}[Equality of mixed partials]
+    If all second partial derivatives of $f(x,y)$ are continuous, then the order of the mixed derivative does not matter, that is \[\dfrac{\partial^2 f}{\partial y\partial x}=\dfrac{\partial^2 f}{\partial x\partial y}.\]
+    \label{remark:equality_mixed_partials}
+\end{remark}
+
+\begin{remark}
+    The notation \[\dfrac{\partial^2 f}{\partial x^2}=f_{xx},\qquad \dfrac{\partial f}{\partial y}=f_{y}\] exists.
+\end{remark}

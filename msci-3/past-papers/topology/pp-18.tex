@@ -1,0 +1,240 @@
+\documentclass[a4paper, answers]{exam}
+\input{../preamble.tex}
+
+\begin{document}
+
+\begin{center}
+	\textbf{\textsc{Topology III, 2018}} \\
+	\textsc{Ben Napier}
+	\vspace{1em}
+\end{center}
+
+\begin{center}
+	\scshape\bfseries Section A
+\end{center}
+
+\begin{questions}
+\question
+\begin{parts}
+	\part State the definition of a Hausdorff space.
+
+	\part Let $X = \left\{ 1,2,3,4,5 \right\}$.
+	Give an example of a Hausdorff topology on $X$, and an example of a
+	non-Hausdorff topology on $X$.
+
+	\part Assume that $X$ is a Hausdorff space.
+	Show that
+	\[
+		\Delta(X)
+		= \left\{ (x,x) \in X \times X: x \in X \right\}
+	\]
+	is a closed subset of $X \times X$.
+\end{parts}
+
+\question Let $X$ be a topological space and $A \subset X$.
+\begin{parts}
+	\part State the definition of a limit point of $A$.
+
+	\part Show that if $x$ is a limit point of $A$, then $x \in \overline A$,
+	the closure of $A$.
+
+	\part Determine the limit points of 
+	\[
+		A = \left\{ 
+			\cos\left( \frac1n \right) \in \R:
+			n \in \Z \setminus \left\{ 0 \right\} 
+		\right\}.
+	\]
+\end{parts}
+
+\question
+\begin{parts}
+	\part State the definition of a path-connected space.
+
+	\part Let
+	\[
+		X = \left\{ 
+			\left( \cos\left( 
+				\frac1x \right), 
+				\sin\left( \frac1x \right), 
+				x 
+			\right) \in \R^3: x \in (0,1)
+		\right\}.
+	\]
+	Determine whether $X$ is path-connected or not.
+	Justify your statement.
+\end{parts}
+
+\question
+\begin{parts}
+	\part Suppose $\lambda: [0,1] \to X$ and $\mu: [0,1] \to X$ are two loops
+	in the space $X$ based at the point $x_0$.
+	Define the product loop $\lambda * \mu: [0,1] \to X$.
+
+	\part Now suppose $\lambda$, $\mu$, $\kappa$, and $\nu$ are four loops in
+	$X$ based at $x_0$.
+	Prove that in general the loops $(\lambda * \mu) * (\kappa * \nu)$ and
+	$\lambda * (\mu * (\kappa * \nu))$ are not the same.
+	Prove, using a suitable diagram, that they represent however the same
+	element of $\pi_1(X, x_0)$. (You do not have to give explicit formulas.)
+\end{parts}
+
+\question
+\begin{parts}
+	\part Let $S = \left\{ z \in \C: \left\lvert z \right\rvert = 1 \right\}$
+	be the unit circle in the complex plane, and $f: \C \to \C$ be a
+	continuous funciton.
+	Let $W(f)$ be the winding number of the loop $f(S)$ about the origin:
+	explain precisely what this means and what assumption must be made about
+	$f$ for it to be defined.
+
+	\part Say if each of the following statements are true or false in
+	general, justifying your answers.
+	In both statements, $r$ is a non-zero complex number.
+	\begin{subparts}
+		\subpart $W(rf) = W(f)$ where $rf$ is the function
+		$z \mapsto r \cdot f(z)$.
+
+		\subpart $W(fr) = W(f)$ where $fr$ is the function $z \mapsto f(rz)$.
+	\end{subparts}
+\end{parts}
+
+\question
+\begin{parts}
+	\part If $A$ and $B$ are finite simplicial complexes, state a formula
+	relating the Euler characteristics of $A$, $B$, $A \cup B$, and
+	$A \cap B$.
+	State, without proof, the Euler characteristics for the sphere $S^2$, the
+	circle $S^1$, and the closed $2$-disc $D^2$.
+	Use your formula to compute the Euler characteristic of the space $Y$
+	which is given by removing three non-intersecting open discs from a
+	sphere $S^2$.
+
+	\part A closed surface is constructed by taking $26$ copies of the space
+	$Y$ and identifying pairs of boundary circles in such a way that the
+	final space is connected and without boundary.
+	How many different closed surfaces (up to homeomorphism) can be 
+	constructed in this way?
+	Justify your answer, identifying the ones you think can be constructed in
+	terms of the families of surfaces given in the Classification Theorem of
+	Closed Surfaces considered in lectures, explaining any notation you use.
+\end{parts}
+
+\begin{center}
+	\scshape\bfseries Section B
+\end{center}
+
+\question Let $X = \R^n \cup \left\{ \infty \right\}$, that is, the set
+consisting of $\R^n$ and one extra element denoted $\infty$ (note that $X$ is
+not a topological space yet).
+In particular, we have $\R^n \subset X$, but $\R^n \neq X$.
+\begin{parts}
+	\part Let $U \subset \R^n$ be open and $C \subset \R^n$ compact.
+	Show that $U \cap \left(X \setminus C \right)$ is an open subset of 
+	$\R^n$.
+
+	\part Let $U \subset \R^n$ be open and $C \subset \R^n$ compact.
+	Show that $U \cup \left( X \setminus C \right) = X \setminus D$ for a
+	compact set $D \subset \R^n$.
+
+	\part Let
+	\[
+		\tau 
+		= \left\{ U \subset \R^n: \text{$U$ open in $\R^n$} \right\} \cup
+			\left\{ X \setminus C: \text{$C \subset \R^n$ compact} \right\}
+	\]
+	which is a subset of the power set of $X$, as $\R^n \subset X$.
+	\begin{subparts}
+		\subpart Show that $\tau$ is a topology.
+		\subpart Show that $X$ with this topology is compact.
+		\subpart For $x = (x_1, \ldots, x_n) \in \R^n$ let
+		$\left\lvert x \right\rvert^2 = x_1^2 + \ldots + x_n^2$.
+		Show that the function $f: X \to \R^n \times \R$ given by
+		\[
+			f(x) =
+			\begin{cases}
+				\left( 
+					\frac{2}{1 + \left\lvert x \right\rvert^2} \cdot x,
+					1 - \frac{2}{1 + \left\lvert x \right\rvert^2}
+				\right) & \text{if $x \in \R^n$}, \\
+					(0,1) & \text{if $x = \infty$}
+			\end{cases}
+		\]
+		is a homeomorphism onto its image.
+		(Remark: we write $\R^{n+1} = \R^n \times \R$ to emphasize that we
+		only need two coordinates, an $\R^n$-coordinate and an
+		$\R$-coordinate.
+		It is poosible to do this with $(n+1)$ real coordinates, which only
+		means you have to write more.)
+	\end{subparts}
+\end{parts}
+	
+\question Let 
+$U(n) = \left\{ A \in \operatorname{GL}_n(\C) : AA^* = I \right\}$, where
+$A^\star = \left( a^\star_{ij} \right)$ is the matrix whose entries
+satisfy $a^\star_{ij} = \overline a_{ij}$, where 
+$A = \left( a_{in} \right)$, and $\overline a$ is the complex conjugate
+of $a \in \C$.
+State any results from the lectures you are using.
+You may use that $U(n)$ is compact.
+\begin{parts}
+	\part Show that for $A \in U(n-1)$ the matrix
+	\[
+		i(A) =
+		\begin{pmatrix}
+			&&& 0 \\
+			& A && \vdots \\
+			&&& 0 \\
+			0 & \ldots & 0 & 1 \\
+		\end{pmatrix}
+	\]
+	satisfies $i(A) \in U(n)$.
+
+	\part Show that $U(n-1)$ acts on $U(n)$ by
+	\[
+		A \cdot B = Bi(A^\star)
+	\]
+	where $A \in U(n-1)$, $B \in U(n)$, and we use matrix multiplication on
+	the right hand side.
+
+	\part Show that $f: U(n) \to S^{2n-1}$ given by
+	\[
+		f(B) = Be_n
+	\]
+	where $e_n = (0, \ldots, 0, 1) \in \C^n$, induces a map
+	$\overline f: U(n) / U(n-1) \to S^{2n-1}$ which is a homeomorphism.
+	Here
+	\[
+		S^{2n-1} = \left\{
+			(z_1, \ldots, z_n) \in \C^n: 
+			z_1\overline z_1 + \ldots + z_n \overline z_n = 1
+		\right\}.
+	\]
+
+	\part Show that $U(n)$ is connected for all $n \geq 1$.
+\end{parts}
+
+\question 
+\begin{parts}
+	\part Give a net for the Klein bottle $K$ as a quotient of a unit square.
+	Triangulate your square so as to give a triangulation of $K$ and use it 
+	to compute $\pi_1(K)$, briefly explaining any diagrams you use.
+
+	\part Uisng two copies of your triangulated square, pieced together
+	appropriately, show that there is a triangulated orientable closed
+	surface $W$ and a map $f: W \to K$ with the property that for each
+	$n$-simplex $\sigma$ in $K$, there are precisely two $n$-simplices,
+	$\tau_1$, $\tau_2$ in $W$ such that $f(\tau_i) = \sigma$ for $i = 1,2$.
+
+	\part Identify the surface $W$.
+
+	\part Use your triangulation of $W$ to compute $\pi_1(W)$.
+
+	\part For each of your spaces, pick a point to be its basepoint and
+	interpret the generators of your fundamental groups as loops based at
+	this point.
+	Use this to describe the homomorphism $f_\star: \pi_1(W) \to \pi_1(K)$.
+\end{parts}
+\end{questions}
+
+\end{document}

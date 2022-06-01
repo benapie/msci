@@ -1,0 +1,180 @@
+\chapter{Database security}
+
+\section{Recap}
+
+\begin{definition}[Database]
+    A \textbf{database} is an organised collection of data.
+\end{definition}
+
+\begin{definition}[Relational database]
+    A \textbf{relational database} is a collection of schemas, tables, queries, reports, views, and other elements. %todo can be improved I believe
+\end{definition}
+
+We call software that helps us manage databases \textbf{database management systems} (DBMS). Following are some examples of DBMS software:
+\begin{enumerate}
+    \item MySQL;
+    \item PostgreSQL; and
+    \item MongoDB.
+\end{enumerate}
+
+Within a database, there exists \emph{administrators} that defines the rules that organise data and controls access to the database.
+
+Following are common roles that DBMS software typically does:
+\begin{enumerate}
+    \item ensures concurrency;
+    \item ensures security of data;
+    \item maintains data integrity;
+    \item administration procedures, such as
+        \begin{enumerate}
+            \item change management,
+            \item monitoring and optimisation, and
+            \item backup and recovery; and
+        \end{enumerate}
+    \item automated rollbacks, restarts, and recovery; and
+    \item logging and auditing of activity.
+\end{enumerate}
+
+We find that DBMS software consists of
+\begin{enumerate}
+    \item the data;
+    \item the engine (how everything works); and
+    \item the schema (defines the logical structure of the database).
+\end{enumerate}
+
+\begin{example}[SQL queries]
+    Consider the following table.
+    \begin{center}
+        \begin{tabular}{clllcc}
+            \toprule
+            ID & Name & Email & City & Lat\_N & Bitcoins \\
+            \midrule
+            1001 & Jess & jess@dur.ac.uk & Exeter & 40 & 10 \\
+            1002 & Chris & chris@dur.ac.uk & Durham & 33 & 7 \\
+            1003 & Greg & greg@dur.ac.uk & Toulouse & 47 & 0.001 \\
+            1004 & Anna & anna@dur.ac.uk & Durham & 21 & 0.2 \\
+            \bottomrule
+        \end{tabular}
+    \end{center}
+    Consider the following SQL queries.
+    \begin{enumerate}
+        \item \texttt{SELECT Name From Users Where City = Durham};
+        \item \texttt{SELECT * FROM Userrs WHERE Lat\_N > 39.7};
+        \item \texttt{SELECT ID, Name, City FROM Users ORDER BY Lat\_N};
+        \item \texttt{UPDATE Users SET Bitcoins = Bitcoins + 0.001}; and
+        \item \texttt{GRANT SELECT ON ANY TABLE TO Chris}.
+    \end{enumerate}
+    It is clear what these queries do.
+\end{example}
+
+\begin{definition}[NoSQL]
+    \textbf{NoSQL} (which stands for \emph{not only SQL}) is an alterative to tradiational erlational database which data is placed in tables and data schema that is carefully designed before the database is built. 
+\end{definition}
+
+NoSQL finds a lot of use in large sets of distributed data (such as IoT).
+
+\section{Database security}
+
+We gave four primary concepts in database security
+\begin{enumerate}
+    \item authentication;
+    \item authorization;
+    \item encryption; and
+    \item auditing.
+\end{enumerate}
+
+All of these topics are well covered and will not be defined here. We have some other important concepts in database security as well, among these are firewalls and data integrity which again are well covered.
+
+\begin{definition}[Redaction]
+    \textbf{Redaction} is the process of disguising sensitive data on returned results.
+\end{definition}
+
+\begin{definition}[Masking]
+    \textbf{Masking} is where we create similar but inauthentic versions of the data for training and testing.
+\end{definition}
+
+\begin{remark}
+    The vast majority of records breached are from database leaks, so it is not surprising that hackers go after databases. They contain transactional information, financial details, etc. Even though this is the case, a relatively small portion of security budget is spent on data center security.
+\end{remark}
+
+Following is a list of database vulnerabilities in order of popularity:
+\begin{enumerate}
+    \item excessive and unused priviledges;
+    \item privilege abuse;
+    \item SQL injection;
+    \item malware;
+    \item weak audit trail;
+    \item storage media exposure;
+    \item exploitation of vulnerabilities and misconfigured databases;
+    \item unmanaged sensitive data;
+    \item denial of service attack; and
+    \item limited security expertise and education.
+\end{enumerate}
+
+Let's address a few of these.
+
+\paragraph{Execessive and unused privileges} Often, privilege control mechanisms for job roles are not well defined or maintained, so people typically have a lot of privileges that they don't need. People join and leave companies, they may change their job. Theirprermissions often grow but don't scale back to be inline with their job requirements.
+
+\paragraph{Privilege abuse} This is where people have a legitimate use of the data they have access to, but they choose to abusae it. Employees often feel entitled to take data with them, especially if they created it. 
+
+\paragraph{SQL injection} It is often possible to insert or inject unauthorised malicious database statements at certain parts of a application or into a database who's data gets executed by another database. Here is an example of code that is susceptible to an SQL injection.
+\begin{center}
+    \ttfamily
+    sql = "SELECT * FROM users WHERE name = '" + name "'"
+    result = statement.executeQuery(sql)
+\end{center}
+We can make this more secure, as follows.
+\begin{center}
+    \ttfamily
+    sql = "SELECT * FROM users WHERE name = ?"
+    result = statement.executeQuery(sql, [name])
+\end{center}
+This syntax will not allow code and data to be mixed together. There is a open source penetration testing tool called \texttt{sqlmap} which automates the process of detecting and exploiting SQL injection flaws.
+
+\paragraph{Malware} Most database breaches involve malware. When this type of breach happens, organisations are quickly compromised and their data gets exposed within minutes or hours. It can take between weeks and months to even discover that it happened and the samew amount of time to contain and remediate the problem. Common strategies are
+\begin{enumerate}
+    \item spear phishing (via emails);
+    \item malware;
+    \item credentials stolen; and
+    \item data being stolen.
+\end{enumerate}
+
+\paragraph{Weak audit trail} By having a strong audit trail we get a much clearer picture of what is going on. Most organisations do not record all the details necessary to deal with the aftermath of these kind of situations. This makes it hard to trace back to individual users. 
+
+\paragraph{Storage media exposure} It is often that case that not the database, but the backups for the database are commonly leaked. This is something that is often completely unprotected from an attack. 
+
+\paragraph{Database vulnerability exploitation} It is common for companies to delay database updates for long periods of time, this can be due to lack of resources or abilities. Database providers, such as Oracle and Microsoft, periodically push patches and fixes to exploits but it can take many years (or it may never happen!) for companies to update.
+
+\paragraph{Unmanaged sensistive data} You can easily end up with highly sensistive data being used in testing environments and not being management properly. This can be managed by using data masking.
+
+\paragraph{DoS and limited expertise} Denial of service attacks can indeed happen to databases. Here, attackers overload the server resources by flooding the database with queries (eventually causing the server to crash). Majority of organisations experienced staff related to cyber security were knowledgable when the policies weren't well understand. These people do not understand the business or technical aspects of the vulnerability. Small businesses don't even have a position for educating their staff about security risks (such as a software engineer whose learnt about software security).
+
+\begin{example}[Obscure queries]
+    One method to make it harder for a system to identify what a query is really returning is to make it unreasonably complex queries. For example, instead of
+    \begin{center}
+        \ttfamily
+        SELECT * FROM Students WHERE Drugs = "1"
+    \end{center}
+    we can have
+    \begin{center}
+        \ttfamily
+        SELECT * FROM Students WHERE (Sex = "M" OR Sex = "F") AND \\
+        ((Sex = "M" AND Drugs = "!") OR (Sex = "F" AND Drugs = "1")) OR \\
+        (Sex <> "M" AND Sex <> "F") OR College = "Bogus".
+    \end{center}
+\end{example}
+
+\begin{definition}[Inference attack]
+    An \textbf{inference attack} is a \emph{data mining} technique performed by analysing data in order to iillegitimately gain knowledge about a subject or database.
+\end{definition}
+
+Inference attacks occur when someone is allowed executed certaion queries (that they are obviously authorised to do) but by executing them they gain access to information for which they are not authorised. 
+
+In summary, a good approach to data security is as follows:
+\begin{enumerate}
+    \item discovery and assessment, identify vulnerabilities and sensitive data;
+    \item user rights management;
+    \item monitoring and blocking;
+    \item auditing;
+    \item protecting data; and
+    \item non-technical security (make sure they less aware don't allow the system to become insecure).
+\end{enumerate}

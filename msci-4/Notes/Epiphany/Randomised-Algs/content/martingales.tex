@@ -1,0 +1,49 @@
+\section{Martingales}
+
+In the previous section, we made sure to mention that we are working over a finite discrete probability space $(\Omega, \Pr)$, but we will now omit this and assume that we are whenever we refer to random variables.
+
+\begin{definition}[Martingale]
+    A sequence of random variables $\{Z_i\}_{i \in \N_0}$ is a \emph{martingale} with respect to another sequence of random variables $\{X_i\}_{i \in \N_0}$ if for all $n \in \N_0$,
+    \begin{enumerate}
+        \item $Z_n$ is a function of $\{X_i\}_{i=0}^n$;
+        \item $\E[\lvert Z_n \rvert] < \infty$; and
+        \item $Z_n = \E[Z_{n+1} \mid X_0, \ldots, X_n]$. 
+    \end{enumerate}
+    $\{Z_i\}_{i \in \N_0}$ is s \emph{martingale} if it is a martingale with respect to itself. 
+\end{definition}
+
+\begin{lemma}
+    Let $n \in \N_0$. If $\{Z_i\}_{i = 0}^n$ is a martingale with respect to the sequence of random variables $\{X_i\}_{i=0}^n$, then $\E[Z_n] = \E[Z_0]$.
+\end{lemma}
+
+\begin{definition}[Stopping time]
+    Let $\mathcal Z = \{Z_i\}_{i \in \N_0}$ be a sequence of random variables. A non-negative, integer-valued random variable $T$ is a \emph{stopping time} for $\mathcal Z$ if the event $[T = n]$ depends only on $\{Z_i\}_{i=0}^{n}$ for all $n \in \N_0$. 
+\end{definition}
+
+\begin{theorem}[Martingale stopping theorem]
+    Let $\{Z_i\}_{i \in \N_0}$ be a martingale with respect to the sequence of random variables $\mathcal X = \{X_i\}_{i \in \N_0}$ and let $T$ be a stopping time for $\mathcal X$. Then
+    \[ \E[Z_T] = \E[Z_0] \]
+    whenever one of the following holds:
+    \begin{enumerate}
+        \item there is $c \in \R_{\geq 0}$ such that $\lvert Z_i \rvert \leq c$ for all $i \in \N_0$;
+        \item $T$ is bounded; or
+        \item $\E[T] < \infty$ and there is $c \in \R_{\geq 0}$ such that 
+        \[\E\left[\lvert Z_{i+1} - Z_i\rvert \mid X_0, \ldots, X_i\right] \leq c\] 
+        for all $i \in \N_0$. 
+    \end{enumerate}
+\end{theorem}
+
+\begin{theorem}[Wald's equation]
+    Let $\{X_i\}_{i \in \N}$ be nonnegative, independent, identically distributed random variables with distribution $X$. Let $T$ be a stopping time for this sequence. If $T$ and $X$ have bounded expectation, then
+    \[ \E\left[\sum_{i=1}^T X_i\right] = \E[T] \cdot \E[X]. \]
+\end{theorem}
+
+\begin{theorem}[Azuma-Hoeffding]
+    Let $\{Z_i\}_{i=0}^n$ be a martingale such that for all $i \in \N$, there exists $c_i \in \R_{\geq 0}$ such that $\lvert Z_i - Z_{i-1} \rvert \leq c_i$. Then for all $t \in \R_{\geq 1}$ and $\lambda \in \R_{> 0}$,
+    \[ \Pr[\lvert Z_t - Z_0 \rvert \geq \lambda] \leq 2 \exp\left(\frac{-\lambda^2}{2\sum_{i=1}^t c_i^2}\right).\]
+\end{theorem}
+
+\begin{corollary}
+    Let $\{Z_i\}_{i=0}^n$ be a martingale and suppose there exists $c \in \R_{\geq 0}$ such that $\lvert Z_i - Z_{i-1} \rvert \leq c$ for all $i \in \N$. Then for all $t \in \R_{\geq 1}$ and $\lambda \in \R_{> 0}$,
+    \[ \Pr[\lvert Z_t - Z_0 \rvert \geq \lambda c \sqrt t] \leq 2 \exp\left(\frac{-\lambda^2}{2}\right).\]
+\end{corollary}

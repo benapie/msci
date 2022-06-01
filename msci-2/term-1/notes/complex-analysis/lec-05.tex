@@ -1,0 +1,82 @@
+\lecture{5}{18/10}
+\begin{definition}[Norm]
+    If $V$ is a real or complex vector space with function $\norm{\cdot} : V \to \R$ satisfying
+    \begin{description}
+        \item[N1] $\norm{v} \geq 0$;
+        \item[N2] $\norm{\lambda v} = \lvert \lambda \rvert \cdot \norm{v}$; and
+        \item[N3] $\norm{v + w} \leq \norm{v} + \norm{w}$
+    \end{description}
+    then the function $\norm{\cdot}$ is called a \textbf{norm} and the metric space $(X, \norm{\cdot})$ is called a \textbf{normed metric space}. This induces
+    \[ d(v, w) = \norm{v - w}. \]
+\end{definition}
+
+All the axioms follow over from a norm to show that it is a metric. For vector spaces, we see that the inner product is a norm which is a metric, but this is not the general case.
+
+\begin{example}[$l_p$-norms]
+    On $\R^n$ and $\C^n$ for $p \geq 1$
+    \[ \norm{\bm x}_p = \left( \sum_{j = 1}^n \lvert x_j \rvert^p \right)^\frac 1p \]
+    is called the $l_p$ norm. Some may write $l^p$ norm.
+\end{example}
+
+\begin{remark}
+    Proving the triangle inequaltiy for this norm is a good exercise to try, involving Minkowski's inequality. %todo
+\end{remark}
+
+\begin{example}[$l_\infty$-norms]
+    On $\R^n$ and $\C^n$ we define
+    \[ \norm{\bm x}_\infty = \max_{j = 1, \ldots, n} \lvert x_j \rvert \] as the $l_\infty$-norm, also known as the $\sup$-norm.
+\end{example}
+
+\begin{example}[Chordal metric]
+    Let $f: \hat\C \to S^2$ be an inverse stereographic projection ($f(\infty) = N$). For any $x, y \in \hat\C$,
+    \[ d(x, y) = \norm{f(x) - f(y)}_2 \]
+    where $\norm{\cdot}_2$ is the Euclidean metric in $R^3$. Interestingly,
+    \[ d(0, i) = d(i, \infty). \]
+\end{example}
+
+\begin{example}[Discrete metrics]
+    On any set $X$, we can define the following metric
+    \[ d(x, y) = \begin{cases} 1 & x \neq y \\ 0 & x = y \end{cases} = \delta_{xy}. \]
+    This is a good example of a metric used to break propositions.
+\end{example}
+
+\begin{example}[Function spaces]
+    On
+    \[ C([a, b]) = \{ \text{continuous function}\; f : [a,b] \to \C \} \]
+    we define
+    \[ \norm{f}_\infty = \max_{x \in [a,b]} \lvert f(x) \rvert \]
+    as the $l_\infty$/$\sup$/uniform-norm and gives a metric.
+\end{example}
+
+\begin{proposition}
+    Any non-zero subspace of a metric space is a metric space itself with the same metric. The metric restricted to the subspace is then called the subspace metric.
+\end{proposition}
+
+\section{Open and closed sets}
+
+\begin{definition}[Balls in a metric space]
+    Let $(X, d)$ be a metric space, $x \in X$, and $r > 0$. Then the \textbf{open ball} of center $x$ and radius $r$ is
+    \[ B_r(x) = \{ y \in X : d(y, x) < r \} \]
+    and the \textbf{closed ball} of center $x$ and radius $r$ is
+    \[ \bar B_r(x) = \{ y \in X : d(y, x) \leq r \}. \]
+\end{definition}
+
+\begin{example}
+    Let $X = \C$. Then
+    \[ B_1(0) = \{ z : \lvert z \rvert < 1 \}. \]
+    When considering $B_r(z_0)$, we see a disc of complex numbers centered at $z_0$ of radius $r$ not including the boundary circle. $\bar B_r(z_0)$ is the same disc including its boundary circle.
+\end{example}
+
+\begin{definition}[Open and closed sets]
+    Let $(X, d)$ be a metric space. $U \subset X$ is \textbf{open} if for all $x \in U$ there exists a $\varepsilon > 0$ such that \[ B_\varepsilon(x) \subset U. \] $U \subset X$ is \textbf{closed} if $X \setminus U$ is open.
+\end{definition}
+
+\begin{remark}
+    It is important to note that closed is not the negation of open. A set may be
+    \begin{enumerate}
+        \item open and closed;
+        \item open and not closed;
+        \item not open and closed; and
+        \item not open and not closed.
+    \end{enumerate}
+\end{remark}

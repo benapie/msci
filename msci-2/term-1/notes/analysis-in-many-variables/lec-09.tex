@@ -1,0 +1,62 @@
+\lecture{9}{28/10}
+\begin{proposition}[Properities of $\curl$]
+    Let $a, b$ be constant, $\bm u, \bm v$ be vector fields in $\R^3$, and $f$ be a scalar field in $\R^3$:
+    \begin{enumerate}
+        \item $\nabla \times (a\bm u + b\bm v) = a \nabla \times u + b \nabla \times \bm v$; and
+        \item $\nabla \times (f \bm v) = (\nabla f) \times \bm v + (\nabla \times \bm v)f$.
+    \end{enumerate}
+\end{proposition}
+
+\begin{proof}
+    \begin{enumerate}
+        \item Follows from the lienarity of derivatives.
+
+        \item This proof is not so easy... it just requires expanding out all the terms and then grouping together. It would take far too long to write out.
+    \end{enumerate}
+\end{proof}
+
+\section{Applying $\nabla$ twice}
+
+\begin{definition}[Laplace operator]
+    If $f$ is a twice-differentiable real-valued function then the Lapacian of $f$ is defined by
+    \begin{align*}
+        \Delta f = \nabla^2 f &= \nabla \cdot \nabla \\
+                              &= \frac{\partial^2f}{\partial x_1^2} + \frac{\partial^2f}{\partial x_2^2} + \ldots + \frac{\partial^2f}{\partial x_n^2}
+    \end{align*}
+    in Cartesian coordinates.
+\end{definition}
+
+\begin{example}
+    Let $f(x, y) = \log{(x^2 + y^2)} = \log{(\bm x \cdot \bm x)}$. 
+    \begin{align*}
+        \frac{\partial f}{\partial x} &= \frac{2x}{x^2 + y^2} & \frac{\partial f}{\partial y} &= \frac{2y}{x^2 + y^2} \\
+        \frac{\partial^2 f}{\partial x^2} &= \frac{2(y^2 - x^2)}{(x^2 + y^2)^2} & \frac{\partial^2 f}{\partial y^2} &= \frac{2(x^2 - y^2)}{(x^2 + y^2)^2}; 
+    \end{align*}
+    hence,
+    \[ \nabla^2f = \frac{\partial^2 f}{\partial x^2} + \frac{\partial^2 f}{\partial y^2} = \frac{2}{(x^2 + y^2)^2} (y^2 - x^2 + x^2 - y^2) = 0, \]
+    provided $\bm x \neq 0$.
+\end{example}
+
+\begin{example}
+    Let $f(x, y) = x^3 - 3xy^2$.
+    \begin{align*}
+        \frac{\partial^2 f}{\partial x^2} &= 6x & \frac{\partial^2 f}{\partial y^2} &= -6x.
+    \end{align*}
+    So
+    \[ \nabla^2f = 6x + (-6x) = 0. \]
+\end{example}
+
+We have seen two scenarios where $\nabla^2f = 0$, this is not always the case!. 
+
+\begin{example}[Two more examples of applying $\nabla$ twice]
+    We are now working $\R^3$.
+    \begin{enumerate}
+        \item Consider
+            \[ \nabla \times \nabla f. \]
+            Expanding this we find that this is always $\bm 0$ as long as the second partial derivates of $f$ are continuous.
+
+        \item Consider
+            \[ \nabla \cdot (\nabla \times \bm v). \]
+            Again, expanding this out we find that this is always equal to $0$ given that all the partial second derivates are continuous.
+    \end{enumerate}
+\end{example}

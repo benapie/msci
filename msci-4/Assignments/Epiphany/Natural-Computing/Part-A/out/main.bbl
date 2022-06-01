@@ -1,0 +1,249 @@
+% $ biblatex auxiliary file $
+% $ biblatex bbl format version 3.2 $
+% Do not modify the above lines!
+%
+% This is an auxiliary file used by the 'biblatex' package.
+% This file may safely be deleted. It will be recreated by
+% biber as required.
+%
+\begingroup
+\makeatletter
+\@ifundefined{ver@biblatex.sty}
+  {\@latex@error
+     {Missing 'biblatex' package}
+     {The bibliography requires the 'biblatex' package.}
+      \aftergroup\endinput}
+  {}
+\endgroup
+
+
+\refsection{0}
+  \datalist[entry]{nty/global//global/global}
+    \entry{dorigo1996ant}{article}{}
+      \name{author}{3}{}{%
+        {{hash=26c8dbd8b76182fc666371044ae8dfa4}{%
+           family={Dorigo},
+           familyi={D\bibinitperiod},
+           given={Marco},
+           giveni={M\bibinitperiod}}}%
+        {{hash=7b6faa0333fee867051b5379be913e72}{%
+           family={Maniezzo},
+           familyi={M\bibinitperiod},
+           given={Vittorio},
+           giveni={V\bibinitperiod}}}%
+        {{hash=44efc9d254c2007cd89405cb7887d99e}{%
+           family={Colorni},
+           familyi={C\bibinitperiod},
+           given={Alberto},
+           giveni={A\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {IEEE}%
+      }
+      \strng{namehash}{21f3768588572456fa3b62094c818cf4}
+      \strng{fullhash}{21f3768588572456fa3b62094c818cf4}
+      \strng{bibnamehash}{21f3768588572456fa3b62094c818cf4}
+      \strng{authorbibnamehash}{21f3768588572456fa3b62094c818cf4}
+      \strng{authornamehash}{21f3768588572456fa3b62094c818cf4}
+      \strng{authorfullhash}{21f3768588572456fa3b62094c818cf4}
+      \field{sortinit}{D}
+      \field{sortinithash}{6f385f66841fb5e82009dc833c761848}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{IEEE Transactions on Systems, Man, and Cybernetics, Part B (Cybernetics)}
+      \field{number}{1}
+      \field{title}{Ant system: optimization by a colony of cooperating agents}
+      \field{volume}{26}
+      \field{year}{1996}
+      \field{pages}{29\bibrangedash 41}
+      \range{pages}{13}
+    \endentry
+    \entry{durbin1987analogue}{article}{}
+      \name{author}{2}{}{%
+        {{hash=517afe729b2eb59735ba80628d943bb0}{%
+           family={Durbin},
+           familyi={D\bibinitperiod},
+           given={Richard},
+           giveni={R\bibinitperiod}}}%
+        {{hash=3f76584611cb499c0b599a0cf5e7927c}{%
+           family={Willshaw},
+           familyi={W\bibinitperiod},
+           given={David},
+           giveni={D\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {Nature Publishing Group}%
+      }
+      \strng{namehash}{38a1a7d97faac1a559611a0b8c2c61b9}
+      \strng{fullhash}{38a1a7d97faac1a559611a0b8c2c61b9}
+      \strng{bibnamehash}{38a1a7d97faac1a559611a0b8c2c61b9}
+      \strng{authorbibnamehash}{38a1a7d97faac1a559611a0b8c2c61b9}
+      \strng{authornamehash}{38a1a7d97faac1a559611a0b8c2c61b9}
+      \strng{authorfullhash}{38a1a7d97faac1a559611a0b8c2c61b9}
+      \field{sortinit}{D}
+      \field{sortinithash}{6f385f66841fb5e82009dc833c761848}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Nature}
+      \field{number}{6114}
+      \field{title}{An analogue approach to the travelling salesman problem using an elastic net method}
+      \field{volume}{326}
+      \field{year}{1987}
+      \field{pages}{689\bibrangedash 691}
+      \range{pages}{3}
+    \endentry
+    \entry{gambardella1995ant}{incollection}{}
+      \name{author}{2}{}{%
+        {{hash=5299cade0838ea444eefc4a9e30510ab}{%
+           family={Gambardella},
+           familyi={G\bibinitperiod},
+           given={Luca\bibnamedelima M},
+           giveni={L\bibinitperiod\bibinitdelim M\bibinitperiod}}}%
+        {{hash=26c8dbd8b76182fc666371044ae8dfa4}{%
+           family={Dorigo},
+           familyi={D\bibinitperiod},
+           given={Marco},
+           giveni={M\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {Elsevier}%
+      }
+      \strng{namehash}{68de3282861e648d6244af0a9781518e}
+      \strng{fullhash}{68de3282861e648d6244af0a9781518e}
+      \strng{bibnamehash}{68de3282861e648d6244af0a9781518e}
+      \strng{authorbibnamehash}{68de3282861e648d6244af0a9781518e}
+      \strng{authornamehash}{68de3282861e648d6244af0a9781518e}
+      \strng{authorfullhash}{68de3282861e648d6244af0a9781518e}
+      \field{sortinit}{G}
+      \field{sortinithash}{32d67eca0634bf53703493fb1090a2e8}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{Machine learning proceedings 1995}
+      \field{title}{Ant-Q: A reinforcement learning approach to the traveling salesman problem}
+      \field{year}{1995}
+      \field{pages}{252\bibrangedash 260}
+      \range{pages}{9}
+    \endentry
+    \entry{kohonen1990self}{article}{}
+      \name{author}{1}{}{%
+        {{hash=a239233dfb1d78ba7f02fe9e49b13503}{%
+           family={Kohonen},
+           familyi={K\bibinitperiod},
+           given={Teuvo},
+           giveni={T\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {IEEE}%
+      }
+      \strng{namehash}{a239233dfb1d78ba7f02fe9e49b13503}
+      \strng{fullhash}{a239233dfb1d78ba7f02fe9e49b13503}
+      \strng{bibnamehash}{a239233dfb1d78ba7f02fe9e49b13503}
+      \strng{authorbibnamehash}{a239233dfb1d78ba7f02fe9e49b13503}
+      \strng{authornamehash}{a239233dfb1d78ba7f02fe9e49b13503}
+      \strng{authorfullhash}{a239233dfb1d78ba7f02fe9e49b13503}
+      \field{sortinit}{K}
+      \field{sortinithash}{c02bf6bff1c488450c352b40f5d853ab}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Proceedings of the IEEE}
+      \field{number}{9}
+      \field{title}{The self-organizing map}
+      \field{volume}{78}
+      \field{year}{1990}
+      \field{pages}{1464\bibrangedash 1480}
+      \range{pages}{17}
+    \endentry
+    \entry{lin1965computer}{article}{}
+      \name{author}{1}{}{%
+        {{hash=ee5ad1086dab61efed0851b6802d25e4}{%
+           family={Lin},
+           familyi={L\bibinitperiod},
+           given={Shen},
+           giveni={S\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {Wiley Online Library}%
+      }
+      \strng{namehash}{ee5ad1086dab61efed0851b6802d25e4}
+      \strng{fullhash}{ee5ad1086dab61efed0851b6802d25e4}
+      \strng{bibnamehash}{ee5ad1086dab61efed0851b6802d25e4}
+      \strng{authorbibnamehash}{ee5ad1086dab61efed0851b6802d25e4}
+      \strng{authornamehash}{ee5ad1086dab61efed0851b6802d25e4}
+      \strng{authorfullhash}{ee5ad1086dab61efed0851b6802d25e4}
+      \field{sortinit}{L}
+      \field{sortinithash}{7c47d417cecb1f4bd38d1825c427a61a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Bell System Technical Journal}
+      \field{number}{10}
+      \field{title}{Computer solutions of the traveling salesman problem}
+      \field{volume}{44}
+      \field{year}{1965}
+      \field{pages}{2245\bibrangedash 2269}
+      \range{pages}{25}
+    \endentry
+    \entry{nicholson1967sequential}{article}{}
+      \name{author}{1}{}{%
+        {{hash=4581b6edce89655e2dd3cf6347613576}{%
+           family={Nicholson},
+           familyi={N\bibinitperiod},
+           given={TAJ},
+           giveni={T\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {Oxford University Press}%
+      }
+      \strng{namehash}{4581b6edce89655e2dd3cf6347613576}
+      \strng{fullhash}{4581b6edce89655e2dd3cf6347613576}
+      \strng{bibnamehash}{4581b6edce89655e2dd3cf6347613576}
+      \strng{authorbibnamehash}{4581b6edce89655e2dd3cf6347613576}
+      \strng{authornamehash}{4581b6edce89655e2dd3cf6347613576}
+      \strng{authorfullhash}{4581b6edce89655e2dd3cf6347613576}
+      \field{sortinit}{N}
+      \field{sortinithash}{22369a73d5f88983a108b63f07f37084}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{IMA Journal of Applied Mathematics}
+      \field{number}{4}
+      \field{title}{A sequential method for discrete optimization problems and its application to the assignment, travelling salesman, and three machine scheduling problems}
+      \field{volume}{3}
+      \field{year}{1967}
+      \field{pages}{362\bibrangedash 375}
+      \range{pages}{14}
+    \endentry
+    \entry{van1987simulated}{incollection}{}
+      \name{author}{2}{}{%
+        {{hash=ddc5676165a63873d941f82719a0493a}{%
+           family={Van\bibnamedelima Laarhoven},
+           familyi={V\bibinitperiod\bibinitdelim L\bibinitperiod},
+           given={Peter\bibnamedelima JM},
+           giveni={P\bibinitperiod\bibinitdelim J\bibinitperiod}}}%
+        {{hash=5b38b801addca4a6325f2d846600b40f}{%
+           family={Aarts},
+           familyi={A\bibinitperiod},
+           given={Emile\bibnamedelima HL},
+           giveni={E\bibinitperiod\bibinitdelim H\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {Springer}%
+      }
+      \strng{namehash}{f5dec7124ebb0f6a0250dfb537ce40fe}
+      \strng{fullhash}{f5dec7124ebb0f6a0250dfb537ce40fe}
+      \strng{bibnamehash}{f5dec7124ebb0f6a0250dfb537ce40fe}
+      \strng{authorbibnamehash}{f5dec7124ebb0f6a0250dfb537ce40fe}
+      \strng{authornamehash}{f5dec7124ebb0f6a0250dfb537ce40fe}
+      \strng{authorfullhash}{f5dec7124ebb0f6a0250dfb537ce40fe}
+      \field{sortinit}{V}
+      \field{sortinithash}{afb52128e5b4dc4b843768c0113d673b}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{Simulated annealing: Theory and applications}
+      \field{title}{Simulated annealing}
+      \field{year}{1987}
+      \field{pages}{7\bibrangedash 15}
+      \range{pages}{9}
+    \endentry
+  \enddatalist
+\endrefsection
+\endinput
+

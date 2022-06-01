@@ -1,0 +1,66 @@
+\lecture{3}{14/10}
+
+\begin{remark}
+    The principle branch of logarithm agrees with the real version, so \[ \log{x} = \Log{x} \quad \;\forall\; x \in \R. \] So we have that $\Log{1} = 0$ but also that $\Log{-1} = i\pi$, $\Log{i} = \frac{i\pi}{2}$, and $\Log{(-i)}=\frac{-i\pi}{2}$.
+\end{remark}
+
+Following are some interesting points on the continuity of $\log$.
+
+\begin{remark}
+    \begin{enumerate}
+        \item $\Log$ has a jump discountinuity along $\R_{\leq 0}$.
+        \item $\log$ has a jump discountinuity along a \textbf{branch cut} \[R_{\theta_1} = R_{\theta_2} = \{re^{i\theta_1} : r \geq 0\}.\]
+        \item $\log$ is continuous on $\C \setminus R_{\theta_1}$.
+    \end{enumerate}  
+\end{remark}
+
+\begin{lemma}[Properties of logarithm]
+    Let $\log: \C^{\star} \to \C$ be a branch of $\log$. Then 
+    \begin{enumerate}
+        \item $\;\forall\; z \in \C, \exp{(\log{z})}$;
+        \item in general, $\log(z_1z_2) \neq log(z_1) + \log(z_2)$; and
+        \item in general, $\log{(\exp{z})} \neq z$.
+    \end{enumerate}
+\end{lemma}
+
+This goes against our previous profile of logarithm when we defined it for only real numbers.
+
+\begin{definition}[Complex powers]
+    Fix $w \in \C$. Let $\log$ be any branch of logarithm. Then \[z^w = \exp{(w\log{z})}\] is a branch of the function $z \mapsto z^w$.
+\end{definition}
+
+\begin{example}
+    Let $w = \frac 1n$. Then \[ z^{\frac 1n} = \exp{\left(\frac 1n \log{z}\right)} = \exp{\left(\frac 1n (\log{\lvert z \rvert} + i\Arg{z})\right)} = \lvert z \rvert^{\frac 1n} \exp{\left( \frac{i\Arg{z}}{n} \right)}. \]
+\end{example}
+
+\begin{example}
+    \begin{enumerate}
+        \item Consider $(1 - i)^{\frac12}$ using the principal branch.
+            \begin{align*}
+                \lvert 1 - i \rvert &= \sqrt 2 \\
+                \Arg{(1 - i)} &= -\frac{\pi}4 \\
+                \Log{(1 - i)} &= \log{\sqrt 2} - \frac{i\pi}{4} \\
+                (1-i)^{\frac12} &= \exp{\left(\frac12\Log{(1 - i)}\right)} \\
+                &= \exp{\left(\frac12\log{\sqrt 2} - \frac{i\pi}{8}\right)} \\
+                &= 2^{\frac14} e^{\frac{-i\pi}{8}}.
+            \end{align*}
+
+        \item Consider $(1 - i)^i$ using the principal branch.
+            \begin{align*}
+                (1 - i)^i &= \exp{\left(i\Log{(1 - i)}\right)} \\
+                    &= \exp{\left(i(\log{\sqrt 2} - \frac{i\pi}4)\right)} \\
+                    &= \exp{\left(i\log{\sqrt 2} + \frac{\pi}4\right)} \\
+                    &= e^{\frac{\pi}{4}}e^{i\log{\sqrt 2}}.
+            \end{align*}
+
+        \item Consider $2^\frac12$ using the principal branch.
+            \begin{align*}
+                2^\frac12 &= \exp{\left(\frac12\log{2}\right)} \\
+                &= \sqrt 2.
+            \end{align*}
+    \end{enumerate}
+\end{example}
+
+\begin{remark}
+    Visualising complex functions $f: \C \to \C$ is very difficult as it is 4-dimensional. We can look at how they map regions of the complex plane.
+\end{remark}

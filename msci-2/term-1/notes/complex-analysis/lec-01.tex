@@ -1,0 +1,102 @@
+\chapter{The complex plane and Reimann sphere}
+\lecture{1}{7/10}
+
+\section{Complex numbers}
+
+\begin{definition}[Complex number]
+    A \textbf{complex number} is of the form \[ x + iy \] where $x, y \in \R$.
+    Many of the same operations we use on the reals, we also use on the complex numbers.
+
+    \paragraph{Addition} \[ (x_1 + iy_1) + (x_2 + iy_2) = (x_1 + x_2) + i(y_1 + y_2). \]
+
+    \paragraph{Multiplication} \[ (x_1 + iy_1)(x_2 + iy_2) = (x_1x_2 - y_1y_2) + i(x_1y_2 + x_2y_1). \]
+
+    \paragraph{Zero element} \[ 0 = 0 + i0. \]
+
+    \paragraph{Unit element} \[ 1 = 1 + i0. \]
+
+    For $z = x + iy \in \C$, $x$ is the \textbf{real part} and $y$ is the \textbf{imaginary part}. We have $\operatorname{Re}{(x+iy)} = x$ and $\operatorname{Im}{(x + iy)} = y$.
+\end{definition}
+
+A consequence of our definition of complex numbers is that $i^2 = -1$ (see the multiplication rule). 
+
+\begin{definition}[Inverse of a complex number]
+    Let $z = x + iy \in \C$ and $z \neq 0$. Then \[ z^{-1} = \frac{x - iy}{x^2 + y^2} \] and $z z^{-1} = 1$.
+\end{definition}
+
+\begin{definition}[Complex conjugate]
+    Let $z = x + iy \in C$. Then the \textbf{complex conjugate} of $z$ is \[ \bar{z} = x - iy. \]
+\end{definition}
+
+\begin{definition}[Modulus / absolute]
+    Let $z = x + iy \in \C$. Then \[ \lvert z \rvert = (x^2 + y^2)^\frac12 \] is the absolute or modulus value of $z$.
+\end{definition}
+
+\begin{remark}
+    Multiplication by $\R$ and addition make $\C$ a real vector space. In factor, $\C \cong \R^2$ by $(x + iy) \mapsto (x, y)$.
+\end{remark}
+
+\begin{proposition}[Properties of complex multiplication]
+    The following are two properities of multiplicaton of complex numbers.
+    \begin{enumerate}
+        \item $z_1z_2 = z_2z_1 \; \forall \; z_1, z_2 \in \C$, known as commutativity.
+        \item $z_1(z_2z_3) = (z_1z_2)z_3 \; \forall \; z_1, z_2, z_3 \in \C$, known as associativity.
+    \end{enumerate}
+\end{proposition}
+
+\begin{lemma}
+    \begin{enumerate}
+        \item $z_1z_2 = 0 \implies z_1 = 0 \; \text{or} \; z_2 = 0 \; \forall \; z_1, z_2 \in \C$.
+        \item $\lvert z \rvert = \sqrt{z\bar{z}} \;\; \forall \; z \in \C$.
+        \item $\operatorname{Re}{(z)} = \frac{z + \bar{z}}{2}$, $\operatorname{Im}{(z)} = \frac{z - \bar{z}}{2i}$.
+        \item $z^{-1} = \frac{\bar{z}}{\lvert z \rvert^2} \; \forall \; z \in \C \setminus \{ 0 \}$.
+    \end{enumerate}
+\end{lemma}
+
+\begin{figure}
+    \centering
+    \begin{tikzpicture}
+        \begin{scope}[thick,font=\scriptsize]
+            \draw [->] (-4,0) -- (4,0) node [above left]  {$\Re\{z\}$};
+            \draw [->] (0,-4) -- (0,4) node [below right] {$\Im\{z\}$};
+            \foreach \n in {-3,...,-1,1,2,...,3}{%
+                \draw (\n,-3pt) -- (\n,3pt)   node [above] {$\n$};
+                \draw (-3pt,\n) -- (3pt,\n)   node [right] {$\n i$};}
+            \draw [thick, color=red] (0,0) -- (2,3);
+            \draw [color=blue, fill=blue] (2,3) circle(0.05);
+            \node [color=black] at (3,3) {$ 2+3i$};
+        \end{scope}
+    \end{tikzpicture}
+    \caption{Argand diagram.}
+    \label{fig:argand-diagram}
+\end{figure}
+
+
+We can use \textbf{Argand diagrams} to represent complex numbers on the Euclidiean plane, as shown in Figure \ref{fig:argand-diagram}.
+
+\begin{definition}[Polar form of complex numbers]
+    We define the polar form of a complex number $z$ as \[ z = r(\cos{\theta} + i \sin{\theta}) \] which we write as $z = re^{i\theta}$ for shorthand. Here $r = \lvert z \rvert$ and $\theta = \arg{z}$. $\theta$ is the postive anticlockwise angle the line betwee the origin and the point on an Argand diagram makes with the positive real axis. 
+\end{definition}
+
+\begin{remark}
+    Note that $\arg{z}$ is only defined up to multiplies of $2\pi$. So $e^{i}=e^{i + 2\pi} = \ldots$. As a result, we need to choose an interval in which to express the argument. The principle value argument (denoted $\Arg{z}$) is in the interval $(-\pi, \pi]$. So $\Arg{1} = 0$, $\Arg{-1} = \pi$.
+\end{remark}
+
+\begin{lemma}
+    Let $\arg{}$ be any argument function and $z, z_1, z_2 \in \C$.
+    \begin{enumerate}
+        \item $\arg{z_1z_2} = \arg{z_1} + \arg{z_2} \bmod 2\pi$;
+        \item $\arg{\bar{z}} = -\arg{z} \bmod 2\pi$; and
+        \item $\arg{\frac1z}=-\arg{z} \bmod 2\pi$.
+    \end{enumerate}
+\end{lemma}
+
+\begin{lemma}
+    If $z_1, z_2 \neq 0$, $z_1 = r_1e^{i\theta_1}$, and $z_2=r_2e^{i\theta_2}$ then \[ z_1z_2 = r_1r_2e^{i(\theta_1+\theta_2)}. \]
+\end{lemma}
+
+Geometrically, when we multiple two complex numbers we rotate by the first number by the argument of the second then scale it by the the modulus of the second. Addition corresponds to translation and conjugation corresponds to reflection along the $\R$ line.
+
+\begin{proof}
+    The proof for the above Lemma is easily obtained via the composite angle formula for $\sin$ and $\cos$.
+\end{proof}

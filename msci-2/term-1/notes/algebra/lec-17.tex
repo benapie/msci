@@ -1,0 +1,59 @@
+\lecture{17}{11/12}
+
+\begin{theorem}[First isomorphism theorem]
+    Let $\varphi: R \to S$ be a ring homomorphism.
+    Then the map
+    \[ \bar \varphi: R/\ker\varphi \to \im\varphi \]
+    defined by
+    \[ \bar x \to \varphi(x) \]
+    (that is, $\overline\varphi(\bar x) = \varphi(x)$)
+    is a well-defined isomorphism.
+    That is,
+    \[ R / \ker\varphi \cong \im\varphi. \]
+\end{theorem}
+
+\begin{proof}
+    First, we must show that $\bar \varphi$ is well-defined.
+    Let $x, x' \in R$ such that $\bar x = \overline{x'}$.
+    Then $x - x' \in \ker \varphi$ and so
+    \[ \varphi(x - x') = 0. \]
+    As $\varphi$ is a homomorphism, we have that
+    $\varphi(x) = \varphi(x')$
+    and so
+    \[ \overline \varphi(\overline x) = \overline \varphi(\overline{x'}); \]
+    hence $\bar\varphi$ is well-defined.
+    It is clear that $\bar\varphi$ is a homomorphism as
+    \[ \overline \varphi(\overline x + \overline y) =
+        \overline \varphi(\overline{x + y}) =
+        \varphi(x + y) =
+        \varphi(x) + \varphi(y) =
+        \overline\varphi(\overline x) + \overline\varphi(\overline y).
+    \]
+    Now, we must show that it is bijective and thus a isomorphism.
+    The kernal of $\overline\varphi$ is zero as
+    \[ \overline\varphi(\overline x) = 0 \iff
+        \varphi(x) = 0 \iff
+        x \in \ker\varphi \iff
+        \bar x = \bar 0 \]
+    and so $\overline\varphi$ is injective.
+    $\overline\varphi$ is surjective as for all 
+    $y \in \im\varphi$ 
+    there exists an $x \in R$ such that
+    $\varphi(x) = y$;
+    therefore,
+    \[ \overline\varphi(\overline x) = y \]
+    as required.
+\end{proof}
+
+\begin{example}
+    Let $\varphi: \R[x] \to \C$ be the evaluation map
+    \[ \varphi(f(x)) = f(i) \]
+    where $i^2 = -1$.
+    If $i$ is a root, then so is its conjugate $-i$
+    (this is a property of real polynomials).
+    Hence, if $f(i) = 0$ then $f(x)$ has a factor $x^2 + 1$, and so
+    \[ \ker\varphi = (x^2 + 1). \]
+    Since $\varphi$ is surjective, the first isomorphism theorem yields
+    \[ \R[x]/(x^2 + 1) \cong \C; \]
+    we could have \emph{defined} $\C$ to be $\R/(x^2 + 1)$!
+\end{example}

@@ -1,0 +1,91 @@
+\documentclass[a4paper, answers]{exam}
+\input{../preamble.tex}
+
+\begin{document}
+\begin{center}
+	\textbf{\textsc{Topology III, Assignment 4}}
+	\\
+	\textsc{Ben Napier}
+	\vspace{1em}
+\end{center}
+\begin{questions}
+	\question Let $X$ and $Y$ be topological spaces, and let $A, B \subset X$ be
+	two closed sets such that $A \cup B = X$.
+	Let $f: X \to Y$ be a function such that the restriction of $f$ to $A$ and
+	the restriction of $f$ to $B$ are continuous (with respect to the induced
+	subspace topologies).
+	Show that $f$ is continuous.
+	\begin{solution}
+		Let $C \subset Y$ be closed.
+		Observe that
+		\[
+			\left( \restr fA \right)^{-1}(C) = f^{-1}(C) \cap A, \qquad
+			\left( \restr fB \right)^{-1}(C) = f^{-1}(C) \cap B;
+		\]
+		hence, 
+		$\left( \restr fA \right)^{-1}(C)$ 
+		and 
+		$\left( \restr fB \right)^{-1}(C)$
+		are both closed in $Y$.
+		Now
+		\begin{align*}
+			f^{-1}(C)
+			&= \left( f^{-1}(C) \cap A \right) \cup 
+				\left( f^{-1}(C) \cap B \right) \\
+			&= \left( \restr fA \right)^{-1}(C) 
+				\cup \left( \restr fB \right)^{-1}(C),
+		\end{align*}
+		so $f^{-1}(C)$ is closed.
+		Thus $f$ is continuous.
+	\end{solution}
+
+	\question Let $X$ be a topological space and let $\R$ have the standard
+	topology.
+	Suppose $f: X \to \R$ is a function that satisfies that $f^{-1}((-\infty,a))$
+	and $f^{-1}((a,\infty))$ are both open for all $a \in \R$.
+
+	Show that $f$ is a continuous map.
+	\begin{solution}
+		We claim that
+		\[
+			\mathcal B = \left\{ (a,b): a,b \in \R, a < b \right\}
+		\]
+		forms a basis for $\R$.
+		Surely enough, $\R$ with the standard topology is a metric space,
+		and we can express each open ball as an open interval as follows:
+		\[
+			B(x; \varepsilon) = (x - \varepsilon, x + \varepsilon)
+		\]
+		and so $\mathcal B$ is a basis for $\R$.
+		Now, by assumption we have that
+		$f^{-1}((-\infty, b))$
+		and
+		$f^{-1}((a, \infty))$
+		are open, observe that
+		\[
+			f^{-1}((-\infty, b)) \cap f^{-1}((a, \infty))
+			= f^{-1}((-\infty, b) \cap (a, \infty))
+			= f^{-1}(a,b)
+		\]
+		and so $(a,b)$ is open in $X$.
+		Hence, for any element $B \in \mathcal B$, $f^{-1}(B)$ is open.
+		Thus $f$ is continuous.
+	\end{solution}
+
+	\question Give an example of a non-empty topological space $X$ and a subset
+	$A \subset X$ such that the interior of $A$ is empty 
+	($\mathring A = \varnothing$), and the closure of $A$ is the whole set $X$
+	($\overline A = X$).
+	\begin{solution}
+		Consider $X = \Z$ with the trivial topology and $A = 5 \Z$.
+		$\varnothing$ and $\Z$ are the only closed sets and open sets in this
+		space.
+		Now, the interior of $A$ describes the largest open set that is contained
+		within $A$, and as $\Z \not\subset A$, we must have 
+		$\mathring A = \varnothing$.
+		Similarly, the exterior of $A$ describes the smallest closed that that
+		contains $A$. 
+		As $A \not\subset \varnothing$, we must have $\overline A = \Z$.
+	\end{solution}
+\end{questions}
+\end{document}

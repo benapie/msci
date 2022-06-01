@@ -1,0 +1,95 @@
+\pc{1}{29/1}
+
+\question Write down the order of each element of
+\begin{parts}
+    \part $\Z/9$;
+    \begin{solution}
+        The following elements all have order 9:
+        \[
+            \overline 1, \overline 2, \overline 4, \overline 5,
+            \overline 7, \overline 8.
+        \]
+        $\overline 3$ and $\overline 6$ have order 2 and
+        $\overline 0$ has order 1.
+    \end{solution}
+
+    \part $D_6$; and
+    \begin{solution}
+        $r$ and $r^5$ both have order $6$,
+        $r^2$ and $r^4$ have order $3$, and
+        $r^3$ has order $2$.
+        $s$ also has order $2$.
+        $r^is$ has order $2$ as $(r^is)^2 = r^isr^is = r^i r^{-i} = 1$.
+    \end{solution}
+
+    \part $\C^\times$.
+    \begin{solution}
+        If $\lvert z \rvert > 1$, then $\lvert z \rvert^n > 1$
+        and similarly if $\lvert z \rvert < 1$ then
+        $\lvert z \rvert^n < 1$; hence in both cases $\ord(z) = \infty$.
+        Now consider $\lvert z \rvert = 1$.
+        Clearly, if $z = 1$, then $\ord(z) = 1$.
+        Let $z = e^{2i\pi\theta}$ where $\theta \in [0,1]$.
+        If $\theta \not \in \Q$ then $\ord(z) = \infty$
+        (we will just keep rotation around the unit circle).
+        Now if $\theta = \frac{p}{q} \in Q$ such that
+        $\gcd(p, q) = 1$ then $\ord(z) = q$.
+    \end{solution}
+\end{parts}
+
+\question Show that the order of the element $\overline a$ of $\Z/n$
+is $n/\gcd(n,a)$.
+\begin{solution}
+    $k = \ord(\overline a)$ iff
+    $k$ is the minimum value such that $k \overline a = \overline 0$ iff
+    $n \mid ka$.
+    Let $d = \gcd(a, n)$, $a = db$, and $n = dm$ where $b,m \in \Z$.
+    We have $n \mid ka$ iff $nx = ka$ for some $x$ iff
+    $dmx = kdb$ iff $mx = kb$ iff $m \mid kb$.
+    Now $\gcd(m,b) = 1$ as if a prime $p$ divided $m$ and $b$ then $db$
+    would be a common divisor bigger than $d$).
+    Thus $m \mid K$ and so $k = m$.
+    So
+    \[
+        \ord(\overline a) = m = \frac{n}{d} = \frac{n}{\gcd(a,n)}.
+    \]
+\end{solution}
+
+\question
+\begin{parts}
+    \part Show that if $x$ and $y$ are elements of finite order of a group $G$,
+    and $xy = yx$, then $xy$ is also an element of finite order.
+    What can you say about the order of $xy$ in terms of the 
+    orders of $x$ and $y$?
+    \begin{solution}
+        $(xy)^r = x^r y^r$ as $xy = yx$ so if $\ord(x) = m$ and
+        $\ord(y) = n$ then 
+        \[
+            (xy)^nm = x^{nm} y^{nm} = (x^m)^n (y^n)^m = 1
+        \]
+        so $\ord(xy) \leq nm$.
+    \end{solution}
+
+    \part Show that $\ord(x) = \ord(x^{-1})$.
+    \begin{solution}
+        \[
+            \left(x^{\ord(x)}\right)^{-1} = (1)^{-1} \iff (x^{-1})^m = 1.
+        \]
+    \end{solution}
+
+    \part Find a group $G$ and elements $x,y$ of $G$ such that $x$ 
+    and $y$ have
+    finite order yet $xy$ has infinite order.
+    \begin{solution}
+        Let $G$ be the set of bijections $\R \to \R$ under composition.
+        Let $f(t) = -t$ and $g(t) = 1 - t$. Then $f^2 = t$ (identiy)
+        hence $\ord(f) = 2$ and $g^2 = t$ (identity) so
+        $\ord(g) = 2$.
+        Now consider
+        \[
+            (f \circ g)(t) = t - 1.
+        \]
+        Clearly $(f \circ g)^m(t) = t - m \neq t$ so
+        $\ord(f \circ g) = \infty$.
+    \end{solution}
+\end{parts}

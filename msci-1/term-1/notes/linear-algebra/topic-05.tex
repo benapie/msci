@@ -1,0 +1,294 @@
+\chapter{Spanning sets and linear independence in $\mathbb R^n$}
+
+\section{Vectors subspaces of $\mathbb R^n$}
+
+\begin{definition}
+    A (non-empty) subset $U$ of $\mathbb R^n$ is called a \textbf{vector subspace} of $\mathbb R^n$ if it satisfies the following three conditions:
+    \begin{enumerate}
+        \item \textbf{closure under addition}, if $\bm u_1,\bm u_2\in U$ then $\bm u_1+\bm u_2\in U$;
+        \item \textbf{closure under scalar multiplication}, if $\bm u\in U$ and $\lambda\in\mathbb R$, then $\lambda\bm u\in U$; and
+        \item \textbf{existence of an origin}, $\bm 0\in U$.
+    \end{enumerate}
+\end{definition}
+
+\begin{proposition}
+    The solution set of an arbitrary $m\times n$ homogeneous linear system $A\bm x=\bm0$ is a vector subspace of $\mathbb R^n$.
+\end{proposition}
+
+\begin{proof}
+    Let $\bm u_1$ and $\bm u_2$ be two solutions to the linear system and $\lambda\in\mathbb R$. Then \[A(\bm u_1+\bm u_2)=A\bm u_1+A\bm u_2=\bm 0+\bm 0=\bm 0\] and \[A(\lambda\bm u)=\lambda(A\bm u)=\lambda\bm0=\bm0.\]
+\end{proof}
+
+\begin{definition}
+    The solution set of an inhomogeneous system $A\bm x=\bm b$ is not a vector subspace; it forms an \textbf{affine subspace} of $\mathbb R^n$. This is a subset of $\mathbb R^n$ of the form \[\bm c+U=\{v\in\mathbb R^n:\bm v=\bm c+\bm u\;\text{with}\;\bm u\in U\}\] where $U$ is a vector subspace. When $-\bm c\not\in U$, then it is not a vector subspace.
+\end{definition}
+
+\begin{proposition}
+    Let $S$ be the solution set to an inhomogeneous system $A\bm x=\bm b$. Then $S$ is an affine subspace of $\mathbb R^n$. More precisely, \[S=\bm c+U,\] where $\bm c$ is any solution $A\bm x=\bm b$ and $U$ is the solution set of the homogeneous system $A\bm x=\bm 0$.
+\end{proposition}
+
+\begin{proof}
+    Let $\bm v=\bm c+\bm u$ be a vector in $\bm c+U$. Then $A\bm v=A(\bm c+\bm u)=A\bm v+A\bm c=\bm b+\bm0=\bm b$. So $\bm v$ solves $A\bm x=\bm b$. Conversely, if $\bm v$ is a solution, we write $\bm v=\bm c+(\bm v-\bm c)$, and we need to show $\bm v-\bm c\in U$, that is, $A(\bm v-\bm c)=\bm 0$. But $A(\bm v-\bm c)=A\bm v-A\bm c=\bm b-\bm b=\bm0$.
+\end{proof}
+
+\section{Spanning sets}
+
+\begin{definition}
+    The \textbf{span} of a set of vectors is every value that can be created through addition/multiplication of any of the vectors, that is, for $\bm x_1,\bm x_2,\ldots,\bm x_k\in\mathbb R^n$ the span is defined as
+    \begin{align*}
+        \mspan{(\bm x_1,\bm x_2,\ldots,\bm x_k)}&=\langle\bm x_1,\bm x_2,\ldots,\bm x_k\rangle\\
+        &=\left\{\sum_{i=1}^k\lambda_ix_i:\lambda_i\in\mathbb R\right\}\\
+        &=\left\{A\bm\lambda:\bm\lambda\in\mathbb R^n\right\}
+    \end{align*}
+    where 
+    \[
+        A=
+        \begin{pmatrix}
+            \bm x_1&\bm x_2&\ldots&\bm x_k
+        \end{pmatrix}
+        \qquad\bm\lambda=
+        \begin{pmatrix}
+            \lambda_1\\\lambda_2\\\vdots\\\lambda_k
+        \end{pmatrix}
+        .
+    \]
+\end{definition}
+
+\begin{example}
+    Following are some simple examples of spans.
+    \begin{enumerate}
+        \item $\mathbb R^n$ is spanned by $\{\bm e_1,\bm e_2,\ldots,\bm e_n\}$, this is the standard basis.
+        
+        \item $\mathbb R^2$ is spanned by
+        \[
+            \left\{
+            \begin{pmatrix}
+                1\\0
+            \end{pmatrix}
+            ,
+            \begin{pmatrix}
+                1\\1
+            \end{pmatrix}
+            \right\}
+            .
+        \]
+        
+        \item A line through the origin is spanned by its direction vector: \[L=\{\lambda\bm d:\lambda\in\mathbb R\}=\langle\bm d\rangle.\]
+        
+        \item A plane through the origin is spanned by any two non-colinear direction vectors: \[\Pi=\{\lambda_1\bm d_1+\lambda_2\bm d_2:\lambda_1,\lambda_2\in\mathbb R\}=\langle\bm d_1,\bm d_2\rangle.\]
+    \end{enumerate}
+\end{example}
+
+\begin{example}
+    Find the span of
+    \[
+        \bm u_1=
+        \begin{pmatrix}
+            1\\1\\1
+        \end{pmatrix}
+        ,\quad\bm u_2=
+        \begin{pmatrix}
+            -1\\0\\2
+        \end{pmatrix}
+        ,\quad\bm u_3=
+        \begin{pmatrix}
+            0\\1\\3
+        \end{pmatrix}
+        ,\quad\bm u_4=
+        \begin{pmatrix}
+            -1\\1\\5
+        \end{pmatrix}
+        .
+    \]
+    
+    \begin{align*}
+        \begin{pmatrix}[cccc|c]
+            1 & -1 & 0 & -1 & y_1 \\
+            1 & 0 & 1 & 1 & y_2 \\
+            1 & 2 & 3 & 5 & y_3 \\
+        \end{pmatrix}
+        & \eroarrow{A_{12}(-1)}{A_{13}(-1)}
+        \begin{pmatrix}[cccc|c]
+            1 & -1 & 0 & -1 & y_1 \\
+            0 & 1 & 1 & 2 & y_2 - y_1 \\
+            0 & 3 & 3 & 6 & y_3 - y_1 \\
+        \end{pmatrix}\\
+        & \eroarrow{A_{23}(-3)}{}
+        \begin{pmatrix}[cccc|c]
+            1 & -1 & 0 & -1 & y_1 \\
+            0 & 1 & 1 & 2 & y_2 - y_1 \\
+            0 & 0 & 0 & 0 & 2y_1 - 3y_2 + y-3 \\
+        \end{pmatrix}
+    \end{align*}
+    To get a solution, we must have $2y_1 - 3y_2 + y_3 = 0$, therefore, all four vectors lie on this plane and do not span $\mathbb R^3$. To describe a plane, we only need we need just two generators, that is, a spanning set of two vectors is enough, therefore, two of the four vectors here are unnecessary. We can see that $\bm u_3 = \bm u_1 + \bm u_2$ and $\bm u_4=\bm u_1 + 2\bm u_2$. Hence \[\langle \bm u_1, \bm u_2, \bm u_3, \bm u_4 \rangle = \langle \bm u_1, \bm u_2 \rangle=\{\bm y \in \mathbb R^3 : 2y_1 - 3y_2 + y_3 = 0\}\]
+\end{example}
+
+From the example above, we can derive the following Lemma.
+
+\begin{lemma}
+    If $\bm u_1, \bm u_2, \ldots, \bm u_{k+1} \in \mathbb R^n$ and $\bm u_{k+1} \in \langle \bm u_1, \bm u_2, \ldots, \bm u_k \rangle$ then \[\langle \bm u_1, \bm u_2, \ldots, \bm u_{k+1} \rangle = \langle \bm u_1, \bm u_2, \ldots, \bm u_k \rangle.\]
+\end{lemma}
+
+\begin{proof}
+    As $\bm u_{k+1}\in\langle \bm u_1, \bm u_2, \ldots, \bm u_k \rangle$ then \[\bm{u}_{k+1} = \lambda_1 \bm{u}_1 + \lambda_2 \bm{u}_2 + \ldots + \lambda_k \bm{u}_k.\] Hence
+    \begin{align*}
+        \langle \bm{u}_1, \bm{u}_2, \ldots, \bm{u}_{k+1} \rangle &= \{\mu_1 \bm{u}_1 + \mu_2 \bm{u}_2 + \ldots + \mu_{k+1} \bm{u}_{k+1}\} \\
+        &= \{\mu_1 \bm u_1 + \mu_2 \bm u_2 + \ldots + \mu_{k+1} (\lambda_1 \bm{u}_1 + \lambda_2 \bm{u}_2 + \ldots + \lambda_k \bm{u}_k)\} \\ 
+        &= \{\phi_1 \bm{u}_1 + \phi_2 \bm{u}_2 + \ldots + \phi_k \bm{u}_k\} \qquad \forall \; \phi_i \in \mathbb R \\
+        &= \langle \bm{u}_1, \bm{u}_2, \ldots, \bm{u}_k \rangle.
+    \end{align*}
+\end{proof}
+
+\section{Linear independence}
+
+\begin{definition}
+    Suppose $\bm{u}_1, \bm{u}_2, \ldots, \bm{u}_k \in \mathbb R^n$ then we say that $\{\bm{u}_1, \bm{u}_2, \ldots, \bm{u}_k\}$ is linearly independent if, and only if, \[\lambda_1 \bm{u}_1 + \lambda_2 \bm{u}_2 + \ldots + \lambda_k \bm{u}_k \iff \lambda_1 = \lambda_2 = \ldots = \lambda_k = 0.\] Set 
+    \[
+        A=
+        \begin{pmatrix}
+            \bm{u}_1 & \bm{u}_2 & \ldots & \bm{u}_k
+        \end{pmatrix}
+    \]
+    then $\{\bm{u}_1, \bm{u}_2, \ldots, \bm{u}_k\}$ is linearly independent when $A \bm{\lambda} = \bm{0}$ has only the trivial solution $\bm{\lambda} = \bm{0}$.
+\end{definition}
+
+\begin{example}
+    When is $\{\bm{u}\}$ linearly independent? This is when the oknly solution to $\lambda \bm{u} = \bm{0}$, is $\lambda = 0$. That is, when $\bm{u} = \bm{0}$.
+\end{example}
+
+\begin{example}
+    Suppose $\bm{u}, \bm{v} \in \mathbb{R}^n$ and $\bm{u} \neq \bm{0} \neq \bm{v}$. When is $\{\bm{u}, \bm{v}\}$ linearly independent? This is when \[\exists \; \lambda, \mu \in \mathbb{R} : \lambda \bm{u} + \mu \bm{v} = \bm{0}.\] \[\lambda \bm{u} + \mu \bm{v} = \bm{0} \iff \bm{u} = \frac{-\mu}{\lambda} \bm{v},\] that is, when $\bm{u}$ and $\bm{v}$ are colinear. Hence $\{\bm{u}, \bm{v}\}$ is linearly independent when $\bm{u}$ and $\bm{v}$ are not colinear. 
+\end{example}
+
+\begin{example}
+    Is
+    \[
+        \left\{
+            \begin{pmatrix}
+                1 \\ 5 \\ -2
+            \end{pmatrix}
+            ,
+            \begin{pmatrix}
+                1 \\ 1 \\ 2
+            \end{pmatrix}
+            ,
+            \begin{pmatrix}
+                1 \\ -2 \\ 5
+            \end{pmatrix}
+        \right\}
+    \]
+    linearly independent?
+    
+    Let
+    \[
+        \begin{pmatrix}
+            1 & 1 & 1 \\
+            5 & 1 & -2 \\
+            -2 & 2 & 5 \\
+        \end{pmatrix}
+        ,
+    \]
+    now we are looking for the solutions to $A \bm{x} = \bm{0}$.
+    \begin{align*}
+        \begin{pmatrix}[ccc|c]
+            1 & 1 & 1 & 0 \\
+            5 & 1 & -2 & 0 \\
+            -2 & 2 & 5 & 0 \\
+        \end{pmatrix}
+        & \eroarrow{A_{12}(-5)}{A_{13}(2)}
+        \begin{pmatrix}[ccc|c]
+            1 & 1 & 1 & 0 \\
+            0 & -4 & -7 & 0 \\
+            0 & 4 & 7 & 0 \\
+        \end{pmatrix} 
+        \\
+        & \eroarrow{A_{23}(1)}{}
+        \begin{pmatrix}[ccc|c]
+            1 & 1 & 1 & 0 \\
+            0 & -4 & -7 & 0 \\
+            0 & 0 & 0 & 0 \\
+        \end{pmatrix}
+        .
+    \end{align*}
+    Since we have a zero row, we have a free variable. Hence a non-trivial solution exists, therefore, the vectors are not linearly independent.
+\end{example}
+
+\begin{example}
+    Are the following vectors linearly independent?
+    \[
+        \bm{u} =
+        \begin{pmatrix}
+            1\\3\\1\\2
+        \end{pmatrix}
+        , \quad \bm{v} =
+        \begin{pmatrix}
+            2\\-1\\-5\\3
+        \end{pmatrix}
+        , \quad \bm{w} =
+        \begin{pmatrix}
+            1\\0\\-2\\-1
+        \end{pmatrix}
+        .
+    \]
+    
+    \begin{align*}
+        \begin{pmatrix}[ccc|c]
+            1 & 2 & 1 & 0 \\
+            3 & -1 & 0 & 0 \\
+            1 & -5 & -2 & 0 \\
+            2 & 3 & -1 & 0 \\
+        \end{pmatrix}
+        & \eroarrowext{A_{12}(-3)}{A_{13}(-1)}{A_{14}(-2)}{}
+        \begin{pmatrix}
+            1 & 2 & 1 & 0 \\
+            0 & -7 & -3 & 0 \\
+            0 & -7 & -3 & 0 \\
+            0 & -1 & -3 & 0 \\
+        \end{pmatrix}
+        \\
+        & \eroarrowext{A_{23}(1)}{P_{34}}{M_2(-1)}{A_{23}(7)}
+        \begin{pmatrix}
+            1 & 2 & 1 & 0 \\
+            0 & 1 & 3 & 0 \\
+            0 & 0 & 18 & 0 \\
+            0 & 0 & 0 & 0 \\
+        \end{pmatrix}
+        ,
+    \end{align*}
+    therefore, the only solution to 
+    \[
+        \begin{pmatrix}
+            \bm{u} & \bm{v} & \bm{w}
+        \end{pmatrix}
+        \bm{\lambda} = \bm{0}
+    \] is $\bm{\lambda} = \bm{0}$. Hence the vectors are linearly independent.
+\end{example}
+
+\begin{proposition}
+    Suppose $\bm{u}_1, \bm{u}_2, \ldots, \bm{u}_k, \bm{u}_{k+1} \in \mathbb{R}^n$ are linearly independent and suppose $\bm{u}_{k+1} \not \in \langle \bm{u}_1, \bm{u}_2, \ldots, \bm{u}_k \rangle$, then $\{\bm{u}_1, \bm{u}_2, \ldots, \bm{u}_k, \bm{u}_{k+1}\}$ is linearly independent.
+\end{proposition}
+
+\begin{proof}
+    Suppose we have $\lambda_1 \bm{u}_1 + \lambda_2 \bm{u}_2 + \ldots + \lambda_k \bm{u}_k + \lambda_{k + 1} \bm{u}_{k + 1} = \bm{0}$. If $\lambda_{k + 1}\neq 0$ then we have 
+    \[
+        \bm{u}_{k + 1} = 
+            \left(
+                \frac{-\lambda_1}{\lambda_{k + 1}}
+            \right)
+            \bm{u}_1
+            +
+            \left(
+                \frac{-\lambda_2}{\lambda_{k + 1}}
+            \right)
+            \bm{u}_2
+            +
+            \ldots
+            +
+            \left(
+                \frac{-\lambda_k}{\lambda_{k + 1}}
+            \right)
+            \bm{u}_k
+            ;
+    \]
+    however, this contradicts $\bm{u}_{k+1} \not \in \langle \bm{u}_1, \bm{u}_2, \ldots, \bm{u}_k \rangle$ so we must have $\lambda_{k + 1} = \bm{0}$. Hence we have $\lambda_1 \bm{u}_1 + \lambda_2 \bm{u}_2 + \ldots + \lambda_k \bm{u}_k = \bm{0}$ with $\lambda = \bm{0}$ as the only solution since $\bm{u}_1, \bm{u}_2, \ldots, \bm{u}_k$ are linearly independent.
+\end{proof}

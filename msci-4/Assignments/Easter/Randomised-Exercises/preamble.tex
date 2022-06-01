@@ -1,0 +1,41 @@
+\newlength{\alphabet}
+\settowidth{\alphabet}{\normalfont abcdefghijklmnopqrstuvwxyz}
+\usepackage{geometry}
+\geometry{textwidth=3\alphabet}
+\usepackage{mathtools, amssymb}
+\marksnotpoints
+\mathtoolsset{centercolon}
+\usepackage{bm}
+\usepackage{todonotes}
+\usepackage{graphicx}
+
+
+%======================%
+%    Theorems          %
+%======================%
+\usepackage{amsthm}
+\theoremstyle{plain}
+\newtheorem*{lemma}{Lemma}
+\newtheorem*{corollary}{Corollary}
+\newtheorem*{theorem}{Theorem}
+\newtheorem*{proposition}{Proposition}
+
+
+\theoremstyle{definition}
+\newtheorem*{definition}{Definition}
+\newtheorem*{problem}{Problem}
+
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+
+\newcommand{\E}{\ensuremath{\mathbb E}}
+\newcommand{\R}{\ensuremath{\mathbb R}}
+\newcommand{\TV}{\ensuremath{\text{TV}}}
+\newcommand{\N}{\ensuremath{\mathbb N}}
+\DeclareMathOperator{\Var}{Var}
+\DeclareMathOperator{\Cov}{Cov}
+
+\usepackage{tikz}
+\tikzset{main/.style = {draw, circle}, node distance={15mm}}
+
+\usepackage{array}

@@ -1,0 +1,488 @@
+\section{Representation theory of finite groups}
+
+\subsection{Representations}
+
+First, we try to introduce some motivation and intuition on representation theory, to make sense of why are defining them. Describing the full behaviour of a group can be challenging, so to assist our analysis we may look to see how our group \emph{acts} (this language will be formalised) on objects we understand better; for example, vector spaces. Thus effectively reducing abstract algebra to linear algebra.
+
+We restrict our analysis here to finite groups and finite dimensional complex vector spaces (e.g. $\mathbb C^n$), unless otherwise stated.
+
+\begin{definition}[Representation]
+  Let $K$ be a field and $G$ be a group. A \emph{representation} of $G$ over $K$ is a pair $(\rho, V)$ such that $V$ is a $K$-vector space and $\rho: G \to \GL(V)$ is a group homomorphism.
+\end{definition}
+
+The dimension of a given representation $(\rho, V)$ is the dimension of the vector space $V$.
+
+Here, $\GL(V)$ denotes the general linear group of $V$: the set of all bijective linear transformations $V \to V$ with the functional composition as group operation. A slight abuse of notation: we may often refer to a representation as solely a vector space $V$ or a homomorphism $\rho$, depending on the relevance of either. Further, we may use the notation $gv$ in place of $\rho(g)v$ given the alternative perspective of a representation: a linear action of $G$ on a vector space.
+
+Note that if we fix a basis of our vector space, then we see that our representation is equivalent to a homomorphism $G \to \GL_n(K)$ where $\GL_n(K)$ denotes the group of invertible $n \times n$ matrices with entries in $K$ (with the operation of ordinary matrix multiplication). In particular, for $n =1$ we have $G \to K^\times$.
+
+\begin{example}
+  For a introductory example, we consider $S_n$. We claim (without proof) that the sign function $\epsilon: S_n \to \{1,-1\}$ (that is, the number of inversions for a permutation) is a homomorphism. This induces a one-dimensional representation of $S_n$, $(\rho, \C)$, where $(\rho(\sigma))(w)=\operatorname{sign}(\sigma) \cdot w$, which is bijective as $\im\operatorname{sign} \subset \C^\times = \C\setminus\{0\}$. Here we think of $\rho(\sigma): \C \to \C$ as the bijective automorphism that multiplies a complex number by the sign of $\sigma$.
+\end{example}
+
+We of course have a trivial example too.
+
+\begin{example}
+  Let $G$ be a group and $V$ a $K$-vector space for some field $K$. Let $\rho: G \to \GL(V)$ be the homomorphism sending every element to the identity, that is, $\rho(g) = \id_V$ for all $g \in G$. We call this the \emph{trivial represention on $V$}.
+\end{example}
+
+We now consider representation of cyclic groups.
+
+\begin{example}
+  Let $G$ be a cyclic group with generator $g$ and $(\rho, V)$ be some representation of $G$. $\rho$ may be completely determined by $V$ and $\rho(g)$. Indeed, let $h \in G$. Then $h = g^k$ for some $k \in \Z$. So $\rho(h) = \rho(g^k) = \rho(g)^k$. If $G$ has infinite order (such as $(\Z, +)$), then $\rho(g)$ may be any invertible linear map, but if $G$ has order $n \in \N$ then $\rho(g)$ must also satify $\rho(g)^n = \id_V$.
+\end{example}
+
+Lets move onto a less trivial example, we recall the notion of a group $G$ \emph{acting} on a set $X$: a group action of $G$ on $X$ is a function $\alpha: G \times X \to X$ with the identity property $\alpha(e_G, x) = x$ and the compatibility property $\alpha(g, \alpha(h,x)) = \alpha(gh, x)$.
+
+\begin{definition}[Permutation representation]
+  Suppose a group $G$ acts on a set $X$, and $V$ is a vector space over a field $K$ with basis $\{e_x: x \in X\}$. Then we define the \emph{permutation representation} of $G$ over $K$ associated to $X$ with $ge_x = e_{gx}$.
+\end{definition}
+
+We have introduced a brand new notion and immediately connected it to existing theory, so lets do an example.
+
+\begin{example}
+  Consider $S_n$ with its permutation representation over $\R$, $(\pi, \R^n)$, where $(\pi(g))(e_i) = \pi(g)e_i = e_{g(i)}$, where $\{e_1, \ldots, e_n\}$ is the standard basis over $\R^n$. With this standard basis, we realise $\pi(g)$ to be some permutation matrix. To clarify, $S_n$ is acting on $\{1, \ldots, n\}$.
+\end{example}
+
+\subsection{Subrepresentations and irreducibility}
+
+We continue our theory with the notion of a \emph{subrepresentation}.
+
+\begin{definition}
+  A \emph{subrepresentation} of a representation $(\rho, V)$ of $G$ is a subspace $W \subset V$ such that $\rho(g)w \in W$ for all $g \in G$ and $w \in W$.
+\end{definition}
+
+We notice that $(\rho_W, W)$ is also a representation of $G$, where $\rho_W(g)w = \rho(g)w$ for all $w \in W$.
+
+\begin{example}
+  Lets approach the permutation representation of $S_3$ over $\C^3$ for which $\sigma(e_i) = e_{\sigma(i)}$ (this is the notation we discussed earlier!). Lets look at some possible subrepresentations.
+  \begin{itemize}
+    \item Let $W_1 = \langle e_1 + e_2 + e_3 \rangle$. We claim that this is a subrepresentation. Indeed, let $\sigma \in S_3$ and $w = k(e_1 + e_2 + e_3) \in W_1$ where $k \in \C$. Then $\sigma w = k(e_{\sigma(1)} + e_{\sigma(2)} + e_{\sigma(3)}) = k(e_1 + e_2 + e_3) = w$ (that is, the action of $S_n$ is trivial) so $W_1$ is a subrepresentation.
+    \item Let $W_2 = \{ (x,y,z) \in \C^3: x + y + z = \lambda \}$ for some $\lambda \in \C$. $\sigma$ permutes the entries of a vector, and thus the sum of the entries does not change. Thus $\sigma w = w$ for $w \in W_2$, and so $W_2$ is a subrepresentation.
+    \item Let $W_3 = \{0\} \subset \C^3$. Indeed, no matter how we permute the entries of the zero vector, we still have the zero vector.
+  \end{itemize}
+  These subrepresentations show us the existence of trivial subrepresentations, as well as infinite families of subrepresentations.
+\end{example}
+
+\begin{definition}
+  A representation is said to be \emph{irreducible} if it is non-zero and has no subrepresentations other than itself and $\{0\}$.
+\end{definition}
+
+Let $V$ be a representation with subrepresentations $W_1$ and $W_2$ such that every element can be uniquely expressed as the sum of an element of $W_1$ and an element of $W_2$. Then we say that $V$ is the \emph{internal direct sum} of $W_1$ and $W_2$, denoted $V = W_1 \oplus W_2$. We can further generalise this to any finite number of subrepresentations.
+
+\begin{definition}[Decomposable]
+  A representation that is the direct sum of irreducible subrepresentations is said to be \emph{decomposable}.
+\end{definition}
+
+We will move to see that all complex representations of finite groups are decomposable.
+
+\subsection{Morphisms between representations}
+
+Now we define a morphism between representations.
+
+\begin{definition}
+  Let $(\rho, V)$ and $(\sigma, W)$ be representations of a group $G$ over a field $K$. A \emph{$G$-homomorphism} $V \to W$ is a $K$-linear map $\phi: V \to W$ such that for all $g \in G$: $\phi \circ \rho(g) = \sigma(g) \circ \phi$. We write $\Hom_G(V,W)$ for the vector space of $G$-homomorphism from $V$ to $W$.
+\end{definition}
+
+In other words, the following diagram commutes.
+
+\begin{center}
+  % https://tikzcd.yichuanshen.de/#N4Igdg9gJgpgziAXAbVABwnAlgFyxMJZABgBpiBdUkANwEMAbAVxiRADUQBfU9TXfIRQBGUsKq1GLNgHVuvEBmx4CRUZWr1mrRCDk8+ywUTLjNUnR24SYUAObwioAGYAnCAFskZEDghIAJnNtNgAdULQACyx5F3cvRCDff0RRSRDdcOw7DzoACjsASliQN09vaj8kAGZg6UzQ10iIAuKDUviaypS0rXqQcKiYrgouIA  
+  \begin{tikzcd}
+    V \arrow[r, "\phi"] \arrow[d, "\rho(g)"] & W \arrow[d, "\sigma(g)"] \\
+    V \arrow[r, "\phi"]                      & W
+  \end{tikzcd}
+\end{center}
+
+We define a \emph{$G$-isomorphism} as a bijective $G$-homomorphism, as one would expect. If such an isomorphism exists between two vectors space $V$ and $W$, we denote this $V \cong W$ and say the representation are isomorphic.
+
+\begin{lemma}
+  Suppose $V$ and $W$ are representations of $G$.
+  \begin{enumerate}
+    \item If $T \in \Hom_G(V,W)$ is an isomorphism, then $T^{-1} \in \Hom_G(W,V)$.
+    \item Suppose $\dim V = \dim W$ and we fix a bases for both. Then $\rho_V \cong \rho_W$ if and only if there is $T \in \GL_{\dim V}(\mathbb C)$ such that $T \rho_v(g) T^{-1} = \rho_w(g)$ for all $g \in G$.
+  \end{enumerate}
+\end{lemma}
+
+This lemma is a simple exercise on the definitions. Note by $\rho_V \cong \rho_W$, we mean that the representations are isomorphic.
+
+\begin{lemma}
+  Let $V$ and $W$ be two representations and $\phi \in \Hom_G(V, W)$. Then $\ker\phi \subset V$ and $\im\phi \subset W$ are subrepresentations.
+\end{lemma}
+
+\begin{proof}
+  $\ker\phi$ and $\im\phi$ are subspaces, so we have left to show that they are perserved under the action of $g$. Let $g \in G$ and $v \in \ker\phi$. Then $\phi(gv) = g\phi(v) = 0$, so $gv \in \ker\phi$ thus $V$ is a subrepresentation. Now let $g \in G$ and $w \in \im\phi$. Then there is $v \in V$ such that $\phi(v) = w$. Then $gw = g\phi(v)=\phi(gv)\in\im\phi$ and so $W$ is a subrepresentation.
+\end{proof}
+
+Note above we are using a lot of shorthands, although working with two representations $(\rho_V, V)$ and $(\rho_W, W)$, no mention to $\rho_V$ or $\rho_W$ was made. Instead, we opt to talk about the action of the group upon the subspaces.
+
+\begin{example}
+  We consider two representations of $D_3$ over $\C$. First, the permutation representation with the standard basis $\{e_1, e_2, e_3\}$. So how may $D_3$ act on $\{1,2,3\}$? Well, observe that $S_3 \cong D_3$ with the group isomorphism $r \mapsto (1\;2\;3)$ and $s \mapsto (2\;3)$. We already know how $S_3$ acts on $\{1,2,3\}$, thus we have
+  \[
+    \rho_1(r) =
+    \begin{pmatrix}
+      0 & 0 & 1 \\
+      1 & 0 & 0 \\
+      0 & 1 & 0 \\
+    \end{pmatrix}, \qquad
+    \rho_1(s) =
+    \begin{pmatrix}
+      1 & 0 & 0 \\
+      0 & 0 & 1 \\
+      0 & 1 & 0 \\
+    \end{pmatrix}.
+  \]
+  Now we consider a different representation, one may be introduced to $D_n$ as the set of symmetries (rotations and reflections) of a regular $n$-gon. Thus, letting $D_3$ on the equilateral triangle centered at $0$ with a vertex at $(0,1)$, we get the following representation of $\C^2$:  \[
+    \rho_2(r) =
+    \begin{pmatrix}
+      \cos(2\pi/3) & -\sin(2\pi/3) \\
+      \sin(2\pi/3) & \cos(2\pi/3)  \\
+    \end{pmatrix}, \quad
+    \rho_2(s) =
+    \begin{pmatrix}
+      -1 & 0 \\
+      0  & 1 \\
+    \end{pmatrix}.
+  \]
+  We now define a $G$-homomorphism $T: \C^3 \to \C^2$ by $e_i \mapsto v_i$, where $\{v_1, v_2, v_3\}$ denote the vertices of the equilateral triangle labelled anticlockwise ($v_1 = (0,1)$). To calculate the matrix of $T$, we observe that $v_2 = (-\sqrt3/2,-1/2)$ and $v_3=(\sqrt3/2,-1/2)$ and so
+  \[
+    \begin{pmatrix}
+      0 & -\sqrt3/2 & \sqrt3/2 \\
+      1 & -1/2      & -1/2     \\
+    \end{pmatrix}.
+  \]
+  One may check that for all $g \in G$, $T\rho_1(g) = \rho_2(g)T$ and so $T$ is indeed a $G$-homomorphism. We see that $\ker T = \langle e_1 + e_2 + e_3 \rangle$, and $\im T = \C^2$, both subrepresentations. Finally, if we restrict $T$ to $\{(a,b,c) \in \C^3: a+b+c=0\}$, then it defines an isomorphism from this subrepresentation to $(\rho_2, \C^2)$.
+\end{example}
+
+If $V$ and $W$ are representations of $G$, then we may form their \emph{external direct sum} as the representation with underlying vector space $V \oplus W$ and such that $g(v, w) = (gv, gw)$ for $g \in G$, $v \in V$, and $w \in W$. If $V$ and $W$ are subrepresentations of some other representation $X$, then we may call $X$ the direct sum of $V$ and $W$ if the map $V \oplus W \to X$, $(v, w) \mapsto v + w$ is an isomorphism.
+
+\subsection{Example: the dihedral group}
+
+We aim to understand all irreducible complex representation of the finite dihedral group $D_n$. We list the elements of $D_n$ as
+\[ \{r^k, sr^k: k \in \{0, \ldots, n-1\}\}. \]
+Let $(\rho, V)$ be a irreducible complex representation of $D_n$, $v \in V$ be a eigenvector for $\rho(r)$ with eigenvalue $\lambda$, and $w = \rho(s)v$. We claim that $\langle v, w \rangle$ is a subrepresentation of $V$. Indeed, it can be shown that $\rho(r)w = \lambda^{-1}w$, $\rho(r)v = \lambda v$, $\rho(s)w = v$, and $\rho(s)v = w$ (by examining the group structure of $D_n$). As $V$ is irreducible, we have either $V = \langle v, w \rangle$ or $\langle v, w \rangle = 0$; but eigenvectors cannot the zero vector so we have the former. As one may have noticed, $v$ and $w$ are both eigenvectors of $\rho(r)$. We now split into cases.
+\begin{itemize}
+  \item Suppose that $\lambda \neq \lambda^{-1}$. Thus $v$ and $w$ are eigenvectors of $\rho(r)$ with distinct eigenvalues, so they are linearly independent. But $v$ and $w$ also span $V$; thus, $\dim V = 2$. From the above calculations, we see that (with basis $v, w$)
+        \[
+          \rho(r) =
+          \begin{pmatrix}
+            \lambda & 0            \\
+            0       & \lambda^{-1} \\
+          \end{pmatrix},\qquad
+          \rho(s) =
+          \begin{pmatrix}
+            0 & 1 \\
+            1 & 0 \\
+          \end{pmatrix}
+        \]
+        We are in the dihedral group, so we must have $r^n = e$. Thus $\rho(r)^n = I$; that is, $\lambda^n = 1$. As $\lambda \neq \lambda^{-1}$, $\lambda \neq 1$ and $\lambda \neq e^{\pi i}$. The other roots of unity are $\lambda = e^{2\pi ik/n}$ for $k \in \{1, \ldots, n-1\}$ (excluding $k = n/2$ if $n$ is even). Observe that $e^{2\pi ik/n} = e^{-2\pi i(n-k)/n}$ which we can obtain by using the base $w, v$ to obtain (as opposed to $v, w$), thus we have unique representation above with $\lambda = e^{2\pi ik/n}$ for $k \in \{1, \ldots, \lceil n/2 \rceil - 1\}$.
+  \item Now we assume $\lambda = \lambda^{-1}$.
+        \begin{itemize}
+          \item Assume $n$ is odd, then $\lambda = 1$. Observe that $\rho(r)(v+w) = \rho(s)(v+w)=v+w$, so $\langle v + w \rangle$ is a subrepresentation of $V$. If $v + w \neq 0$, then $\rho(r) = \rho(s) = \id_V$ (the trivial representation). Otherwise, $\rho(r) = \id_V$ and $\rho(s)v = w = -v$ (the sign representation).
+          \item Assume $n$ is even, then the above case still holds for $\lambda = 1$, but we also consider $\lambda = e^{\pi i} = -1$. By similar argument to the last point, $\langle v + w \rangle$ is a subrepresentation of $V$; thus, $\langle v + w \rangle \in \{V, \{0\}\}$. If $\langle v + w \rangle = \{0\}$, then $v + w = 0$ and so we get $\rho(r) = (-1)$ and $\rho(s) = (-1)$. Otherwise, we get $\rho(r) = (-1)$ and $\rho(s) = (1)$.
+        \end{itemize}
+\end{itemize}
+This completes our list of representations, shown in the table below, where the bottom two representations are omitted if $n$ is odd.
+
+\begin{center}
+  \begin{tabular}{lccc}
+    \toprule
+    Label                                                  & Dimension & $\rho(r)$ & $\rho(s)$ \\
+    \midrule
+    $\rho_k$, $k \in \{1, \ldots, \lceil n/2 \rceil - 1\}$ & 2         &
+    $\begin{pmatrix}
+         e^{2\pi i k/n} & 0               \\
+         0              & e^{-2\pi i k/n} \\
+       \end{pmatrix}$                    &
+    $\begin{pmatrix}
+         0 & 1 \\
+         1 & 0 \\
+       \end{pmatrix}$
+    \\
+    $\bm 1$                                                & 1         & 1         & 1         \\
+    $\epsilon$                                             & 1         & 1         & -1        \\
+    $\rho_1$                                               & 1         & -1        & -1        \\
+    $\rho_2$                                               & 1         & -1        & 1         \\
+    \bottomrule
+  \end{tabular}
+\end{center}
+
+\subsection{Schur's lemma}
+
+\begin{theorem}[Schur's lemma]
+  Let $V$ and $W$ be irreducible finite-di\-men\-sion\-al complex representation of some group $G$ and $T: V \to W$ be a $G$-homomorphism.
+  \begin{enumerate}
+    \item Either $T$ is an isomorphism or $T = 0$.
+    \item If $V = W$, then $T = \lambda \id_V$ for some $\lambda \in \C$.
+    \item $\dim\Hom_G(V,W) =
+            \begin{cases}
+              1 & \text{if $V \cong W$,} \\
+              0 & \text{else.}
+            \end{cases}$
+  \end{enumerate}
+\end{theorem}
+
+\begin{proof}
+  1: we see this by recalling that $\ker T \subset V$ and $\im T \subset W$ are subrepresentations, then we argue on the irreducibility of $V$.
+  2: we claim that $T - \lambda\id_V$ is also a $G$-homomorphism with non-zero kernel, where $\lambda$ is an eigenvalue of $T$ (the existence of $\lambda$ is as $V$ is a complex vector space, and the kernel is precisely the span of the eigenvector(s) for $\lambda$). We conclude by arguing on the irreducibility of $V$.
+  3: if we suppose that $V \not\cong W$, then then by (1) we have $T = 0$, so $\Hom_G(V, W) = \{0\}$. Now suppose $V \cong W$ with isomorphism $S$. Let $T \in \Hom_G(V, W)$. Observe that $S^{-1} \circ T \in \Hom_G(V,V)$, so by (2) we have that $S^{-1} \circ T = \lambda\id_V$ for some $\lambda \in \C$. Thus $T = \lambda S$, and so $\Hom_G(V,W) = \langle S \rangle$.
+\end{proof}
+
+Schur's lemma is elementary and has some more graspable corollaries.
+
+\begin{corollary}
+  Every finite-dimensional irreducible complex representation of an abelian group is one-dimensional.
+\end{corollary}
+
+\begin{proof}
+  Let $G$ be an abelian group and $(\rho, V)$ a representation as in the statement of the corollary. Fix $h \in G$, and notice that $\rho(h)$ is a $G$-homomorphism. Thus, $\rho(h) \in \Hom_G(V,V)$ and by Schur's lemma $\rho(h) = \lambda \id_V$ for some $\lambda \in \C$ (we ignore the case in which $\lambda = 0$, as this leads to a zero-dimensional representation which is not considered to be irreducible). From this, we see that $\langle v \rangle$ forms a subrepresentation of $V$ for all $v \in V \setminus \{0\}$. Following a similar argument on the irreducibility of $V$, we see that $V = \langle v \rangle$; that is, $\dim V = 1$.
+\end{proof}
+
+In the statement on Schur's lemma, $G$ was not assumed to be finite but we did assume that our representation was finite-dimensional. If $G$ was finite, then it is necessary that any irreducible representation of $G$ must also be finite-dimensional.
+
+\begin{proposition}
+  Any irreducibile representation of a finite group is finite-dimensional.
+\end{proposition}
+
+\begin{proof}
+  A proof to this may seem hard to approach, but in fact it requires very little work. Let $V$ be an irreducible representation of a finite group and let $v \in V \setminus \{0\}$. We construct the subspace $V' = \{gv: g \in G\}$ and observe that it is preserved by $G$ (that is, $\rho(g)v \in V'$ for all $v \in V'$ and $g \in G$), this can be easily checked. Thus $V'$ is a subrepresentation of $V$. We argue on the irreducibility of $V$ that $V = V'$, and $V'$ is finite-dimensional by construction.
+\end{proof}
+
+A group homomorphism $\chi: G \to \C^\times$ (or to the multiplicative set of any field) for a group $G$ is called a \emph{multiplicative character} (or \emph{character}, but this causes a clash of notation). If $G$ is abelian, we may define the group
+\[ \hat G = \{\chi: G \to \C^\times: \text{$\chi$ is a group homomorphism}\} \]
+called the \emph{character group} (or \emph{dual group}) of $G$, which is closed under multiplication.
+
+\begin{example}
+  We claim $\hat C_n \cong C_n$. Let $g$ be a generator of $C_n$, then $\chi$ is uniquely determined by $\chi(g)$. But we observe that $\chi(g)^n = \chi(g^n)=\chi(e)=1$, thus $\chi(g)$ must be an $n$th root of unity. That is, $\chi(g) = e^{2\pi i k/n}$ for some $k \in \{0, \ldots, n-1\}$. In fact, we claim the map $k \mapsto e^{2\pi i k/n}$ is a group isomorphism $C_n \cong \Z/n \to \hat C_n$. We can extend this further: by the fundamental theorem of finite abelian groups, any finite abelian group is isomorphic to its dual group.
+\end{example}
+
+We recall the center of group is the set of elements that commute with every other element.
+
+\begin{proposition}
+  Let $(\rho, V)$ be an irreducibility finite-dimensional representation of a group $G$. The center of $G$, $Z(G)$, acts on $V$ as a character: there is $\chi: Z \to \C^\times$ such that
+  $\rho(z)v = \chi(z)v$ for all $z \in Z(G)$ and $v \in V$.
+\end{proposition}
+
+\begin{proof}
+  An example of Schur's lemma, we consider $z \in Z(G)$ and observe that $\rho(z) \in \Hom_G(V,V)$. Thus $\rho(z) = \lambda_z \id_V$ for some $\lambda_z \in \C^\times$. Thus $\chi(z) = \lambda_z$ and we are done. We call $\chi$ the \emph{central character} of $\rho$.
+\end{proof}
+
+\begin{proposition}
+  Let $G$ be a finite group and $A$ an abelian subgroup. Let $(\rho, V)$ be an irreducible representation of $G$. Then \[\dim V \leq \lvert G \rvert / \lvert A \rvert = [G: A].\]
+\end{proposition}
+
+\begin{proof}
+  We restrict our represnetation of $G$ to $A$ to find an irreducible $A$-subrepresentation $W$ of $V$. As $A$ is abelian, $W$ is one-dimesional, say spanned by the vector $v \in W$. Thus there is a character $\chi$ of $A$ such that $\rho(h)v = \chi(h)v$ for all $h \in A$. We see that $\{\rho(g)v: g \in G\}$ is a subrepresentation of $V$ and thus equal to $V$ (by irreducibility). We now write $g_1A, \ldots, g_rA$ for the left cosets of $A$ where $r = [G:A]$. For $h \in A$ we have $\rho(g_ih)v = \rho(g_i)\rho(h)v=\rho(g_i)\chi(h)v=\chi(h)(\rho(g_i)v)$. Thus $V = \langle \rho(g_i)v : i \in \{1,\ldots,r\} \rangle$; and so must have dimension at most $r$.
+\end{proof}
+
+\begin{example}
+  Consider $D_n$ with the abelian subgroup $C_n$ and $[D_n: C_n] = 2$. Thus every irreducible representation of $D_n$ must have dimension at most 2.
+\end{example}
+
+\subsection{Maschke's theorem}
+
+\begin{definition}[Projection]
+  Let $V$ be a vector space and $W \subset V$ a subspace. A linear map $\pi: V \to W$ is a \emph{projection} if $\pi(w) = w$ for all $w \in W$.
+\end{definition}
+
+\begin{lemma}
+  If $\pi: V \to W$ is some projection, then $V = W \oplus \ker\pi$.
+\end{lemma}
+
+\begin{proof}
+  Let $v \in V$. Then $v = (v - \pi(v)) + \pi(v)$. It follows that $\pi(v - \pi(v)) = 0$ and $\pi(v) \in W$.
+\end{proof}
+
+Recall that the characteristic of a field is the smallest number of times one must add the multiplicative identity to get the additive identity. If the sum never reaches the additive identity then the field is said to have characteristic zero.
+
+\begin{theorem}[Maschke's]
+  If $G$ is a finite group then every finite-dimensional representation of $G$ over a field whose characteristic does not divide $\lvert G \rvert$ is decomposable.
+\end{theorem}
+
+\begin{proof}
+  Let $V$ be our representation. If $V$ is irreducible, then we are done. Otherwise, we take a irreducible subrepresentation $W$ and construct a projection $\pi: V \to W$ which is a $G$-homomorphism. Then $V = W \oplus \ker\pi$, and $\ker\pi$ is a subrepresentation (as $\pi \in \Hom_G(V,W)$). We repeat this line of reasoning starting with $\ker\pi$ as our representation. So, we have left to construct such a $\pi$. First, define $\pi_0: V \to W$ to be a linear map such that $\restr{\pi_0}{W} = \id_W$ (we can construct this by choosing a basis for $W$ and extending it to $V$, then setting $\pi_0$ to be the identity on the basis of $W$ and anything else for $V$). This itself may not be a $G$-homomorphism, but we define $\pi(v) = \frac1{\lvert G \rvert} \sum_{g \in G} g^{-1} \pi_0(gv)$ which is a $G$-homomorphism. Indeed, for $h \in G$
+  \begin{align*}
+    \pi(hv)
+     & = hh^{-1} \pi(hv)                                                 \\
+     & = h \frac1{\lvert G \rvert} \sum_{g \in G} (gh)^{-1} \pi_0((gh)v) \\
+     & = h \frac1{\lvert G \rvert} \sum_{k \in G} (k)^{-1} \pi_0((k)v)   \\
+     & = h\pi(v).
+  \end{align*}
+  Here $k = gh$, and we justify the step in which it was introduced with the following: $h$ is fixed and $g$ iterates over every element of the group once, thus $k=gh$ also iterates over each element exactly once. Indeed, if we suppose otherwise then we would have $g_1 \neq g_2$ such that $g_1h = g_2h$. Multiplying both sides by $h^{-1}$ we get $g_1 = g_2$; a contradiction. We have left to check that $\pi$ is a projection, for $w \in W$
+  \begin{align*}
+    \pi(w)
+     & = \frac1{\lvert G \rvert} \sum_{g \in G} g^{-1}\pi_0(gw) \\
+     & = \frac1{\lvert G \rvert} \sum_{g \in G} g^{-1} gw       \\
+     & = \frac1{\lvert G \rvert} \sum_{g \in G} w = w.
+  \end{align*}
+  Note above we used that $W$ is a subrepresentation of $V$, so $gw \in W$.
+\end{proof}
+
+Both Maschke's theorem and Schur's lemma hold for representation of finite groups over the complex field; we assume this from now on, as well as all representations being finite-dimensional.
+
+\begin{corollary}
+  Let $V$ be a representation of $G$. Then there is the decomposition of $V$
+  \[  V \cong W_1 \oplus \ldots \oplus W_r \]
+  for some irreducible representations $W_1, \ldots, W_r$. Moreover, the number of times each isomorphism class of irreducible representations shows up in the decomposition above is independent of the choice of decomposition.
+\end{corollary}
+
+\begin{proof}
+  Existence has been established. For uniqueness, consider a irreducible representation $W$ and $V$ with decomposition $V \cong W_1 \oplus \ldots \oplus W_r$. Then
+  \[\dim\Hom_G(W,V) = \sum_i\dim\Hom_G(W,W_i) = \lvert\{i: W \cong W_i\}\rvert\]
+  by Schur's lemma. This is dependent on $V$ and $W$, not the choice of decomposition.
+\end{proof}
+
+In the proof above, we used a property of $\Hom$ that we have maybe not formalised, but would expect to be true.
+
+\begin{lemma}
+  If $V, V', W, W'$ are representations of some group $G$ then
+  \begin{align*}
+    \Hom_G(V, W \oplus W') & \cong \Hom_G(V, W) \oplus \Hom_G(V, W'), \\
+    \Hom_G(V \oplus V', W) & \cong \Hom_G(V, W) \oplus \Hom_G(V', W).
+  \end{align*}
+\end{lemma}
+
+\begin{proof}
+  We prove just the first, as the proof for the second follows the same logic. Let $\phi \in \Hom_G(V, W \oplus W')$. Then $\phi(v) = (\phi_W(v), \phi_{W'}(v))$ for linear maps $\phi_W$ and $\phi_{W'}$. We have left to prove that these are $G$-homomorphisms. For $v \in V$ and $g \in G$,
+  \begin{align*}
+    \phi(gv)                    & = g\phi(v)                     \\
+    (\phi_W(gv), \phi_{W'}(gv)) & = g(\phi_W(v), \phi_{W'}(v))   \\
+                                & = (g\phi_W(v), g\phi_{W'}(v)),
+  \end{align*}
+  thus the action of $g$ commutes with $\phi_W$ and $\phi_{W'}$
+\end{proof}
+
+We used this fact in an earlier proof, but it is worth a note of its own.
+
+\begin{lemma}
+  If $\rho$ is a irreducible representation of $G$ and $\sigma$ is some other representation of $V$, then the number of times $\rho$ appears in the decomposition of $\sigma$ is $\dim\Hom_G(\rho, \sigma)$.
+\end{lemma}
+
+\begin{example}
+  In effort to gain intuition behind the technique used to prove Maschke's theorem, we will examine the actual construction of the projection for an example. We consider a representation of $S_3$ on $\C^3$: the permutation representation. We have the irreducible subrepresentation $V_0 = \langle (1,1,1) \rangle$. We build our $G$-projection (that is, a projection that is also a $G$-homomorphism) $\pi: V \to V_0$ is such that
+  \[
+    \pi(x,y,z) = \frac1{\lvert S_3 \rvert}\sum_{\sigma\in S_3} \sigma^{-1} \pi_0(\sigma (x,y,z)))
+  \]
+  where we pick $\pi_0(x,y,z) = \frac13(x+y+z)(1,1,1)$. Thus
+  \[
+    \pi(x,y,z) = \frac1{3\lvert S_3 \rvert}\sum_{\sigma\in S_3} (x+y+z)(1,1,1) = \frac13(x+y+z)(1,1,1).
+  \]
+  In turns out that, in this case, our \emph{averaging trick} did nothing to change our map, and $\pi_0$ was already a $G$-homomorphism. Following the proof further, we see that $V = V_0 \oplus V_1$ where $V_1 = \ker\pi = \{(x,y,z): x + y + z = 0\}$ which is irreducible (we can argue this a couple of ways, but note $S_3 \cong D_3$, which is a group who's irreducible representations we have classified). We may have picked another $G$-equivariant projection and maybe obtained $V_1$ first. For example, we have that precise scenario when we consider the projection $V \to V_1$, $(x,y,z) \mapsto \frac13(2x-y-z, 2y-x-z, 2z-x-y)$, we see that the kernel of this map is $V_0$ (as we expected).
+\end{example}
+
+\subsection{The group ring}
+
+\begin{definition}[Group ring]
+  Let $G$ be a finite group. The \emph{group ring} $\C[G]$ has elements as formal linear combinations $\sum_{g \in G} a_g[g]$ with $a_g \in \C$, which are multiplied according to $[g][h] = [gh]$; that is,
+  \[\sum_{g \in G} a_g[g] \sum_{g \in G} b_g[g] = \sum_{g\in G} a_g b_g [gh].\]
+\end{definition}
+
+The set $\{[g]: g\in G\}$ form a basis for the group ring vector space, which has dimension $\dim G$.
+
+\begin{example}
+  Let $x = [e] - [(1\;2)]$ and $y = 2[(2\;3)] + [(1\;2\;3)]$ be elements on $\C[S_3]$. Then
+  \begin{align*}
+    xy & = \left([e] - [(1\;2)]\right)(2[(2\;3)] + [(1\;2\;3)])                   \\
+       & = 2[e][(2\;3)] + [e][(1\;2\;3)] - 2[(1\;2)][(2\;3)] -[(1\;2)][(1\;2\;3)] \\
+       & = 2[e(2\;3)] + [e(1\;2\;3)] - 2[(1\;2)(2\;3)] -[(1\;2)(1\;2\;3)]         \\
+       & = 2[(2\;3)] + [(1\;2\;3)] - 2[(1\;2)(2\;3)] -[(1\;2)(1\;2\;3)]           \\
+       & = 2[(2\;3)] + [(1\;2\;3)] - 2[(1\;2\;3)] -[(2\;3)]                       \\
+       & = [(2\;3)] - [(1\;2\;3)]
+  \end{align*}
+\end{example}
+
+\begin{definition}[Regular representation]
+  Let $G$ be a finite group. Then the \emph{(left) regular representation} of $G$ is $(\rho, \C[G])$ where $\rho(g)\left(\sum_{h\in G} a_g[h]\right)=\sum_{h\in G} a_h[gh]$.
+\end{definition}
+
+\begin{proposition}
+  The (left) regular representation of a finite group indeed defines a representation.
+\end{proposition}
+
+\begin{proof}
+  Let $G$ be a finite group. Firstly, $\C[G]$ is a $\C$-vector space by construction. We have left to show that $\rho$ is a group homomorphism. Let $g_1, g_2 \in G$ and $\sum_{h \in G} a_g[h] \in \C[G]$. Then
+  \begin{align*}
+    \rho(g_1g_2) \left(\sum_{h\in G} a_g[h]\right)
+     & =\sum_{h\in G} a_g[(g_1g_2)h]                         \\
+     & =\sum_{h\in G} a_g[g_1(g_2h)]                         \\
+     & =\rho(g_1) \left(\sum_{h\in G} a_g[g_2h]\right)       \\
+     & =\rho(g_1)\rho(g_2) \left(\sum_{h\in G} a_g[h]\right)
+  \end{align*}
+\end{proof}
+
+If $(p, V)$ is some representation of $G$, then we can \emph{multiply} any element of $V$ by any element of $\C[G]$ by $(\sum a_g[g])v = \sum a_g\rho(g)v$.
+
+We can view the regular representation of a finite group as the permutation representation for the action of $G$ \emph{on itself} (by left multiplication). We may also look at a dual point of view using functions.
+
+\begin{definition}[Regular representation, functional]
+  Let $\C^G = \{f: G \to \C\}$. We define a representation $\rho$ of $G$ on $\C^G$ by $\rho(g)(f(h)) = f(g^{-1}h)$.
+\end{definition}
+
+\begin{lemma}
+  Let $G$ be a finite group. Then the representations $\C^G$ and $\C[G]$ are isomorphic.
+\end{lemma}
+
+So when we refer to the regular representation, we may use either of these definitions. Whichever is more convenient.
+
+\begin{theorem}
+  Let $V$ be any representation of $G$. Then there is an isomorphism of vector spaces $\Hom_G(\C[G], V) \to V$. Equivalently, \[\dim \Hom_G(\C[G], V) = \dim V.\]
+\end{theorem}
+
+\begin{proof}
+  Let $\rho$ be the regular representation of $G$. For $f \in \Hom_G(\C[G], V)$, we claim that it is uniquely determined by $f([e])$ as $f([g]) = f(\rho(g)[e]) = \rho(g)f([e])$. Thus we define $\phi: \Hom_G(\C[G], V) \to V$ such that $\phi(f) = f([e])$. Conversely, we recall that we can \emph{multiply} elements of any representation by elements in the regular representation, so we define $\psi: V \to \Hom_G(\C[G], V)$ by $\psi(v)(\sum a_g[g]) = \sum a_g[g]v$. We claim that $\phi$ and $\psi$ are linear maps that are two-sided inverses of each other, thus proving the theorem.
+\end{proof}
+
+This has quite a significant consequence: the sum of the squares of the dimensions of the irreducible representations is equal to the order of the group. We write $\operatorname{Irr}(G)$ for the set of isomorphism classes of irreducible representations of $G$.
+
+\begin{theorem}
+  Let $G$ be a finite group and $(\rho, \C[G])$ be the regular representation. Then
+  \[\C[G] \cong \bigoplus_{\rho \in \operatorname{Irr}(G)} \rho^{\dim \rho}\]
+  and by equating the dimensions of both sides, we get
+  \[\sum_{\rho \in \operatorname{Irr}(G)} \dim(\rho)^2 = \lvert G \rvert.\]
+\end{theorem}
+
+\begin{proof}
+  By Maschke's theorem, we decompose $\C[G]$ into isomorphism classes of irreducible representation in which each class $\rho$ appears \[\dim\Hom_G(\C[G], \rho) = \dim \rho\] times (by the last Theorem).
+\end{proof}
+
+The formula at the end of the last theorem is called the \emph{sum of squares formula} and can be quite useful in determining all irreducible representations of a given group. For example, in classifying the irreducible representations of the dihedral group we may just write down enough non-isomorphic representations to satisfy the sum of squares formula, then we are done.
+
+\begin{example}
+  Consider the dihedral group $D_n$. We will verify the sum of squares formula. We recall our representations for the dihedral group (note in the table below, the last two representations are omitted if $n$ is odd).
+  \begin{center}
+    \begin{tabular}{lccc}
+      \toprule
+      Label                                                  & Dimension & $\rho(r)$ & $\rho(s)$ \\
+      \midrule
+      $\rho_k$, $k \in \{1, \ldots, \lceil n/2 \rceil - 1\}$ & 2         &
+      $\begin{pmatrix}
+           e^{2\pi i k/n} & 0               \\
+           0              & e^{-2\pi i k/n} \\
+         \end{pmatrix}$                    &
+      $\begin{pmatrix}
+           0 & 1 \\
+           1 & 0 \\
+         \end{pmatrix}$
+      \\
+      $\bm 1$                                                & 1         & 1         & 1         \\
+      $\epsilon$                                             & 1         & 1         & -1        \\
+      $\rho_1$                                               & 1         & -1        & -1        \\
+      $\rho_2$                                               & 1         & -1        & 1         \\
+      \bottomrule
+    \end{tabular}
+  \end{center}
+  First, we have $\lvert D_n \rvert = 2n$. Lets cover for $n$ odd first. So there are $(n-1)/2$ irreducible representations of dimension 2.  Then there are 2 more representations of dimension 1, giving us
+  \[
+    \sum_{\rho \in \operatorname{Irr}(G)} \rho^{\dim\rho}
+    = \left(\frac{n-1}2\right) (2^2) + 2(1^1)
+    = 2n 
+    \]
+  as expected. Similarly, for $n$ even there are $(n/2)-1$ irreducible representaitons of dimension $2$, and $4$ more of dimension $1$. This gives us   
+  \[
+    \sum_{\rho \in \operatorname{Irr}(G)} \rho^{\dim\rho}
+    = \left(\frac n2 - 1\right) (2^2) + 2(1^1)
+    = 2n 
+    \]
+    again as expected. 
+\end{example}
+

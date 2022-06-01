@@ -1,0 +1,74 @@
+\pc{2}{12/2}    
+
+\question 
+Let $F$ be a finite field
+(such as $\Z/p$, with $p$ prime).
+Show that $F^\times$ is cyclic.
+
+\emph{This problem is more difficult than Algebra II exam problems,
+but it is a fundamental result in algebra, and understanding the solution
+will help to understand how to use important concepts such as orders of elements and groups.}
+
+\begin{solution}
+    
+\end{solution}
+
+\question 
+Let $\sigma = (4\;2\;5\;3)(2\;4\;5\;3)$.
+Compute $\sigma^{10}$.
+
+\begin{solution}
+    \[
+        \sigma = (3\;5\;4).
+    \]
+    So $\sigma^{10} = (\sigma^3)^3\sigma = \sigma$.
+\end{solution}
+
+\question
+Let $H = \{1, (1\;2\;3\;4), (1\;3)(2\;4), (1\;4\;3\;2)\} \subset S_4$.
+\begin{parts}
+    \part
+    Show that $H$ is a subgroup of $S_4$.
+
+    \begin{solution}
+        \begin{description}
+            \item[Identity] \hfill
+
+                Clearly, $1 \in S_4$.
+
+            \item[Closure] \hfill 
+                \begin{align*}
+                    (1\;2\;3\;4)(1\;3)(2\;4) &= (1\;4\;3\;2) \\
+                    (1\;2\;3\;4)(1\;4\;3\;2) &= 1 \\
+                    (1\;3)(2\;4)(1\;4\;3\;2) &= (1\;2\;3\;4).
+                \end{align*}
+
+            \item[Inverse] \hfill
+
+                $(1\;2\;3\;4)^{-1} = (1\;4\;3\;2)$ and
+                $(1\;3)(2\;4)$ is its own inverse.
+        \end{description}
+        By the three points above \emph{and} the fact that $S_4$ is a group,
+        $H$ is a subgroup.
+    \end{solution}
+
+    \part 
+    Is $H$ normal in $S_4$? (Justify your answer.)
+
+    \begin{solution}
+        If $H$ is normal in $S_4$ then for all $g \in S_4$ and $h \in H$ we have
+        \[
+            g^{-1} h g \in H.
+        \]
+        \emph{But}
+        \[
+            (1\;2)(1\;2\;3\;4)(1\;2)^{-1} = (1\;3\;4\;2) \not\in H;
+        \]
+        therefore, $H$ is \emph{not} normal in $S_4$.
+    \end{solution}
+\end{parts}
+
+\question 
+Show that a subgroup $N$ of a group 
+$G$ is normal if and only if $N$ is union of conjugacy classes of $G$.
+%todo i don't think we have covered this yet..

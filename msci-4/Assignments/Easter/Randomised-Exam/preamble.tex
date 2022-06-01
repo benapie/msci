@@ -1,0 +1,48 @@
+\newlength{\alphabet}
+\settowidth{\alphabet}{\normalfont abcdefghijklmnopqrstuvwxyz}
+\usepackage{geometry}
+\geometry{textwidth=3\alphabet}
+\usepackage{mathtools, amssymb}
+\marksnotpoints
+\usepackage{bm}
+
+\usepackage{siunitx}
+
+\usepackage{enumitem}
+\setlist[enumerate,1]{label={(\roman*)}}
+
+\usepackage{todonotes}
+
+\usepackage{tikz}
+\tikzset{main/.style = {draw, circle}}
+\tikzset{emph/.style={preaction={ % allow highlighting
+draw,blue!25,-, double=blue!25, double distance = 8\pgflinewidth
+}}}
+\usetikzlibrary{positioning}
+
+%======================%
+%    Theorems          %
+%======================%
+\usepackage{amsthm}
+\theoremstyle{plain}
+\newtheorem*{lemma}{Lemma}
+\newtheorem*{corollary}{Corollary}
+\newtheorem*{theorem}{Theorem}
+\newtheorem*{proposition}{Proposition}
+
+
+\theoremstyle{definition}
+\newtheorem*{definition}{Definition}
+\newtheorem*{problem}{Problem}
+
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+\usepackage{xfrac}
+
+\DeclareMathOperator{\ideg}{ideg}
+\DeclareMathOperator{\Var}{Var}
+\newcommand{\E}{\mathbb E}
+\newcommand{\N}{\mathbb N}
+\newcommand{\R}{\mathbb R}
+
+\usepackage{blkarray}

@@ -1,0 +1,120 @@
+%! TEX root = master.tex
+
+\lecture{3}{13/10}
+\begin{definition}[Minimal polynomial]
+	Let $L$ be a field extension of some field $F$
+	and $\alpha \in L$ be algebraic over $L$.
+	We define the
+	\emph{minimal polynomial of $\alpha$ over $F$}
+	as the monic polynomial $p(x) \in F[x]$ 
+	of smallest degree
+	such that $p(\alpha) = 0$.
+	The degree of $p$ is called the \emph{degree} of $\alpha$ over $F$.
+\end{definition}
+
+Recall that a polynomial is \emph{monic}
+if the leading term is equal to $1$.
+Moreoever, a polynomial $f(x) \in F[x]$
+is irreducible if $f$ is not constant and cannot
+be written as the product of two non-constant polynomials.
+
+\begin{proposition}[]
+	Let $L$ be a field extension of some field $F$
+	and let $p(x)$ be the minimal polynomial of some
+	algebraic element $\alpha \in L$ over $F$.
+	Then $p(x)$ is unique and irreducible.
+	Moreoever, if $f(x) \in F[x]$ is monic and irreducible with 
+	$f(\alpha) = 0$, then $f$ is the minimal polynomial of $\alpha$.
+\end{proposition}
+
+\begin{proof}
+	First we will prove that $p(x)$ is unique.
+	Assume that $p(x)$ and $q(x)$ 
+	are both distinct minimal polynomials of $\alpha$ over $F$.
+	Let $g(x) = p(x) - q(x)$.
+	Then $\deg g < d$, since $p$ and $q$ are monic.
+	Let $a$ be the leading term of $g$,
+	then $a^{-1}g(x)$ is clearly a minimal polynomial since
+	$g(\alpha) = 0$; a contradiction.
+	Therefore, the minimal polynomial is unique.
+	Now we prove that $p(x)$ is irreducible.
+	Assume $p(x) = q(x) \cdot r(x)$ for some non-constant
+	$q(x), r(x) \in F[x]$ with $\deg q, \deg r < \deg p$.
+	Now
+	\[
+		0 = p(\alpha) = q(\alpha) \cdot r(\alpha) 
+		\implies \left( q(\alpha) = 0 \;\text{or}\; r(\alpha) = 0 \right).
+	\]
+	In both scenarios, we can normalise $q$ or $r$ to get another candidate for
+	our minimal polynomial that has a degree smaller than $p$; a contradiction.
+	Finally, we prove our last statement.
+	Let $f(x) \in F[x]$ monic and irreducible with $f(\alpha) = 0$.
+	We are aiming to show that $f(x) = p(x)$, and it is enough to show
+	that $\deg f = \deg p$ (from our first statement).
+	Assume not, that is $\deg f > \deg p$.
+	Recall, by the division, we can express $f$ as
+	\[
+		f(x) = d(x) \cdot p(x) + r(x)
+	\]
+	for $r(x), d(x) \in F[x]$ and $\deg r < \deg p$.
+	Since $f(x)$ is irreducible, $r(x) \neq 0$.
+	Then
+	\[
+		r(\alpha) = f(\alpha) - d(\alpha) \cdot p(\alpha) = 0
+	\]
+	with $\deg r < \deg p$; a contradiction.
+	Hence $\deg f = \deg p$ and hence our result.
+\end{proof}
+
+\begin{example}[]
+	Consider $i \in \C$.
+	The polynomial $p(x) = x^2 + 1$ is the minimal polynomial of $i$
+	over $\R$ and $\Q$.
+	Clearly, $p(x) \in \R[x], \Q[x]$ and $p(i) = 0$
+	and $p$ is of smallest degree as if $\deg p = 1$, then $p \in \C[x]$.
+	However, $p$ is not irreducible over $\C$ as
+	\[
+		p(x) = (x+i)(x-i).
+	\]
+	The minimal polynomial for $i$ over $\C$ is simply $q(x) = x - i$.
+\end{example}
+
+\begin{example}[]
+	Consider $\alpha = \sqrt[7]{5}$.
+	We claim that the minimal polynomial of $\alpha$ over $\Q$ is
+	$p(x) = x^7 - 5$.
+	We will now prove this.
+	$p$ is clearly monic and $p(\alpha) = 0$.
+	Now we have left to show that $p$ is irreducible.
+	By \emph{Eisenstein's criterion} with $p = 5$, we see that
+	$p$ is irreducible.
+	Therefore, $p$ is the minimal polynomial of $\alpha$ over $\Q$.
+\end{example}
+
+\begin{example}[]
+	Let $\alpha = e^{\frac{2\pi i}{p}} \in \C$ where $p$ is a prime number.
+	Clearly $\alpha$ is algebraic over $\Q$ as we can take $f(x) = x^p - 1$.
+	\emph{However}, $f(x)$ is not the minimal polynomial of $\alpha$ over $\Q$
+	as it is not irreducible:
+	\[
+		f(x) = x^p - 1 = (x - 1)(x^{p-1} + x^{p-2} + \ldots + 1).
+	\]
+	We now let $\phi(x) = x^{p-1} + x^{p-2} + \ldots + 1$.
+	We claim that $\phi$ \emph{is} the minimal polynomial of $\alpha$ over $\Q$.
+	It is clear to see that we must only show that it is irreducible,
+	since $\phi(\alpha) = 0$ and it is monic.
+	We cannot use \emph{Eisenstein's criterion} for $\phi(x)$...
+	but we can use it for $\phi(x + 1)$.
+	\begin{align*}
+		\phi(x+1)
+		&= (x+1)^{p-1} + (x+1)^{p-2} + \ldots + 1 \\
+		&= \frac{(x+1)^p - 1}{(x + 1) - 1} \\
+		&= x^{p-1} + \binom p1 x^{p-2} + \ldots + \binom p1.
+	\end{align*}
+	Now recall
+	\[
+		\binom pj = \frac{p!}{j!(p-j)!} , \qquad \binom p1 = p.
+	\]
+	We see that $p \mid \binom pj$, and $\phi(x+1)$ is irreducible
+	and hence $\phi(x)$ is irreducible (easily shown via contradiction).
+\end{example}

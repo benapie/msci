@@ -1,0 +1,182 @@
+\chapter{Integration}
+
+\section{Uniform continuity and regulated functions}
+
+\begin{definition}[Uniform continuity]
+    A function $f : [a, b] \to \mathbb R$ is \textbf{uniformly continuous} if for all $\varepsilon > 0$, there exists a $\delta > 0$ such that for all $x, c \in [a, b]$ we have \[ \abs{x - c} < \delta \implies \abs{f(x) - f(c)} < \varepsilon. \]
+\end{definition}
+
+\begin{remark}
+    Unlike normal continuity, this is not a local property. Uniform continuity acts over an interval of definition.
+\end{remark}
+
+\begin{theorem}[Continuous $\implies$ uniformly continuous]
+    Let $f$ be a function continous on a compact interval $[a, b]$, then $f$ is uniformly continuous.
+\end{theorem}
+
+\begin{proof}
+    Let $f$ be a function continuous on a compact interval $[a, b]$ as above. If $f$ is uniformly continuous then \[ \forall \; \varepsilon > 0 \; \exists \; \delta > 0 \; \forall \; x, y \in [a, b]: \abs{x - y} < \delta \implies \abs{f(x) - f(y)} < \varepsilon. \] So, lets assume that $f$ is not uniform continuous; therefore, \[ \exists \; \varepsilon > 0 \; \forall \; \delta > 0 \; \exists \; x, y \in [a, b]: \abs{x - c} < \delta \; \text{and} \; \abs{f(x) - f(c)} \geq \varepsilon. \] Now we fix $\epsilon$ and take $\delta = \delta_n = \frac1n$ for each $n \in \mathbb N$. Now we find $x_n, y_n \in [a, b]$ such that \[ \abs{x_n - y_n} < \frac1n \quad \text{but} \quad \abs{f(x_n) - f(y_n)} \geq \epsilon. \] By the Bolzano-Weierstrass theorem, we know that some subsequence of $x_n$, say $x_{n_j}$, converges to a limit $x^\star$. Now we claim that $y_{n_j} \to x^\star$ too. Let $\varepsilon' > 0$. Then there exists $N \in \mathbb N$ such that for all $n_j > N$ we have \[ \abs{x_{n_j} - x^\star} < \varepsilon. \] Hence, for $n_j > \max \{ \frac{1}{\varepsilon'}, N \}$ we have \[ \abs{y_{n_j} - x^\star} = \abs{y_{n_j} - x_{n_j} + x_{n_j} - x^\star} \leq \abs{y_{n_j} - x_{n_j}} + \abs{x_{n_j} - x^\star} < \frac{1}{n_j} + \varepsilon' < 2 \varepsilon'; \] hence $y_{n_j} \to x^\star$. As $f$ is continuous at $x^\star$ we have that \[ \exists \delta > 0: \abs{f(x) - f(x^\star)} < \frac{\varepsilon}{2} \] for all $x \in [a, b]$ with $\abs{x - x^\star} < \delta$. Now choose $n_j$ such that \[ \abs{x_{n_j} - x^\star} < \delta \] and \[ \abs{y_{n_j} - x^\star} < \delta. \] Then \[ \abs{f(x_{n_j}) - f(y_{n_j})} \leq \abs{f(x_{n_j}) - f(x^\star)} + \abs{f(x^\star) - y_{n_j}} < \frac{\varepsilon}{2} + \frac{\varepsilon}{2} = \varepsilon; \] contradiction. Hence, $f$ is uniformly continuous.
+\end{proof}
+
+\begin{definition}[Step function]
+    A function $f$ on a compact interval $[a, b]$ is called a \textbf{step function} if there exists a partition \[ a = x_0 < x_1 < \ldots < x_{N-1} < x_N = b \] of $[a, b]$ such that the function is constant on each open subinterval $(x_k, x_{k + 1})$.
+\end{definition}
+
+\begin{theorem}
+    Let $f$ be a continous function on a compact interval $[a, b]$. Then there exists a sequence of step functions $f_n$ such that for all $\varepsilon > 0$ there exists an $N \in \mathbb N$ such that \[ \abs{f_n(x) - f(x)} < \varepsilon \] for all $x \in [a, b]$ and all $n \geq N$.
+\end{theorem}
+
+\begin{definition}[Regulated function]
+    Let $f$ be a function on a compact interval $[a, b]$. We say that $f$ is \textbf{regulated} if, for all $\varepsilon > 0$, there exists an $N \in \mathbb N$ such that \[ \abs{f_n(x) - f(x)} < \varepsilon \] for all $x \in [a, b]$ and all $n \geq N$.
+\end{definition}
+
+\begin{proposition}[Monotone $\implies$ regulated]
+    Let $f$ be a monotone function on a compact interval $[a, b]$. Then $f$ is regulated.
+\end{proposition}
+
+\begin{theorem}[Regulated $\iff$ left and right limits exist]
+    Let $f$ be a function on a compact interval $[a, b]$. Then $f$ is regulated if and only if for all all points $c \in [a, b]$ the left-sided and right-sided limits $\lim_{x \to c^-} f(x)$ and $\lim_{x \to c^+} f(x)$ exist. 
+\end{theorem}
+
+\begin{proposition}
+    The set of all regulated functions naturally form a linear vector space. Additionally, if $f, g$ are both regulated functions $fg$ is also a regulated function and so is $\abs{f}$.
+\end{proposition}
+
+\section{Integration of a regulated function}
+
+\begin{definition}[Integration of step functions]
+    Let $f$ be a step function assigned to the partition \[ a = x_0 < x_1 < \ldots < x_{N-1} < x_N = b. \] Let \[ a = y_0 < y_1 < \ldots < y_{M-1} < y_M = b \] be any refined partition. Then the \textbf{integral} $I(f)$ is defined as \[ I(f) = \sum_{k = 0}^{M-1} f(y^{\star}_k) (y_{k+1} - y_k) = \sum_{k = 0}^{N-1} f(x^{\star}_k) (x_{k+1} - x_k) \] where $y^{\star}_k \in [y_k, y_{k + 1}]$ and $x^{\star}_k \in [x_k, x_{k + 1}]$.
+\end{definition}
+
+\begin{definition}[Extension to regulated functions]
+    Let $f$ be regulated on $[a, b]$. Say $(f_n)$ converges uniformly to $f$. Then define \[ I(f) = \lim_{n \to \infty} (I(f_n)). \]    
+\end{definition}
+
+\begin{remark}
+    With this definition, we have two potential issues.
+    \begin{enumerate}
+        \item Does it converge?
+        \item Does the choice of $f_n$ matter?
+    \end{enumerate}
+
+    The answer to these questions are yes, it converges; and no the choice of $f_n$ does not matter; however, proving this takes a bit of work.
+\end{remark}
+
+\begin{lemma}
+    Let $f$ be regulated on $[a,b]$ and $f_n$ be a sequence of step functions that uniformly converge to $f$. Then the limit \[ \lim_{n \to \infty} I(f_n), \] converges.
+\end{lemma}
+
+\begin{proof}
+    The idea of this proof is to show that $I(f_n)$ is a Cauchy sequence and hence converges. We already know that $f_n$ converges to $f$, so there exists $N \in \mathbb N$ such that \[ \abs{f(x) - f_n(x)} < \varepsilon \] for all $n \geq N$ and $x \in [a, b]$. Let $n, m \geq N$ and let $\{ x_k; k = 0, 1, \ldots, M \}$ be the common refinements of the paritions of the step functions $f_n, f_m$. Then
+    \begin{align*}
+        \abs{I(f_n) - I(f_m)} &= \left\lvert \sum_{k = 0}^{M - 1} f_n(x^{\star}_k) (x_{k + 1} - x_{k}) - \sum_{k = 0}^{M - 1} f_m(x^{\star}_k) (x_{k + 1} - x_{k}) \right\rvert \\
+        &\leq \sum_{k = 0}^{M - 1} \abs{f_n(x^{\star}_k) - f_m(x^{\star}_k)} (x_{k + 1} - x_k) \\
+        &= \sum_{k = 0}^{M - 1} \abs{f_n(x^{\star}_k) - f(x^{\star}_k) + f(x^{\star}_k) - f_m(x^{\star}_k)} (x_{k + 1} - x_k) \\
+        &\leq \sum_{k = 0}^{M - 1} \left( \abs{f_n(x^{\star}_k )- f(x^{\star}_k)} + \abs{f(x^{\star}_k) - f_m(x^{\star}_k)} \right) (x_{k + 1} - x_k) \\
+        &\leq \sum_{k = 0}^{M - 1} 2 \varepsilon (x_{k + 1} - x_k) = 2 \varepsilon (b - a);
+    \end{align*}
+    therefore, $I(f_n)$ forms a Cauchy sequence and hence converges.
+\end{proof}
+
+\begin{lemma}
+    Let $f$ be regulated on $[a,b]$ and $f_n$ and $g_n$ be sequences of step functions that both uniformly converge to $f$. Then \[ \lim_{n \to \infty} I(f_n) = \lim_{n \to \infty} I(g_n). \]
+\end{lemma}
+
+\begin{proof}
+    The proof for this lemma is almost identical to the previous lemma, we just replace $f_m$ with $g_n$.
+\end{proof}
+
+\begin{remark}
+    Ofcourse, we usually write \[ I(f) = \int_a^b f(x) \, dx \] as the integral of a regulated function $f$ on $[a, b]$.
+\end{remark}
+
+\section{Comparison with the Riemann integral}
+
+Regulated functions are based on approximating a function by step functions. The regulated limit arises as the limit of the approaching functions. In comparison, the Rienmann integral directly approximates the signed areaa under the graph of $f$. The Rienmann integral focuses on partitions of the $x$-axis.
+
+The Riemann integral is beneficial as it is \emph{slightly} more general and is more intuitive for problems involving area; however, it is harder to establish properties (compared to regulated functions), the use can also be somewhat tautological, it is not as conceptuial as regulated integrals, and it does not direct to the Lebesgue integral. 
+
+\section{Properties of the regulated integral}
+
+\begin{theorem}[Properties of the regulated integral]
+    Let $f, g$ be regulated functions on $[a, b]$.
+    \begin{enumerate}
+        \item Linearity, let $c \in \mathbb R$ then 
+        \begin{align*}
+            \int_a^b c f(x) \, dx &= c \int_a^b f(x) \, dx, \\
+            \int_a^b f(x) + g(x) \, dx &= \int_a^b f(x) \, dx + \int_a^b g(x) \, dx.
+        \end{align*}
+        \item Montonicity, if $f(x) \leq g(x) \; \forall \; x \in [a, b]$ then \[ \int_a^b f(x) \, dx \leq \int_a^b g(x) \, dx \] so clearly if $f(x) \geq 0$ \[ \int_a^b f(x) \, dx > 0 \] and if $M = \inf{f(x)}$ and $M = \sup{f(x)}$, \[ m(b - a) \leq \int_a^b f(x) \, dx \leq M(b - a). \]
+        \item Additivity, let $c \in [a, b]$ then \[ \int_a^b f(x) \, dx = \int_a^c f(x) \, dx + \int_b^c f(x) \, dx \]
+    \end{enumerate}
+\end{theorem}
+
+\begin{proof}
+    This theorem is clearly proved by looking at the step function definitions for regulated integrals. 
+\end{proof}
+
+\begin{theorem}[Mean value theorem]
+    Let $f$ be a continuous function on $[a, b]$. Then there exists $c \in [a, b]$ such that \[ \int_a^b f(x) \, dx = f(c) (b - a). \]
+\end{theorem}
+
+\begin{proof}
+    Follows immediately from the last theorem and the intermediate value theorem.
+\end{proof}
+
+\begin{proposition}
+    Let $f(x)$ be a continuous function on $[a, b]$ such that $f(x) \geq 0$ for all $x \in [a, b]$ and $f(c) > 0$ for some $c \in [a, b]$ Then \[ \int_a^b f(x) \, dx > 0. \]
+\end{proposition}
+
+\begin{proof}
+    % todo
+\end{proof}
+
+\section{Fundamental theorem of calculus}
+
+\begin{theorem}
+    Let $f$ be a regulated function on $[a, b]$. Then the function \[ F(x) = \int_0^x f(t) \, dt \] is Lipschitz continuous on $[a, b]$ with Lipschitiz constant \[ M = \sup_{x \in [a, b]} \{ \abs{f(x)} \}, \] so in particular it is continuous.
+\end{theorem}
+
+\begin{proof}
+    \begin{align*}
+        \abs{F(x) - F(y)} &= \left\lvert \int_a^x f(t) \, dt - \int_a^y f(t) \, dt \right\rvert \\
+        &= \left\lvert \int_y^x f(t) \, dt \right\rvert \\
+        &\leq \int_y^x f(t) \, dt \\
+        &\leq \int_y^x M \, dt = M \abs{x - y}.
+    \end{align*}
+\end{proof}
+
+\begin{theorem}[Fundamental theorem of calculus]
+    Let $f$ be a continuous function on $[a, b]$. Then \[ mF(x) = \int_a^x f(t) \, dt \] is a differentiable function on $[a, b]$ and we have \[ F'(x) = f(x) \] for all $x \in [a, b]$.
+\end{theorem}
+
+\begin{proof}
+    % todo
+\end{proof}
+
+\section{Functions via integrals}
+
+% todo
+
+\section{Improper integrals}
+
+\begin{definition}
+    Let $f$ be a continuous function on an interval $I = [a, b)$ with $a < b$ or $b = \infty$. We define the improper integral \[ \int_a^b f(x) \, dx = \lim_{c \to b} \int_a^c f(x) \, dx \] and we call the integral convergent or divergent depending on whether the limit exists. The improper integrals over the bounded intervals $(a, b]$ and $(a, b)$ are defined similarly.
+\end{definition}
+
+\begin{example}[Improper integrals]
+    \begin{enumerate}
+        \item Let $f(x) = x^{\alpha}$ on $[1, \infty)$. Then
+        \[ 
+            \int_{1}^{\infty} x^{\alpha} \, dx = \left( \lim_{c \to \infty} \int^c_1 x^{\alpha} \, dx \right) =
+            \begin{cases}
+                \lim_{c \to \infty} \left( \frac{c^{1 + \alpha} - 1}{1 + \alpha} \right) = \frac{1}{1 + \alpha} & \text{if} \; \alpha < -1 \\
+                \lim_{c \to \infty} (\log(c)) = \infty & \text{if} \; \alpha = -1 \\
+                \lim_{c \to \infty} \left( \frac{c^{1 + \alpha} - 1}{1 + \alpha} \right) = \infty & \text{if} \; \alpha > -1
+            \end{cases}
+            .
+        \]
+
+        \item 
+    \end{enumerate}
+\end{example}

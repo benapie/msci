@@ -1,0 +1,284 @@
+%! TEX root = master.tex
+\lecture{14}{25/11}
+
+\begin{theorem}[]
+	Let $f$ and $g$ be measurable functions on $E$ that are finite
+	almost everywhere on $E$.
+	\begin{enumerate}
+		\item (Linearity) For every $\alpha, \beta \in \R$,
+			$\alpha f + \beta g$ is measurable on $E$.
+		\item (Products) $fg$ is measurable on $E$.
+	\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+	If $\alpha = 0$, then $\alpha f$ is clearly measurable.
+	So we assume that $\alpha \neq 0$.
+	Observe that for every $c \in \R$:
+	\[
+		\left\{
+			x \in E: \alpha f(x) > c
+		\right\}
+		=
+		\begin{cases}
+			\left\{
+				x \in E: f(x) > \frac{c}{\alpha}
+			\right\}
+			& \alpha > 0, \\
+			\left\{
+				x \in E: f(x) < \frac{c}{\alpha}
+			\right\}
+			& \alpha < 0.
+		\end{cases}
+	\]
+	So if $f$ is measurable, clearly $\alpha f$ is too.
+	For linearity, we have left to prove that the sum of two
+	measurable functions is measurable.
+	For $x \in E$, if $f(x) + g(x) < c$ then
+	$f(x) < c - g(x)$.
+	By the density of $\Q$ in $\R$,
+	we can find a $q \in \Q$ such that
+	\[
+		f(x) < q < c - g(x).
+	\]
+	Hence
+	\[
+		\left\{
+			x \in E: f(x) + g(x) < c
+		\right\}
+		= \bigcup_{q \in \Q}
+		\left\{
+			x \in E: g(x) < c - q
+		\right\}
+		\cap
+		\left\{
+			x \in E: f(x) < q
+		\right\}
+	\]
+	and as $\Q$ is countable, $f(x) + g(x)$ is measurable.
+	Now observe that
+	\[
+		fg = \frac12\left( 
+			(f+g)^2 - f^2 - g^2 
+		\right).
+	\]
+	So to prove that $fg$ is measurable, we must only show that
+	$f^2$ is measurable.
+	For $c > 0$
+	\[
+		\left\{
+			x \in E: (f(x))^2 > c
+		\right\}
+		=
+		\left\{
+			x \in E: f(x) > \sqrt c
+		\right\}
+		\cup
+		\left\{
+			x \in E: f(x) < -\sqrt c
+		\right\}
+	\]
+	and for $c < 0$
+	\[
+		\left\{
+			x \in E: (f(x))^2 > c
+		\right\}
+		= E
+	\]
+	and thus $f^2$ is measurable.
+\end{proof}
+
+\begin{definition}[Function convergence]
+	Let
+	$
+		\left\{
+			f_n
+		\right\}_{n \in \N}
+	$
+	be a sequence of functions where $f_n: E \to \R$ for each $n \in \N$
+	for $E \subset \R$.
+	Let $A \subset E$.
+	\begin{enumerate}
+		\item \emph{$f_n \to f$ pointwise on $A$} if
+			\[
+				\lim_{n \to \infty} f_n(x) = f(x)
+			\]
+			for every $x \in A$.
+
+		\item \emph{$f_n \to f$ pointwise almost everywhere on $A$}
+			if there is $B \subset R$ with $m(B) = 0$ such that
+			$f_n \to f$ pointwise on $A \setminus B$; and
+
+		\item \emph{$f_n \to f$ uniformly on $A$} if
+			for every $\varepsilon > 0$ there is $N \in \N$
+			such that
+			\[
+				\left\lvert f_n(x) - f(x) \right\rvert < \varepsilon
+			\]
+			for every $x \in A$ and $n \geq N$.
+	\end{enumerate}
+\end{definition}
+
+\begin{proposition}[]
+	Let
+	$
+		\left\{
+			f_n
+		\right\}_{n \in \N}
+	$
+	be a family of real-valued measurable functions with common domain $E$
+	such that $f_n \to f$ pointwise almost everywhere on $E$.
+	Then $f$ is measurable.
+\end{proposition}
+
+\begin{proof}
+	Let $E_0 \subset E$ such that $m(E_0) = 0$
+	and $f_n \to f$ pointwise on $E_0$.
+	$f$ is measurable on $E$ if and only if
+	$\restr f{E_0}$ and $\restr f{E \setminus E_0}$
+	are measurable.
+	Now $\left\{
+		x \in E_0: f(x) < c
+	\right\} \subset E_0$
+	and $m(E_0) = 0$, so $\restr f{E_0}$ is measurable.
+	Fix $c \in \R$. We must show that
+	$
+		\left\{
+			x \in E \setminus E_0: f(x) < c
+		\right\}
+	$
+	is measurable.
+	Observe that for every $x \in E \setminus E_0$,
+	$f_n(x) \to f(x)$ and so $f(x) < c$ if and only if there is
+	$n, k \in \N$ such that $f_j(x) < f(x) - \frac1n < c - \frac1n$
+	for every $j \geq k$.
+	But for every $n, j \in \N$ (as $f_j$ is measurable)
+	$
+		\left\{
+			x \in E: f_j(x) < c - \frac1n
+		\right\}
+	$
+	is also measurable.
+	So
+	$
+		\bigcap_{j=k}^\infty
+		\left\{
+			x \in E: f_j(x) < c - \frac1n
+		\right\}
+	$
+	is measurable.
+	Observe that
+	\[
+		\left\{
+			x \in E: f(x) < c
+		\right\}
+		= \bigcup_{k \geq 1, n < \infty}
+		\left( 
+			\bigcap_{j=k}^\infty
+			\left\{
+				x \in E: f_j(x) < c - \frac1n
+			\right\}
+		\right)
+	\]
+	and so $f(x)$ is measurable.
+\end{proof}
+
+\begin{definition}[Charactersitic function]
+	For $A \subset \R$, we define the
+	\emph{charactersitic function of $A$} by
+	\[
+		\chi_A(x) =
+		\begin{cases}
+			1 & x \in A, \\
+			0 & x \not\in A.
+		\end{cases}
+	\]
+\end{definition}
+
+Now, we can show that $\chi_A$ is measurable if and only if $A$ is measurable.
+Indeed, for $c \leq 0$,
+\[
+	\left\{
+		x \in \R: \chi_A(x) < c
+	\right\}
+	= \varnothing;
+\]
+for $c > 1$,
+\[
+	\left\{
+		x \in \R: \chi_A(x) < c
+	\right\}
+	= \R;
+\]
+and for $c \in (0,1]$,
+\[
+	\left\{
+		x \in \R: \chi_A(x) < c
+	\right\}
+	= \R \setminus A.
+\]
+This proves the existence of non-measurable functions due to the existence 
+of non-measurable sets.
+
+\begin{definition}[Simple function]
+	Let $E \subset \R$ be measurable.
+	Then $\varphi: E \to \R$ is \emph{simple} if it is measurable
+	and $\varphi(E)$ is finite.
+\end{definition}
+
+Note that linear combinations of simple functions must also be simple.
+Suppose $\varphi$ is simple on $E$, let $c_1, \ldots, c_n$
+be the distinct values that $\varphi$ takes, and let
+$
+	E_k =
+	\left\{
+		x \in E: \varphi(x) < c_k
+	\right\}.
+$
+Then
+\[
+	\varphi(x) = \sum_{k=1}^n c_k \chi_{E_k}(x).
+\]
+We call this the \emph{canonical representation} of a simple function $\varphi$.
+
+\begin{lemma}[Simple approximation lemma]
+	Let $f: E \to \R$ be measurable and bounded.
+	Then for each $\varepsilon > 0$ there is simple functions
+	$\varphi_{\varepsilon}, \psi_{\varepsilon}: E \to \R$
+	such that
+	\[
+		\varphi_\varepsilon(x) \leq f(x) \leq \psi_\varepsilon(x),
+		\quad
+		0 \leq \psi_\varepsilon(x) - \varphi_\varepsilon(x) < \varepsilon
+	\]
+	for every $x \in E$.
+\end{lemma}
+
+\begin{proof}
+	Let $(c, d)$ be an open and bounded interval such that
+	$f(E) \subset (c,d)$.
+	Let $c = y_0 < y_1 < \ldots < y_{n-1} < y_n = d$
+	be a partition such that $y_k - y_{k-1} < \varepsilon$
+	for every $k \in \left\{
+		1, \ldots, n
+	\right\}$.
+	Define
+	$I_k = [y_{k-1}, y_k)$ and $E_k = f^{-1}(I_k)$.
+	Now $I_k$ is open and $f$ is measurable, so
+	$E_k$ is measurable.
+	So we define
+	\begin{align*}
+		\varphi_\varepsilon(x)
+		&= \sum_{k=1}^n y_{k-1} \chi_{E_k}(x), \\
+		\psi_\varepsilon(x)
+		&= \sum_{k=1}^n y_k \chi_{E_k}(x).
+	\end{align*}
+	Now let $x \in E$.
+	Since $f(E) \subset (c,d)$,
+	there is a unique $k$ such that $f(x) \in I_k$.
+	Thus
+	\[
+		\varphi_\varepsilon(x) = y_{k-1} \leq f(x) < y_k = \psi_\varepsilon(x)
+	\]
+	and $y_k - y_{k-1} < \varepsilon$ and thus meets our criteria.
+\end{proof}

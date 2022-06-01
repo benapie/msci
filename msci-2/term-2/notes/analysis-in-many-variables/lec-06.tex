@@ -1,0 +1,57 @@
+\lecture{6}{23/1}
+
+To evaluate integrals constructed in this method,
+we construct area elements $\Delta A_k$ by approximating them as parallelograms.
+Remember, the cross product of two vectors is equal to the area of the parallelgram
+that they span.
+Therefore
+\begin{align*}
+    \hat{\bm n} \Delta A_k 
+    &\approx (\bm x(u_i + \Delta u_i, v_j) - \bm x(u_i, v_j))
+        \times (\bm x(u_i, v_j + \Delta v_j) - \bm x(u_i, v_j)) \\
+    &\approx \left( \frac{\partial x}{\partial u} \Delta u_i \right)
+        \times \left( \frac{\partial x}{\partial v} \Delta v_j \right) \\
+    &= \left( 
+            \frac{\partial \bm x}{\partial u} \times \frac{\partial \bm x}{\partial v}
+        \right)
+        \Delta u_i \Delta v_j
+\end{align*}
+and thus
+\[
+    \int_S \bm F \cdot d\bm A
+    = \lim_{\Delta A_k \to 0}
+        \sum_{k = 0}^N \bm F(\bm x_k^\star) \cdot 
+        \left(
+            \frac{\partial \bm x(u_i, v_j)}{\partial u} 
+            \times \frac{\partial \bm x(u_i, v_j)}{\partial v}
+        \right)
+        \Delta u_i \Delta v_j.
+\]
+
+\begin{example}
+    Find the surface integral of $\bm F = \bm e_3$ over the surface $S$
+    of a hemisphere centred on the origin with radius 1, $z \geq 0$.
+\end{example}
+
+\begin{solution}
+    We parametrise with
+    $\theta \in \left[0,\frac{\pi}2\right]$
+    and
+    $\phi \in [0, 2\pi]$.
+    Then (from the previous example)
+    \begin{align*}
+        \int_S \bm F \cdot d\bm A
+        &= \int_0^{\frac{\pi}2} d\theta \int_0^{2\pi} d\phi \,
+            \bm F \cdot 
+            \left(
+                \frac{\partial x}{\partial \theta}
+                \times
+                \frac{\partial x}{\partial \phi}
+            \right) \\
+        &= \int_0^{\frac{\pi}2} d\theta \int_0^{2\pi} d\phi
+            \sin\theta \cos\theta \\
+        &= 2\pi \int_0^{\frac{\pi}2} \frac12 \sin(2\theta) \,d\theta \\
+        &= \pi \left(\frac{-\cos(2\theta)}2\right)_0^{\frac{\pi}2} = \pi.
+    \end{align*}
+\end{solution}
+

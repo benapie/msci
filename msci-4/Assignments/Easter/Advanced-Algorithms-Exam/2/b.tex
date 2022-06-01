@@ -1,0 +1,12 @@
+\part[5] Let $\Pi$ be some $\NP$-complete graph problem. Let $F$ be the \emph{paw}, that is, $F$ has vertices $a,b,c,d$ and edges $ab, bc, ca, cd$. Suppose that we can solve $\Pi$ in polynomial time for paw-free graphs. Does this mean that we can solve $\Pi$ in polynomial time for bipartite graphs? Justify your answer.
+
+\begin{solution}
+    \vspace{0.5em}
+    \begin{proposition}
+        Every bipartite graph is paw-free.
+    \end{proposition}
+    \begin{proof}
+        Let $G$ be a bipartite graph and for suppose there is $A \subset V(G)$ such that $G[A]$ is the paw (that is, $G$ contains the paw as an induced subgraph). As $G$ is bipartite, it is 2-colourable (give a colour to each vertex partition). Let $c: V(G) \to \{1,2\}$ be such a colouring. Then $c$ is also a colouring for $G[A]$, the paw. But the paw is not 2-colourable. Namely, it has a clique of size $3$; a contradiction. Thus every bipartite graph is paw-free.
+    \end{proof}
+    It is immediate that the class of bipartite graphs $\mathcal G_1$ is a subclass of the class of paw-free graphs $\mathcal G_2$ (that is, $\mathcal G_1 \subset \mathcal G_2$). Thus, if we can solve $\Pi$ in polynomial time for paw-free graphs, then we can also solve it for bipartite graphs (as every bipartite graph is paw-free).
+\end{solution}

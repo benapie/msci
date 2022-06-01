@@ -1,0 +1,70 @@
+\part[15] Recall that a graph $G = (V,E)$ is a split graph if there exists two disjoint sets $C$ and $I$ such that $V = C \cup I$, the set $C$ is a clique and the set $I$ is an independent set. Prove that \textsc{Feedback Vertex Set} is polynomial-time solvable for split graphs. Justify your answer.
+
+\begin{solution}
+    \vspace{1em}
+    \begin{definition}[Split pair]
+        Let $G$ be a graph. If $G$ is split, then we say that $(C,I)$ is a \emph{split pair} if $\{C, I\}$ is a partition of $V(G)$, $C$ is a clique in $G$, and $I$ is a independent set in $G$. If $C$ is a maximum clique of $G$, we call $(C, I)$ a \emph{maximum split pair}.
+    \end{definition}
+    \vspace{1em}
+    \begin{definition}[Feedback set vertex number]
+        The \emph{feedback vertex set number} of a graph is the size of the smallest feedback vertex set.
+    \end{definition}
+    \vspace{1em}
+    \begin{lemma}
+        Given a split graph, finding a maximum split pair can be done in polynomial-time.
+    \end{lemma}
+
+    \begin{proof}
+        Let $G$ be a graph split graph. First, we note that for a maximum split pair $(C,I)$ of $G$, every vertex of $I$ has degree at most $i-1$ (otherwise it could be brought into the clique), and similarly every vertex of $C$ has degree at least $i-1$. Moreover, if $I$ contains at least one vertex of degree $\lvert C \rvert - 1$, then $C$ contains at most one vertex of degree $\lvert C \rvert - 1$. We also comment on the obvious existence of a maximum split pair.
+
+        For $i \in \{1, \ldots, \lvert V(G) \rvert\}$, we will check if $G$ has a maximum split pair $(C, I)$ with $\lvert C \rvert = i$. We construct the following sets in $O(n^2)$ time:
+        \begin{enumerate}
+            \item the set $I'$ of vertices of degree at most $i-2$;
+            \item the set $U$ of vertices of degree $i-1$; and
+            \item the set $C'$ of vertices of degree at least $i$.
+        \end{enumerate}
+        From the above, if $(C, I)$ is a maximum split pair with $\lvert C_i \rvert = i$, then either
+        \begin{enumerate}
+            \item $C = C' \cup U$ and $I  = I'$;
+            \item $C = C'$ and $I = I' \cup U$; or
+            \item there exists a vertex $u \in U$ such that $C = C' \cup \{u\}$ and $I = I' \cup (U \setminus \{u\})$.
+        \end{enumerate}
+        Thus we have $\lvert U \rvert + 2 = O(n)$ options to consider, and we can check every option in time $O(n^2)$.
+
+        This gives us a total running time of $O(n^4)$, which is polynomial.
+    \end{proof}
+    \vspace{1em}
+
+    \begin{lemma}
+        The feedback vertex set number of a graph $G$ with a maximum split pair $(C, I)$ is either $\lvert C \rvert - 2$ or $\lvert C \rvert - 1$.
+    \end{lemma}
+
+    \begin{proof}
+        Suppose that $S \subset V(G)$ is a feedback vertex set of $G$ with $\lvert S \rvert \leq \lvert C \rvert - 3$. Then there is at least three vertices of $C$ that aren't deleted, but these form a triangle, and so $G[C]$ cannot be a forest. Thus a feedback vertex set must have size at least $\lvert C \rvert - 2$. Now we recognise a $\lvert C \rvert - 1$ feedback vertex set that always exist: delete $\lvert C \rvert - 1$ vertices of $C$ from $G$. Then we are left with the disjoint union of a star graph and $nP_1$ (which is a forest), as otherwise there would be an edge between two vertices of $I$; a contradiction as $I$ is an independent set.
+    \end{proof}
+
+    \begin{lemma}
+        Given a graph $G$ and a maximal split pair $(C, I)$, the feedback vertex set number can be computed in polynomial time.
+    \end{lemma}
+
+    \begin{proof}
+        Following the reasoning of the previous proof, if $S$ is a minimum feedback vertex set then $\lvert C \rvert - 2$ of the vertices of $S$ must be from $C$ (as otherwise we would have a cycle left over). Thus we permute over every disjoint pair of vertices $\{u, v\} \subset C$ and consider if they share a neighbour in $I$. If there is a pair which does not share any neighbour of $I$, then we may take the feedback vertex set number as $\lvert C \rvert - 2$. Otherwise, the feedback vertex set number is $\lvert C \rvert - 1$. This can be done in $O\left(\lvert I \rvert\binom{n}{2}\right) = O(n^3)$ time.
+    \end{proof}
+
+    Combining the above, given a split graph $G$, we can identity a maximum split pair $(C,I)$ in $O(n^4)$ time. Using this, we can compute the feedback vertex set number in polynomial time.
+    \vspace{1em}
+    \begin{problem}[\textsc{Feedback Vertex Set}]
+    \hspace{0em}\\
+    Instance: let $G$ be a graph and $k \in \mathbb N$ \\
+    Question: does $G$ have a feedback vertex set of size at most $k$?
+    \end{problem}
+    \vspace{1em}
+
+    \begin{corollary}
+        \textsc{Feedback Vertex Set} is polynomial-time solvable for split graphs.
+    \end{corollary}
+
+    \begin{proof}
+        Let $G$ be a split graph. As $G$ is split, we can compute the feedback vertex set number in polynomial time. Let $f$ be the feedback vertex set number. Then if $k < f$, we output \texttt{no}. If $k \geq f$, we output \texttt{yes}.
+    \end{proof}
+\end{solution}

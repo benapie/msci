@@ -1,0 +1,50 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{k}{class} \PYG{n+nc}{Incremental}\PYG{p}{(}\PYG{n}{VRBase}\PYG{p}{,} \PYG{n}{ABC}\PYG{p}{):}
+    \PYG{k}{def} \PYG{n+nf+fm}{\PYGZus{}\PYGZus{}init\PYGZus{}\PYGZus{}}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{p}{,} \PYG{n}{points}\PYG{p}{:} \PYG{n}{List}\PYG{p}{[}\PYG{n}{ndarray}\PYG{p}{],} \PYG{n}{epsilon}\PYG{p}{:} \PYG{n+nb}{float}\PYG{p}{,}
+                 \PYG{n}{metric}\PYG{p}{:} \PYG{n}{Callable}\PYG{p}{[[}\PYG{n}{ndarray}\PYG{p}{[}\PYG{n+nb}{float}\PYG{p}{,} \PYG{o}{...}\PYG{p}{],} \PYG{n}{ndarray}\PYG{p}{[}\PYG{n+nb}{float}\PYG{p}{,} \PYG{o}{...}\PYG{p}{]],} \PYG{n+nb}{float}\PYG{p}{]):}
+        \PYG{n+nb}{super}\PYG{p}{()}\PYG{o}{.}\PYG{n+nf+fm}{\PYGZus{}\PYGZus{}init\PYGZus{}\PYGZus{}}\PYG{p}{(}\PYG{n}{points}\PYG{p}{,} \PYG{n}{epsilon}\PYG{p}{,} \PYG{n}{metric}\PYG{p}{)}
+        \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{\PYGZus{}\PYGZus{}new\PYGZus{}complex} \PYG{o}{=} \PYG{n}{FilteredSimplicialComplex}\PYG{p}{()}
+
+    \PYG{k}{def} \PYG{n+nf}{lower\PYGZus{}neighbours}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{p}{,} \PYG{n}{v}\PYG{p}{:} \PYG{n+nb}{int}\PYG{p}{)} \PYG{o}{\PYGZhy{}\PYGZgt{}} \PYG{n}{Set}\PYG{p}{[}\PYG{n+nb}{int}\PYG{p}{]:}
+        \PYG{n}{edge\PYGZus{}neighbours} \PYG{o}{=} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{\PYGZus{}complex}\PYG{o}{.}\PYG{n}{get\PYGZus{}edge\PYGZus{}neighbours}\PYG{p}{(}\PYG{n}{v}\PYG{p}{)}
+        \PYG{n}{lower\PYGZus{}edge\PYGZus{}neighbours} \PYG{o}{=} \PYG{n+nb}{set}\PYG{p}{()}
+        \PYG{k}{for} \PYG{n}{neighbour} \PYG{o+ow}{in} \PYG{n}{edge\PYGZus{}neighbours}\PYG{p}{:}
+            \PYG{k}{if} \PYG{n}{neighbour} \PYG{o}{\PYGZlt{}} \PYG{n}{v}\PYG{p}{:}
+                \PYG{n}{lower\PYGZus{}edge\PYGZus{}neighbours}\PYG{o}{.}\PYG{n}{add}\PYG{p}{(}\PYG{n}{neighbour}\PYG{p}{)}
+        \PYG{k}{return} \PYG{n}{lower\PYGZus{}edge\PYGZus{}neighbours}
+
+    \PYG{k}{def} \PYG{n+nf}{add\PYGZus{}cofaces}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{p}{,} \PYG{n}{level}\PYG{p}{:} \PYG{n+nb}{int}\PYG{p}{,} \PYG{n}{simplex}\PYG{p}{:} \PYG{n}{Simplex}\PYG{p}{,} \PYG{n}{lower\PYGZus{}neighbours}\PYG{p}{:} \PYG{n}{Set}\PYG{p}{[}\PYG{n+nb}{int}\PYG{p}{]):}
+        \PYG{n}{stack} \PYG{o}{=} \PYG{p}{[(}\PYG{n}{simplex}\PYG{p}{,} \PYG{n}{lower\PYGZus{}neighbours}\PYG{p}{)]}
+        \PYG{k}{while} \PYG{n}{stack}\PYG{p}{:}
+            \PYG{n}{current\PYGZus{}simplex}\PYG{p}{,} \PYG{n}{current\PYGZus{}neighbours} \PYG{o}{=} \PYG{n}{stack}\PYG{o}{.}\PYG{n}{pop}\PYG{p}{()}
+            \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{\PYGZus{}\PYGZus{}new\PYGZus{}complex}\PYG{o}{.}\PYG{n}{add\PYGZus{}simplex}\PYG{p}{(}\PYG{n}{current\PYGZus{}simplex}\PYG{p}{,} \PYG{l+m+mi}{0}\PYG{p}{)}
+
+            \PYG{k}{if} \PYG{n}{current\PYGZus{}simplex}\PYG{o}{.}\PYG{n}{dim} \PYG{o}{\PYGZlt{}} \PYG{n}{level}\PYG{p}{:}
+                \PYG{k}{for} \PYG{n}{neighbour} \PYG{o+ow}{in} \PYG{n}{current\PYGZus{}neighbours}\PYG{p}{:}
+                    \PYG{n}{coface} \PYG{o}{=} \PYG{n}{current\PYGZus{}simplex} \PYG{o}{+} \PYG{n}{neighbour}
+                    \PYG{n}{new\PYGZus{}lower\PYGZus{}neighbours} \PYG{o}{=} \PYG{n}{current\PYGZus{}neighbours}\PYG{o}{.}\PYG{n}{intersection}\PYG{p}{(}
+                        \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{lower\PYGZus{}neighbours}\PYG{p}{(}\PYG{n}{neighbour}\PYG{p}{))}
+                    \PYG{n}{stack}\PYG{o}{.}\PYG{n}{append}\PYG{p}{((}\PYG{n}{coface}\PYG{p}{,} \PYG{n}{new\PYGZus{}lower\PYGZus{}neighbours}\PYG{p}{))}
+
+    \PYG{k}{def} \PYG{n+nf}{compute\PYGZus{}weights}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{p}{):}
+        \PYG{k}{for} \PYG{n}{edge} \PYG{o+ow}{in} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{\PYGZus{}\PYGZus{}new\PYGZus{}complex}\PYG{o}{.}\PYG{n}{p\PYGZus{}simplices}\PYG{p}{(}\PYG{l+m+mi}{1}\PYG{p}{):}
+            \PYG{p}{(}\PYG{n}{vertex\PYGZus{}x}\PYG{p}{,} \PYG{n}{vertex\PYGZus{}y}\PYG{p}{)} \PYG{o}{=} \PYG{n}{edge}\PYG{o}{.}\PYG{n}{get\PYGZus{}vertices}\PYG{p}{()}
+            \PYG{n}{weight} \PYG{o}{=} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{\PYGZus{}metric}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{\PYGZus{}points}\PYG{p}{[}\PYG{n}{vertex\PYGZus{}x}\PYG{p}{],} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{\PYGZus{}points}\PYG{p}{[}\PYG{n}{vertex\PYGZus{}y}\PYG{p}{])}
+            \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{\PYGZus{}\PYGZus{}new\PYGZus{}complex}\PYG{o}{.}\PYG{n}{reweight}\PYG{p}{(}\PYG{n}{edge}\PYG{p}{,} \PYG{n}{weight}\PYG{p}{)}
+
+        \PYG{k}{for} \PYG{n}{p} \PYG{o+ow}{in} \PYG{n+nb}{range}\PYG{p}{(}\PYG{l+m+mi}{2}\PYG{p}{,} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{\PYGZus{}\PYGZus{}new\PYGZus{}complex}\PYG{o}{.}\PYG{n}{dim} \PYG{o}{+} \PYG{l+m+mi}{1}\PYG{p}{):}
+            \PYG{k}{for} \PYG{n}{p\PYGZus{}simplex} \PYG{o+ow}{in} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{\PYGZus{}\PYGZus{}new\PYGZus{}complex}\PYG{o}{.}\PYG{n}{p\PYGZus{}simplices}\PYG{p}{(}\PYG{n}{p}\PYG{p}{):}
+                \PYG{n}{weight} \PYG{o}{=} \PYG{n+nb}{max}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{\PYGZus{}\PYGZus{}new\PYGZus{}complex}\PYG{o}{.}\PYG{n}{get\PYGZus{}weight}\PYG{p}{(}\PYG{n}{facet}\PYG{p}{)} \PYGZbs{}
+                    \PYG{k}{for} \PYG{n}{facet} \PYG{o+ow}{in} \PYG{n}{p\PYGZus{}simplex}\PYG{o}{.}\PYG{n}{facets}\PYG{p}{)}
+                \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{\PYGZus{}\PYGZus{}new\PYGZus{}complex}\PYG{o}{.}\PYG{n}{reweight}\PYG{p}{(}\PYG{n}{p\PYGZus{}simplex}\PYG{p}{,} \PYG{n}{weight}\PYG{p}{)}
+
+    \PYG{k}{def} \PYG{n+nf}{compute\PYGZus{}expansion}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{p}{,} \PYG{n}{dim}\PYG{p}{:} \PYG{n+nb}{int}\PYG{p}{):}
+        \PYG{k}{if} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{\PYGZus{}complex}\PYG{o}{.}\PYG{n}{p\PYGZus{}simplex\PYGZus{}count}\PYG{p}{(}\PYG{l+m+mi}{0}\PYG{p}{)} \PYG{o}{==} \PYG{l+m+mi}{0}\PYG{p}{:}
+            \PYG{k}{return}
+        \PYG{k}{for} \PYG{n}{simplex} \PYG{o+ow}{in} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{\PYGZus{}complex}\PYG{o}{.}\PYG{n}{p\PYGZus{}simplices}\PYG{p}{(}\PYG{l+m+mi}{0}\PYG{p}{):}
+            \PYG{p}{(}\PYG{n}{vertex}\PYG{p}{,)} \PYG{o}{=} \PYG{n}{simplex}\PYG{o}{.}\PYG{n}{get\PYGZus{}vertices}\PYG{p}{()}
+            \PYG{n}{lower\PYGZus{}neighbours} \PYG{o}{=} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{lower\PYGZus{}neighbours}\PYG{p}{(}\PYG{n}{vertex}\PYG{p}{)}
+            \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{add\PYGZus{}cofaces}\PYG{p}{(}\PYG{n}{dim}\PYG{p}{,} \PYG{n}{simplex}\PYG{p}{,} \PYG{n}{lower\PYGZus{}neighbours}\PYG{p}{)}
+        \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{compute\PYGZus{}weights}\PYG{p}{()}
+        \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{\PYGZus{}complex} \PYG{o}{=} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{\PYGZus{}\PYGZus{}new\PYGZus{}complex}
+\end{Verbatim}

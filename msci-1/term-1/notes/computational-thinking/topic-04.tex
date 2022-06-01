@@ -1,0 +1,40 @@
+\chapter{Types of problems}
+
+In computer science we have the following central notions for solutions:
+\begin{enumerate}
+    \item computation (how its done);
+    \item resources needed; and
+    \item correctness.
+\end{enumerate}
+
+\begin{definition}[Abstraction]
+    \textbf{Abstraction} is the process of removing unnecessary details from a situation in order to make it easier to solve.
+\end{definition}
+
+When we solve real problems with computers, we are actually solving abstractions that mirror reality. 
+
+\begin{definition}[Decision problems]
+    \textbf{Decision problems} consist of
+    \begin{enumerate}
+        \item a set of instances $I$;
+        \item a set of yes-instances $Y \subset I$.
+    \end{enumerate}
+\end{definition}
+
+\begin{definition}[Search problem]
+    A \textbf{search problem} consists of a binary search relation $R \subset I \times J$ where $I$ is a set of instances and $J$ is a set of solutions.
+\end{definition}
+
+\begin{example}[Prime factoring]
+    Prime factoring can be represented by the relation \[ R = \{(4, 2), (6, 2), (6, 3), (8, 2), (8, 4), (9, 3), (10, 2), (10, 5), \ldots\}. \]
+\end{example}
+
+\begin{definition}[Optimisation problem]
+    A \textbf{optimisation problem} consists of:
+    \begin{enumerate}
+        \item a set of instances $I$;
+        \item for each instance, a set of feasible solutions $f(x)$;
+        \item a measure for every solution to an instance; and
+        \item a goal being minimisation or maximisation.
+    \end{enumerate}
+\end{definition}

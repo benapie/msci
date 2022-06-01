@@ -1,0 +1,85 @@
+\assignment{5}{15/11}
+
+\setcounter{question}{1}
+\question Let $f(z) = \sqrt 2(1 - i) z + 2 - 4i$. Describe $f$ as a rotation followed by a dilation followed by a translation. Hence draw the image under $f$ of the unit cirlce $\abs z = 1$ and of the line $x = y$.
+\begin{solution}
+    \begin{align*}
+        \lvert \sqrt2(1-i)\rvert &= 2 \\
+        \arg(\sqrt2(1-i)) &= \frac{-\pi}2.
+    \end{align*}
+    $f$ is
+    \begin{enumerate}
+        \item a rotation of $\sfrac{-\pi}4$ radians;
+        \item a dilation of factor $2$ about the origin; and then
+        \item a translation of $2 - 4i$.
+    \end{enumerate}
+    The unit circle is mapped to a circle of radius 2 and centre $2 - 4i$.
+    The line defined by $x = y$ is mapped to the line $y = -4$.
+\end{solution}
+
+\setcounter{question}{4}
+\question In what subset of the complex plane is $2z^3 - 3(1 + i)z^2 + 4 - 3i$ conformal?
+\begin{solution}
+    Let
+    \[ f(z) = 2z^3 - 3(1 + i)z^2 + 4 - 3i. \]
+    $f$ is conformal on $S$ iff it is holomorphic on $S$ and 
+    $f'(z) \neq 0$ for all $z \in S$.
+    $f$ is holomorphic on $\C$ as it is composed of complex addition and multiplication.
+    \begin{align*}
+        f'(z) = 6z^2 - 6(1 + i)z &= 0 \\
+        6z(z - (1+i))            &= 0;
+    \end{align*}
+    hence $f'(z) = 0$ iff $z \in \{0, 1+i\}$.
+    Therefore, $f$ is conformal on $\C \setminus \{0, 1+i\}$.
+\end{solution}
+
+\setcounter{question}{6}
+\question At which points in $\C$ are the following maps conformal?
+\begin{parts}
+    \part $z \mapsto z^2 + 2i$; and
+    \begin{solution}
+        Let
+        \[ f(z) = z^2 + 2i. \]
+        $f$ is holomorphic. 
+        $f'(z) = 2z$, hence $f$ is conformal on $\C^\star$.
+        Let
+        \[ \phi_1(t) = te^{i\theta_1}, \qquad \phi_2(t) = te^{i\theta_2} \]
+        where $\theta_1 > \theta_2$.
+        These paths meet at $\theta_1 - \theta_2$ anticlockwise.
+        \begin{align*}
+            (f \circ \phi_1)(t) &= t^2e^{i(2\theta_1)} \\
+            (f \circ \phi_2)(t) &= t^2e^{i(2\theta_2)}.
+        \end{align*}
+        Therefore, the two paths under $f$ meet at the angle 
+        $2\theta_1 - 2\theta_2$ 
+        (as $(f \circ \phi_1)'(t) = 2te^{i(2\theta_1)}$ and similar for $\phi_2$).
+    \end{solution}
+
+    \part $x + iy \mapsto x - 2yi$.
+    \begin{solution}
+        Let
+        \[ g(x + iy) = x - 2yi. \]
+        $g$ does not satisfy the Cauchy-Reimann equations; therefore,
+        $g$ is not holomorphic at any point in $\C$.
+        Hence, $g$ is not conformal on any subset of $\C$.
+        Let $\phi_1 = (x_0 + t) + iy_0$ and $\phi_2 = x_0 + i(y_0 + t)$.
+        These two paths meet at $\frac{\pi}4$ anticlockwise;
+        however, we see that
+        \[ (g \circ \phi_1)(t) = (x_0 + t) - i(2y_0), \qquad (g \circ \phi_2)(t) = x_0 - 2i(y_0 + t) \]
+        and so
+        \[ (g \circ \phi_1)'(t) = 1, \qquad (g \circ \phi_2)'(t) = -2i; \]
+        hence, the paths under $f$ meet at $\sfrac{\pi}2$ \emph{clockwise}.
+        Therefore, $g$ does not preserve orientation of the two paths.
+    \end{solution}
+\end{parts}
+In both cases, for every point $z_0$ at which the function is not conformal, give an example of two paths (lines) through $z_0$ such that the angle (or the orientation of the angle) between them is not preserved by $f(z)$ at $z_0$.
+
+\setcounter{question}{9}
+\question Is the following true or false? If $f$, $g$ are conformal at a point $z_0$ then $f + g$ is conformal at $z_0$. Give a proof or a counter-example.
+\begin{solution}
+    Consider $f(z) = z$ and $g(z) = -z$.
+    $f'(z) = 1$ and $g'(z) = -1$.
+    As $f$ and $g$ are holomorphic and $f'(z) \neq 0$ and $g'(z) \neq 0$, $f$ and $g$ are conformal.
+    However, $(f + g)'(z) = 0$;
+    therefore, $f + g$ is not conformal.
+\end{solution}

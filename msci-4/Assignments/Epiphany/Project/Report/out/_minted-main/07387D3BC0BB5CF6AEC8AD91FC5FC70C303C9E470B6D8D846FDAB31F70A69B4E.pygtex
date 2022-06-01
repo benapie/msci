@@ -1,0 +1,74 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{k}{class} \PYG{n+nc}{Simplex}\PYG{p}{:}
+    \PYG{n}{\PYGZus{}\PYGZus{}vertices}\PYG{p}{:} \PYG{n}{FrozenSet}\PYG{p}{[}\PYG{n+nb}{int}\PYG{p}{]}
+
+    \PYG{k}{def} \PYG{n+nf+fm}{\PYGZus{}\PYGZus{}init\PYGZus{}\PYGZus{}}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{p}{,} \PYG{n}{vertices}\PYG{p}{:} \PYG{n}{Set}\PYG{p}{[}\PYG{n+nb}{int}\PYG{p}{]} \PYG{o}{|} \PYG{n}{FrozenSet}\PYG{p}{[}\PYG{n+nb}{int}\PYG{p}{]):}
+        \PYG{k}{if} \PYG{n+nb}{isinstance}\PYG{p}{(}\PYG{n}{vertices}\PYG{p}{,} \PYG{n}{FrozenSet}\PYG{p}{):}
+            \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{\PYGZus{}\PYGZus{}vertices} \PYG{o}{=} \PYG{n}{vertices}
+        \PYG{k}{else}\PYG{p}{:}
+            \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{\PYGZus{}\PYGZus{}vertices} \PYG{o}{=} \PYG{n+nb}{frozenset}\PYG{p}{(}\PYG{n}{vertices}\PYG{p}{)}
+
+    \PYG{k}{def} \PYG{n+nf+fm}{\PYGZus{}\PYGZus{}repr\PYGZus{}\PYGZus{}}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{p}{):}
+        \PYG{n}{output} \PYG{o}{=} \PYG{p}{[}\PYG{n+nb}{str}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{dim}\PYG{p}{),} \PYG{l+s+s2}{\PYGZdq{}\PYGZhy{}Sim(\PYGZdq{}}\PYG{p}{]}
+        \PYG{n}{output2} \PYG{o}{=} \PYG{p}{[]}
+        \PYG{k}{for} \PYG{n}{vertex} \PYG{o+ow}{in} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{vertices}\PYG{p}{:}
+            \PYG{n}{output2}\PYG{o}{.}\PYG{n}{append}\PYG{p}{(}\PYG{n+nb}{str}\PYG{p}{(}\PYG{n}{vertex}\PYG{p}{))}
+        \PYG{n}{output}\PYG{o}{.}\PYG{n}{append}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{},\PYGZdq{}}\PYG{o}{.}\PYG{n}{join}\PYG{p}{(}\PYG{n}{output2}\PYG{p}{))}
+        \PYG{n}{output}\PYG{o}{.}\PYG{n}{append}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{})\PYGZdq{}}\PYG{p}{)}
+        \PYG{k}{return} \PYG{l+s+s2}{\PYGZdq{}\PYGZdq{}}\PYG{o}{.}\PYG{n}{join}\PYG{p}{(}\PYG{n}{output}\PYG{p}{)}
+
+    \PYG{k}{def} \PYG{n+nf+fm}{\PYGZus{}\PYGZus{}hash\PYGZus{}\PYGZus{}}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{p}{)} \PYG{o}{\PYGZhy{}\PYGZgt{}} \PYG{n+nb}{int}\PYG{p}{:}
+        \PYG{k}{return} \PYG{n+nb}{hash}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{\PYGZus{}\PYGZus{}vertices}\PYG{p}{)}
+
+    \PYG{k}{def} \PYG{n+nf+fm}{\PYGZus{}\PYGZus{}eq\PYGZus{}\PYGZus{}}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{p}{,} \PYG{n}{other}\PYG{p}{)} \PYG{o}{\PYGZhy{}\PYGZgt{}} \PYG{n+nb}{bool}\PYG{p}{:}
+        \PYG{k}{return} \PYG{n+nb}{hash}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{p}{)} \PYG{o}{==} \PYG{n+nb}{hash}\PYG{p}{(}\PYG{n}{other}\PYG{p}{)}
+
+    \PYG{k}{def} \PYG{n+nf+fm}{\PYGZus{}\PYGZus{}contains\PYGZus{}\PYGZus{}}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{p}{,} \PYG{n}{item}\PYG{p}{:} \PYG{n}{Hashable}\PYG{p}{)} \PYG{o}{\PYGZhy{}\PYGZgt{}} \PYG{n+nb}{bool}\PYG{p}{:}
+        \PYG{k}{return} \PYG{n}{item} \PYG{o+ow}{in} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{\PYGZus{}\PYGZus{}vertices}
+
+    \PYG{k}{def} \PYG{n+nf+fm}{\PYGZus{}\PYGZus{}iter\PYGZus{}\PYGZus{}}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{p}{)} \PYG{o}{\PYGZhy{}\PYGZgt{}} \PYG{n}{Generator}\PYG{p}{[}\PYG{n+nb}{int}\PYG{p}{,} \PYG{k+kc}{None}\PYG{p}{,} \PYG{k+kc}{None}\PYG{p}{]:}
+        \PYG{k}{for} \PYG{n}{vertex} \PYG{o+ow}{in} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{\PYGZus{}\PYGZus{}vertices}\PYG{p}{:}
+            \PYG{k}{yield} \PYG{n}{vertex}
+
+    \PYG{k}{def} \PYG{n+nf+fm}{\PYGZus{}\PYGZus{}add\PYGZus{}\PYGZus{}}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{p}{,} \PYG{n}{other}\PYG{p}{:} \PYG{n+nb}{int}\PYG{p}{):}
+        \PYG{n}{vertices} \PYG{o}{=} \PYG{n+nb}{set}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{\PYGZus{}\PYGZus{}vertices}\PYG{p}{)}
+        \PYG{n}{vertices}\PYG{o}{.}\PYG{n}{add}\PYG{p}{(}\PYG{n}{other}\PYG{p}{)}
+        \PYG{k}{return} \PYG{n}{Simplex}\PYG{p}{(}\PYG{n}{vertices}\PYG{p}{)}
+
+    \PYG{n+nd}{@property}
+    \PYG{k}{def} \PYG{n+nf}{dim}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{p}{):}
+        \PYG{k}{return} \PYG{n+nb}{len}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{\PYGZus{}\PYGZus{}vertices}\PYG{p}{)} \PYG{o}{\PYGZhy{}} \PYG{l+m+mi}{1}
+
+    \PYG{n+nd}{@property}
+    \PYG{k}{def} \PYG{n+nf}{vertices}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{p}{):}
+        \PYG{k}{for} \PYG{n}{vertex} \PYG{o+ow}{in} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{\PYGZus{}\PYGZus{}vertices}\PYG{p}{:}
+            \PYG{k}{yield} \PYG{n}{vertex}
+
+    \PYG{n+nd}{@property}
+    \PYG{k}{def} \PYG{n+nf}{facets}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{p}{)} \PYG{o}{\PYGZhy{}\PYGZgt{}} \PYG{n}{Generator}\PYG{p}{[}\PYG{n}{Simplex}\PYG{p}{,} \PYG{k+kc}{None}\PYG{p}{,} \PYG{k+kc}{None}\PYG{p}{]:}
+        \PYG{k}{for} \PYG{n}{vertex} \PYG{o+ow}{in} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{vertices}\PYG{p}{:}
+            \PYG{k}{yield} \PYG{n}{Simplex}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{\PYGZus{}\PYGZus{}vertices}\PYG{o}{.}\PYG{n}{difference}\PYG{p}{(\PYGZob{}}\PYG{n}{vertex}\PYG{p}{\PYGZcb{}))}
+
+    \PYG{n+nd}{@property}
+    \PYG{k}{def} \PYG{n+nf}{faces}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{p}{)} \PYG{o}{\PYGZhy{}\PYGZgt{}} \PYG{n}{Generator}\PYG{p}{[}\PYG{n}{Simplex}\PYG{p}{,} \PYG{k+kc}{None}\PYG{p}{,} \PYG{k+kc}{None}\PYG{p}{]:}
+        \PYG{k}{for} \PYG{n}{face\PYGZus{}dim} \PYG{o+ow}{in} \PYG{n+nb}{range}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{dim}\PYG{p}{,} \PYG{l+m+mi}{0}\PYG{p}{,} \PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{1}\PYG{p}{):}
+            \PYG{k}{for} \PYG{n}{face} \PYG{o+ow}{in} \PYG{n}{combinations}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{\PYGZus{}\PYGZus{}vertices}\PYG{p}{,} \PYG{n}{face\PYGZus{}dim}\PYG{p}{):}
+                \PYG{k}{yield} \PYG{n}{face}
+
+    \PYG{k}{def} \PYG{n+nf}{p\PYGZus{}faces}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{p}{,} \PYG{n}{p}\PYG{p}{:} \PYG{n+nb}{int}\PYG{p}{)} \PYG{o}{\PYGZhy{}\PYGZgt{}} \PYG{n}{Generator}\PYG{p}{[}\PYG{n}{Simplex}\PYG{p}{,} \PYG{k+kc}{None}\PYG{p}{,} \PYG{k+kc}{None}\PYG{p}{]:}
+        \PYG{k}{for} \PYG{n}{p\PYGZus{}face} \PYG{o+ow}{in} \PYG{n}{combinations}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{\PYGZus{}\PYGZus{}vertices}\PYG{p}{,} \PYG{n}{p} \PYG{o}{+} \PYG{l+m+mi}{1}\PYG{p}{):}
+            \PYG{k}{yield} \PYG{n}{Simplex}\PYG{p}{(}\PYG{n}{p\PYGZus{}face}\PYG{p}{)}
+
+    \PYG{k}{def} \PYG{n+nf}{intersect}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{p}{,} \PYG{n}{other}\PYG{p}{:} \PYG{n}{Simplex}\PYG{p}{)} \PYG{o}{\PYGZhy{}\PYGZgt{}} \PYG{n}{Simplex}\PYG{p}{:}
+        \PYG{n}{simplex} \PYG{o}{=} \PYG{n}{Simplex}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{\PYGZus{}\PYGZus{}vertices}\PYG{o}{.}\PYG{n}{intersection}\PYG{p}{(}\PYG{n}{other}\PYG{o}{.}\PYG{n}{\PYGZus{}\PYGZus{}vertices}\PYG{p}{))}
+        \PYG{k}{return} \PYG{n}{simplex}
+
+    \PYG{k}{def} \PYG{n+nf}{union}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{p}{,} \PYG{o}{*}\PYG{n}{simplices}\PYG{p}{:} \PYG{n}{Simplex}\PYG{p}{)} \PYG{o}{\PYGZhy{}\PYGZgt{}} \PYG{n}{Simplex}\PYG{p}{:}
+        \PYG{n}{vertices} \PYG{o}{=} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{\PYGZus{}\PYGZus{}vertices}
+        \PYG{k}{for} \PYG{n}{simplex} \PYG{o+ow}{in} \PYG{n}{simplices}\PYG{p}{:}
+            \PYG{n}{vertices} \PYG{o}{=} \PYG{n}{vertices}\PYG{o}{.}\PYG{n}{union}\PYG{p}{(}\PYG{n}{simplex}\PYG{o}{.}\PYG{n}{\PYGZus{}\PYGZus{}vertices}\PYG{p}{)}
+        \PYG{k}{return} \PYG{n}{Simplex}\PYG{p}{(}\PYG{n}{vertices}\PYG{p}{)}
+
+    \PYG{k}{def} \PYG{n+nf}{get\PYGZus{}vertices}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{p}{)} \PYG{o}{\PYGZhy{}\PYGZgt{}} \PYG{n}{Set}\PYG{p}{[}\PYG{n+nb}{int}\PYG{p}{]:}
+        \PYG{k}{return} \PYG{n+nb}{set}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{\PYGZus{}\PYGZus{}vertices}\PYG{p}{)}
+\end{Verbatim}

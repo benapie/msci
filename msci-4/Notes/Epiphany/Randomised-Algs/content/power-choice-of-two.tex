@@ -1,0 +1,22 @@
+\section{The power of two random choices}
+
+\subsection{Single choice protocol}
+
+\begin{theorem}
+    If $n$ balls are allocated independently and uniformly at random into $n$ bins, then the maximally loaded bin contains $O\left(\tfrac{\log n}{\log\log n}\right)$ many balls, with high probability.    
+\end{theorem}
+
+By \emph{high probability}, we mean a probability of at least $1 - \tfrac{1}{n^c}$ for some $c \in \R_{> 0}$.
+
+We can similarly have a asymptotically matching lower bound.
+
+\begin{theorem}
+    If $n$ balls are allocated independently and uniformly at random into $n$ bins, then with probability at least $\tfrac12$, there will be a bin receiving $\Omega\left(\tfrac{\log n}{\log\log n}\right)$ many balls.
+\end{theorem}
+
+\subsection{Multiple choice protocol}
+
+\begin{theorem}
+    Suppose that $n$ balls are sequentially placed into $n$ bins. Each ball is placed in a least full bin at the time of the placement, among $d$ bins, $d \geq 2$, chosen independently and uniformly at random. Then after all the balls are placed, with high probability, the number of balls in the fullest bin is at most $\tfrac{\log\log n}{\log d} + O(1)$.
+\end{theorem}
+

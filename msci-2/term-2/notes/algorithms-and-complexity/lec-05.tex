@@ -1,0 +1,205 @@
+\lecture{5}{10/2}
+
+\begin{definition}[Big $O$]
+    Let 
+    $R \subset \R_{>0}$ 
+    be unbounded and
+    $f,g: R \to \R$
+    such that there exists 
+    $x' \in R$ 
+    such that
+    $g(x) > 0$
+    for all 
+    $x > x'$.
+    Then 
+    \[
+        f(x) = O(g(x)) \qquad \text{as}\;x \to \infty
+    \]
+    if and only if there exists $M > 0$ and $x_0 \in \R$ such that
+    \[
+        \abs{f(x)} \leq Mg(x)
+    \]
+    for all $x \geq x_0$.
+\end{definition}
+
+Big $O$ notation is about describing the \emph{asymptotic} behaviour
+of functions; 
+that is, how a function $f(x)$ acts as $x \to \infty$.
+
+\begin{example}
+    \hfill
+    \begin{enumerate}
+        \item $\log{n} \in O(n)$;
+        \item $n \in O(n)$;
+        \item $n \not\in O(\log n)$;
+        \item $3n + 7 \in O(n^2)$;
+        \item $2^n \not\in O(n^k)$ for $k \in \N$; and
+        \item $n^k \in O(2^n)$ for $k \in \N$.
+    \end{enumerate}
+\end{example}
+
+\begin{example}[Comparing different bases of $\log$]
+    What can we say about, say, $\log_2{n}$ and $\log_{2^{100}} n$?
+    Well, we have the following formula for $\log$:
+    \[
+        \log_an = (\log_ab)(\log_bn).
+    \]
+    So, we have
+    \[
+        \log_2n = \log_2(2^{100})\log_{2^{100}}n
+    \]
+    hence
+    \[
+        \log_2n = O(\log_{2^{100}}n) 
+        \quad\text{and}\quad
+        \log_{2^{100}}n = O(\log_2n).
+    \]
+    That is, $\log_2n = \Theta(\log_{2^{100}}n)$.
+\end{example}
+
+\begin{definition}[Time complexity]
+    Let $R \subset \R_{>0}$ be unbounded
+    and $f: R \to \R$.
+    We say that the \textbf{time complexity} of a decidable language
+    $\mathcal L$ is $O(f)$ (or $\mathcal L$ is decidable in $O(f)$ time)
+    if there exists a Turing machine $T$ which decides $\mathcal L$
+    such that there exists $c, n_0 \in \N$ such that for all $x$ with 
+    $\abs{x} > n_0$ we have
+    \[
+        \TIME_T(x) \leq cf(\abs{x}).
+    \]
+\end{definition}
+
+\begin{definition}[Time complexity class]
+    The \textbf{time complexity class} $\operatorname{TIME}[f]$
+    is the class of all languages for which
+    there exists an algorithm with time complexity $O(f)$.
+\end{definition}
+
+\begin{remark}
+    We sometimes use the notation $\operatorname{DTIME}[f]$ for
+    \emph{determinstic time}.
+\end{remark}
+
+\begin{definition}[$\poly$]
+    We define $\poly$ as
+    \[
+        \poly = \bigcup_{k \geq 0} \TIME[n^k].
+    \]
+\end{definition}
+
+$\poly$ is a good model for \emph{tractable} (or \emph{solvable}) 
+problems. 
+We need to take caution though, as if $\deg f$ is large
+or the constants involved are large, 
+then our algorithm may take a long time to terminate.
+This typically only arises in artifically constructed problems,
+however.
+
+\begin{lemma}[]
+    We can simulate $t$ steps of a $k$-tape Turing machine
+    with an equivalent $1$-tape Turing machine in $O(t^2)$.
+\end{lemma}
+
+\begin{lemma}[]
+    We can simulate $t$ steps of a two-way infinite $k$-tape
+    Turing machine with an equivalent $k$-tape Turing machine
+    in $O(t)$.
+\end{lemma}
+
+\begin{lemma}[]
+    Let $b_1, b_2 \in \N$ and $x \in \R$.
+    Let $\operatorname{enc}(x,b)$ be the encoding of $x$ in base $b$.
+    If $b_1, b_2 \geq 2$ then
+    \[
+        \operatorname{enc}(x,b_1) = c\operatorname{enc}(x,b_2)
+    \]
+    for some $c \in \R$.
+\end{lemma}
+
+The above lemma shows us that $\poly$ is equivalent
+regardless of the base of encoding.
+Hence $\poly$ is \emph{robust} to the encoding or computation method.
+The best way to show that a problem is in $\poly$ 
+is to find an algorithm that solves it in polynomial time.
+Finding this algorithm typically provides us with lots of insight
+as it is typically more efficient than brute-force.
+
+\begin{definition}[Conjunctive normal form]
+    A boolean formula $f$ is in \textbf{conjunctive normal form} (CNF)
+    if it is the conjunction of one or more \textbf{clauses},
+    which are the disjunction of literals.
+    That is,
+    \[
+        f = C_1 \land C_2 \land \ldots \land C_n
+    \]
+    where each $C_i$ is a clause of the form
+    \[
+        C_i = l_1 \lor l_2 \lor \ldots \lor l_k
+    \]
+    where each $l_j$ is a literal, 
+    which is a variable or its negation.
+\end{definition}
+
+\begin{definition}[$k$-CNF]
+    If a boolean formula $f$
+    has at most $k$ literals in each clause
+    then it is in $k$-CNF.
+\end{definition}
+
+\begin{example}
+    Let
+    \[
+        f(x_1,x_2,x_3,x_4,x_5) =
+        (x_1 \lor x_2 \lor \neg x_5)
+        \land
+        (\neg x_2 \lor \neg x_4 \lor \neg x_5)
+        \land
+        (x_2 \lor x_3 \lor x_4).
+    \]
+    $f$ is in $3$-CNF.
+\end{example}
+
+\begin{definition}[Satifiable]
+    Let $f: \{0,1\}^n \to \{0,1\}$ be a boolean formula.
+    We say that $f$ is \textbf{satifiable} if there exists
+    $x_1,x_2,\ldots,x_n$
+    such that
+    $f(x_1,x_2,\ldots,x_n) = 1$.
+\end{definition}
+
+\begin{problem}[$\sat$]
+    Let $f$ be in CNF.
+    Is $f$ satisfiable?
+\end{problem}
+
+\begin{problem}[$k$-$\sat$]
+    Let $f$ be in $k$-CNF.
+    Is $f$ satisfiable?
+\end{problem}
+
+\begin{proposition}[]
+    $2$-$\sat$ is $\poly$.
+\end{proposition}
+
+\begin{definition}[]
+    A language $\mathcal L_1$ is \textbf{polynomially reducable} to 
+    $\mathcal L_2$, denoted $\mathcal L_1 \leq \mathcal L_2$,
+    if there exists a polynomial time function $f$ such that
+    \[
+        x \in \mathcal L_1 \implies f(x) \in \mathcal L_2.
+    \]
+\end{definition}
+
+\begin{lemma}[]
+    Let $\mathcal L_1$ and $\mathcal L_2$ be languages
+    such that $\mathcal L_1 \leq \mathcal L_2$.
+    Then
+    \[
+        \mathcal L_2 \in \poly \implies \mathcal L_1 \in \poly.
+    \]
+\end{lemma}
+
+\begin{proof}
+    Trivial.
+\end{proof}

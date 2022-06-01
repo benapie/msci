@@ -1,0 +1,51 @@
+\subsection{Computational problems}
+
+In order to study computational problems, we \emph{encode} them so we may study them as objects derived from a finite set. 
+
+\begin{definition}[Kleene star] \label{def:kleene-star}
+    Given a set $X$, define $X^0 = \{\varepsilon\}$ (the set containing only the empty string) and $X^1 = X$.
+    For each $i \in \{2, 3, \ldots\}$, we recursively define the set
+    \[ X^{i+1} = \{wv: w \in X^i, v \in X\}. \]
+\end{definition}
+
+\begin{definition}[Formal language] \label{def:formal-language}
+    A \emph{formal language} (or just \emph{language}) $\mathcal L$ over an \emph{alphabet} (some none empty set of symbols, which are called \emph{letters}) $\Sigma$ is some subset of $\Sigma^*$. A \emph{word} $w \in \mathcal L$ is an element of a language.
+\end{definition}
+
+Simple encodings can be used to represent general mathematical objects as strings of bits (that is, words of a language over $\{0,1\}$), but we avoid dealing with low level representation details. We use $\langle x \rangle$ to denote some canonical binary representation of an object $x$, but we will typically omit this notation and simple use $x$ to refer to the object and its representation.
+
+Formally, a \emph{computational problem} is a problem that we may expect a computer to be able to solve. We first consider two examples of a simple type of computational problem.
+
+\begin{problem}[\textsc{Primality}] \label{ex:primality}
+    Instance: let $n \in \N$. \\
+    Question: is $n$ prime?
+\end{problem}
+
+\begin{problem}[\textsc{Reachability}] \label{ex:reachability}
+    Instance: Let $G = (V,E)$ be a graph and $v,w \in V$ two vertices.  \\
+    Question: is there a path from $v$ to $w$ in $G$?
+\end{problem}
+
+Both \textsc{Primality} and \textsc{Reachability} expect a \emph{yes} or \emph{no} answer. Problems of this form are called \emph{decision problems}, and we may formally define them as below.
+
+\begin{definition}[Decision problem] \label{def:decision-problem}
+    A \emph{decision problem} is a yes-or-no question on an infinite set of inputs. Formally, it is a tuple $(I, Y)$ where $I \subset \{0,1\}^*$ is an alphabet of \emph{inputs} and $Y \subset I$ is a language of inputs for which the answer is \emph{yes}.
+\end{definition}
+
+We may rewrite the above problems as
+\begin{align*}
+    \textsc{Primality}    & = \left(\N, \{n \in \N: \text{$n$ is prime}\}\right), \\
+    \textsc{Reachability} & = \left(I, Y\right)
+\end{align*}
+where $I = \{(G, u, v): \text{$G = (V,E)$ is a graph and $u, v \in V$}\}$ and $(G, u, v) \in Y$ if and only if there is a path from $u$ to $v$ in $G$.
+
+\begin{definition}[Function problem] \label{def:function-problem}
+    A \emph{function problem} is a relation $P \subset \{0,1\}^* \times \{0,1\}^*$. An algorithm solves $P$ if for every $x \in \{0,1\}^*$, the algorithm produces $y \in \{0,1\}^*$ such that $(x,y) \in P$ (if such a $y$ exists).
+\end{definition}
+
+\begin{problem}[\textsc{TSP}] \label{pro:tsp}
+    Instance: let $H$ be an undirected weighted graph. \\ 
+    Question: find the shortest possible Hamiltonian cycle (that is, a path that visits each vertex once and starts and ends at the same vertex).
+\end{problem}
+
+Finding the persistent barcode of a filtered simplicial complex is a function problem, as is the construction of a Vietoris-Rips complex. 

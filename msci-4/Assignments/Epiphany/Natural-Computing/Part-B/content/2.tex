@@ -1,0 +1,46 @@
+\section{Sensitivity of the Ant-Q algorithms}
+
+This section serves to summarise the experimental results of \cite{dorigo1996study}. Three investigations were performed, each using the stated parameters from the last section unless otherwise stated. First, the ant count was investigated on the Oliver30 test-bed, then the behaviour of Ant-Q with respect to $\alpha$, $\gamma$, and $q_0$ was studied using Oliver30, and finally $\alpha$, $\gamma$, and $q_0$ are investigated on the ry48p problem. 
+
+Each run of the algorithm in this section is split into two parts: the \emph{learning phase} and the \emph{testing phase}. In the learning phase, the standard Ant-Q algorithm is used, but in the testing phase the AQ-values are no longer updated (stopping learning).
+
+\subsection{Cooperation}
+
+The aim of this experiment is to understand the cooperation characteristic of Ant-Q. An initial experiment was run prior, setting $\delta = 0$ (so ants do not communicate at all). The performance was found to be poor.
+
+The main experiment investigates the number of ants $m$ from $1$ to $n$ (the number of cities), 
+\begin{enumerate}
+    \item first with only 200 iterations per trial; and 
+    \item again with only 6000 tours per trial.
+\end{enumerate} 
+In both runs, each city had at most one ant in the initialisation phase. The reason for the two runs is that in 1 the number of times delayed reinforcement is given is fixed, while in 2 the number of times delayed reinforcement is given is dependent on $m$ (more ants leads to less delayed reinforcement). The results of this can be found in Figure 2 to Figure 5 in \cite{dorigo1996study}.
+
+The results of 1 show that, given the same amount of delayed reinforcement, the performance of the algorithm increases with $m$. It was shown for $m \geq 20$, the AQ-values that were learnt were effectively used by the ants to find short tours. 
+
+In the results of 2, the number of ants seemed to be independent of the number of optimal solutions found. Although, the average tour length was large for small values of $m$, but quickly diminished as $m$ increased. 
+
+From this, we see that cooperation is a key characteristic of the algorithm
+
+\subsection{The effect of $q_0$, $\alpha$, and $\gamma$}
+
+This investigation was split into two experiments:
+
+\begin{enumerate}
+    \item one in which the $q_0$ value is varied; and
+    \item another in which $\alpha$ and $\gamma$ are varied. 
+\end{enumerate}
+It is noted in 1 that $\gamma = 0.4$.
+
+In the results of 1, it is noted that the best solution found in the testing phase is always equal to or better than that of the learning phase, regardless of the choice of $q_0$. This suggests that the ants effectively utilise learned AQ-values in order to find optimal solutions. We also note that there was a substantial drop in performance as $q_0$ is increased from $0.9$ to $1$, showing that randomness in the ant's behaviour is vital for the performance of this algorithm. This is intuitive though, exploration allows ants to discover routes that might initially give reduced reward, but have eventual pay-off (which is one of the strengths of Q-learning). The optimal value of $q_0$ was found to be $0.9$, though for $q_0 \in [0.6, 0.9]$ the optimal solution was still found. 
+
+In the results of 2, the algorithm has much greater sensitivity to changes in $\gamma$ than to changes in $\alpha$; that is, how far-sighted the ants are has a greater effect on the performance than how sceptical the ants to new information. It is also noted that performance of the algorithm during testing is worse than the performance during learning only for \emph{bad} parameters, thus AQ-values are useful to direct the ants towards a good solution only for \emph{good} parameters; that is, ants do not get less effective throughout learning. In particular, for $\gamma \in [0.2, 0.6]$ and $\alpha = 0.1$.
+
+\subsection{The effect of $q_0$, $\alpha$, and $\gamma$, ATSP}
+
+The same investigation as the last was conducted on ry48p, an ATSP problem. Experiments were ran for $\gamma \in \{0, 0.45, 0.9\}$ with $\alpha = 0.1$ and $\alpha \in \{0.1, 0.5, 0.9\}$ with $\gamma = 0.45$. It was reaffirmed that the best performance was found with $\gamma = 0.45$ and $\alpha = 0.1$. 
+
+When $\gamma = 0.9$, it was found that the ants slowly move away from an optimal solution, which is clear as the ants are too far-sighted in their decisions. When $\gamma = 0$, the ants converge to some solution, but it is not optimal, suggesting that they have found a local minimum. 
+
+When $\alpha = 0.9$, the ants are not particularly sceptical of new information and initially moves to a much greater tour length than the original; however, it seems to be tending towards a more optimal solution, but would require much more iterations to achieve this solution. When $\alpha = 0.50$, the ants quickly move towards a greater tour length than original, but do not improve on this. The comment to make here is that ants that are too sensitive to reward are not effective at finding solutions; they overestimate the benefit of an action and it takes a long time for AQ values to reach the level of response they require to make good long-term decisions.
+
+Interestingly, the performance of $\alpha$ was shown to have a greater influence that when applied to Oliver30, suggesting that to solve ATSP problems, how sceptical an ant is to new information has a larger affect on the performance of the algorithms. Intuitively, one may agree as the search space is much higher. 

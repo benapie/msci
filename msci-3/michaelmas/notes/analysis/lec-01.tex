@@ -1,0 +1,180 @@
+%! TEX root = master.tex
+
+\section{$\R$}
+\subsection{Fields}
+\lecture{1}{5/10}
+
+\begin{definition}[Field]
+	A \emph{field} is a set $F$ with two binary operators $+$ and $\cdot$ which
+	satisfy
+	\begin{enumerate}
+		\item (\emph{associativity}) for all $a, b, c \in F$
+			\begin{align*}
+				(a + b) + c &= a + (b + c) \\
+				(a \cdot b) \cdot c &= a \cdot (b \cdot c);
+			\end{align*}
+
+		\item (\emph{commutativity}) for all $a, b \in F$
+			\begin{align*}
+				a + b &= b + a \\
+				a \cdot b &= b \cdot a;
+			\end{align*}
+			
+		\item (\emph{identity}) there exists $e_1, e_2 \in F$ such that
+			for all $a \in F$
+			\begin{align*}
+				a + e_1 = e_1 + a &= a \\
+				a \cdot e_1 = e_1 \cdot a &= a; \;\text{and}
+			\end{align*}
+		
+		\item (\emph{distributivity}) for all $a, b, c \in F$
+			\[
+				a \cdot (b + c) = a \cdot b + a \cdot c.
+			\]
+	\end{enumerate}
+\end{definition}
+
+\begin{definition}[Ordered field]
+	\label{def:ordered-field-total-order}
+	A field $(F, +, \cdot)$ with a strict total order $<$ is an
+	\emph{ordered field} if for all $a, b, c \in F$
+	\begin{enumerate}
+		\item $a < b \implies a + c < b + c$; and
+		\item $(a > 0 \;\text{and}\; b > 0) \implies a \cdot b > 0$.
+	\end{enumerate}
+\end{definition}
+
+This is the historical definition, but more recently an alternative definition
+was given in terms of \emph{positive cones}.
+Although higher-order logic, the latter provides more context when interpreting
+them as \emph{maximal prepositive cones}.
+
+\begin{definition}[Ordered field via positive cone]
+	\label{def:ordered-field-postive-cone}
+	A field $(F, +, \cdot)$ with a \emph{positive cone} $P \subset F$
+	is an \emph{ordered field} if
+	\begin{enumerate}
+		\item $a,b \in P \implies a + b \in P \;\text{and}\; a \cdot b \in P$;
+		\item $a \in P \implies a \cdot a \in P$;
+		\item $-1 \not\in P$; and
+		\item $P \cup \left\{ 0 \right\} \cup -P = F$.
+	\end{enumerate}
+\end{definition}
+
+\begin{proposition}[]
+	Definition \ref{def:ordered-field-total-order} 
+	and Definition \ref{def:ordered-field-postive-cone}
+	are equivalent.
+\end{proposition}
+
+\begin{proof}
+	Taking Definition \ref{def:ordered-field-total-order},
+	we define $P = \{x \in F : x > 0\}$.
+	Clearly $P$ is a positive cone.
+	Now taking Definition \ref{def:ordered-field-postive-cone},
+	we define the total order $<_P$ as $a <_P b$ meaning
+	$b - a \in P$.
+	Looking at Definition \ref{def:ordered-field-total-order}, 
+	we see that $(i)$ holds as $b - a = (b + c) - (a + c)$,
+	and $(ii)$ holds as if $a \in P$ and $b \in P$ then $ab \in P$.
+\end{proof}
+
+\begin{definition}[$\sup$ and $\inf$]
+	Let $F$ be an ordered field and let $E \subset F$.
+	$a \in F$ is an \emph{upper bound} of $E$ if for all $x \in E$
+	we have $x \leq a$. $c \in F$ is a \emph{least upper bound} 
+	(or \emph{supremum}) of $E$ if for all upper bounds $a$,
+	$c \leq a$ (we denote $c = \sup E$).
+	Similarly, $b \in F$ is a \emph{lower bound}  of $E$ if for all 
+	$x \in E$ we have $x \geq b$. $d \in F$ is a \emph{greatest lower
+	bound} (or \emph{infimum}) if for all lower bounds $b$ of $E$ we have 
+	$d \geq b$ (we denote $d = \inf E$).
+\end{definition}
+
+\begin{proposition}[]
+	Suppose $F$ is an ordered field and $E \subset F$.
+	Prove that if infimum or supremum of $E$ exists, they are unique.
+\end{proposition}
+
+\begin{proof}
+	Let $d$ and $d'$ both be infimums of $E$.
+	Also let $D = \left\{ a \in F: a \leq x \;\forall\; x \in E \right\}$.
+	As $d$ is an infimum of $E$, it is the greatest lower bound for $E$.
+	So $d \geq b \;\forall\; b \in D$. 
+	$d'$ is also an infimum of $E$, so $d' \geq b \;\forall\; b \in D$.
+	However, as $d$ and $d'$ are both lower bounds, $d, d' \in D$.
+	So $d \geq d'$ and $d' \geq d$.
+	Therefore $d = d'$.
+\end{proof}
+
+\begin{definition}[Bounded]
+	A set with a upper bound is said to be \emph{bounded from above} by that
+	bound. Similarly a set with a lower bound is said to be \emph{bounded 
+	from below}.
+\end{definition}
+
+\begin{definition}[Complete]
+	An ordered field $F$ is \emph{complete} if for all $E \subset F$ where
+	$E$ is bounded above, $\sup E$ exists.
+\end{definition}
+
+Completeness is used to refer to many different concepts,
+the definition here is also known as the \emph{least upper bound property}.
+
+\begin{proposition}[]
+	$\R$ is a complete ordered field.
+\end{proposition}
+
+\begin{proof}
+	$\R$ and $<$ form an ordered field.
+	Now let $E \subset F$ be bounded by $d$.
+	Now if $d \in E$, we have $d = \sup E$ and we are done.
+	Assume $d \not\in E$.
+	Now let $D = \left\{ a \in F: b \geq x \;\forall\; x \in E \right\}$.
+	$D$ is non-empty as $d \in D$, and as $\sup E = \min D$, it must exist.
+\end{proof}
+
+\begin{proposition}[No gap property]
+	Let $L, U \subset \R$ be non-empty sets with $L \cup U = \R$.
+	Suppose for all $l \in L$ and $u \in U$ we have $l < u$.
+	Then either $\sup L \in L$ or $\inf U \in U$.
+\end{proposition}
+
+\begin{proof}
+	$L$ is bounded from above and $\R$ is complete.
+	Hence $s = \sup L$ exists.
+	If $s \in L$, we are done.
+	Assume $s \not\in L$.
+	Then $s \in U$.
+	Let $u \in U$.
+	Then $u$ is a upper bound for $L$.
+	As $s$ is the smallest upper bound, $s \leq u$
+	for all $u \in U$.
+	Hence $s = \inf U \in U$.
+\end{proof}
+
+\subsection{$\N$, $\Z$, and $\Q$}
+
+Recall that
+\begin{align*}
+	\N &= \left\{ 1, 2, \ldots \right\} \\
+	\Z &= \left\{ 0, \pm 1, \pm 2, \ldots \right\} \\
+	\Q &= \left\{ \frac mn : m \in \Z, n \in \N \right\}.
+\end{align*}
+
+\begin{proposition}[Archimedian property]
+	For every $x \in \R$ there is $m \in \N$ such that $x < m$.
+\end{proposition}
+
+\begin{proof}
+	We fix $x \in \R$ and define $S = \left\{ k \in \Z: k \leq x \right\}$.
+	$S$ is bounded from above by $x$.
+	As $\R$ is complete, there is $y \in \R$ such that $y = \sup S$.
+	As a consequence, $y - \frac12$ is \emph{not} an upper bound for $S$
+	as $y$ is defined as the least upper bound.
+	Therefore there is $k \in S$ such that $k > y - \frac12$.
+	Therefore $k + 1 > y + \frac > y$, and so $k + 1 \not\in S$.
+	Hence $x < k + 1$. So we choose $\abs{k + 1}$ as our natural number.
+\end{proof}
+
+

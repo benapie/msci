@@ -1,0 +1,282 @@
+\lecture{5}{28/1}
+
+\begin{example}
+    Write
+    $
+        (1\;2\;5)(4\;6\;8\;9)
+    $
+    as a product of transpositions.
+\end{example}
+
+\begin{solution}
+    \begin{align*}
+        \begin{pmatrix}
+            1 & 2 & 5
+        \end{pmatrix}
+        \begin{pmatrix}
+            4 & 6 & 8 & 9
+        \end{pmatrix}
+        &=
+        \begin{pmatrix}
+            1 & 2
+        \end{pmatrix}
+        \begin{pmatrix}
+            2 & 5
+        \end{pmatrix}
+        \begin{pmatrix}
+            4 & 6 & 8 & 9
+        \end{pmatrix}
+        \\
+        &=
+        \begin{pmatrix}
+            1 & 2
+        \end{pmatrix}
+        \begin{pmatrix}
+            2 & 5
+        \end{pmatrix}
+        \begin{pmatrix}
+            4 & 6
+        \end{pmatrix}
+        \begin{pmatrix}
+            6 & 8 & 9
+        \end{pmatrix}
+        \\
+        &=
+        \begin{pmatrix}
+            1 & 2
+        \end{pmatrix}
+        \begin{pmatrix}
+            2 & 5
+        \end{pmatrix}
+        \begin{pmatrix}
+            4 & 6
+        \end{pmatrix}
+        \begin{pmatrix}
+            6 & 8
+        \end{pmatrix}
+        \begin{pmatrix}
+            8 & 9
+        \end{pmatrix}
+        .
+    \end{align*}
+\end{solution}
+
+\begin{proposition}
+    Every permutation is a product of transpositions
+    (but not uniquely).
+\end{proposition}
+
+\begin{proof}
+    We know that every permutation is a product of disjoint
+    cycles, so it suffices to show that any cycle is a product
+    of cycles.
+    Now
+    \[
+        \begin{pmatrix}
+            a_1 & a_2 & \ldots & a_k
+        \end{pmatrix}
+        =
+        \begin{pmatrix}
+            a_1 & a_2
+        \end{pmatrix}
+        \begin{pmatrix}
+            a_2 & a_3
+        \end{pmatrix}
+        \ldots
+        \begin{pmatrix}
+            a_{k-1} & a_k
+        \end{pmatrix}
+        .
+    \]
+\end{proof}
+
+\begin{example}
+    Write 
+    $
+        \begin{pmatrix}
+            1 & 2 & 3
+        \end{pmatrix}
+        \begin{pmatrix}
+            2 & 3 & 4
+        \end{pmatrix}
+    $
+    as a product of transpositions in two different ways.
+\end{example}
+
+\begin{solution}
+    \begin{align*}
+        \begin{pmatrix}
+            1 & 2 & 3
+        \end{pmatrix}
+        \begin{pmatrix}
+            2 & 3 & 4
+        \end{pmatrix}
+        &=
+        \begin{pmatrix}
+            1 & 2
+        \end{pmatrix}
+        \begin{pmatrix}
+            2 & 3
+        \end{pmatrix}
+        \begin{pmatrix}
+            2 & 3
+        \end{pmatrix}
+        \begin{pmatrix}
+            3 & 4
+        \end{pmatrix}
+        \\
+        \begin{pmatrix}
+            1 & 2 & 3
+        \end{pmatrix}
+        \begin{pmatrix}
+            2 & 3 & 4
+        \end{pmatrix}
+        &=
+        \begin{pmatrix}
+            1 & 2
+        \end{pmatrix}
+        \begin{pmatrix}
+            3 & 4
+        \end{pmatrix}
+        .
+    \end{align*}
+\end{solution}
+
+Note that the number of products in both factorisation are
+even, this is not a coincidence.
+
+\section{Computations with permutations}
+
+\begin{example}
+    Let 
+    $
+        \sigma =
+        \begin{pmatrix}
+            2 & 4 & 1
+        \end{pmatrix}
+        \in S_5
+    $.
+    Then $\sigma(1) = 2$, $\sigma(2) = 4$, and $\sigma(4) = 1$.
+    So if we take $\sigma \circ \sigma = \sigma^2$ we get the
+    permutation: 
+    $1 \mapsto 4$, $2 \mapsto 1$, and $4 \mapsto 2$.
+    Thus 
+    $
+        \sigma^2 =
+        \begin{pmatrix}
+            1 & 4 & 2
+        \end{pmatrix}
+    $.
+    Considering $\sigma^3$ we have
+    $1 \mapsto 1$, $2 \mapsto 2$, and $4 \mapsto 4$.
+    Thus $\sigma^3 = 1$ so $\ord\sigma = 3$.
+    More generally, a $k$-cycle ($k \in \N$) has order $k$.
+\end{example}
+
+\begin{lemma}
+    Let $\sigma = \sigma_1 \ldots \sigma_m$
+    be a product of disjoint cycles of length $k_u$.
+    Then 
+    \[
+        \ord(\sigma) = \lcm(k_1, \ldots, k_m).
+    \]
+\end{lemma}
+
+\begin{proof}
+    Let $L = \lcm(k_1, \ldots, k_m)$.
+    We know that $\ord(\sigma_i) = k_i$ (see earlier example).
+    So 
+    \[
+        \sigma^L = \sigma_1^L = \ldots = \sigma_m^L = 1
+    \]
+    and since disjoint cycles commute, $\ord(\sigma) \leq L$.
+    Suppose $\sigma_i^N = 1$ for some $N \in \N$.
+    Then we can express 
+    $N = k_i q + r$
+    for some $q, r \in \N_0 = \N \cup \{0\}$ where
+    $r < k_i$.
+    So $\sigma_i^N = \sigma_i^r = 1$
+    but $k_i$ is the smallest non-zero number with
+    this property so $r = 0$.
+    Therefore $k_i \mid N$.
+    Now let $\sigma = \ord(\sigma).$.
+    Since disjoint cycles commute
+    \[
+        1 = \sigma^N = \sigma_1^N \ldots \sigma_m^N = 1
+    \]
+    and $\sigma_1^N, \ldots, \sigma_m^N$ are still disjoint
+    so $\sigma_i^N = 1$ for $1 \leq i \leq n$.
+    Thus $k_i \mid N$ and $L \mid N$.
+    Therefore
+    \[
+        L \leq N = \ord(\sigma) \leq L \implies N = L.
+    \]
+\end{proof}
+
+\begin{example}[Inverses]
+    If
+    $
+        \sigma =
+        \begin{pmatrix}
+            2 & 4 & 1
+        \end{pmatrix}
+    $
+    then
+    $
+        \sigma^{-1} =
+        \begin{pmatrix}
+            2 & 4 & 1
+        \end{pmatrix}
+    $.
+    In general, the inverse of a cycle is the cycle read backwards.
+    That is,
+    \[
+        \begin{pmatrix}
+            a_1 & a_2 & \ldots & a_k
+        \end{pmatrix}
+        ^{-1}
+        =
+        \begin{pmatrix}
+            a_k & a_{k-1} & \ldots & a_1
+        \end{pmatrix}
+        ^{-1}.
+    \]
+    For a product $\sigma = \sigma_1 \ldots \sigma_m$ then
+    \[
+        \sigma^{-1} = \sigma_m^{-1} \ldots \sigma_1^{-1}.
+    \]
+\end{example}
+
+\begin{lemma}
+    Let
+    $
+        \sigma =
+        \begin{pmatrix}
+            a_1 & a_2 & \ldots & a_k
+        \end{pmatrix}
+        \in S_n
+    $
+    be a cycle and $\lambda \in S_n$.
+    Then
+    \[
+        \lambda \sigma \lambda^{-1}
+        = 
+        \begin{pmatrix}
+            \lambda(a_1) & \lambda(a_2) & \ldots & \lambda(a_k)
+        \end{pmatrix}
+        .
+    \]
+\end{lemma}
+
+\begin{proof}
+    \begin{align*}
+        \lambda \sigma \lambda^{-1}(\lambda(a_1))
+        &= \lambda\sigma(a_1)
+        = \lambda(a_2) \\
+        &\vdots \\
+        \lambda \sigma \lambda^{-1}(\lambda(a_k))
+        &= \lambda\sigma(a_k)
+        = \lambda(a_1).
+    \end{align*}
+\end{proof}
+%todo not really necessary but change pmatrix to (x\;x\;x)

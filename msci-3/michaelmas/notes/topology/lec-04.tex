@@ -1,0 +1,99 @@
+%! TEX root = master.tex
+
+\lecture{4}{?}
+
+\begin{example}[]
+	Any continuous function $f: \R \to \R$ that we saw from Calculus I is also
+	continuous in the sense that we have just described.
+\end{example}
+
+\begin{example}[]
+	Define $I: C[0,1] \to C[0,1]$ by
+	\[
+		I(f)(x) \int_0^x f(t) \,dt.`
+	\]
+	$I$ is continuous with the $\sup$ metric we defined earlier.
+\end{example}
+
+\begin{example}[]
+	Consider $X$ with the discrete metric.
+	Consider $f: X \to \R$ where $\R$ has the standard Euclidean metric.
+	Then $f$ is continuous as if $U \subset X$ with $p \in U$ then
+	\[
+		p \in \left\{ p \right\} 
+		= B\left(p; \frac12\right) \subset U
+	\]
+	and hence $U$ is open. 
+	In other words, all subsets of $X$ are open and so all preimages of any
+	subset of $\R$ is also open.
+	On the other hand, $\operatorname{id}: (\R, d_2) \to (\R, d)$ where $d_2$ is
+	the Euclidean metric and $d$ is the discrete metric on $\R$ is not
+	continuous. 
+	Why? Well 
+	$\left\{ 0 \right\} = \operatorname{id}^{-1}{\left\{ 0 \right\}}$ 
+	is not open in 
+	$(\R, d_2$ but $\left\{ 0 \right\}$ is open in $(\R, d)$.
+\end{example}
+
+\begin{lemma}[]
+	Suppose that $X$ is a metric space.
+	\begin{enumerate}
+		\item $X$ and $\varnothing$ are both open and closed.
+		\item An arbitrary union of open sets is open.
+		\item A finite intersection of open sets is open.
+		\item A finite union of closed sets is closed.
+		\item An arbitrary intersection of closed is closed.
+	\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+	$i$: let $p \in X$.
+	Then $B(p;1) \subset X$.
+	So $X$ is open.
+	$\varnothing$ is vacuously open.
+	It is immediately observed that $U$ and $\varnothing$ are closed.
+	
+	$ii$: suppose $U_i$ is open for all $i \in I$, $I$ being an arbitrary
+	labelling set.
+	If $p \in \bigcup_{i \in I} U_i$, we have $p \in U_{i_0}$ for some
+	$i_0 \in I$.
+	Then there is $\varepsilon > 0$ such that 
+	$p \in B(p; \varepsilon) \subset U_{i_0} \subset \bigcup_{i \in I} U_i$.
+	Hence $\bigcup_{i \in I} U_i$ is open.
+	
+	$iii$: suppose $U_i$ for $i = 1, \ldots, n$.
+	Let $p \in \bigcap_{i=1}^n U_i$.
+	Then $p \in U_i$ for all $i$.
+	So there is $\varepsilon_i > 0$ such that 
+	$p \in B(p; \varepsilon_i) \subset U_i$ for all $i$.
+	We set 
+	$\varepsilon = \min\left\{ \varepsilon_1, \ldots, \varepsilon_n \right\}$.
+	Then $p \in B(p; \varepsilon) \subset \bigcap_{i=1}^n U_i$.
+	Hence $\bigcap_{i=1}^n U_i$ is open.
+
+	$iv$: let $A_1, \ldots, A_n$ be closed.
+	So $X \setminus A_i$ is open for all $i \in \left\{ 1,\ldots,n \right\}$.
+	Then $\bigcup_{i} A_i$ is closed if and only if $X \setminus \bigcup_i A_i$ 
+	is open.
+	Note that
+	$X \setminus \bigcup_i A_i = \bigcap_i \left( X \setminus A_i \right)$
+	and by $iii$ we are done.
+
+	$v$: let $A_i \subset X$ be closed, $i \in I$.
+	So $X \setminus A_i$ is open.
+	$\bigcap_i A_i$ is closed if and only if $X \setminus \bigcap_i A_i$ is open.
+	Note that
+	$X \setminus \bigcap_i A_i = \bigcup_i \left( X \setminus A_i \right)$
+	and so we are done by $ii$.
+\end{proof}
+
+\begin{example}[]
+	Consider $\R$ with the Euclidean metric and consider the set
+	\[
+		\left\{ 0 \right\}
+		= \bigcap_{n=1}^\infty \left( -\frac1n, \frac1n \right).
+	\]
+	Clearly $\left\{ 0 \right\}$ is \emph{not} open in the Euclidean metric,
+	thus this illustrates that an arbitrary intersection of open sets do not have
+	to be open.
+\end{example}

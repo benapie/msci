@@ -1,0 +1,106 @@
+\paper{2018}
+
+\question
+\begin{parts}
+    \part[4]
+    Explain the difference between symmetric key and
+    asymmetric key cryptograph, and state an example
+    application where each would be used.
+    \begin{solution}
+        Symmetric key cryptography uses a single key to encrypt and decrypt the data.
+        Assymetric key cryptography uses two keys: 
+        \begin{enumerate}
+            \item the public key, used to encrypt the data; and
+            \item the private key, used to decrypt the data.
+        \end{enumerate} 
+        The public key is typically given out to many people who want to send data
+        to a particular receiver and the private key is kept secret by the particular
+        receiver.
+        Private key cryptography may be used by a website that requires your credentials
+        to gain priviledges to perform actions.
+        Public key cryptography may be used in block cipher (used to encrypt files).
+    \end{solution}
+
+    \part[4]
+    State four desirable properties of a cryptographic
+    hash function.
+    \begin{solution}
+        Properties of an effective hash function:
+        \begin{enumerate}
+            \item determinstic;
+            \item one-way: not easily invertible;
+            \item no collisions: $f(x_1) = f(x_2) \implies x_1 = x_2$; and
+            \item avalance effect: a small change in the input causes a large change in the output.
+        \end{enumerate}
+    \end{solution}
+
+    \part[6]
+    In the context of databases,
+    explain and give an example of
+    \begin{subparts}
+        \subpart an obscure query; and
+        \begin{solution}
+            To make it harder for a system to identify whether a user is requesting data that they
+            are not authorised to make, agents can construct overly complex queries.
+            For example, instead of
+            \begin{center}
+                \ttfamily
+                SELECT * FROM Students WHERE Sex = "F"
+            \end{center}
+            can be rewritten as
+            \begin{center}
+                \ttfamily
+                SELECT * FROM Students WHERE       \\
+                (IsSenior = "T" AND Sex <> "M") OR \\
+                (IsSenior = "F" AND Sex = "F").
+            \end{center}
+        \end{solution}
+
+        \subpart an inference attack.
+        \begin{solution}
+            An inference attack is a technique performed by analysing data in order to illegitimately
+            gain knownledge about a subject or database.
+            Inference attacks occur when agents execute queries that they are authorised to do
+            to gain access to information that they are not authorised to have access to.
+            For example, if you can search for how much money has been spent by customers in the last month
+            and you can see the prices of all the articles on sale, we can deduce possible purchase lists
+            of customers.
+        \end{solution}
+    \end{subparts}
+    \emph{(You do not need to write SQL in your answers.)}
+
+    \part[4]
+    Explain what \emph{``IP spoofing''}
+    is, and explain how you can protect against an
+    IP spoofing attack.
+    \begin{solution}
+        IP spoofing is where we change the IP data in our packet headers to pretend to be someone else.
+        There are many ways that we can protect against this,
+        one way is to setup an authentication protocol and having encrypted sessions so that
+        connections between two machines are authenticated and all data sent between them are
+        encrypted and so cannot be intercepted.
+    \end{solution}
+
+    \part[7]
+    A company specialises in annotating large geographic
+    datasets for the oil industry.
+    There are 70 exmployees (group A) who have no specialist
+    knowledge of the data, and annotate it based on a few
+    hours of training.
+    There are also 10 specialist employees (group B)
+    who have PhDs in Geology and can label the data to
+    a high degree of accuracy.
+
+    Unfortunately all 80 exmployees are reading and
+    writing over each other data annotations and the
+    overall annotation quality is inconsistent.
+    You are implementing a system to fix this problem for
+    future annotations.
+
+    Would you recommend either the Bell-LaPadula Models or the
+    Biba Model for the company?
+    List the read and write policies as determined by your
+    chosed model for each group accordingly.
+    %todo
+\end{parts}
+

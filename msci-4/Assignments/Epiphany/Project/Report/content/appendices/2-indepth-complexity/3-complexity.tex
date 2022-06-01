@@ -1,0 +1,88 @@
+\section{Complexity theory}
+
+We start with some motivation. Consider the language $\mathcal L = \{0^n1^n: n \in \Z_{\geq 0}\}$, we have seen that this is a decidable language. But how much time would a Turing machine need to decide $\mathcal L$? We recall the algorithm that we introduced earlier.
+
+\begin{enumerate}
+  \item Read the initial symbol. If it is blank, we accept. If it is a 1, we reject. Otherwise, we clear the cell and move to the right.
+  \item We scan along each cell until we get to the end. If we find a 0 after a 1 we reject.
+  \item When we get to the end of the string, we clear the far-most 1 and then move back to the first non-blank symbol.
+  \item We repeat this from the start until we accept or reject.
+\end{enumerate}
+
+Let $M$ denote the Turing machine representing the above algorithm and we trace $M$ on input $w = 0011$.
+
+\begin{center}
+  \begin{tabular}{ccc}
+    \toprule
+    Step & State & Tape                             \\
+    \midrule
+    0    & $q_0$ & $\underline0011\sqcup$           \\
+    1    & $q_1$ & $\sqcup\underline011\sqcup$      \\
+    2    & $q_1$ & $\sqcup0\underline11\sqcup$      \\
+    3    & $q_2$ & $\sqcup01\underline1\sqcup$      \\
+    4    & $q_2$ & $\sqcup011\underline\sqcup$      \\
+    5    & $q_3$ & $\sqcup01\underline1\sqcup$      \\
+    6    & $q_4$ & $\sqcup0\underline1\sqcup\sqcup$ \\
+    7    & $q_4$ & $\sqcup\underline01\sqcup\sqcup$ \\
+    \bottomrule
+  \end{tabular}
+  \hspace{2em}
+  \begin{tabular}{ccc}
+    \toprule
+    Step & State & Tape                                       \\
+    \midrule
+    8    & $q_4$ & $\underline\sqcup01\sqcup\sqcup$           \\
+    9   & $q_0$ & $\sqcup\underline01\sqcup\sqcup$           \\
+    10   & $q_1$ & $\sqcup\sqcup\underline1\sqcup\sqcup$      \\
+    11   & $q_2$ & $\sqcup\sqcup1\underline\sqcup\sqcup$      \\
+    12   & $q_3$ & $\sqcup\sqcup\underline1\sqcup\sqcup$      \\
+    13   & $q_4$ & $\sqcup\underline\sqcup\sqcup\sqcup\sqcup$ \\
+    14   & $q_0$ & $\sqcup\sqcup\underline\sqcup\sqcup\sqcup$ \\
+    15   & $q_a$ & $\sqcup\sqcup\underline\sqcup\sqcup\sqcup$ \\
+    \bottomrule
+  \end{tabular}
+\end{center}
+
+Let $w \in \mathcal L$ of length $n \in 2\N$. Then we see that after the algorithm has scanned up the string and back down then repositioned on the first non-zero entry, we are back in $q_0$ and the string is $w' \in \mathcal L$ of length $n-2$. Thus, we have the recurrence relation 
+\[T(n) = 2n +1 + T(n-2)\]
+where $T(n)$ denotes the (maximum) number of steps $M$ takes to run on an input of length $n$. This relation has the solution $T(n) = 1/2(n+2)(n+1)$ (this can be derived or proved by induction). 
+
+When looking at the running time of an algorithm, we will be looking at the \emph{worst-case}, although one can also investigate the \emph{average-case} and \emph{best-case}.
+
+\begin{definition}
+  Let $M$ be a Turing machine that halts on all inputs. The \emph{time complexity} (or \emph{running time}) of $M$ is a function $f: \N \to \N$ where $f(n)$ denotes the maximum number of steps that $M$ uses on an input of length $n$. 
+\end{definition}
+
+In the analysis of algorithms, we typically do not care about the specific time complexity function for a given algorithm. Instead, we look at the \emph{limiting behaviour} of the time complexity. To do this, we require some notions to describe this asymptotic behaviour.
+
+\begin{definition}[Big O notation]
+  Let $f$ and $g$ be two real-valued functions defined on some unbounded set of real numbers. Then we say $f(n) = O(g(n))$ if for all $\varepsilon > 0$ there is $N \in \N$ such that for all $n > N$ we have $\lvert f(n) \rvert \leq \varepsilon g(n)$. 
+\end{definition}
+
+Intuitively, $f(n) = O(g(n))$ means that $f$ is less than or equal to $g$ if we disregard differences up to constant factors. 
+
+\begin{example}
+  Let $f(x) = a_0 + a_1x + a_2x^2 + \ldots + a_nx^n \in \R[x]$ where $a_n \neq 0$. Then $f(x) = O(x^n)$. 
+\end{example}
+
+\begin{example}
+  Let $f(x) = \log(x^n)$ for some $n \in \N$. Then \[f(x) = n\log x = O(\log x).\]
+\end{example}
+
+\begin{remark}
+  We typically use $\log$ to denote the natural logarithm (that is, base-$e$); however, we typically use base-2 when studying computational complexity. We observe that for an arbitrary base $b \in \R_{> 0} \setminus \{1\}$,
+  \[ O(\log_2(x)) = O\left(\frac{\log_b(x)}{\log_b(2)}\right)=O(\log_b(x)). \]
+  Thus, when we write $f(n) = O(\log n)$, specifying the base is not necessary. 
+\end{remark}
+
+$O$ on the set $\{f: S \to \R\}$ is analogous to $\leq$ on the real line, and indeed we have analogues for the relations $<$, $=$, etc.
+
+\begin{definition}[Bachmann-Landau notations]
+  Let $f$ and $g$ be two real-valued functions defined on some unbounded set of real numbers.
+  \begin{itemize}
+    \item (Small O, equivalent to $<$) $f(n) = o(g(n))$ if \[\forall \varepsilon > 0 \; \exists N \in \N \; \forall n > N: \lvert f(n) \rvert < kg(n).\]
+    \item (Big Omega, equivalent to $\geq$) $f(n) = \Omega(g(n))$ if \[\forall \varepsilon > 0 \; \exists N \in \N \; \forall n > N: \lvert f(n) \rvert \geq kg(n).\]
+    \item (Small Omega, equivalent to $>$) $f(n) = \omega(g(n))$ if \[\forall \varepsilon > 0 \; \exists N \in \N \; \forall n > N: \lvert f(n) \rvert > kg(n).\]
+    \item (Big Theta, equivalent to $\approx$) $f(n) = \Theta(g(n))$ if $f(n) = O(g(n))$ and $f(n) = \Omega(g(n))$. 
+  \end{itemize}
+\end{definition}

@@ -1,0 +1,198 @@
+\chapter{Sorting algorithms}
+
+\begin{definition}
+    A \textbf{stable} sorting algorithm will sort identical elements in the same order that they appear in the input.
+\end{definition}
+
+\section{Insertion sort}
+
+\begin{definition}[Insertion sort]
+    We know that when $j$ has a certain value, it inserts the $j$th element into an already sorted sequence $a_1,\ldots,a_{j-1}$. The time complexity of insertion sort can range from $n-1$ and $\frac12n(n-1)$, worse case is $O(n^2)$. The pseudocode for insertion sort can be found in Algorithm \ref{alg:insertion_sort}.
+\end{definition}
+
+
+\begin{algorithm}
+    \caption{Insertion sort on a sequence of numbers.}
+    \label{alg:insertion_sort}
+    \begin{algorithmic}[1]
+        \Procedure{InsertionSort}{$a_1,\ldots,a_n$}
+            \For {$j=2$ to $n$}
+                \State $x=a_j$
+                \State $i=j-1$
+                \While{$i>0$ and $a_i>x$}
+                    \State $a_{i+1}=a_{i}$
+                    \State $i=i-1$
+                \EndWhile
+                \State $a_{i+1}=x$
+            \EndFor
+        \EndProcedure
+    \end{algorithmic}
+\end{algorithm}
+
+
+\section{Selection sort}
+
+\begin{definition}[Selection sort]
+    \textbf{Selection sort} is an in-place comparison sorting algorithm. The pseudocode for this algorithm can be found in Algorithm \ref{alg:selection_sort} and the time complexity can be derived as
+    \begin{align*}
+        \sum_{i=1}^{n-1}\sum_{j=i+1}^n{1}&=\sum_{i=1}^{n-1}{(n-i)}\\
+        &=\sum_{i=1}^{n-1}{n}-\sum_{i=1}^{n-1}{i}\\
+        &=n(n-1)-\frac12n(n-1)\\
+        &=\frac12n(n-1)=O(n^2).
+    \end{align*}
+\end{definition}
+
+\begin{algorithm}
+    \caption{Selection sort on a sequence of numbers.}
+    \label{alg:selection_sort}
+    \begin{algorithmic}[1]
+        \Procedure{SelectionSort}{$a_1,\ldots,a_n\in\mathbb R,n\geq2$}
+            \For{$i=1$ to $n-1$}
+                \State $elem=a_i$
+                \State $pos=i$
+                \For {$j=i+1$ to $n$}
+                    \If{$a_j<elem$}
+                        \State $elem=a_j$
+                        \State $pos=j$
+                    \EndIf
+                \EndFor
+            \EndFor
+            \State swap $a_i$ and $a_{pos}$
+        \EndProcedure
+    \end{algorithmic}
+\end{algorithm}
+
+\section{Bubble sort}
+
+\begin{definition}[Bubble sort] 
+    Bubble sort is a simple sorting algorithm that repeatedly steps through the list, compares adjacent pairs and swaps them if they are in the wrong order. The pseudocode can be found in Algorithm \ref{alg:bubble_sort}.
+\end{definition}
+
+\begin{algorithm}
+    \caption{Bubble sort on a sequence of numbers.}
+    \label{alg:bubble_sort}
+    \begin{algorithmic}[1]
+        \Procedure{BubbleSort}{$a_1,\ldots,a_n\in\mathbb R,n\geq2$}
+            \For{$i=1$ to $n-1$}
+                \State $swaps=0$
+                \For{$j=1$ to $n-1$}
+                    \If $a_j>a_{j+1}$
+                        \State swap $a_j$ and $a_{j+1}$
+                        \State $swaps=swaps+1$
+                    \EndIf
+                \EndFor
+                \If{$swaps=0$}
+                    \State break
+                \EndIf
+            \EndFor
+        \EndProcedure
+    \end{algorithmic}
+\end{algorithm}
+
+\section{Merge sort}
+
+\begin{definition}[Merge sort]
+    The basic idea of a merge sort is simple:
+    \begin{enumerate}
+        \item if given sequence of no more than one element then we're done;
+        \item otherwise, split the sequence into two shorter sequences of equal length, sort them recursively, and merge the two resulting sorted sequences.
+    \end{enumerate}
+    
+    The time complexity for this algorithm is $O(n\log n)$ and the pseudocode can be found in Algorithm $\ref{alg:merge_sort}$, with the merge algorithm found in Algorithm \ref{alg:merge}.
+\end{definition}
+
+% remark about mergesort being optimal
+
+\begin{algorithm}
+    \caption{Merge sort on a list of numbers.}
+    \label{alg:merge_sort}
+    \begin{algorithmic}[1]
+        \Procedure{MergeSort}{list $m$}
+            \If{$length(m)\leq1$}
+                \State return $m$
+            \EndIf
+            \State $left\gets empty list$
+            \State $right\gets empty list$
+            \State $middle\gets m.length/2$
+            \For{each $x$ with index $i$ in $m$}
+                \If{$i < middle)$}
+                    \State add $x$ to left
+                \Else
+                    \State add $x$ to right
+                \EndIf
+            \EndFor
+            \State $left\gets MergeSort(left)$
+            \State $right\gets MergeSort(right)$
+            \State \Return{$Merge(left,right)$}
+        \EndProcedure
+    \end{algorithmic}
+\end{algorithm}
+
+\begin{algorithm}
+    \caption{Merge two sorted list into one sorted list.}
+    \label{alg:merge}
+    \begin{algorithmic}[1]
+        \Procedure{Merge}{list $left$, list $right$}
+            \State list $result$
+            \While{$\operatorname{length}(left)>0$ or $\operatorname{length}(right)>0$}
+                \If{$\operatorname{first}(left)\leq\operatorname{first}(right)$}
+                    \State append $\operatorname{first}(left)$ to $result$
+                    \State $left\gets\operatorname{rest}(left)$
+                \Else
+                    \State append $\operatorname{first}(right)$ to $result$
+                    \State $right\gets\operatorname{rest}(right)$
+                \EndIf
+            \EndWhile
+            \While{$\operatorname{length}(left)>0$}
+                \State append $\operatorname{first}(left)$ to result
+            \EndWhile
+            \While{$\operatorname{length}(right)>0$}
+                \State append $\operatorname{first}(right)$ to result
+            \EndWhile
+        \EndProcedure
+    \end{algorithmic}
+\end{algorithm}
+
+\section{Quick sort}
+
+\begin{definition}[Quick sort]
+    At the beginning of each recursive call, QuickSort picks one element from the current sequence, the pivot. The partitioning (into left and right subsequences) will be done with respect to this pivot:
+    \begin{enumerate}
+        \item each element smaller than the pivot goes to the left part; and
+        \item each element bigger than the pivot goes to the right part.
+    \end{enumerate}
+    In some sense, MergeSort does the complicated part (the merging) after the sorted subsequences come back from recursive calls but QuickSort does its difficult bit prior to recursing. THe pseudocode for QuickSort can be found in Algorithm \ref{alg:quick_sort} and the pseudocode for the partitioning can be found in Algorithm \ref{alg:partition}.
+\end{definition}
+
+\begin{algorithm}
+    \caption{Quick sort on a list of numbers.}
+    \label{alg:quick_sort}
+    \begin{algorithmic}
+        \Procedure{QuickSort}{int $A[1..n]$, int $left$, int $right$}
+            \If{$left < right$}
+                \State $pivot = Partition(A, left, right)$
+                \State $QuickSort(A, left, pivot - 1)$
+                \State $QuickSort(A, pivot + 1, right)$
+            \EndIf
+        \EndProcedure
+    \end{algorithmic}
+\end{algorithm}
+
+\begin{algorithm}
+    \caption{Partition pseudocode.}
+    \label{alg:partition}
+    \begin{algorithmic}
+        \Procedure{Partition}{int $A[1..n]$, int $left$, int $right$}
+            \State int $x=A[right]$
+            \State int $i=left-1$
+            \For{$j=left$ to $right-1$}
+                \If{$A[j]<x$}
+                    \State $i=i+1$
+                    \State swap $A[i]$ and $A[j]$
+                \EndIf
+            \EndFor
+            \State swap $A[i+1]$ and $A[right]$
+            \State return $i+1$
+        \EndProcedure
+    \end{algorithmic}
+\end{algorithm}

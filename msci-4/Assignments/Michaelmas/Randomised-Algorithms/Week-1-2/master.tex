@@ -1,0 +1,26 @@
+\input{../preamble.tex}
+
+\begin{document}
+
+\begin{center}
+  \textbf{Problems} \\
+  \textsc{Randomised Algorithms and Probabilistic Methods, \\ Michaelmas Term, Week 1 \& 2} \\
+  \textsc{Ben Napier}
+  \vspace{1em}
+\end{center}
+
+\begin{questions}
+  \question Prove that for random variables $X$ and $y$, 
+  \[ \mathbb E[X] = \sum_y \mathbb E[X \mid Y = y] \cdot p(Y = y) \] 
+  where summation $\sum_y$ is over all values $y$ that the random variable $Y$ can take.
+
+  \question Prove the ``law of iterated expectation''; that is, for random variables $X$ and $Y$,
+  \[ \mathbb E[X] = \mathbb E[\mathbb E[X \mid Y]]. \] 
+
+  \question Prove that $\Var[X] = \mathbb E[(X - \mathbb E[X])^2] = \mathbb E[X^2] - (\mathbb E[X])^2$.
+
+  \question Prove that $\Cov[X,Y] = 0$ when $X$ and $Y$ are independent.
+\end{questions}
+
+
+\end{document}

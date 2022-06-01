@@ -1,0 +1,45 @@
+%! TEX root = master.tex
+
+\lecture{2}{5/10}
+\begin{definition}[Open and closed sets]
+	Let $X$ be a metric space. 
+	A subset $U \subset X$ is called \emph{open} if
+	for every $x \in U$ 
+	there is $\varepsilon > 0$ 
+	such that $B(x;\varepsilon) \subset U$.
+	A subset $A \subset X$ is called \emph{closed} if $X \setminus A$ is open.
+\end{definition}
+
+Points in a open set can be thought of having \emph{elbow room}.
+
+\begin{definition}[Neighbourhood]
+	Suppose $X$ is a metric space, $N \subset X$, and $x \in N$.
+	We call $N$ a \emph{neighbourhood} of $x$ if there exists an open set
+	$V \subset X$ with $x \in V \subset N$.
+\end{definition}
+
+\begin{proposition}[]
+	Open balls are open.
+\end{proposition}
+
+\begin{proof}
+	Let $x \in X$ and $r > 0$. Consider $U = B(x;r)$.
+	The idea of this proof is for each point $y \in U$
+	to construct another ball centered on the point
+	with radius $r - d(x,y)$.
+	Through manipu:wqa
+	lation of the triangle equality, it can be shown
+	that this ball lies within our other ball and hence $U$ is open.
+\end{proof}
+
+\begin{proposition}[]
+	Closed balls are closed.
+\end{proposition}
+
+\begin{proof}
+	Let $x \in X$ and $r > 0$. Consider $A = D(x;r)$.
+	Now consider $U = X \setminus A$.
+	The idea of this proof is to show that for every $y \in U$
+	the ball centered at $y$ with radius $d(x,y) - r$ is contained
+	within $U$ and so $U$ is open, and so $A$ is closed.
+\end{proof}

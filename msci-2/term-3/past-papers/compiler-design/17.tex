@@ -1,0 +1,95 @@
+\paper{2017}
+
+\question
+\begin{parts}
+    \begin{subparts}
+        \subpart[1] 
+        What is the parsing problem?
+
+        \subpart[3] 
+        What is a parse tree?
+        In a parse tree, how are the internal nodes labelled
+        and how are the leaves labelled?
+    \end{subparts}
+
+    \part[6]
+    Demonstrate with a simple example and using diagrams that
+    the following grammar is ambiguous.
+    \[
+        A \to A + A \mid A * A \mid \bm x \mid \bm y
+    \]
+
+    \part
+    \begin{subparts}
+        \subpart[3]
+        Predictive parsers can be constructed for the
+        $\operatorname{LL}(k)$ grammars.
+        What does the name $\operatorname{LL}(k)$
+        stand for?
+
+        \subpart[4]
+        Can an ambiguous grammar be an $\operatorname{LL}(k)$
+        grammar for some positive integer $k$?
+        Briefly justify your answer.
+    \end{subparts}
+
+    \part[8]
+    Construct the leftmost derivation and the rightmost derivation
+    of the string $(a + b) \times c$ in the following grammar.
+    \begin{align*}
+        E &\to E + T \\
+        E &\to T \\
+        T &\to T \times F \\
+        T &\to F \\
+        F &\to (E) \\
+        F &\to a \\
+        F &\to b \\
+        F &\to c \\
+    \end{align*}
+\end{parts}
+
+\question
+\begin{parts}
+    \part[12]
+    Provide the names of the three main phases of the
+    analysis part of a compiler (or front end)
+    and give a brief description of what each of these parts
+    are responsible for.
+
+    \part
+    \begin{subparts}
+        \subpart[3]
+        Eliminate the immediate left recursion in the following
+        grammar.
+        \[
+            S \to Sx \mid Sy \imd zw \mid wy
+        \]
+
+        \subpart[4]
+        In the following grammar, eliminate the left recursion
+        that appears in more than one steps.
+        \begin{align*}
+            S_1 &\to S_2 ba \mid c \\
+            S_2 &\to S_3 a \mid \\
+            S_3 &\to S_2 c \mid ab
+        \end{align*}
+    \end{subparts}
+
+    \part[6]
+    Using the following simple Syntax Directed Definition (SDD),
+    construct the annotated parse tree for the computation $2*8$.
+    \begin{center}
+        \begin{tabular}{cll}
+            \toprule
+            & Production & Semantic rules \\
+            \midrule
+            1) & $E \to E_1 + T$ & $E.val = E_1.val + T.val$ \\
+               &                 & \\
+            2) & $E \to T$ & $E.val = T.val$ \\
+               &                 & \\
+            3) & $T \to T_1 * F$ & $T.val  = T_1.val \times F.val$ \\
+            4) & $T \to F$ & $T.val = F.val$ \\
+            \bottomrule
+        \end{tabular}
+    \end{center}
+\end{parts}

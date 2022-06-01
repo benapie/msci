@@ -1,0 +1,53 @@
+\documentclass[a4paper, answers]{exam}
+\input{../preamble.tex}
+
+\begin{document}
+
+\begin{center}
+	\textbf{\textsc{Number Theory III, Assignment 4}}
+	\\
+	\textsc{Ben Napier}
+	\vspace{1em}
+\end{center}
+
+\begin{questions}
+	\question
+	Find how many solutions $(a,b)$ there are with (i) $a,b \in \Z$ and
+	(ii) $a,b \in \N$ to the following equation,
+	\[
+		a^2 + b^2 = 2^3 \times 7^4 \times 37^5 \times 41.
+	\]
+	
+	\question
+	Let $R = \Z[\sqrt{-3}]$ and $J = (2, 1 + \sqrt{-3})_R$.
+	Show that
+	\begin{parts}
+		\part
+		$J$ is a prime ideal in $R$.
+
+		\part
+		$J^2 = (2)_RJ$, but $J \neq (2)_R$.
+
+		\part
+		How does this compare with what we have seen in the lectures that all
+		non-zero prime ideals in a ring of integers of a number field are
+		invertible?
+	\end{parts}
+
+	\question
+	Let $R = \mathcal O_J$ for some number field $K$.
+	Prove Lemma 36 from the lecture, that is, show the following.
+
+	Let $\mathfrak p$ be any proper non-zero ideal in the ring $R$.
+	The following statements are equivalent:
+	\begin{enumerate}
+		\item $\mathfrak p$ is irreducible;
+		\item $\mathfrak p$ is prime (= maximal);
+		\item $\mathfrak p \mid IJ \implies 
+			\mathfrak p \mid I \;\text{or}\; \mathfrak p \mid J$.
+	\end{enumerate}
+
+	Note: for this question one cannot use Theorem 37 which was proved after
+	Lemma 36.
+\end{questions}
+\end{document}

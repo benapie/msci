@@ -1,0 +1,117 @@
+%! TEX root = master.tex
+\lecture{5}{20/10}
+
+\begin{problem}
+	Show that
+	\[
+		[\Q(\sqrt 2, \sqrt 3) : \Q] = 4.
+	\]
+\end{problem}
+
+\begin{solution}
+	Let $L = \Q(\sqrt 2, \sqrt 3)$.
+	Set $K = \Q(\sqrt 2)$.
+	Assume that $x^2 - 3$ is reducible over $K$.
+	Then $\sqrt 3 \in K$ and so $\sqrt 3 = a + b \sqrt 2$
+	for some $a, b \in \Q$.
+	If $a = 0$, then $\sqrt 3 = b \sqrt 2$.
+	This implies that $\sqrt 6 = b2 \in \Q$;
+	a contradiction.
+	If $a \neq 0$, then $a^2 + b^2 + 2ab\sqrt 2 = 3$
+	(by squaring).
+	Assuming $b \neq 0$: $\sqrt 2 \in \Q$; a contradiction.
+	Finally, assuming $b = 0$ we have $\sqrt 3 \in \Q$,
+	again a contradiction.
+	Hence $x^2 - 3$ is irreducible over $K$.
+	So $[K(\sqrt 3): K] = 2$ since $\sqrt 2$ has degree $2$
+	over $K$.
+	On the other hand, we see that $[K : \Q] = 2$ since 
+	the irreducible polynomial of $\sqrt 2$ over $\Q$ is $x^2 - 2$.
+	As $L = K(\sqrt 3)$, we see that
+	\[
+		[L: \Q] = [L:K] \cdot [K:\Q] = 4. \qedhere
+	\]
+\end{solution}
+
+\begin{definition}[Algebraic]
+	A number $\alpha \in \C$ which is algebraic over $\Q$ is said to be
+	an \emph{algebraic number} .
+	A field with $F$ with 
+	$\Q \subset F \subset \C$
+	and
+	$[F : \Q] < \infty$
+	is said to be an \emph{algebraic number field}
+	(or simply \emph{number field}).
+\end{definition}
+
+\begin{example}
+	$\Q\left( \sqrt{-2} \right)$,
+	$\Q\left( \sqrt m \right)$,
+	and $\Q\left( \sqrt 2, \sqrt 3 \right)$
+	are examples of algebraic number fields.
+\end{example}
+
+\begin{theorem}[Simple extension theorem]
+	Let $K$ be an algebraic number field.
+	Then there is $\theta \in K$ such that
+	\[
+		K = \Q(\theta).
+	\]
+\end{theorem}
+
+\begin{example}[]
+	With $L = \Q(\sqrt 2, \sqrt 3)$ we have
+	$L = \Q(\sqrt 2 + \sqrt 3)$.
+	We see that $\theta = \sqrt 2 + \sqrt 3$
+	is indeed in $L$.
+	Observe that $\theta^3 = 11\sqrt 2 + 9\sqrt 3$,
+	so we can express
+	$\sqrt 2 = \frac12 (\theta^3 - 9\theta) \in \Q(\theta)$
+	and
+	$\sqrt 3 = -\frac12 (\theta^3 - 11\theta) \in \Q(\theta)$.
+	This would indeed imply that $L \subset \Q(\theta)$
+	and clearly $\Q(\theta) \subset L$;
+	hence, we have equality.
+\end{example}
+
+The sum, difference, product, and quotient (with non-zero denominator)
+of two algebraic numbers is algebraic; hence, we can define the
+following set.
+
+\begin{definition}[The field of algebraic numbers]
+	The set $\overline \Q$ is defined as the union of all algebraic numbers.
+\end{definition}
+
+\begin{problem}
+	Show that $\overline\Q$ is a field.
+\end{problem}
+
+\begin{solution}
+	Let $\alpha \in \C$ be algebraic and non-zero.
+	We have $[\Q(\alpha) : \Q] < \infty$, and so
+	$\Q(\alpha)$ is algebraic.
+	Namely, $\alpha^{-1} \in \Q(\alpha)$ is algebraic.
+	Further let $\beta \in \C$ also be algebraic.
+	Then, by the tower theorem, $\Q(\alpha, \beta)$
+	is a finite extension of $\Q$ and so 
+	$\Q(\alpha, \beta)$ is algebraic.
+	Now clearly $\alpha + \beta, \alpha\beta \in \Q(\alpha, \beta)$
+	and so they are both algebraic.
+\end{solution}
+
+\begin{problem}
+	Show that
+	\[
+		[\overline\Q: \Q] = \infty.
+	\]
+\end{problem}
+
+\begin{solution}
+	If it were not, then every algebraic number would have degree
+	$d$ or less over $\Q$, but by Eisenstein's criterion we can construct
+	irreducible polynomials over $\Q$ of degree larger than $d$;
+	for example, $x^{d+1}-2$.
+	From this, we conclude that $\sqrt[d+1]{2}$ has degree $d + 1$
+	and it is algebraic, but cannot be contained with $\overline\Q$;
+	a contradiction.
+\end{solution}

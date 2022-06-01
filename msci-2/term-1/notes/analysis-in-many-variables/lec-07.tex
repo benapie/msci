@@ -1,0 +1,61 @@
+\lecture{7}{22/10}
+
+\begin{definition}[Level set]
+    A \textbf{level set} of $f: \R^n \to \R$ is defined as
+    \[ L_k(f) = \{ \bm x \in \R^n : f(\bm x) = k \}. \]
+\end{definition}
+
+\begin{remark}
+    Consider the curve $C$ define by $\bm x(t)$ in $\R^n$ which lies entirely in the level set $L_k(f)$ for some function $f$. So $C \subset L_k(f)$. Then
+    \[ 0 = \frac{df}{dt} = \frac{d \bm x}{dt} \cdot \nabla f; \]
+    hence $\frac{d\bm x}{dt} \perp \nabla f$ (meaning they are perpendicular).
+\end{remark}
+
+\chapter{$\nabla$ acting on a vector field}
+
+\section{Divergence}
+
+\begin{definition}[Divergence]
+    We denote the \textbf{divergence} of a vector field as $\nabla \cdot \bm v$ (or $\div{\bm v}$). For $\R^n$ where $\bm v = \bm e_i v_i$ then
+    \[ \nabla \cdot \bm v \equiv \div{\bm v} \equiv \left(\bm e_i \frac{\partial}{\partial x_i}\right) \cdot \left(\bm e_i v_i(\bm x)\right) \equiv \frac{\partial v_i}{\partial x_i}. \]
+\end{definition}
+
+\begin{remark}
+    In other coordinate systems, $\bm e_i$ may vary with $\bm x$; hence, we should be careful.
+\end{remark}
+
+\begin{example}
+    Let
+    \[ \bm v(\bm x) = v(x, y, z) = (x^2, y^2, z^2). \]
+    Then
+    \begin{align*}
+        \nabla \cdot \bm v(\bm x) &= \frac{\partial \bm v_1}{\partial x} + \frac{\partial \bm v_2}{\partial y} + \frac{\partial \bm v_3}{\partial z} \\
+                                  &= \frac{\partial}{\partial x} (x^2) + \frac{\partial}{\partial y} (y^2) + \frac{\partial}{\partial z} (z^2) \\
+                                  &= 2(x + y + z).
+    \end{align*}
+\end{example}
+
+\begin{remark}
+    \[ \nabla \cdot \bm v \neq \bm v \cdot \nabla. \]
+    The right side here is a scalar operator, not the $\div$ function.
+\end{remark}
+
+\begin{proposition}[Properties of $\div$]
+    Let $a, b \in \R$, $f, g$ be scalar fields, and $\bm u, \bm v$ be vector fields in $\R^n$. Then
+    \begin{enumerate}
+        \item $\nabla \cdot (a \bm u + b \bm v) = a \nabla \cdot \bm u + b \nabla \cdot \bm v$; and
+        \item $\nabla \cdot (f \bm v) = (\nabla f) \cdot \bm v + (\nabla \cdot \bm v) f$.
+    \end{enumerate}
+\end{proposition}
+
+\begin{proof}
+    \begin{enumerate}
+        \item This is clear from the definition of $\div$.
+        \item
+            \begin{align*}
+                \nabla \cdot (f \bm v) &= \frac{\partial (f\bm v_i)}{\partial x_i} \\
+                                       &= \frac{\partial f}{\partial x_i} v_i + \frac{\partial v_i}{\partial x_i} f \\
+                                       &= (\nabla f) \cdot \bm v + (\nabla \cdot \bm v) f.
+            \end{align*}
+    \end{enumerate}
+\end{proof}

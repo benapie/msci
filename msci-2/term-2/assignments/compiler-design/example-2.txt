@@ -1,0 +1,7 @@
+variables: x y
+equality: =
+constants:
+quantifiers: E A
+predicates: B[2] C[2]
+connectives: n v => <=> -
+formula: ( A x A y ( B(x,y) <=> C(x,y) ) <=>  A x A y ( ( B(x,y) => C(x,y) ) n ( C(x,y) => B(x,y) ) ) )

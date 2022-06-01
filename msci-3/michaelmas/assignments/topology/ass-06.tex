@@ -1,0 +1,178 @@
+\documentclass[a4paper, answers]{exam}
+\input{../preamble.tex}
+
+\begin{document}
+
+\begin{center}
+	\textbf{\textsc{Topology III, Assignment 6}}
+	\\
+	\textsc{Ben Napier}
+	\vspace{1em}
+\end{center}
+
+\begin{questions}
+	\question
+	Suppose that $X$ is a connected topological space
+	containing more than one point.
+	Suppose further that $\left\{
+		p
+	\right\}$ is closed for all $p \in X$.
+	Show that $X$ has an infinite number of points.
+	\begin{solution}
+		Assume $X$ has a finite number of points; that is,
+		$X = \left\{
+			x_1, \ldots, x_n
+		\right\}$.
+		Let $i \in \left\{
+			1, \ldots, n
+		\right\}$.
+		As $X \setminus \left\{
+			x_i
+		\right\}$ is open, 
+		\[
+			\left\{
+				x_i
+			\right\} = \bigcap_{j \in \left\{
+				1, \ldots, n
+			\right\} \setminus \left\{
+				i
+			\right\}} X \setminus \left\{
+				x_j
+			\right\}
+		\]
+		is also open as it is a finite intersection.
+		Hence, each singleton is open and closed.
+		That is, \emph{clopen}.
+		But $X$ is connected, so the only sets that are clopen are
+		$X$ and $\varnothing$.
+		As $X$ contains more than one point, we have a contradiction.
+		Thus $X$ has a infinite number of points.
+	\end{solution}
+
+	\question
+	Suppose $X$ is a connected topological space,
+	and suppose that $p \in X$ is such that
+	$X \setminus \left\{
+		p
+	\right\}$
+	is disconnected.
+	Show that the set $\left\{
+		p
+	\right\}$ is either open or closed but not clopen.
+
+	Give an example of a connected space $X$ where
+	$X \setminus \left\{
+		p
+	\right\}$
+	is disconnected and $\left\{
+		p
+	\right\}$
+	is open, and an example of a connected $X$ where
+	$X \setminus \left\{
+		p
+	\right\}$
+	is disconnected and $\left\{
+		p
+	\right\}$
+	is closed.
+	\begin{solution}
+		First, suppose $\left\{
+			p
+		\right\}$ is clopen.
+		Then $X = \left\{
+			p
+		\right\} \cup \left( 
+			X \setminus \left\{
+				p
+			\right\} 
+		\right)$;
+		a contradiction as $X$ is connected.
+		Thus $p$ cannot be both open and closed.
+		Now, as $X \setminus \left\{
+			p
+		\right\}$ is disconnected there exists sets $U$ and $V$ which
+		are open in $X \setminus \left\{
+			p
+		\right\}$ such that $U \cup V = X \setminus \left\{
+			p
+		\right\}$ and $U \cap V = \varnothing$.
+		Thus there exists sets $U'$ and $V'$ which are open in $X$ such that
+		\[
+			U' \cap (X \setminus \left\{
+				p
+			\right\}) = U' \setminus \left\{
+				p
+			\right\} = U, \qquad
+			V' \cap \left( 
+				X \setminus \left\{
+					p
+				\right\} 
+			\right) = V' \setminus \left\{
+				p
+			\right\} = V.
+		\]
+		Suppose $U' \cap V' \neq \varnothing$, then we must have
+		$U' = U \cup \left\{
+			p
+		\right\}$ and $V' = V \cup \left\{
+			p
+		\right\}$.
+		Then $U' \cap V' = \left\{
+			p
+		\right\}$ is open.
+		Now suppose $U' \cap V' = \varnothing$.
+		As $X$ is connected, $U' \cup V' \neq X$.
+		So $U' = U$ and $V' = V$.
+		Thus $U' \cup V' = X \setminus \left\{
+			p
+		\right\}$ is open and so $\left\{
+			p
+		\right\}$ is closed.
+
+		Consider the set $X = \left\{
+			1,2,3
+		\right\}$
+		with the topology
+		\[
+			\tau_X = \left\{
+				\varnothing,
+				X,
+				\left\{
+					1
+				\right\},
+				\left\{
+					1,2
+				\right\},
+				\left\{
+					1,3
+				\right\}
+			\right\}
+		\]
+		and $p = 1$.
+		The only clopen sets in $X$ are $\varnothing$ and $X$.
+		$X \setminus \left\{
+			1
+		\right\}$ describes a 2-point set with the discrete topology;
+		therefore, it is disconnected.
+
+		Now consider the set $Y = (a,b)$ with the standard topology.
+		As $Y$ is an interval, it is connected.
+		Now let $p \in (a,b)$.
+		As $\R \setminus \left\{
+			p
+		\right\}$ is open, $\left\{
+			p
+		\right\}$ is closed.
+		Observe
+		\[
+			X \setminus \left\{
+				p
+			\right\} = (a,p) \cup (p,b)
+		\]
+		and thus $X \setminus \left\{
+			p
+		\right\}$ is disconnected.
+	\end{solution}
+\end{questions}
+
+\end{document}

@@ -1,0 +1,29 @@
+%! TEX root = master.tex
+\lecture{10}{?}
+
+\begin{example}[Furstenberg's proof for the infitude of primes]
+	Consider the space $(\Z, \tau)$ where $\Z \supset U \in \tau$ if and only if
+	for all $a \in U$ there is non-zero $b \in \Z$ such that 
+	$a\Z + b \subset U$.
+	This is Furstenberg's topology, as introduced earlier.
+	We may also phrase this as: ``\emph{the sets $a\Z + b$, $a \in \Z$, and 
+	$0 \neq b \in \Z$ form a basis for the topology $\tau$}''.
+	We have not yet covered bases of topologies yet, but it is upcoming.
+	Now, observe that $b \subset \Z$ is open and since
+	\[
+		b\Z = \Z \setminus \bigcup_{i=1}^{b-1} \left( i + b\Z \right)
+	\]
+	it is also closed.
+	Also, note that the complement of any non-empty finite set cannot be closed.
+	Now every number (except $1$ and $-1$) is either prime or divisible by some
+	prime.
+	So 
+	\[
+		\Z \setminus \left\{ 1, -1 \right\} = 
+		\bigcup_{\text{$p$ prime}} p \Z.
+	\]
+	If there were finitely many primes, then the RHS of the equation above would
+	be the finite union of closed sets.
+	But we have seen that the LHS of the equation above is \emph{not} closed. 
+	\qed
+\end{example}

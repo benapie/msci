@@ -1,0 +1,47 @@
+\pc{1}{17/10}
+\question The variables $u, v$ are related to $x, y$ by
+$u = cx + sy$ and $v = -sx + cy$
+where the constants $s$ and $c$ satisfy
+$s^2 + c^2 = 1$.
+What is this trransformation geometrically? If 
+$f(x, y) = F(u, v)$
+show that
+\[ \frac{\partial^2 f}{\partial x^2} - \frac{\partial^2 f}{\partial t^2} = \frac{\partial^2 F}{\partial u^2} + \frac{\partial^2 F}{\partial v^2}. \]
+\begin{solution}
+   We can write this transformation as
+   \[ 
+        \begin{pmatrix}
+            u \\
+            v \\
+        \end{pmatrix}
+        =
+        \begin{pmatrix}
+            c   & s     \\
+            -s  & c     \\
+        \end{pmatrix}
+        \begin{pmatrix}
+            x \\
+            y \\
+        \end{pmatrix}
+   \]
+   which we can recognise as a rotation of angle $\theta$ where $\theta$ satisfies $\cos{\theta} = c$, $\sin{\theta} = s$.
+   By the chain rule we know
+    \begin{align*}
+        \frac{\partial f}{\partial x}       &= \frac{\partial F}{\partial u} \frac{\partial u}{\partial x} + 
+                                                \frac{\partial F}{\partial v} \frac{\partial v}{\partial x}  \\
+                                            &= \frac{\partial F}{\partial u} (c) + 
+                                                \frac{\partial F}{\partial v} (-s)                           \\
+        \frac{\partial}{\partial x}         &= c \frac{\partial}{\partial u} - s \frac{\partial}{\partial v} \\ 
+        \frac{\partial^2}{\partial x^2}     &= \left(c \frac{\partial}{\partial u} 
+                                                - s \frac{\partial}{\partial v}\right) 
+                                                \left(c \frac{\partial}{\partial u} 
+                                                - s \frac{\partial}{\partial v}\right) \\
+        \frac{\partial^2 f}{\partial x^2}   &= c^2 \frac{\partial^2 F}{\partial u^2} - cs \frac{\partial^2 F}{\partial u \partial v} - sc \frac{\partial^2 F}{\partial v \partial u} + s^2 \frac{\partial^2 F}{\partial v^2}.
+    \end{align*}
+    Similarily,
+    \begin{align*}
+        \frac{\partial^2 d}{\partial y^2} &= s^2 \frac{\partial^2 F}{\partial u^2} + sc \frac{\partial^2 F}{\partial u \partial v} + cs \frac{\partial^2 F}{\partial v \partial u} + s^2 \frac{\partial^2 F}{\partial v^2}.
+    \end{align*}
+    Hence
+    \[ \frac{\partial^2 f}{\partial x^2} + \frac{\partial^2 f}{\partial y^2} = \frac{\partial^2 F}{\partial u^2} + \frac{\partial^2 F}{\partial v^2}. \]
+\end{solution}

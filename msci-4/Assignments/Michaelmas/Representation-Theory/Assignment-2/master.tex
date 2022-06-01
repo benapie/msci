@@ -1,0 +1,109 @@
+\input{../preamble.tex}
+
+\begin{document}
+
+\begin{center}
+  \textbf{\textsc{Representation Theory IV, Michaelmas Term, Assignment 2}} \\
+  \textsc{Ben Napier}
+  \vspace{1em}
+\end{center}
+
+\begin{questions}
+  \question In the group ring $\C[S_3]$, let
+  \[ \alpha = [e] + [(12)] + [(23)] + [(31)] + [(123)] + [(132)] \]
+  and let
+  \[ \beta = 2[e] - [(123)] - [(132)]. \]
+  \begin{parts}
+    \part Find $\alpha^2$, $\beta^2$, and $\alpha\beta$.
+    \begin{solution}
+      Let $\sigma \in S_3$. Then
+      \[ \alpha[\sigma] = [\sigma] + [(12)\sigma] + [(23)\sigma] + [(31)\sigma] + [(123)\sigma] + [(132)\sigma] = \alpha. \]
+      Thus
+      \[ \alpha^2 = \sum_{\sigma \in S^3} \alpha[\sigma] = 6\alpha. \]
+      Similarly,
+      \[ \beta[\sigma] = 2[\sigma] - [e] - [\sigma^2] \]
+      thus
+      \[ \beta^2 = 2([e] + \beta). \]
+      It is clear to see that $\alpha\beta = 0$.
+    \end{solution}
+
+    \part For $(x,y,z) \in \C^3$ (with the permutation representation), compute $\alpha(x,y,z)$ and $\beta(x,y,z)$.
+    \begin{solution}
+      \begin{align*}
+        \alpha(x,y,z)
+         & = \left(\sum_{\sigma \in S_3} [\sigma]\right)(x,y,z) \\
+         & = \sum_{\sigma \in S_3} \rho(\sigma)(x,y,z)          \\
+         & = 2(x+y+z)(1,1,1).                                   \\
+        \beta(x,y,z)
+         & = 2\rho(e)(x,y,z)
+        - \rho((123))(x,y,z)
+        - \rho((132))(x,y,z)                                    \\
+         & = (2x-z-y, 2y-x-z, 2z-y-x).
+      \end{align*}
+    \end{solution}
+  \end{parts}
+
+  \question Find the character tables of the following groups.
+  \begin{parts}
+    \part $C_4$
+    \begin{solution}
+      We let $w = e^{\pi i / 2}$.
+      \begin{center}
+        \begin{tabular}{ccccc}
+          \toprule
+          Class         & $e$ & $g$   & $g^2$ & $g^3$ \\
+          \midrule
+          $\mathfrak 1$ & $1$ & $1$   & $1$   & $1$   \\
+          $\chi$        & $1$ & $w$   & $w^2$ & $w^3$ \\
+          $\chi^2$      & $1$ & $w^2$ & $w$   & $w^3$ \\
+          $\chi^3$      & $1$ & $w^3$ & $w^2$ & $w$   \\
+          \bottomrule
+        \end{tabular}
+      \end{center}
+    \end{solution}
+    \part $D_5$.
+    \begin{solution}
+      We have the conjugacy classes
+      \[ \{e\}, \{r, r^4\}, \{r^2, r^3\}, \{s, rs, r^2s, r^3s, r^4s\} \]
+      which can be obtained easily.
+      We recall the following representations of $D_5$.
+      \begin{center}
+        \begin{tabular}{ccc}
+          \toprule
+          Label         & $\rho(r)$                                                            & $\rho(s)$                                      \\
+          \midrule
+          $\mathfrak 1$ & $1$                                                                  & $1$                                            \\
+          $\epsilon$    & $1$                                                                  & $-1$                                           \\
+          $\rho_1$      & $\begin{pmatrix}e^{2\pi i/5} & 0 \\ 0 & e^{-2\pi i/5} \end{pmatrix}$ & $\begin{pmatrix} 0 & 1 \\ 1 & 0 \end{pmatrix}$ \\
+          $\rho_2$      & $\begin{pmatrix}e^{4\pi i/5} & 0 \\ 0 & e^{-4\pi i/5} \end{pmatrix}$ & $\begin{pmatrix} 0 & 1 \\ 1 & 0 \end{pmatrix}$ \\
+          \bottomrule
+        \end{tabular}
+      \end{center}
+      Now we conclude, let $w = e^{2\pi i / 5}$.
+      \begin{center}
+        \begin{tabular}{ccccc}
+          \toprule
+          Class         & $\{e\}$ & $\{r, r^4\}$ & $\{r^2, r^3\}$ & $\{s, rs, r^2s, r^3s, r^4s\}$ \\
+          \midrule
+          $\mathfrak 1$ & $1$     & $1$          & $1$            & $1$                           \\
+          $\chi$        & $1$     & $1$          & $1$            & $-1$                          \\
+          $\chi^2$      & $2$     & $w + w^4$    & $w^2 + w^3$    & $0$                           \\
+          $\chi^3$      & $2$     & $w^2 + w^3$  & $w + w^4$      & $0$                           \\
+          \bottomrule
+        \end{tabular}
+      \end{center}
+    \end{solution}
+  \end{parts}
+
+  \question
+  Let $G$ be a finite group acting on a finite set $X$. Let $\chi$ be the character of the permutation representation. Prove that
+  \[ \chi(g) = \lvert \{x \in X: gx = x \}\rvert. \] 
+  Find the character of the regular representation. 
+  \begin{solution}
+    Let $g \in G$. We consider the matrix of $\rho(g)$, denoted $(m_{ij})$ from fixing the basis $(e_{x_1}, \ldots, e_{x_n})$. We notice that $m_{ii} = 1$ iff $e_{x_i}$ is taken to $e_{x_i}$ through $\rho$. That is, $gx_i = x$. Thus we conclude  
+  \[ \chi(g) = \lvert \{x \in X: gx = x \}\rvert. \] 
+    The regular representation associates each member of $G$ with a linear map that permutes the basis according to the table of $G$. So for all $g \neq e$, $\chi(g) = 0$. For $g = e$, we see that $gx = x$ holds for all $x$, thus $\chi(g) = \lvert G \rvert$.
+  \end{solution}
+\end{questions}
+
+\end{document}

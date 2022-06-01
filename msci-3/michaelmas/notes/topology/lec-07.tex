@@ -1,0 +1,68 @@
+%! TEX root = master.tex
+
+\lecture{7}{?}
+
+\begin{definition}[]
+	Let $X$ and $Y$ be topological spaces.
+	A function $f: X \to Y$ is called \emph{continuous} if for every open
+	$U \subset Y$, $f^{-1}(U)$ is open in $X$.
+	Let $x \in X$. $f$ is called \emph{continuous at $x$} if for all open
+	$U \subset Y$ with $f(x) \in U$, there is open $V \subset X$ with $x \in V$
+	such that $f(V) \subset U$.
+\end{definition}
+
+\begin{lemma}[]
+	Let $X$ and $Y$ be topological space.
+	A function $f: X \to Y$ is continuous if and only if for all $x \in X$,
+	$f$ is continuous at $x$.
+\end{lemma}
+
+\begin{proof}
+	Let $f$ be continuous and $x \in X$.
+	Let $U \subset Y$ be an open set such that $f(x) \in U$.
+	Then $V = f^{-1}(U)$ is also open.
+	So $f$ is continuous at $x$.
+	Now suppose that for all $x \in X$, $f$ is continuous at $x$.
+	Let $U \subset Y$ be open.
+	Consider $a \in f^{-1}(U)$.
+	$f$ is continuous at $a$ and $f(a) \in U$.
+	Hence there is open $V_a \subset f^{-1}(U)$ such that 
+	$a \in V_a \subset f^{-1}(U)$.
+	We take
+	\[
+		V = \bigcup_{a \in f^{-1}(U)} V_a.
+	\]
+	$V$ is open and $f^{-1}(U) = V$.
+	Hence $f$ is continuous.
+\end{proof}
+
+\begin{example}[]
+	Let $X$ be a topological space.
+	Consider $A \subset X$ with the subspace topology.
+	Then we claim that the \emph{inclusion map} $\iota: A \to X$,
+	$\iota(x) = x$, is continuous.
+	Proof: let $U \subset X$ be open.
+	Then we see that $\iota^{-1}(U) = U \cap A$, which is the intersection of 
+	two sets that are open in $A$; hence, it is open.
+\end{example}
+
+\begin{lemma}[]
+	The composition of continuous functions is a continuous function.
+\end{lemma}
+
+\begin{lemma}[]
+	Let $X$ and $Y$ be topological spaces and $f: X \to Y$ be continuous.
+	Then for all $A \subset Y$ closed, $f^{-1}(A)$ is closed.
+\end{lemma}
+
+\begin{proof}
+	$\implies$: suppose $A \subset Y$ is closed.
+	Then $f^{-1}(A) = X \setminus f^{-1}(Y \setminus A)$.
+	As $Y \setminus A$ is open, $f^{-1}(Y \setminus A$ is open.
+	So $f^{-1}(A)$ is closed.
+	$\impliedby$: Let $U \subset Y$ be open.
+	Then $Y \setminus U$ is closed.
+	Observe that $f^{-1}(U) = X \setminus f^{-1}(Y \setminus U)$ and 
+	$f^{-1}(Y \setminus U)$ is closed and hence $f^{-1}(U)$ is open.
+\end{proof}
+

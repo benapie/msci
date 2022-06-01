@@ -1,0 +1,139 @@
+\section{Induced representations}
+
+\subsection{Definition}
+
+Given $H$ a subgroup of some group $G$, we can restrict a representation of $G$ to get a representation of $H$. We now move to see how, given a representation of $H$, extend it to a representation of $G$, a \emph{induced representation}.
+
+Precisely, let $(\sigma, W)$ be a representation of $H$. We want to construct a representation $(\rho, V)$ which contains $W$ as an $H$-subrepresentation (that is, $\restr{\rho}{H}$ contains $\sigma$). Suppose such a representation exists. Then $V$ would have a $H$-subrepresentation $W_0$ such that $W_0 \cong W$. Also, for $g \in G$ we must have that $\rho(g) W_0 \subset V$ is a subspace, and this only depends of $gH$ as if $g_1 = g_2h$ for some $h \in H$, then
+\begin{align*}
+    \rho(g_1)W_0 & = \rho(g_2) \rho(h) W_0 \\
+                 & = \rho(g_2) W_0.
+\end{align*}
+
+\begin{definition}[Induced representation]
+    Let $G$ be a finite group and $H$ be a subgroup. If $(\sigma, W)$ is a representation of $H$, then a representation $(\rho, V)$ is \emph{induced} from $(\sigma, W)$ if
+    \begin{enumerate}
+        \item $V$ has a $H$-subrepresentation $W_0$ with $W_0 \cong W$ as a $H$-representation; and
+        \item if $g_1H, \ldots, g_rH$ are the left cosets of $H$ in $G$, then
+              \[ V = \rho(g_1)W_0 \oplus \ldots \oplus \rho(g_r)W_0. \]
+    \end{enumerate}
+\end{definition}
+
+% note on action
+
+\begin{example}
+    Consider the two-dimensional representation $(\rho, \mathbb C^2)$ of $G = D_n$ such that
+    \[
+        \rho(r)
+        \begin{pmatrix}
+            w & 0 \\ 0 & w^{-1} \\
+        \end{pmatrix}, \qquad
+        \rho(s)
+        \begin{pmatrix}
+            0 & 1 \\ 1 & 0 \\
+        \end{pmatrix},
+    \]
+    which is irreducible for $w \neq \pm 1$. Let $(\chi, \mathbb C)$ be the one-dimensional representation of $H = \langle r \rangle \cong C_n$, with $\chi(r) = w$. The cosets of $C_n$ in $D_n$ are
+    \[ \{C_n, rC_n\}. \]
+    If $V_0 \langle e_1 \rangle \subset \mathbb C^2$, then $V_0$ is indeed a $C_n$-subrepresentation isomorphic to $\chi$ and $sV_0 = \langle e_2 \rangle$. We clearly have $\mathbb C^2 = V_0 \oplus sV_0$, and so the $\rho$ is induced from $\sigma$.
+\end{example}
+
+\begin{proposition}
+    \hspace{0em}
+    \begin{enumerate}
+        \item If $(\sigma, W)$ is a representation of $H$, then there is a representation $(\rho, V)$ of $G$ induced from $(\sigma, W)$.
+        \item Any two representations of $G$ induced from the same representation of $H$ are isomorphic.
+    \end{enumerate}
+\end{proposition}
+
+We write $\left(\Ind_H^G\sigma, \Ind_H^GW\right)$ for the representation of $G$ induced from $(\sigma, W)$.
+
+\subsection{Frobenius reciprocity}
+
+\begin{theorem}
+    Let $H \subset G$ be finite groups, $V$ be a representation of $H$, and $W$ be a representation of $G$ induced from $W$. Then for any representation $U$ of $G$, there is an isomorphism of vector spaces
+    \[ \Hom_G(W, U) \xrightarrow{\cong} \Hom_H(V, U). \]
+\end{theorem}
+
+\begin{corollary}
+    Any two representations induced from isomorphic representations of $H$ are isomorphic.
+\end{corollary}
+
+\begin{corollary}
+    Let $(p, V)$ be a representation of $H$ with character $\chi$, and let $\psi$ be any class function on $G$. Then
+    \[
+        \left\langle
+        \Ind_H^G \chi, \psi
+        \right\rangle_G
+        =
+        \left\langle
+        \chi, \Res_H^G \psi
+        \right\rangle_H.
+    \]
+\end{corollary}
+Here $\Res_H^G\psi$ denotes the restriction of $\psi$ from $G$ to $H$.
+
+\subsubsection{Example, $S_3$ to $S_4$}
+
+\begin{example}
+    We first list the character tables for $S_4$ and $S_3$.
+    \begin{center}
+        \begin{tabular}{cccccc}
+            \toprule
+                     & $e$            & $(1\,2)$ & $(1\,2)(3\,4)$ & $(1\,2
+            \,3)$    & $(1\,2\,3\,4)$                                             \\
+            \midrule
+            $\psi_0$ & $1$            & $1$      & $1$            & $1$    & $1$  \\
+            $\psi_1$ & $1$            & $-1$     & $1$            & $1$    & $-1$ \\
+            $\psi_2$ & $2$            & $0$      & $2$            & $-1$   & $-1$ \\
+            $\psi_3$ & $3$            & $1$      & $-1$           & $0$    & $-1$ \\
+            $\psi_4$ & $3$            & $-1$     & $-1$           & $0$    & $1$  \\
+            \midrule
+            $\chi_0$ & $1$            & $1$      &                & $1$           \\
+            $\chi_1$ & $1$            & $-1$     &                & $1$           \\
+            $\chi_2$ & $2$            & $0$      &                & $-1$          \\
+            \bottomrule
+        \end{tabular}
+    \end{center}
+    We view
+    \[ S_3 = \{\tau \in S_4: \text{$\tau$ fixes 4}\} \subset S_4. \]
+    Frobenius reciprocity implies that
+    \[
+        \left\langle
+        \Ind_{S_3}^{S_4} \chi_2, \psi_i
+        \right\rangle_{S_4}
+        =
+        \left\langle
+        \chi_2, \Res_{S_3}^{S_4} \psi_i
+        \right\rangle_{S_3}
+    \]
+    for each $i \in \{0, \ldots, 4\}$. For $i \in \{0, 1\}$, $\Res^{S_4}_{S_3} \psi_i = \chi_i$, and so the RHS is 0 these $i$. For $i \in \{2,3,4\}$, we see that the RHS is 1. Thus, we have
+    \[ \Ind_{S_3}^{S_4} \chi_2 = \psi_2 + \psi_3 + \psi_4. \]
+\end{example}
+
+\subsection{Characters}
+
+We can also use Frobenius reciprocity to calculate the character of an induced representation.
+
+\begin{theorem}
+    Let $H \subset G$ be finite groups and let $(\rho, V)$ be a representation of $H$ with character $\chi$. Suppose that $C$ is a conjugacy class of $G$. Then
+    \[ \Ind_H^G(\chi)(C) = \frac{\lvert G \rvert}{\lvert H \rvert} \sum_{i=1}^r \frac{\lvert D_i \rvert}{\lvert C \rvert} \chi(D_i) \]
+    where each $D_i$ is a conjugacy class of $H$. 
+\end{theorem}
+
+\begin{example}
+    Consider $D_4 \subset S_4$ with one-dimension character $\varphi$ given below.
+    \begin{center}
+        \begin{tabular}{cccccc}
+            \toprule
+            & \multicolumn{5}{c}{Class} \\
+            \cmidrule{2-6}
+            & $e$ & $r$ & $r^2$ & $s$ & $rs$ \\
+            \midrule
+            Size & 1 & 2 & 1 & 2 & 2 \\
+            \midrule
+            $\varphi$ & 1 & -1 & 1 & 1 & -1 \\
+            \bottomrule 
+        \end{tabular}
+    \end{center}
+\end{example}

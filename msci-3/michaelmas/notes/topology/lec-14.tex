@@ -1,0 +1,111 @@
+%! TEX root = master.tex
+\lecture{14}{6/11}
+
+\begin{proposition}[]
+	Let $X$ and $Y$ be spaces, and $X \times Y$ given the product topology.
+	Then the projection maps
+	\[
+		\pi_X: X \times Y \to X, \qquad
+		\pi_Y: X \times Y \to Y
+	\]
+	are continuous and they map open sets to open sets.
+	Furthermore, the product topology is the smallest topology such that both
+	projection maps are continuous.
+\end{proposition}
+
+\begin{proof}
+	Note that if $U \subset X$ is open then
+	$\pi^{-1}_X(U) 
+	= U \times Y \in \mathcal B_{X \times Y} 
+	\subset \tau_{X \times Y}$.
+	Hence $\pi_X$ is continuous, and similarly so is
+	$\pi_Y$.
+	
+	Now let $\tau$ be a topology on $X \times Y$ such that
+	$\pi_X$ and $\pi_Y$ are continuous with respect to $\tau$.
+	Let $U \subset X$ and $V \subset Y$ be open. 
+	Then
+	\[
+		U \times V
+		= (U \times Y) \cap (X \times V)
+		= \pi_X^{-1} (U) \cap \pi_Y^{-1}(V)
+		\in \tau
+	\]
+	and so $\mathcal B_{X \times Y} \subset \tau$.
+	So arbitrary unions of elements of $\mathcal B_{X \times Y}$
+	are elements of $\tau$ and so $\tau_{X \times Y} \subset \tau$.
+\end{proof}
+
+\begin{proposition}[]
+	Let $X$, $Y$, and $Z$ be topological spaces.
+	A function $f: Z \to X \times Y$ is continuous
+	if and only if
+	$\pi_x \circ f$ and $\pi_y \circ f$ are continuous.
+\end{proposition}
+
+\begin{proof}
+	$(\implies)$: composition of continuous functions are continuous.
+	$(\impliedby)$: let $U \times V \in \mathcal B_{X \times Y}$.
+	Then
+	\begin{align*}
+		f^{-1}(U \times V)
+		&= f^{-1}\left( (U \times Y) \cap (X \times V) \right) \\
+		&= f^{-1}(U \times Y) \cap f^{-1}(X \times V) \\
+		&= f^{-1}(\pi_x^{-1}(U)) \cap f^{-1}(\pi_Y^{-1}(X \times V)) \\
+		&= (\pi_x \circ f)^{-1}(U) \cap (\pi_y \circ f)^{-1}(V)
+	\end{align*}
+	and, by Theorem \ref{the:top-spaces-equiv}, $f^{-1}(U \times V)$
+	is open.
+	Thus $f$ is continuous.
+\end{proof}
+
+\begin{example}[]
+	Let $X$ be a space and $f: X \to \R^n$.
+	We then have $n$ coordinate functions 
+	$f_1, \ldots, f_n: X \to \R$
+	where $f_i = \pi_i \circ f$.
+	$f$ is continuous if and only if each of these coordinate functions
+	are continuous and, in practise, it is typically easier to check
+	these coordinate functions as opposed to checking the entire function
+	as a whole.
+\end{example}
+
+\begin{proposition}[]
+Let $X$ and $Y$ be two non-empty spaces.
+$X \times Y$ is Hausdorff if and only if
+$X$ is Hausdorff and $Y$ is Hausdorff.
+\end{proposition}
+
+\begin{proof}
+	$(\impliedby)$: let $(p,q)$ and $(p',q')$ be distinct points of
+	$X \times Y$.
+	As these points are distinct, $p \neq p'$ or $q \neq q'$.
+	If $p \neq p'$, then let open $U, U' \subset X$ such that
+	$p \in U$, $p' \in U'$ and $U \cap U' = \varnothing$.
+	Then $(p,q) \in U \times Y$ and $(p', q') \in U' \times Y$,
+	both of these sets are open and do not intersect.
+	This can be done for the case where $q \neq q'$ and we can conclude that
+	$X \times Y$ is Hausdorff.
+
+	$(\implies)$: 
+	let $p$ and $p'$ be disjoint points of $X$ and $q \in Y$.
+	Then there is open $A, A' \subset X \times Y$ with
+	$(p,q) \in A$, $(p', q) \in A'$, and $A \cap A' = \varnothing$.
+	There is basis elements 
+	$U \times V, U' \times V' \in \mathcal B_{X \times Y}$ such that
+	$(p,q) \in U \times V \subset A$ and
+	$(p',q) \in U' \times V' \subset A'$.
+	Observe that $(U \times V) \cap (U' \times V') = \varnothing$.
+	But
+	$U \times \left\{ q \right\} \subset U \times V$
+	and likewise $U' \times \left\{ q \right\} \subset U' \times V' \subset A'$.
+	Hence
+	\[
+		\left( U \times \left\{ q \right\} \right) \cap
+		\left( U' \times \left\{ q \right\} \right)
+		= \varnothing
+	\]
+	and so $U \cap U' = \varnothing$.
+	As $p \in U$ and $p' \in U'$, $X$ is Hausdorff.
+	By symmetry, $Y$ is Hausdorff.
+\end{proof}

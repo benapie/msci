@@ -1,0 +1,58 @@
+  \question Consider the bubble-sort interconnection network from Question 4.
+  \begin{parts}
+    \part Generalize the definition in Question 4 and give an algebraic definition of the bubble-sort interconnection network $B_n$, where $n \geq 3$.
+    \begin{solution}
+      Let $B_n = (N, C)$. Then
+      \begin{align*}
+        N &= \{(a_1, \ldots, a_n) \in \{0, \ldots, n-1\}^n: a_i = a_j \implies i = j\}, \\
+        C &= \{((a_1, \ldots, a_{i-1}, a_i, a_{i+1}, a_{i+2}, \ldots, a_n),(a_1, \ldots, a_{i-1}, a_{i+1}, a_{i}, a_{i+2}, \ldots, a_n)): \\
+        &\qquad\qquad i \in \{1, \ldots, n-1\}\}.
+      \end{align*}
+
+    \end{solution}
+
+    \part Devise a routing algorithm for $B_n$. Your algorithm should be described in pseudo-code so that the description is both precise and provides an intuitive understanding of how your algorithm works. 
+    \begin{solution}
+      \begin{algorithmic}
+        \Function{BubblesortRouting}{$n$, \textsc{source}, \textsc{destination}}
+          \Function{Compare}{$x$,$y$}
+            \State \Return is $x$ before $y$ in destination?
+          \EndFunction
+          \State let \textsc{path} be an empty array
+          \For{$i \in (0, \ldots, n-1)$}
+            \For{$j \in (0, \ldots, n-1-i)$}
+              \If{\textsc{Compare}(\textsc{source}[$j+1$], \textsc{source}[$j$])}
+                \State swap entry $j$ and $j+1$ in \textsc{source}
+                \State append new value of \textsc{source} to \textsc{path}
+                \If{\textsc{source} $=$ \textsc{destination}}
+                  \State \Return{\textsc{path}}
+                \EndIf
+              \EndIf
+            \EndFor
+          \EndFor
+        \EndFunction
+      \end{algorithmic}
+      The idea of this algorithm is to define a new strict total order (\textsc{Compare} function) on the set $\{0, \ldots, n-1\}$, and applying bubblesort as normal with this order. The path that is produced is a valid route in our bubblesort intersection graph. 
+    \end{solution}
+
+    \part Implement your routing algorithm in Python. What are the loads of each node and each channel of $B_6$ in an all-to-all traffic pattern that result from an execution of your algorithm? Also, what is the maximal path-length and the average path-length produced by your algorithm? Comment on the loads on the various channel types. Both your algorithm and your analysis should be submitted.
+    \begin{solution}
+      For each node $(a_1, \ldots, a_6)$, the node load is $4681$ and we have the following loads for the outgoing channels.
+      \begin{center}
+        \begin{tabular}{cc}
+          \toprule
+          Channel & Load \\
+          \midrule
+          $((a_1, a_2, a_3, a_4, a_5, a_6), (a_2, a_1, a_3, a_4, a_5, a_6))$ & 1044 \\
+          $((a_1, a_2, a_3, a_4, a_5, a_6), (a_1, a_3, a_2, a_4, a_5, a_6))$ & 1368 \\
+          $((a_1, a_2, a_3, a_4, a_5, a_6), (a_1, a_2, a_4, a_3, a_5, a_6))$ & 1332 \\
+          $((a_1, a_2, a_3, a_4, a_5, a_6), (a_1, a_2, a_3, a_5, a_4, a_6))$ & 1056 \\
+          $((a_1, a_2, a_3, a_4, a_5, a_6), (a_1, a_2, a_3, a_4, a_6, a_5))$ & 600 \\
+          \bottomrule
+        \end{tabular}
+      \end{center}
+      The maximal path-length is \num{15} and the average path length is \num{7.5}. To give some more intuition on the channel types, for each node the channel corresponding to flipping the first two elements has load 1044. The channel corresponding to flipping the second and third element has load 1368 and so on with respective loads 1332, 1056, and 600. This lines up with, given an unordered list, the expected distribution of which adjacent pair of entries you'll have to switch. That is, you expect to switch the second and third the most when bubble sorting 6 elements.
+    \end{solution}
+  \end{parts}
+
+  \question Implement and submit a fault-tolerant routing algorithm for the hypercube $Q_n$. Given a set of channel faults, your algorithm should aim to tolerate these faults so as to come up with a path from a given source to a given destination that is as short as possible (given the faults).

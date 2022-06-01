@@ -1,0 +1,203 @@
+\section{Vietoris-Rips construction library}
+
+The following is an abstract base class, for which our skeleton and expansion methods inherit from and implement the abstract methods. 
+
+\begin{minted}{python}
+class VRBase(ABC):
+    _points: List[ndarray]
+    _complex: FilteredSimplicialComplex | None
+    _metric: Callable[[ndarray[float, ...], ndarray[float, ...]], float]
+    _epsilon: float
+    _is_skeleton_constructed: bool
+
+    def __init__(self, points: List[ndarray], epsilon: float,
+                 metric: Callable[[ndarray[float, ...], 
+                 ndarray[float, ...]], float]):
+        self._points = points
+        self._complex = None
+        self._metric = metric
+        self._epsilon = epsilon
+        self._is_skeleton_constructed = False
+
+    def get_complex(self) -> FilteredSimplicialComplex:
+        return self._complex
+
+    @abstractmethod
+    def compute_skeleton(self):
+        pass
+
+    @abstractmethod
+    def compute_expansion(self, dim: int):
+        pass
+\end{minted}
+
+\subsection{Skeleton method: brute-force}
+
+The following implements the brute-force skeleton method. 
+
+\begin{minted}{python}
+class SkeletonBruteForce(VRBase, ABC):
+    def __init__(self, points: List[ndarray], epsilon: float,
+                 metric: Callable[[ndarray[float, ...], 
+                 ndarray[float, ...]], float]):
+        super().__init__(points, epsilon, metric)
+
+    def compute_skeleton(self):
+        self._complex = FilteredSimplicialComplex()
+        for i, _ in enumerate(self._points):
+            self._complex.add_simplex(Simplex({i}), 0)
+        for (i, x), (j, y) in combinations(enumerate(self._points), 2):
+            dist = self._metric(x, y)
+            if dist < self._epsilon:
+                self._complex.add_simplex(Simplex({i, j}), dist)
+        self._is_skeleton_constructed = True
+\end{minted}
+
+\subsection{Skeleton method: sklearn}
+
+The following implements the sklearn skeleton method. 
+
+\begin{minted}{python}
+class Sklearn(VRBase, ABC):
+    def compute_skeleton(self):
+        self._complex = FilteredSimplicialComplex()
+        for i, _ in enumerate(self._points):
+            self._complex.add_simplex(Simplex({i}), 0)
+
+        points = array(self._points)
+        neighbours = neighbors.NearestNeighbors(
+            radius=self._epsilon).fit(points)
+        distances_list, indices_list = neighbours.radius_neighbors(points)
+        for i, (distances, indices) in enumerate(
+            zip(distances_list, indices_list)):
+            for distance, j in zip(distances[1:], indices[1:]):
+                self._complex.add_simplex(Simplex({i, j}), distance)
+        self._is_skeleton_constructed = True
+\end{minted}
+
+\subsection{Expansion method: brute-force}
+
+The following implements the brute-force expansion method.
+
+\begin{minted}{python}
+class ExpansionBruteForce(VRBase, ABC):
+    def __init__(self, points: List[ndarray], epsilon: float,
+                 metric: Callable[[ndarray[float, ...], ndarray[float, ...]], float]):
+        super().__init__(points, epsilon, metric)
+
+    def compute_expansion(self, dim: int):
+        if not self._is_skeleton_constructed:
+            raise ReferenceError("Skeleton not constructed.")
+        for simplex_dim in range(2, dim + 1):
+            for elem in combinations(self._complex.p_simplices(simplex_dim - 1), 
+                simplex_dim + 1):
+                flag = True
+                max_dist = 0
+                for (x, y) in combinations(elem, 2):
+                    if x.intersect(y).dim == -1:
+                        flag = False
+                        break
+                    max_dist = max([max_dist, self._complex.get_weight(x), 
+                        self._complex.get_weight(y)])
+                if flag:
+                    union = elem[0].union(*elem[1:])
+                    if union.dim == simplex_dim:
+                        self._complex.add_simplex(union, max_dist)
+            if self._complex.p_simplex_count(simplex_dim) < simplex_dim + 1:
+                break
+\end{minted}
+
+\subsection{Expansion method: incremental}
+
+The following implements the incremental expansion method.
+
+\begin{minted}{python}
+class Incremental(VRBase, ABC):
+    def __init__(self, points: List[ndarray], epsilon: float,
+                 metric: Callable[[ndarray[float, ...], ndarray[float, ...]], float]):
+        super().__init__(points, epsilon, metric)
+        self.__new_complex = FilteredSimplicialComplex()
+
+    def lower_neighbours(self, v: int) -> Set[int]:
+        edge_neighbours = self._complex.get_edge_neighbours(v)
+        lower_edge_neighbours = set()
+        for neighbour in edge_neighbours:
+            if neighbour < v:
+                lower_edge_neighbours.add(neighbour)
+        return lower_edge_neighbours
+
+    def add_cofaces(self, level: int, simplex: Simplex, lower_neighbours: Set[int]):
+        stack = [(simplex, lower_neighbours)]
+        while stack:
+            current_simplex, current_neighbours = stack.pop()
+            self.__new_complex.add_simplex(current_simplex, 0)
+
+            if current_simplex.dim < level:
+                for neighbour in current_neighbours:
+                    coface = current_simplex + neighbour
+                    new_lower_neighbours = current_neighbours.intersection(
+                        self.lower_neighbours(neighbour))
+                    stack.append((coface, new_lower_neighbours))
+
+    def compute_weights(self):
+        for edge in self.__new_complex.p_simplices(1):
+            (vertex_x, vertex_y) = edge.get_vertices()
+            weight = self._metric(self._points[vertex_x], self._points[vertex_y])
+            self.__new_complex.reweight(edge, weight)
+
+        for p in range(2, self.__new_complex.dim + 1):
+            for p_simplex in self.__new_complex.p_simplices(p):
+                weight = max(self.__new_complex.get_weight(facet) \
+                    for facet in p_simplex.facets)
+                self.__new_complex.reweight(p_simplex, weight)
+
+    def compute_expansion(self, dim: int):
+        if self._complex.p_simplex_count(0) == 0:
+            return
+        for simplex in self._complex.p_simplices(0):
+            (vertex,) = simplex.get_vertices()
+            lower_neighbours = self.lower_neighbours(vertex)
+            self.add_cofaces(dim, simplex, lower_neighbours)
+        self.compute_weights()
+        self._complex = self.__new_complex
+\end{minted}
+
+\subsection{Expansion method: inductive}
+
+The following implements the inductive expansion method.
+
+\begin{minted}{python}
+class Inductive(VRBase, ABC):
+    def __init__(self, points: List[ndarray], epsilon: float,
+                 metric: Callable[[ndarray[float, ...], ndarray[float, ...]], float]):
+        super().__init__(points, epsilon, metric)
+
+    def lower_neighbours(self, v: int) -> Set[int]:
+        edge_neighbours = self._complex.get_edge_neighbours(v)
+        lower_edge_neighbours = set()
+        for neighbour in edge_neighbours:
+            if neighbour < v:
+                lower_edge_neighbours.add(neighbour)
+        return lower_edge_neighbours
+
+    def compute_weights(self):
+        for p in range(2, self._complex.dim + 1):
+            for p_simplex in self._complex.p_simplices(p):
+                weight = max(self._complex.get_weight(facet) for facet in p_simplex.facets)
+                self._complex.reweight(p_simplex, weight)
+
+    def compute_expansion(self, dim: int):
+        for simplex_dim in range(2, dim + 1):
+            stack = list(self._complex.p_simplices(simplex_dim - 1))
+            for simplex in self._complex.p_simplices(simplex_dim - 1):
+                common_lower_neighbours = None
+                for vertex in simplex:
+                    if common_lower_neighbours is None:
+                        common_lower_neighbours = self.lower_neighbours(vertex)
+                    else:
+                        common_lower_neighbours = common_lower_neighbours.intersection(
+                            self.lower_neighbours(vertex))
+                for neighbour in common_lower_neighbours:
+                    self._complex.add_simplex(simplex + neighbour, 0)
+        self.compute_weights()
+\end{minted}

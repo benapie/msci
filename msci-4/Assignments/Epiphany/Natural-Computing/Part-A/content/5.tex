@@ -1,0 +1,25 @@
+\section{Two properties of Ant-Q}
+
+\subsection{Divergence}
+
+\textcite{gambardella1995ant} conducted two experiments of the Ant-Q algorithm, first by examining the lengths of the tours over the iterations and another by examining the $\lambda$-branching factor (defined below) over the iterations. 
+
+Figure 2 plots the mean length of the best tour and mean length of all agents tours, as well as the mean length of all agents tours plus and minus the standard deviation of all agent tours (effectively giving us a confidence interval on the mean length of all agents tours).
+
+It was found that ants in the Ant-Q algorithm did not converge to a common path. The monotonic decrease in mean length of the best tour and of all tours diminishes over-time, suggesting convergence. However, the standard deviation of the tour lengths converges to a non-zero value, suggesting that although the ants are reliably finding better paths in each iteration (converging to some best tour), perturbations from this optimal are still present. This suggests that ants always keep exploring, even after many iterations.
+
+We introduce the $\lambda$-branching factor, which gives an indication of the dimension of the search space. We let $\delta(r) = \max_{s \in N \setminus \{r\}} \AQ(r, s) - \min_{s \in N \setminus \{r\}} \AQ(r, s)$ and, given $\lambda \in [0,1]$, define the $\lambda$-branching factor of a node $r$ to be the number of edges $(r,s)$ for which $\AQ(r,s) > \lambda \delta(r) + \min_{s \in N \setminus \{r\}} \AQ(r, s)$. Intuitively, it shows, depending on $\lambda$, how many actions are considered by the random variable $S$ (defined in a preceding section).
+
+It is shown in Figure 3 in \cite{gambardella1995ant} that the mean (over all cities) $\lambda$-branching factor (for $\lambda \in \{0.04, 0.06, 0.08, 0.1\}$) monotonically decreases but converge to a non-zero value with each iteration. From this, we can conclude that agents drastically reduce their search space in the first \emph{phase} of the algorithm, but then they withhold a small search space which they explore indefinitely. This property is beneficial as it prevents a \emph{consensus} of an optimal solution forming (even if it is not optimal), and allows us to increase our ant count in order to magnify this effect. 
+
+\subsection{Eventually detrimental heuristic}
+
+\textcite{gambardella1995ant} performed two experiments to determine the benefit (or detriment) of the heuristic function. The first experiment examined the tour length over the iteration but by not considering the heuristic in the action choice function when testing (we will refer to this as NO-HE), effectively setting the parameter $\beta = 1$ while testing and back to the original value for more iterations. The second experiment did the same but with the standard Ant-Q algorithm (henceforth HE).
+
+These experiments were plotted and can be found in Figure 4 of \cite{gambardella1995ant}. In early iterations ($<80$), the HE run had better performance then the NO-HE run. After iteration 300 however, NO-HE performed slightly better than HE. In the iteration range 80 to 300, NO-HE and HE performed almost identically (except from a few spurious points). 
+
+We can reason why this is simply: at the start of the run the AQ-values are effectively useless (they are all equal to some fixed value at the start). Over time, the AQ values become more useful to the ants, and eventually outperform the heuristic. 
+
+Although not stated in the paper, we propose a technique similar to simulated annealing's \emph{entropy}: $\beta$ (the parameter that dictates how much to favour the heuristic) should be decrease every iteration, and this decrement should be chosen in a way that allows the fast early performance which we saw, but then stops the heuristic being detrimental henceforth. 
+
+Another suggestion: after a fixed number of iterations, turn off the heuristic in the learning phase. It would be interested to see if, after obtaining beneficial AQ values, the ants are able to learn more without the detriment of the heuristic. 
